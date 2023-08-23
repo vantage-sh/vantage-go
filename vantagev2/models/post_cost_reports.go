@@ -22,19 +22,18 @@ type PostCostReports struct {
 	// The filter query language to apply to the Cost Report.
 	Filter string `json:"filter,omitempty"`
 
-	// The token of the Folder to add the Cost Report to.
+	// The token of the Folder to add the Cost Report to. Determines the Workplace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// The tokens of the Shared Filters to apply to the Cost Report.
-	SharedFilterTokens []string `json:"shared_filter_tokens"`
+	// The tokens of the Saved Filters to apply to the Cost Report.
+	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
 	// The title of the Cost Report.
 	// Required: true
 	Title *string `json:"title"`
 
-	// The token of the Workspace to add the Cost Report to.
-	// Required: true
-	WorkspaceToken *string `json:"workspace_token"`
+	// The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this post cost reports
@@ -42,10 +41,6 @@ func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateTitle(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -58,15 +53,6 @@ func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 func (m *PostCostReports) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PostCostReports) validateWorkspaceToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 

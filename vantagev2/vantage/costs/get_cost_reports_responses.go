@@ -45,7 +45,7 @@ GetCostReportsOK describes a response with status code 200, with default header 
 GetCostReportsOK get cost reports o k
 */
 type GetCostReportsOK struct {
-	Payload *models.Reports
+	Payload *models.CostReports
 }
 
 // IsSuccess returns true when this get cost reports o k response has a 2xx status code
@@ -86,13 +86,13 @@ func (o *GetCostReportsOK) String() string {
 	return fmt.Sprintf("[GET /cost_reports][%d] getCostReportsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetCostReportsOK) GetPayload() *models.Reports {
+func (o *GetCostReportsOK) GetPayload() *models.CostReports {
 	return o.Payload
 }
 
 func (o *GetCostReportsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Reports)
+	o.Payload = new(models.CostReports)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

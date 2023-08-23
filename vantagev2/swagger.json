@@ -468,7 +468,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Reports"
+              "$ref": "#/definitions/Cost Reports"
             },
             "examples": {
               "application/json": {
@@ -536,9 +536,6 @@
                 "workspace": "org_8213e618bcf0e2cc"
               }
             }
-          },
-          "404": {
-            "description": ""
           }
         },
         "tags": [
@@ -705,27 +702,26 @@
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace to add the Cost Report to."
+          "description": "The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if API token is associated with multiple Workspaces."
         },
         "filter": {
           "type": "string",
           "description": "The filter query language to apply to the Cost Report."
         },
-        "shared_filter_tokens": {
+        "saved_filter_tokens": {
           "type": "array",
-          "description": "The tokens of the Shared Filters to apply to the Cost Report.",
+          "description": "The tokens of the Saved Filters to apply to the Cost Report.",
           "items": {
             "type": "string"
           }
         },
         "folder_token": {
           "type": "string",
-          "description": "The token of the Folder to add the Cost Report to."
+          "description": "The token of the Folder to add the Cost Report to. Determines the Workplace the report is assigned to."
         }
       },
       "required": [
-        "title",
-        "workspace_token"
+        "title"
       ],
       "description": "Create a Cost Report."
     },
@@ -744,9 +740,12 @@
           "type": "string",
           "description": "The token for the Folder the Cost Report is a part of."
         },
-        "shared_filters": {
-          "type": "string",
-          "description": "The tokens for the Shared Filters assigned to the Cost Report."
+        "saved_filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens for the Saved Filters assigned to the Cost Report."
         },
         "created_at": {
           "type": "string",
@@ -760,20 +759,20 @@
       },
       "description": "Cost Report model"
     },
-    "Reports": {
+    "Cost Reports": {
       "type": "object",
       "properties": {
         "links": {
           "type": "object"
         },
-        "reports": {
+        "cost_reports": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Cost Report"
           }
         }
       },
-      "description": "Reports model"
+      "description": "Cost Reports model"
     }
   }
 }

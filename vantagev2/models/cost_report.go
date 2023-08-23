@@ -24,8 +24,8 @@ type CostReport struct {
 	// The token for the Folder the Cost Report is a part of.
 	Folder string `json:"folder,omitempty"`
 
-	// The tokens for the Shared Filters assigned to the Cost Report.
-	SharedFilters string `json:"shared_filters,omitempty"`
+	// The tokens for the Saved Filters assigned to the Cost Report.
+	SavedFilters []string `json:"saved_filters"`
 
 	// The title of the Cost Report.
 	// Example: Production Environment
