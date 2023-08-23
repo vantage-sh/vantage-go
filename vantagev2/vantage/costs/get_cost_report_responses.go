@@ -29,6 +29,12 @@ func (o *GetCostReportReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 404:
+		result := NewGetCostReportNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[GET /cost_reports/{report_token}] getCostReport", response, response.Code())
 	}
@@ -98,6 +104,62 @@ func (o *GetCostReportOK) readResponse(response runtime.ClientResponse, consumer
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
+
+	return nil
+}
+
+// NewGetCostReportNotFound creates a GetCostReportNotFound with default headers values
+func NewGetCostReportNotFound() *GetCostReportNotFound {
+	return &GetCostReportNotFound{}
+}
+
+/*
+GetCostReportNotFound describes a response with status code 404, with default header values.
+
+GetCostReportNotFound get cost report not found
+*/
+type GetCostReportNotFound struct {
+}
+
+// IsSuccess returns true when this get cost report not found response has a 2xx status code
+func (o *GetCostReportNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get cost report not found response has a 3xx status code
+func (o *GetCostReportNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get cost report not found response has a 4xx status code
+func (o *GetCostReportNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get cost report not found response has a 5xx status code
+func (o *GetCostReportNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get cost report not found response a status code equal to that given
+func (o *GetCostReportNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get cost report not found response
+func (o *GetCostReportNotFound) Code() int {
+	return 404
+}
+
+func (o *GetCostReportNotFound) Error() string {
+	return fmt.Sprintf("[GET /cost_reports/{report_token}][%d] getCostReportNotFound ", 404)
+}
+
+func (o *GetCostReportNotFound) String() string {
+	return fmt.Sprintf("[GET /cost_reports/{report_token}][%d] getCostReportNotFound ", 404)
+}
+
+func (o *GetCostReportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
