@@ -30,7 +30,7 @@ func (o *GetCostReportFoldersReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 	default:
-		return nil, runtime.NewAPIError("[GET /reports/folders] getCostReportFolders", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /folders] getCostReportFolders", response, response.Code())
 	}
 }
 
@@ -79,11 +79,11 @@ func (o *GetCostReportFoldersOK) Code() int {
 }
 
 func (o *GetCostReportFoldersOK) Error() string {
-	return fmt.Sprintf("[GET /reports/folders][%d] getCostReportFoldersOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /folders][%d] getCostReportFoldersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostReportFoldersOK) String() string {
-	return fmt.Sprintf("[GET /reports/folders][%d] getCostReportFoldersOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /folders][%d] getCostReportFoldersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostReportFoldersOK) GetPayload() *models.Folders {

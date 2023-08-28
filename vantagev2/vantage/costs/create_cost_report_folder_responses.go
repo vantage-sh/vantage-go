@@ -30,7 +30,7 @@ func (o *CreateCostReportFolderReader) ReadResponse(response runtime.ClientRespo
 		}
 		return result, nil
 	default:
-		return nil, runtime.NewAPIError("[POST /reports/folders] createCostReportFolder", response, response.Code())
+		return nil, runtime.NewAPIError("[POST /folders] createCostReportFolder", response, response.Code())
 	}
 }
 
@@ -79,11 +79,11 @@ func (o *CreateCostReportFolderCreated) Code() int {
 }
 
 func (o *CreateCostReportFolderCreated) Error() string {
-	return fmt.Sprintf("[POST /reports/folders][%d] createCostReportFolderCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[POST /folders][%d] createCostReportFolderCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCostReportFolderCreated) String() string {
-	return fmt.Sprintf("[POST /reports/folders][%d] createCostReportFolderCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[POST /folders][%d] createCostReportFolderCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCostReportFolderCreated) GetPayload() *models.Folder {

@@ -30,7 +30,7 @@ func (o *GetSavedFilterReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return result, nil
 	default:
-		return nil, runtime.NewAPIError("[GET /reports/saved_filters/{saved_filter_token}] getSavedFilter", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /saved_filters/{saved_filter_token}] getSavedFilter", response, response.Code())
 	}
 }
 
@@ -79,11 +79,11 @@ func (o *GetSavedFilterOK) Code() int {
 }
 
 func (o *GetSavedFilterOK) Error() string {
-	return fmt.Sprintf("[GET /reports/saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSavedFilterOK) String() string {
-	return fmt.Sprintf("[GET /reports/saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSavedFilterOK) GetPayload() *models.SavedFilter {

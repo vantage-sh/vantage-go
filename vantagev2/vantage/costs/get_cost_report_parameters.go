@@ -61,8 +61,8 @@ GetCostReportParams contains all the parameters to send to the API endpoint
 */
 type GetCostReportParams struct {
 
-	// ReportToken.
-	ReportToken string
+	// CostReportToken.
+	CostReportToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,15 +117,15 @@ func (o *GetCostReportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportToken adds the reportToken to the get cost report params
-func (o *GetCostReportParams) WithReportToken(reportToken string) *GetCostReportParams {
-	o.SetReportToken(reportToken)
+// WithCostReportToken adds the costReportToken to the get cost report params
+func (o *GetCostReportParams) WithCostReportToken(costReportToken string) *GetCostReportParams {
+	o.SetCostReportToken(costReportToken)
 	return o
 }
 
-// SetReportToken adds the reportToken to the get cost report params
-func (o *GetCostReportParams) SetReportToken(reportToken string) {
-	o.ReportToken = reportToken
+// SetCostReportToken adds the costReportToken to the get cost report params
+func (o *GetCostReportParams) SetCostReportToken(costReportToken string) {
+	o.CostReportToken = costReportToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,8 +136,8 @@ func (o *GetCostReportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	}
 	var res []error
 
-	// path param report_token
-	if err := r.SetPathParam("report_token", o.ReportToken); err != nil {
+	// path param cost_report_token
+	if err := r.SetPathParam("cost_report_token", o.CostReportToken); err != nil {
 		return err
 	}
 

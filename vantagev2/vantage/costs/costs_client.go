@@ -34,6 +34,10 @@ type ClientService interface {
 
 	CreateCostReportFolder(params *CreateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportFolderCreated, error)
 
+	CreateSavedFilter(params *CreateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSavedFilterCreated, error)
+
+	DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error)
+
 	GetCostReport(params *GetCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportOK, error)
 
 	GetCostReportFolder(params *GetCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFolderOK, error)
@@ -46,13 +50,17 @@ type ClientService interface {
 
 	GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFiltersOK, error)
 
+	UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error)
+
 	UpdateCostReportFolder(params *UpdateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportFolderOK, error)
+
+	UpdateSavedFilter(params *UpdateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSavedFilterCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-CreateCostReport Create a Cost Report.
+CreateCostReport Create a CostReport.
 */
 func (a *Client) CreateCostReport(params *CreateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -91,7 +99,7 @@ func (a *Client) CreateCostReport(params *CreateCostReportParams, authInfo runti
 }
 
 /*
-CreateCostReportFolder Create a Folder for Cost Reports.
+CreateCostReportFolder Create a Folder for CostReports.
 */
 func (a *Client) CreateCostReportFolder(params *CreateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportFolderCreated, error) {
 	// TODO: Validate the params before sending
@@ -101,7 +109,7 @@ func (a *Client) CreateCostReportFolder(params *CreateCostReportFolderParams, au
 	op := &runtime.ClientOperation{
 		ID:                 "createCostReportFolder",
 		Method:             "POST",
-		PathPattern:        "/reports/folders",
+		PathPattern:        "/folders",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -130,7 +138,85 @@ func (a *Client) CreateCostReportFolder(params *CreateCostReportFolderParams, au
 }
 
 /*
-GetCostReport Return a Cost Report.
+CreateSavedFilter Create a SavedFilter for CostReports.
+*/
+func (a *Client) CreateSavedFilter(params *CreateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSavedFilterCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSavedFilterParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createSavedFilter",
+		Method:             "POST",
+		PathPattern:        "/saved_filters",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateSavedFilterReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateSavedFilterCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createSavedFilter: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteSavedFilter Delete a SavedFilter for CostReports.
+*/
+func (a *Client) DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSavedFilterParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteSavedFilter",
+		Method:             "DELETE",
+		PathPattern:        "/saved_filters/{saved_filter_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSavedFilterReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSavedFilterNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteSavedFilter: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetCostReport Return a CostReport.
 */
 func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportOK, error) {
 	// TODO: Validate the params before sending
@@ -140,7 +226,7 @@ func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.Cli
 	op := &runtime.ClientOperation{
 		ID:                 "getCostReport",
 		Method:             "GET",
-		PathPattern:        "/cost_reports/{report_token}",
+		PathPattern:        "/cost_reports/{cost_report_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -169,7 +255,7 @@ func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.Cli
 }
 
 /*
-GetCostReportFolder Return a specific Folder for Cost Reports.
+GetCostReportFolder Return a specific Folder for CostReports.
 */
 func (a *Client) GetCostReportFolder(params *GetCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFolderOK, error) {
 	// TODO: Validate the params before sending
@@ -179,7 +265,7 @@ func (a *Client) GetCostReportFolder(params *GetCostReportFolderParams, authInfo
 	op := &runtime.ClientOperation{
 		ID:                 "getCostReportFolder",
 		Method:             "GET",
-		PathPattern:        "/reports/folders/{folder_token}",
+		PathPattern:        "/folders/{folder_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -208,7 +294,7 @@ func (a *Client) GetCostReportFolder(params *GetCostReportFolderParams, authInfo
 }
 
 /*
-GetCostReportFolders Return all Folders for Cost Reports.
+GetCostReportFolders Return all Folders for CostReports.
 */
 func (a *Client) GetCostReportFolders(params *GetCostReportFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFoldersOK, error) {
 	// TODO: Validate the params before sending
@@ -218,7 +304,7 @@ func (a *Client) GetCostReportFolders(params *GetCostReportFoldersParams, authIn
 	op := &runtime.ClientOperation{
 		ID:                 "getCostReportFolders",
 		Method:             "GET",
-		PathPattern:        "/reports/folders",
+		PathPattern:        "/folders",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -247,7 +333,7 @@ func (a *Client) GetCostReportFolders(params *GetCostReportFoldersParams, authIn
 }
 
 /*
-GetCostReports Return all Cost Reports.
+GetCostReports Return all CostReports.
 */
 func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -286,7 +372,7 @@ func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.C
 }
 
 /*
-GetSavedFilter Return a specific Saved Filter.
+GetSavedFilter Return a specific SavedFilter.
 */
 func (a *Client) GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFilterOK, error) {
 	// TODO: Validate the params before sending
@@ -296,7 +382,7 @@ func (a *Client) GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.C
 	op := &runtime.ClientOperation{
 		ID:                 "getSavedFilter",
 		Method:             "GET",
-		PathPattern:        "/reports/saved_filters/{saved_filter_token}",
+		PathPattern:        "/saved_filters/{saved_filter_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -325,7 +411,7 @@ func (a *Client) GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.C
 }
 
 /*
-GetSavedFilters Return all Saved Filters that can be applied to a Cost Report.
+GetSavedFilters Return all SavedFilters that can be applied to a CostReport.
 */
 func (a *Client) GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFiltersOK, error) {
 	// TODO: Validate the params before sending
@@ -335,7 +421,7 @@ func (a *Client) GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime
 	op := &runtime.ClientOperation{
 		ID:                 "getSavedFilters",
 		Method:             "GET",
-		PathPattern:        "/reports/saved_filters",
+		PathPattern:        "/saved_filters",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -364,7 +450,46 @@ func (a *Client) GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime
 }
 
 /*
-UpdateCostReportFolder Update a Folder for Cost Reports.
+UpdateCostReport Update a CostReport.
+*/
+func (a *Client) UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateCostReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateCostReport",
+		Method:             "PUT",
+		PathPattern:        "/cost_reports/{cost_report_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateCostReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateCostReportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateCostReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateCostReportFolder Update a Folder for CostReports.
 */
 func (a *Client) UpdateCostReportFolder(params *UpdateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportFolderOK, error) {
 	// TODO: Validate the params before sending
@@ -374,7 +499,7 @@ func (a *Client) UpdateCostReportFolder(params *UpdateCostReportFolderParams, au
 	op := &runtime.ClientOperation{
 		ID:                 "updateCostReportFolder",
 		Method:             "PUT",
-		PathPattern:        "/reports/folders/{folder_token}",
+		PathPattern:        "/folders/{folder_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -399,6 +524,45 @@ func (a *Client) UpdateCostReportFolder(params *UpdateCostReportFolderParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateCostReportFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateSavedFilter Update a SavedFilter for CostReports.
+*/
+func (a *Client) UpdateSavedFilter(params *UpdateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSavedFilterCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSavedFilterParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateSavedFilter",
+		Method:             "PUT",
+		PathPattern:        "/saved_filters/{saved_filter_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateSavedFilterReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateSavedFilterCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateSavedFilter: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

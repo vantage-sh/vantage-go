@@ -63,8 +63,8 @@ CreateCostReportFolderParams contains all the parameters to send to the API endp
 */
 type CreateCostReportFolderParams struct {
 
-	// ReportsFolders.
-	ReportsFolders *models.PostReportsFolders
+	// Folders.
+	Folders *models.PostFolders
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateCostReportFolderParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportsFolders adds the reportsFolders to the create cost report folder params
-func (o *CreateCostReportFolderParams) WithReportsFolders(reportsFolders *models.PostReportsFolders) *CreateCostReportFolderParams {
-	o.SetReportsFolders(reportsFolders)
+// WithFolders adds the folders to the create cost report folder params
+func (o *CreateCostReportFolderParams) WithFolders(folders *models.PostFolders) *CreateCostReportFolderParams {
+	o.SetFolders(folders)
 	return o
 }
 
-// SetReportsFolders adds the reportsFolders to the create cost report folder params
-func (o *CreateCostReportFolderParams) SetReportsFolders(reportsFolders *models.PostReportsFolders) {
-	o.ReportsFolders = reportsFolders
+// SetFolders adds the folders to the create cost report folder params
+func (o *CreateCostReportFolderParams) SetFolders(folders *models.PostFolders) {
+	o.Folders = folders
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateCostReportFolderParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-	if o.ReportsFolders != nil {
-		if err := r.SetBodyParam(o.ReportsFolders); err != nil {
+	if o.Folders != nil {
+		if err := r.SetBodyParam(o.Folders); err != nil {
 			return err
 		}
 	}

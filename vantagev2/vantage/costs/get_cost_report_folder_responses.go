@@ -36,7 +36,7 @@ func (o *GetCostReportFolderReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /reports/folders/{folder_token}] getCostReportFolder", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /folders/{folder_token}] getCostReportFolder", response, response.Code())
 	}
 }
 
@@ -85,11 +85,11 @@ func (o *GetCostReportFolderOK) Code() int {
 }
 
 func (o *GetCostReportFolderOK) Error() string {
-	return fmt.Sprintf("[GET /reports/folders/{folder_token}][%d] getCostReportFolderOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getCostReportFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostReportFolderOK) String() string {
-	return fmt.Sprintf("[GET /reports/folders/{folder_token}][%d] getCostReportFolderOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getCostReportFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostReportFolderOK) GetPayload() *models.Folder {
@@ -153,11 +153,11 @@ func (o *GetCostReportFolderNotFound) Code() int {
 }
 
 func (o *GetCostReportFolderNotFound) Error() string {
-	return fmt.Sprintf("[GET /reports/folders/{folder_token}][%d] getCostReportFolderNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getCostReportFolderNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostReportFolderNotFound) String() string {
-	return fmt.Sprintf("[GET /reports/folders/{folder_token}][%d] getCostReportFolderNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getCostReportFolderNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostReportFolderNotFound) GetPayload() *models.Folder {

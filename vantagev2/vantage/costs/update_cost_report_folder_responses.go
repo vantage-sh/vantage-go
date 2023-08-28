@@ -30,7 +30,7 @@ func (o *UpdateCostReportFolderReader) ReadResponse(response runtime.ClientRespo
 		}
 		return result, nil
 	default:
-		return nil, runtime.NewAPIError("[PUT /reports/folders/{folder_token}] updateCostReportFolder", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /folders/{folder_token}] updateCostReportFolder", response, response.Code())
 	}
 }
 
@@ -79,11 +79,11 @@ func (o *UpdateCostReportFolderOK) Code() int {
 }
 
 func (o *UpdateCostReportFolderOK) Error() string {
-	return fmt.Sprintf("[PUT /reports/folders/{folder_token}][%d] updateCostReportFolderOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateCostReportFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateCostReportFolderOK) String() string {
-	return fmt.Sprintf("[PUT /reports/folders/{folder_token}][%d] updateCostReportFolderOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateCostReportFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateCostReportFolderOK) GetPayload() *models.Folder {

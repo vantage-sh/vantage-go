@@ -32,7 +32,7 @@ type Folder struct {
 	Token string `json:"token,omitempty"`
 
 	// The token for the Workspace the Folder is a part of.
-	Workspace string `json:"workspace,omitempty"`
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this folder

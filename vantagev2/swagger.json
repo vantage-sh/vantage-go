@@ -48,225 +48,9 @@
     }
   ],
   "paths": {
-    "/reports/saved_filters/{saved_filter_token}": {
-      "get": {
-        "description": "Return a specific Saved Filter.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "saved_filter_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Saved Filter"
-            },
-            "examples": {
-              "application/json": {
-                "token": "shrd_fltr_0c0ffcba18b8ed82",
-                "title": "Herbal",
-                "cost_report_tokens": [
-                  "rprt_a37d24132a1aa1a0"
-                ],
-                "created_at": "2023-08-09T17:08:06Z",
-                "workspace": "org_37e46e93e2393256"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Costs"
-        ],
-        "operationId": "getSavedFilter"
-      }
-    },
-    "/reports/saved_filters": {
-      "get": {
-        "description": "Return all Saved Filters that can be applied to a Cost Report.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "description": "The page of results to return.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Saved Filters"
-            },
-            "examples": {
-              "application/json": {
-                "links": {
-                  "self": "https://api.vantage.com/v2/reports/saved_filters",
-                  "first": "https://api.vantage.com/v2/reports/saved_filters?page=1",
-                  "next": null,
-                  "last": "https://api.vantage.com/v2/reports/saved_filters?page=1",
-                  "prev": null
-                },
-                "saved_filters": [
-                  {
-                    "token": "shrd_fltr_5bc7e0cc92f6b452",
-                    "title": "Green",
-                    "cost_report_tokens": [
-                      "rprt_f3954e18ca6fa830"
-                    ],
-                    "created_at": "2023-08-09T17:08:05Z",
-                    "workspace": "org_9a51b55844704a3d"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "tags": [
-          "Costs"
-        ],
-        "operationId": "getSavedFilters"
-      }
-    },
-    "/reports/folders/{folder_token}": {
-      "put": {
-        "description": "Update a Folder for Cost Reports.",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "folder_token",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "ReportsFolders",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/putReportsFolders"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "write"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Folder"
-            },
-            "examples": {
-              "application/json": {
-                "token": "fldr_eee4e779f7eb7939",
-                "title": "New Title",
-                "parent_folder_token": "fldr_6d009c38ec387e99",
-                "created_at": "2023-08-07T18:46:21Z",
-                "workspace": "org_779ca69b0f6b9d8f"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Costs"
-        ],
-        "operationId": "updateCostReportFolder"
-      },
-      "get": {
-        "description": "Return a specific Folder for Cost Reports.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "folder_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Folder"
-            },
-            "examples": {
-              "application/json": {
-                "token": "fldr_f032bff088d68a26",
-                "title": "Platform Team",
-                "parent_folder_token": "fldr_5ac83e5e6e8ef16b",
-                "created_at": "2023-08-07T15:22:27Z",
-                "workspace": "org_1f82def9b915bd34"
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Folder"
-            }
-          }
-        },
-        "tags": [
-          "Costs"
-        ],
-        "operationId": "getCostReportFolder"
-      }
-    },
-    "/reports/folders": {
+    "/folders": {
       "post": {
-        "description": "Create a Folder for Cost Reports.",
+        "description": "Create a Folder for CostReports.",
         "produces": [
           "application/json"
         ],
@@ -275,11 +59,11 @@
         ],
         "parameters": [
           {
-            "name": "ReportsFolders",
+            "name": "Folders",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postReportsFolders"
+              "$ref": "#/definitions/postFolders"
             }
           }
         ],
@@ -313,7 +97,7 @@
         "operationId": "createCostReportFolder"
       },
       "get": {
-        "description": "Return all Folders for Cost Reports.",
+        "description": "Return all Folders for CostReports.",
         "produces": [
           "application/json"
         ],
@@ -383,9 +167,9 @@
         "operationId": "getCostReportFolders"
       }
     },
-    "/cost_reports": {
-      "post": {
-        "description": "Create a Cost Report.",
+    "/folders/{folder_token}": {
+      "put": {
+        "description": "Update a Folder for CostReports.",
         "produces": [
           "application/json"
         ],
@@ -394,11 +178,114 @@
         ],
         "parameters": [
           {
-            "name": "CostReports",
+            "in": "path",
+            "name": "folder_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Folders",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postCostReports"
+              "$ref": "#/definitions/putFolders"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Folder"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fldr_eee4e779f7eb7939",
+                "title": "New Title",
+                "parent_folder_token": "fldr_6d009c38ec387e99",
+                "created_at": "2023-08-07T18:46:21Z",
+                "workspace": "org_779ca69b0f6b9d8f"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "updateCostReportFolder"
+      },
+      "get": {
+        "description": "Return a specific Folder for CostReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "folder_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Folder"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fldr_f032bff088d68a26",
+                "title": "Platform Team",
+                "parent_folder_token": "fldr_5ac83e5e6e8ef16b",
+                "created_at": "2023-08-07T15:22:27Z",
+                "workspace": "org_1f82def9b915bd34"
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Folder"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getCostReportFolder"
+      }
+    },
+    "/saved_filters": {
+      "post": {
+        "description": "Create a SavedFilter for CostReports.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SavedFilters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postSavedFilters"
             }
           }
         ],
@@ -413,18 +300,17 @@
           "201": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Cost Report"
+              "$ref": "#/definitions/SavedFilter"
             },
             "examples": {
               "application/json": {
-                "token": "rprt_3d8558c5c29fd8fa",
-                "title": "New Cost Report",
-                "folder": "fldr_de4f867c02e1224b",
-                "shared_filters": [
-                  "shrd_fltr_20ccaa61b22ca865"
-                ],
-                "created_at": "2023-08-08T17:55:56Z",
-                "workspace": "org_010cfd68550bac8d"
+                "token": "shrd_fltr_f68e8b8308ccd601",
+                "title": "New Saved Filter",
+                "cost_report_tokens": [],
+                "filter": "(costs.provider = 'datadog')",
+                "created_at": "2023-08-28T20:25:42Z",
+                "created_by": "usr_6dd1e82623ceb3c0",
+                "workspace_token": "org_5c4b7ed920914df6"
               }
             }
           }
@@ -432,10 +318,10 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "createCostReport"
+        "operationId": "createSavedFilter"
       },
       "get": {
-        "description": "Return all Cost Reports.",
+        "description": "Return all SavedFilters that can be applied to a CostReport.",
         "produces": [
           "application/json"
         ],
@@ -468,25 +354,28 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Cost Reports"
+              "$ref": "#/definitions/SavedFilters"
             },
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/reports",
-                  "first": "https://api.vantage.com/v2/reports?page=1",
+                  "self": "https://api.vantage.com/v2/saved_filters",
+                  "first": "https://api.vantage.com/v2/saved_filters?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/reports?page=1",
+                  "last": "https://api.vantage.com/v2/saved_filters?page=1",
                   "prev": null
                 },
-                "reports": [
+                "saved_filters": [
                   {
-                    "token": "rprt_d71c4261a94d7deb",
-                    "title": "Staging Environment",
-                    "earliest_cost_date": "2023-02-01",
-                    "latest_cost_date": "2023-08-05",
-                    "created_at": "2023-08-07T21:10:43Z",
-                    "workspace": "org_239205fab857e946"
+                    "token": "shrd_fltr_7bfe641994c96837",
+                    "title": "White",
+                    "cost_report_tokens": [
+                      "rprt_cd77d70eaf6b51a3"
+                    ],
+                    "filter": "(costs.provider = 'aws' AND costs.account_id = '68')",
+                    "created_at": "2023-08-28T20:25:42Z",
+                    "created_by": "usr_9ec995f4a76fb61c",
+                    "workspace_token": "org_6d94d0b5d1990463"
                   }
                 ]
               }
@@ -496,19 +385,107 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "getCostReports"
+        "operationId": "getSavedFilters"
       }
     },
-    "/cost_reports/{report_token}": {
-      "get": {
-        "description": "Return a Cost Report.",
+    "/saved_filters/{saved_filter_token}": {
+      "delete": {
+        "description": "Delete a SavedFilter for CostReports.",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "report_token",
+            "name": "saved_filter_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SavedFilter"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "deleteSavedFilter"
+      },
+      "put": {
+        "description": "Update a SavedFilter for CostReports.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "saved_filter_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "SavedFilters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putSavedFilters"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SavedFilter"
+            },
+            "examples": {
+              "application/json": {
+                "token": "shrd_fltr_d928367801006520",
+                "title": "Updated Saved Filter",
+                "cost_report_tokens": [],
+                "filter": "(costs.provider = 'azure')",
+                "created_at": "2023-08-28T20:25:42Z",
+                "created_by": "usr_dfb647119a5638cb",
+                "workspace_token": "org_98c224d065f09490"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "updateSavedFilter"
+      },
+      "get": {
+        "description": "Return a specific SavedFilter.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "saved_filter_token",
             "type": "string",
             "required": true
           }
@@ -524,17 +501,251 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Cost Report"
+              "$ref": "#/definitions/SavedFilter"
             },
             "examples": {
               "application/json": {
-                "token": "rprt_621035c7c0914c61",
-                "title": "Production Environment",
-                "earliest_cost_date": "2023-02-01",
-                "latest_cost_date": "2023-08-05",
-                "created_at": "2023-08-07T21:10:43Z",
-                "workspace": "org_8213e618bcf0e2cc"
+                "token": "shrd_fltr_198bf8c595b81c25",
+                "title": "White",
+                "cost_report_tokens": [
+                  "rprt_cbca7cd44acf0a6d"
+                ],
+                "filter": "(costs.provider = 'aws' AND costs.account_id = '96')",
+                "created_at": "2023-08-28T20:25:42Z",
+                "created_by": "usr_c4e68b9f1257cc69",
+                "workspace_token": "org_8b6362cdeb7c366b"
               }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getSavedFilter"
+      }
+    },
+    "/cost_reports": {
+      "post": {
+        "description": "Create a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CostReports",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postCostReports"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_cbe62a3dc23d0289",
+                "title": "New Cost Report",
+                "folder_token": "fldr_92b98cbb3ede1a61",
+                "saved_filter_tokens": [
+                  "shrd_fltr_42db93b5f3650b0f"
+                ],
+                "filter": "(costs.provider = 'aws')",
+                "created_at": "2023-08-28T15:51:02Z",
+                "workspace_token": "org_5d271fa3a947b15f"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "createCostReport"
+      },
+      "get": {
+        "description": "Return all CostReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/cost_reports",
+                  "first": "https://api.vantage.com/v2/cost_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/cost_reports?page=1",
+                  "prev": null
+                },
+                "cost_reports": [
+                  {
+                    "token": "rprt_f394bc018806eba0",
+                    "title": "Untitled",
+                    "folder_token": null,
+                    "saved_filter_tokens": [
+                      "shrd_fltr_9251d17a02a60800"
+                    ],
+                    "filter": null,
+                    "created_at": "2023-08-28T15:51:01Z",
+                    "workspace_token": "org_5f1bfe8e96f00374"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getCostReports"
+      }
+    },
+    "/cost_reports/{cost_report_token}": {
+      "put": {
+        "description": "Update a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "CostReports",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putCostReports"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_bbabfa83cea31aed",
+                "title": "Updated Cost Report",
+                "folder_token": "fldr_7b163c83a4157142",
+                "saved_filter_tokens": [
+                  "shrd_fltr_a3dde6f936c83d2c"
+                ],
+                "filter": "(costs.provider = 'azure')",
+                "created_at": "2023-08-28T15:51:01Z",
+                "workspace_token": "org_8e260a6899ef3aee"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "updateCostReport"
+      },
+      "get": {
+        "description": "Return a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_82b745f48f7e8427",
+                "title": "Untitled",
+                "folder_token": null,
+                "saved_filter_tokens": [
+                  "shrd_fltr_121911718619506b"
+                ],
+                "filter": null,
+                "created_at": "2023-08-28T15:51:01Z",
+                "workspace_token": "org_eb7ff83b37df3a5b"
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
             }
           }
         },
@@ -574,53 +785,7 @@
     }
   },
   "definitions": {
-    "Saved Filter": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string",
-          "example": "Platform Team Reports",
-          "description": "The title of the Saved Filter."
-        },
-        "cost_report_tokens": {
-          "type": "string",
-          "example": [
-            "report_token_1",
-            "report_token_2"
-          ],
-          "description": "The tokens for any Cost Reports the Saved Filter is applied to."
-        },
-        "created_at": {
-          "type": "string",
-          "example": "2023-08-04T00:00:00Z",
-          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
-        },
-        "workspace": {
-          "type": "string",
-          "description": "The token for the workspace the Saved Filter is a part of."
-        }
-      },
-      "description": "Saved Filter model"
-    },
-    "Saved Filters": {
-      "type": "object",
-      "properties": {
-        "links": {
-          "type": "object"
-        },
-        "saved_filters": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Saved Filter"
-          }
-        }
-      },
-      "description": "Saved Filters model"
-    },
-    "putReportsFolders": {
+    "postFolders": {
       "type": "object",
       "properties": {
         "title": {
@@ -632,7 +797,10 @@
           "description": "The token of the parent Folder."
         }
       },
-      "description": "Update a Folder for Cost Reports."
+      "required": [
+        "title"
+      ],
+      "description": "Create a Folder for CostReports."
     },
     "Folder": {
       "type": "object",
@@ -654,29 +822,12 @@
           "example": "2023-08-04T00:00:00Z",
           "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
         },
-        "workspace": {
+        "workspace_token": {
           "type": "string",
           "description": "The token for the Workspace the Folder is a part of."
         }
       },
       "description": "Folder model"
-    },
-    "postReportsFolders": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "The title of the Folder."
-        },
-        "parent_folder_token": {
-          "type": "string",
-          "description": "The token of the parent Folder."
-        }
-      },
-      "required": [
-        "title"
-      ],
-      "description": "Create a Folder for Cost Reports."
     },
     "Folders": {
       "type": "object",
@@ -693,39 +844,146 @@
       },
       "description": "Folders model"
     },
+    "putFolders": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Folder."
+        },
+        "parent_folder_token": {
+          "type": "string",
+          "description": "The token of the parent Folder."
+        }
+      },
+      "description": "Update a Folder for CostReports."
+    },
+    "postSavedFilters": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the SavedFilter."
+        },
+        "workplace_token": {
+          "type": "string",
+          "description": "The Workplace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport."
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "description": "Create a SavedFilter for CostReports."
+    },
+    "SavedFilter": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Platform Team Reports",
+          "description": "The title of the SavedFilter."
+        },
+        "cost_report_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "rprt_abcd1234",
+              "rprt_efgh5678"
+            ]
+          },
+          "description": "The tokens for any CostReports the SavedFilter is applied to."
+        },
+        "filter": {
+          "type": "string",
+          "example": "costs.provider = 'azure'",
+          "description": "The SavedFilter's filter, applied to any relevant CostReports."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "created_by": {
+          "type": "string",
+          "description": "The User who created the SavedFilter."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the SavedFilter is a part of."
+        }
+      },
+      "description": "SavedFilter model"
+    },
+    "SavedFilters": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "saved_filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SavedFilter"
+          }
+        }
+      },
+      "description": "SavedFilters model"
+    },
+    "putSavedFilters": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the SavedFilter."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport."
+        }
+      },
+      "description": "Update a SavedFilter for CostReports."
+    },
     "postCostReports": {
       "type": "object",
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Cost Report."
+          "description": "The title of the CostReport."
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if API token is associated with multiple Workspaces."
+          "description": "The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if the API token is associated with multiple Workspaces."
         },
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the Cost Report."
+          "description": "The filter query language to apply to the CostReport."
         },
         "saved_filter_tokens": {
           "type": "array",
-          "description": "The tokens of the Saved Filters to apply to the Cost Report.",
+          "description": "The tokens of the SavedFilters to apply to the CostReport.",
           "items": {
             "type": "string"
           }
         },
         "folder_token": {
           "type": "string",
-          "description": "The token of the Folder to add the Cost Report to. Determines the Workplace the report is assigned to."
+          "description": "The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to."
         }
       },
       "required": [
         "title"
       ],
-      "description": "Create a Cost Report."
+      "description": "Create a CostReport."
     },
-    "Cost Report": {
+    "CostReport": {
       "type": "object",
       "properties": {
         "token": {
@@ -734,32 +992,36 @@
         "title": {
           "type": "string",
           "example": "Production Environment",
-          "description": "The title of the Cost Report."
+          "description": "The title of the CostReport."
         },
-        "folder": {
+        "folder_token": {
           "type": "string",
-          "description": "The token for the Folder the Cost Report is a part of."
+          "description": "The token for the Folder the CostReport is a part of."
         },
-        "saved_filters": {
+        "saved_filter_tokens": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "The tokens for the Saved Filters assigned to the Cost Report."
+          "description": "The tokens for the SavedFilters assigned to the CostReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the CostReport."
         },
         "created_at": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
           "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
         },
-        "workspace": {
+        "workspace_token": {
           "type": "string",
-          "description": "The token for the Workspace the Cost Report is a part of."
+          "description": "The token for the Workspace the CostReport is a part of."
         }
       },
-      "description": "Cost Report model"
+      "description": "CostReport model"
     },
-    "Cost Reports": {
+    "CostReports": {
       "type": "object",
       "properties": {
         "links": {
@@ -768,11 +1030,36 @@
         "cost_reports": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Cost Report"
+            "$ref": "#/definitions/CostReport"
           }
         }
       },
-      "description": "Cost Reports model"
+      "description": "CostReports model"
+    },
+    "putCostReports": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the CostReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the CostReport."
+        },
+        "saved_filter_tokens": {
+          "type": "array",
+          "description": "The tokens of the SavedFilters to apply to the CostReport.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to."
+        }
+      },
+      "description": "Update a CostReport."
     }
   }
 }

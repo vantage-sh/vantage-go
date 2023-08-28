@@ -14,25 +14,25 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PostCostReports Create a Cost Report.
+// PostCostReports Create a CostReport.
 //
 // swagger:model postCostReports
 type PostCostReports struct {
 
-	// The filter query language to apply to the Cost Report.
+	// The filter query language to apply to the CostReport.
 	Filter string `json:"filter,omitempty"`
 
-	// The token of the Folder to add the Cost Report to. Determines the Workplace the report is assigned to.
+	// The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// The tokens of the Saved Filters to apply to the Cost Report.
+	// The tokens of the SavedFilters to apply to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
-	// The title of the Cost Report.
+	// The title of the CostReport.
 	// Required: true
 	Title *string `json:"title"`
 
-	// The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if API token is associated with multiple Workspaces.
+	// The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 

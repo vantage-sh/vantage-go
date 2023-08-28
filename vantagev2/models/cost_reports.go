@@ -14,9 +14,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CostReports Cost Reports model
+// CostReports CostReports model
 //
-// swagger:model Cost Reports
+// swagger:model CostReports
 type CostReports struct {
 
 	// cost reports

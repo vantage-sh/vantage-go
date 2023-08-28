@@ -12,28 +12,34 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// SavedFilter Saved Filter model
+// SavedFilter SavedFilter model
 //
-// swagger:model Saved Filter
+// swagger:model SavedFilter
 type SavedFilter struct {
 
-	// The tokens for any Cost Reports the Saved Filter is applied to.
-	// Example: ["report_token_1","report_token_2"]
-	CostReportTokens string `json:"cost_report_tokens,omitempty"`
+	// The tokens for any CostReports the SavedFilter is applied to.
+	CostReportTokens []string `json:"cost_report_tokens"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// The title of the Saved Filter.
+	// The User who created the SavedFilter.
+	CreatedBy string `json:"created_by,omitempty"`
+
+	// The SavedFilter's filter, applied to any relevant CostReports.
+	// Example: costs.provider = 'azure'
+	Filter string `json:"filter,omitempty"`
+
+	// The title of the SavedFilter.
 	// Example: Platform Team Reports
 	Title string `json:"title,omitempty"`
 
 	// token
 	Token string `json:"token,omitempty"`
 
-	// The token for the workspace the Saved Filter is a part of.
-	Workspace string `json:"workspace,omitempty"`
+	// The token for the Workspace the SavedFilter is a part of.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this saved filter

@@ -12,30 +12,33 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CostReport Cost Report model
+// CostReport CostReport model
 //
-// swagger:model Cost Report
+// swagger:model CostReport
 type CostReport struct {
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// The token for the Folder the Cost Report is a part of.
-	Folder string `json:"folder,omitempty"`
+	// The filter applied to the CostReport.
+	Filter string `json:"filter,omitempty"`
 
-	// The tokens for the Saved Filters assigned to the Cost Report.
-	SavedFilters []string `json:"saved_filters"`
+	// The token for the Folder the CostReport is a part of.
+	FolderToken string `json:"folder_token,omitempty"`
 
-	// The title of the Cost Report.
+	// The tokens for the SavedFilters assigned to the CostReport.
+	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
+	// The title of the CostReport.
 	// Example: Production Environment
 	Title string `json:"title,omitempty"`
 
 	// token
 	Token string `json:"token,omitempty"`
 
-	// The token for the Workspace the Cost Report is a part of.
-	Workspace string `json:"workspace,omitempty"`
+	// The token for the Workspace the CostReport is a part of.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this cost report

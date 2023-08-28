@@ -63,8 +63,8 @@ UpdateCostReportFolderParams contains all the parameters to send to the API endp
 */
 type UpdateCostReportFolderParams struct {
 
-	// ReportsFolders.
-	ReportsFolders *models.PutReportsFolders
+	// Folders.
+	Folders *models.PutFolders
 
 	// FolderToken.
 	FolderToken string
@@ -122,15 +122,15 @@ func (o *UpdateCostReportFolderParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportsFolders adds the reportsFolders to the update cost report folder params
-func (o *UpdateCostReportFolderParams) WithReportsFolders(reportsFolders *models.PutReportsFolders) *UpdateCostReportFolderParams {
-	o.SetReportsFolders(reportsFolders)
+// WithFolders adds the folders to the update cost report folder params
+func (o *UpdateCostReportFolderParams) WithFolders(folders *models.PutFolders) *UpdateCostReportFolderParams {
+	o.SetFolders(folders)
 	return o
 }
 
-// SetReportsFolders adds the reportsFolders to the update cost report folder params
-func (o *UpdateCostReportFolderParams) SetReportsFolders(reportsFolders *models.PutReportsFolders) {
-	o.ReportsFolders = reportsFolders
+// SetFolders adds the folders to the update cost report folder params
+func (o *UpdateCostReportFolderParams) SetFolders(folders *models.PutFolders) {
+	o.Folders = folders
 }
 
 // WithFolderToken adds the folderToken to the update cost report folder params
@@ -151,8 +151,8 @@ func (o *UpdateCostReportFolderParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-	if o.ReportsFolders != nil {
-		if err := r.SetBodyParam(o.ReportsFolders); err != nil {
+	if o.Folders != nil {
+		if err := r.SetBodyParam(o.Folders); err != nil {
 			return err
 		}
 	}

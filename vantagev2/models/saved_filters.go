@@ -14,9 +14,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// SavedFilters Saved Filters model
+// SavedFilters SavedFilters model
 //
-// swagger:model Saved Filters
+// swagger:model SavedFilters
 type SavedFilters struct {
 
 	// links
