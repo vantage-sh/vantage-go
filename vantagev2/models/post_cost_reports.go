@@ -32,7 +32,7 @@ type PostCostReports struct {
 	// Required: true
 	Title *string `json:"title"`
 
-	// The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if the API token is associated with multiple Workspaces.
+	// The token of the Workspace to add the Cost Report to. Ignored if 'folder_token' is set. Required if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 

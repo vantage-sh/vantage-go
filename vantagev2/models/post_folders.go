@@ -25,6 +25,9 @@ type PostFolders struct {
 	// The title of the Folder.
 	// Required: true
 	Title *string `json:"title"`
+
+	// The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this post folders

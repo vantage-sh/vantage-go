@@ -94,7 +94,7 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "createCostReportFolder"
+        "operationId": "createFolder"
       },
       "get": {
         "description": "Return all Folders for CostReports.",
@@ -164,7 +164,7 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "getCostReportFolders"
+        "operationId": "getFolders"
       }
     },
     "/folders/{folder_token}": {
@@ -219,7 +219,7 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "updateCostReportFolder"
+        "operationId": "updateFolder"
       },
       "get": {
         "description": "Return a specific Folder for CostReports.",
@@ -267,7 +267,7 @@
         "tags": [
           "Costs"
         ],
-        "operationId": "getCostReportFolder"
+        "operationId": "getFolder"
       }
     },
     "/saved_filters": {
@@ -645,6 +645,45 @@
       }
     },
     "/cost_reports/{cost_report_token}": {
+      "delete": {
+        "description": "Delete a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            }
+          },
+          "404": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "deleteCostReport"
+      },
       "put": {
         "description": "Update a CostReport.",
         "produces": [
@@ -795,6 +834,10 @@
         "parent_folder_token": {
           "type": "string",
           "description": "The token of the parent Folder."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces."
         }
       },
       "required": [
@@ -960,7 +1003,7 @@
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace to add the Cost Report to. Ignored if Folder is specified. Required if the API token is associated with multiple Workspaces."
+          "description": "The token of the Workspace to add the Cost Report to. Ignored if 'folder_token' is set. Required if the API token is associated with multiple Workspaces."
         },
         "filter": {
           "type": "string",

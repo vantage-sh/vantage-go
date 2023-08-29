@@ -32,19 +32,21 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CreateCostReport(params *CreateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportCreated, error)
 
-	CreateCostReportFolder(params *CreateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportFolderCreated, error)
+	CreateFolder(params *CreateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFolderCreated, error)
 
 	CreateSavedFilter(params *CreateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSavedFilterCreated, error)
+
+	DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error)
 
 	DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error)
 
 	GetCostReport(params *GetCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportOK, error)
 
-	GetCostReportFolder(params *GetCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFolderOK, error)
-
-	GetCostReportFolders(params *GetCostReportFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFoldersOK, error)
-
 	GetCostReports(params *GetCostReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportsOK, error)
+
+	GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFolderOK, error)
+
+	GetFolders(params *GetFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFoldersOK, error)
 
 	GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFilterOK, error)
 
@@ -52,7 +54,7 @@ type ClientService interface {
 
 	UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error)
 
-	UpdateCostReportFolder(params *UpdateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportFolderOK, error)
+	UpdateFolder(params *UpdateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFolderOK, error)
 
 	UpdateSavedFilter(params *UpdateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSavedFilterCreated, error)
 
@@ -99,22 +101,22 @@ func (a *Client) CreateCostReport(params *CreateCostReportParams, authInfo runti
 }
 
 /*
-CreateCostReportFolder Create a Folder for CostReports.
+CreateFolder Create a Folder for CostReports.
 */
-func (a *Client) CreateCostReportFolder(params *CreateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportFolderCreated, error) {
+func (a *Client) CreateFolder(params *CreateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFolderCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCreateCostReportFolderParams()
+		params = NewCreateFolderParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "createCostReportFolder",
+		ID:                 "createFolder",
 		Method:             "POST",
 		PathPattern:        "/folders",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &CreateCostReportFolderReader{formats: a.formats},
+		Reader:             &CreateFolderReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -127,13 +129,13 @@ func (a *Client) CreateCostReportFolder(params *CreateCostReportFolderParams, au
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateCostReportFolderCreated)
+	success, ok := result.(*CreateFolderCreated)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for createCostReportFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for createFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -173,6 +175,45 @@ func (a *Client) CreateSavedFilter(params *CreateSavedFilterParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for createSavedFilter: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteCostReport Delete a CostReport.
+*/
+func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteCostReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteCostReport",
+		Method:             "DELETE",
+		PathPattern:        "/cost_reports/{cost_report_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteCostReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteCostReportNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteCostReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -255,84 +296,6 @@ func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.Cli
 }
 
 /*
-GetCostReportFolder Return a specific Folder for CostReports.
-*/
-func (a *Client) GetCostReportFolder(params *GetCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFolderOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetCostReportFolderParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "getCostReportFolder",
-		Method:             "GET",
-		PathPattern:        "/folders/{folder_token}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetCostReportFolderReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetCostReportFolderOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getCostReportFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-GetCostReportFolders Return all Folders for CostReports.
-*/
-func (a *Client) GetCostReportFolders(params *GetCostReportFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportFoldersOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetCostReportFoldersParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "getCostReportFolders",
-		Method:             "GET",
-		PathPattern:        "/folders",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetCostReportFoldersReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetCostReportFoldersOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getCostReportFolders: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
 GetCostReports Return all CostReports.
 */
 func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportsOK, error) {
@@ -368,6 +331,84 @@ func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getCostReports: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetFolder Return a specific Folder for CostReports.
+*/
+func (a *Client) GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFolderOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFolderParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getFolder",
+		Method:             "GET",
+		PathPattern:        "/folders/{folder_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetFolderReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetFolderOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetFolders Return all Folders for CostReports.
+*/
+func (a *Client) GetFolders(params *GetFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFoldersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFoldersParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getFolders",
+		Method:             "GET",
+		PathPattern:        "/folders",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetFoldersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetFoldersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFolders: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -489,22 +530,22 @@ func (a *Client) UpdateCostReport(params *UpdateCostReportParams, authInfo runti
 }
 
 /*
-UpdateCostReportFolder Update a Folder for CostReports.
+UpdateFolder Update a Folder for CostReports.
 */
-func (a *Client) UpdateCostReportFolder(params *UpdateCostReportFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportFolderOK, error) {
+func (a *Client) UpdateFolder(params *UpdateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFolderOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewUpdateCostReportFolderParams()
+		params = NewUpdateFolderParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "updateCostReportFolder",
+		ID:                 "updateFolder",
 		Method:             "PUT",
 		PathPattern:        "/folders/{folder_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &UpdateCostReportFolderReader{formats: a.formats},
+		Reader:             &UpdateFolderReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -517,13 +558,13 @@ func (a *Client) UpdateCostReportFolder(params *UpdateCostReportFolderParams, au
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateCostReportFolderOK)
+	success, ok := result.(*UpdateFolderOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for updateCostReportFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for updateFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
