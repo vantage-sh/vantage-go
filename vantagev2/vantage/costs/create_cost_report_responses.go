@@ -29,6 +29,12 @@ func (o *CreateCostReportReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateCostReportBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[POST /cost_reports] createCostReport", response, response.Code())
 	}
@@ -93,6 +99,74 @@ func (o *CreateCostReportCreated) GetPayload() *models.CostReport {
 func (o *CreateCostReportCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CostReport)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateCostReportBadRequest creates a CreateCostReportBadRequest with default headers values
+func NewCreateCostReportBadRequest() *CreateCostReportBadRequest {
+	return &CreateCostReportBadRequest{}
+}
+
+/*
+CreateCostReportBadRequest describes a response with status code 400, with default header values.
+
+BadRequest
+*/
+type CreateCostReportBadRequest struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this create cost report bad request response has a 2xx status code
+func (o *CreateCostReportBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create cost report bad request response has a 3xx status code
+func (o *CreateCostReportBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create cost report bad request response has a 4xx status code
+func (o *CreateCostReportBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create cost report bad request response has a 5xx status code
+func (o *CreateCostReportBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create cost report bad request response a status code equal to that given
+func (o *CreateCostReportBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create cost report bad request response
+func (o *CreateCostReportBadRequest) Code() int {
+	return 400
+}
+
+func (o *CreateCostReportBadRequest) Error() string {
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateCostReportBadRequest) String() string {
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateCostReportBadRequest) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *CreateCostReportBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

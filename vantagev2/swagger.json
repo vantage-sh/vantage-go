@@ -89,6 +89,12 @@
                 "workspace": "org_6942b710883a3718"
               }
             }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -168,6 +174,45 @@
       }
     },
     "/folders/{folder_token}": {
+      "delete": {
+        "description": "Delete a Folder for CostReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "folder_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Folder"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "deleteFolder"
+      },
       "put": {
         "description": "Update a Folder for CostReports.",
         "produces": [
@@ -214,6 +259,18 @@
                 "workspace": "org_779ca69b0f6b9d8f"
               }
             }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -258,9 +315,9 @@
             }
           },
           "404": {
-            "description": "",
+            "description": "NotFound",
             "schema": {
-              "$ref": "#/definitions/Folder"
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -312,6 +369,12 @@
                 "created_by": "usr_6dd1e82623ceb3c0",
                 "workspace_token": "org_5c4b7ed920914df6"
               }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -415,6 +478,12 @@
             "schema": {
               "$ref": "#/definitions/SavedFilter"
             }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -470,6 +539,18 @@
                 "workspace_token": "org_98c224d065f09490"
               }
             }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -515,6 +596,12 @@
                 "created_by": "usr_c4e68b9f1257cc69",
                 "workspace_token": "org_8b6362cdeb7c366b"
               }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -568,6 +655,12 @@
                 "created_at": "2023-08-28T15:51:02Z",
                 "workspace_token": "org_5d271fa3a947b15f"
               }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -673,9 +766,9 @@
             }
           },
           "404": {
-            "description": "",
+            "description": "NotFound",
             "schema": {
-              "$ref": "#/definitions/CostReport"
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -734,6 +827,18 @@
                 "workspace_token": "org_8e260a6899ef3aee"
               }
             }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -782,9 +887,9 @@
             }
           },
           "404": {
-            "description": "",
+            "description": "NotFound",
             "schema": {
-              "$ref": "#/definitions/CostReport"
+              "$ref": "#/definitions/Errors"
             }
           }
         },
@@ -792,6 +897,76 @@
           "Costs"
         ],
         "operationId": "getCostReport"
+      }
+    },
+    "/dashboards": {
+      "get": {
+        "description": "Return all Dashboards.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Dashboards"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/dashboards",
+                  "first": "https://api.vantage.com/v2/dashboards?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/dashboards?page=1",
+                  "prev": null
+                },
+                "dashboards": [
+                  {
+                    "token": "dshbrd_f4879e0cc7616c89",
+                    "title": "Many Waters",
+                    "folder_token": null,
+                    "date_bin": null,
+                    "date_interval": null,
+                    "start_date": null,
+                    "end_date": null,
+                    "created_at": "2023-08-29T21:13:36Z",
+                    "updated_at": "2023-08-29T21:13:36Z",
+                    "workspace_token": "org_7a8028a084030f18"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getDashboards"
       }
     },
     "/ping": {
@@ -863,7 +1038,12 @@
         "created_at": {
           "type": "string",
           "example": "2023-08-04T00:00:00Z",
-          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+          "description": "The date and time, in UTC, the Folder was created. ISO 8601 Formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Folder was last updated at. ISO 8601 Formatted."
         },
         "workspace_token": {
           "type": "string",
@@ -871,6 +1051,21 @@
         }
       },
       "description": "Folder model"
+    },
+    "Errors": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Errors model"
     },
     "Folders": {
       "type": "object",
@@ -1103,6 +1298,90 @@
         }
       },
       "description": "Update a CostReport."
+    },
+    "Dashboards": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "dashboards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dashboard"
+          }
+        }
+      },
+      "description": "Dashboards model"
+    },
+    "Dashboard": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "dshbrd_abcd1234567890"
+        },
+        "title": {
+          "type": "string",
+          "example": "AWS Dashboard",
+          "description": "The title of the Dashboard."
+        },
+        "widget_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens of the widgets displayed in the Dashboard. Currently only supports CostReport tokens."
+        },
+        "date_bin": {
+          "type": "string",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ],
+          "description": "Determines how to group costs for CostReports in the Dashboard."
+        },
+        "date_interval": {
+          "type": "string",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom"
+          ],
+          "description": "Determines the date range for CostReports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2023-08-04",
+          "description": "The start date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2023-09-04",
+          "description": "The end date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "example": "org_abcd1234567890",
+          "description": "The token for the Workspace the Dashboard is a part of."
+        }
+      }
     }
   }
 }

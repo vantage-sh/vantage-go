@@ -29,6 +29,12 @@ func (o *GetSavedFilterReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 404:
+		result := NewGetSavedFilterNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[GET /saved_filters/{saved_filter_token}] getSavedFilter", response, response.Code())
 	}
@@ -93,6 +99,74 @@ func (o *GetSavedFilterOK) GetPayload() *models.SavedFilter {
 func (o *GetSavedFilterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SavedFilter)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSavedFilterNotFound creates a GetSavedFilterNotFound with default headers values
+func NewGetSavedFilterNotFound() *GetSavedFilterNotFound {
+	return &GetSavedFilterNotFound{}
+}
+
+/*
+GetSavedFilterNotFound describes a response with status code 404, with default header values.
+
+NotFound
+*/
+type GetSavedFilterNotFound struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this get saved filter not found response has a 2xx status code
+func (o *GetSavedFilterNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get saved filter not found response has a 3xx status code
+func (o *GetSavedFilterNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get saved filter not found response has a 4xx status code
+func (o *GetSavedFilterNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get saved filter not found response has a 5xx status code
+func (o *GetSavedFilterNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get saved filter not found response a status code equal to that given
+func (o *GetSavedFilterNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get saved filter not found response
+func (o *GetSavedFilterNotFound) Code() int {
+	return 404
+}
+
+func (o *GetSavedFilterNotFound) Error() string {
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSavedFilterNotFound) String() string {
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSavedFilterNotFound) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *GetSavedFilterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

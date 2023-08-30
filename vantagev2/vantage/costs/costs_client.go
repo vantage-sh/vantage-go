@@ -38,11 +38,15 @@ type ClientService interface {
 
 	DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error)
 
+	DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderOK, error)
+
 	DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error)
 
 	GetCostReport(params *GetCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportOK, error)
 
 	GetCostReports(params *GetCostReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportsOK, error)
+
+	GetDashboards(params *GetDashboardsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardsOK, error)
 
 	GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFolderOK, error)
 
@@ -218,6 +222,45 @@ func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runti
 }
 
 /*
+DeleteFolder Delete a Folder for CostReports.
+*/
+func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteFolderParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteFolder",
+		Method:             "DELETE",
+		PathPattern:        "/folders/{folder_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteFolderReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteFolderOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteFolder: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 DeleteSavedFilter Delete a SavedFilter for CostReports.
 */
 func (a *Client) DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error) {
@@ -331,6 +374,45 @@ func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getCostReports: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetDashboards Return all Dashboards.
+*/
+func (a *Client) GetDashboards(params *GetDashboardsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDashboardsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getDashboards",
+		Method:             "GET",
+		PathPattern:        "/dashboards",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDashboardsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDashboardsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDashboards: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

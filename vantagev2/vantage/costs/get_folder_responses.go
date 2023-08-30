@@ -116,10 +116,10 @@ func NewGetFolderNotFound() *GetFolderNotFound {
 /*
 GetFolderNotFound describes a response with status code 404, with default header values.
 
-GetFolderNotFound get folder not found
+NotFound
 */
 type GetFolderNotFound struct {
-	Payload *models.Folder
+	Payload *models.Errors
 }
 
 // IsSuccess returns true when this get folder not found response has a 2xx status code
@@ -160,13 +160,13 @@ func (o *GetFolderNotFound) String() string {
 	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderNotFound  %+v", 404, o.Payload)
 }
 
-func (o *GetFolderNotFound) GetPayload() *models.Folder {
+func (o *GetFolderNotFound) GetPayload() *models.Errors {
 	return o.Payload
 }
 
 func (o *GetFolderNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Folder)
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

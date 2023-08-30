@@ -29,6 +29,12 @@ func (o *CreateSavedFilterReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateSavedFilterBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[POST /saved_filters] createSavedFilter", response, response.Code())
 	}
@@ -93,6 +99,74 @@ func (o *CreateSavedFilterCreated) GetPayload() *models.SavedFilter {
 func (o *CreateSavedFilterCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SavedFilter)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateSavedFilterBadRequest creates a CreateSavedFilterBadRequest with default headers values
+func NewCreateSavedFilterBadRequest() *CreateSavedFilterBadRequest {
+	return &CreateSavedFilterBadRequest{}
+}
+
+/*
+CreateSavedFilterBadRequest describes a response with status code 400, with default header values.
+
+BadRequest
+*/
+type CreateSavedFilterBadRequest struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this create saved filter bad request response has a 2xx status code
+func (o *CreateSavedFilterBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create saved filter bad request response has a 3xx status code
+func (o *CreateSavedFilterBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create saved filter bad request response has a 4xx status code
+func (o *CreateSavedFilterBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create saved filter bad request response has a 5xx status code
+func (o *CreateSavedFilterBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create saved filter bad request response a status code equal to that given
+func (o *CreateSavedFilterBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create saved filter bad request response
+func (o *CreateSavedFilterBadRequest) Code() int {
+	return 400
+}
+
+func (o *CreateSavedFilterBadRequest) Error() string {
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateSavedFilterBadRequest) String() string {
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateSavedFilterBadRequest) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *CreateSavedFilterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

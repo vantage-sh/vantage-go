@@ -116,10 +116,10 @@ func NewGetCostReportNotFound() *GetCostReportNotFound {
 /*
 GetCostReportNotFound describes a response with status code 404, with default header values.
 
-GetCostReportNotFound get cost report not found
+NotFound
 */
 type GetCostReportNotFound struct {
-	Payload *models.CostReport
+	Payload *models.Errors
 }
 
 // IsSuccess returns true when this get cost report not found response has a 2xx status code
@@ -160,13 +160,13 @@ func (o *GetCostReportNotFound) String() string {
 	return fmt.Sprintf("[GET /cost_reports/{cost_report_token}][%d] getCostReportNotFound  %+v", 404, o.Payload)
 }
 
-func (o *GetCostReportNotFound) GetPayload() *models.CostReport {
+func (o *GetCostReportNotFound) GetPayload() *models.Errors {
 	return o.Payload
 }
 
 func (o *GetCostReportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.CostReport)
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

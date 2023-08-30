@@ -29,6 +29,12 @@ func (o *DeleteSavedFilterReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
+	case 404:
+		result := NewDeleteSavedFilterNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[DELETE /saved_filters/{saved_filter_token}] deleteSavedFilter", response, response.Code())
 	}
@@ -93,6 +99,74 @@ func (o *DeleteSavedFilterNoContent) GetPayload() *models.SavedFilter {
 func (o *DeleteSavedFilterNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SavedFilter)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSavedFilterNotFound creates a DeleteSavedFilterNotFound with default headers values
+func NewDeleteSavedFilterNotFound() *DeleteSavedFilterNotFound {
+	return &DeleteSavedFilterNotFound{}
+}
+
+/*
+DeleteSavedFilterNotFound describes a response with status code 404, with default header values.
+
+NotFound
+*/
+type DeleteSavedFilterNotFound struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this delete saved filter not found response has a 2xx status code
+func (o *DeleteSavedFilterNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete saved filter not found response has a 3xx status code
+func (o *DeleteSavedFilterNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete saved filter not found response has a 4xx status code
+func (o *DeleteSavedFilterNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete saved filter not found response has a 5xx status code
+func (o *DeleteSavedFilterNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete saved filter not found response a status code equal to that given
+func (o *DeleteSavedFilterNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete saved filter not found response
+func (o *DeleteSavedFilterNotFound) Code() int {
+	return 404
+}
+
+func (o *DeleteSavedFilterNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSavedFilterNotFound) String() string {
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSavedFilterNotFound) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *DeleteSavedFilterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

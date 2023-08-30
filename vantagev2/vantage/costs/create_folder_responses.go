@@ -29,6 +29,12 @@ func (o *CreateFolderReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateFolderBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[POST /folders] createFolder", response, response.Code())
 	}
@@ -93,6 +99,74 @@ func (o *CreateFolderCreated) GetPayload() *models.Folder {
 func (o *CreateFolderCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Folder)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateFolderBadRequest creates a CreateFolderBadRequest with default headers values
+func NewCreateFolderBadRequest() *CreateFolderBadRequest {
+	return &CreateFolderBadRequest{}
+}
+
+/*
+CreateFolderBadRequest describes a response with status code 400, with default header values.
+
+BadRequest
+*/
+type CreateFolderBadRequest struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this create folder bad request response has a 2xx status code
+func (o *CreateFolderBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create folder bad request response has a 3xx status code
+func (o *CreateFolderBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create folder bad request response has a 4xx status code
+func (o *CreateFolderBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create folder bad request response has a 5xx status code
+func (o *CreateFolderBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create folder bad request response a status code equal to that given
+func (o *CreateFolderBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create folder bad request response
+func (o *CreateFolderBadRequest) Code() int {
+	return 400
+}
+
+func (o *CreateFolderBadRequest) Error() string {
+	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateFolderBadRequest) String() string {
+	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateFolderBadRequest) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *CreateFolderBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

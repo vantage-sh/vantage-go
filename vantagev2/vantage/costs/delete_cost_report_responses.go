@@ -116,10 +116,10 @@ func NewDeleteCostReportNotFound() *DeleteCostReportNotFound {
 /*
 DeleteCostReportNotFound describes a response with status code 404, with default header values.
 
-DeleteCostReportNotFound delete cost report not found
+NotFound
 */
 type DeleteCostReportNotFound struct {
-	Payload *models.CostReport
+	Payload *models.Errors
 }
 
 // IsSuccess returns true when this delete cost report not found response has a 2xx status code
@@ -160,13 +160,13 @@ func (o *DeleteCostReportNotFound) String() string {
 	return fmt.Sprintf("[DELETE /cost_reports/{cost_report_token}][%d] deleteCostReportNotFound  %+v", 404, o.Payload)
 }
 
-func (o *DeleteCostReportNotFound) GetPayload() *models.CostReport {
+func (o *DeleteCostReportNotFound) GetPayload() *models.Errors {
 	return o.Payload
 }
 
 func (o *DeleteCostReportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.CostReport)
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

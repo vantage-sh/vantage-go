@@ -17,7 +17,7 @@ import (
 // swagger:model Folder
 type Folder struct {
 
-	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
+	// The date and time, in UTC, the Folder was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
@@ -30,6 +30,10 @@ type Folder struct {
 
 	// token
 	Token string `json:"token,omitempty"`
+
+	// The date and time, in UTC, the Folder was last updated at. ISO 8601 Formatted.
+	// Example: 2023-08-04T00:00:00Z
+	UpdatedAt string `json:"updated_at,omitempty"`
 
 	// The token for the Workspace the Folder is a part of.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
