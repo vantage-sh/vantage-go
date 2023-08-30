@@ -3,3 +3,6 @@ generate:
 	vantagev2/generate.sh
 	git add .
 	git commit -m "Generate clients."
+
+diff:
+	git diff HEAD^1..HEAD
