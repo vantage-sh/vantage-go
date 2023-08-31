@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Dashboard dashboard
+// Dashboard Dashboard model
 //
 // swagger:model Dashboard
 type Dashboard struct {
@@ -24,11 +24,11 @@ type Dashboard struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// Determines how to group costs for CostReports in the Dashboard.
+	// Determines how to group costs in the Dashboard.
 	// Enum: [cumulative day week month]
 	DateBin string `json:"date_bin,omitempty"`
 
-	// Determines the date range for CostReports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
+	// Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
 	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom]
 	DateInterval string `json:"date_interval,omitempty"`
 

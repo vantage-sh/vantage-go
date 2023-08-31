@@ -900,6 +900,66 @@
       }
     },
     "/dashboards": {
+      "post": {
+        "description": "Create a Dashboard.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Dashboards",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postDashboards"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_b64b5b12b1b55227",
+                "title": "New Dashboard",
+                "widget_tokens": [
+                  "rprt_07ebfb184b919dca"
+                ],
+                "date_bin": "week",
+                "date_interval": "this_month",
+                "start_date": "2023-08-01",
+                "end_date": "2023-08-31",
+                "created_at": "2023-08-15T00:00:00Z",
+                "updated_at": "2023-08-15T00:00:00Z",
+                "workspace_token": "org_1e3e289ca937fbdd"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "createDashboard"
+      },
       "get": {
         "description": "Return all Dashboards.",
         "produces": [
@@ -947,16 +1007,18 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_f4879e0cc7616c89",
-                    "title": "Many Waters",
-                    "folder_token": null,
+                    "token": "dshbrd_26158fbfddc91a06",
+                    "title": "Beneath the Bleeding",
+                    "widget_tokens": [
+                      "rprt_47bf7619facd974f"
+                    ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2023-08-29T21:13:36Z",
-                    "updated_at": "2023-08-29T21:13:36Z",
-                    "workspace_token": "org_7a8028a084030f18"
+                    "created_at": "2023-08-30T21:16:07Z",
+                    "updated_at": "2023-08-30T21:16:07Z",
+                    "workspace_token": "org_924d6423fbdbade6"
                   }
                 ]
               }
@@ -967,6 +1029,74 @@
           "Costs"
         ],
         "operationId": "getDashboards"
+      }
+    },
+    "/dashboards/{dashboard_token}": {
+      "get": {
+        "description": "Return a specific Dashboard.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/dashboards",
+                  "first": "https://api.vantage.com/v2/dashboards?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/dashboards?page=1",
+                  "prev": null
+                },
+                "dashboards": [
+                  {
+                    "token": "dshbrd_cc707271f465a4b4",
+                    "title": "Infinite Jest",
+                    "widget_tokens": [
+                      "rprt_96d1cddecf375fe6"
+                    ],
+                    "date_bin": null,
+                    "date_interval": null,
+                    "start_date": null,
+                    "end_date": null,
+                    "created_at": "2023-08-30T21:16:07Z",
+                    "updated_at": "2023-08-30T21:16:07Z",
+                    "workspace_token": "org_baa6d0b14dec6e1b"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getDashboard"
       }
     },
     "/ping": {
@@ -1299,20 +1429,61 @@
       },
       "description": "Update a CostReport."
     },
-    "Dashboards": {
+    "postDashboards": {
       "type": "object",
       "properties": {
-        "links": {
-          "type": "object"
+        "title": {
+          "type": "string",
+          "description": "The title of the Dashboard."
         },
-        "dashboards": {
+        "widget_tokens": {
           "type": "array",
+          "description": "The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.",
           "items": {
-            "$ref": "#/definitions/Dashboard"
+            "type": "string"
           }
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "Determines how to group costs in the Dashboard.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom"
+          ]
+        },
+        "start_date": {
+          "type": "string",
+          "description": "The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Dashboard to. Required if the API token is associated with multiple Workspaces."
         }
       },
-      "description": "Dashboards model"
+      "required": [
+        "title",
+        "end_date"
+      ],
+      "description": "Create a Dashboard."
     },
     "Dashboard": {
       "type": "object",
@@ -1341,7 +1512,7 @@
             "week",
             "month"
           ],
-          "description": "Determines how to group costs for CostReports in the Dashboard."
+          "description": "Determines how to group costs in the Dashboard."
         },
         "date_interval": {
           "type": "string",
@@ -1354,7 +1525,7 @@
             "last_6_months",
             "custom"
           ],
-          "description": "Determines the date range for CostReports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
+          "description": "Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
         "start_date": {
           "type": "string",
@@ -1381,7 +1552,23 @@
           "example": "org_abcd1234567890",
           "description": "The token for the Workspace the Dashboard is a part of."
         }
-      }
+      },
+      "description": "Dashboard model"
+    },
+    "Dashboards": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "dashboards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dashboard"
+          }
+        }
+      },
+      "description": "Dashboards model"
     }
   }
 }
