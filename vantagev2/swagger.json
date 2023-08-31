@@ -1032,6 +1032,117 @@
       }
     },
     "/dashboards/{dashboard_token}": {
+      "delete": {
+        "description": "Delete a Dashboard.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "deleteDashboard"
+      },
+      "put": {
+        "description": "Update a Dashboard.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Dashboards",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putDashboards"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_6d05dc20f425e2e5",
+                "title": "Updated Dashboard",
+                "widget_tokens": [
+                  "rprt_1234467f639d088b"
+                ],
+                "date_bin": "week",
+                "date_interval": "this_month",
+                "start_date": "2023-08-01",
+                "end_date": "2023-08-31",
+                "created_at": "2023-08-31T18:24:33Z",
+                "updated_at": "2023-08-15T00:00:00Z",
+                "workspace_token": "org_d6365824347003fe"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "updateDashboard"
+      },
       "get": {
         "description": "Return a specific Dashboard.",
         "produces": [
@@ -1569,6 +1680,57 @@
         }
       },
       "description": "Dashboards model"
+    },
+    "putDashboards": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Dashboard."
+        },
+        "widget_tokens": {
+          "type": "array",
+          "description": "The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "Determines how to group costs in the Dashboard.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom"
+          ]
+        },
+        "start_date": {
+          "type": "string",
+          "description": "The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        }
+      },
+      "required": [
+        "end_date"
+      ],
+      "description": "Update a Dashboard."
     }
   }
 }

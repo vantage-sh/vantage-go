@@ -40,6 +40,8 @@ type ClientService interface {
 
 	DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error)
 
+	DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardOK, error)
+
 	DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderNoContent, error)
 
 	DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error)
@@ -61,6 +63,8 @@ type ClientService interface {
 	GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFiltersOK, error)
 
 	UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error)
+
+	UpdateDashboard(params *UpdateDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardOK, error)
 
 	UpdateFolder(params *UpdateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFolderOK, error)
 
@@ -261,6 +265,45 @@ func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteCostReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteDashboard Delete a Dashboard.
+*/
+func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDashboardParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteDashboard",
+		Method:             "DELETE",
+		PathPattern:        "/dashboards/{dashboard_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDashboardReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteDashboardOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -690,6 +733,45 @@ func (a *Client) UpdateCostReport(params *UpdateCostReportParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateCostReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateDashboard Update a Dashboard.
+*/
+func (a *Client) UpdateDashboard(params *UpdateDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateDashboardParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateDashboard",
+		Method:             "PUT",
+		PathPattern:        "/dashboards/{dashboard_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateDashboardReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateDashboardOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
