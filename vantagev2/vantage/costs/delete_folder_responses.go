@@ -23,8 +23,8 @@ type DeleteFolderReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteFolderReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewDeleteFolderOK()
+	case 204:
+		result := NewDeleteFolderNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -40,63 +40,63 @@ func (o *DeleteFolderReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewDeleteFolderOK creates a DeleteFolderOK with default headers values
-func NewDeleteFolderOK() *DeleteFolderOK {
-	return &DeleteFolderOK{}
+// NewDeleteFolderNoContent creates a DeleteFolderNoContent with default headers values
+func NewDeleteFolderNoContent() *DeleteFolderNoContent {
+	return &DeleteFolderNoContent{}
 }
 
 /*
-DeleteFolderOK describes a response with status code 200, with default header values.
+DeleteFolderNoContent describes a response with status code 204, with default header values.
 
-DeleteFolderOK delete folder o k
+DeleteFolderNoContent delete folder no content
 */
-type DeleteFolderOK struct {
+type DeleteFolderNoContent struct {
 	Payload *models.Folder
 }
 
-// IsSuccess returns true when this delete folder o k response has a 2xx status code
-func (o *DeleteFolderOK) IsSuccess() bool {
+// IsSuccess returns true when this delete folder no content response has a 2xx status code
+func (o *DeleteFolderNoContent) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this delete folder o k response has a 3xx status code
-func (o *DeleteFolderOK) IsRedirect() bool {
+// IsRedirect returns true when this delete folder no content response has a 3xx status code
+func (o *DeleteFolderNoContent) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this delete folder o k response has a 4xx status code
-func (o *DeleteFolderOK) IsClientError() bool {
+// IsClientError returns true when this delete folder no content response has a 4xx status code
+func (o *DeleteFolderNoContent) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this delete folder o k response has a 5xx status code
-func (o *DeleteFolderOK) IsServerError() bool {
+// IsServerError returns true when this delete folder no content response has a 5xx status code
+func (o *DeleteFolderNoContent) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this delete folder o k response a status code equal to that given
-func (o *DeleteFolderOK) IsCode(code int) bool {
-	return code == 200
+// IsCode returns true when this delete folder no content response a status code equal to that given
+func (o *DeleteFolderNoContent) IsCode(code int) bool {
+	return code == 204
 }
 
-// Code gets the status code for the delete folder o k response
-func (o *DeleteFolderOK) Code() int {
-	return 200
+// Code gets the status code for the delete folder no content response
+func (o *DeleteFolderNoContent) Code() int {
+	return 204
 }
 
-func (o *DeleteFolderOK) Error() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderOK  %+v", 200, o.Payload)
+func (o *DeleteFolderNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent  %+v", 204, o.Payload)
 }
 
-func (o *DeleteFolderOK) String() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderOK  %+v", 200, o.Payload)
+func (o *DeleteFolderNoContent) String() string {
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent  %+v", 204, o.Payload)
 }
 
-func (o *DeleteFolderOK) GetPayload() *models.Folder {
+func (o *DeleteFolderNoContent) GetPayload() *models.Folder {
 	return o.Payload
 }
 
-func (o *DeleteFolderOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteFolderNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Folder)
 

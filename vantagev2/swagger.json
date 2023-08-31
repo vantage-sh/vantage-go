@@ -195,7 +195,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/Folder"

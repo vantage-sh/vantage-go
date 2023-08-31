@@ -40,7 +40,7 @@ type ClientService interface {
 
 	DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error)
 
-	DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderOK, error)
+	DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderNoContent, error)
 
 	DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error)
 
@@ -267,7 +267,7 @@ func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runti
 /*
 DeleteFolder Delete a Folder for CostReports.
 */
-func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderOK, error) {
+func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteFolderParams()
@@ -293,7 +293,7 @@ func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteFolderOK)
+	success, ok := result.(*DeleteFolderNoContent)
 	if ok {
 		return success, nil
 	}
