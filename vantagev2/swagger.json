@@ -1053,7 +1053,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/Dashboard"
@@ -1208,6 +1208,162 @@
           "Costs"
         ],
         "operationId": "getDashboard"
+      }
+    },
+    "/costs": {
+      "get": {
+        "description": "Return all Costs for a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "description": "The CostReport token.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "First date you would like to filter costs from. ISO 8601 formatted.",
+            "type": "string",
+            "required": false,
+            "example": "2023-09-01"
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Last date you would like to filter costs to. ISO 8601 formatted.",
+            "type": "string",
+            "required": false,
+            "example": "2023-09-30"
+          },
+          {
+            "in": "formData",
+            "name": "groupings",
+            "description": "Group the results by specific field(s). Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, be sure to use the following syntax: groupings[]=provider&groupings[]=service&groupings[]=region",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "default": [
+                "provider",
+                "service",
+                "account_id"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Whether to order costs by date in an ascending or descending manner.",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Costs"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9",
+                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9&page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9&page=1",
+                  "prev": null
+                },
+                "total_cost": {
+                  "amount": "500.0",
+                  "currency": "USD"
+                },
+                "costs": [
+                  {
+                    "accrued_at": "2023-06-05",
+                    "amount": "100.0",
+                    "currency": "USD",
+                    "provider": "aws",
+                    "provider_account_id": "mock_56789",
+                    "service": "AmazonSNS"
+                  },
+                  {
+                    "accrued_at": "2023-06-04",
+                    "amount": "100.0",
+                    "currency": "USD",
+                    "provider": "aws",
+                    "provider_account_id": "mock_56789",
+                    "service": "AmazonSNS"
+                  },
+                  {
+                    "accrued_at": "2023-06-03",
+                    "amount": "100.0",
+                    "currency": "USD",
+                    "provider": "aws",
+                    "provider_account_id": "mock_56789",
+                    "service": "AmazonSNS"
+                  },
+                  {
+                    "accrued_at": "2023-06-02",
+                    "amount": "100.0",
+                    "currency": "USD",
+                    "provider": "aws",
+                    "provider_account_id": "mock_56789",
+                    "service": "AmazonSNS"
+                  },
+                  {
+                    "accrued_at": "2023-06-01",
+                    "amount": "100.0",
+                    "currency": "USD",
+                    "provider": "aws",
+                    "provider_account_id": "mock_56789",
+                    "service": "AmazonSNS"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getCosts"
       }
     },
     "/ping": {
@@ -1731,6 +1887,25 @@
         "end_date"
       ],
       "description": "Update a Dashboard."
+    },
+    "Costs": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "total_cost": {
+          "type": "string",
+          "description": "The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code."
+        },
+        "costs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Costs model"
     }
   }
 }
