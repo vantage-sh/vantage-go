@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set +x
+set -e
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd $SCRIPT_DIR
 curl https://api.vantage.sh/v2/swagger.json | jq . > swagger.json
