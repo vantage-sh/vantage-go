@@ -56,7 +56,7 @@ type Dashboard struct {
 	WidgetTokens []string `json:"widget_tokens"`
 
 	// The token for the Workspace the Dashboard is a part of.
-	// Example: org_abcd1234567890
+	// Example: wrkspc_abcd1234567890
 	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 

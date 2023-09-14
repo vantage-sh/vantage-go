@@ -11,7 +11,11 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/workspaces"
 )
 
 // Default vantage HTTP client.
@@ -57,7 +61,11 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli := new(Vantage)
 	cli.Transport = transport
 	cli.Costs = costs.New(transport, formats)
+	cli.Dashboards = dashboards.New(transport, formats)
+	cli.Filters = filters.New(transport, formats)
+	cli.Folders = folders.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
+	cli.Workspaces = workspaces.New(transport, formats)
 	return cli
 }
 
@@ -104,7 +112,15 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Vantage struct {
 	Costs costs.ClientService
 
+	Dashboards dashboards.ClientService
+
+	Filters filters.ClientService
+
+	Folders folders.ClientService
+
 	Ping ping.ClientService
+
+	Workspaces workspaces.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -113,5 +129,9 @@ type Vantage struct {
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Costs.SetTransport(transport)
+	c.Dashboards.SetTransport(transport)
+	c.Filters.SetTransport(transport)
+	c.Folders.SetTransport(transport)
 	c.Ping.SetTransport(transport)
+	c.Workspaces.SetTransport(transport)
 }

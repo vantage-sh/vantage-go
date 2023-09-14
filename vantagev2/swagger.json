@@ -39,8 +39,24 @@
   ],
   "tags": [
     {
+      "name": "Workspaces",
+      "description": "Operations about Workspaces"
+    },
+    {
+      "name": "Folders",
+      "description": "Operations about Folders"
+    },
+    {
+      "name": "Filters",
+      "description": "Operations about Filters"
+    },
+    {
       "name": "Costs",
       "description": "Operations about Costs"
+    },
+    {
+      "name": "Dashboards",
+      "description": "Operations about Dashboards"
     },
     {
       "name": "Ping",
@@ -48,6 +64,115 @@
     }
   ],
   "paths": {
+    "/workspaces": {
+      "get": {
+        "description": "Return all Workspaces that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspaces"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/workspaces",
+                  "first": "https://api.vantage.com/v2/workspaces?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/workspaces?page=1",
+                  "prev": null
+                },
+                "workspaces": [
+                  {
+                    "token": "wrkspc_f936ced69bcbf8fa",
+                    "name": "Senger and Sons"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "getWorkspaces"
+      }
+    },
+    "/workspaces/{workspace_token}": {
+      "get": {
+        "description": "Return a specific Workspace.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            },
+            "examples": {
+              "application/json": {
+                "token": "wrkspc_be2a1b2c1ebfa3c9",
+                "name": "Crist-Simonis"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "getWorkspace"
+      }
+    },
     "/folders": {
       "post": {
         "description": "Create a Folder for CostReports.",
@@ -82,11 +207,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_89b2e402b679a207",
+                "token": "fldr_4aabe6f482c2a9e4",
                 "title": "New Folder",
-                "parent_folder_token": "fldr_31fd6620c60a0c94",
-                "created_at": "2023-08-07T18:46:21Z",
-                "workspace": "org_6942b710883a3718"
+                "parent_folder_token": "fldr_4d29cbecf2601266",
+                "created_at": "2023-09-12T05:06:52Z",
+                "updated_at": "2023-09-12T05:06:52Z",
+                "workspace_token": "wrkspc_510cc77828001f9b"
               }
             }
           },
@@ -98,7 +224,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Folders"
         ],
         "operationId": "createFolder"
       },
@@ -141,26 +267,28 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/reports/folders",
-                  "first": "https://api.vantage.com/v2/reports/folders?page=1",
+                  "self": "https://api.vantage.com/v2/folders",
+                  "first": "https://api.vantage.com/v2/folders?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/reports/folders?page=1",
+                  "last": "https://api.vantage.com/v2/folders?page=1",
                   "prev": null
                 },
                 "folders": [
                   {
-                    "token": "fldr_988657955aa0e1bb",
-                    "title": "upward-trending",
+                    "token": "fldr_baf37f32280f5444",
+                    "title": "synergy",
                     "parent_folder_token": null,
-                    "created_at": "2023-08-04T19:13:00Z",
-                    "workspace": "org_0a92dba23ff3fb8e"
+                    "created_at": "2023-09-12T05:06:54Z",
+                    "updated_at": "2023-09-12T05:06:54Z",
+                    "workspace_token": "wrkspc_f583a08beb76f679"
                   },
                   {
-                    "token": "fldr_60a3ed8551d3d0ab",
-                    "title": "middleware",
-                    "parent_folder_token": "fldr_988657955aa0e1bb",
-                    "created_at": "2023-08-04T19:13:00Z",
-                    "workspace": "org_0a92dba23ff3fb8e"
+                    "token": "fldr_625d4591e46f7dfa",
+                    "title": "website",
+                    "parent_folder_token": "fldr_baf37f32280f5444",
+                    "created_at": "2023-09-12T05:06:54Z",
+                    "updated_at": "2023-09-12T05:06:54Z",
+                    "workspace_token": "wrkspc_f583a08beb76f679"
                   }
                 ]
               }
@@ -168,7 +296,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Folders"
         ],
         "operationId": "getFolders"
       }
@@ -209,7 +337,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Folders"
         ],
         "operationId": "deleteFolder"
       },
@@ -252,11 +380,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_eee4e779f7eb7939",
+                "token": "fldr_68e18d8d7df0be96",
                 "title": "New Title",
-                "parent_folder_token": "fldr_6d009c38ec387e99",
-                "created_at": "2023-08-07T18:46:21Z",
-                "workspace": "org_779ca69b0f6b9d8f"
+                "parent_folder_token": "fldr_9aa0c735a6b615c6",
+                "created_at": "2023-09-12T05:06:53Z",
+                "updated_at": "2023-09-12T05:06:53Z",
+                "workspace_token": "wrkspc_e65a48e5d9684439"
               }
             }
           },
@@ -274,7 +403,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Folders"
         ],
         "operationId": "updateFolder"
       },
@@ -306,11 +435,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_f032bff088d68a26",
-                "title": "Platform Team",
-                "parent_folder_token": "fldr_5ac83e5e6e8ef16b",
-                "created_at": "2023-08-07T15:22:27Z",
-                "workspace": "org_1f82def9b915bd34"
+                "token": "fldr_3653e0f460786b1e",
+                "title": "intermediate",
+                "parent_folder_token": "fldr_b6bf120a1d3a794b",
+                "created_at": "2023-09-12T05:07:36Z",
+                "updated_at": "2023-09-12T05:07:36Z",
+                "workspace_token": "wrkspc_a707105ff54966c3"
               }
             }
           },
@@ -322,7 +452,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Folders"
         ],
         "operationId": "getFolder"
       }
@@ -361,13 +491,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "shrd_fltr_f68e8b8308ccd601",
+                "token": "svd_fltr_84a8a4e35a845f97",
                 "title": "New Saved Filter",
                 "cost_report_tokens": [],
                 "filter": "(costs.provider = 'datadog')",
-                "created_at": "2023-08-28T20:25:42Z",
-                "created_by": "usr_6dd1e82623ceb3c0",
-                "workspace_token": "org_5c4b7ed920914df6"
+                "created_at": "2023-09-12T05:06:52Z",
+                "created_by": "usr_4011f2b8a607729d",
+                "workspace_token": "wrkspc_6f54abb1b2a5aefc"
               }
             }
           },
@@ -379,7 +509,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Filters"
         ],
         "operationId": "createSavedFilter"
       },
@@ -430,15 +560,15 @@
                 },
                 "saved_filters": [
                   {
-                    "token": "shrd_fltr_7bfe641994c96837",
+                    "token": "svd_fltr_52a89bb6b1c84380",
                     "title": "White",
                     "cost_report_tokens": [
-                      "rprt_cd77d70eaf6b51a3"
+                      "rprt_fef8f7e70f993108"
                     ],
-                    "filter": "(costs.provider = 'aws' AND costs.account_id = '68')",
-                    "created_at": "2023-08-28T20:25:42Z",
-                    "created_by": "usr_9ec995f4a76fb61c",
-                    "workspace_token": "org_6d94d0b5d1990463"
+                    "filter": "(costs.provider = 'aws' AND costs.account_id = '74')",
+                    "created_at": "2023-09-12T05:07:35Z",
+                    "created_by": "usr_055cb925f37bfa75",
+                    "workspace_token": "wrkspc_c3a582b964a67afd"
                   }
                 ]
               }
@@ -446,7 +576,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Filters"
         ],
         "operationId": "getSavedFilters"
       }
@@ -487,7 +617,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Filters"
         ],
         "operationId": "deleteSavedFilter"
       },
@@ -523,20 +653,20 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/SavedFilter"
             },
             "examples": {
               "application/json": {
-                "token": "shrd_fltr_d928367801006520",
+                "token": "svd_fltr_92c840f4c76c76b3",
                 "title": "Updated Saved Filter",
                 "cost_report_tokens": [],
                 "filter": "(costs.provider = 'azure')",
-                "created_at": "2023-08-28T20:25:42Z",
-                "created_by": "usr_dfb647119a5638cb",
-                "workspace_token": "org_98c224d065f09490"
+                "created_at": "2023-09-12T05:07:35Z",
+                "created_by": "usr_fcd9ff9f8aa6bd1f",
+                "workspace_token": "wrkspc_49c6865bb1f6356f"
               }
             }
           },
@@ -554,7 +684,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Filters"
         ],
         "operationId": "updateSavedFilter"
       },
@@ -586,15 +716,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "shrd_fltr_198bf8c595b81c25",
-                "title": "White",
+                "token": "svd_fltr_7d37f2b3704d1c41",
+                "title": "Black",
                 "cost_report_tokens": [
-                  "rprt_cbca7cd44acf0a6d"
+                  "rprt_267f8c135c20bf99"
                 ],
-                "filter": "(costs.provider = 'aws' AND costs.account_id = '96')",
-                "created_at": "2023-08-28T20:25:42Z",
-                "created_by": "usr_c4e68b9f1257cc69",
-                "workspace_token": "org_8b6362cdeb7c366b"
+                "filter": "(costs.provider = 'aws' AND costs.account_id = '57')",
+                "created_at": "2023-09-12T05:07:36Z",
+                "created_by": "usr_86017037cec4a852",
+                "workspace_token": "wrkspc_7020b8708f0e6556"
               }
             }
           },
@@ -606,7 +736,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Filters"
         ],
         "operationId": "getSavedFilter"
       }
@@ -645,15 +775,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_cbe62a3dc23d0289",
+                "token": "rprt_2363f8bdb2e7f1e4",
                 "title": "New Cost Report",
-                "folder_token": "fldr_92b98cbb3ede1a61",
+                "folder_token": "fldr_2e4dbb93545cec18",
                 "saved_filter_tokens": [
-                  "shrd_fltr_42db93b5f3650b0f"
+                  "svd_fltr_cb89ff66f153a0e9"
                 ],
                 "filter": "(costs.provider = 'aws')",
-                "created_at": "2023-08-28T15:51:02Z",
-                "workspace_token": "org_5d271fa3a947b15f"
+                "created_at": "2023-09-12T05:06:54Z",
+                "workspace_token": "wrkspc_ad4debc4ecfe4819"
               }
             }
           },
@@ -716,15 +846,15 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_f394bc018806eba0",
+                    "token": "rprt_cc7aa2f5caa0b8f1",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "shrd_fltr_9251d17a02a60800"
+                      "svd_fltr_ce2bcefe4075566d"
                     ],
                     "filter": null,
-                    "created_at": "2023-08-28T15:51:01Z",
-                    "workspace_token": "org_5f1bfe8e96f00374"
+                    "created_at": "2023-09-12T05:06:51Z",
+                    "workspace_token": "wrkspc_21d33c2825e7288a"
                   }
                 ]
               }
@@ -816,15 +946,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_bbabfa83cea31aed",
+                "token": "rprt_b09d9ddcf70103dc",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_7b163c83a4157142",
+                "folder_token": "fldr_237684478b1c2447",
                 "saved_filter_tokens": [
-                  "shrd_fltr_a3dde6f936c83d2c"
+                  "svd_fltr_40d131c47464afc7"
                 ],
                 "filter": "(costs.provider = 'azure')",
-                "created_at": "2023-08-28T15:51:01Z",
-                "workspace_token": "org_8e260a6899ef3aee"
+                "created_at": "2023-09-12T05:07:35Z",
+                "workspace_token": "wrkspc_f7747e6da882b0ff"
               }
             }
           },
@@ -874,15 +1004,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_82b745f48f7e8427",
+                "token": "rprt_d3df3ba1970f88a7",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "shrd_fltr_121911718619506b"
+                  "svd_fltr_83314e1b3b84c4c6"
                 ],
                 "filter": null,
-                "created_at": "2023-08-28T15:51:01Z",
-                "workspace_token": "org_eb7ff83b37df3a5b"
+                "created_at": "2023-09-12T05:06:53Z",
+                "workspace_token": "wrkspc_87c17d9ce307cd01"
               }
             }
           },
@@ -933,10 +1063,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_b64b5b12b1b55227",
+                "token": "dshbrd_7375cfafdc76d75d",
                 "title": "New Dashboard",
                 "widget_tokens": [
-                  "rprt_07ebfb184b919dca"
+                  "rprt_c1ee989ed85f8bf5"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
@@ -944,7 +1074,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "org_1e3e289ca937fbdd"
+                "workspace_token": "wrkspc_d661047bc62df622"
               }
             }
           },
@@ -956,7 +1086,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Dashboards"
         ],
         "operationId": "createDashboard"
       },
@@ -1007,18 +1137,18 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_26158fbfddc91a06",
-                    "title": "Beneath the Bleeding",
+                    "token": "dshbrd_dc993aef24b7c74d",
+                    "title": "Things Fall Apart",
                     "widget_tokens": [
-                      "rprt_47bf7619facd974f"
+                      "rprt_fa30b058f86dc2d4"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2023-08-30T21:16:07Z",
-                    "updated_at": "2023-08-30T21:16:07Z",
-                    "workspace_token": "org_924d6423fbdbade6"
+                    "created_at": "2023-09-12T05:07:37Z",
+                    "updated_at": "2023-09-12T05:07:37Z",
+                    "workspace_token": "wrkspc_288e29a9531f922c"
                   }
                 ]
               }
@@ -1026,7 +1156,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Dashboards"
         ],
         "operationId": "getDashboards"
       }
@@ -1067,7 +1197,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Dashboards"
         ],
         "operationId": "deleteDashboard"
       },
@@ -1110,18 +1240,18 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_6d05dc20f425e2e5",
+                "token": "dshbrd_bfaf1eb2da29d91c",
                 "title": "Updated Dashboard",
                 "widget_tokens": [
-                  "rprt_1234467f639d088b"
+                  "rprt_badc6361e13a83fb"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
                 "end_date": "2023-08-31",
-                "created_at": "2023-08-31T18:24:33Z",
+                "created_at": "2023-09-12T05:06:54Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "org_d6365824347003fe"
+                "workspace_token": "wrkspc_a07113c8a27a3aff"
               }
             }
           },
@@ -1139,7 +1269,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Dashboards"
         ],
         "operationId": "updateDashboard"
       },
@@ -1180,18 +1310,18 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_cc707271f465a4b4",
-                    "title": "Infinite Jest",
+                    "token": "dshbrd_3fbac32495b1f5ef",
+                    "title": "Look Homeward, Angel",
                     "widget_tokens": [
-                      "rprt_96d1cddecf375fe6"
+                      "rprt_3582a790582b12ba"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2023-08-30T21:16:07Z",
-                    "updated_at": "2023-08-30T21:16:07Z",
-                    "workspace_token": "org_baa6d0b14dec6e1b"
+                    "created_at": "2023-09-12T05:07:37Z",
+                    "updated_at": "2023-09-12T05:07:37Z",
+                    "workspace_token": "wrkspc_1f8bad7f7efd4b8e"
                   }
                 ]
               }
@@ -1205,7 +1335,7 @@
           }
         },
         "tags": [
-          "Costs"
+          "Dashboards"
         ],
         "operationId": "getDashboard"
       }
@@ -1229,29 +1359,22 @@
             "name": "start_date",
             "description": "First date you would like to filter costs from. ISO 8601 formatted.",
             "type": "string",
-            "required": false,
-            "example": "2023-09-01"
+            "required": false
           },
           {
             "in": "query",
             "name": "end_date",
             "description": "Last date you would like to filter costs to. ISO 8601 formatted.",
             "type": "string",
-            "required": false,
-            "example": "2023-09-30"
+            "required": false
           },
           {
-            "in": "formData",
+            "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, be sure to use the following syntax: groupings[]=provider&groupings[]=service&groupings[]=region",
+            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, be sure to use the following syntax: groupings[]=provider&groupings[]=service&groupings[]=region",
             "type": "array",
             "items": {
-              "type": "string",
-              "default": [
-                "provider",
-                "service",
-                "account_id"
-              ]
+              "type": "string"
             },
             "required": false
           },
@@ -1292,10 +1415,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9",
-                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9&page=1",
+                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583",
+                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583&page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_b76c3f2707e407b9&page=1",
+                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583&page=1",
                   "prev": null
                 },
                 "total_cost": {
@@ -1308,7 +1431,7 @@
                     "amount": "100.0",
                     "currency": "USD",
                     "provider": "aws",
-                    "provider_account_id": "mock_56789",
+                    "account_id": "mock_56789",
                     "service": "AmazonSNS"
                   },
                   {
@@ -1316,7 +1439,7 @@
                     "amount": "100.0",
                     "currency": "USD",
                     "provider": "aws",
-                    "provider_account_id": "mock_56789",
+                    "account_id": "mock_56789",
                     "service": "AmazonSNS"
                   },
                   {
@@ -1324,7 +1447,7 @@
                     "amount": "100.0",
                     "currency": "USD",
                     "provider": "aws",
-                    "provider_account_id": "mock_56789",
+                    "account_id": "mock_56789",
                     "service": "AmazonSNS"
                   },
                   {
@@ -1332,7 +1455,7 @@
                     "amount": "100.0",
                     "currency": "USD",
                     "provider": "aws",
-                    "provider_account_id": "mock_56789",
+                    "account_id": "mock_56789",
                     "service": "AmazonSNS"
                   },
                   {
@@ -1340,7 +1463,7 @@
                     "amount": "100.0",
                     "currency": "USD",
                     "provider": "aws",
-                    "provider_account_id": "mock_56789",
+                    "account_id": "mock_56789",
                     "service": "AmazonSNS"
                   }
                 ]
@@ -1355,6 +1478,12 @@
           },
           "402": {
             "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
             "schema": {
               "$ref": "#/definitions/Errors"
             }
@@ -1396,6 +1525,50 @@
     }
   },
   "definitions": {
+    "Workspaces": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "workspaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Workspace"
+          }
+        }
+      },
+      "description": "Workspaces model"
+    },
+    "Workspace": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "Acme Corp.",
+          "description": "The name of the Workspace."
+        }
+      },
+      "description": "Workspace model"
+    },
+    "Errors": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Errors model"
+    },
     "postFolders": {
       "type": "object",
       "properties": {
@@ -1448,21 +1621,6 @@
         }
       },
       "description": "Folder model"
-    },
-    "Errors": {
-      "type": "object",
-      "properties": {
-        "links": {
-          "type": "object"
-        },
-        "errors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Errors model"
     },
     "Folders": {
       "type": "object",
@@ -1816,7 +1974,7 @@
         },
         "workspace_token": {
           "type": "string",
-          "example": "org_abcd1234567890",
+          "example": "wrkspc_abcd1234567890",
           "description": "The token for the Workspace the Dashboard is a part of."
         }
       },
