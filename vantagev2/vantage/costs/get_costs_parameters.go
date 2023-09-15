@@ -76,7 +76,7 @@ type GetCostsParams struct {
 
 	/* Groupings.
 
-	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, be sure to use the following syntax: groupings[]=provider&groupings[]=service&groupings[]=region
+	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	*/
 	Groupings []string
 
@@ -346,8 +346,8 @@ func (o *GetCostsParams) bindParamGroupings(formats strfmt.Registry) []string {
 		groupingsIC = append(groupingsIC, groupingsIIV)
 	}
 
-	// items.CollectionFormat: ""
-	groupingsIS := swag.JoinByFormat(groupingsIC, "")
+	// items.CollectionFormat: "csv"
+	groupingsIS := swag.JoinByFormat(groupingsIC, "csv")
 
 	return groupingsIS
 }
