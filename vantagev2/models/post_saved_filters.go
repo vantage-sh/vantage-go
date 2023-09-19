@@ -19,15 +19,15 @@ import (
 // swagger:model postSavedFilters
 type PostSavedFilters struct {
 
-	// The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport.
+	// The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
 	// The title of the SavedFilter.
 	// Required: true
 	Title *string `json:"title"`
 
-	// The Workplace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces.
-	WorkplaceToken string `json:"workplace_token,omitempty"`
+	// The Workspace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this post saved filters

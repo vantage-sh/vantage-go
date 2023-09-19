@@ -17,10 +17,10 @@ import (
 // swagger:model putCostReports
 type PutCostReports struct {
 
-	// The filter query language to apply to the CostReport.
+	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to.
+	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
 	// The tokens of the SavedFilters to apply to the CostReport.

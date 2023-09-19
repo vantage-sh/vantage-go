@@ -21,7 +21,7 @@ type CostReport struct {
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// The filter applied to the CostReport.
+	// The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
 	// The token for the Folder the CostReport is a part of.

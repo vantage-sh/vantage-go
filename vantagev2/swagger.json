@@ -1659,13 +1659,13 @@
           "type": "string",
           "description": "The title of the SavedFilter."
         },
-        "workplace_token": {
+        "workspace_token": {
           "type": "string",
-          "description": "The Workplace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces."
+          "description": "The Workspace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces."
         },
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport."
+          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "required": [
@@ -1698,7 +1698,7 @@
         "filter": {
           "type": "string",
           "example": "costs.provider = 'azure'",
-          "description": "The SavedFilter's filter, applied to any relevant CostReports."
+          "description": "The SavedFilter's filter, applied to any relevant CostReports. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "created_at": {
           "type": "string",
@@ -1740,7 +1740,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport."
+          "description": "The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "description": "Update a SavedFilter for CostReports."
@@ -1758,7 +1758,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the CostReport."
+          "description": "The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "saved_filter_tokens": {
           "type": "array",
@@ -1769,7 +1769,7 @@
         },
         "folder_token": {
           "type": "string",
-          "description": "The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to."
+          "description": "The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to."
         }
       },
       "required": [
@@ -1801,7 +1801,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The filter applied to the CostReport."
+          "description": "The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "created_at": {
           "type": "string",
@@ -1839,7 +1839,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the CostReport."
+          "description": "The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "saved_filter_tokens": {
           "type": "array",
@@ -1850,7 +1850,7 @@
         },
         "folder_token": {
           "type": "string",
-          "description": "The token of the Folder to add the CostReport to. Determines the Workplace the report is assigned to."
+          "description": "The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to."
         }
       },
       "description": "Update a CostReport."

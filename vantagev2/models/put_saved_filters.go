@@ -17,7 +17,7 @@ import (
 // swagger:model putSavedFilters
 type PutSavedFilters struct {
 
-	// The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport.
+	// The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
 	// The title of the SavedFilter.
