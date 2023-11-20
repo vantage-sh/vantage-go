@@ -35,6 +35,12 @@ func (o *CreateCostReportReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+	case 422:
+		result := NewCreateCostReportUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[POST /cost_reports] createCostReport", response, response.Code())
 	}
@@ -165,6 +171,74 @@ func (o *CreateCostReportBadRequest) GetPayload() *models.Errors {
 }
 
 func (o *CreateCostReportBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateCostReportUnprocessableEntity creates a CreateCostReportUnprocessableEntity with default headers values
+func NewCreateCostReportUnprocessableEntity() *CreateCostReportUnprocessableEntity {
+	return &CreateCostReportUnprocessableEntity{}
+}
+
+/*
+CreateCostReportUnprocessableEntity describes a response with status code 422, with default header values.
+
+UnprocessableEntity
+*/
+type CreateCostReportUnprocessableEntity struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this create cost report unprocessable entity response has a 2xx status code
+func (o *CreateCostReportUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create cost report unprocessable entity response has a 3xx status code
+func (o *CreateCostReportUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create cost report unprocessable entity response has a 4xx status code
+func (o *CreateCostReportUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create cost report unprocessable entity response has a 5xx status code
+func (o *CreateCostReportUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create cost report unprocessable entity response a status code equal to that given
+func (o *CreateCostReportUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the create cost report unprocessable entity response
+func (o *CreateCostReportUnprocessableEntity) Code() int {
+	return 422
+}
+
+func (o *CreateCostReportUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateCostReportUnprocessableEntity) String() string {
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateCostReportUnprocessableEntity) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *CreateCostReportUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Errors)
 

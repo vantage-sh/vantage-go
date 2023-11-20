@@ -24,6 +24,9 @@ type Folder struct {
 	// The token for the parent Folder, if any.
 	ParentFolderToken string `json:"parent_folder_token,omitempty"`
 
+	// The tokens for the SavedFilters assigned to the Folder.
+	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
 	// The title of the Folder.
 	// Example: Platform Team Reports
 	Title string `json:"title,omitempty"`

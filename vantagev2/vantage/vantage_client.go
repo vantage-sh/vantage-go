@@ -10,11 +10,14 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/users"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/workspaces"
 )
 
@@ -60,11 +63,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 
 	cli := new(Vantage)
 	cli.Transport = transport
+	cli.AccessGrants = access_grants.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.Filters = filters.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
+	cli.Teams = teams.New(transport, formats)
+	cli.Users = users.New(transport, formats)
 	cli.Workspaces = workspaces.New(transport, formats)
 	return cli
 }
@@ -110,6 +116,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Vantage is a client for vantage
 type Vantage struct {
+	AccessGrants access_grants.ClientService
+
 	Costs costs.ClientService
 
 	Dashboards dashboards.ClientService
@@ -120,6 +128,10 @@ type Vantage struct {
 
 	Ping ping.ClientService
 
+	Teams teams.ClientService
+
+	Users users.ClientService
+
 	Workspaces workspaces.ClientService
 
 	Transport runtime.ClientTransport
@@ -128,10 +140,13 @@ type Vantage struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+	c.AccessGrants.SetTransport(transport)
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
 	c.Filters.SetTransport(transport)
 	c.Folders.SetTransport(transport)
 	c.Ping.SetTransport(transport)
+	c.Teams.SetTransport(transport)
+	c.Users.SetTransport(transport)
 	c.Workspaces.SetTransport(transport)
 }

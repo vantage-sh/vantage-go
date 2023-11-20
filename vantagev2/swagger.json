@@ -8,7 +8,7 @@
       "email": "support@vantage.sh",
       "url": "https://www.vantage.sh"
     },
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "swagger": "2.0",
   "produces": [
@@ -57,6 +57,18 @@
     {
       "name": "Dashboards",
       "description": "Operations about Dashboards"
+    },
+    {
+      "name": "Teams",
+      "description": "Operations about Teams"
+    },
+    {
+      "name": "AccessGrants",
+      "description": "Operations about AccessGrants"
+    },
+    {
+      "name": "Users",
+      "description": "Operations about Users"
     },
     {
       "name": "Ping",
@@ -506,6 +518,12 @@
             "schema": {
               "$ref": "#/definitions/Errors"
             }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -681,6 +699,12 @@
             "schema": {
               "$ref": "#/definitions/Errors"
             }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -789,6 +813,12 @@
           },
           "400": {
             "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
             "schema": {
               "$ref": "#/definitions/Errors"
             }
@@ -1496,6 +1526,743 @@
         "operationId": "getCosts"
       }
     },
+    "/teams": {
+      "post": {
+        "description": "Create a new Team.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Teams",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postTeams"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            },
+            "examples": {
+              "application/json": {
+                "token": "team_8467157535a30221",
+                "name": "New Team",
+                "description": "New Team Description",
+                "workspace_tokens": [
+                  "wrkspc_52b6e5e663b4cde1"
+                ],
+                "user_tokens": [
+                  "usr_a00e614b5843c234"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "createTeam"
+      },
+      "get": {
+        "description": "Return all Teams that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Teams"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/teams",
+                  "first": "https://api.vantage.com/v2/teams?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/teams?page=1",
+                  "prev": null
+                },
+                "teams": [
+                  {
+                    "token": "team_2d4733920ec4385e",
+                    "name": "New Mexico people",
+                    "description": "Consequuntur ratione.",
+                    "workspace_tokens": [
+                      "wrkspc_08026aa5fb4c90f8"
+                    ],
+                    "user_tokens": [
+                      "usr_c59398553e838116"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "getTeams"
+      }
+    },
+    "/teams/{team_token}": {
+      "delete": {
+        "description": "Delete a Team.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "deleteTeam"
+      },
+      "put": {
+        "description": "Update a Team.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Teams",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putTeams"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            },
+            "examples": {
+              "application/json": {
+                "token": "team_d617e73dcc6b57c5",
+                "name": "Updated Team",
+                "description": "Updated Team Description",
+                "workspace_tokens": [
+                  "wrkspc_efc4284a56772481"
+                ],
+                "user_tokens": [
+                  "usr_d268561e520c7aac"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "updateTeam"
+      },
+      "get": {
+        "description": "Return a specific Team.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            },
+            "examples": {
+              "application/json": {
+                "token": "team_081e09bbb812d369",
+                "name": "Missouri cats",
+                "description": "Voluptas et.",
+                "workspace_tokens": [
+                  "wrkspc_ddc003a2f0171bf8"
+                ],
+                "user_tokens": [
+                  "usr_7c309915e847cfc6"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "getTeam"
+      }
+    },
+    "/access_grants": {
+      "post": {
+        "description": "Create an Access Grant.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccessGrants",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postAccessGrants"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrant"
+            },
+            "examples": {
+              "application/json": {
+                "resource_token": "rprt_53ade6a7dfafa05d",
+                "access": "denied",
+                "team_token": "team_bb656bae5a79da4a",
+                "created_at": "2023-10-02T18:56:27Z",
+                "created_by": "usr_e4152372889fe8aa"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "406": {
+            "description": "NotAcceptable",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "createAccessGrant"
+      },
+      "get": {
+        "description": "Return all Access Grants that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrants"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/access_grants",
+                  "first": "https://api.vantage.com/v2/access_grants?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/access_grants?page=1",
+                  "prev": null
+                },
+                "access_grants": [
+                  {
+                    "resource_token": "rprt_92db906d7a341d97",
+                    "access": "denied",
+                    "team_token": "team_89703a7829b88656",
+                    "created_at": "2023-09-26T21:15:15Z",
+                    "created_by": "usr_b9c87c29f70397bc"
+                  },
+                  {
+                    "resource_token": "dshbrd_d9dc57d698dc64b5",
+                    "access": "allowed",
+                    "team_token": "team_89703a7829b88656",
+                    "created_at": "2023-09-26T21:15:15Z",
+                    "created_by": "usr_b9c87c29f70397bc"
+                  },
+                  {
+                    "resource_token": "fldr_211beafb22c40363",
+                    "access": "allowed",
+                    "team_token": "team_89703a7829b88656",
+                    "created_at": "2023-09-26T21:15:15Z",
+                    "created_by": "usr_b9c87c29f70397bc"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "getAccessGrants"
+      }
+    },
+    "/access_grants/{resource_token}": {
+      "delete": {
+        "description": "Delete an Access Grant.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "team_token",
+            "description": "The token for the Team you want to delete the Access Grant for.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The token of the Workspace the resource belongs to.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "resource_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrant"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "deleteAccessGrant"
+      },
+      "put": {
+        "description": "Update an AccessGrant.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "AccessGrants",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putAccessGrants"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrant"
+            },
+            "examples": {
+              "application/json": {
+                "resource_token": "rprt_abb9d343ee62032c",
+                "access": "allowed",
+                "team_token": "team_357d284d0768ac6d",
+                "created_at": "2023-09-28T22:40:10Z",
+                "created_by": "usr_30dfb5908771a772"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "updateAccessGrant"
+      }
+    },
+    "/users": {
+      "get": {
+        "description": "Return all Users that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/users",
+                  "first": "https://api.vantage.com/v2/users?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/users?page=1",
+                  "prev": null
+                },
+                "users": [
+                  {
+                    "token": "usr_3f30f56e7773e72b",
+                    "name": "Pres. Sudie Kuvalis",
+                    "email": "kuvalis.sudie.pres@mckenzie-herman.net",
+                    "role": "Owner"
+                  },
+                  {
+                    "token": "usr_dc69dfedf704d4ea",
+                    "name": "Carisa Tromp",
+                    "email": "carisa.tromp@morissette.co",
+                    "role": "Viewer"
+                  }
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUsers"
+      }
+    },
+    "/users/{user_token}": {
+      "get": {
+        "description": "Return a specific User.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {
+              "application/json": {
+                "token": "usr_92c7273af4de2fb4",
+                "name": "Miss Shirlene Weissnat",
+                "email": "miss.shirlene.weissnat@west-howe.net",
+                "role": "Owner"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUser"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -1581,6 +2348,13 @@
           "type": "string",
           "description": "The token of the parent Folder."
         },
+        "saved_filter_tokens": {
+          "type": "array",
+          "description": "The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.",
+          "items": {
+            "type": "string"
+          }
+        },
         "workspace_token": {
           "type": "string",
           "description": "The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces."
@@ -1605,6 +2379,13 @@
         "parent_folder_token": {
           "type": "string",
           "description": "The token for the parent Folder, if any."
+        },
+        "saved_filter_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens for the SavedFilters assigned to the Folder."
         },
         "created_at": {
           "type": "string",
@@ -1648,6 +2429,13 @@
         "parent_folder_token": {
           "type": "string",
           "description": "The token of the parent Folder."
+        },
+        "saved_filter_tokens": {
+          "type": "array",
+          "description": "The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "description": "Update a Folder for CostReports."
@@ -1889,7 +2677,10 @@
             "last_month",
             "last_3_months",
             "last_6_months",
-            "custom"
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months"
           ]
         },
         "start_date": {
@@ -1949,7 +2740,10 @@
             "last_month",
             "last_3_months",
             "last_6_months",
-            "custom"
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months"
           ],
           "description": "Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
@@ -2030,7 +2824,10 @@
             "last_month",
             "last_3_months",
             "last_6_months",
-            "custom"
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months"
           ]
         },
         "start_date": {
@@ -2065,6 +2862,279 @@
         }
       },
       "description": "Costs model"
+    },
+    "postTeams": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the Team."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the Team."
+        },
+        "workspace_tokens": {
+          "type": "array",
+          "description": "The Workspace tokens to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The User tokens to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string",
+          "description": "The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.",
+          "enum": [
+            "owner",
+            "editor",
+            "viewer"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "Create a new Team."
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "Cost Savers",
+          "description": "The name of the Team."
+        },
+        "description": {
+          "type": "string",
+          "example": "The Team that saves costs",
+          "description": "The description of the Team."
+        },
+        "workspace_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "wrkspc_abcd1234",
+              "wrkspc_efgh5678"
+            ]
+          },
+          "description": "The tokens for any Workspaces that the Team belongs to"
+        },
+        "user_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "usr_abcd1234",
+              "usr_efgh5678"
+            ]
+          },
+          "description": "The tokens for any Users that belong to the Team"
+        }
+      },
+      "description": "Team model"
+    },
+    "Teams": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Team"
+          }
+        }
+      },
+      "description": "Teams model"
+    },
+    "putTeams": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the Team."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the Team."
+        },
+        "workspace_tokens": {
+          "type": "array",
+          "description": "The Workspace tokens to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The User tokens to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string",
+          "description": "The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.",
+          "enum": [
+            "owner",
+            "editor",
+            "viewer"
+          ]
+        }
+      },
+      "description": "Update a Team."
+    },
+    "postAccessGrants": {
+      "type": "object",
+      "properties": {
+        "resource_token": {
+          "type": "string",
+          "description": "The token of the resource for which you are granting access."
+        },
+        "team_token": {
+          "type": "string",
+          "description": "The token of the Team you want to grant access to."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the resource belongs to."
+        },
+        "access": {
+          "type": "string",
+          "description": "The access level you want to grant. Defaults to 'allowed'.",
+          "enum": [
+            "denied",
+            "allowed"
+          ]
+        }
+      },
+      "required": [
+        "resource_token",
+        "team_token",
+        "workspace_token"
+      ],
+      "description": "Create an Access Grant."
+    },
+    "AccessGrant": {
+      "type": "object",
+      "properties": {
+        "resource_token": {
+          "type": "string",
+          "example": "rprt_abcd1234",
+          "description": "The token for any resource the AccessGrant is applied to."
+        },
+        "access": {
+          "type": "string",
+          "description": "The access status of the AccessGrant."
+        },
+        "team_token": {
+          "type": "string",
+          "description": "The Team token for which an AccessGrant is applied to."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the AccessGrant was created. ISO 8601 Formatted."
+        },
+        "created_by": {
+          "type": "string",
+          "description": "The token for the User who created the AccessGrant."
+        }
+      },
+      "description": "AccessGrant model"
+    },
+    "AccessGrants": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "access_grants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AccessGrant"
+          }
+        }
+      },
+      "description": "AccessGrants model"
+    },
+    "putAccessGrants": {
+      "type": "object",
+      "properties": {
+        "team_token": {
+          "type": "string",
+          "description": "The token for the Team you want to update the Access Grant for."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the resource belongs to."
+        },
+        "access": {
+          "type": "string",
+          "description": "Allowed or denied access to resource.",
+          "enum": [
+            "denied",
+            "allowed"
+          ]
+        }
+      },
+      "required": [
+        "team_token",
+        "workspace_token",
+        "access"
+      ],
+      "description": "Update an AccessGrant."
+    },
+    "Users": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      },
+      "description": "Users model"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe",
+          "description": "The name of the User."
+        },
+        "email": {
+          "type": "string",
+          "example": "john_doe@acme.com",
+          "description": "The email of the User."
+        },
+        "role": {
+          "type": "string",
+          "example": "Admin",
+          "description": "The role of the User."
+        }
+      },
+      "description": "User model"
     }
   }
 }

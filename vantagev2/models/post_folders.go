@@ -22,6 +22,9 @@ type PostFolders struct {
 	// The token of the parent Folder.
 	ParentFolderToken string `json:"parent_folder_token,omitempty"`
 
+	// The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
+	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
 	// The title of the Folder.
 	// Required: true
 	Title *string `json:"title"`

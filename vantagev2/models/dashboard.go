@@ -29,7 +29,7 @@ type Dashboard struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
-	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
@@ -130,7 +130,7 @@ var dashboardTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -160,6 +160,15 @@ const (
 
 	// DashboardDateIntervalCustom captures enum value "custom"
 	DashboardDateIntervalCustom string = "custom"
+
+	// DashboardDateIntervalLast12Months captures enum value "last_12_months"
+	DashboardDateIntervalLast12Months string = "last_12_months"
+
+	// DashboardDateIntervalLast24Months captures enum value "last_24_months"
+	DashboardDateIntervalLast24Months string = "last_24_months"
+
+	// DashboardDateIntervalLast36Months captures enum value "last_36_months"
+	DashboardDateIntervalLast36Months string = "last_36_months"
 )
 
 // prop value enum

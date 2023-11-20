@@ -25,7 +25,7 @@ type PostDashboards struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
-	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -124,7 +124,7 @@ var postDashboardsTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -154,6 +154,15 @@ const (
 
 	// PostDashboardsDateIntervalCustom captures enum value "custom"
 	PostDashboardsDateIntervalCustom string = "custom"
+
+	// PostDashboardsDateIntervalLast12Months captures enum value "last_12_months"
+	PostDashboardsDateIntervalLast12Months string = "last_12_months"
+
+	// PostDashboardsDateIntervalLast24Months captures enum value "last_24_months"
+	PostDashboardsDateIntervalLast24Months string = "last_24_months"
+
+	// PostDashboardsDateIntervalLast36Months captures enum value "last_36_months"
+	PostDashboardsDateIntervalLast36Months string = "last_36_months"
 )
 
 // prop value enum

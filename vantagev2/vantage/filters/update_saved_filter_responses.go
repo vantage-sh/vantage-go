@@ -41,6 +41,12 @@ func (o *UpdateSavedFilterReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+	case 422:
+		result := NewUpdateSavedFilterUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[PUT /saved_filters/{saved_filter_token}] updateSavedFilter", response, response.Code())
 	}
@@ -239,6 +245,74 @@ func (o *UpdateSavedFilterNotFound) GetPayload() *models.Errors {
 }
 
 func (o *UpdateSavedFilterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateSavedFilterUnprocessableEntity creates a UpdateSavedFilterUnprocessableEntity with default headers values
+func NewUpdateSavedFilterUnprocessableEntity() *UpdateSavedFilterUnprocessableEntity {
+	return &UpdateSavedFilterUnprocessableEntity{}
+}
+
+/*
+UpdateSavedFilterUnprocessableEntity describes a response with status code 422, with default header values.
+
+UnprocessableEntity
+*/
+type UpdateSavedFilterUnprocessableEntity struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this update saved filter unprocessable entity response has a 2xx status code
+func (o *UpdateSavedFilterUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update saved filter unprocessable entity response has a 3xx status code
+func (o *UpdateSavedFilterUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update saved filter unprocessable entity response has a 4xx status code
+func (o *UpdateSavedFilterUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update saved filter unprocessable entity response has a 5xx status code
+func (o *UpdateSavedFilterUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update saved filter unprocessable entity response a status code equal to that given
+func (o *UpdateSavedFilterUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the update saved filter unprocessable entity response
+func (o *UpdateSavedFilterUnprocessableEntity) Code() int {
+	return 422
+}
+
+func (o *UpdateSavedFilterUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UpdateSavedFilterUnprocessableEntity) String() string {
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UpdateSavedFilterUnprocessableEntity) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *UpdateSavedFilterUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Errors)
 
