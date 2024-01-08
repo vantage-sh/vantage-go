@@ -55,6 +55,10 @@
       "description": "Operations about Costs"
     },
     {
+      "name": "Segments",
+      "description": "Operations about Segments"
+    },
+    {
       "name": "Dashboards",
       "description": "Operations about Dashboards"
     },
@@ -1059,6 +1063,300 @@
         "operationId": "getCostReport"
       }
     },
+    "/segments": {
+      "post": {
+        "description": "Create a Segment.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Segments",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postSegments"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Segment"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fltr_sgmt_a793ce52205ca223",
+                "title": "New Segment",
+                "parent_folder": "fldr_67cc2920f22dea24",
+                "description": "I'm a Segment.",
+                "track_unallocated": false,
+                "priority": 100,
+                "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service')",
+                "created_at": "2023-12-06T21:52:17Z",
+                "workspace_token": "wrkspc_d7cc0e18885d3b0f"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Segments"
+        ],
+        "operationId": "createSegment"
+      },
+      "get": {
+        "description": "Return all Segments.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Segments"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/segments",
+                  "first": "https://api.vantage.com/v2/segments?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/segments?page=1",
+                  "prev": null
+                },
+                "segments": [
+                  {
+                    "token": "fltr_sgmt_f23a067af4cbfebb",
+                    "title": "productivity",
+                    "parent_folder": "fldr_065c0321590afe4c",
+                    "description": "Adaptive modular framework",
+                    "track_unallocated": false,
+                    "priority": 100,
+                    "filter": "(costs.provider = 'aws')",
+                    "created_at": "2023-12-06T21:52:16Z",
+                    "workspace_token": "wrkspc_2bd5f2e610472d04"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Segments"
+        ],
+        "operationId": "getSegments"
+      }
+    },
+    "/segments/{segment_token}": {
+      "delete": {
+        "description": "Delete a Segment.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "segment_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Segment"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Segments"
+        ],
+        "operationId": "deleteSegment"
+      },
+      "put": {
+        "description": "Update a Segment.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "segment_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Segments",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putSegments"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Segment"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fltr_sgmt_726b302b3d691245",
+                "title": "Updated Segment",
+                "parent_folder": "fldr_c9543f1acba5309b",
+                "description": "Public-key content-based hub",
+                "track_unallocated": false,
+                "priority": 100,
+                "filter": "(costs.provider = 'azure')",
+                "created_at": "2023-12-06T21:52:17Z",
+                "workspace_token": "wrkspc_59a7f679811b54f1"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Segments"
+        ],
+        "operationId": "updateSegment"
+      },
+      "get": {
+        "description": "Return a Segment.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "segment_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Segment"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fltr_sgmt_8e138f7c45c38b60",
+                "title": "Implemented",
+                "parent_folder": "fldr_b39a7568a602e4ce",
+                "description": "Reduced leading edge product",
+                "track_unallocated": false,
+                "priority": 100,
+                "filter": "(costs.provider = 'aws')",
+                "created_at": "2023-12-06T21:52:17Z",
+                "workspace_token": "wrkspc_142784e7422458fa"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Segments"
+        ],
+        "operationId": "getSegment"
+      }
+    },
     "/dashboards": {
       "post": {
         "description": "Create a Dashboard.",
@@ -1401,7 +1699,7 @@
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
             "type": "array",
             "items": {
               "type": "string"
@@ -2642,6 +2940,130 @@
         }
       },
       "description": "Update a CostReport."
+    },
+    "postSegments": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Segment."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the Segment."
+        },
+        "priority": {
+          "type": "string",
+          "description": "The priority of the Segment."
+        },
+        "track_unallocated": {
+          "type": "boolean",
+          "description": "Track Unallocated Costs which are not assigned to any of the created Segments."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "parent_segment_token": {
+          "type": "string",
+          "description": "The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to."
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "description": "Create a Segment."
+    },
+    "Segment": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "OPEX",
+          "description": "The title of the Segment."
+        },
+        "parent_folder": {
+          "type": "string",
+          "description": "The parent folder of this Segment."
+        },
+        "description": {
+          "type": "string",
+          "example": "Operating expenses",
+          "description": "The description of the Segment."
+        },
+        "track_unallocated": {
+          "type": "string",
+          "example": "false",
+          "description": "Track Unallocated Costs which are not assigned to any of the created segments."
+        },
+        "priority": {
+          "type": "string",
+          "example": "100",
+          "description": "Costs are assigned in priority order across all segments with assigned filters."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the SegmentFilter. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the segment was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the Segment is a part of."
+        }
+      },
+      "description": "Segment model"
+    },
+    "Segments": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Segment"
+          }
+        }
+      },
+      "description": "Segments model"
+    },
+    "putSegments": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Segment."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the Segment."
+        },
+        "track_unallocated": {
+          "type": "boolean",
+          "description": "Track Unallocated Costs which are not assigned to any of the created Segments."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "parent_segment_token": {
+          "type": "string",
+          "description": "The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to."
+        }
+      },
+      "description": "Update a Segment."
     },
     "postDashboards": {
       "type": "object",

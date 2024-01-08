@@ -76,7 +76,7 @@ type GetCostsParams struct {
 
 	/* Groupings.
 
-	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, cost_category, cost_subcategory, provider, service, tag:<tag_value>, region, resource_id. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	*/
 	Groupings []string
 

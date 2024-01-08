@@ -705,7 +705,7 @@
           {
             "in": "query",
             "name": "grouping",
-            "description": "Group the results by specific field(s). Valid groupings: account_id, billing_account_id, cost_category, cost_sub_category, provider, service, tag:<tag_value>, region, folder_id, resource_id. If providing multiple groupings, be sure to use the following syntax: grouping[]=provider&grouping[]=service&grouping[]=account_id",
+            "description": "Group the results by specific field(s). Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_sub_category, provider, service, tag:<tag_value>, region, folder_id, resource_id. If providing multiple groupings, be sure to use the following syntax: grouping[]=provider&grouping[]=service&grouping[]=account_id",
             "type": "string",
             "required": false
           }
