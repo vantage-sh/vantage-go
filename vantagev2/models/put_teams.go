@@ -30,6 +30,9 @@ type PutTeams struct {
 	// Enum: [owner editor viewer]
 	Role string `json:"role,omitempty"`
 
+	// The User emails to associate to the Team.
+	UserEmails []string `json:"user_emails"`
+
 	// The User tokens to associate to the Team.
 	UserTokens []string `json:"user_tokens"`
 

@@ -28,7 +28,10 @@ type Team struct {
 	// token
 	Token string `json:"token,omitempty"`
 
-	// The tokens for any Users that belong to the Team
+	// The email addresses for Users that belong to the Team
+	UserEmails []string `json:"user_emails"`
+
+	// The tokens for Users that belong to the Team
 	UserTokens []string `json:"user_tokens"`
 
 	// The tokens for any Workspaces that the Team belongs to

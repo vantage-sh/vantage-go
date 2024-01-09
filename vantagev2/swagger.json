@@ -3310,6 +3310,13 @@
             "type": "string"
           }
         },
+        "user_emails": {
+          "type": "array",
+          "description": "The User emails to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
         "role": {
           "type": "string",
           "description": "The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.",
@@ -3352,6 +3359,17 @@
           },
           "description": "The tokens for any Workspaces that the Team belongs to"
         },
+        "user_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "wileycoyote@acme.com",
+              "roadrunner@acme.com"
+            ]
+          },
+          "description": "The email addresses for Users that belong to the Team"
+        },
         "user_tokens": {
           "type": "array",
           "items": {
@@ -3361,7 +3379,7 @@
               "usr_efgh5678"
             ]
           },
-          "description": "The tokens for any Users that belong to the Team"
+          "description": "The tokens for Users that belong to the Team"
         }
       },
       "description": "Team model"
@@ -3402,6 +3420,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The User tokens to associate to the Team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user_emails": {
+          "type": "array",
+          "description": "The User emails to associate to the Team.",
           "items": {
             "type": "string"
           }
