@@ -75,6 +75,10 @@
       "description": "Operations about Users"
     },
     {
+      "name": "Prices",
+      "description": "Operations about Prices"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -2561,6 +2565,343 @@
         "operationId": "getUser"
       }
     },
+    "/products": {
+      "get": {
+        "description": "Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "provider_id",
+            "description": "Query by Provider to list all Products across all Services for a Provider. e.g. aws",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "service_id",
+            "description": "Query by Service to list all Products for a specific provider service. e.g. aws-ec2",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Query by name of the Product to see a list of products which match that name. e.g. m5a.16xlarge",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v1/products",
+                  "first": "https://api.vantage.com/v1/products?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v1/products?page=1",
+                  "prev": null
+                },
+                "products": [
+                  {
+                    "id": "aws-ec2-m5d_16xlarge",
+                    "category": "compute",
+                    "name": "m5d.16xlarge",
+                    "service_id": "aws-ec2",
+                    "provider_id": "aws",
+                    "details": {
+                      "gpu": 0,
+                      "name": "M5 General Purpose 16xlarge",
+                      "vcpu": 64,
+                      "memory": 256,
+                      "clock_speed_ghz": 3.1,
+                      "physical_processor_description": "Intel Xeon Platinum 8175 (Skylake)",
+                      "network_performance_description": "20 Gigabit"
+                    }
+                  },
+                  {
+                    "id": "aws-ec2-c5a_8xlarge",
+                    "category": "compute",
+                    "name": "c5a.8xlarge",
+                    "service_id": "aws-ec2",
+                    "provider_id": "aws",
+                    "details": {
+                      "gpu": 0,
+                      "name": "C5A 8xlarge",
+                      "vcpu": 64,
+                      "memory": 256
+                    }
+                  },
+                  {
+                    "id": "aws-ec2-c5a_4large",
+                    "category": "compute",
+                    "name": "c5a.4large",
+                    "service_id": "aws-ec2",
+                    "provider_id": "aws",
+                    "details": {
+                      "gpu": 0,
+                      "name": "C5A 4large",
+                      "vcpu": 64,
+                      "memory": 4
+                    }
+                  },
+                  {
+                    "id": "aws-s3-standard",
+                    "category": "object_storage",
+                    "name": "standard",
+                    "service_id": "aws-s3",
+                    "provider_id": "aws",
+                    "details": {}
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "operationId": "getProducts"
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "description": "Return a product",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            },
+            "examples": {
+              "application/json": {
+                "id": "aws-ec2-m5d_16xlarge",
+                "category": "compute",
+                "name": "m5d.16xlarge",
+                "service_id": "aws-ec2",
+                "provider_id": "aws",
+                "details": {
+                  "gpu": 0,
+                  "name": "M5 General Purpose 16xlarge",
+                  "vcpu": 64,
+                  "memory": 256,
+                  "clock_speed_ghz": 3.1,
+                  "physical_processor_description": "Intel Xeon Platinum 8175 (Skylake)",
+                  "network_performance_description": "20 Gigabit"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "operationId": "getProduct"
+      }
+    },
+    "/products/{product_id}/prices": {
+      "get": {
+        "description": "Return available Prices across all Regions for a Product.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Prices"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices",
+                  "first": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "prev": null
+                },
+                "prices": [
+                  {
+                    "id": "aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise",
+                    "unit": "hour",
+                    "region": "eu-central-1",
+                    "rate_type": "compute",
+                    "currency": "USD",
+                    "amount": 27.328,
+                    "details": {
+                      "platform": "linux-enterprise",
+                      "lifecycle": "on-demand"
+                    }
+                  },
+                  {
+                    "id": "aws-ec2-m5d_16xlarge-us_east_1-on_demand-linux_enterprise",
+                    "unit": "hour",
+                    "region": "us-east-1",
+                    "rate_type": "compute",
+                    "currency": "USD",
+                    "amount": 3.616,
+                    "details": {
+                      "platform": "linux-enterprise",
+                      "lifecycle": "on-demand"
+                    }
+                  },
+                  {
+                    "id": "aws-ec2-m5d_16xlarge-us_east_1-on_demand-rhel",
+                    "unit": "hour",
+                    "region": "us-east-1",
+                    "rate_type": "compute",
+                    "currency": "USD",
+                    "amount": 3.746,
+                    "details": {
+                      "platform": "rhel",
+                      "lifecycle": "on-demand"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "operationId": "getPrices"
+      }
+    },
+    "/products/{product_id}/prices/{id}": {
+      "get": {
+        "description": "Returns a price",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Price"
+            },
+            "examples": {
+              "application/json": {
+                "id": "aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise",
+                "unit": "hour",
+                "region": "eu-central-1",
+                "rate_type": "compute",
+                "currency": "USD",
+                "amount": 27.328,
+                "details": {
+                  "platform": "linux-enterprise",
+                  "lifecycle": "on-demand"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Prices"
+        ],
+        "operationId": "getPrice"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -2999,13 +3340,14 @@
           "description": "The description of the Segment."
         },
         "track_unallocated": {
-          "type": "string",
-          "example": "false",
+          "type": "boolean",
+          "example": false,
           "description": "Track Unallocated Costs which are not assigned to any of the created segments."
         },
         "priority": {
-          "type": "string",
-          "example": "100",
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
           "description": "Costs are assigned in priority order across all segments with assigned filters."
         },
         "filter": {
@@ -3582,6 +3924,120 @@
         }
       },
       "description": "User model"
+    },
+    "Products": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        }
+      },
+      "description": "Products model"
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "example": "compute",
+          "description": "The category of the cloud product"
+        },
+        "name": {
+          "type": "string",
+          "example": "EC2",
+          "description": "The common name of the product."
+        },
+        "service_id": {
+          "type": "string",
+          "example": "aws-ec2",
+          "description": "A unique slug for the service the product belongs to."
+        },
+        "provider_id": {
+          "type": "string",
+          "example": "aws",
+          "description": "A unique slug for the provider the product belongs to."
+        },
+        "details": {
+          "type": "object",
+          "example": {
+            "gpu": 0,
+            "name": "M5 General Purpose 16xlarge",
+            "vcpu": 64,
+            "memory": 256,
+            "clock_speed_ghz": 3.1,
+            "physical_processor_description": "Intel Xeon Platinum 8175 (Skylake)",
+            "network_performance_description": "20 Gigabit"
+          },
+          "description": "An object of metadata about the product."
+        }
+      },
+      "description": "Product model"
+    },
+    "Prices": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "prices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Price"
+          }
+        }
+      },
+      "description": "Prices model"
+    },
+    "Price": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string",
+          "example": "hour",
+          "description": "The unit in which the amount is billed."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-east-1",
+          "description": "The region the price is specific to."
+        },
+        "rate_type": {
+          "type": "string",
+          "example": "compute",
+          "description": "The part of the product the price applies to. (compute, transfer, etc..)"
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "description": "The currency of the amount."
+        },
+        "amount": {
+          "type": "number",
+          "example": "1.324",
+          "description": "The amount of money this specific product price costs."
+        },
+        "details": {
+          "type": "object",
+          "example": {
+            "platform": "linux-enterprise",
+            "lifecycle": "on-demand"
+          },
+          "description": "Service specific metadata."
+        }
+      },
+      "description": "Price model"
     }
   }
 }

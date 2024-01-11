@@ -33,7 +33,7 @@ type Segment struct {
 
 	// Costs are assigned in priority order across all segments with assigned filters.
 	// Example: 100
-	Priority string `json:"priority,omitempty"`
+	Priority int32 `json:"priority,omitempty"`
 
 	// The title of the Segment.
 	// Example: OPEX
@@ -44,7 +44,7 @@ type Segment struct {
 
 	// Track Unallocated Costs which are not assigned to any of the created segments.
 	// Example: false
-	TrackUnallocated string `json:"track_unallocated,omitempty"`
+	TrackUnallocated bool `json:"track_unallocated,omitempty"`
 
 	// The token for the Workspace the Segment is a part of.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
