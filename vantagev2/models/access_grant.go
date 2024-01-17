@@ -33,6 +33,9 @@ type AccessGrant struct {
 
 	// The Team token for which an AccessGrant is applied to.
 	TeamToken string `json:"team_token,omitempty"`
+
+	// token
+	Token string `json:"token,omitempty"`
 }
 
 // Validate validates this access grant

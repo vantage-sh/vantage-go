@@ -29,7 +29,7 @@ type PostSegments struct {
 	ParentSegmentToken string `json:"parent_segment_token,omitempty"`
 
 	// The priority of the Segment.
-	Priority string `json:"priority,omitempty"`
+	Priority int32 `json:"priority,omitempty"`
 
 	// The title of the Segment.
 	// Required: true
