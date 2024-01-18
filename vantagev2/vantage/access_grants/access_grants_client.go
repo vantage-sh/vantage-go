@@ -34,6 +34,8 @@ type ClientService interface {
 
 	DeleteAccessGrant(params *DeleteAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAccessGrantNoContent, error)
 
+	GetAccessGrant(params *GetAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAccessGrantOK, error)
+
 	GetAccessGrants(params *GetAccessGrantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAccessGrantsOK, error)
 
 	UpdateAccessGrant(params *UpdateAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAccessGrantOK, error)
@@ -116,6 +118,45 @@ func (a *Client) DeleteAccessGrant(params *DeleteAccessGrantParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteAccessGrant: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetAccessGrant Return a specific Access Grant.
+*/
+func (a *Client) GetAccessGrant(params *GetAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAccessGrantOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccessGrantParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getAccessGrant",
+		Method:             "GET",
+		PathPattern:        "/access_grants/{access_grant_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAccessGrantReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAccessGrantOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getAccessGrant: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

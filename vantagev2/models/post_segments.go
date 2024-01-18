@@ -36,7 +36,7 @@ type PostSegments struct {
 	Title *string `json:"title"`
 
 	// Track Unallocated Costs which are not assigned to any of the created Segments.
-	TrackUnallocated bool `json:"track_unallocated,omitempty"`
+	TrackUnallocated *bool `json:"track_unallocated,omitempty"`
 
 	// The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`

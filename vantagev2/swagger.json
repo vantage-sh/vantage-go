@@ -2324,6 +2324,73 @@
         "operationId": "getAccessGrants"
       }
     },
+    "/access_grants/{access_grant_token}": {
+      "get": {
+        "description": "Return a specific Access Grant.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "access_grant_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrant"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rsrc_accss_grnt_ee270dc0666b4c16",
+                "resource_token": "rprt_390b52f15003f1ca",
+                "access": "denied",
+                "team_token": "team_de67ef183065e320",
+                "created_at": "2024-01-17T16:52:11Z",
+                "created_by": "usr_a3a4128a0a93d3e4"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "getAccessGrant"
+      }
+    },
     "/access_grants/{resource_token}": {
       "delete": {
         "description": "Delete an Access Grant.",
@@ -2922,11 +2989,7 @@
         ],
         "responses": {
           "200": {
-            "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
-            "schema": {
-              "type": "object",
-              "example": "{ \"ping\": \"pong\" }"
-            }
+            "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly."
           }
         },
         "tags": [
@@ -3305,7 +3368,8 @@
         },
         "track_unallocated": {
           "type": "boolean",
-          "description": "Track Unallocated Costs which are not assigned to any of the created Segments."
+          "description": "Track Unallocated Costs which are not assigned to any of the created Segments.",
+          "default": false
         },
         "workspace_token": {
           "type": "string",
@@ -3398,9 +3462,15 @@
           "type": "string",
           "description": "The description of the Segment."
         },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The priority of the Segment."
+        },
         "track_unallocated": {
           "type": "boolean",
-          "description": "Track Unallocated Costs which are not assigned to any of the created Segments."
+          "description": "Track Unallocated Costs which are not assigned to any of the created Segments.",
+          "default": false
         },
         "filter": {
           "type": "string",
