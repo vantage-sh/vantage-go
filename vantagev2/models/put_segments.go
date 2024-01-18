@@ -26,11 +26,14 @@ type PutSegments struct {
 	// The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
 	ParentSegmentToken string `json:"parent_segment_token,omitempty"`
 
+	// The priority of the Segment.
+	Priority int32 `json:"priority,omitempty"`
+
 	// The title of the Segment.
 	Title string `json:"title,omitempty"`
 
 	// Track Unallocated Costs which are not assigned to any of the created Segments.
-	TrackUnallocated bool `json:"track_unallocated,omitempty"`
+	TrackUnallocated *bool `json:"track_unallocated,omitempty"`
 }
 
 // Validate validates this put segments

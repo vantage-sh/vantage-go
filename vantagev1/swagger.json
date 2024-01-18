@@ -8010,11 +8010,7 @@
         ],
         "responses": {
           "200": {
-            "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
-            "schema": {
-              "type": "object",
-              "example": "{ \"ping\": \"pong\" }"
-            }
+            "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly."
           }
         },
         "tags": [

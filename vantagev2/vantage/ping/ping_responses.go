@@ -7,7 +7,6 @@ package ping
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -43,7 +42,6 @@ PingOK describes a response with status code 200, with default header values.
 This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.
 */
 type PingOK struct {
-	Payload interface{}
 }
 
 // IsSuccess returns true when this ping o k response has a 2xx status code
@@ -77,23 +75,14 @@ func (o *PingOK) Code() int {
 }
 
 func (o *PingOK) Error() string {
-	return fmt.Sprintf("[GET /ping][%d] pingOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /ping][%d] pingOK ", 200)
 }
 
 func (o *PingOK) String() string {
-	return fmt.Sprintf("[GET /ping][%d] pingOK  %+v", 200, o.Payload)
-}
-
-func (o *PingOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /ping][%d] pingOK ", 200)
 }
 
 func (o *PingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
