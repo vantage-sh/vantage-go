@@ -36,7 +36,7 @@ func (o *DeleteAccessGrantReader) ReadResponse(response runtime.ClientResponse, 
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[DELETE /access_grants/{resource_token}] deleteAccessGrant", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /access_grants/{access_grant_token}] deleteAccessGrant", response, response.Code())
 	}
 }
 
@@ -85,11 +85,11 @@ func (o *DeleteAccessGrantNoContent) Code() int {
 }
 
 func (o *DeleteAccessGrantNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /access_grants/{resource_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteAccessGrantNoContent) String() string {
-	return fmt.Sprintf("[DELETE /access_grants/{resource_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteAccessGrantNoContent) GetPayload() *models.AccessGrant {
@@ -153,11 +153,11 @@ func (o *DeleteAccessGrantNotFound) Code() int {
 }
 
 func (o *DeleteAccessGrantNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /access_grants/{resource_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteAccessGrantNotFound) String() string {
-	return fmt.Sprintf("[DELETE /access_grants/{resource_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteAccessGrantNotFound) GetPayload() *models.Errors {

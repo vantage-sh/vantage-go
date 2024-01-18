@@ -2198,12 +2198,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "rsrc_accss_grnt_b6e733ff18f9bf44",
-                "resource_token": "rprt_86ed278e682b1d99",
+                "token": "rsrc_accss_grnt_9f8aeb3cedda3831",
+                "resource_token": "rprt_3b935d26cba36fb0",
                 "access": "denied",
-                "team_token": "team_dde5981e66cfbcda",
-                "created_at": "2024-01-17T14:33:59Z",
-                "created_by": "usr_40c8d676166233f5"
+                "team_token": "team_26865e16e46028ae",
+                "created_at": "2024-01-18T17:39:37Z",
+                "created_by": "usr_2fc38883da3726b9"
               }
             }
           },
@@ -2290,28 +2290,28 @@
                 },
                 "access_grants": [
                   {
-                    "token": "rsrc_accss_grnt_919d9f5f51ce001f",
-                    "resource_token": "rprt_6f000120c1956380",
+                    "token": "rsrc_accss_grnt_c40f15062b6d5c37",
+                    "resource_token": "rprt_5a269d316483b01c",
                     "access": "denied",
-                    "team_token": "team_d8d2641e5480db9a",
-                    "created_at": "2024-01-17T14:33:59Z",
-                    "created_by": "usr_6c44207cf75190e0"
+                    "team_token": "team_fd5c524ba104712b",
+                    "created_at": "2024-01-18T17:39:37Z",
+                    "created_by": "usr_eb8ce6bdc1fa31d5"
                   },
                   {
-                    "token": "rsrc_accss_grnt_984ae6f661ddb024",
-                    "resource_token": "dshbrd_ea6ed96809c2c84a",
+                    "token": "rsrc_accss_grnt_9723e984e93d8907",
+                    "resource_token": "dshbrd_a08561ec24875ac9",
                     "access": "allowed",
-                    "team_token": "team_d8d2641e5480db9a",
-                    "created_at": "2024-01-17T14:33:59Z",
-                    "created_by": "usr_6c44207cf75190e0"
+                    "team_token": "team_fd5c524ba104712b",
+                    "created_at": "2024-01-18T17:39:37Z",
+                    "created_by": "usr_eb8ce6bdc1fa31d5"
                   },
                   {
-                    "token": "rsrc_accss_grnt_8f2adcfc0a6ddb6d",
-                    "resource_token": "fldr_952e0fb23221f3a6",
+                    "token": "rsrc_accss_grnt_eee5c4fd777d4dc8",
+                    "resource_token": "fldr_9d4ad1a769131c58",
                     "access": "allowed",
-                    "team_token": "team_d8d2641e5480db9a",
-                    "created_at": "2024-01-17T14:33:59Z",
-                    "created_by": "usr_6c44207cf75190e0"
+                    "team_token": "team_fd5c524ba104712b",
+                    "created_at": "2024-01-18T17:39:38Z",
+                    "created_by": "usr_eb8ce6bdc1fa31d5"
                   }
                 ]
               }
@@ -2325,73 +2325,6 @@
       }
     },
     "/access_grants/{access_grant_token}": {
-      "get": {
-        "description": "Return a specific Access Grant.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "description": "The page of results to return.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          },
-          {
-            "in": "path",
-            "name": "access_grant_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AccessGrant"
-            },
-            "examples": {
-              "application/json": {
-                "token": "rsrc_accss_grnt_ee270dc0666b4c16",
-                "resource_token": "rprt_390b52f15003f1ca",
-                "access": "denied",
-                "team_token": "team_de67ef183065e320",
-                "created_at": "2024-01-17T16:52:11Z",
-                "created_by": "usr_a3a4128a0a93d3e4"
-              }
-            }
-          },
-          "404": {
-            "description": "NotFound",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        },
-        "tags": [
-          "AccessGrants"
-        ],
-        "operationId": "getAccessGrant"
-      }
-    },
-    "/access_grants/{resource_token}": {
       "delete": {
         "description": "Delete an Access Grant.",
         "produces": [
@@ -2399,22 +2332,8 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "team_token",
-            "description": "The token for the Team you want to delete the Access Grant for.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "workspace_token",
-            "description": "The token of the Workspace the resource belongs to.",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "path",
-            "name": "resource_token",
+            "name": "access_grant_token",
             "type": "string",
             "required": true
           }
@@ -2456,7 +2375,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "resource_token",
+            "name": "access_grant_token",
             "type": "string",
             "required": true
           },
@@ -2484,12 +2403,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "rsrc_accss_grnt_b1a63cb085f89a54",
-                "resource_token": "rprt_fbf435df870d676c",
+                "token": "rsrc_accss_grnt_eea11f0d35318b0d",
+                "resource_token": "rprt_e84d7760ab2dd7dc",
                 "access": "allowed",
-                "team_token": "team_722d8d14c0dd15c9",
-                "created_at": "2024-01-17T14:33:58Z",
-                "created_by": "usr_1e8d5c3afdc52e38"
+                "team_token": "team_25fc4aa890869602",
+                "created_at": "2024-01-18T17:39:36Z",
+                "created_by": "usr_57ed2fa2a7b30166"
               }
             }
           },
@@ -2510,6 +2429,55 @@
           "AccessGrants"
         ],
         "operationId": "updateAccessGrant"
+      },
+      "get": {
+        "description": "Return a specific Access Grant.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "access_grant_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AccessGrant"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rsrc_accss_grnt_07ed83a5069b91c4",
+                "resource_token": "rprt_b8df14aa8a4ad5c7",
+                "access": "denied",
+                "team_token": "team_14bd13a8bccb8406",
+                "created_at": "2024-01-18T17:39:36Z",
+                "created_by": "usr_0e1cb254743b26cb"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AccessGrants"
+        ],
+        "operationId": "getAccessGrant"
       }
     },
     "/users": {
@@ -3941,14 +3909,6 @@
     "putAccessGrants": {
       "type": "object",
       "properties": {
-        "team_token": {
-          "type": "string",
-          "description": "The token for the Team you want to update the Access Grant for."
-        },
-        "workspace_token": {
-          "type": "string",
-          "description": "The token of the Workspace the resource belongs to."
-        },
         "access": {
           "type": "string",
           "description": "Allowed or denied access to resource.",
@@ -3959,8 +3919,6 @@
         }
       },
       "required": [
-        "team_token",
-        "workspace_token",
         "access"
       ],
       "description": "Update an AccessGrant."

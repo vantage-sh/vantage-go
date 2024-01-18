@@ -66,8 +66,8 @@ type UpdateAccessGrantParams struct {
 	// AccessGrants.
 	AccessGrants *models.PutAccessGrants
 
-	// ResourceToken.
-	ResourceToken string
+	// AccessGrantToken.
+	AccessGrantToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -133,15 +133,15 @@ func (o *UpdateAccessGrantParams) SetAccessGrants(accessGrants *models.PutAccess
 	o.AccessGrants = accessGrants
 }
 
-// WithResourceToken adds the resourceToken to the update access grant params
-func (o *UpdateAccessGrantParams) WithResourceToken(resourceToken string) *UpdateAccessGrantParams {
-	o.SetResourceToken(resourceToken)
+// WithAccessGrantToken adds the accessGrantToken to the update access grant params
+func (o *UpdateAccessGrantParams) WithAccessGrantToken(accessGrantToken string) *UpdateAccessGrantParams {
+	o.SetAccessGrantToken(accessGrantToken)
 	return o
 }
 
-// SetResourceToken adds the resourceToken to the update access grant params
-func (o *UpdateAccessGrantParams) SetResourceToken(resourceToken string) {
-	o.ResourceToken = resourceToken
+// SetAccessGrantToken adds the accessGrantToken to the update access grant params
+func (o *UpdateAccessGrantParams) SetAccessGrantToken(accessGrantToken string) {
+	o.AccessGrantToken = accessGrantToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -157,8 +157,8 @@ func (o *UpdateAccessGrantParams) WriteToRequest(r runtime.ClientRequest, reg st
 		}
 	}
 
-	// path param resource_token
-	if err := r.SetPathParam("resource_token", o.ResourceToken); err != nil {
+	// path param access_grant_token
+	if err := r.SetPathParam("access_grant_token", o.AccessGrantToken); err != nil {
 		return err
 	}
 

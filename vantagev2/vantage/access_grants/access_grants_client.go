@@ -93,7 +93,7 @@ func (a *Client) DeleteAccessGrant(params *DeleteAccessGrantParams, authInfo run
 	op := &runtime.ClientOperation{
 		ID:                 "deleteAccessGrant",
 		Method:             "DELETE",
-		PathPattern:        "/access_grants/{resource_token}",
+		PathPattern:        "/access_grants/{access_grant_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -210,7 +210,7 @@ func (a *Client) UpdateAccessGrant(params *UpdateAccessGrantParams, authInfo run
 	op := &runtime.ClientOperation{
 		ID:                 "updateAccessGrant",
 		Method:             "PUT",
-		PathPattern:        "/access_grants/{resource_token}",
+		PathPattern:        "/access_grants/{access_grant_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},

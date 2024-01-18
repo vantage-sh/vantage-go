@@ -61,20 +61,8 @@ DeleteAccessGrantParams contains all the parameters to send to the API endpoint
 */
 type DeleteAccessGrantParams struct {
 
-	// ResourceToken.
-	ResourceToken string
-
-	/* TeamToken.
-
-	   The token for the Team you want to delete the Access Grant for.
-	*/
-	TeamToken string
-
-	/* WorkspaceToken.
-
-	   The token of the Workspace the resource belongs to.
-	*/
-	WorkspaceToken string
+	// AccessGrantToken.
+	AccessGrantToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -129,37 +117,15 @@ func (o *DeleteAccessGrantParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithResourceToken adds the resourceToken to the delete access grant params
-func (o *DeleteAccessGrantParams) WithResourceToken(resourceToken string) *DeleteAccessGrantParams {
-	o.SetResourceToken(resourceToken)
+// WithAccessGrantToken adds the accessGrantToken to the delete access grant params
+func (o *DeleteAccessGrantParams) WithAccessGrantToken(accessGrantToken string) *DeleteAccessGrantParams {
+	o.SetAccessGrantToken(accessGrantToken)
 	return o
 }
 
-// SetResourceToken adds the resourceToken to the delete access grant params
-func (o *DeleteAccessGrantParams) SetResourceToken(resourceToken string) {
-	o.ResourceToken = resourceToken
-}
-
-// WithTeamToken adds the teamToken to the delete access grant params
-func (o *DeleteAccessGrantParams) WithTeamToken(teamToken string) *DeleteAccessGrantParams {
-	o.SetTeamToken(teamToken)
-	return o
-}
-
-// SetTeamToken adds the teamToken to the delete access grant params
-func (o *DeleteAccessGrantParams) SetTeamToken(teamToken string) {
-	o.TeamToken = teamToken
-}
-
-// WithWorkspaceToken adds the workspaceToken to the delete access grant params
-func (o *DeleteAccessGrantParams) WithWorkspaceToken(workspaceToken string) *DeleteAccessGrantParams {
-	o.SetWorkspaceToken(workspaceToken)
-	return o
-}
-
-// SetWorkspaceToken adds the workspaceToken to the delete access grant params
-func (o *DeleteAccessGrantParams) SetWorkspaceToken(workspaceToken string) {
-	o.WorkspaceToken = workspaceToken
+// SetAccessGrantToken adds the accessGrantToken to the delete access grant params
+func (o *DeleteAccessGrantParams) SetAccessGrantToken(accessGrantToken string) {
+	o.AccessGrantToken = accessGrantToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -170,29 +136,9 @@ func (o *DeleteAccessGrantParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	// path param resource_token
-	if err := r.SetPathParam("resource_token", o.ResourceToken); err != nil {
+	// path param access_grant_token
+	if err := r.SetPathParam("access_grant_token", o.AccessGrantToken); err != nil {
 		return err
-	}
-
-	// query param team_token
-	qrTeamToken := o.TeamToken
-	qTeamToken := qrTeamToken
-	if qTeamToken != "" {
-
-		if err := r.SetQueryParam("team_token", qTeamToken); err != nil {
-			return err
-		}
-	}
-
-	// query param workspace_token
-	qrWorkspaceToken := o.WorkspaceToken
-	qWorkspaceToken := qrWorkspaceToken
-	if qWorkspaceToken != "" {
-
-		if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
-			return err
-		}
 	}
 
 	if len(res) > 0 {

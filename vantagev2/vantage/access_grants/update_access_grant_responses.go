@@ -42,7 +42,7 @@ func (o *UpdateAccessGrantReader) ReadResponse(response runtime.ClientResponse, 
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[PUT /access_grants/{resource_token}] updateAccessGrant", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /access_grants/{access_grant_token}] updateAccessGrant", response, response.Code())
 	}
 }
 
@@ -91,11 +91,11 @@ func (o *UpdateAccessGrantOK) Code() int {
 }
 
 func (o *UpdateAccessGrantOK) Error() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAccessGrantOK) String() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAccessGrantOK) GetPayload() *models.AccessGrant {
@@ -159,11 +159,11 @@ func (o *UpdateAccessGrantBadRequest) Code() int {
 }
 
 func (o *UpdateAccessGrantBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAccessGrantBadRequest) String() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAccessGrantBadRequest) GetPayload() *models.Errors {
@@ -227,11 +227,11 @@ func (o *UpdateAccessGrantNotFound) Code() int {
 }
 
 func (o *UpdateAccessGrantNotFound) Error() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAccessGrantNotFound) String() string {
-	return fmt.Sprintf("[PUT /access_grants/{resource_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAccessGrantNotFound) GetPayload() *models.Errors {

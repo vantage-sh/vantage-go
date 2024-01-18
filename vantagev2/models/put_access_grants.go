@@ -24,14 +24,6 @@ type PutAccessGrants struct {
 	// Required: true
 	// Enum: [denied allowed]
 	Access *string `json:"access"`
-
-	// The token for the Team you want to update the Access Grant for.
-	// Required: true
-	TeamToken *string `json:"team_token"`
-
-	// The token of the Workspace the resource belongs to.
-	// Required: true
-	WorkspaceToken *string `json:"workspace_token"`
 }
 
 // Validate validates this put access grants
@@ -39,14 +31,6 @@ func (m *PutAccessGrants) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccess(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTeamToken(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -93,24 +77,6 @@ func (m *PutAccessGrants) validateAccess(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateAccessEnum("access", "body", *m.Access); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PutAccessGrants) validateTeamToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("team_token", "body", m.TeamToken); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PutAccessGrants) validateWorkspaceToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 
