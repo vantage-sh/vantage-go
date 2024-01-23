@@ -3840,10 +3840,6 @@
           "type": "string",
           "description": "The token of the Team you want to grant access to."
         },
-        "workspace_token": {
-          "type": "string",
-          "description": "The token of the Workspace the resource belongs to."
-        },
         "access": {
           "type": "string",
           "description": "The access level you want to grant. Defaults to 'allowed'.",
@@ -3855,8 +3851,7 @@
       },
       "required": [
         "resource_token",
-        "team_token",
-        "workspace_token"
+        "team_token"
       ],
       "description": "Create an Access Grant."
     },

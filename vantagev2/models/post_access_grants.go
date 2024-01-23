@@ -31,10 +31,6 @@ type PostAccessGrants struct {
 	// The token of the Team you want to grant access to.
 	// Required: true
 	TeamToken *string `json:"team_token"`
-
-	// The token of the Workspace the resource belongs to.
-	// Required: true
-	WorkspaceToken *string `json:"workspace_token"`
 }
 
 // Validate validates this post access grants
@@ -50,10 +46,6 @@ func (m *PostAccessGrants) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTeamToken(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -117,15 +109,6 @@ func (m *PostAccessGrants) validateResourceToken(formats strfmt.Registry) error 
 func (m *PostAccessGrants) validateTeamToken(formats strfmt.Registry) error {
 
 	if err := validate.Required("team_token", "body", m.TeamToken); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PostAccessGrants) validateWorkspaceToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 
