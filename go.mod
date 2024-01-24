@@ -1,4 +1,4 @@
-module github.com/vantage-sh/vantage-go/vantagev1
+module github.com/vantage-sh/vantage-go
 
 go 1.20
 
