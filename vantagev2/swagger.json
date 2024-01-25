@@ -784,6 +784,17 @@
         ],
         "parameters": [
           {
+            "in": "query",
+            "name": "groupings",
+            "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv",
+            "required": false
+          },
+          {
             "name": "CostReports",
             "in": "body",
             "required": true,
@@ -1101,15 +1112,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_a793ce52205ca223",
+                "token": "fltr_sgmt_baeb7732fb335ea7",
                 "title": "New Segment",
-                "parent_folder": "fldr_67cc2920f22dea24",
+                "parent_segment_token": "fltr_sgmt_b7f4bc8587f3e0dd",
                 "description": "I'm a Segment.",
                 "track_unallocated": false,
                 "priority": 100,
                 "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service')",
-                "created_at": "2023-12-06T21:52:17Z",
-                "workspace_token": "wrkspc_d7cc0e18885d3b0f"
+                "created_at": "2024-01-25T17:20:23Z",
+                "workspace_token": "wrkspc_b5cbed48311acc4c"
               }
             }
           },
@@ -1178,15 +1189,15 @@
                 },
                 "segments": [
                   {
-                    "token": "fltr_sgmt_f23a067af4cbfebb",
-                    "title": "productivity",
-                    "parent_folder": "fldr_065c0321590afe4c",
-                    "description": "Adaptive modular framework",
+                    "token": "fltr_sgmt_2639abd71f073a42",
+                    "title": "logistical",
+                    "parent_segment_token": null,
+                    "description": "Function-based 6th generation algorithm",
                     "track_unallocated": false,
                     "priority": 100,
                     "filter": "(costs.provider = 'aws')",
-                    "created_at": "2023-12-06T21:52:16Z",
-                    "workspace_token": "wrkspc_2bd5f2e610472d04"
+                    "created_at": "2024-01-25T17:20:22Z",
+                    "workspace_token": "wrkspc_6487e1d753439cf5"
                   }
                 ]
               }
@@ -1278,15 +1289,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_726b302b3d691245",
+                "token": "fltr_sgmt_63d2aad238a3dd43",
                 "title": "Updated Segment",
-                "parent_folder": "fldr_c9543f1acba5309b",
-                "description": "Public-key content-based hub",
+                "parent_segment_token": "fltr_sgmt_d22f1b1c8a06936c",
+                "description": "Organic explicit approach",
                 "track_unallocated": false,
-                "priority": 100,
+                "priority": 42,
                 "filter": "(costs.provider = 'azure')",
-                "created_at": "2023-12-06T21:52:17Z",
-                "workspace_token": "wrkspc_59a7f679811b54f1"
+                "created_at": "2024-01-25T17:20:21Z",
+                "workspace_token": "wrkspc_4228e00254ebfb2e"
               }
             }
           },
@@ -1336,15 +1347,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_8e138f7c45c38b60",
-                "title": "Implemented",
-                "parent_folder": "fldr_b39a7568a602e4ce",
-                "description": "Reduced leading edge product",
+                "token": "fltr_sgmt_42f8653b3f1bfb76",
+                "title": "monitoring",
+                "parent_segment_token": null,
+                "description": "Reverse-engineered motivating productivity",
                 "track_unallocated": false,
                 "priority": 100,
                 "filter": "(costs.provider = 'aws')",
-                "created_at": "2023-12-06T21:52:17Z",
-                "workspace_token": "wrkspc_142784e7422458fa"
+                "created_at": "2024-01-25T17:20:23Z",
+                "workspace_token": "wrkspc_0bf460d76dff581c"
               }
             }
           },
@@ -3368,9 +3379,9 @@
           "example": "OPEX",
           "description": "The title of the Segment."
         },
-        "parent_folder": {
+        "parent_segment_token": {
           "type": "string",
-          "description": "The parent folder of this Segment."
+          "description": "The token of the parent segment of this Segment."
         },
         "description": {
           "type": "string",

@@ -28,8 +28,8 @@ type Segment struct {
 	// The filter applied to the SegmentFilter. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// The parent folder of this Segment.
-	ParentFolder string `json:"parent_folder,omitempty"`
+	// The token of the parent segment of this Segment.
+	ParentSegmentToken string `json:"parent_segment_token,omitempty"`
 
 	// Costs are assigned in priority order across all segments with assigned filters.
 	// Example: 100
