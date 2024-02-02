@@ -15,6 +15,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
@@ -70,6 +71,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.Filters = filters.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
+	cli.Notifications = notifications.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
@@ -130,6 +132,8 @@ type Vantage struct {
 
 	Folders folders.ClientService
 
+	Notifications notifications.ClientService
+
 	Ping ping.ClientService
 
 	Prices prices.ClientService
@@ -153,6 +157,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Dashboards.SetTransport(transport)
 	c.Filters.SetTransport(transport)
 	c.Folders.SetTransport(transport)
+	c.Notifications.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
 	c.Segments.SetTransport(transport)
