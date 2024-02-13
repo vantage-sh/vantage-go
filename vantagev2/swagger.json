@@ -822,15 +822,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_2363f8bdb2e7f1e4",
+                "token": "rprt_b7d433d13914dd66",
                 "title": "New Cost Report",
-                "folder_token": "fldr_2e4dbb93545cec18",
+                "folder_token": "fldr_5069dd156a1ec348",
                 "saved_filter_tokens": [
-                  "svd_fltr_cb89ff66f153a0e9"
+                  "svd_fltr_310ba88bd4492308"
                 ],
-                "filter": "(costs.provider = 'aws')",
-                "created_at": "2023-09-12T05:06:54Z",
-                "workspace_token": "wrkspc_ad4debc4ecfe4819"
+                "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
+                "groupings": [
+                  "provider",
+                  "service"
+                ],
+                "created_at": "2024-02-13T20:52:50Z",
+                "workspace_token": "wrkspc_8f8c906c7475901f"
               }
             }
           },
@@ -899,15 +903,19 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_cc7aa2f5caa0b8f1",
+                    "token": "rprt_193d9fc04bfe6416",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_ce2bcefe4075566d"
+                      "svd_fltr_fbd79809bf971aaa"
                     ],
                     "filter": null,
-                    "created_at": "2023-09-12T05:06:51Z",
-                    "workspace_token": "wrkspc_21d33c2825e7288a"
+                    "groupings": [
+                      "provider",
+                      "service"
+                    ],
+                    "created_at": "2024-02-13T20:52:51Z",
+                    "workspace_token": "wrkspc_930061e07cd5a3c1"
                   }
                 ]
               }
@@ -1010,15 +1018,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_b09d9ddcf70103dc",
+                "token": "rprt_5953db62318ee7f8",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_237684478b1c2447",
+                "folder_token": "fldr_148f1892717a025a",
                 "saved_filter_tokens": [
-                  "svd_fltr_40d131c47464afc7"
+                  "svd_fltr_4b539bc0598df06f"
                 ],
-                "filter": "(costs.provider = 'azure')",
-                "created_at": "2023-09-12T05:07:35Z",
-                "workspace_token": "wrkspc_f7747e6da882b0ff"
+                "filter": "costs.provider = 'azure'",
+                "groupings": [
+                  "service",
+                  "account_id"
+                ],
+                "created_at": "2024-02-13T20:52:48Z",
+                "workspace_token": "wrkspc_57dfd7b191d7cfcb"
               }
             }
           },
@@ -1068,15 +1080,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_d3df3ba1970f88a7",
+                "token": "rprt_7ab165e8bdd76492",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_83314e1b3b84c4c6"
+                  "svd_fltr_da7499087d30404a"
                 ],
                 "filter": null,
-                "created_at": "2023-09-12T05:06:53Z",
-                "workspace_token": "wrkspc_87c17d9ce307cd01"
+                "groupings": [
+                  "provider",
+                  "service"
+                ],
+                "created_at": "2024-02-13T20:52:48Z",
+                "workspace_token": "wrkspc_9dc20c1e59d822a3"
               }
             }
           },
@@ -3581,6 +3597,11 @@
         "filter": {
           "type": "string",
           "description": "The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "groupings": {
+          "type": "string",
+          "example": "['provider', 'service']",
+          "description": "The grouping aggregations applied to the filtered data. If empty it defaults to service."
         },
         "created_at": {
           "type": "string",
