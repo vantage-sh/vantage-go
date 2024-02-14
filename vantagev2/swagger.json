@@ -811,19 +811,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_b7d433d13914dd66",
+                "token": "rprt_01e2546f4b9bef94",
                 "title": "New Cost Report",
-                "folder_token": "fldr_5069dd156a1ec348",
+                "folder_token": "fldr_ba86b55c72b9d5f4",
                 "saved_filter_tokens": [
-                  "svd_fltr_310ba88bd4492308"
+                  "svd_fltr_814a98bddb21bbf6"
                 ],
                 "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
-                "groupings": [
-                  "provider",
-                  "service"
-                ],
-                "created_at": "2024-02-13T20:52:50Z",
-                "workspace_token": "wrkspc_8f8c906c7475901f"
+                "groupings": "provider,service",
+                "created_at": "2024-02-14T18:55:58Z",
+                "workspace_token": "wrkspc_533bd74c0a6655dd"
               }
             }
           },
@@ -892,19 +889,16 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_193d9fc04bfe6416",
+                    "token": "rprt_d114e8df33cd17f8",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_fbd79809bf971aaa"
+                      "svd_fltr_fdc2624be95ae162"
                     ],
                     "filter": null,
-                    "groupings": [
-                      "provider",
-                      "service"
-                    ],
-                    "created_at": "2024-02-13T20:52:51Z",
-                    "workspace_token": "wrkspc_930061e07cd5a3c1"
+                    "groupings": "provider,service",
+                    "created_at": "2024-02-14T18:55:58Z",
+                    "workspace_token": "wrkspc_6180708dec0fe13c"
                   }
                 ]
               }
@@ -996,19 +990,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_5953db62318ee7f8",
+                "token": "rprt_01c8c78a5692bdd2",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_148f1892717a025a",
+                "folder_token": "fldr_1091a13e29a27a57",
                 "saved_filter_tokens": [
-                  "svd_fltr_4b539bc0598df06f"
+                  "svd_fltr_87a9364be06a3bc6"
                 ],
                 "filter": "costs.provider = 'azure'",
-                "groupings": [
-                  "service",
-                  "account_id"
-                ],
-                "created_at": "2024-02-13T20:52:48Z",
-                "workspace_token": "wrkspc_57dfd7b191d7cfcb"
+                "groupings": "service,account_id",
+                "created_at": "2024-02-14T18:55:58Z",
+                "workspace_token": "wrkspc_2f9546026544198f"
               }
             }
           },
@@ -1058,19 +1049,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_7ab165e8bdd76492",
+                "token": "rprt_1a90b98b46c209dc",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_da7499087d30404a"
+                  "svd_fltr_a759090915f93fe7"
                 ],
                 "filter": null,
-                "groupings": [
-                  "provider",
-                  "service"
-                ],
-                "created_at": "2024-02-13T20:52:48Z",
-                "workspace_token": "wrkspc_9dc20c1e59d822a3"
+                "groupings": "provider,service",
+                "created_at": "2024-02-14T18:55:57Z",
+                "workspace_token": "wrkspc_3f4e53783925cff6"
               }
             }
           },
@@ -3544,11 +3532,8 @@
           "description": "The token of the Workspace to add the Cost Report to. Ignored if 'folder_token' is set. Required if the API token is associated with multiple Workspaces."
         },
         "groupings": {
-          "type": "array",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
-          "items": {
-            "type": "string"
-          }
+          "type": "string",
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
         },
         "filter": {
           "type": "string",
@@ -3598,15 +3583,9 @@
           "description": "The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "groupings": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": [
-              "provider",
-              "service"
-            ]
-          },
-          "description": "The grouping aggregations applied to the filtered data. If empty it defaults to service."
+          "type": "string",
+          "example": "provider, service",
+          "description": "The grouping aggregations applied to the filtered data."
         },
         "created_at": {
           "type": "string",
@@ -3643,11 +3622,8 @@
           "description": "The title of the CostReport."
         },
         "groupings": {
-          "type": "array",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
-          "items": {
-            "type": "string"
-          }
+          "type": "string",
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
         },
         "filter": {
           "type": "string",
