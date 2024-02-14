@@ -28,8 +28,7 @@ type CostReport struct {
 	FolderToken string `json:"folder_token,omitempty"`
 
 	// The grouping aggregations applied to the filtered data. If empty it defaults to service.
-	// Example: ['provider', 'service']
-	Groupings string `json:"groupings,omitempty"`
+	Groupings []string `json:"groupings"`
 
 	// The tokens for the SavedFilters assigned to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`

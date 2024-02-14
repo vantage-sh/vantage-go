@@ -31,12 +31,14 @@ type PostReportNotifications struct {
 	// Required: true
 	Frequency *string `json:"frequency"`
 
+	// The Slack or Microsoft Teams channels that receive the notification.
+	RecipientChannels []string `json:"recipient_channels"`
+
 	// The title of the ReportNotification.
 	// Required: true
 	Title *string `json:"title"`
 
 	// The Users that receive the notification.
-	// Required: true
 	UserTokens []string `json:"user_tokens"`
 
 	// The token of the Workspace to add the ReportNotification to. Required if the API token is associated with multiple Workspaces.
@@ -60,10 +62,6 @@ func (m *PostReportNotifications) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTitle(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUserTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -103,15 +101,6 @@ func (m *PostReportNotifications) validateFrequency(formats strfmt.Registry) err
 func (m *PostReportNotifications) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PostReportNotifications) validateUserTokens(formats strfmt.Registry) error {
-
-	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
 		return err
 	}
 

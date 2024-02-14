@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -29,6 +30,9 @@ type PutSegments struct {
 	// The priority of the Segment.
 	Priority int32 `json:"priority,omitempty"`
 
+	// report settings
+	ReportSettings *PutSegmentsReportSettings `json:"report_settings,omitempty"`
+
 	// The title of the Segment.
 	Title string `json:"title,omitempty"`
 
@@ -38,11 +42,69 @@ type PutSegments struct {
 
 // Validate validates this put segments
 func (m *PutSegments) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateReportSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this put segments based on context it is used
+func (m *PutSegments) validateReportSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.ReportSettings) { // not required
+		return nil
+	}
+
+	if m.ReportSettings != nil {
+		if err := m.ReportSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put segments based on the context it is used
 func (m *PutSegments) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateReportSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PutSegments) contextValidateReportSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReportSettings != nil {
+
+		if swag.IsZero(m.ReportSettings) { // not required
+			return nil
+		}
+
+		if err := m.ReportSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -57,6 +119,55 @@ func (m *PutSegments) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PutSegments) UnmarshalBinary(b []byte) error {
 	var res PutSegments
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PutSegmentsReportSettings Report settings configurable on top-level Segments.
+//
+// swagger:model PutSegmentsReportSettings
+type PutSegmentsReportSettings struct {
+
+	// Reports created under this Segment will amortize.
+	Amortize bool `json:"amortize,omitempty"`
+
+	// Reports created under this Segment will include credits.
+	IncludeCredits bool `json:"include_credits,omitempty"`
+
+	// Reports created under this Segment will include discounts.
+	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+
+	// Reports created under this Segment will include refunds.
+	IncludeRefunds bool `json:"include_refunds,omitempty"`
+
+	// Reports created under this Segment will include tax.
+	IncludeTax bool `json:"include_tax,omitempty"`
+}
+
+// Validate validates this put segments report settings
+func (m *PutSegmentsReportSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this put segments report settings based on context it is used
+func (m *PutSegmentsReportSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PutSegmentsReportSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PutSegmentsReportSettings) UnmarshalBinary(b []byte) error {
+	var res PutSegmentsReportSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

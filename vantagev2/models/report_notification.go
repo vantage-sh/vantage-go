@@ -34,6 +34,9 @@ type ReportNotification struct {
 	// Enum: [daily weekly monthly]
 	Frequency string `json:"frequency,omitempty"`
 
+	// The Slack or Microsoft Teams channels that receive the notification.
+	RecipientChannels []string `json:"recipient_channels"`
+
 	// The title of the ReportNotification.
 	// Example: Acme Report Notification
 	Title string `json:"title,omitempty"`

@@ -26,6 +26,9 @@ type PutReportNotifications struct {
 	// The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.
 	Frequency string `json:"frequency,omitempty"`
 
+	// The Slack or Microsoft Teams channels that receive the notification.
+	RecipientChannels []string `json:"recipient_channels"`
+
 	// The title of the ReportNotification.
 	Title string `json:"title,omitempty"`
 

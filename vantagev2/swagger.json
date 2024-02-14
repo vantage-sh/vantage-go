@@ -788,17 +788,6 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "groupings",
-            "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv",
-            "required": false
-          },
-          {
             "name": "CostReports",
             "in": "body",
             "required": true,
@@ -978,17 +967,6 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "groupings",
-            "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv",
-            "required": false
-          },
-          {
             "in": "path",
             "name": "cost_report_token",
             "type": "string",
@@ -1143,15 +1121,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_baeb7732fb335ea7",
+                "token": "fltr_sgmt_1e47944f3821d5c3",
                 "title": "New Segment",
-                "parent_segment_token": "fltr_sgmt_b7f4bc8587f3e0dd",
+                "parent_segment_token": "fltr_sgmt_ac17f90b94f8d00f",
                 "description": "I'm a Segment.",
                 "track_unallocated": false,
                 "priority": 100,
                 "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service')",
-                "created_at": "2024-01-25T17:20:23Z",
-                "workspace_token": "wrkspc_b5cbed48311acc4c"
+                "created_at": "2024-02-02T01:02:08Z",
+                "workspace_token": "wrkspc_d5d4814d5e42522c"
               }
             }
           },
@@ -1220,15 +1198,22 @@
                 },
                 "segments": [
                   {
-                    "token": "fltr_sgmt_2639abd71f073a42",
-                    "title": "logistical",
+                    "token": "fltr_sgmt_0db07f2863f779cc",
+                    "title": "installation",
                     "parent_segment_token": null,
-                    "description": "Function-based 6th generation algorithm",
+                    "description": "Multi-lateral attitude-oriented process improvement",
                     "track_unallocated": false,
+                    "report_settings": {
+                      "include_credits": false,
+                      "include_refunds": false,
+                      "include_discounts": true,
+                      "include_tax": true,
+                      "amortize": true
+                    },
                     "priority": 100,
                     "filter": "(costs.provider = 'aws')",
-                    "created_at": "2024-01-25T17:20:22Z",
-                    "workspace_token": "wrkspc_6487e1d753439cf5"
+                    "created_at": "2024-02-02T01:02:07Z",
+                    "workspace_token": "wrkspc_7036b752bf43a658"
                   }
                 ]
               }
@@ -1320,15 +1305,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_63d2aad238a3dd43",
+                "token": "fltr_sgmt_99969c652d4df258",
                 "title": "Updated Segment",
-                "parent_segment_token": "fltr_sgmt_d22f1b1c8a06936c",
-                "description": "Organic explicit approach",
+                "parent_segment_token": "fltr_sgmt_d8d4da2ef1751c13",
+                "description": "Ameliorated disintermediate challenge",
                 "track_unallocated": false,
                 "priority": 42,
                 "filter": "(costs.provider = 'azure')",
-                "created_at": "2024-01-25T17:20:21Z",
-                "workspace_token": "wrkspc_4228e00254ebfb2e"
+                "created_at": "2024-02-02T01:05:01Z",
+                "workspace_token": "wrkspc_c144e5f763a5b05e"
               }
             }
           },
@@ -1378,15 +1363,22 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_42f8653b3f1bfb76",
-                "title": "monitoring",
+                "token": "fltr_sgmt_d1de6bdb3133d61e",
+                "title": "benchmark",
                 "parent_segment_token": null,
-                "description": "Reverse-engineered motivating productivity",
+                "description": "Synergized bandwidth-monitored help-desk",
                 "track_unallocated": false,
+                "report_settings": {
+                  "include_credits": false,
+                  "include_refunds": false,
+                  "include_discounts": true,
+                  "include_tax": true,
+                  "amortize": true
+                },
                 "priority": 100,
                 "filter": "(costs.provider = 'aws')",
-                "created_at": "2024-01-25T17:20:23Z",
-                "workspace_token": "wrkspc_0bf460d76dff581c"
+                "created_at": "2024-02-02T01:02:09Z",
+                "workspace_token": "wrkspc_5c9b1211804105ff"
               }
             }
           },
@@ -1790,10 +1782,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583",
-                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583&page=1",
+                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677",
+                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_c654b0caccb23583&page=1",
+                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
                   "prev": null
                 },
                 "total_cost": {
@@ -3551,6 +3543,13 @@
           "type": "string",
           "description": "The token of the Workspace to add the Cost Report to. Ignored if 'folder_token' is set. Required if the API token is associated with multiple Workspaces."
         },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "items": {
+            "type": "string"
+          }
+        },
         "filter": {
           "type": "string",
           "description": "The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
@@ -3599,8 +3598,14 @@
           "description": "The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "groupings": {
-          "type": "string",
-          "example": "['provider', 'service']",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "provider",
+              "service"
+            ]
+          },
           "description": "The grouping aggregations applied to the filtered data. If empty it defaults to service."
         },
         "created_at": {
@@ -3636,6 +3641,13 @@
         "title": {
           "type": "string",
           "description": "The title of the CostReport."
+        },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "items": {
+            "type": "string"
+          }
         },
         "filter": {
           "type": "string",
@@ -3676,6 +3688,32 @@
           "description": "Track Unallocated Costs which are not assigned to any of the created Segments.",
           "default": false
         },
+        "report_settings": {
+          "type": "object",
+          "description": "Report settings configurable on top-level Segments.",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include credits."
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include refunds."
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include discounts."
+            },
+            "include_tax": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include tax."
+            },
+            "amortize": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will amortize."
+            }
+          }
+        },
         "workspace_token": {
           "type": "string",
           "description": "The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces."
@@ -3707,7 +3745,7 @@
         },
         "parent_segment_token": {
           "type": "string",
-          "description": "The token of the parent segment of this Segment."
+          "description": "The token of the parent Segment of this Segment."
         },
         "description": {
           "type": "string",
@@ -3717,22 +3755,43 @@
         "track_unallocated": {
           "type": "boolean",
           "example": false,
-          "description": "Track Unallocated Costs which are not assigned to any of the created segments."
+          "description": "Track Unallocated Costs which are not assigned to any of the created Segments."
+        },
+        "report_settings": {
+          "type": "object",
+          "properties": {
+            "include_credits": {
+              "type": "boolean"
+            },
+            "include_refunds": {
+              "type": "boolean"
+            },
+            "include_discounts": {
+              "type": "boolean"
+            },
+            "include_tax": {
+              "type": "boolean"
+            },
+            "amortize": {
+              "type": "boolean"
+            }
+          },
+          "description": "Report settings configurable on top-level Segments."
         },
         "priority": {
           "type": "integer",
           "format": "int32",
           "example": 100,
-          "description": "Costs are assigned in priority order across all segments with assigned filters."
+          "description": "Costs are assigned in priority order across all Segments with assigned filters."
         },
         "filter": {
           "type": "string",
-          "description": "The filter applied to the SegmentFilter. Additional documentation available at https://docs.vantage.sh/vql."
+          "description": "The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "created_at": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
-          "description": "The date and time, in UTC, the segment was created. ISO 8601 Formatted."
+          "description": "The date and time, in UTC, the Segment was created. ISO 8601 Formatted."
         },
         "workspace_token": {
           "type": "string",
@@ -3776,6 +3835,32 @@
           "type": "boolean",
           "description": "Track Unallocated Costs which are not assigned to any of the created Segments.",
           "default": false
+        },
+        "report_settings": {
+          "type": "object",
+          "description": "Report settings configurable on top-level Segments.",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include credits."
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include refunds."
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include discounts."
+            },
+            "include_tax": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will include tax."
+            },
+            "amortize": {
+              "type": "boolean",
+              "description": "Reports created under this Segment will amortize."
+            }
+          }
         },
         "filter": {
           "type": "string",
@@ -4002,11 +4087,106 @@
         "costs": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/Cost"
           }
         }
       },
       "description": "Costs model"
+    },
+    "Cost": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "accrued_at": {
+          "type": "string",
+          "example": "2023-09-05+00:00",
+          "description": "The date the cost was accrued. ISO 8601 Formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "4.25",
+          "description": "The amount of the cost."
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "description": "The currency of the cost."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "enum": [
+            "aws",
+            "azure",
+            "gcp",
+            "snowflake",
+            "databricks",
+            "mongo",
+            "datadog",
+            "fastly",
+            "new_relic",
+            "opencost",
+            "open_ai",
+            "oracle",
+            "confluent",
+            "planetscale"
+          ],
+          "description": "The cost provider which incurred the cost."
+        },
+        "billing_account_id": {
+          "type": "string",
+          "example": "9109237192",
+          "description": "The cost provider's billing account id that incurred the cost."
+        },
+        "account_id": {
+          "type": "string",
+          "example": "9109237192",
+          "description": "The cost provider's account id that incurred the cost."
+        },
+        "service": {
+          "type": "string",
+          "example": "Amazon Elastic Compute Cloud - Compute",
+          "description": "The service which incurred the cost."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-east-1",
+          "description": "The region which incurred the cost."
+        },
+        "resource_id": {
+          "type": "string",
+          "example": "arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0",
+          "description": "The resource id which incurred the cost."
+        },
+        "tag": {
+          "type": "string",
+          "example": "production",
+          "description": "The tag attached to the cost that was incurred.\nDEPRECATED: does not support multiple tags."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "environment:production",
+              "aws:ecs:serviceName:frontend"
+            ]
+          },
+          "description": "The tag pairs attached to the cost that was incurred."
+        },
+        "cost_category": {
+          "type": "string",
+          "example": "Data Transfer",
+          "description": "The category for the cost."
+        },
+        "cost_subcategory": {
+          "type": "string",
+          "example": "DataTransfer-Regional-Bytes",
+          "description": "The subcategory for the cost."
+        }
+      }
     },
     "postTeams": {
       "type": "object",
@@ -4277,6 +4457,13 @@
             "type": "string"
           }
         },
+        "recipient_channels": {
+          "type": "array",
+          "description": "The Slack or Microsoft Teams channels that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
         "frequency": {
           "type": "string",
           "description": "The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly."
@@ -4289,7 +4476,6 @@
       "required": [
         "title",
         "cost_report_token",
-        "user_tokens",
         "frequency",
         "change"
       ],
@@ -4321,6 +4507,16 @@
             ]
           },
           "description": "The Users that receive the notification."
+        },
+        "recipient_channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "#notifications-channel"
+            ]
+          },
+          "description": "The Slack or Microsoft Teams channels that receive the notification."
         },
         "frequency": {
           "type": "string",
@@ -4373,6 +4569,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_channels": {
+          "type": "array",
+          "description": "The Slack or Microsoft Teams channels that receive the notification.",
           "items": {
             "type": "string"
           }

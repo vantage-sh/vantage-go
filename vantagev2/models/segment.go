@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -17,7 +18,7 @@ import (
 // swagger:model Segment
 type Segment struct {
 
-	// The date and time, in UTC, the segment was created. ISO 8601 Formatted.
+	// The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
@@ -25,15 +26,18 @@ type Segment struct {
 	// Example: Operating expenses
 	Description string `json:"description,omitempty"`
 
-	// The filter applied to the SegmentFilter. Additional documentation available at https://docs.vantage.sh/vql.
+	// The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// The token of the parent segment of this Segment.
+	// The token of the parent Segment of this Segment.
 	ParentSegmentToken string `json:"parent_segment_token,omitempty"`
 
-	// Costs are assigned in priority order across all segments with assigned filters.
+	// Costs are assigned in priority order across all Segments with assigned filters.
 	// Example: 100
 	Priority int32 `json:"priority,omitempty"`
+
+	// report settings
+	ReportSettings *SegmentReportSettings `json:"report_settings,omitempty"`
 
 	// The title of the Segment.
 	// Example: OPEX
@@ -42,7 +46,7 @@ type Segment struct {
 	// token
 	Token string `json:"token,omitempty"`
 
-	// Track Unallocated Costs which are not assigned to any of the created segments.
+	// Track Unallocated Costs which are not assigned to any of the created Segments.
 	// Example: false
 	TrackUnallocated bool `json:"track_unallocated,omitempty"`
 
@@ -52,11 +56,69 @@ type Segment struct {
 
 // Validate validates this segment
 func (m *Segment) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateReportSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this segment based on context it is used
+func (m *Segment) validateReportSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.ReportSettings) { // not required
+		return nil
+	}
+
+	if m.ReportSettings != nil {
+		if err := m.ReportSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this segment based on the context it is used
 func (m *Segment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateReportSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Segment) contextValidateReportSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReportSettings != nil {
+
+		if swag.IsZero(m.ReportSettings) { // not required
+			return nil
+		}
+
+		if err := m.ReportSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -71,6 +133,55 @@ func (m *Segment) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *Segment) UnmarshalBinary(b []byte) error {
 	var res Segment
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// SegmentReportSettings Report settings configurable on top-level Segments.
+//
+// swagger:model SegmentReportSettings
+type SegmentReportSettings struct {
+
+	// amortize
+	Amortize bool `json:"amortize,omitempty"`
+
+	// include credits
+	IncludeCredits bool `json:"include_credits,omitempty"`
+
+	// include discounts
+	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+
+	// include refunds
+	IncludeRefunds bool `json:"include_refunds,omitempty"`
+
+	// include tax
+	IncludeTax bool `json:"include_tax,omitempty"`
+}
+
+// Validate validates this segment report settings
+func (m *SegmentReportSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this segment report settings based on context it is used
+func (m *SegmentReportSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *SegmentReportSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *SegmentReportSettings) UnmarshalBinary(b []byte) error {
+	var res SegmentReportSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -31,6 +31,9 @@ type PostSegments struct {
 	// The priority of the Segment.
 	Priority int32 `json:"priority,omitempty"`
 
+	// report settings
+	ReportSettings *PostSegmentsReportSettings `json:"report_settings,omitempty"`
+
 	// The title of the Segment.
 	// Required: true
 	Title *string `json:"title"`
@@ -46,6 +49,10 @@ type PostSegments struct {
 func (m *PostSegments) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateReportSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateTitle(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +60,25 @@ func (m *PostSegments) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostSegments) validateReportSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.ReportSettings) { // not required
+		return nil
+	}
+
+	if m.ReportSettings != nil {
+		if err := m.ReportSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -65,8 +91,38 @@ func (m *PostSegments) validateTitle(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this post segments based on context it is used
+// ContextValidate validate this post segments based on the context it is used
 func (m *PostSegments) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateReportSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PostSegments) contextValidateReportSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReportSettings != nil {
+
+		if swag.IsZero(m.ReportSettings) { // not required
+			return nil
+		}
+
+		if err := m.ReportSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("report_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("report_settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -81,6 +137,55 @@ func (m *PostSegments) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PostSegments) UnmarshalBinary(b []byte) error {
 	var res PostSegments
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PostSegmentsReportSettings Report settings configurable on top-level Segments.
+//
+// swagger:model PostSegmentsReportSettings
+type PostSegmentsReportSettings struct {
+
+	// Reports created under this Segment will amortize.
+	Amortize bool `json:"amortize,omitempty"`
+
+	// Reports created under this Segment will include credits.
+	IncludeCredits bool `json:"include_credits,omitempty"`
+
+	// Reports created under this Segment will include discounts.
+	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+
+	// Reports created under this Segment will include refunds.
+	IncludeRefunds bool `json:"include_refunds,omitempty"`
+
+	// Reports created under this Segment will include tax.
+	IncludeTax bool `json:"include_tax,omitempty"`
+}
+
+// Validate validates this post segments report settings
+func (m *PostSegmentsReportSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post segments report settings based on context it is used
+func (m *PostSegmentsReportSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PostSegmentsReportSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PostSegmentsReportSettings) UnmarshalBinary(b []byte) error {
+	var res PostSegmentsReportSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
