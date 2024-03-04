@@ -2988,7 +2988,6 @@
           }
         },
         "tags": [
-          "Costs",
           "BusinessMetrics"
         ],
         "operationId": "getBusinessMetrics"
@@ -3036,7 +3035,6 @@
           }
         },
         "tags": [
-          "Costs",
           "BusinessMetrics"
         ],
         "operationId": "getBusinessMetric"
