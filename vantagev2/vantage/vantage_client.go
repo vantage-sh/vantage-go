@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
@@ -66,6 +67,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli := new(Vantage)
 	cli.Transport = transport
 	cli.AccessGrants = access_grants.New(transport, formats)
+	cli.BusinessMetrics = business_metrics.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
 	cli.Filters = filters.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
@@ -122,6 +124,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Vantage struct {
 	AccessGrants access_grants.ClientService
 
+	BusinessMetrics business_metrics.ClientService
+
 	Costs costs.ClientService
 
 	Filters filters.ClientService
@@ -149,6 +153,7 @@ type Vantage struct {
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.AccessGrants.SetTransport(transport)
+	c.BusinessMetrics.SetTransport(transport)
 	c.Costs.SetTransport(transport)
 	c.Filters.SetTransport(transport)
 	c.Folders.SetTransport(transport)
