@@ -79,6 +79,10 @@
       "description": "Operations about Users"
     },
     {
+      "name": "BusinessMetrics",
+      "description": "Operations about BusinessMetrics"
+    },
+    {
       "name": "Prices",
       "description": "Operations about Prices"
     },
@@ -1417,10 +1421,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_7375cfafdc76d75d",
+                "token": "dshbrd_40d2a85e60872ee4",
                 "title": "New Dashboard",
                 "widget_tokens": [
-                  "rprt_c1ee989ed85f8bf5"
+                  "rprt_d1262358f4d2de03"
+                ],
+                "saved_filter_tokens": [
+                  "svd_fltr_03bae07fb40ef1e0"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
@@ -1428,7 +1435,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_d661047bc62df622"
+                "workspace_token": "wrkspc_7c586d05929f60b4"
               }
             }
           },
@@ -1440,6 +1447,7 @@
           }
         },
         "tags": [
+          "Costs",
           "Dashboards"
         ],
         "operationId": "createDashboard"
@@ -1491,18 +1499,21 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_dc993aef24b7c74d",
-                    "title": "Things Fall Apart",
+                    "token": "dshbrd_0e00316c1b6ccdf5",
+                    "title": "O Jerusalem!",
                     "widget_tokens": [
-                      "rprt_fa30b058f86dc2d4"
+                      "rprt_63e2ca172354d16a"
+                    ],
+                    "saved_filter_tokens": [
+                      "svd_fltr_447e67636b3c789a"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2023-09-12T05:07:37Z",
-                    "updated_at": "2023-09-12T05:07:37Z",
-                    "workspace_token": "wrkspc_288e29a9531f922c"
+                    "created_at": "2024-03-04T18:49:33Z",
+                    "updated_at": "2024-03-04T18:49:33Z",
+                    "workspace_token": "wrkspc_d42986a4825b18c7"
                   }
                 ]
               }
@@ -1510,6 +1521,7 @@
           }
         },
         "tags": [
+          "Costs",
           "Dashboards"
         ],
         "operationId": "getDashboards"
@@ -1551,6 +1563,7 @@
           }
         },
         "tags": [
+          "Costs",
           "Dashboards"
         ],
         "operationId": "deleteDashboard"
@@ -1594,18 +1607,21 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_bfaf1eb2da29d91c",
+                "token": "dshbrd_43f0df22a2b28fc1",
                 "title": "Updated Dashboard",
                 "widget_tokens": [
-                  "rprt_badc6361e13a83fb"
+                  "rprt_1f78a31ae74c183f"
+                ],
+                "saved_filter_tokens": [
+                  "svd_fltr_c90a915a9b8c4128"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
                 "end_date": "2023-08-31",
-                "created_at": "2023-09-12T05:06:54Z",
+                "created_at": "2024-03-04T18:49:32Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_a07113c8a27a3aff"
+                "workspace_token": "wrkspc_1f7d72cc9302b876"
               }
             }
           },
@@ -1623,6 +1639,7 @@
           }
         },
         "tags": [
+          "Costs",
           "Dashboards"
         ],
         "operationId": "updateDashboard"
@@ -1664,18 +1681,21 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_3fbac32495b1f5ef",
-                    "title": "Look Homeward, Angel",
+                    "token": "dshbrd_77736ea6e502a481",
+                    "title": "The Road Less Traveled",
                     "widget_tokens": [
-                      "rprt_3582a790582b12ba"
+                      "rprt_7d955d7fbe334706"
+                    ],
+                    "saved_filter_tokens": [
+                      "svd_fltr_cd8f90c99b33dfa6"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2023-09-12T05:07:37Z",
-                    "updated_at": "2023-09-12T05:07:37Z",
-                    "workspace_token": "wrkspc_1f8bad7f7efd4b8e"
+                    "created_at": "2024-03-04T18:49:33Z",
+                    "updated_at": "2024-03-04T18:49:33Z",
+                    "workspace_token": "wrkspc_863089db412905d9"
                   }
                 ]
               }
@@ -1689,6 +1709,7 @@
           }
         },
         "tags": [
+          "Costs",
           "Dashboards"
         ],
         "operationId": "getDashboard"
@@ -1725,7 +1746,7 @@
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
             "type": "array",
             "items": {
               "type": "string"
@@ -2917,6 +2938,110 @@
         "operationId": "getUser"
       }
     },
+    "/business_metrics": {
+      "get": {
+        "description": "Return all Business Metrics that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetrics"
+            },
+            "examples": {
+              "application/json": {
+                "business_metrics": [
+                  {
+                    "token": "bsnss_mtrc_88c4b6eb86b6929a",
+                    "title": "Biz Metric"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs",
+          "BusinessMetrics"
+        ],
+        "operationId": "getBusinessMetrics"
+      }
+    },
+    "/business_metrics/{business_metric_token}": {
+      "get": {
+        "description": "Return a specific Business Metric.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetric"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bsnss_mtrc_1be215cda122003d",
+                "title": "Biz Metric"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs",
+          "BusinessMetrics"
+        ],
+        "operationId": "getBusinessMetric"
+      }
+    },
     "/products": {
       "get": {
         "description": "Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.",
@@ -3533,7 +3658,7 @@
         },
         "groupings": {
           "type": "string",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
         },
         "filter": {
           "type": "string",
@@ -3549,6 +3674,42 @@
         "folder_token": {
           "type": "string",
           "description": "The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to."
+        },
+        "settings": {
+          "type": "object",
+          "description": "Report settings.",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "description": "Report will include credits.",
+              "default": false
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "description": "Report will include refunds.",
+              "default": false
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "description": "Report will include discounts.",
+              "default": true
+            },
+            "include_tax": {
+              "type": "boolean",
+              "description": "Report will include tax.",
+              "default": true
+            },
+            "amortize": {
+              "type": "boolean",
+              "description": "Report will amortize.",
+              "default": true
+            },
+            "unallocated": {
+              "type": "boolean",
+              "description": "Report will show unallocated costs.",
+              "default": false
+            }
+          }
         }
       },
       "required": [
@@ -3587,6 +3748,42 @@
           "example": "provider, service",
           "description": "The grouping aggregations applied to the filtered data."
         },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "default": false,
+              "description": "Report will include credits."
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "default": false,
+              "description": "Report will include refunds."
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "default": true,
+              "description": "Report will include discounts."
+            },
+            "include_tax": {
+              "type": "boolean",
+              "default": true,
+              "description": "Report will include tax."
+            },
+            "amortize": {
+              "type": "boolean",
+              "default": true,
+              "description": "Report will amortize."
+            },
+            "unallocated": {
+              "type": "boolean",
+              "default": false,
+              "description": "Report will show unallocated costs."
+            }
+          },
+          "description": "Report settings."
+        },
         "created_at": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
@@ -3623,7 +3820,7 @@
         },
         "groupings": {
           "type": "string",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
         },
         "filter": {
           "type": "string",
@@ -3639,6 +3836,36 @@
         "folder_token": {
           "type": "string",
           "description": "The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to."
+        },
+        "settings": {
+          "type": "object",
+          "description": "Report settings.",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "description": "Report will include credits."
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "description": "Report will include refunds."
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "description": "Report will include discounts."
+            },
+            "include_tax": {
+              "type": "boolean",
+              "description": "Report will include tax."
+            },
+            "amortize": {
+              "type": "boolean",
+              "description": "Report will amortize."
+            },
+            "unallocated": {
+              "type": "boolean",
+              "description": "Report will show unallocated costs."
+            }
+          }
         }
       },
       "description": "Update a CostReport."
@@ -3927,6 +4154,13 @@
           },
           "description": "The tokens of the widgets displayed in the Dashboard. Currently only supports CostReport tokens."
         },
+        "saved_filter_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens of the Saved Filters used in the Dashboard."
+        },
         "date_bin": {
           "type": "string",
           "enum": [
@@ -4006,6 +4240,13 @@
         "widget_tokens": {
           "type": "array",
           "description": "The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "saved_filter_tokens": {
+          "type": "array",
+          "description": "The tokens of the Saved Filters used in the Dashboard.",
           "items": {
             "type": "string"
           }
@@ -4107,7 +4348,9 @@
             "open_ai",
             "oracle",
             "confluent",
-            "planetscale"
+            "planetscale",
+            "coralogix",
+            "kubernetes"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -4605,6 +4848,32 @@
         }
       },
       "description": "User model"
+    },
+    "BusinessMetrics": {
+      "type": "object",
+      "properties": {
+        "business_metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessMetric"
+          }
+        }
+      },
+      "description": "BusinessMetrics model"
+    },
+    "BusinessMetric": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Total Revenue",
+          "description": "The title of the Business Metric."
+        }
+      },
+      "description": "BusinessMetric model"
     },
     "Products": {
       "type": "object",

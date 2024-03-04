@@ -25,11 +25,14 @@ type PostCostReports struct {
 	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
 	// The tokens of the SavedFilters to apply to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
+	// settings
+	Settings *PostCostReportsSettings `json:"settings,omitempty"`
 
 	// The title of the CostReport.
 	// Required: true
@@ -43,6 +46,10 @@ type PostCostReports struct {
 func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateTitle(formats); err != nil {
 		res = append(res, err)
 	}
@@ -50,6 +57,25 @@ func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostCostReports) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -62,8 +88,38 @@ func (m *PostCostReports) validateTitle(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this post cost reports based on context it is used
+// ContextValidate validate this post cost reports based on the context it is used
 func (m *PostCostReports) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PostCostReports) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
+
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -78,6 +134,58 @@ func (m *PostCostReports) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PostCostReports) UnmarshalBinary(b []byte) error {
 	var res PostCostReports
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PostCostReportsSettings Report settings.
+//
+// swagger:model PostCostReportsSettings
+type PostCostReportsSettings struct {
+
+	// Report will amortize.
+	Amortize *bool `json:"amortize,omitempty"`
+
+	// Report will include credits.
+	IncludeCredits *bool `json:"include_credits,omitempty"`
+
+	// Report will include discounts.
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
+
+	// Report will include refunds.
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
+
+	// Report will include tax.
+	IncludeTax *bool `json:"include_tax,omitempty"`
+
+	// Report will show unallocated costs.
+	Unallocated *bool `json:"unallocated,omitempty"`
+}
+
+// Validate validates this post cost reports settings
+func (m *PostCostReportsSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post cost reports settings based on context it is used
+func (m *PostCostReportsSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PostCostReportsSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PostCostReportsSettings) UnmarshalBinary(b []byte) error {
+	var res PostCostReportsSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

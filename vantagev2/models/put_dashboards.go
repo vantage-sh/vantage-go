@@ -32,6 +32,9 @@ type PutDashboards struct {
 	// Required: true
 	EndDate *string `json:"end_date"`
 
+	// The tokens of the Saved Filters used in the Dashboard.
+	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
 	// The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	StartDate string `json:"start_date,omitempty"`
 

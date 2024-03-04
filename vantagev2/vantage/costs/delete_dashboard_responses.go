@@ -23,8 +23,8 @@ type DeleteDashboardReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDashboardReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewDeleteDashboardOK()
+	case 204:
+		result := NewDeleteDashboardNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -40,63 +40,63 @@ func (o *DeleteDashboardReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewDeleteDashboardOK creates a DeleteDashboardOK with default headers values
-func NewDeleteDashboardOK() *DeleteDashboardOK {
-	return &DeleteDashboardOK{}
+// NewDeleteDashboardNoContent creates a DeleteDashboardNoContent with default headers values
+func NewDeleteDashboardNoContent() *DeleteDashboardNoContent {
+	return &DeleteDashboardNoContent{}
 }
 
 /*
-DeleteDashboardOK describes a response with status code 200, with default header values.
+DeleteDashboardNoContent describes a response with status code 204, with default header values.
 
-DeleteDashboardOK delete dashboard o k
+DeleteDashboardNoContent delete dashboard no content
 */
-type DeleteDashboardOK struct {
+type DeleteDashboardNoContent struct {
 	Payload *models.Dashboard
 }
 
-// IsSuccess returns true when this delete dashboard o k response has a 2xx status code
-func (o *DeleteDashboardOK) IsSuccess() bool {
+// IsSuccess returns true when this delete dashboard no content response has a 2xx status code
+func (o *DeleteDashboardNoContent) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this delete dashboard o k response has a 3xx status code
-func (o *DeleteDashboardOK) IsRedirect() bool {
+// IsRedirect returns true when this delete dashboard no content response has a 3xx status code
+func (o *DeleteDashboardNoContent) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this delete dashboard o k response has a 4xx status code
-func (o *DeleteDashboardOK) IsClientError() bool {
+// IsClientError returns true when this delete dashboard no content response has a 4xx status code
+func (o *DeleteDashboardNoContent) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this delete dashboard o k response has a 5xx status code
-func (o *DeleteDashboardOK) IsServerError() bool {
+// IsServerError returns true when this delete dashboard no content response has a 5xx status code
+func (o *DeleteDashboardNoContent) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this delete dashboard o k response a status code equal to that given
-func (o *DeleteDashboardOK) IsCode(code int) bool {
-	return code == 200
+// IsCode returns true when this delete dashboard no content response a status code equal to that given
+func (o *DeleteDashboardNoContent) IsCode(code int) bool {
+	return code == 204
 }
 
-// Code gets the status code for the delete dashboard o k response
-func (o *DeleteDashboardOK) Code() int {
-	return 200
+// Code gets the status code for the delete dashboard no content response
+func (o *DeleteDashboardNoContent) Code() int {
+	return 204
 }
 
-func (o *DeleteDashboardOK) Error() string {
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardOK  %+v", 200, o.Payload)
+func (o *DeleteDashboardNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent  %+v", 204, o.Payload)
 }
 
-func (o *DeleteDashboardOK) String() string {
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardOK  %+v", 200, o.Payload)
+func (o *DeleteDashboardNoContent) String() string {
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent  %+v", 204, o.Payload)
 }
 
-func (o *DeleteDashboardOK) GetPayload() *models.Dashboard {
+func (o *DeleteDashboardNoContent) GetPayload() *models.Dashboard {
 	return o.Payload
 }
 
-func (o *DeleteDashboardOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteDashboardNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Dashboard)
 
