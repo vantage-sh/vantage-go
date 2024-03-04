@@ -53,7 +53,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: [aws azure gcp snowflake databricks mongo datadog fastly new_relic opencost open_ai oracle confluent planetscale]
+	// Enum: [aws azure gcp snowflake databricks mongo datadog fastly new_relic opencost open_ai oracle confluent planetscale coralogix kubernetes]
 	Provider string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -95,7 +95,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -146,6 +146,12 @@ const (
 
 	// CostProviderPlanetscale captures enum value "planetscale"
 	CostProviderPlanetscale string = "planetscale"
+
+	// CostProviderCoralogix captures enum value "coralogix"
+	CostProviderCoralogix string = "coralogix"
+
+	// CostProviderKubernetes captures enum value "kubernetes"
+	CostProviderKubernetes string = "kubernetes"
 )
 
 // prop value enum

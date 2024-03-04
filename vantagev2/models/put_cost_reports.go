@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,11 +24,14 @@ type PutCostReports struct {
 	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
 	// The tokens of the SavedFilters to apply to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
+
+	// settings
+	Settings *PutCostReportsSettings `json:"settings,omitempty"`
 
 	// The title of the CostReport.
 	Title string `json:"title,omitempty"`
@@ -35,11 +39,69 @@ type PutCostReports struct {
 
 // Validate validates this put cost reports
 func (m *PutCostReports) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this put cost reports based on context it is used
+func (m *PutCostReports) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put cost reports based on the context it is used
 func (m *PutCostReports) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PutCostReports) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
+
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -54,6 +116,58 @@ func (m *PutCostReports) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PutCostReports) UnmarshalBinary(b []byte) error {
 	var res PutCostReports
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PutCostReportsSettings Report settings.
+//
+// swagger:model PutCostReportsSettings
+type PutCostReportsSettings struct {
+
+	// Report will amortize.
+	Amortize bool `json:"amortize,omitempty"`
+
+	// Report will include credits.
+	IncludeCredits bool `json:"include_credits,omitempty"`
+
+	// Report will include discounts.
+	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+
+	// Report will include refunds.
+	IncludeRefunds bool `json:"include_refunds,omitempty"`
+
+	// Report will include tax.
+	IncludeTax bool `json:"include_tax,omitempty"`
+
+	// Report will show unallocated costs.
+	Unallocated bool `json:"unallocated,omitempty"`
+}
+
+// Validate validates this put cost reports settings
+func (m *PutCostReportsSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this put cost reports settings based on context it is used
+func (m *PutCostReportsSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PutCostReportsSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PutCostReportsSettings) UnmarshalBinary(b []byte) error {
+	var res PutCostReportsSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

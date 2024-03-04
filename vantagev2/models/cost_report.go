@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -34,6 +35,9 @@ type CostReport struct {
 	// The tokens for the SavedFilters assigned to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
+	// settings
+	Settings *CostReportSettings `json:"settings,omitempty"`
+
 	// The title of the CostReport.
 	// Example: Production Environment
 	Title string `json:"title,omitempty"`
@@ -47,11 +51,69 @@ type CostReport struct {
 
 // Validate validates this cost report
 func (m *CostReport) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this cost report based on context it is used
+func (m *CostReport) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cost report based on the context it is used
 func (m *CostReport) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostReport) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
+
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -66,6 +128,58 @@ func (m *CostReport) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CostReport) UnmarshalBinary(b []byte) error {
 	var res CostReport
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CostReportSettings Report settings.
+//
+// swagger:model CostReportSettings
+type CostReportSettings struct {
+
+	// Report will amortize.
+	Amortize *bool `json:"amortize,omitempty"`
+
+	// Report will include credits.
+	IncludeCredits *bool `json:"include_credits,omitempty"`
+
+	// Report will include discounts.
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
+
+	// Report will include refunds.
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
+
+	// Report will include tax.
+	IncludeTax *bool `json:"include_tax,omitempty"`
+
+	// Report will show unallocated costs.
+	Unallocated *bool `json:"unallocated,omitempty"`
+}
+
+// Validate validates this cost report settings
+func (m *CostReportSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this cost report settings based on context it is used
+func (m *CostReportSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CostReportSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CostReportSettings) UnmarshalBinary(b []byte) error {
+	var res CostReportSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
