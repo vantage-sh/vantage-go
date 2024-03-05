@@ -4088,6 +4088,13 @@
             "type": "string"
           }
         },
+        "saved_filter_tokens": {
+          "type": "array",
+          "description": "The tokens of the Saved Filters used in the Dashboard.",
+          "items": {
+            "type": "string"
+          }
+        },
         "date_bin": {
           "type": "string",
           "description": "Determines how to group costs in the Dashboard.",
