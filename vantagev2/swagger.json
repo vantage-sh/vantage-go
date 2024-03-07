@@ -1484,8 +1484,8 @@
           }
         },
         "tags": [
-          "Costs",
-          "Dashboards"
+          "Dashboards",
+          "Costs"
         ],
         "operationId": "createDashboard"
       },
@@ -1558,8 +1558,8 @@
           }
         },
         "tags": [
-          "Costs",
-          "Dashboards"
+          "Dashboards",
+          "Costs"
         ],
         "operationId": "getDashboards"
       }
@@ -1600,8 +1600,8 @@
           }
         },
         "tags": [
-          "Costs",
-          "Dashboards"
+          "Dashboards",
+          "Costs"
         ],
         "operationId": "deleteDashboard"
       },
@@ -1676,8 +1676,8 @@
           }
         },
         "tags": [
-          "Costs",
-          "Dashboards"
+          "Dashboards",
+          "Costs"
         ],
         "operationId": "updateDashboard"
       },
@@ -1746,8 +1746,8 @@
           }
         },
         "tags": [
-          "Costs",
-          "Dashboards"
+          "Dashboards",
+          "Costs"
         ],
         "operationId": "getDashboard"
       }
