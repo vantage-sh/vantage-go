@@ -30,11 +30,95 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateBusinessMetric(params *CreateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBusinessMetricCreated, error)
+
+	DeleteBusinessMetric(params *DeleteBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricNoContent, error)
+
 	GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error)
 
 	GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error)
 
+	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricCreated, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateBusinessMetric Create a new Business Metric.
+*/
+func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBusinessMetricCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateBusinessMetricParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createBusinessMetric",
+		Method:             "POST",
+		PathPattern:        "/business_metrics",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateBusinessMetricReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateBusinessMetricCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteBusinessMetric Deletes an existing BusinessMetric.
+*/
+func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteBusinessMetricParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteBusinessMetric",
+		Method:             "DELETE",
+		PathPattern:        "/business_metrics/{business_metric_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteBusinessMetricReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteBusinessMetricNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -112,6 +196,45 @@ func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getBusinessMetrics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateBusinessMetric Updates an existing BusinessMetric.
+*/
+func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateBusinessMetricParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateBusinessMetric",
+		Method:             "PUT",
+		PathPattern:        "/business_metrics/{business_metric_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateBusinessMetricReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateBusinessMetricCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

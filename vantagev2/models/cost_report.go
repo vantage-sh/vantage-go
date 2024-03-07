@@ -18,6 +18,9 @@ import (
 // swagger:model CostReport
 type CostReport struct {
 
+	// The tokens for the BusinessMetrics assigned to the CostReport.
+	BusinessMetricTokens []string `json:"business_metric_tokens"`
+
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`

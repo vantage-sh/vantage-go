@@ -19,6 +19,9 @@ import (
 // swagger:model postCostReports
 type PostCostReports struct {
 
+	// The tokens of the BusinessMetrics to attach to the CostReport.
+	BusinessMetricTokens []string `json:"business_metric_tokens"`
+
 	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 

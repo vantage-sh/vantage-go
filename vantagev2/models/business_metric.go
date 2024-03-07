@@ -17,12 +17,22 @@ import (
 // swagger:model BusinessMetric
 type BusinessMetric struct {
 
-	// The title of the Business Metric.
+	// The tokens for any CostReports that use the BusinessMetric.
+	CostReportTokens []string `json:"cost_report_tokens"`
+
+	// The token of the User who created the BusinessMetric.
+	// Example: usr_1234
+	CreatedByToken string `json:"created_by_token,omitempty"`
+
+	// The title of the BusinessMetric.
 	// Example: Total Revenue
 	Title string `json:"title,omitempty"`
 
 	// token
 	Token string `json:"token,omitempty"`
+
+	// The dates and amounts for the BusinessMetric.
+	Values []string `json:"values"`
 }
 
 // Validate validates this business metric
