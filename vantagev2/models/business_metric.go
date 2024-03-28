@@ -17,8 +17,8 @@ import (
 // swagger:model BusinessMetric
 type BusinessMetric struct {
 
-	// The tokens for any CostReports that use the BusinessMetric.
-	CostReportTokens []string `json:"cost_report_tokens"`
+	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
+	CostReportTokensWithMetadata []string `json:"cost_report_tokens_with_metadata"`
 
 	// The token of the User who created the BusinessMetric.
 	// Example: usr_1234
@@ -28,10 +28,11 @@ type BusinessMetric struct {
 	// Example: Total Revenue
 	Title string `json:"title,omitempty"`
 
-	// token
+	// The token of the BusinessMetric.
+	// Example: bsnss_mtrc_1234
 	Token string `json:"token,omitempty"`
 
-	// The dates and amounts for the BusinessMetric.
+	// The dates and amounts for the BusinessMetric
 	Values []string `json:"values"`
 }
 

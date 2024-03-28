@@ -87,6 +87,10 @@
       "description": "Operations about Prices"
     },
     {
+      "name": "ResourceReports",
+      "description": "Operations about ResourceReports"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -815,14 +819,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_e6523e65e3cd0c6a",
+                "token": "rprt_362b04093c087475",
                 "title": "New Cost Report",
-                "folder_token": "fldr_94a63eb1f51dbed0",
+                "folder_token": "fldr_819fe3807f88ff90",
                 "saved_filter_tokens": [
-                  "svd_fltr_3e2ec0e5fe78991c"
+                  "svd_fltr_a50b002184902819"
                 ],
-                "business_metric_tokens": [
-                  "bsnss_mtrc_17c0d8f835fe3167"
+                "business_metric_tokens_with_metadata": [
+                  {
+                    "business_metric_token": "bsnss_mtrc_bc0689f1b54094b1",
+                    "unit_scale": "per_thousand"
+                  }
                 ],
                 "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
                 "groupings": "provider,service",
@@ -834,8 +841,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-07T17:52:39Z",
-                "workspace_token": "wrkspc_6c68a8544a52cdad"
+                "created_at": "2024-03-19T15:22:51Z",
+                "workspace_token": "wrkspc_d50edff4c3ae23b2"
               }
             }
           },
@@ -904,13 +911,13 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_84d77eaa09fc7395",
+                    "token": "rprt_e97ef22efaa6da12",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_fa61237df4fdf0b6"
+                      "svd_fltr_cc4a422cf86f9e26"
                     ],
-                    "business_metric_tokens": [],
+                    "business_metric_tokens_with_metadata": [],
                     "filter": null,
                     "groupings": "provider,service",
                     "settings": {
@@ -921,8 +928,8 @@
                       "amortize": true,
                       "unallocated": false
                     },
-                    "created_at": "2024-03-07T17:52:41Z",
-                    "workspace_token": "wrkspc_d8302d652acb245e"
+                    "created_at": "2024-03-19T15:22:54Z",
+                    "workspace_token": "wrkspc_3dc89ff43657f255"
                   }
                 ]
               }
@@ -1014,14 +1021,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_a700cb07bd6535a1",
+                "token": "rprt_77fec1422cfc25df",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_e98ec95afbc4a9fc",
+                "folder_token": "fldr_54b65b6cb9af21d0",
                 "saved_filter_tokens": [
-                  "svd_fltr_e8425561128bac42"
+                  "svd_fltr_33736ce7e17d7803"
                 ],
-                "business_metric_tokens": [
-                  "bsnss_mtrc_aebf315d6e35dfbf"
+                "business_metric_tokens_with_metadata": [
+                  {
+                    "business_metric_token": "bsnss_mtrc_58c57f66d35a1ad7",
+                    "unit_scale": "per_thousand"
+                  }
                 ],
                 "filter": "costs.provider = 'azure'",
                 "groupings": "service,account_id",
@@ -1033,8 +1043,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-07T17:52:35Z",
-                "workspace_token": "wrkspc_44a80caa29f59f43"
+                "created_at": "2024-03-19T15:22:52Z",
+                "workspace_token": "wrkspc_ca0b4a774e8fa57c"
               }
             }
           },
@@ -1084,10 +1094,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_e177518d496ed80a",
+                "token": "rprt_16a4d01d67a50631",
                 "title": "Segment Report",
-                "folder_token": "fldr_f53f86ac96c27bff",
-                "business_metric_tokens": [],
+                "folder_token": "fldr_fa3d9420651c11d7",
+                "business_metric_tokens_with_metadata": [],
                 "filter": null,
                 "groupings": null,
                 "settings": {
@@ -1098,8 +1108,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-07T17:52:42Z",
-                "workspace_token": "wrkspc_3745f0831e7c4654"
+                "created_at": "2024-03-19T15:22:54Z",
+                "workspace_token": "wrkspc_6a917500aba6bca8"
               }
             }
           },
@@ -3009,11 +3019,14 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_ca7d1af2f3e10e8f",
+                "token": "bsnss_mtrc_5cb1416ffdb71e45",
                 "title": "New Biz Metric",
-                "created_by_token": "usr_9a76f9379e20c45e",
-                "cost_report_tokens": [
-                  "rprt_35783f9662839781"
+                "created_by_token": "usr_c7ed8af27690461d",
+                "cost_report_tokens_with_metadata": [
+                  {
+                    "cost_report_token": "rprt_d9456b5218e47888",
+                    "unit_scale": "per_thousand"
+                  }
                 ],
                 "values": [
                   {
@@ -3102,10 +3115,10 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_90f1fd369c6348b6",
+                    "token": "bsnss_mtrc_59f5539480219769",
                     "title": "Biz Metric",
                     "created_by_token": null,
-                    "cost_report_tokens": [],
+                    "cost_report_tokens_with_metadata": [],
                     "values": []
                   }
                 ]
@@ -3204,11 +3217,14 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_d41e8fab09ad8dad",
+                "token": "bsnss_mtrc_892d49c3863e90a6",
                 "title": "New Title",
                 "created_by_token": null,
-                "cost_report_tokens": [
-                  "rprt_9e87426120479721"
+                "cost_report_tokens_with_metadata": [
+                  {
+                    "cost_report_token": "rprt_8914e211c6bad755",
+                    "unit_scale": "per_thousand"
+                  }
                 ],
                 "values": [
                   {
@@ -3285,10 +3301,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_c480ccff384825da",
+                "token": "bsnss_mtrc_fef64b1f7e56165f",
                 "title": "Biz Metric",
                 "created_by_token": null,
-                "cost_report_tokens": [],
+                "cost_report_tokens_with_metadata": [],
                 "values": []
               }
             }
@@ -3304,6 +3320,98 @@
           "BusinessMetrics"
         ],
         "operationId": "getBusinessMetric"
+      }
+    },
+    "/business_metrics/{business_metric_token}/values.csv": {
+      "put": {
+        "description": "Updates the values for an existing BusinessMetric from a CSV file.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "csv",
+            "description": "CSV file containing BusinessMetric dates and amounts",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetric"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bsnss_mtrc_6bc29b57fecf9ab5",
+                "title": "Biz Metric",
+                "created_by_token": null,
+                "cost_report_tokens": [],
+                "values": [
+                  {
+                    "date": "2024-01-03T00:00:00Z",
+                    "amount": "300.3"
+                  },
+                  {
+                    "date": "2024-01-02T00:00:00Z",
+                    "amount": "200.2"
+                  },
+                  {
+                    "date": "2024-01-01T00:00:00Z",
+                    "amount": "100.1"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BusinessMetrics"
+        ],
+        "operationId": "updateBusinessMetricValuesCSV"
       }
     },
     "/products": {
@@ -3643,6 +3751,168 @@
         "operationId": "getPrice"
       }
     },
+    "/resource_reports": {
+      "get": {
+        "description": "Return all ResourceReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/provider_resource_reports",
+                  "first": "https://api.vantage.com/v2/provider_resource_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/provider_resource_reports?page=1",
+                  "prev": null
+                },
+                "provider_resource_reports": [
+                  {
+                    "token": "prvdr_rsrc_rprt_c013a8c9280ed485",
+                    "title": "Resource Report 098e130a",
+                    "default": false,
+                    "created_at": "2024-03-19T22:09:43Z",
+                    "workspace_token": "wrkspc_5a15339e6128797f",
+                    "report_token": null,
+                    "user_token": null,
+                    "recommendation_service": null,
+                    "recommendation_category": null
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "getResourceReports"
+      }
+    },
+    "/resource_reports/{resource_report_token}": {
+      "delete": {
+        "description": "Delete a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "deleteResourceReport"
+      },
+      "get": {
+        "description": "Return a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_rprt_b4b9884d0bb2e121",
+                "title": "Resource Report 46d7371d",
+                "default": false,
+                "created_at": "2024-03-19T22:09:43Z",
+                "workspace_token": "wrkspc_3b72a68131df0d33",
+                "report_token": null,
+                "user_token": null,
+                "recommendation_service": null,
+                "recommendation_category": null
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "getResourceReport"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -3935,11 +4205,32 @@
             "type": "string"
           }
         },
-        "business_metric_tokens": {
+        "business_metric_tokens_with_metadata": {
           "type": "array",
-          "description": "The tokens of the BusinessMetrics to attach to the CostReport.",
+          "description": "The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "business_metric_token": {
+                "type": "string",
+                "description": "The token of the BusinessMetric to attach to the CostReport."
+              },
+              "unit_scale": {
+                "type": "string",
+                "description": "Determines the scale of the BusinessMetric's values within the CostReport.",
+                "enum": [
+                  "per_unit",
+                  "per_hundred",
+                  "per_thousand",
+                  "per_million",
+                  "per_billion"
+                ],
+                "default": "per_unit"
+              }
+            },
+            "required": [
+              "business_metric_token"
+            ]
           }
         },
         "folder_token": {
@@ -4010,12 +4301,12 @@
           },
           "description": "The tokens for the SavedFilters assigned to the CostReport."
         },
-        "business_metric_tokens": {
+        "business_metric_tokens_with_metadata": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "The tokens for the BusinessMetrics assigned to the CostReport."
+          "description": "The tokens for the BusinessMetrics assigned to the CostReport, and the unit scale."
         },
         "filter": {
           "type": "string",
@@ -4111,11 +4402,32 @@
             "type": "string"
           }
         },
-        "business_metric_tokens": {
+        "business_metric_tokens_with_metadata": {
           "type": "array",
-          "description": "The tokens of the BusinessMetrics to attach to the CostReport.",
+          "description": "The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "business_metric_token": {
+                "type": "string",
+                "description": "The token of the BusinessMetric to attach to the CostReport."
+              },
+              "unit_scale": {
+                "type": "string",
+                "description": "Determines the scale of the BusinessMetric's values within the CostReport.",
+                "enum": [
+                  "per_unit",
+                  "per_hundred",
+                  "per_thousand",
+                  "per_million",
+                  "per_billion"
+                ],
+                "default": "per_unit"
+              }
+            },
+            "required": [
+              "business_metric_token"
+            ]
           }
         },
         "folder_token": {
@@ -4405,7 +4717,11 @@
             "custom",
             "last_12_months",
             "last_24_months",
-            "last_36_months"
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months"
           ]
         },
         "start_date": {
@@ -4475,7 +4791,11 @@
             "custom",
             "last_12_months",
             "last_24_months",
-            "last_36_months"
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months"
           ],
           "description": "Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
@@ -4566,7 +4886,11 @@
             "custom",
             "last_12_months",
             "last_24_months",
-            "last_36_months"
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months"
           ]
         },
         "start_date": {
@@ -5148,11 +5472,32 @@
           "type": "string",
           "description": "The title of the Business Metric."
         },
-        "cost_report_tokens": {
+        "cost_report_tokens_with_metadata": {
           "type": "array",
-          "description": "The tokens for any CostReports that use the BusinessMetric.",
+          "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale.",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "cost_report_token": {
+                "type": "string",
+                "description": "The token of the CostReport the BusinessMetric is attached to."
+              },
+              "unit_scale": {
+                "type": "string",
+                "description": "Determines the scale of the BusinessMetric's values within the CostReport.",
+                "enum": [
+                  "per_unit",
+                  "per_hundred",
+                  "per_thousand",
+                  "per_million",
+                  "per_billion"
+                ],
+                "default": "per_unit"
+              }
+            },
+            "required": [
+              "cost_report_token"
+            ]
           }
         },
         "values": {
@@ -5186,7 +5531,9 @@
       "type": "object",
       "properties": {
         "token": {
-          "type": "string"
+          "type": "string",
+          "example": "bsnss_mtrc_1234",
+          "description": "The token of the BusinessMetric."
         },
         "title": {
           "type": "string",
@@ -5198,15 +5545,18 @@
           "example": "usr_1234",
           "description": "The token of the User who created the BusinessMetric."
         },
-        "cost_report_tokens": {
+        "cost_report_tokens_with_metadata": {
           "type": "array",
           "items": {
             "type": "string",
             "example": [
-              "rprt_1234"
+              {
+                "cost_report_token": "rprt_1234",
+                "unit_scale": "per_hundred"
+              }
             ]
           },
-          "description": "The tokens for any CostReports that use the BusinessMetric."
+          "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale."
         },
         "values": {
           "type": "array",
@@ -5219,7 +5569,7 @@
               }
             ]
           },
-          "description": "The dates and amounts for the BusinessMetric."
+          "description": "The dates and amounts for the BusinessMetric"
         }
       },
       "description": "BusinessMetric model"
@@ -5242,6 +5592,34 @@
         "title": {
           "type": "string",
           "description": "The title of the BusinessMetric."
+        },
+        "cost_report_tokens_with_metadata": {
+          "type": "array",
+          "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cost_report_token": {
+                "type": "string",
+                "description": "The token of the CostReport the BusinessMetric is attached to."
+              },
+              "unit_scale": {
+                "type": "string",
+                "description": "Determines the scale of the BusinessMetric's values within the CostReport.",
+                "enum": [
+                  "per_unit",
+                  "per_hundred",
+                  "per_thousand",
+                  "per_million",
+                  "per_billion"
+                ],
+                "default": "per_unit"
+              }
+            },
+            "required": [
+              "cost_report_token"
+            ]
+          }
         },
         "values": {
           "type": "array",
@@ -5380,6 +5758,56 @@
         }
       },
       "description": "Price model"
+    },
+    "ResourceReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "resource_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceReport"
+          }
+        }
+      },
+      "description": "ResourceReports model"
+    },
+    "ResourceReport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Acme123 Active Resources",
+          "description": "The title of the ResourceReport."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Indicates whether the ResourceReport is the default report."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the ResourceReport is a part of."
+        },
+        "segment_token": {
+          "type": "string",
+          "description": "The token for the Segment the ResourceReport is a part of."
+        },
+        "user_token": {
+          "type": "string",
+          "description": "The token for the User who created this ResourceReport."
+        }
+      },
+      "description": "ResourceReport model"
     }
   }
 }

@@ -7,6 +7,8 @@ package models
 
 import (
 	"context"
+	"encoding/json"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,8 +21,8 @@ import (
 // swagger:model postCostReports
 type PostCostReports struct {
 
-	// The tokens of the BusinessMetrics to attach to the CostReport.
-	BusinessMetricTokens []string `json:"business_metric_tokens"`
+	// The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
+	BusinessMetricTokensWithMetadata []*PostCostReportsBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
 	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
@@ -49,6 +51,10 @@ type PostCostReports struct {
 func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBusinessMetricTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
@@ -60,6 +66,32 @@ func (m *PostCostReports) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostCostReports) validateBusinessMetricTokensWithMetadata(formats strfmt.Registry) error {
+	if swag.IsZero(m.BusinessMetricTokensWithMetadata) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.BusinessMetricTokensWithMetadata); i++ {
+		if swag.IsZero(m.BusinessMetricTokensWithMetadata[i]) { // not required
+			continue
+		}
+
+		if m.BusinessMetricTokensWithMetadata[i] != nil {
+			if err := m.BusinessMetricTokensWithMetadata[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -95,6 +127,10 @@ func (m *PostCostReports) validateTitle(formats strfmt.Registry) error {
 func (m *PostCostReports) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateBusinessMetricTokensWithMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -102,6 +138,31 @@ func (m *PostCostReports) ContextValidate(ctx context.Context, formats strfmt.Re
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostCostReports) contextValidateBusinessMetricTokensWithMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.BusinessMetricTokensWithMetadata); i++ {
+
+		if m.BusinessMetricTokensWithMetadata[i] != nil {
+
+			if swag.IsZero(m.BusinessMetricTokensWithMetadata[i]) { // not required
+				return nil
+			}
+
+			if err := m.BusinessMetricTokensWithMetadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -137,6 +198,121 @@ func (m *PostCostReports) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PostCostReports) UnmarshalBinary(b []byte) error {
 	var res PostCostReports
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PostCostReportsBusinessMetricTokensWithMetadataItems0 post cost reports business metric tokens with metadata items0
+//
+// swagger:model PostCostReportsBusinessMetricTokensWithMetadataItems0
+type PostCostReportsBusinessMetricTokensWithMetadataItems0 struct {
+
+	// The token of the BusinessMetric to attach to the CostReport.
+	// Required: true
+	BusinessMetricToken *string `json:"business_metric_token"`
+
+	// Determines the scale of the BusinessMetric's values within the CostReport.
+	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
+	UnitScale *string `json:"unit_scale,omitempty"`
+}
+
+// Validate validates this post cost reports business metric tokens with metadata items0
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnitScale(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) validateBusinessMetricToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var postCostReportsBusinessMetricTokensWithMetadataItems0TypeUnitScalePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["per_unit","per_hundred","per_thousand","per_million","per_billion"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		postCostReportsBusinessMetricTokensWithMetadataItems0TypeUnitScalePropEnum = append(postCostReportsBusinessMetricTokensWithMetadataItems0TypeUnitScalePropEnum, v)
+	}
+}
+
+const (
+
+	// PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerUnit captures enum value "per_unit"
+	PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerUnit string = "per_unit"
+
+	// PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerHundred captures enum value "per_hundred"
+	PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerHundred string = "per_hundred"
+
+	// PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerThousand captures enum value "per_thousand"
+	PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerThousand string = "per_thousand"
+
+	// PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerMillion captures enum value "per_million"
+	PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerMillion string = "per_million"
+
+	// PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerBillion captures enum value "per_billion"
+	PostCostReportsBusinessMetricTokensWithMetadataItems0UnitScalePerBillion string = "per_billion"
+)
+
+// prop value enum
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) validateUnitScaleEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, postCostReportsBusinessMetricTokensWithMetadataItems0TypeUnitScalePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) validateUnitScale(formats strfmt.Registry) error {
+	if swag.IsZero(m.UnitScale) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateUnitScaleEnum("unit_scale", "body", *m.UnitScale); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this post cost reports business metric tokens with metadata items0 based on context it is used
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PostCostReportsBusinessMetricTokensWithMetadataItems0) UnmarshalBinary(b []byte) error {
+	var res PostCostReportsBusinessMetricTokensWithMetadataItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

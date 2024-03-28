@@ -25,7 +25,7 @@ type PutDashboards struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
-	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -119,7 +119,7 @@ var putDashboardsTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -158,6 +158,18 @@ const (
 
 	// PutDashboardsDateIntervalLast36Months captures enum value "last_36_months"
 	PutDashboardsDateIntervalLast36Months string = "last_36_months"
+
+	// PutDashboardsDateIntervalNextMonth captures enum value "next_month"
+	PutDashboardsDateIntervalNextMonth string = "next_month"
+
+	// PutDashboardsDateIntervalNext3Months captures enum value "next_3_months"
+	PutDashboardsDateIntervalNext3Months string = "next_3_months"
+
+	// PutDashboardsDateIntervalNext6Months captures enum value "next_6_months"
+	PutDashboardsDateIntervalNext6Months string = "next_6_months"
+
+	// PutDashboardsDateIntervalNext12Months captures enum value "next_12_months"
+	PutDashboardsDateIntervalNext12Months string = "next_12_months"
 )
 
 // prop value enum

@@ -40,6 +40,8 @@ type ClientService interface {
 
 	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricCreated, error)
 
+	UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -235,6 +237,45 @@ func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateBusinessMetricValuesCSV Updates the values for an existing BusinessMetric from a CSV file.
+*/
+func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateBusinessMetricValuesCSVParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateBusinessMetricValuesCSV",
+		Method:             "PUT",
+		PathPattern:        "/business_metrics/{business_metric_token}/values.csv",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded", "multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateBusinessMetricValuesCSVReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateBusinessMetricValuesCSVCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateBusinessMetricValuesCSV: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
