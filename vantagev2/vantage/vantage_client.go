@@ -11,11 +11,14 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
@@ -23,6 +26,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/users"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/virtual_tags"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/workspaces"
 )
 
@@ -69,11 +73,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli := new(Vantage)
 	cli.Transport = transport
 	cli.AccessGrants = access_grants.New(transport, formats)
+	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.Filters = filters.New(transport, formats)
+	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
+	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.Notifications = notifications.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
@@ -81,6 +88,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Segments = segments.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
 	cli.Users = users.New(transport, formats)
+	cli.VirtualTags = virtual_tags.New(transport, formats)
 	cli.Workspaces = workspaces.New(transport, formats)
 	return cli
 }
@@ -128,6 +136,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Vantage struct {
 	AccessGrants access_grants.ClientService
 
+	AnomalyAlerts anomaly_alerts.ClientService
+
 	BusinessMetrics business_metrics.ClientService
 
 	Costs costs.ClientService
@@ -136,7 +146,11 @@ type Vantage struct {
 
 	Filters filters.ClientService
 
+	FinancialCommitmentReports financial_commitment_reports.ClientService
+
 	Folders folders.ClientService
+
+	KubernetesEfficiencyReports kubernetes_efficiency_reports.ClientService
 
 	Notifications notifications.ClientService
 
@@ -152,6 +166,8 @@ type Vantage struct {
 
 	Users users.ClientService
 
+	VirtualTags virtual_tags.ClientService
+
 	Workspaces workspaces.ClientService
 
 	Transport runtime.ClientTransport
@@ -161,11 +177,14 @@ type Vantage struct {
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.AccessGrants.SetTransport(transport)
+	c.AnomalyAlerts.SetTransport(transport)
 	c.BusinessMetrics.SetTransport(transport)
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
 	c.Filters.SetTransport(transport)
+	c.FinancialCommitmentReports.SetTransport(transport)
 	c.Folders.SetTransport(transport)
+	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.Notifications.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
@@ -173,5 +192,6 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Segments.SetTransport(transport)
 	c.Teams.SetTransport(transport)
 	c.Users.SetTransport(transport)
+	c.VirtualTags.SetTransport(transport)
 	c.Workspaces.SetTransport(transport)
 }

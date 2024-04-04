@@ -91,6 +91,22 @@
       "description": "Operations about ResourceReports"
     },
     {
+      "name": "FinancialCommitmentReports",
+      "description": "Operations about FinancialCommitmentReports"
+    },
+    {
+      "name": "KubernetesEfficiencyReports",
+      "description": "Operations about KubernetesEfficiencyReports"
+    },
+    {
+      "name": "AnomalyAlerts",
+      "description": "Operations about AnomalyAlerts"
+    },
+    {
+      "name": "VirtualTags",
+      "description": "Operations about VirtualTags"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -3913,6 +3929,837 @@
         "operationId": "getResourceReport"
       }
     },
+    "/financial_commitment_reports": {
+      "get": {
+        "description": "Return all FinancialCommitmentReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/financial_commitment_reports",
+                  "first": "https://api.vantage.com/v2/financial_commitment_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/financial_commitment_reports?page=1",
+                  "prev": null
+                },
+                "financial_commitment_reports": [
+                  {
+                    "token": "fncl_cmnt_rprt_8856c4e96c5a7a0e",
+                    "title": "All Financial Commitments",
+                    "default": false,
+                    "created_at": "2024-03-28T18:26:26Z",
+                    "workspace_token": "wrkspc_1ca9ae316e86906f",
+                    "user_token": null,
+                    "start_date": "2023-12-01",
+                    "end_date": "2024-03-26",
+                    "date_interval": "last_3_months",
+                    "date_bucket": "month",
+                    "groupings": "cost_type",
+                    "on_demand_costs_scope": "discountable"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "getFinancialCommitmentReports"
+      }
+    },
+    "/financial_commitment_reports/{financial_commitment_report_token}": {
+      "delete": {
+        "description": "Delete a FinancialCommitmentReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "financial_commitment_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "deleteFinancialCommitmentReport"
+      },
+      "get": {
+        "description": "Return a FinancialCommitmentReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "financial_commitment_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fncl_cmnt_rprt_674cf1d6ef5f55e5",
+                "title": "All Financial Commitments",
+                "default": false,
+                "created_at": "2024-03-28T18:26:26Z",
+                "workspace_token": "wrkspc_075ac35ab0dc1b4a",
+                "user_token": null,
+                "start_date": "2023-12-01",
+                "end_date": "2024-03-26",
+                "date_interval": "last_3_months",
+                "date_bucket": "month",
+                "groupings": "cost_type",
+                "on_demand_costs_scope": "discountable"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "getFinancialCommitmentReport"
+      }
+    },
+    "/kubernetes_efficiency_reports": {
+      "get": {
+        "description": "Return all KubernetesEfficiencyReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReports"
+            },
+            "examples": {}
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "getKubernetesEfficiencyReports"
+      }
+    },
+    "/kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}": {
+      "delete": {
+        "description": "Delete a KubernetesEfficiencyReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "kubernetes_efficiency_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "deleteKubernetesEfficiencyReport"
+      },
+      "get": {
+        "description": "Return a KubernetesEfficiencyReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "kubernetes_efficiency_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReport"
+            },
+            "examples": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "getKubernetesEfficiencyReport"
+      }
+    },
+    "/anomaly_alerts": {
+      "get": {
+        "description": "Return all Anomaly Alerts that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlerts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/anomaly_alerts",
+                  "first": "https://api.vantage.com/v2/anomaly_alerts?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/anomaly_alerts?page=1",
+                  "prev": null
+                },
+                "anomaly_alerts": [
+                  {
+                    "token": "anmly_alrt_e1fb8184ecdf129d",
+                    "created_at": "2024-04-01T17:14:45Z",
+                    "alerted_at": "2024-04-01T17:14:45Z",
+                    "category": "Compute",
+                    "service": "AmazonEKS",
+                    "provider": "aws",
+                    "amount": "100.0",
+                    "previous_amount": "25.0",
+                    "seven_day_average": "10.0",
+                    "status": "active",
+                    "feedback": null,
+                    "cost_report_token": "rprt_3d541a4c5160711f"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerts"
+        ],
+        "operationId": "getAnomalyAlerts"
+      }
+    },
+    "/anomaly_alerts/{anomaly_alert_token}": {
+      "put": {
+        "description": "Update an AnomalyAlert.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anomaly_alert_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "AnomalyAlerts",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putAnomalyAlerts"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "anmly_alrt_51a2ce4137305fc6",
+                "created_at": "2024-04-01T17:14:46Z",
+                "alerted_at": "2024-04-01T17:14:46Z",
+                "category": "Compute",
+                "service": "AmazonEKS",
+                "provider": "aws",
+                "amount": "100.0",
+                "previous_amount": "25.0",
+                "seven_day_average": "10.0",
+                "status": "archived",
+                "feedback": "this stinks",
+                "cost_report_token": "rprt_57912c584fdf88f4"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerts"
+        ],
+        "operationId": "updateAnomalyAlert"
+      },
+      "get": {
+        "description": "Return an AnomalyAlert that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anomaly_alert_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "anmly_alrt_6056b98225236ece",
+                "created_at": "2024-04-01T17:14:45Z",
+                "alerted_at": "2024-04-01T17:14:45Z",
+                "category": "Compute",
+                "service": "AmazonEKS",
+                "provider": "aws",
+                "amount": "100.0",
+                "previous_amount": "25.0",
+                "seven_day_average": "10.0",
+                "status": "active",
+                "feedback": null,
+                "cost_report_token": "rprt_bf0a30084fbf52c2"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerts"
+        ],
+        "operationId": "getAnomalyAlert"
+      }
+    },
+    "/virtual_tag_configs": {
+      "post": {
+        "description": "Create a new VirtualTagConfig.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "VirtualTagConfigs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postVirtualTagConfigs"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfig"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_c1b99592f248d66f",
+                "created_by_token": "usr_fe6f6665624f78d5",
+                "key": "Expense Code",
+                "overridable": false,
+                "backfill_until": "2024-04-01",
+                "values": [
+                  {
+                    "name": "EXPC-1234",
+                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                  },
+                  {
+                    "name": "EXPC-9876",
+                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "createVirtualTagConfig"
+      },
+      "get": {
+        "description": "Return all VirtualTagConfigs that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigs"
+            },
+            "examples": {
+              "application/json": {
+                "virtual_tag_configs": [
+                  {
+                    "token": "vtag_ccb749939529b7f7",
+                    "created_by_token": "usr_0ca549411a281e69",
+                    "key": "Product Team",
+                    "overridable": false,
+                    "backfill_until": "2024-04-01",
+                    "values": [
+                      {
+                        "name": "Growth",
+                        "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                      },
+                      {
+                        "name": "API",
+                        "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "getVirtualTagConfigs"
+      }
+    },
+    "/virtual_tag_configs/{virtual_tag_config_token}": {
+      "delete": {
+        "description": "Deletes an existing VirtualTagConfig.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfig"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "deleteVirtualTagConfig"
+      },
+      "put": {
+        "description": "Updates an existing VirtualTagConfig.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "VirtualTagConfigs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putVirtualTagConfigs"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfig"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_4dd2d5ecc0112567",
+                "created_by_token": "usr_7c9682ee379a0d7b",
+                "key": "team",
+                "overridable": true,
+                "backfill_until": "2024-04-01",
+                "values": [
+                  {
+                    "name": "marketing",
+                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                  },
+                  {
+                    "name": "third-party integrations",
+                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "updateVirtualTagConfig"
+      },
+      "get": {
+        "description": "Return a specific VirtualTagConfig.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfig"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_fc468de2dab63564",
+                "created_by_token": "usr_cfeef60fbf97e967",
+                "key": "Product Team",
+                "overridable": false,
+                "backfill_until": "2024-04-01",
+                "values": [
+                  {
+                    "name": "Growth",
+                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                  },
+                  {
+                    "name": "API",
+                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "getVirtualTagConfig"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -5808,6 +6655,386 @@
         }
       },
       "description": "ResourceReport model"
+    },
+    "FinancialCommitmentReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "financial_commitment_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinancialCommitmentReport"
+          }
+        }
+      },
+      "description": "FinancialCommitmentReports model"
+    },
+    "FinancialCommitmentReport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Acme123 Financial Commitment Report",
+          "description": "The title of the FinancialCommitmentReport."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Indicates whether the FinancialCommitmentReport is the default report."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the FinancialCommitmentReport is a part of."
+        },
+        "user_token": {
+          "type": "string",
+          "description": "The token for the User who created this FinancialCommitmentReport."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2024-03-01",
+          "description": "The start date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2024-03-20",
+          "description": "The end date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "date_interval": {
+          "type": "string",
+          "example": "last_month",
+          "description": "The date range for the FinancialCommitmentReport. Only present if a custom date range is not specified."
+        },
+        "date_bucket": {
+          "type": "string",
+          "example": "month",
+          "description": "How costs are grouped and displayed in the FinancialCommitmentReport. Possible values: day, week, month."
+        },
+        "groupings": {
+          "type": "string",
+          "example": "cost_type, tag:account",
+          "description": "The grouping aggregations applied to the filtered data."
+        },
+        "on_demand_costs_scope": {
+          "type": "string",
+          "example": "discountable",
+          "description": "The scope for the costs. Possible values: discountable, all."
+        }
+      },
+      "description": "FinancialCommitmentReport model"
+    },
+    "KubernetesEfficiencyReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "kubernetes_efficiency_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KubernetesEfficiencyReport"
+          }
+        }
+      },
+      "description": "KubernetesEfficiencyReports model"
+    },
+    "KubernetesEfficiencyReport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Acme123 Kubernetes Efficiency Metrics",
+          "description": "The title of the KubernetesEfficiencyReport."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Indicates whether the KubernetesEfficiencyReport is the default report."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the KubernetesEfficiencyReport is a part of."
+        },
+        "user_token": {
+          "type": "string",
+          "description": "The token for the User who created this KubernetesEfficiencyReport."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2024-03-01",
+          "description": "The start date for the KubernetesEfficiencyReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2024-03-20",
+          "description": "The end date for the KubernetesEfficiencyReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "date_interval": {
+          "type": "string",
+          "example": "last_month",
+          "description": "The date range for the KubernetesEfficiencyReport. Only present if a custom date range is not specified."
+        },
+        "date_bucket": {
+          "type": "string",
+          "example": "month",
+          "description": "How costs are grouped and displayed in the KubernetesEfficiencyReport. Possible values: day, week, month."
+        },
+        "aggregated_by": {
+          "type": "string",
+          "description": "How costs are aggregated by. Possible values: idle_costs, amount."
+        },
+        "groupings": {
+          "type": "string",
+          "example": "cluster_id, namespace",
+          "description": "The grouping aggregations applied to the filtered data."
+        }
+      },
+      "description": "KubernetesEfficiencyReport model"
+    },
+    "AnomalyAlerts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "anomaly_alerts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalyAlert"
+          }
+        }
+      },
+      "description": "AnomalyAlerts model"
+    },
+    "AnomalyAlert": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the AnomalyAlert was created. ISO 8601 Formatted."
+        },
+        "alerted_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the AnomalyAlert is sent. ISO 8601 Formatted."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the AnomalyAlert."
+        },
+        "service": {
+          "type": "string",
+          "description": "The provider service causing the AnomalyAlert."
+        },
+        "provider": {
+          "type": "string",
+          "description": "The provider of the service causing the AnomalyAlert."
+        },
+        "amount": {
+          "type": "string",
+          "description": "The amount observed."
+        },
+        "previous_amount": {
+          "type": "string",
+          "description": "The previous amount observed."
+        },
+        "seven_day_average": {
+          "type": "string",
+          "description": "The seven day average of the amount observed."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the AnomalyAlert."
+        },
+        "feedback": {
+          "type": "string",
+          "description": "The user-provided feedback of why alert was ignored/archived."
+        },
+        "cost_report_token": {
+          "type": "string",
+          "description": "The token of the Report associated with the AnomalyAlert."
+        }
+      },
+      "description": "AnomalyAlert model"
+    },
+    "putAnomalyAlerts": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The status of the Anomaly Alert."
+        },
+        "feedback": {
+          "type": "string",
+          "description": "Optional additional comments for why this alert is ignored."
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "description": "Update an AnomalyAlert."
+    },
+    "postVirtualTagConfigs": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the VirtualTagConfig."
+        },
+        "overridable": {
+          "type": "boolean",
+          "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost."
+        },
+        "backfill_until": {
+          "type": "string",
+          "format": "date",
+          "description": "The earliest month the VirtualTagConfig should be backfilled to."
+        },
+        "values": {
+          "type": "array",
+          "description": "Values for the VirtualTagConfig, with match precedence determined by order in the list.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the value."
+              },
+              "filter": {
+                "type": "string",
+                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      },
+      "required": [
+        "key",
+        "overridable"
+      ],
+      "description": "Create a new VirtualTagConfig."
+    },
+    "VirtualTagConfig": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "vtag_1234",
+          "description": "The token of the VirtualTagConfig."
+        },
+        "created_by_token": {
+          "type": "string",
+          "example": "usr_1234",
+          "description": "The token of the User who created the VirtualTagConfig."
+        },
+        "key": {
+          "type": "string",
+          "example": "Cost Center",
+          "description": "The key of the VirtualTagConfig."
+        },
+        "overridable": {
+          "type": "string",
+          "example": false,
+          "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost."
+        },
+        "backfill_until": {
+          "type": "string",
+          "example": false,
+          "description": "The earliest month VirtualTagConfig should be backfilled to."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              {
+                "name": "Informatics",
+                "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'"
+              },
+              {
+                "name": "R&D",
+                "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+              }
+            ]
+          },
+          "description": "Values for the VirtualTagConfig, with match precedence determined by their relative order in the list."
+        }
+      },
+      "description": "VirtualTagConfig model"
+    },
+    "VirtualTagConfigs": {
+      "type": "object",
+      "properties": {
+        "virtual_tag_configs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualTagConfig"
+          }
+        }
+      },
+      "description": "VirtualTagConfigs model"
+    },
+    "putVirtualTagConfigs": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the VirtualTagConfig."
+        },
+        "overridable": {
+          "type": "boolean",
+          "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost."
+        },
+        "backfill_until": {
+          "type": "string",
+          "format": "date",
+          "description": "The earliest month the VirtualTagConfig should be backfilled to."
+        },
+        "values": {
+          "type": "array",
+          "description": "Values for the VirtualTagConfig, with match precedence determined by order in the list.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the value."
+              },
+              "filter": {
+                "type": "string",
+                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      },
+      "description": "Updates an existing VirtualTagConfig."
     }
   }
 }
