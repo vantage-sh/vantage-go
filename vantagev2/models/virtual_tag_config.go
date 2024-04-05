@@ -7,7 +7,9 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -18,7 +20,7 @@ import (
 type VirtualTagConfig struct {
 
 	// The earliest month VirtualTagConfig should be backfilled to.
-	// Example: false
+	// Example: 2023-10-01
 	BackfillUntil string `json:"backfill_until,omitempty"`
 
 	// The token of the User who created the VirtualTagConfig.
@@ -30,24 +32,92 @@ type VirtualTagConfig struct {
 	Key string `json:"key,omitempty"`
 
 	// Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.
-	// Example: false
-	Overridable string `json:"overridable,omitempty"`
+	Overridable bool `json:"overridable,omitempty"`
 
 	// The token of the VirtualTagConfig.
 	// Example: vtag_1234
 	Token string `json:"token,omitempty"`
 
 	// Values for the VirtualTagConfig, with match precedence determined by their relative order in the list.
-	Values []string `json:"values"`
+	Values []*VirtualTagConfigValue `json:"values"`
 }
 
 // Validate validates this virtual tag config
 func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this virtual tag config based on context it is used
+func (m *VirtualTagConfig) validateValues(formats strfmt.Registry) error {
+	if swag.IsZero(m.Values) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Values); i++ {
+		if swag.IsZero(m.Values[i]) { // not required
+			continue
+		}
+
+		if m.Values[i] != nil {
+			if err := m.Values[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("values" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this virtual tag config based on the context it is used
 func (m *VirtualTagConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateValues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VirtualTagConfig) contextValidateValues(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Values); i++ {
+
+		if m.Values[i] != nil {
+
+			if swag.IsZero(m.Values[i]) { // not required
+				return nil
+			}
+
+			if err := m.Values[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("values" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

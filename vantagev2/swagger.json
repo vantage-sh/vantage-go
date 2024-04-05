@@ -107,6 +107,14 @@
       "description": "Operations about VirtualTags"
     },
     {
+      "name": "ReportAlerts",
+      "description": "Operations about ReportAlerts"
+    },
+    {
+      "name": "Budgets",
+      "description": "Operations about Budgets"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -4471,8 +4479,8 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_c1b99592f248d66f",
-                "created_by_token": "usr_fe6f6665624f78d5",
+                "token": "vtag_f4a84302f614d658",
+                "created_by_token": "usr_b594fc347b8216fc",
                 "key": "Expense Code",
                 "overridable": false,
                 "backfill_until": "2024-04-01",
@@ -4541,8 +4549,8 @@
               "application/json": {
                 "virtual_tag_configs": [
                   {
-                    "token": "vtag_ccb749939529b7f7",
-                    "created_by_token": "usr_0ca549411a281e69",
+                    "token": "vtag_8ec959d189f5e069",
+                    "created_by_token": "usr_95037e6816d8274c",
                     "key": "Product Team",
                     "overridable": false,
                     "backfill_until": "2024-04-01",
@@ -4653,8 +4661,8 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_4dd2d5ecc0112567",
-                "created_by_token": "usr_7c9682ee379a0d7b",
+                "token": "vtag_a479efbaec5eb18a",
+                "created_by_token": "usr_e490836e766d2f3b",
                 "key": "team",
                 "overridable": true,
                 "backfill_until": "2024-04-01",
@@ -4729,8 +4737,8 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_fc468de2dab63564",
-                "created_by_token": "usr_cfeef60fbf97e967",
+                "token": "vtag_d8ec602528464b61",
+                "created_by_token": "usr_64ff4a87ec8aeef2",
                 "key": "Product Team",
                 "overridable": false,
                 "backfill_until": "2024-04-01",
@@ -4758,6 +4766,694 @@
           "VirtualTags"
         ],
         "operationId": "getVirtualTagConfig"
+      }
+    },
+    "/report_alerts": {
+      "post": {
+        "description": "Create a Report Alert for a Cost Report.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ReportAlerts",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postReportAlerts"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReportAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_alrt_c95a119256122aac",
+                "cost_report_token": "rprt_05c19b987b3d21f3",
+                "created_at": "2024-04-03T15:04:18Z",
+                "updated_at": "2024-04-03T15:04:18Z",
+                "threshold": 1,
+                "user_tokens": [
+                  "usr_b6802dbbecce2326"
+                ],
+                "recipient_channels": [
+                  "channel1",
+                  "channel2"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportAlerts"
+        ],
+        "operationId": "createReportAlert"
+      },
+      "get": {
+        "description": "Return all Report Alerts.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReportAlerts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/report_alerts",
+                  "first": "https://api.vantage.com/v2/report_alerts?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/report_alerts?page=1",
+                  "prev": null
+                },
+                "report_alerts": [
+                  {
+                    "token": "rprt_alrt_496a92cad85de231",
+                    "cost_report_token": "rprt_922688d462f896f7",
+                    "created_at": "2024-04-03T15:04:18Z",
+                    "updated_at": "2024-04-03T15:04:18Z",
+                    "threshold": 10,
+                    "user_tokens": [
+                      "usr_add0269884a41ffb"
+                    ],
+                    "recipient_channels": []
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ReportAlerts"
+        ],
+        "operationId": "getReportAlerts"
+      }
+    },
+    "/report_alerts/{report_alert_token}": {
+      "delete": {
+        "description": "Delete a Report Alert.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_alert_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReportAlert"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportAlerts"
+        ],
+        "operationId": "deleteReportAlert"
+      },
+      "put": {
+        "description": "Update a Report Alert.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_alert_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "ReportAlerts",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putReportAlerts"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReportAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_alrt_aa997f8c99c77fe3",
+                "cost_report_token": "rprt_c63b4d7acc8afcb1",
+                "created_at": "2024-04-03T15:04:18Z",
+                "updated_at": "2024-04-03T15:04:18Z",
+                "threshold": 2,
+                "user_tokens": [
+                  "usr_75acbef5368ee7ca"
+                ],
+                "recipient_channels": [
+                  "channel3",
+                  "channel4"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportAlerts"
+        ],
+        "operationId": "updateReportAlert"
+      },
+      "get": {
+        "description": "Return a Report Alert that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_alert_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReportAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_alrt_c5f4140456b1ab56",
+                "cost_report_token": "rprt_072f3d4a00f190a7",
+                "created_at": "2024-04-03T15:04:18Z",
+                "updated_at": "2024-04-03T15:04:18Z",
+                "threshold": 10,
+                "user_tokens": [
+                  "usr_7aba2573ebd51b9e"
+                ],
+                "recipient_channels": []
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportAlerts"
+        ],
+        "operationId": "getReportAlert"
+      }
+    },
+    "/budgets": {
+      "post": {
+        "description": "Create a Budget.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Budgets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postBudgets"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bdgt_d89d3095c96b176d",
+                "name": "New Budget Name",
+                "workspace_token": "wrkspc_d8afd3ba2e890a43",
+                "user_token": "usr_5ea63c4507f840e0",
+                "cost_report_token": null,
+                "created_at": "2024-04-04T14:39:40Z",
+                "budget_alert_tokens": [],
+                "periods": [
+                  {
+                    "start_at": "2024-01-01",
+                    "end_at": "2024-01-31",
+                    "amount": "100.0"
+                  },
+                  {
+                    "start_at": "2024-02-01",
+                    "end_at": "2024-02-29",
+                    "amount": "200.0"
+                  },
+                  {
+                    "start_at": "2024-03-01",
+                    "end_at": "2024-04-30",
+                    "amount": "300.0"
+                  }
+                ],
+                "performance": [
+                  {
+                    "date": "April, 2024",
+                    "amount": "300.0",
+                    "actual": "0%"
+                  },
+                  {
+                    "date": "March, 2024",
+                    "amount": "300.0",
+                    "actual": "0%"
+                  },
+                  {
+                    "date": "February, 2024",
+                    "amount": "200.0",
+                    "actual": "0%"
+                  },
+                  {
+                    "date": "January, 2024",
+                    "amount": "100.0",
+                    "actual": "0%"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "createBudget"
+      },
+      "get": {
+        "description": "Return all Budgets.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budgets"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/budgets",
+                  "first": "https://api.vantage.com/v2/budgets?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/budgets?page=1",
+                  "prev": null
+                },
+                "budgets": [
+                  {
+                    "token": "bdgt_ec89c09eb58c7b7e",
+                    "name": "Intuitive",
+                    "workspace_token": "wrkspc_49e375735bef7e30",
+                    "user_token": "usr_9a17f8477e65c9f5",
+                    "cost_report_token": "rprt_200e51c399b25594",
+                    "created_at": "2024-04-04T14:39:40Z",
+                    "budget_alert_tokens": [],
+                    "periods": [
+                      {
+                        "start_at": "2024-04-01",
+                        "end_at": "2024-06-30",
+                        "amount": "10000.0"
+                      }
+                    ],
+                    "performance": [
+                      {
+                        "date": "April, 2024",
+                        "amount": "10000.0",
+                        "actual": "-100%"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Budgets"
+        ],
+        "operationId": "getBudgets"
+      }
+    },
+    "/budgets/{budget_token}": {
+      "delete": {
+        "description": "Delete a Budget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "budget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Budgets"
+        ],
+        "operationId": "deleteBudget"
+      },
+      "put": {
+        "description": "Update a Budget.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "budget_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Budgets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putBudgets"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bdgt_8ab822e0b56c0349",
+                "name": "New Name New Budget Who Dis",
+                "workspace_token": "wrkspc_69af636d55841adf",
+                "user_token": "usr_ebaf7cc710552dc2",
+                "cost_report_token": "rprt_4b3d1a0345f8772c",
+                "created_at": "2024-04-04T14:39:41Z",
+                "budget_alert_tokens": [],
+                "periods": [
+                  {
+                    "start_at": "2023-01-01",
+                    "end_at": "2023-01-31",
+                    "amount": "234.0"
+                  },
+                  {
+                    "start_at": "2024-01-01",
+                    "end_at": "2024-01-31",
+                    "amount": "123.0"
+                  },
+                  {
+                    "start_at": "2024-04-01",
+                    "end_at": "2024-06-30",
+                    "amount": "10000.0"
+                  }
+                ],
+                "performance": [
+                  {
+                    "date": "April, 2024",
+                    "amount": "10000.0",
+                    "actual": "-100%"
+                  },
+                  null,
+                  null,
+                  {
+                    "date": "January, 2024",
+                    "amount": "123.0",
+                    "actual": "-100%"
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  {
+                    "date": "January, 2023",
+                    "amount": "234.0",
+                    "actual": "1224%"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Notifications"
+        ],
+        "operationId": "updateBudget"
+      },
+      "get": {
+        "description": "Return a Budget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "budget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bdgt_981c4454e188a671",
+                "name": "Face to face",
+                "workspace_token": "wrkspc_ec3b9aa1615e79b7",
+                "user_token": "usr_3ad183776db59a4a",
+                "cost_report_token": "rprt_d60f14840ca3425a",
+                "created_at": "2024-04-04T14:39:40Z",
+                "budget_alert_tokens": [],
+                "periods": [
+                  {
+                    "start_at": "2024-04-01",
+                    "end_at": "2024-06-30",
+                    "amount": "10000.0"
+                  }
+                ],
+                "performance": [
+                  {
+                    "date": "April, 2024",
+                    "amount": "10000.0",
+                    "actual": "-100%"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Budgets"
+        ],
+        "operationId": "getBudget"
       }
     },
     "/ping": {
@@ -6956,34 +7652,38 @@
           "description": "The key of the VirtualTagConfig."
         },
         "overridable": {
-          "type": "string",
-          "example": false,
+          "type": "boolean",
           "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost."
         },
         "backfill_until": {
           "type": "string",
-          "example": false,
+          "example": "2023-10-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
           "type": "array",
           "items": {
-            "type": "string",
-            "example": [
-              {
-                "name": "Informatics",
-                "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'"
-              },
-              {
-                "name": "R&D",
-                "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
-              }
-            ]
+            "$ref": "#/definitions/VirtualTagConfigValue"
           },
           "description": "Values for the VirtualTagConfig, with match precedence determined by their relative order in the list."
         }
       },
       "description": "VirtualTagConfig model"
+    },
+    "VirtualTagConfigValue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Informatics",
+          "description": "The name of the Value."
+        },
+        "filter": {
+          "type": "string",
+          "example": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
+          "description": "The filter VQL for the Value."
+        }
+      }
     },
     "VirtualTagConfigs": {
       "type": "object",
@@ -7035,6 +7735,274 @@
         }
       },
       "description": "Updates an existing VirtualTagConfig."
+    },
+    "postReportAlerts": {
+      "type": "object",
+      "properties": {
+        "cost_report_token": {
+          "type": "string",
+          "description": "The token of the Cost Report folder that has the alert."
+        },
+        "threshold": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The threshold amount that must be met for the alert to fire."
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The tokens of the users that receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_channels": {
+          "type": "array",
+          "description": "The Slack/MS Teams channels that receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "cost_report_token"
+      ],
+      "description": "Create a Report Alert for a Cost Report."
+    },
+    "ReportAlert": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "cost_report_token": {
+          "type": "string",
+          "description": "The token for the CostReport the ReportAlert is associated with."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the ReportAlert was created. ISO 8601 Formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the ReportAlert was last updated at. ISO 8601 Formatted."
+        },
+        "threshold": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The threshold amount that must be met for the alert to fire."
+        },
+        "user_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens of the users that receive the alert."
+        },
+        "recipient_channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The channels that the alert is sent to."
+        }
+      },
+      "description": "ReportAlert model"
+    },
+    "ReportAlerts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "report_alerts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReportAlert"
+          }
+        }
+      },
+      "description": "ReportAlerts model"
+    },
+    "putReportAlerts": {
+      "type": "object",
+      "properties": {
+        "threshold": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The threshold amount that must be met for the alert to fire."
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The tokens of the users that receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_channels": {
+          "type": "array",
+          "description": "The Slack/MS Teams channels that receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Update a Report Alert."
+    },
+    "postBudgets": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the Budget."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Budget to."
+        },
+        "cost_report_token": {
+          "type": "string",
+          "description": "The CostReport token."
+        },
+        "periods_attributes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "required": [
+              "start_at",
+              "amount"
+            ]
+          }
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "Create a Budget."
+    },
+    "Budget": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "Acme123 Budget",
+          "description": "The name of the Budget."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the Budget is a part of."
+        },
+        "user_token": {
+          "type": "string",
+          "description": "The token for the User who created this Budget."
+        },
+        "cost_report_token": {
+          "type": "string",
+          "description": "The token of the Report associated with the Budget."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the Budget was created. ISO 8601 Formatted."
+        },
+        "budget_alert_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "bdgt_alrt_c9cd4e1a7127461b"
+            ]
+          },
+          "description": "The tokens of the BudgetAlerts associated with the Budget."
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The budget periods associated with the Budget."
+        },
+        "performance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The historical performance of the Budget."
+        }
+      },
+      "description": "Budget model"
+    },
+    "Budgets": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "budgets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Budget"
+          }
+        }
+      },
+      "description": "Budgets model"
+    },
+    "putBudgets": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the Budget."
+        },
+        "cost_report_token": {
+          "type": "string",
+          "description": "The CostReport token."
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "required": [
+              "start_at",
+              "amount"
+            ]
+          }
+        }
+      },
+      "description": "Update a Budget."
     }
   }
 }
