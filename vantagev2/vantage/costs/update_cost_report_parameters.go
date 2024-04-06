@@ -63,11 +63,11 @@ UpdateCostReportParams contains all the parameters to send to the API endpoint
 */
 type UpdateCostReportParams struct {
 
-	// CostReports.
-	CostReports *models.PutCostReports
-
 	// CostReportToken.
 	CostReportToken string
+
+	// UpdateCostReport.
+	UpdateCostReport *models.UpdateCostReport
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateCostReportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCostReports adds the costReports to the update cost report params
-func (o *UpdateCostReportParams) WithCostReports(costReports *models.PutCostReports) *UpdateCostReportParams {
-	o.SetCostReports(costReports)
-	return o
-}
-
-// SetCostReports adds the costReports to the update cost report params
-func (o *UpdateCostReportParams) SetCostReports(costReports *models.PutCostReports) {
-	o.CostReports = costReports
-}
-
 // WithCostReportToken adds the costReportToken to the update cost report params
 func (o *UpdateCostReportParams) WithCostReportToken(costReportToken string) *UpdateCostReportParams {
 	o.SetCostReportToken(costReportToken)
@@ -144,6 +133,17 @@ func (o *UpdateCostReportParams) SetCostReportToken(costReportToken string) {
 	o.CostReportToken = costReportToken
 }
 
+// WithUpdateCostReport adds the updateCostReport to the update cost report params
+func (o *UpdateCostReportParams) WithUpdateCostReport(updateCostReport *models.UpdateCostReport) *UpdateCostReportParams {
+	o.SetUpdateCostReport(updateCostReport)
+	return o
+}
+
+// SetUpdateCostReport adds the updateCostReport to the update cost report params
+func (o *UpdateCostReportParams) SetUpdateCostReport(updateCostReport *models.UpdateCostReport) {
+	o.UpdateCostReport = updateCostReport
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateCostReportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateCostReportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-	if o.CostReports != nil {
-		if err := r.SetBodyParam(o.CostReports); err != nil {
-			return err
-		}
-	}
 
 	// path param cost_report_token
 	if err := r.SetPathParam("cost_report_token", o.CostReportToken); err != nil {
 		return err
+	}
+	if o.UpdateCostReport != nil {
+		if err := r.SetBodyParam(o.UpdateCostReport); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

@@ -63,8 +63,8 @@ CreateTeamParams contains all the parameters to send to the API endpoint
 */
 type CreateTeamParams struct {
 
-	// Teams.
-	Teams *models.PostTeams
+	// CreateTeam.
+	CreateTeam *models.CreateTeam
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateTeamParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithTeams adds the teams to the create team params
-func (o *CreateTeamParams) WithTeams(teams *models.PostTeams) *CreateTeamParams {
-	o.SetTeams(teams)
+// WithCreateTeam adds the createTeam to the create team params
+func (o *CreateTeamParams) WithCreateTeam(createTeam *models.CreateTeam) *CreateTeamParams {
+	o.SetCreateTeam(createTeam)
 	return o
 }
 
-// SetTeams adds the teams to the create team params
-func (o *CreateTeamParams) SetTeams(teams *models.PostTeams) {
-	o.Teams = teams
+// SetCreateTeam adds the createTeam to the create team params
+func (o *CreateTeamParams) SetCreateTeam(createTeam *models.CreateTeam) {
+	o.CreateTeam = createTeam
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateTeamParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-	if o.Teams != nil {
-		if err := r.SetBodyParam(o.Teams); err != nil {
+	if o.CreateTeam != nil {
+		if err := r.SetBodyParam(o.CreateTeam); err != nil {
 			return err
 		}
 	}

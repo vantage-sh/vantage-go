@@ -63,8 +63,8 @@ CreateReportNotificationParams contains all the parameters to send to the API en
 */
 type CreateReportNotificationParams struct {
 
-	// ReportNotifications.
-	ReportNotifications *models.PostReportNotifications
+	// CreateReportNotification.
+	CreateReportNotification *models.CreateReportNotification
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateReportNotificationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportNotifications adds the reportNotifications to the create report notification params
-func (o *CreateReportNotificationParams) WithReportNotifications(reportNotifications *models.PostReportNotifications) *CreateReportNotificationParams {
-	o.SetReportNotifications(reportNotifications)
+// WithCreateReportNotification adds the createReportNotification to the create report notification params
+func (o *CreateReportNotificationParams) WithCreateReportNotification(createReportNotification *models.CreateReportNotification) *CreateReportNotificationParams {
+	o.SetCreateReportNotification(createReportNotification)
 	return o
 }
 
-// SetReportNotifications adds the reportNotifications to the create report notification params
-func (o *CreateReportNotificationParams) SetReportNotifications(reportNotifications *models.PostReportNotifications) {
-	o.ReportNotifications = reportNotifications
+// SetCreateReportNotification adds the createReportNotification to the create report notification params
+func (o *CreateReportNotificationParams) SetCreateReportNotification(createReportNotification *models.CreateReportNotification) {
+	o.CreateReportNotification = createReportNotification
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateReportNotificationParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-	if o.ReportNotifications != nil {
-		if err := r.SetBodyParam(o.ReportNotifications); err != nil {
+	if o.CreateReportNotification != nil {
+		if err := r.SetBodyParam(o.CreateReportNotification); err != nil {
 			return err
 		}
 	}

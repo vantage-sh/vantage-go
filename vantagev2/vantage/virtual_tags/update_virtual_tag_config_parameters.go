@@ -63,8 +63,8 @@ UpdateVirtualTagConfigParams contains all the parameters to send to the API endp
 */
 type UpdateVirtualTagConfigParams struct {
 
-	// VirtualTagConfigs.
-	VirtualTagConfigs *models.PutVirtualTagConfigs
+	// UpdateVirtualTagConfig.
+	UpdateVirtualTagConfig *models.UpdateVirtualTagConfig
 
 	// VirtualTagConfigToken.
 	VirtualTagConfigToken string
@@ -122,15 +122,15 @@ func (o *UpdateVirtualTagConfigParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithVirtualTagConfigs adds the virtualTagConfigs to the update virtual tag config params
-func (o *UpdateVirtualTagConfigParams) WithVirtualTagConfigs(virtualTagConfigs *models.PutVirtualTagConfigs) *UpdateVirtualTagConfigParams {
-	o.SetVirtualTagConfigs(virtualTagConfigs)
+// WithUpdateVirtualTagConfig adds the updateVirtualTagConfig to the update virtual tag config params
+func (o *UpdateVirtualTagConfigParams) WithUpdateVirtualTagConfig(updateVirtualTagConfig *models.UpdateVirtualTagConfig) *UpdateVirtualTagConfigParams {
+	o.SetUpdateVirtualTagConfig(updateVirtualTagConfig)
 	return o
 }
 
-// SetVirtualTagConfigs adds the virtualTagConfigs to the update virtual tag config params
-func (o *UpdateVirtualTagConfigParams) SetVirtualTagConfigs(virtualTagConfigs *models.PutVirtualTagConfigs) {
-	o.VirtualTagConfigs = virtualTagConfigs
+// SetUpdateVirtualTagConfig adds the updateVirtualTagConfig to the update virtual tag config params
+func (o *UpdateVirtualTagConfigParams) SetUpdateVirtualTagConfig(updateVirtualTagConfig *models.UpdateVirtualTagConfig) {
+	o.UpdateVirtualTagConfig = updateVirtualTagConfig
 }
 
 // WithVirtualTagConfigToken adds the virtualTagConfigToken to the update virtual tag config params
@@ -151,8 +151,8 @@ func (o *UpdateVirtualTagConfigParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-	if o.VirtualTagConfigs != nil {
-		if err := r.SetBodyParam(o.VirtualTagConfigs); err != nil {
+	if o.UpdateVirtualTagConfig != nil {
+		if err := r.SetBodyParam(o.UpdateVirtualTagConfig); err != nil {
 			return err
 		}
 	}

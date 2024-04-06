@@ -23,8 +23,8 @@ type UpdateVirtualTagConfigReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateVirtualTagConfigReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewUpdateVirtualTagConfigCreated()
+	case 200:
+		result := NewUpdateVirtualTagConfigOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -58,63 +58,63 @@ func (o *UpdateVirtualTagConfigReader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewUpdateVirtualTagConfigCreated creates a UpdateVirtualTagConfigCreated with default headers values
-func NewUpdateVirtualTagConfigCreated() *UpdateVirtualTagConfigCreated {
-	return &UpdateVirtualTagConfigCreated{}
+// NewUpdateVirtualTagConfigOK creates a UpdateVirtualTagConfigOK with default headers values
+func NewUpdateVirtualTagConfigOK() *UpdateVirtualTagConfigOK {
+	return &UpdateVirtualTagConfigOK{}
 }
 
 /*
-UpdateVirtualTagConfigCreated describes a response with status code 201, with default header values.
+UpdateVirtualTagConfigOK describes a response with status code 200, with default header values.
 
-UpdateVirtualTagConfigCreated update virtual tag config created
+UpdateVirtualTagConfigOK update virtual tag config o k
 */
-type UpdateVirtualTagConfigCreated struct {
+type UpdateVirtualTagConfigOK struct {
 	Payload *models.VirtualTagConfig
 }
 
-// IsSuccess returns true when this update virtual tag config created response has a 2xx status code
-func (o *UpdateVirtualTagConfigCreated) IsSuccess() bool {
+// IsSuccess returns true when this update virtual tag config o k response has a 2xx status code
+func (o *UpdateVirtualTagConfigOK) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this update virtual tag config created response has a 3xx status code
-func (o *UpdateVirtualTagConfigCreated) IsRedirect() bool {
+// IsRedirect returns true when this update virtual tag config o k response has a 3xx status code
+func (o *UpdateVirtualTagConfigOK) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this update virtual tag config created response has a 4xx status code
-func (o *UpdateVirtualTagConfigCreated) IsClientError() bool {
+// IsClientError returns true when this update virtual tag config o k response has a 4xx status code
+func (o *UpdateVirtualTagConfigOK) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this update virtual tag config created response has a 5xx status code
-func (o *UpdateVirtualTagConfigCreated) IsServerError() bool {
+// IsServerError returns true when this update virtual tag config o k response has a 5xx status code
+func (o *UpdateVirtualTagConfigOK) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this update virtual tag config created response a status code equal to that given
-func (o *UpdateVirtualTagConfigCreated) IsCode(code int) bool {
-	return code == 201
+// IsCode returns true when this update virtual tag config o k response a status code equal to that given
+func (o *UpdateVirtualTagConfigOK) IsCode(code int) bool {
+	return code == 200
 }
 
-// Code gets the status code for the update virtual tag config created response
-func (o *UpdateVirtualTagConfigCreated) Code() int {
-	return 201
+// Code gets the status code for the update virtual tag config o k response
+func (o *UpdateVirtualTagConfigOK) Code() int {
+	return 200
 }
 
-func (o *UpdateVirtualTagConfigCreated) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{virtual_tag_config_token}][%d] updateVirtualTagConfigCreated  %+v", 201, o.Payload)
+func (o *UpdateVirtualTagConfigOK) Error() string {
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{virtual_tag_config_token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateVirtualTagConfigCreated) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{virtual_tag_config_token}][%d] updateVirtualTagConfigCreated  %+v", 201, o.Payload)
+func (o *UpdateVirtualTagConfigOK) String() string {
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{virtual_tag_config_token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateVirtualTagConfigCreated) GetPayload() *models.VirtualTagConfig {
+func (o *UpdateVirtualTagConfigOK) GetPayload() *models.VirtualTagConfig {
 	return o.Payload
 }
 
-func (o *UpdateVirtualTagConfigCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UpdateVirtualTagConfigOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VirtualTagConfig)
 

@@ -38,7 +38,7 @@ type ClientService interface {
 
 	GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigsOK, error)
 
-	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigCreated, error)
+	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -202,7 +202,7 @@ func (a *Client) GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authIn
 /*
 UpdateVirtualTagConfig Updates an existing VirtualTagConfig.
 */
-func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigCreated, error) {
+func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateVirtualTagConfigParams()
@@ -228,7 +228,7 @@ func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, au
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateVirtualTagConfigCreated)
+	success, ok := result.(*UpdateVirtualTagConfigOK)
 	if ok {
 		return success, nil
 	}

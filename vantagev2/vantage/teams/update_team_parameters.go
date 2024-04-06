@@ -63,11 +63,11 @@ UpdateTeamParams contains all the parameters to send to the API endpoint
 */
 type UpdateTeamParams struct {
 
-	// Teams.
-	Teams *models.PutTeams
-
 	// TeamToken.
 	TeamToken string
+
+	// UpdateTeam.
+	UpdateTeam *models.UpdateTeam
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateTeamParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithTeams adds the teams to the update team params
-func (o *UpdateTeamParams) WithTeams(teams *models.PutTeams) *UpdateTeamParams {
-	o.SetTeams(teams)
-	return o
-}
-
-// SetTeams adds the teams to the update team params
-func (o *UpdateTeamParams) SetTeams(teams *models.PutTeams) {
-	o.Teams = teams
-}
-
 // WithTeamToken adds the teamToken to the update team params
 func (o *UpdateTeamParams) WithTeamToken(teamToken string) *UpdateTeamParams {
 	o.SetTeamToken(teamToken)
@@ -144,6 +133,17 @@ func (o *UpdateTeamParams) SetTeamToken(teamToken string) {
 	o.TeamToken = teamToken
 }
 
+// WithUpdateTeam adds the updateTeam to the update team params
+func (o *UpdateTeamParams) WithUpdateTeam(updateTeam *models.UpdateTeam) *UpdateTeamParams {
+	o.SetUpdateTeam(updateTeam)
+	return o
+}
+
+// SetUpdateTeam adds the updateTeam to the update team params
+func (o *UpdateTeamParams) SetUpdateTeam(updateTeam *models.UpdateTeam) {
+	o.UpdateTeam = updateTeam
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateTeamParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateTeamParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-	if o.Teams != nil {
-		if err := r.SetBodyParam(o.Teams); err != nil {
-			return err
-		}
-	}
 
 	// path param team_token
 	if err := r.SetPathParam("team_token", o.TeamToken); err != nil {
 		return err
+	}
+	if o.UpdateTeam != nil {
+		if err := r.SetBodyParam(o.UpdateTeam); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

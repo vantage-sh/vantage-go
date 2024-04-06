@@ -63,8 +63,8 @@ CreateAccessGrantParams contains all the parameters to send to the API endpoint
 */
 type CreateAccessGrantParams struct {
 
-	// AccessGrants.
-	AccessGrants *models.PostAccessGrants
+	// CreateAccessGrant.
+	CreateAccessGrant *models.CreateAccessGrant
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateAccessGrantParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAccessGrants adds the accessGrants to the create access grant params
-func (o *CreateAccessGrantParams) WithAccessGrants(accessGrants *models.PostAccessGrants) *CreateAccessGrantParams {
-	o.SetAccessGrants(accessGrants)
+// WithCreateAccessGrant adds the createAccessGrant to the create access grant params
+func (o *CreateAccessGrantParams) WithCreateAccessGrant(createAccessGrant *models.CreateAccessGrant) *CreateAccessGrantParams {
+	o.SetCreateAccessGrant(createAccessGrant)
 	return o
 }
 
-// SetAccessGrants adds the accessGrants to the create access grant params
-func (o *CreateAccessGrantParams) SetAccessGrants(accessGrants *models.PostAccessGrants) {
-	o.AccessGrants = accessGrants
+// SetCreateAccessGrant adds the createAccessGrant to the create access grant params
+func (o *CreateAccessGrantParams) SetCreateAccessGrant(createAccessGrant *models.CreateAccessGrant) {
+	o.CreateAccessGrant = createAccessGrant
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateAccessGrantParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.AccessGrants != nil {
-		if err := r.SetBodyParam(o.AccessGrants); err != nil {
+	if o.CreateAccessGrant != nil {
+		if err := r.SetBodyParam(o.CreateAccessGrant); err != nil {
 			return err
 		}
 	}

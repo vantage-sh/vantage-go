@@ -63,11 +63,11 @@ UpdateFolderParams contains all the parameters to send to the API endpoint
 */
 type UpdateFolderParams struct {
 
-	// Folders.
-	Folders *models.PutFolders
-
 	// FolderToken.
 	FolderToken string
+
+	// UpdateFolder.
+	UpdateFolder *models.UpdateFolder
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateFolderParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithFolders adds the folders to the update folder params
-func (o *UpdateFolderParams) WithFolders(folders *models.PutFolders) *UpdateFolderParams {
-	o.SetFolders(folders)
-	return o
-}
-
-// SetFolders adds the folders to the update folder params
-func (o *UpdateFolderParams) SetFolders(folders *models.PutFolders) {
-	o.Folders = folders
-}
-
 // WithFolderToken adds the folderToken to the update folder params
 func (o *UpdateFolderParams) WithFolderToken(folderToken string) *UpdateFolderParams {
 	o.SetFolderToken(folderToken)
@@ -144,6 +133,17 @@ func (o *UpdateFolderParams) SetFolderToken(folderToken string) {
 	o.FolderToken = folderToken
 }
 
+// WithUpdateFolder adds the updateFolder to the update folder params
+func (o *UpdateFolderParams) WithUpdateFolder(updateFolder *models.UpdateFolder) *UpdateFolderParams {
+	o.SetUpdateFolder(updateFolder)
+	return o
+}
+
+// SetUpdateFolder adds the updateFolder to the update folder params
+func (o *UpdateFolderParams) SetUpdateFolder(updateFolder *models.UpdateFolder) {
+	o.UpdateFolder = updateFolder
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateFolderParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateFolderParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-	if o.Folders != nil {
-		if err := r.SetBodyParam(o.Folders); err != nil {
-			return err
-		}
-	}
 
 	// path param folder_token
 	if err := r.SetPathParam("folder_token", o.FolderToken); err != nil {
 		return err
+	}
+	if o.UpdateFolder != nil {
+		if err := r.SetBodyParam(o.UpdateFolder); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

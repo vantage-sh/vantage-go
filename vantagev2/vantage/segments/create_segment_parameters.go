@@ -63,8 +63,8 @@ CreateSegmentParams contains all the parameters to send to the API endpoint
 */
 type CreateSegmentParams struct {
 
-	// Segments.
-	Segments *models.PostSegments
+	// CreateSegment.
+	CreateSegment *models.CreateSegment
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateSegmentParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithSegments adds the segments to the create segment params
-func (o *CreateSegmentParams) WithSegments(segments *models.PostSegments) *CreateSegmentParams {
-	o.SetSegments(segments)
+// WithCreateSegment adds the createSegment to the create segment params
+func (o *CreateSegmentParams) WithCreateSegment(createSegment *models.CreateSegment) *CreateSegmentParams {
+	o.SetCreateSegment(createSegment)
 	return o
 }
 
-// SetSegments adds the segments to the create segment params
-func (o *CreateSegmentParams) SetSegments(segments *models.PostSegments) {
-	o.Segments = segments
+// SetCreateSegment adds the createSegment to the create segment params
+func (o *CreateSegmentParams) SetCreateSegment(createSegment *models.CreateSegment) {
+	o.CreateSegment = createSegment
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateSegmentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-	if o.Segments != nil {
-		if err := r.SetBodyParam(o.Segments); err != nil {
+	if o.CreateSegment != nil {
+		if err := r.SetBodyParam(o.CreateSegment); err != nil {
 			return err
 		}
 	}

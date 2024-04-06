@@ -63,8 +63,8 @@ CreateCostReportParams contains all the parameters to send to the API endpoint
 */
 type CreateCostReportParams struct {
 
-	// CostReports.
-	CostReports *models.PostCostReports
+	// CreateCostReport.
+	CreateCostReport *models.CreateCostReport
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateCostReportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCostReports adds the costReports to the create cost report params
-func (o *CreateCostReportParams) WithCostReports(costReports *models.PostCostReports) *CreateCostReportParams {
-	o.SetCostReports(costReports)
+// WithCreateCostReport adds the createCostReport to the create cost report params
+func (o *CreateCostReportParams) WithCreateCostReport(createCostReport *models.CreateCostReport) *CreateCostReportParams {
+	o.SetCreateCostReport(createCostReport)
 	return o
 }
 
-// SetCostReports adds the costReports to the create cost report params
-func (o *CreateCostReportParams) SetCostReports(costReports *models.PostCostReports) {
-	o.CostReports = costReports
+// SetCreateCostReport adds the createCostReport to the create cost report params
+func (o *CreateCostReportParams) SetCreateCostReport(createCostReport *models.CreateCostReport) {
+	o.CreateCostReport = createCostReport
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateCostReportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-	if o.CostReports != nil {
-		if err := r.SetBodyParam(o.CostReports); err != nil {
+	if o.CreateCostReport != nil {
+		if err := r.SetBodyParam(o.CreateCostReport); err != nil {
 			return err
 		}
 	}

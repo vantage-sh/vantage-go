@@ -63,11 +63,11 @@ UpdateSavedFilterParams contains all the parameters to send to the API endpoint
 */
 type UpdateSavedFilterParams struct {
 
-	// SavedFilters.
-	SavedFilters *models.PutSavedFilters
-
 	// SavedFilterToken.
 	SavedFilterToken string
+
+	// UpdateSavedFilter.
+	UpdateSavedFilter *models.UpdateSavedFilter
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateSavedFilterParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithSavedFilters adds the savedFilters to the update saved filter params
-func (o *UpdateSavedFilterParams) WithSavedFilters(savedFilters *models.PutSavedFilters) *UpdateSavedFilterParams {
-	o.SetSavedFilters(savedFilters)
-	return o
-}
-
-// SetSavedFilters adds the savedFilters to the update saved filter params
-func (o *UpdateSavedFilterParams) SetSavedFilters(savedFilters *models.PutSavedFilters) {
-	o.SavedFilters = savedFilters
-}
-
 // WithSavedFilterToken adds the savedFilterToken to the update saved filter params
 func (o *UpdateSavedFilterParams) WithSavedFilterToken(savedFilterToken string) *UpdateSavedFilterParams {
 	o.SetSavedFilterToken(savedFilterToken)
@@ -144,6 +133,17 @@ func (o *UpdateSavedFilterParams) SetSavedFilterToken(savedFilterToken string) {
 	o.SavedFilterToken = savedFilterToken
 }
 
+// WithUpdateSavedFilter adds the updateSavedFilter to the update saved filter params
+func (o *UpdateSavedFilterParams) WithUpdateSavedFilter(updateSavedFilter *models.UpdateSavedFilter) *UpdateSavedFilterParams {
+	o.SetUpdateSavedFilter(updateSavedFilter)
+	return o
+}
+
+// SetUpdateSavedFilter adds the updateSavedFilter to the update saved filter params
+func (o *UpdateSavedFilterParams) SetUpdateSavedFilter(updateSavedFilter *models.UpdateSavedFilter) {
+	o.UpdateSavedFilter = updateSavedFilter
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateSavedFilterParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateSavedFilterParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.SavedFilters != nil {
-		if err := r.SetBodyParam(o.SavedFilters); err != nil {
-			return err
-		}
-	}
 
 	// path param saved_filter_token
 	if err := r.SetPathParam("saved_filter_token", o.SavedFilterToken); err != nil {
 		return err
+	}
+	if o.UpdateSavedFilter != nil {
+		if err := r.SetBodyParam(o.UpdateSavedFilter); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

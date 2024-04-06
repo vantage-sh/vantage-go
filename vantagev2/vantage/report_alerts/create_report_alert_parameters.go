@@ -63,8 +63,8 @@ CreateReportAlertParams contains all the parameters to send to the API endpoint
 */
 type CreateReportAlertParams struct {
 
-	// ReportAlerts.
-	ReportAlerts *models.PostReportAlerts
+	// CreateReportAlert.
+	CreateReportAlert *models.CreateReportAlert
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateReportAlertParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportAlerts adds the reportAlerts to the create report alert params
-func (o *CreateReportAlertParams) WithReportAlerts(reportAlerts *models.PostReportAlerts) *CreateReportAlertParams {
-	o.SetReportAlerts(reportAlerts)
+// WithCreateReportAlert adds the createReportAlert to the create report alert params
+func (o *CreateReportAlertParams) WithCreateReportAlert(createReportAlert *models.CreateReportAlert) *CreateReportAlertParams {
+	o.SetCreateReportAlert(createReportAlert)
 	return o
 }
 
-// SetReportAlerts adds the reportAlerts to the create report alert params
-func (o *CreateReportAlertParams) SetReportAlerts(reportAlerts *models.PostReportAlerts) {
-	o.ReportAlerts = reportAlerts
+// SetCreateReportAlert adds the createReportAlert to the create report alert params
+func (o *CreateReportAlertParams) SetCreateReportAlert(createReportAlert *models.CreateReportAlert) {
+	o.CreateReportAlert = createReportAlert
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateReportAlertParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.ReportAlerts != nil {
-		if err := r.SetBodyParam(o.ReportAlerts); err != nil {
+	if o.CreateReportAlert != nil {
+		if err := r.SetBodyParam(o.CreateReportAlert); err != nil {
 			return err
 		}
 	}

@@ -63,11 +63,11 @@ UpdateAccessGrantParams contains all the parameters to send to the API endpoint
 */
 type UpdateAccessGrantParams struct {
 
-	// AccessGrants.
-	AccessGrants *models.PutAccessGrants
-
 	// AccessGrantToken.
 	AccessGrantToken string
+
+	// UpdateAccessGrant.
+	UpdateAccessGrant *models.UpdateAccessGrant
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateAccessGrantParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAccessGrants adds the accessGrants to the update access grant params
-func (o *UpdateAccessGrantParams) WithAccessGrants(accessGrants *models.PutAccessGrants) *UpdateAccessGrantParams {
-	o.SetAccessGrants(accessGrants)
-	return o
-}
-
-// SetAccessGrants adds the accessGrants to the update access grant params
-func (o *UpdateAccessGrantParams) SetAccessGrants(accessGrants *models.PutAccessGrants) {
-	o.AccessGrants = accessGrants
-}
-
 // WithAccessGrantToken adds the accessGrantToken to the update access grant params
 func (o *UpdateAccessGrantParams) WithAccessGrantToken(accessGrantToken string) *UpdateAccessGrantParams {
 	o.SetAccessGrantToken(accessGrantToken)
@@ -144,6 +133,17 @@ func (o *UpdateAccessGrantParams) SetAccessGrantToken(accessGrantToken string) {
 	o.AccessGrantToken = accessGrantToken
 }
 
+// WithUpdateAccessGrant adds the updateAccessGrant to the update access grant params
+func (o *UpdateAccessGrantParams) WithUpdateAccessGrant(updateAccessGrant *models.UpdateAccessGrant) *UpdateAccessGrantParams {
+	o.SetUpdateAccessGrant(updateAccessGrant)
+	return o
+}
+
+// SetUpdateAccessGrant adds the updateAccessGrant to the update access grant params
+func (o *UpdateAccessGrantParams) SetUpdateAccessGrant(updateAccessGrant *models.UpdateAccessGrant) {
+	o.UpdateAccessGrant = updateAccessGrant
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateAccessGrantParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateAccessGrantParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.AccessGrants != nil {
-		if err := r.SetBodyParam(o.AccessGrants); err != nil {
-			return err
-		}
-	}
 
 	// path param access_grant_token
 	if err := r.SetPathParam("access_grant_token", o.AccessGrantToken); err != nil {
 		return err
+	}
+	if o.UpdateAccessGrant != nil {
+		if err := r.SetBodyParam(o.UpdateAccessGrant); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

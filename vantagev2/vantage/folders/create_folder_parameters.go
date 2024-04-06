@@ -63,8 +63,8 @@ CreateFolderParams contains all the parameters to send to the API endpoint
 */
 type CreateFolderParams struct {
 
-	// Folders.
-	Folders *models.PostFolders
+	// CreateFolder.
+	CreateFolder *models.CreateFolder
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateFolderParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithFolders adds the folders to the create folder params
-func (o *CreateFolderParams) WithFolders(folders *models.PostFolders) *CreateFolderParams {
-	o.SetFolders(folders)
+// WithCreateFolder adds the createFolder to the create folder params
+func (o *CreateFolderParams) WithCreateFolder(createFolder *models.CreateFolder) *CreateFolderParams {
+	o.SetCreateFolder(createFolder)
 	return o
 }
 
-// SetFolders adds the folders to the create folder params
-func (o *CreateFolderParams) SetFolders(folders *models.PostFolders) {
-	o.Folders = folders
+// SetCreateFolder adds the createFolder to the create folder params
+func (o *CreateFolderParams) SetCreateFolder(createFolder *models.CreateFolder) {
+	o.CreateFolder = createFolder
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateFolderParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-	if o.Folders != nil {
-		if err := r.SetBodyParam(o.Folders); err != nil {
+	if o.CreateFolder != nil {
+		if err := r.SetBodyParam(o.CreateFolder); err != nil {
 			return err
 		}
 	}

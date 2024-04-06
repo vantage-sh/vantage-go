@@ -63,11 +63,11 @@ UpdateReportNotificationParams contains all the parameters to send to the API en
 */
 type UpdateReportNotificationParams struct {
 
-	// ReportNotifications.
-	ReportNotifications *models.PutReportNotifications
-
 	// ReportNotificationToken.
 	ReportNotificationToken string
+
+	// UpdateReportNotification.
+	UpdateReportNotification *models.UpdateReportNotification
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateReportNotificationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportNotifications adds the reportNotifications to the update report notification params
-func (o *UpdateReportNotificationParams) WithReportNotifications(reportNotifications *models.PutReportNotifications) *UpdateReportNotificationParams {
-	o.SetReportNotifications(reportNotifications)
-	return o
-}
-
-// SetReportNotifications adds the reportNotifications to the update report notification params
-func (o *UpdateReportNotificationParams) SetReportNotifications(reportNotifications *models.PutReportNotifications) {
-	o.ReportNotifications = reportNotifications
-}
-
 // WithReportNotificationToken adds the reportNotificationToken to the update report notification params
 func (o *UpdateReportNotificationParams) WithReportNotificationToken(reportNotificationToken string) *UpdateReportNotificationParams {
 	o.SetReportNotificationToken(reportNotificationToken)
@@ -144,6 +133,17 @@ func (o *UpdateReportNotificationParams) SetReportNotificationToken(reportNotifi
 	o.ReportNotificationToken = reportNotificationToken
 }
 
+// WithUpdateReportNotification adds the updateReportNotification to the update report notification params
+func (o *UpdateReportNotificationParams) WithUpdateReportNotification(updateReportNotification *models.UpdateReportNotification) *UpdateReportNotificationParams {
+	o.SetUpdateReportNotification(updateReportNotification)
+	return o
+}
+
+// SetUpdateReportNotification adds the updateReportNotification to the update report notification params
+func (o *UpdateReportNotificationParams) SetUpdateReportNotification(updateReportNotification *models.UpdateReportNotification) {
+	o.UpdateReportNotification = updateReportNotification
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateReportNotificationParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateReportNotificationParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-	if o.ReportNotifications != nil {
-		if err := r.SetBodyParam(o.ReportNotifications); err != nil {
-			return err
-		}
-	}
 
 	// path param report_notification_token
 	if err := r.SetPathParam("report_notification_token", o.ReportNotificationToken); err != nil {
 		return err
+	}
+	if o.UpdateReportNotification != nil {
+		if err := r.SetBodyParam(o.UpdateReportNotification); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
