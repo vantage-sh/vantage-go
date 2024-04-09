@@ -46,7 +46,7 @@ type ClientService interface {
 }
 
 /*
-CreateBusinessMetric Create a new Business Metric.
+CreateBusinessMetric Create a new BusinessMetric.
 */
 func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBusinessMetricCreated, error) {
 	// TODO: Validate the params before sending
@@ -124,7 +124,7 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 }
 
 /*
-GetBusinessMetric Return a specific Business Metric.
+GetBusinessMetric Return a specific BusinessMetrics.
 */
 func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -163,7 +163,7 @@ func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo run
 }
 
 /*
-GetBusinessMetrics Return all Business Metrics that the current API token has access to.
+GetBusinessMetrics Return all BusinessMetrics that the current API token has access to.
 */
 func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error) {
 	// TODO: Validate the params before sending

@@ -14,27 +14,27 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateReportAlert Create a Report Alert for a Cost Report.
+// CreateAnomalyNotification Create an Anomaly Notification for a Cost Report.
 //
-// swagger:model createReportAlert
-type CreateReportAlert struct {
+// swagger:model createAnomalyNotification
+type CreateAnomalyNotification struct {
 
-	// The token of the Cost Report folder that has the alert.
+	// The token of the Cost Report folder that has the notification.
 	// Required: true
 	CostReportToken *string `json:"cost_report_token"`
 
-	// The Slack/MS Teams channels that receive the alert.
+	// The Slack/MS Teams channels that receive the notification.
 	RecipientChannels []string `json:"recipient_channels"`
 
-	// The threshold amount that must be met for the alert to fire.
+	// The threshold amount that must be met for the notification to fire.
 	Threshold int32 `json:"threshold,omitempty"`
 
-	// The tokens of the users that receive the alert.
+	// The tokens of the users that receive the notification.
 	UserTokens []string `json:"user_tokens"`
 }
 
-// Validate validates this create report alert
-func (m *CreateReportAlert) Validate(formats strfmt.Registry) error {
+// Validate validates this create anomaly notification
+func (m *CreateAnomalyNotification) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCostReportToken(formats); err != nil {
@@ -47,7 +47,7 @@ func (m *CreateReportAlert) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateReportAlert) validateCostReportToken(formats strfmt.Registry) error {
+func (m *CreateAnomalyNotification) validateCostReportToken(formats strfmt.Registry) error {
 
 	if err := validate.Required("cost_report_token", "body", m.CostReportToken); err != nil {
 		return err
@@ -56,13 +56,13 @@ func (m *CreateReportAlert) validateCostReportToken(formats strfmt.Registry) err
 	return nil
 }
 
-// ContextValidate validates this create report alert based on context it is used
-func (m *CreateReportAlert) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this create anomaly notification based on context it is used
+func (m *CreateAnomalyNotification) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *CreateReportAlert) MarshalBinary() ([]byte, error) {
+func (m *CreateAnomalyNotification) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -70,8 +70,8 @@ func (m *CreateReportAlert) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CreateReportAlert) UnmarshalBinary(b []byte) error {
-	var res CreateReportAlert
+func (m *CreateAnomalyNotification) UnmarshalBinary(b []byte) error {
+	var res CreateAnomalyNotification
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
