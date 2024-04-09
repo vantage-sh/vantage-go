@@ -63,11 +63,11 @@ UpdateBudgetParams contains all the parameters to send to the API endpoint
 */
 type UpdateBudgetParams struct {
 
-	// Budgets.
-	Budgets *models.PutBudgets
-
 	// BudgetToken.
 	BudgetToken string
+
+	// UpdateBudget.
+	UpdateBudget *models.UpdateBudget
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateBudgetParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBudgets adds the budgets to the update budget params
-func (o *UpdateBudgetParams) WithBudgets(budgets *models.PutBudgets) *UpdateBudgetParams {
-	o.SetBudgets(budgets)
-	return o
-}
-
-// SetBudgets adds the budgets to the update budget params
-func (o *UpdateBudgetParams) SetBudgets(budgets *models.PutBudgets) {
-	o.Budgets = budgets
-}
-
 // WithBudgetToken adds the budgetToken to the update budget params
 func (o *UpdateBudgetParams) WithBudgetToken(budgetToken string) *UpdateBudgetParams {
 	o.SetBudgetToken(budgetToken)
@@ -144,6 +133,17 @@ func (o *UpdateBudgetParams) SetBudgetToken(budgetToken string) {
 	o.BudgetToken = budgetToken
 }
 
+// WithUpdateBudget adds the updateBudget to the update budget params
+func (o *UpdateBudgetParams) WithUpdateBudget(updateBudget *models.UpdateBudget) *UpdateBudgetParams {
+	o.SetUpdateBudget(updateBudget)
+	return o
+}
+
+// SetUpdateBudget adds the updateBudget to the update budget params
+func (o *UpdateBudgetParams) SetUpdateBudget(updateBudget *models.UpdateBudget) {
+	o.UpdateBudget = updateBudget
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateBudgetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateBudgetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-	if o.Budgets != nil {
-		if err := r.SetBodyParam(o.Budgets); err != nil {
-			return err
-		}
-	}
 
 	// path param budget_token
 	if err := r.SetPathParam("budget_token", o.BudgetToken); err != nil {
 		return err
+	}
+	if o.UpdateBudget != nil {
+		if err := r.SetBodyParam(o.UpdateBudget); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

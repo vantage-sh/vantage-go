@@ -7828,11 +7828,11 @@
             "required": true
           },
           {
-            "name": "IntegrationsAws",
+            "name": "putIntegrationsAWS",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putIntegrationsAws"
+              "$ref": "#/definitions/putIntegrationsAWS"
             }
           }
         ],
@@ -7919,11 +7919,11 @@
         ],
         "parameters": [
           {
-            "name": "IntegrationsAws",
+            "name": "createIntegrationsAWS",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postIntegrationsAws"
+              "$ref": "#/definitions/createIntegrationsAWS"
             }
           }
         ],
@@ -8277,7 +8277,7 @@
       },
       "description": "Costs model"
     },
-    "putIntegrationsAws": {
+    "putIntegrationsAWS": {
       "type": "object",
       "properties": {
         "cross_account_arn": {
@@ -8310,7 +8310,7 @@
       },
       "description": "AwsAccessCredential model"
     },
-    "postIntegrationsAws": {
+    "createIntegrationsAWS": {
       "type": "object",
       "properties": {
         "cross_account_arn": {

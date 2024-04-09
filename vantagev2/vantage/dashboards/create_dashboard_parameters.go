@@ -63,8 +63,8 @@ CreateDashboardParams contains all the parameters to send to the API endpoint
 */
 type CreateDashboardParams struct {
 
-	// Dashboards.
-	Dashboards *models.PostDashboards
+	// CreateDashboard.
+	CreateDashboard *models.CreateDashboard
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateDashboardParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithDashboards adds the dashboards to the create dashboard params
-func (o *CreateDashboardParams) WithDashboards(dashboards *models.PostDashboards) *CreateDashboardParams {
-	o.SetDashboards(dashboards)
+// WithCreateDashboard adds the createDashboard to the create dashboard params
+func (o *CreateDashboardParams) WithCreateDashboard(createDashboard *models.CreateDashboard) *CreateDashboardParams {
+	o.SetCreateDashboard(createDashboard)
 	return o
 }
 
-// SetDashboards adds the dashboards to the create dashboard params
-func (o *CreateDashboardParams) SetDashboards(dashboards *models.PostDashboards) {
-	o.Dashboards = dashboards
+// SetCreateDashboard adds the createDashboard to the create dashboard params
+func (o *CreateDashboardParams) SetCreateDashboard(createDashboard *models.CreateDashboard) {
+	o.CreateDashboard = createDashboard
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateDashboardParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-	if o.Dashboards != nil {
-		if err := r.SetBodyParam(o.Dashboards); err != nil {
+	if o.CreateDashboard != nil {
+		if err := r.SetBodyParam(o.CreateDashboard); err != nil {
 			return err
 		}
 	}

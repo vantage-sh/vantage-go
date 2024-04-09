@@ -63,11 +63,11 @@ UpdateReportAlertParams contains all the parameters to send to the API endpoint
 */
 type UpdateReportAlertParams struct {
 
-	// ReportAlerts.
-	ReportAlerts *models.PutReportAlerts
-
 	// ReportAlertToken.
 	ReportAlertToken string
+
+	// UpdateReportAlert.
+	UpdateReportAlert *models.UpdateReportAlert
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateReportAlertParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportAlerts adds the reportAlerts to the update report alert params
-func (o *UpdateReportAlertParams) WithReportAlerts(reportAlerts *models.PutReportAlerts) *UpdateReportAlertParams {
-	o.SetReportAlerts(reportAlerts)
-	return o
-}
-
-// SetReportAlerts adds the reportAlerts to the update report alert params
-func (o *UpdateReportAlertParams) SetReportAlerts(reportAlerts *models.PutReportAlerts) {
-	o.ReportAlerts = reportAlerts
-}
-
 // WithReportAlertToken adds the reportAlertToken to the update report alert params
 func (o *UpdateReportAlertParams) WithReportAlertToken(reportAlertToken string) *UpdateReportAlertParams {
 	o.SetReportAlertToken(reportAlertToken)
@@ -144,6 +133,17 @@ func (o *UpdateReportAlertParams) SetReportAlertToken(reportAlertToken string) {
 	o.ReportAlertToken = reportAlertToken
 }
 
+// WithUpdateReportAlert adds the updateReportAlert to the update report alert params
+func (o *UpdateReportAlertParams) WithUpdateReportAlert(updateReportAlert *models.UpdateReportAlert) *UpdateReportAlertParams {
+	o.SetUpdateReportAlert(updateReportAlert)
+	return o
+}
+
+// SetUpdateReportAlert adds the updateReportAlert to the update report alert params
+func (o *UpdateReportAlertParams) SetUpdateReportAlert(updateReportAlert *models.UpdateReportAlert) {
+	o.UpdateReportAlert = updateReportAlert
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateReportAlertParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateReportAlertParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.ReportAlerts != nil {
-		if err := r.SetBodyParam(o.ReportAlerts); err != nil {
-			return err
-		}
-	}
 
 	// path param report_alert_token
 	if err := r.SetPathParam("report_alert_token", o.ReportAlertToken); err != nil {
 		return err
+	}
+	if o.UpdateReportAlert != nil {
+		if err := r.SetBodyParam(o.UpdateReportAlert); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

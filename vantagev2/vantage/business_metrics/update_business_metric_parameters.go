@@ -63,11 +63,11 @@ UpdateBusinessMetricParams contains all the parameters to send to the API endpoi
 */
 type UpdateBusinessMetricParams struct {
 
-	// BusinessMetrics.
-	BusinessMetrics *models.PutBusinessMetrics
-
 	// BusinessMetricToken.
 	BusinessMetricToken string
+
+	// UpdateBusinessMetric.
+	UpdateBusinessMetric *models.UpdateBusinessMetric
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateBusinessMetricParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBusinessMetrics adds the businessMetrics to the update business metric params
-func (o *UpdateBusinessMetricParams) WithBusinessMetrics(businessMetrics *models.PutBusinessMetrics) *UpdateBusinessMetricParams {
-	o.SetBusinessMetrics(businessMetrics)
-	return o
-}
-
-// SetBusinessMetrics adds the businessMetrics to the update business metric params
-func (o *UpdateBusinessMetricParams) SetBusinessMetrics(businessMetrics *models.PutBusinessMetrics) {
-	o.BusinessMetrics = businessMetrics
-}
-
 // WithBusinessMetricToken adds the businessMetricToken to the update business metric params
 func (o *UpdateBusinessMetricParams) WithBusinessMetricToken(businessMetricToken string) *UpdateBusinessMetricParams {
 	o.SetBusinessMetricToken(businessMetricToken)
@@ -144,6 +133,17 @@ func (o *UpdateBusinessMetricParams) SetBusinessMetricToken(businessMetricToken 
 	o.BusinessMetricToken = businessMetricToken
 }
 
+// WithUpdateBusinessMetric adds the updateBusinessMetric to the update business metric params
+func (o *UpdateBusinessMetricParams) WithUpdateBusinessMetric(updateBusinessMetric *models.UpdateBusinessMetric) *UpdateBusinessMetricParams {
+	o.SetUpdateBusinessMetric(updateBusinessMetric)
+	return o
+}
+
+// SetUpdateBusinessMetric adds the updateBusinessMetric to the update business metric params
+func (o *UpdateBusinessMetricParams) SetUpdateBusinessMetric(updateBusinessMetric *models.UpdateBusinessMetric) {
+	o.UpdateBusinessMetric = updateBusinessMetric
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateBusinessMetricParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateBusinessMetricParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-	if o.BusinessMetrics != nil {
-		if err := r.SetBodyParam(o.BusinessMetrics); err != nil {
-			return err
-		}
-	}
 
 	// path param business_metric_token
 	if err := r.SetPathParam("business_metric_token", o.BusinessMetricToken); err != nil {
 		return err
+	}
+	if o.UpdateBusinessMetric != nil {
+		if err := r.SetBodyParam(o.UpdateBusinessMetric); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

@@ -63,11 +63,11 @@ UpdateDashboardParams contains all the parameters to send to the API endpoint
 */
 type UpdateDashboardParams struct {
 
-	// Dashboards.
-	Dashboards *models.PutDashboards
-
 	// DashboardToken.
 	DashboardToken string
+
+	// UpdateDashboard.
+	UpdateDashboard *models.UpdateDashboard
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateDashboardParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithDashboards adds the dashboards to the update dashboard params
-func (o *UpdateDashboardParams) WithDashboards(dashboards *models.PutDashboards) *UpdateDashboardParams {
-	o.SetDashboards(dashboards)
-	return o
-}
-
-// SetDashboards adds the dashboards to the update dashboard params
-func (o *UpdateDashboardParams) SetDashboards(dashboards *models.PutDashboards) {
-	o.Dashboards = dashboards
-}
-
 // WithDashboardToken adds the dashboardToken to the update dashboard params
 func (o *UpdateDashboardParams) WithDashboardToken(dashboardToken string) *UpdateDashboardParams {
 	o.SetDashboardToken(dashboardToken)
@@ -144,6 +133,17 @@ func (o *UpdateDashboardParams) SetDashboardToken(dashboardToken string) {
 	o.DashboardToken = dashboardToken
 }
 
+// WithUpdateDashboard adds the updateDashboard to the update dashboard params
+func (o *UpdateDashboardParams) WithUpdateDashboard(updateDashboard *models.UpdateDashboard) *UpdateDashboardParams {
+	o.SetUpdateDashboard(updateDashboard)
+	return o
+}
+
+// SetUpdateDashboard adds the updateDashboard to the update dashboard params
+func (o *UpdateDashboardParams) SetUpdateDashboard(updateDashboard *models.UpdateDashboard) {
+	o.UpdateDashboard = updateDashboard
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateDashboardParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateDashboardParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-	if o.Dashboards != nil {
-		if err := r.SetBodyParam(o.Dashboards); err != nil {
-			return err
-		}
-	}
 
 	// path param dashboard_token
 	if err := r.SetPathParam("dashboard_token", o.DashboardToken); err != nil {
 		return err
+	}
+	if o.UpdateDashboard != nil {
+		if err := r.SetBodyParam(o.UpdateDashboard); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

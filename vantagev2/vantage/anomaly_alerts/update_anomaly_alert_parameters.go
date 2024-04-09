@@ -63,11 +63,11 @@ UpdateAnomalyAlertParams contains all the parameters to send to the API endpoint
 */
 type UpdateAnomalyAlertParams struct {
 
-	// AnomalyAlerts.
-	AnomalyAlerts *models.PutAnomalyAlerts
-
 	// AnomalyAlertToken.
 	AnomalyAlertToken string
+
+	// UpdateAnomalyAlert.
+	UpdateAnomalyAlert *models.UpdateAnomalyAlert
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateAnomalyAlertParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAnomalyAlerts adds the anomalyAlerts to the update anomaly alert params
-func (o *UpdateAnomalyAlertParams) WithAnomalyAlerts(anomalyAlerts *models.PutAnomalyAlerts) *UpdateAnomalyAlertParams {
-	o.SetAnomalyAlerts(anomalyAlerts)
-	return o
-}
-
-// SetAnomalyAlerts adds the anomalyAlerts to the update anomaly alert params
-func (o *UpdateAnomalyAlertParams) SetAnomalyAlerts(anomalyAlerts *models.PutAnomalyAlerts) {
-	o.AnomalyAlerts = anomalyAlerts
-}
-
 // WithAnomalyAlertToken adds the anomalyAlertToken to the update anomaly alert params
 func (o *UpdateAnomalyAlertParams) WithAnomalyAlertToken(anomalyAlertToken string) *UpdateAnomalyAlertParams {
 	o.SetAnomalyAlertToken(anomalyAlertToken)
@@ -144,6 +133,17 @@ func (o *UpdateAnomalyAlertParams) SetAnomalyAlertToken(anomalyAlertToken string
 	o.AnomalyAlertToken = anomalyAlertToken
 }
 
+// WithUpdateAnomalyAlert adds the updateAnomalyAlert to the update anomaly alert params
+func (o *UpdateAnomalyAlertParams) WithUpdateAnomalyAlert(updateAnomalyAlert *models.UpdateAnomalyAlert) *UpdateAnomalyAlertParams {
+	o.SetUpdateAnomalyAlert(updateAnomalyAlert)
+	return o
+}
+
+// SetUpdateAnomalyAlert adds the updateAnomalyAlert to the update anomaly alert params
+func (o *UpdateAnomalyAlertParams) SetUpdateAnomalyAlert(updateAnomalyAlert *models.UpdateAnomalyAlert) {
+	o.UpdateAnomalyAlert = updateAnomalyAlert
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateAnomalyAlertParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateAnomalyAlertParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-	if o.AnomalyAlerts != nil {
-		if err := r.SetBodyParam(o.AnomalyAlerts); err != nil {
-			return err
-		}
-	}
 
 	// path param anomaly_alert_token
 	if err := r.SetPathParam("anomaly_alert_token", o.AnomalyAlertToken); err != nil {
 		return err
+	}
+	if o.UpdateAnomalyAlert != nil {
+		if err := r.SetBodyParam(o.UpdateAnomalyAlert); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

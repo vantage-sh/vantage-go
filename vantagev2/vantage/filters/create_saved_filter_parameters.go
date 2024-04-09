@@ -63,8 +63,8 @@ CreateSavedFilterParams contains all the parameters to send to the API endpoint
 */
 type CreateSavedFilterParams struct {
 
-	// SavedFilters.
-	SavedFilters *models.PostSavedFilters
+	// CreateSavedFilter.
+	CreateSavedFilter *models.CreateSavedFilter
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateSavedFilterParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithSavedFilters adds the savedFilters to the create saved filter params
-func (o *CreateSavedFilterParams) WithSavedFilters(savedFilters *models.PostSavedFilters) *CreateSavedFilterParams {
-	o.SetSavedFilters(savedFilters)
+// WithCreateSavedFilter adds the createSavedFilter to the create saved filter params
+func (o *CreateSavedFilterParams) WithCreateSavedFilter(createSavedFilter *models.CreateSavedFilter) *CreateSavedFilterParams {
+	o.SetCreateSavedFilter(createSavedFilter)
 	return o
 }
 
-// SetSavedFilters adds the savedFilters to the create saved filter params
-func (o *CreateSavedFilterParams) SetSavedFilters(savedFilters *models.PostSavedFilters) {
-	o.SavedFilters = savedFilters
+// SetCreateSavedFilter adds the createSavedFilter to the create saved filter params
+func (o *CreateSavedFilterParams) SetCreateSavedFilter(createSavedFilter *models.CreateSavedFilter) {
+	o.CreateSavedFilter = createSavedFilter
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateSavedFilterParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.SavedFilters != nil {
-		if err := r.SetBodyParam(o.SavedFilters); err != nil {
+	if o.CreateSavedFilter != nil {
+		if err := r.SetBodyParam(o.CreateSavedFilter); err != nil {
 			return err
 		}
 	}

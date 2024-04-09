@@ -63,8 +63,8 @@ CreateBusinessMetricParams contains all the parameters to send to the API endpoi
 */
 type CreateBusinessMetricParams struct {
 
-	// BusinessMetrics.
-	BusinessMetrics *models.PostBusinessMetrics
+	// CreateBusinessMetric.
+	CreateBusinessMetric *models.CreateBusinessMetric
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateBusinessMetricParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBusinessMetrics adds the businessMetrics to the create business metric params
-func (o *CreateBusinessMetricParams) WithBusinessMetrics(businessMetrics *models.PostBusinessMetrics) *CreateBusinessMetricParams {
-	o.SetBusinessMetrics(businessMetrics)
+// WithCreateBusinessMetric adds the createBusinessMetric to the create business metric params
+func (o *CreateBusinessMetricParams) WithCreateBusinessMetric(createBusinessMetric *models.CreateBusinessMetric) *CreateBusinessMetricParams {
+	o.SetCreateBusinessMetric(createBusinessMetric)
 	return o
 }
 
-// SetBusinessMetrics adds the businessMetrics to the create business metric params
-func (o *CreateBusinessMetricParams) SetBusinessMetrics(businessMetrics *models.PostBusinessMetrics) {
-	o.BusinessMetrics = businessMetrics
+// SetCreateBusinessMetric adds the createBusinessMetric to the create business metric params
+func (o *CreateBusinessMetricParams) SetCreateBusinessMetric(createBusinessMetric *models.CreateBusinessMetric) {
+	o.CreateBusinessMetric = createBusinessMetric
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateBusinessMetricParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-	if o.BusinessMetrics != nil {
-		if err := r.SetBodyParam(o.BusinessMetrics); err != nil {
+	if o.CreateBusinessMetric != nil {
+		if err := r.SetBodyParam(o.CreateBusinessMetric); err != nil {
 			return err
 		}
 	}

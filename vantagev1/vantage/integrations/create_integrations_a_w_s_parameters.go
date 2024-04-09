@@ -63,8 +63,8 @@ CreateIntegrationsAWSParams contains all the parameters to send to the API endpo
 */
 type CreateIntegrationsAWSParams struct {
 
-	// IntegrationsAws.
-	IntegrationsAws *models.PostIntegrationsAws
+	// CreateIntegrationsAWS.
+	CreateIntegrationsAWS *models.CreateIntegrationsAWS
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateIntegrationsAWSParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithIntegrationsAws adds the integrationsAws to the create integrations a w s params
-func (o *CreateIntegrationsAWSParams) WithIntegrationsAws(integrationsAws *models.PostIntegrationsAws) *CreateIntegrationsAWSParams {
-	o.SetIntegrationsAws(integrationsAws)
+// WithCreateIntegrationsAWS adds the createIntegrationsAWS to the create integrations a w s params
+func (o *CreateIntegrationsAWSParams) WithCreateIntegrationsAWS(createIntegrationsAWS *models.CreateIntegrationsAWS) *CreateIntegrationsAWSParams {
+	o.SetCreateIntegrationsAWS(createIntegrationsAWS)
 	return o
 }
 
-// SetIntegrationsAws adds the integrationsAws to the create integrations a w s params
-func (o *CreateIntegrationsAWSParams) SetIntegrationsAws(integrationsAws *models.PostIntegrationsAws) {
-	o.IntegrationsAws = integrationsAws
+// SetCreateIntegrationsAWS adds the createIntegrationsAWS to the create integrations a w s params
+func (o *CreateIntegrationsAWSParams) SetCreateIntegrationsAWS(createIntegrationsAWS *models.CreateIntegrationsAWS) {
+	o.CreateIntegrationsAWS = createIntegrationsAWS
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateIntegrationsAWSParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-	if o.IntegrationsAws != nil {
-		if err := r.SetBodyParam(o.IntegrationsAws); err != nil {
+	if o.CreateIntegrationsAWS != nil {
+		if err := r.SetBodyParam(o.CreateIntegrationsAWS); err != nil {
 			return err
 		}
 	}

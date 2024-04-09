@@ -64,13 +64,13 @@ PutIntegrationsAWSParams contains all the parameters to send to the API endpoint
 */
 type PutIntegrationsAWSParams struct {
 
-	// IntegrationsAws.
-	IntegrationsAws *models.PutIntegrationsAws
-
 	// AccessCredentialID.
 	//
 	// Format: int32
 	AccessCredentialID int32
+
+	// PutIntegrationsAWS.
+	PutIntegrationsAWS *models.PutIntegrationsAWS
 
 	timeout    time.Duration
 	Context    context.Context
@@ -125,17 +125,6 @@ func (o *PutIntegrationsAWSParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithIntegrationsAws adds the integrationsAws to the put integrations a w s params
-func (o *PutIntegrationsAWSParams) WithIntegrationsAws(integrationsAws *models.PutIntegrationsAws) *PutIntegrationsAWSParams {
-	o.SetIntegrationsAws(integrationsAws)
-	return o
-}
-
-// SetIntegrationsAws adds the integrationsAws to the put integrations a w s params
-func (o *PutIntegrationsAWSParams) SetIntegrationsAws(integrationsAws *models.PutIntegrationsAws) {
-	o.IntegrationsAws = integrationsAws
-}
-
 // WithAccessCredentialID adds the accessCredentialID to the put integrations a w s params
 func (o *PutIntegrationsAWSParams) WithAccessCredentialID(accessCredentialID int32) *PutIntegrationsAWSParams {
 	o.SetAccessCredentialID(accessCredentialID)
@@ -147,6 +136,17 @@ func (o *PutIntegrationsAWSParams) SetAccessCredentialID(accessCredentialID int3
 	o.AccessCredentialID = accessCredentialID
 }
 
+// WithPutIntegrationsAWS adds the putIntegrationsAWS to the put integrations a w s params
+func (o *PutIntegrationsAWSParams) WithPutIntegrationsAWS(putIntegrationsAWS *models.PutIntegrationsAWS) *PutIntegrationsAWSParams {
+	o.SetPutIntegrationsAWS(putIntegrationsAWS)
+	return o
+}
+
+// SetPutIntegrationsAWS adds the putIntegrationsAWS to the put integrations a w s params
+func (o *PutIntegrationsAWSParams) SetPutIntegrationsAWS(putIntegrationsAWS *models.PutIntegrationsAWS) {
+	o.PutIntegrationsAWS = putIntegrationsAWS
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *PutIntegrationsAWSParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -154,15 +154,15 @@ func (o *PutIntegrationsAWSParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-	if o.IntegrationsAws != nil {
-		if err := r.SetBodyParam(o.IntegrationsAws); err != nil {
-			return err
-		}
-	}
 
 	// path param access_credential_id
 	if err := r.SetPathParam("access_credential_id", swag.FormatInt32(o.AccessCredentialID)); err != nil {
 		return err
+	}
+	if o.PutIntegrationsAWS != nil {
+		if err := r.SetBodyParam(o.PutIntegrationsAWS); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

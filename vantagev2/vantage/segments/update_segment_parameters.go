@@ -63,11 +63,11 @@ UpdateSegmentParams contains all the parameters to send to the API endpoint
 */
 type UpdateSegmentParams struct {
 
-	// Segments.
-	Segments *models.PutSegments
-
 	// SegmentToken.
 	SegmentToken string
+
+	// UpdateSegment.
+	UpdateSegment *models.UpdateSegment
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,17 +122,6 @@ func (o *UpdateSegmentParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithSegments adds the segments to the update segment params
-func (o *UpdateSegmentParams) WithSegments(segments *models.PutSegments) *UpdateSegmentParams {
-	o.SetSegments(segments)
-	return o
-}
-
-// SetSegments adds the segments to the update segment params
-func (o *UpdateSegmentParams) SetSegments(segments *models.PutSegments) {
-	o.Segments = segments
-}
-
 // WithSegmentToken adds the segmentToken to the update segment params
 func (o *UpdateSegmentParams) WithSegmentToken(segmentToken string) *UpdateSegmentParams {
 	o.SetSegmentToken(segmentToken)
@@ -144,6 +133,17 @@ func (o *UpdateSegmentParams) SetSegmentToken(segmentToken string) {
 	o.SegmentToken = segmentToken
 }
 
+// WithUpdateSegment adds the updateSegment to the update segment params
+func (o *UpdateSegmentParams) WithUpdateSegment(updateSegment *models.UpdateSegment) *UpdateSegmentParams {
+	o.SetUpdateSegment(updateSegment)
+	return o
+}
+
+// SetUpdateSegment adds the updateSegment to the update segment params
+func (o *UpdateSegmentParams) SetUpdateSegment(updateSegment *models.UpdateSegment) {
+	o.UpdateSegment = updateSegment
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateSegmentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateSegmentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-	if o.Segments != nil {
-		if err := r.SetBodyParam(o.Segments); err != nil {
-			return err
-		}
-	}
 
 	// path param segment_token
 	if err := r.SetPathParam("segment_token", o.SegmentToken); err != nil {
 		return err
+	}
+	if o.UpdateSegment != nil {
+		if err := r.SetBodyParam(o.UpdateSegment); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

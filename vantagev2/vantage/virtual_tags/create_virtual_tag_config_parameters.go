@@ -63,8 +63,8 @@ CreateVirtualTagConfigParams contains all the parameters to send to the API endp
 */
 type CreateVirtualTagConfigParams struct {
 
-	// VirtualTagConfigs.
-	VirtualTagConfigs *models.PostVirtualTagConfigs
+	// CreateVirtualTagConfig.
+	CreateVirtualTagConfig *models.CreateVirtualTagConfig
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateVirtualTagConfigParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithVirtualTagConfigs adds the virtualTagConfigs to the create virtual tag config params
-func (o *CreateVirtualTagConfigParams) WithVirtualTagConfigs(virtualTagConfigs *models.PostVirtualTagConfigs) *CreateVirtualTagConfigParams {
-	o.SetVirtualTagConfigs(virtualTagConfigs)
+// WithCreateVirtualTagConfig adds the createVirtualTagConfig to the create virtual tag config params
+func (o *CreateVirtualTagConfigParams) WithCreateVirtualTagConfig(createVirtualTagConfig *models.CreateVirtualTagConfig) *CreateVirtualTagConfigParams {
+	o.SetCreateVirtualTagConfig(createVirtualTagConfig)
 	return o
 }
 
-// SetVirtualTagConfigs adds the virtualTagConfigs to the create virtual tag config params
-func (o *CreateVirtualTagConfigParams) SetVirtualTagConfigs(virtualTagConfigs *models.PostVirtualTagConfigs) {
-	o.VirtualTagConfigs = virtualTagConfigs
+// SetCreateVirtualTagConfig adds the createVirtualTagConfig to the create virtual tag config params
+func (o *CreateVirtualTagConfigParams) SetCreateVirtualTagConfig(createVirtualTagConfig *models.CreateVirtualTagConfig) {
+	o.CreateVirtualTagConfig = createVirtualTagConfig
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateVirtualTagConfigParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-	if o.VirtualTagConfigs != nil {
-		if err := r.SetBodyParam(o.VirtualTagConfigs); err != nil {
+	if o.CreateVirtualTagConfig != nil {
+		if err := r.SetBodyParam(o.CreateVirtualTagConfig); err != nil {
 			return err
 		}
 	}

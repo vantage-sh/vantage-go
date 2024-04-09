@@ -63,8 +63,8 @@ CreateBudgetParams contains all the parameters to send to the API endpoint
 */
 type CreateBudgetParams struct {
 
-	// Budgets.
-	Budgets *models.PostBudgets
+	// CreateBudget.
+	CreateBudget *models.CreateBudget
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +119,15 @@ func (o *CreateBudgetParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBudgets adds the budgets to the create budget params
-func (o *CreateBudgetParams) WithBudgets(budgets *models.PostBudgets) *CreateBudgetParams {
-	o.SetBudgets(budgets)
+// WithCreateBudget adds the createBudget to the create budget params
+func (o *CreateBudgetParams) WithCreateBudget(createBudget *models.CreateBudget) *CreateBudgetParams {
+	o.SetCreateBudget(createBudget)
 	return o
 }
 
-// SetBudgets adds the budgets to the create budget params
-func (o *CreateBudgetParams) SetBudgets(budgets *models.PostBudgets) {
-	o.Budgets = budgets
+// SetCreateBudget adds the createBudget to the create budget params
+func (o *CreateBudgetParams) SetCreateBudget(createBudget *models.CreateBudget) {
+	o.CreateBudget = createBudget
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +137,8 @@ func (o *CreateBudgetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-	if o.Budgets != nil {
-		if err := r.SetBodyParam(o.Budgets); err != nil {
+	if o.CreateBudget != nil {
+		if err := r.SetBodyParam(o.CreateBudget); err != nil {
 			return err
 		}
 	}

@@ -240,11 +240,11 @@
         ],
         "parameters": [
           {
-            "name": "Folders",
+            "name": "createFolder",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postFolders"
+              "$ref": "#/definitions/createFolder"
             }
           }
         ],
@@ -413,11 +413,11 @@
             "required": true
           },
           {
-            "name": "Folders",
+            "name": "updateFolder",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putFolders"
+              "$ref": "#/definitions/updateFolder"
             }
           }
         ],
@@ -524,11 +524,11 @@
         ],
         "parameters": [
           {
-            "name": "SavedFilters",
+            "name": "createSavedFilter",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postSavedFilters"
+              "$ref": "#/definitions/createSavedFilter"
             }
           }
         ],
@@ -699,11 +699,11 @@
             "required": true
           },
           {
-            "name": "SavedFilters",
+            "name": "updateSavedFilter",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putSavedFilters"
+              "$ref": "#/definitions/updateSavedFilter"
             }
           }
         ],
@@ -820,11 +820,11 @@
         ],
         "parameters": [
           {
-            "name": "CostReports",
+            "name": "createCostReport",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postCostReports"
+              "$ref": "#/definitions/createCostReport"
             }
           }
         ],
@@ -1022,11 +1022,11 @@
             "required": true
           },
           {
-            "name": "CostReports",
+            "name": "updateCostReport",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putCostReports"
+              "$ref": "#/definitions/updateCostReport"
             }
           }
         ],
@@ -1161,11 +1161,11 @@
         ],
         "parameters": [
           {
-            "name": "Segments",
+            "name": "createSegment",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postSegments"
+              "$ref": "#/definitions/createSegment"
             }
           }
         ],
@@ -1345,11 +1345,11 @@
             "required": true
           },
           {
-            "name": "Segments",
+            "name": "updateSegment",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putSegments"
+              "$ref": "#/definitions/updateSegment"
             }
           }
         ],
@@ -1469,11 +1469,11 @@
         ],
         "parameters": [
           {
-            "name": "Dashboards",
+            "name": "createDashboard",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postDashboards"
+              "$ref": "#/definitions/createDashboard"
             }
           }
         ],
@@ -1655,11 +1655,11 @@
             "required": true
           },
           {
-            "name": "Dashboards",
+            "name": "updateDashboard",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putDashboards"
+              "$ref": "#/definitions/updateDashboard"
             }
           }
         ],
@@ -1953,11 +1953,11 @@
         ],
         "parameters": [
           {
-            "name": "Teams",
+            "name": "createTeam",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postTeams"
+              "$ref": "#/definitions/createTeam"
             }
           }
         ],
@@ -2160,11 +2160,11 @@
             "required": true
           },
           {
-            "name": "Teams",
+            "name": "updateTeam",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putTeams"
+              "$ref": "#/definitions/updateTeam"
             }
           }
         ],
@@ -2289,11 +2289,11 @@
         ],
         "parameters": [
           {
-            "name": "AccessGrants",
+            "name": "createAccessGrant",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postAccessGrants"
+              "$ref": "#/definitions/createAccessGrant"
             }
           }
         ],
@@ -2494,11 +2494,11 @@
             "required": true
           },
           {
-            "name": "AccessGrants",
+            "name": "updateAccessGrant",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putAccessGrants"
+              "$ref": "#/definitions/updateAccessGrant"
             }
           }
         ],
@@ -2605,11 +2605,11 @@
         ],
         "parameters": [
           {
-            "name": "ReportNotifications",
+            "name": "createReportNotification",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postReportNotifications"
+              "$ref": "#/definitions/createReportNotification"
             }
           }
         ],
@@ -2780,11 +2780,11 @@
             "required": true
           },
           {
-            "name": "ReportNotifications",
+            "name": "updateReportNotification",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putReportNotifications"
+              "$ref": "#/definitions/updateReportNotification"
             }
           }
         ],
@@ -3020,11 +3020,11 @@
         ],
         "parameters": [
           {
-            "name": "BusinessMetrics",
+            "name": "createBusinessMetric",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postBusinessMetrics"
+              "$ref": "#/definitions/createBusinessMetric"
             }
           }
         ],
@@ -3218,11 +3218,11 @@
             "required": true
           },
           {
-            "name": "BusinessMetrics",
+            "name": "updateBusinessMetric",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putBusinessMetrics"
+              "$ref": "#/definitions/updateBusinessMetric"
             }
           }
         ],
@@ -4321,11 +4321,11 @@
             "required": true
           },
           {
-            "name": "AnomalyAlerts",
+            "name": "updateAnomalyAlert",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putAnomalyAlerts"
+              "$ref": "#/definitions/updateAnomalyAlert"
             }
           }
         ],
@@ -4456,11 +4456,11 @@
         ],
         "parameters": [
           {
-            "name": "VirtualTagConfigs",
+            "name": "createVirtualTagConfig",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postVirtualTagConfigs"
+              "$ref": "#/definitions/createVirtualTagConfig"
             }
           }
         ],
@@ -4638,11 +4638,11 @@
             "required": true
           },
           {
-            "name": "VirtualTagConfigs",
+            "name": "updateVirtualTagConfig",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putVirtualTagConfigs"
+              "$ref": "#/definitions/updateVirtualTagConfig"
             }
           }
         ],
@@ -4654,7 +4654,7 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/VirtualTagConfig"
@@ -4779,11 +4779,11 @@
         ],
         "parameters": [
           {
-            "name": "ReportAlerts",
+            "name": "createReportAlert",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postReportAlerts"
+              "$ref": "#/definitions/createReportAlert"
             }
           }
         ],
@@ -4953,11 +4953,11 @@
             "required": true
           },
           {
-            "name": "ReportAlerts",
+            "name": "updateReportAlert",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putReportAlerts"
+              "$ref": "#/definitions/updateReportAlert"
             }
           }
         ],
@@ -5067,11 +5067,11 @@
         ],
         "parameters": [
           {
-            "name": "Budgets",
+            "name": "createBudget",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postBudgets"
+              "$ref": "#/definitions/createBudget"
             }
           }
         ],
@@ -5293,11 +5293,11 @@
             "required": true
           },
           {
-            "name": "Budgets",
+            "name": "updateBudget",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/putBudgets"
+              "$ref": "#/definitions/updateBudget"
             }
           }
         ],
@@ -5526,7 +5526,7 @@
       },
       "description": "Errors model"
     },
-    "postFolders": {
+    "createFolder": {
       "type": "object",
       "properties": {
         "title": {
@@ -5608,7 +5608,7 @@
       },
       "description": "Folders model"
     },
-    "putFolders": {
+    "updateFolder": {
       "type": "object",
       "properties": {
         "title": {
@@ -5629,7 +5629,7 @@
       },
       "description": "Update a Folder for CostReports."
     },
-    "postSavedFilters": {
+    "createSavedFilter": {
       "type": "object",
       "properties": {
         "title": {
@@ -5708,7 +5708,7 @@
       },
       "description": "SavedFilters model"
     },
-    "putSavedFilters": {
+    "updateSavedFilter": {
       "type": "object",
       "properties": {
         "title": {
@@ -5722,7 +5722,7 @@
       },
       "description": "Update a SavedFilter for CostReports."
     },
-    "postCostReports": {
+    "createCostReport": {
       "type": "object",
       "properties": {
         "title": {
@@ -5923,7 +5923,7 @@
       },
       "description": "CostReports model"
     },
-    "putCostReports": {
+    "updateCostReport": {
       "type": "object",
       "properties": {
         "title": {
@@ -6010,7 +6010,7 @@
       },
       "description": "Update a CostReport."
     },
-    "postSegments": {
+    "createSegment": {
       "type": "object",
       "properties": {
         "title": {
@@ -6158,7 +6158,7 @@
       },
       "description": "Segments model"
     },
-    "putSegments": {
+    "updateSegment": {
       "type": "object",
       "properties": {
         "title": {
@@ -6216,7 +6216,7 @@
       },
       "description": "Update a Segment."
     },
-    "postDashboards": {
+    "createDashboard": {
       "type": "object",
       "properties": {
         "title": {
@@ -6385,7 +6385,7 @@
       },
       "description": "Dashboards model"
     },
-    "putDashboards": {
+    "updateDashboard": {
       "type": "object",
       "properties": {
         "title": {
@@ -6566,7 +6566,7 @@
         }
       }
     },
-    "postTeams": {
+    "createTeam": {
       "type": "object",
       "properties": {
         "name": {
@@ -6680,7 +6680,7 @@
       },
       "description": "Teams model"
     },
-    "putTeams": {
+    "updateTeam": {
       "type": "object",
       "properties": {
         "name": {
@@ -6724,7 +6724,7 @@
       },
       "description": "Update a Team."
     },
-    "postAccessGrants": {
+    "createAccessGrant": {
       "type": "object",
       "properties": {
         "resource_token": {
@@ -6796,7 +6796,7 @@
       },
       "description": "AccessGrants model"
     },
-    "putAccessGrants": {
+    "updateAccessGrant": {
       "type": "object",
       "properties": {
         "access": {
@@ -6813,7 +6813,7 @@
       ],
       "description": "Update an AccessGrant."
     },
-    "postReportNotifications": {
+    "createReportNotification": {
       "type": "object",
       "properties": {
         "title": {
@@ -6933,7 +6933,7 @@
       },
       "description": "ReportNotifications model"
     },
-    "putReportNotifications": {
+    "updateReportNotification": {
       "type": "object",
       "properties": {
         "title": {
@@ -7008,7 +7008,7 @@
       },
       "description": "User model"
     },
-    "postBusinessMetrics": {
+    "createBusinessMetric": {
       "type": "object",
       "properties": {
         "title": {
@@ -7129,7 +7129,7 @@
       },
       "description": "BusinessMetrics model"
     },
-    "putBusinessMetrics": {
+    "updateBusinessMetric": {
       "type": "object",
       "properties": {
         "title": {
@@ -7573,7 +7573,7 @@
       },
       "description": "AnomalyAlert model"
     },
-    "putAnomalyAlerts": {
+    "updateAnomalyAlert": {
       "type": "object",
       "properties": {
         "status": {
@@ -7590,7 +7590,7 @@
       ],
       "description": "Update an AnomalyAlert."
     },
-    "postVirtualTagConfigs": {
+    "createVirtualTagConfig": {
       "type": "object",
       "properties": {
         "key": {
@@ -7697,7 +7697,7 @@
       },
       "description": "VirtualTagConfigs model"
     },
-    "putVirtualTagConfigs": {
+    "updateVirtualTagConfig": {
       "type": "object",
       "properties": {
         "key": {
@@ -7706,12 +7706,14 @@
         },
         "overridable": {
           "type": "boolean",
-          "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost."
+          "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.",
+          "x-nullable": true
         },
         "backfill_until": {
           "type": "string",
           "format": "date",
-          "description": "The earliest month the VirtualTagConfig should be backfilled to."
+          "description": "The earliest month the VirtualTagConfig should be backfilled to.",
+          "x-nullable": true
         },
         "values": {
           "type": "array",
@@ -7736,7 +7738,7 @@
       },
       "description": "Updates an existing VirtualTagConfig."
     },
-    "postReportAlerts": {
+    "createReportAlert": {
       "type": "object",
       "properties": {
         "cost_report_token": {
@@ -7825,7 +7827,7 @@
       },
       "description": "ReportAlerts model"
     },
-    "putReportAlerts": {
+    "updateReportAlert": {
       "type": "object",
       "properties": {
         "threshold": {
@@ -7850,7 +7852,7 @@
       },
       "description": "Update a Report Alert."
     },
-    "postBudgets": {
+    "createBudget": {
       "type": "object",
       "properties": {
         "name": {
@@ -7965,7 +7967,7 @@
       },
       "description": "Budgets model"
     },
-    "putBudgets": {
+    "updateBudget": {
       "type": "object",
       "properties": {
         "name": {
