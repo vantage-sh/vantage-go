@@ -63,8 +63,8 @@ UpdateAnomalyNotificationParams contains all the parameters to send to the API e
 */
 type UpdateAnomalyNotificationParams struct {
 
-	// ReportAlertToken.
-	ReportAlertToken string
+	// AnomalyNotificationToken.
+	AnomalyNotificationToken string
 
 	// UpdateAnomalyNotification.
 	UpdateAnomalyNotification *models.UpdateAnomalyNotification
@@ -122,15 +122,15 @@ func (o *UpdateAnomalyNotificationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportAlertToken adds the reportAlertToken to the update anomaly notification params
-func (o *UpdateAnomalyNotificationParams) WithReportAlertToken(reportAlertToken string) *UpdateAnomalyNotificationParams {
-	o.SetReportAlertToken(reportAlertToken)
+// WithAnomalyNotificationToken adds the anomalyNotificationToken to the update anomaly notification params
+func (o *UpdateAnomalyNotificationParams) WithAnomalyNotificationToken(anomalyNotificationToken string) *UpdateAnomalyNotificationParams {
+	o.SetAnomalyNotificationToken(anomalyNotificationToken)
 	return o
 }
 
-// SetReportAlertToken adds the reportAlertToken to the update anomaly notification params
-func (o *UpdateAnomalyNotificationParams) SetReportAlertToken(reportAlertToken string) {
-	o.ReportAlertToken = reportAlertToken
+// SetAnomalyNotificationToken adds the anomalyNotificationToken to the update anomaly notification params
+func (o *UpdateAnomalyNotificationParams) SetAnomalyNotificationToken(anomalyNotificationToken string) {
+	o.AnomalyNotificationToken = anomalyNotificationToken
 }
 
 // WithUpdateAnomalyNotification adds the updateAnomalyNotification to the update anomaly notification params
@@ -152,8 +152,8 @@ func (o *UpdateAnomalyNotificationParams) WriteToRequest(r runtime.ClientRequest
 	}
 	var res []error
 
-	// path param report_alert_token
-	if err := r.SetPathParam("report_alert_token", o.ReportAlertToken); err != nil {
+	// path param anomaly_notification_token
+	if err := r.SetPathParam("anomaly_notification_token", o.AnomalyNotificationToken); err != nil {
 		return err
 	}
 	if o.UpdateAnomalyNotification != nil {

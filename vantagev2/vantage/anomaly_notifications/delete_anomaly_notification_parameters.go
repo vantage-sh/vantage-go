@@ -61,8 +61,8 @@ DeleteAnomalyNotificationParams contains all the parameters to send to the API e
 */
 type DeleteAnomalyNotificationParams struct {
 
-	// ReportAlertToken.
-	ReportAlertToken string
+	// AnomalyNotificationToken.
+	AnomalyNotificationToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,15 +117,15 @@ func (o *DeleteAnomalyNotificationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithReportAlertToken adds the reportAlertToken to the delete anomaly notification params
-func (o *DeleteAnomalyNotificationParams) WithReportAlertToken(reportAlertToken string) *DeleteAnomalyNotificationParams {
-	o.SetReportAlertToken(reportAlertToken)
+// WithAnomalyNotificationToken adds the anomalyNotificationToken to the delete anomaly notification params
+func (o *DeleteAnomalyNotificationParams) WithAnomalyNotificationToken(anomalyNotificationToken string) *DeleteAnomalyNotificationParams {
+	o.SetAnomalyNotificationToken(anomalyNotificationToken)
 	return o
 }
 
-// SetReportAlertToken adds the reportAlertToken to the delete anomaly notification params
-func (o *DeleteAnomalyNotificationParams) SetReportAlertToken(reportAlertToken string) {
-	o.ReportAlertToken = reportAlertToken
+// SetAnomalyNotificationToken adds the anomalyNotificationToken to the delete anomaly notification params
+func (o *DeleteAnomalyNotificationParams) SetAnomalyNotificationToken(anomalyNotificationToken string) {
+	o.AnomalyNotificationToken = anomalyNotificationToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,8 +136,8 @@ func (o *DeleteAnomalyNotificationParams) WriteToRequest(r runtime.ClientRequest
 	}
 	var res []error
 
-	// path param report_alert_token
-	if err := r.SetPathParam("report_alert_token", o.ReportAlertToken); err != nil {
+	// path param anomaly_notification_token
+	if err := r.SetPathParam("anomaly_notification_token", o.AnomalyNotificationToken); err != nil {
 		return err
 	}
 

@@ -36,7 +36,7 @@ func (o *UpdateAnomalyNotificationReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[PUT /anomaly_notifications/{report_alert_token}] updateAnomalyNotification", response, response.Code())
+		return nil, runtime.NewAPIError("[PUT /anomaly_notifications/{anomaly_notification_token}] updateAnomalyNotification", response, response.Code())
 	}
 }
 
@@ -85,11 +85,11 @@ func (o *UpdateAnomalyNotificationOK) Code() int {
 }
 
 func (o *UpdateAnomalyNotificationOK) Error() string {
-	return fmt.Sprintf("[PUT /anomaly_notifications/{report_alert_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationOK) String() string {
-	return fmt.Sprintf("[PUT /anomaly_notifications/{report_alert_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationOK) GetPayload() *models.AnomalyNotification {
@@ -153,11 +153,11 @@ func (o *UpdateAnomalyNotificationBadRequest) Code() int {
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /anomaly_notifications/{report_alert_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) String() string {
-	return fmt.Sprintf("[PUT /anomaly_notifications/{report_alert_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) GetPayload() *models.Errors {

@@ -36,7 +36,7 @@ func (o *GetAnomalyNotificationReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[GET /anomaly_notifications/{report_alert_token}] getAnomalyNotification", response, response.Code())
+		return nil, runtime.NewAPIError("[GET /anomaly_notifications/{anomaly_notification_token}] getAnomalyNotification", response, response.Code())
 	}
 }
 
@@ -85,11 +85,11 @@ func (o *GetAnomalyNotificationOK) Code() int {
 }
 
 func (o *GetAnomalyNotificationOK) Error() string {
-	return fmt.Sprintf("[GET /anomaly_notifications/{report_alert_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyNotificationOK) String() string {
-	return fmt.Sprintf("[GET /anomaly_notifications/{report_alert_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyNotificationOK) GetPayload() *models.AnomalyNotification {
@@ -153,11 +153,11 @@ func (o *GetAnomalyNotificationNotFound) Code() int {
 }
 
 func (o *GetAnomalyNotificationNotFound) Error() string {
-	return fmt.Sprintf("[GET /anomaly_notifications/{report_alert_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAnomalyNotificationNotFound) String() string {
-	return fmt.Sprintf("[GET /anomaly_notifications/{report_alert_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAnomalyNotificationNotFound) GetPayload() *models.Errors {

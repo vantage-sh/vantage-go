@@ -36,7 +36,7 @@ func (o *DeleteAnomalyNotificationReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[DELETE /anomaly_notifications/{report_alert_token}] deleteAnomalyNotification", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /anomaly_notifications/{anomaly_notification_token}] deleteAnomalyNotification", response, response.Code())
 	}
 }
 
@@ -85,11 +85,11 @@ func (o *DeleteAnomalyNotificationNoContent) Code() int {
 }
 
 func (o *DeleteAnomalyNotificationNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{report_alert_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteAnomalyNotificationNoContent) String() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{report_alert_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteAnomalyNotificationNoContent) GetPayload() *models.AnomalyNotification {
@@ -153,11 +153,11 @@ func (o *DeleteAnomalyNotificationNotFound) Code() int {
 }
 
 func (o *DeleteAnomalyNotificationNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{report_alert_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteAnomalyNotificationNotFound) String() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{report_alert_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteAnomalyNotificationNotFound) GetPayload() *models.Errors {

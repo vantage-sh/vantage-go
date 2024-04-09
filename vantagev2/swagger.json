@@ -4897,7 +4897,7 @@
         "operationId": "getAnomalyNotifications"
       }
     },
-    "/anomaly_notifications/{report_alert_token}": {
+    "/anomaly_notifications/{anomaly_notification_token}": {
       "delete": {
         "description": "Delete an Anomaly Notification.",
         "produces": [
@@ -4906,7 +4906,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "report_alert_token",
+            "name": "anomaly_notification_token",
             "type": "string",
             "required": true
           }
@@ -4948,7 +4948,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "report_alert_token",
+            "name": "anomaly_notification_token",
             "type": "string",
             "required": true
           },
@@ -5011,7 +5011,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "report_alert_token",
+            "name": "anomaly_notification_token",
             "type": "string",
             "required": true
           }

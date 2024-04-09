@@ -93,7 +93,7 @@ func (a *Client) DeleteAnomalyNotification(params *DeleteAnomalyNotificationPara
 	op := &runtime.ClientOperation{
 		ID:                 "deleteAnomalyNotification",
 		Method:             "DELETE",
-		PathPattern:        "/anomaly_notifications/{report_alert_token}",
+		PathPattern:        "/anomaly_notifications/{anomaly_notification_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -132,7 +132,7 @@ func (a *Client) GetAnomalyNotification(params *GetAnomalyNotificationParams, au
 	op := &runtime.ClientOperation{
 		ID:                 "getAnomalyNotification",
 		Method:             "GET",
-		PathPattern:        "/anomaly_notifications/{report_alert_token}",
+		PathPattern:        "/anomaly_notifications/{anomaly_notification_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -210,7 +210,7 @@ func (a *Client) UpdateAnomalyNotification(params *UpdateAnomalyNotificationPara
 	op := &runtime.ClientOperation{
 		ID:                 "updateAnomalyNotification",
 		Method:             "PUT",
-		PathPattern:        "/anomaly_notifications/{report_alert_token}",
+		PathPattern:        "/anomaly_notifications/{anomaly_notification_token}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
