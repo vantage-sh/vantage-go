@@ -12,6 +12,7 @@ import (
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budgets"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
@@ -23,7 +24,6 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
-	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
@@ -76,6 +76,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Transport = transport
 	cli.AccessGrants = access_grants.New(transport, formats)
 	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
+	cli.AnomalyNotifications = anomaly_notifications.New(transport, formats)
 	cli.Budgets = budgets.New(transport, formats)
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
@@ -87,7 +88,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Notifications = notifications.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
-	cli.ReportAlerts = report_alerts.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
@@ -142,6 +142,8 @@ type Vantage struct {
 
 	AnomalyAlerts anomaly_alerts.ClientService
 
+	AnomalyNotifications anomaly_notifications.ClientService
+
 	Budgets budgets.ClientService
 
 	BusinessMetrics business_metrics.ClientService
@@ -164,8 +166,6 @@ type Vantage struct {
 
 	Prices prices.ClientService
 
-	ReportAlerts report_alerts.ClientService
-
 	ResourceReports resource_reports.ClientService
 
 	Segments segments.ClientService
@@ -186,6 +186,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.AccessGrants.SetTransport(transport)
 	c.AnomalyAlerts.SetTransport(transport)
+	c.AnomalyNotifications.SetTransport(transport)
 	c.Budgets.SetTransport(transport)
 	c.BusinessMetrics.SetTransport(transport)
 	c.Costs.SetTransport(transport)
@@ -197,7 +198,6 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Notifications.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
-	c.ReportAlerts.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
 	c.Segments.SetTransport(transport)
 	c.Teams.SetTransport(transport)

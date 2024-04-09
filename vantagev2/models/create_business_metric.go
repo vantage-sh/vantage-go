@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateBusinessMetric Create a new Business Metric.
+// CreateBusinessMetric Create a new BusinessMetric.
 //
 // swagger:model createBusinessMetric
 type CreateBusinessMetric struct {
@@ -24,7 +24,7 @@ type CreateBusinessMetric struct {
 	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
 	CostReportTokensWithMetadata []*CreateBusinessMetricCostReportTokensWithMetadataItems0 `json:"cost_report_tokens_with_metadata"`
 
-	// The title of the Business Metric.
+	// The title of the BusinessMetrics.
 	// Required: true
 	Title *string `json:"title"`
 

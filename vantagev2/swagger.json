@@ -107,8 +107,8 @@
       "description": "Operations about VirtualTags"
     },
     {
-      "name": "ReportAlerts",
-      "description": "Operations about ReportAlerts"
+      "name": "AnomalyNotifications",
+      "description": "Operations about AnomalyNotifications"
     },
     {
       "name": "Budgets",
@@ -3011,7 +3011,7 @@
     },
     "/business_metrics": {
       "post": {
-        "description": "Create a new Business Metric.",
+        "description": "Create a new BusinessMetric.",
         "produces": [
           "application/json"
         ],
@@ -3100,7 +3100,7 @@
         "operationId": "createBusinessMetric"
       },
       "get": {
-        "description": "Return all Business Metrics that the current API token has access to.",
+        "description": "Return all BusinessMetrics that the current API token has access to.",
         "produces": [
           "application/json"
         ],
@@ -3298,7 +3298,7 @@
         "operationId": "updateBusinessMetric"
       },
       "get": {
-        "description": "Return a specific Business Metric.",
+        "description": "Return a specific BusinessMetrics.",
         "produces": [
           "application/json"
         ],
@@ -4768,9 +4768,9 @@
         "operationId": "getVirtualTagConfig"
       }
     },
-    "/report_alerts": {
+    "/anomaly_notifications": {
       "post": {
-        "description": "Create a Report Alert for a Cost Report.",
+        "description": "Create an Anomaly Notification for a Cost Report.",
         "produces": [
           "application/json"
         ],
@@ -4779,11 +4779,11 @@
         ],
         "parameters": [
           {
-            "name": "createReportAlert",
+            "name": "createAnomalyNotification",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/createReportAlert"
+              "$ref": "#/definitions/createAnomalyNotification"
             }
           }
         ],
@@ -4798,17 +4798,17 @@
           "201": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ReportAlert"
+              "$ref": "#/definitions/AnomalyNotification"
             },
             "examples": {
               "application/json": {
-                "token": "rprt_alrt_c95a119256122aac",
-                "cost_report_token": "rprt_05c19b987b3d21f3",
-                "created_at": "2024-04-03T15:04:18Z",
-                "updated_at": "2024-04-03T15:04:18Z",
+                "token": "rprt_alrt_9b22edfa0a175609",
+                "cost_report_token": "rprt_4c9e5f72ae27bc24",
+                "created_at": "2024-04-09T15:05:37Z",
+                "updated_at": "2024-04-09T15:05:37Z",
                 "threshold": 1,
                 "user_tokens": [
-                  "usr_b6802dbbecce2326"
+                  "usr_3773d590e84f6f12"
                 ],
                 "recipient_channels": [
                   "channel1",
@@ -4825,12 +4825,12 @@
           }
         },
         "tags": [
-          "ReportAlerts"
+          "AnomalyNotifications"
         ],
-        "operationId": "createReportAlert"
+        "operationId": "createAnomalyNotification"
       },
       "get": {
-        "description": "Return all Report Alerts.",
+        "description": "Return all Anomaly Notifications.",
         "produces": [
           "application/json"
         ],
@@ -4863,26 +4863,26 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ReportAlerts"
+              "$ref": "#/definitions/AnomalyNotifications"
             },
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/report_alerts",
-                  "first": "https://api.vantage.com/v2/report_alerts?page=1",
+                  "self": "https://api.vantage.com/v2/anomaly_notifications",
+                  "first": "https://api.vantage.com/v2/anomaly_notifications?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/report_alerts?page=1",
+                  "last": "https://api.vantage.com/v2/anomaly_notifications?page=1",
                   "prev": null
                 },
-                "report_alerts": [
+                "anomaly_notifications": [
                   {
-                    "token": "rprt_alrt_496a92cad85de231",
-                    "cost_report_token": "rprt_922688d462f896f7",
-                    "created_at": "2024-04-03T15:04:18Z",
-                    "updated_at": "2024-04-03T15:04:18Z",
+                    "token": "rprt_alrt_ecb76d8d2825762f",
+                    "cost_report_token": "rprt_45fe4d4c1779ce7e",
+                    "created_at": "2024-04-09T15:05:37Z",
+                    "updated_at": "2024-04-09T15:05:37Z",
                     "threshold": 10,
                     "user_tokens": [
-                      "usr_add0269884a41ffb"
+                      "usr_13477ee1b1eb81ba"
                     ],
                     "recipient_channels": []
                   }
@@ -4892,14 +4892,14 @@
           }
         },
         "tags": [
-          "ReportAlerts"
+          "AnomalyNotifications"
         ],
-        "operationId": "getReportAlerts"
+        "operationId": "getAnomalyNotifications"
       }
     },
-    "/report_alerts/{report_alert_token}": {
+    "/anomaly_notifications/{report_alert_token}": {
       "delete": {
-        "description": "Delete a Report Alert.",
+        "description": "Delete an Anomaly Notification.",
         "produces": [
           "application/json"
         ],
@@ -4922,7 +4922,7 @@
           "204": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ReportAlert"
+              "$ref": "#/definitions/AnomalyNotification"
             }
           },
           "404": {
@@ -4933,12 +4933,12 @@
           }
         },
         "tags": [
-          "ReportAlerts"
+          "AnomalyNotifications"
         ],
-        "operationId": "deleteReportAlert"
+        "operationId": "deleteAnomalyNotification"
       },
       "put": {
-        "description": "Update a Report Alert.",
+        "description": "Update an Anomaly Notification.",
         "produces": [
           "application/json"
         ],
@@ -4953,11 +4953,11 @@
             "required": true
           },
           {
-            "name": "updateReportAlert",
+            "name": "updateAnomalyNotification",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/updateReportAlert"
+              "$ref": "#/definitions/updateAnomalyNotification"
             }
           }
         ],
@@ -4972,17 +4972,17 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ReportAlert"
+              "$ref": "#/definitions/AnomalyNotification"
             },
             "examples": {
               "application/json": {
-                "token": "rprt_alrt_aa997f8c99c77fe3",
-                "cost_report_token": "rprt_c63b4d7acc8afcb1",
-                "created_at": "2024-04-03T15:04:18Z",
-                "updated_at": "2024-04-03T15:04:18Z",
+                "token": "rprt_alrt_15da34156dca939d",
+                "cost_report_token": "rprt_82320a9c1a608f0f",
+                "created_at": "2024-04-09T15:05:37Z",
+                "updated_at": "2024-04-09T15:05:37Z",
                 "threshold": 2,
                 "user_tokens": [
-                  "usr_75acbef5368ee7ca"
+                  "usr_dff5de2b6aecf042"
                 ],
                 "recipient_channels": [
                   "channel3",
@@ -4999,12 +4999,12 @@
           }
         },
         "tags": [
-          "ReportAlerts"
+          "AnomalyNotifications"
         ],
-        "operationId": "updateReportAlert"
+        "operationId": "updateAnomalyNotification"
       },
       "get": {
-        "description": "Return a Report Alert that the current API token has access to.",
+        "description": "Return an Anomaly Notification that the current API token has access to.",
         "produces": [
           "application/json"
         ],
@@ -5027,17 +5027,17 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ReportAlert"
+              "$ref": "#/definitions/AnomalyNotification"
             },
             "examples": {
               "application/json": {
-                "token": "rprt_alrt_c5f4140456b1ab56",
-                "cost_report_token": "rprt_072f3d4a00f190a7",
-                "created_at": "2024-04-03T15:04:18Z",
-                "updated_at": "2024-04-03T15:04:18Z",
+                "token": "rprt_alrt_5af901100951705b",
+                "cost_report_token": "rprt_0d88354748562c26",
+                "created_at": "2024-04-09T15:05:37Z",
+                "updated_at": "2024-04-09T15:05:37Z",
                 "threshold": 10,
                 "user_tokens": [
-                  "usr_7aba2573ebd51b9e"
+                  "usr_e163fcb7aeb41f3b"
                 ],
                 "recipient_channels": []
               }
@@ -5051,9 +5051,9 @@
           }
         },
         "tags": [
-          "ReportAlerts"
+          "AnomalyNotifications"
         ],
-        "operationId": "getReportAlert"
+        "operationId": "getAnomalyNotification"
       }
     },
     "/budgets": {
@@ -7013,7 +7013,7 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Business Metric."
+          "description": "The title of the BusinessMetrics."
         },
         "cost_report_tokens_with_metadata": {
           "type": "array",
@@ -7068,7 +7068,7 @@
       "required": [
         "title"
       ],
-      "description": "Create a new Business Metric."
+      "description": "Create a new BusinessMetric."
     },
     "BusinessMetric": {
       "type": "object",
@@ -7738,28 +7738,28 @@
       },
       "description": "Updates an existing VirtualTagConfig."
     },
-    "createReportAlert": {
+    "createAnomalyNotification": {
       "type": "object",
       "properties": {
         "cost_report_token": {
           "type": "string",
-          "description": "The token of the Cost Report folder that has the alert."
+          "description": "The token of the Cost Report folder that has the notification."
         },
         "threshold": {
           "type": "integer",
           "format": "int32",
-          "description": "The threshold amount that must be met for the alert to fire."
+          "description": "The threshold amount that must be met for the notification to fire."
         },
         "user_tokens": {
           "type": "array",
-          "description": "The tokens of the users that receive the alert.",
+          "description": "The tokens of the users that receive the notification.",
           "items": {
             "type": "string"
           }
         },
         "recipient_channels": {
           "type": "array",
-          "description": "The Slack/MS Teams channels that receive the alert.",
+          "description": "The Slack/MS Teams channels that receive the notification.",
           "items": {
             "type": "string"
           }
@@ -7768,9 +7768,9 @@
       "required": [
         "cost_report_token"
       ],
-      "description": "Create a Report Alert for a Cost Report."
+      "description": "Create an Anomaly Notification for a Cost Report."
     },
-    "ReportAlert": {
+    "AnomalyNotification": {
       "type": "object",
       "properties": {
         "token": {
@@ -7778,79 +7778,79 @@
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The token for the CostReport the ReportAlert is associated with."
+          "description": "The token for the CostReport the AnomalyNotification is associated with."
         },
         "created_at": {
           "type": "string",
           "example": "2023-08-04T00:00:00Z",
-          "description": "The date and time, in UTC, the ReportAlert was created. ISO 8601 Formatted."
+          "description": "The date and time, in UTC, the AnomalyNotification was created. ISO 8601 Formatted."
         },
         "updated_at": {
           "type": "string",
           "example": "2023-08-04T00:00:00Z",
-          "description": "The date and time, in UTC, the ReportAlert was last updated at. ISO 8601 Formatted."
+          "description": "The date and time, in UTC, the AnomalyNotification was last updated at. ISO 8601 Formatted."
         },
         "threshold": {
           "type": "integer",
           "format": "int32",
-          "description": "The threshold amount that must be met for the alert to fire."
+          "description": "The threshold amount that must be met for the notification to fire."
         },
         "user_tokens": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "The tokens of the users that receive the alert."
+          "description": "The tokens of the users that receive the notification."
         },
         "recipient_channels": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "The channels that the alert is sent to."
+          "description": "The channels that the notification is sent to."
         }
       },
-      "description": "ReportAlert model"
+      "description": "AnomalyNotification model"
     },
-    "ReportAlerts": {
+    "AnomalyNotifications": {
       "type": "object",
       "properties": {
         "links": {
           "type": "object"
         },
-        "report_alerts": {
+        "anomaly_notifications": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ReportAlert"
+            "$ref": "#/definitions/AnomalyNotification"
           }
         }
       },
-      "description": "ReportAlerts model"
+      "description": "AnomalyNotifications model"
     },
-    "updateReportAlert": {
+    "updateAnomalyNotification": {
       "type": "object",
       "properties": {
         "threshold": {
           "type": "integer",
           "format": "int32",
-          "description": "The threshold amount that must be met for the alert to fire."
+          "description": "The threshold amount that must be met for the notification to fire."
         },
         "user_tokens": {
           "type": "array",
-          "description": "The tokens of the users that receive the alert.",
+          "description": "The tokens of the users that receive the notification.",
           "items": {
             "type": "string"
           }
         },
         "recipient_channels": {
           "type": "array",
-          "description": "The Slack/MS Teams channels that receive the alert.",
+          "description": "The Slack/MS Teams channels that receive the notification.",
           "items": {
             "type": "string"
           }
         }
       },
-      "description": "Update a Report Alert."
+      "description": "Update an Anomaly Notification."
     },
     "createBudget": {
       "type": "object",
