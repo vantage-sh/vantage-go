@@ -7408,31 +7408,56 @@
         "cost_report_tokens_with_metadata": {
           "type": "array",
           "items": {
-            "type": "string",
-            "example": [
-              {
-                "cost_report_token": "rprt_1234",
-                "unit_scale": "per_hundred"
-              }
-            ]
+            "$ref": "#/definitions/AttachedCostReportForBusinessMetric"
           },
           "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale."
         },
         "values": {
           "type": "array",
           "items": {
-            "type": "string",
-            "example": [
-              {
-                "date": "2024-03-01",
-                "amount": "100.123"
-              }
-            ]
+            "$ref": "#/definitions/BusinessMetricValue"
           },
           "description": "The dates and amounts for the BusinessMetric"
         }
       },
       "description": "BusinessMetric model"
+    },
+    "AttachedCostReportForBusinessMetric": {
+      "type": "object",
+      "properties": {
+        "cost_report_token": {
+          "type": "string",
+          "example": "rprt_1234",
+          "description": "The token of the CostReport the BusinessMetric is attached to."
+        },
+        "unit_scale": {
+          "type": "string",
+          "example": "per_hundred",
+          "enum": [
+            "per_unit",
+            "per_hundred",
+            "per_thousand",
+            "per_million",
+            "per_billion"
+          ],
+          "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
+        }
+      }
+    },
+    "BusinessMetricValue": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2024-03-01+00:00",
+          "description": "The date of the Business Metric Value. ISO 8601 formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "100.00",
+          "description": "The amount of the Business Metric Value as a string to ensure precision."
+        }
+      }
     },
     "BusinessMetrics": {
       "type": "object",
