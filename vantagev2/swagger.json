@@ -6164,7 +6164,7 @@
         "business_metric_tokens_with_metadata": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/AttachedBusinessMetricForCostReport"
           },
           "description": "The tokens for the BusinessMetrics assigned to the CostReport, and the unit scale."
         },
@@ -6224,6 +6224,28 @@
         }
       },
       "description": "CostReport model"
+    },
+    "AttachedBusinessMetricForCostReport": {
+      "type": "object",
+      "properties": {
+        "business_metric_token": {
+          "type": "string",
+          "example": "bsnss_mtrc_1234",
+          "description": "The token of the BusinessMetric that's attached to the CostReport."
+        },
+        "unit_scale": {
+          "type": "string",
+          "example": "per_hundred",
+          "enum": [
+            "per_unit",
+            "per_hundred",
+            "per_thousand",
+            "per_million",
+            "per_billion"
+          ],
+          "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
+        }
+      }
     },
     "CostReports": {
       "type": "object",
