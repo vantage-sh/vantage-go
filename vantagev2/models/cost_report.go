@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,7 +20,7 @@ import (
 type CostReport struct {
 
 	// The tokens for the BusinessMetrics assigned to the CostReport, and the unit scale.
-	BusinessMetricTokensWithMetadata []string `json:"business_metric_tokens_with_metadata"`
+	BusinessMetricTokensWithMetadata []*AttachedBusinessMetricForCostReport `json:"business_metric_tokens_with_metadata"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
@@ -56,6 +57,10 @@ type CostReport struct {
 func (m *CostReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBusinessMetricTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
@@ -63,6 +68,32 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CostReport) validateBusinessMetricTokensWithMetadata(formats strfmt.Registry) error {
+	if swag.IsZero(m.BusinessMetricTokensWithMetadata) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.BusinessMetricTokensWithMetadata); i++ {
+		if swag.IsZero(m.BusinessMetricTokensWithMetadata[i]) { // not required
+			continue
+		}
+
+		if m.BusinessMetricTokensWithMetadata[i] != nil {
+			if err := m.BusinessMetricTokensWithMetadata[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -89,6 +120,10 @@ func (m *CostReport) validateSettings(formats strfmt.Registry) error {
 func (m *CostReport) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateBusinessMetricTokensWithMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -96,6 +131,31 @@ func (m *CostReport) ContextValidate(ctx context.Context, formats strfmt.Registr
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CostReport) contextValidateBusinessMetricTokensWithMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.BusinessMetricTokensWithMetadata); i++ {
+
+		if m.BusinessMetricTokensWithMetadata[i] != nil {
+
+			if swag.IsZero(m.BusinessMetricTokensWithMetadata[i]) { // not required
+				return nil
+			}
+
+			if err := m.BusinessMetricTokensWithMetadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_metric_tokens_with_metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
