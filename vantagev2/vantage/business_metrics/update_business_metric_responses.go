@@ -23,8 +23,8 @@ type UpdateBusinessMetricReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateBusinessMetricReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewUpdateBusinessMetricCreated()
+	case 200:
+		result := NewUpdateBusinessMetricOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -58,63 +58,63 @@ func (o *UpdateBusinessMetricReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewUpdateBusinessMetricCreated creates a UpdateBusinessMetricCreated with default headers values
-func NewUpdateBusinessMetricCreated() *UpdateBusinessMetricCreated {
-	return &UpdateBusinessMetricCreated{}
+// NewUpdateBusinessMetricOK creates a UpdateBusinessMetricOK with default headers values
+func NewUpdateBusinessMetricOK() *UpdateBusinessMetricOK {
+	return &UpdateBusinessMetricOK{}
 }
 
 /*
-UpdateBusinessMetricCreated describes a response with status code 201, with default header values.
+UpdateBusinessMetricOK describes a response with status code 200, with default header values.
 
-UpdateBusinessMetricCreated update business metric created
+UpdateBusinessMetricOK update business metric o k
 */
-type UpdateBusinessMetricCreated struct {
+type UpdateBusinessMetricOK struct {
 	Payload *models.BusinessMetric
 }
 
-// IsSuccess returns true when this update business metric created response has a 2xx status code
-func (o *UpdateBusinessMetricCreated) IsSuccess() bool {
+// IsSuccess returns true when this update business metric o k response has a 2xx status code
+func (o *UpdateBusinessMetricOK) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this update business metric created response has a 3xx status code
-func (o *UpdateBusinessMetricCreated) IsRedirect() bool {
+// IsRedirect returns true when this update business metric o k response has a 3xx status code
+func (o *UpdateBusinessMetricOK) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this update business metric created response has a 4xx status code
-func (o *UpdateBusinessMetricCreated) IsClientError() bool {
+// IsClientError returns true when this update business metric o k response has a 4xx status code
+func (o *UpdateBusinessMetricOK) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this update business metric created response has a 5xx status code
-func (o *UpdateBusinessMetricCreated) IsServerError() bool {
+// IsServerError returns true when this update business metric o k response has a 5xx status code
+func (o *UpdateBusinessMetricOK) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this update business metric created response a status code equal to that given
-func (o *UpdateBusinessMetricCreated) IsCode(code int) bool {
-	return code == 201
+// IsCode returns true when this update business metric o k response a status code equal to that given
+func (o *UpdateBusinessMetricOK) IsCode(code int) bool {
+	return code == 200
 }
 
-// Code gets the status code for the update business metric created response
-func (o *UpdateBusinessMetricCreated) Code() int {
-	return 201
+// Code gets the status code for the update business metric o k response
+func (o *UpdateBusinessMetricOK) Code() int {
+	return 200
 }
 
-func (o *UpdateBusinessMetricCreated) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricCreated  %+v", 201, o.Payload)
+func (o *UpdateBusinessMetricOK) Error() string {
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateBusinessMetricCreated) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricCreated  %+v", 201, o.Payload)
+func (o *UpdateBusinessMetricOK) String() string {
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateBusinessMetricCreated) GetPayload() *models.BusinessMetric {
+func (o *UpdateBusinessMetricOK) GetPayload() *models.BusinessMetric {
 	return o.Payload
 }
 
-func (o *UpdateBusinessMetricCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UpdateBusinessMetricOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BusinessMetric)
 

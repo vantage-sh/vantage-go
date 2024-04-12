@@ -3047,12 +3047,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_5cb1416ffdb71e45",
+                "token": "bsnss_mtrc_8fd798977fbef041",
                 "title": "New Biz Metric",
-                "created_by_token": "usr_c7ed8af27690461d",
+                "created_by_token": "usr_736c1e3753ee2900",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_d9456b5218e47888",
+                    "cost_report_token": "rprt_659365dfc7f15a60",
                     "unit_scale": "per_thousand"
                   }
                 ],
@@ -3143,7 +3143,7 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_59f5539480219769",
+                    "token": "bsnss_mtrc_731b7041ac0e8639",
                     "title": "Biz Metric",
                     "created_by_token": null,
                     "cost_report_tokens_with_metadata": [],
@@ -3238,19 +3238,19 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/BusinessMetric"
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_892d49c3863e90a6",
+                "token": "bsnss_mtrc_f61afeebb9482934",
                 "title": "New Title",
                 "created_by_token": null,
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_8914e211c6bad755",
+                    "cost_report_token": "rprt_d0b678c7275142fa",
                     "unit_scale": "per_thousand"
                   }
                 ],
@@ -3329,7 +3329,7 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_fef64b1f7e56165f",
+                "token": "bsnss_mtrc_20b28191d23d5bee",
                 "title": "Biz Metric",
                 "created_by_token": null,
                 "cost_report_tokens_with_metadata": [],
@@ -3390,10 +3390,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_6bc29b57fecf9ab5",
+                "token": "bsnss_mtrc_20326908a5f928d8",
                 "title": "Biz Metric",
                 "created_by_token": null,
-                "cost_report_tokens": [],
+                "cost_report_tokens_with_metadata": [],
                 "values": [
                   {
                     "date": "2024-01-03T00:00:00Z",

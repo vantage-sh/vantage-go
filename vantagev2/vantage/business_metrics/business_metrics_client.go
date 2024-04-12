@@ -38,7 +38,7 @@ type ClientService interface {
 
 	GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error)
 
-	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricCreated, error)
+	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error)
 
 	UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error)
 
@@ -204,7 +204,7 @@ func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo r
 /*
 UpdateBusinessMetric Updates an existing BusinessMetric.
 */
-func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricCreated, error) {
+func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateBusinessMetricParams()
@@ -230,7 +230,7 @@ func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateBusinessMetricCreated)
+	success, ok := result.(*UpdateBusinessMetricOK)
 	if ok {
 		return success, nil
 	}
