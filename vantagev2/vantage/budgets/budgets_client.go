@@ -30,13 +30,56 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateBudget(params *CreateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBudgetCreated, error)
+
 	DeleteBudget(params *DeleteBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBudgetNoContent, error)
 
 	GetBudget(params *GetBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetOK, error)
 
 	GetBudgets(params *GetBudgetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetsOK, error)
 
+	UpdateBudget(params *UpdateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateBudget Create a Budget.
+*/
+func (a *Client) CreateBudget(params *CreateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBudgetCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateBudgetParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createBudget",
+		Method:             "POST",
+		PathPattern:        "/budgets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateBudgetReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateBudgetCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createBudget: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -153,6 +196,45 @@ func (a *Client) GetBudgets(params *GetBudgetsParams, authInfo runtime.ClientAut
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getBudgets: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateBudget Update a Budget.
+*/
+func (a *Client) UpdateBudget(params *UpdateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateBudgetParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateBudget",
+		Method:             "PUT",
+		PathPattern:        "/budgets/{budget_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateBudgetReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateBudgetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateBudget: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

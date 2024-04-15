@@ -27,8 +27,8 @@ type CreateBudget struct {
 	// Required: true
 	Name *string `json:"name"`
 
-	// periods attributes
-	PeriodsAttributes []*CreateBudgetPeriodsAttributesItems0 `json:"periods_attributes"`
+	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD.
+	Periods []*CreateBudgetPeriodsItems0 `json:"periods"`
 
 	// The token of the Workspace to add the Budget to.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
@@ -42,7 +42,7 @@ func (m *CreateBudget) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePeriodsAttributes(formats); err != nil {
+	if err := m.validatePeriods(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,22 +61,22 @@ func (m *CreateBudget) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateBudget) validatePeriodsAttributes(formats strfmt.Registry) error {
-	if swag.IsZero(m.PeriodsAttributes) { // not required
+func (m *CreateBudget) validatePeriods(formats strfmt.Registry) error {
+	if swag.IsZero(m.Periods) { // not required
 		return nil
 	}
 
-	for i := 0; i < len(m.PeriodsAttributes); i++ {
-		if swag.IsZero(m.PeriodsAttributes[i]) { // not required
+	for i := 0; i < len(m.Periods); i++ {
+		if swag.IsZero(m.Periods[i]) { // not required
 			continue
 		}
 
-		if m.PeriodsAttributes[i] != nil {
-			if err := m.PeriodsAttributes[i].Validate(formats); err != nil {
+		if m.Periods[i] != nil {
+			if err := m.Periods[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("periods_attributes" + "." + strconv.Itoa(i))
+					return ve.ValidateName("periods" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("periods_attributes" + "." + strconv.Itoa(i))
+					return ce.ValidateName("periods" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -91,7 +91,7 @@ func (m *CreateBudget) validatePeriodsAttributes(formats strfmt.Registry) error 
 func (m *CreateBudget) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidatePeriodsAttributes(ctx, formats); err != nil {
+	if err := m.contextValidatePeriods(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -101,21 +101,21 @@ func (m *CreateBudget) ContextValidate(ctx context.Context, formats strfmt.Regis
 	return nil
 }
 
-func (m *CreateBudget) contextValidatePeriodsAttributes(ctx context.Context, formats strfmt.Registry) error {
+func (m *CreateBudget) contextValidatePeriods(ctx context.Context, formats strfmt.Registry) error {
 
-	for i := 0; i < len(m.PeriodsAttributes); i++ {
+	for i := 0; i < len(m.Periods); i++ {
 
-		if m.PeriodsAttributes[i] != nil {
+		if m.Periods[i] != nil {
 
-			if swag.IsZero(m.PeriodsAttributes[i]) { // not required
+			if swag.IsZero(m.Periods[i]) { // not required
 				return nil
 			}
 
-			if err := m.PeriodsAttributes[i].ContextValidate(ctx, formats); err != nil {
+			if err := m.Periods[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("periods_attributes" + "." + strconv.Itoa(i))
+					return ve.ValidateName("periods" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("periods_attributes" + "." + strconv.Itoa(i))
+					return ce.ValidateName("periods" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -144,27 +144,27 @@ func (m *CreateBudget) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-// CreateBudgetPeriodsAttributesItems0 create budget periods attributes items0
+// CreateBudgetPeriodsItems0 create budget periods items0
 //
-// swagger:model CreateBudgetPeriodsAttributesItems0
-type CreateBudgetPeriodsAttributesItems0 struct {
+// swagger:model CreateBudgetPeriodsItems0
+type CreateBudgetPeriodsItems0 struct {
 
-	// amount
+	// The amount of the period.
 	// Required: true
 	Amount *float64 `json:"amount"`
 
-	// end at
+	// The end date of the period.
 	// Format: date
 	EndAt *strfmt.Date `json:"end_at,omitempty"`
 
-	// start at
+	// The start date of the period.
 	// Required: true
 	// Format: date
 	StartAt *strfmt.Date `json:"start_at"`
 }
 
-// Validate validates this create budget periods attributes items0
-func (m *CreateBudgetPeriodsAttributesItems0) Validate(formats strfmt.Registry) error {
+// Validate validates this create budget periods items0
+func (m *CreateBudgetPeriodsItems0) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAmount(formats); err != nil {
@@ -185,7 +185,7 @@ func (m *CreateBudgetPeriodsAttributesItems0) Validate(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *CreateBudgetPeriodsAttributesItems0) validateAmount(formats strfmt.Registry) error {
+func (m *CreateBudgetPeriodsItems0) validateAmount(formats strfmt.Registry) error {
 
 	if err := validate.Required("amount", "body", m.Amount); err != nil {
 		return err
@@ -194,7 +194,7 @@ func (m *CreateBudgetPeriodsAttributesItems0) validateAmount(formats strfmt.Regi
 	return nil
 }
 
-func (m *CreateBudgetPeriodsAttributesItems0) validateEndAt(formats strfmt.Registry) error {
+func (m *CreateBudgetPeriodsItems0) validateEndAt(formats strfmt.Registry) error {
 	if swag.IsZero(m.EndAt) { // not required
 		return nil
 	}
@@ -206,7 +206,7 @@ func (m *CreateBudgetPeriodsAttributesItems0) validateEndAt(formats strfmt.Regis
 	return nil
 }
 
-func (m *CreateBudgetPeriodsAttributesItems0) validateStartAt(formats strfmt.Registry) error {
+func (m *CreateBudgetPeriodsItems0) validateStartAt(formats strfmt.Registry) error {
 
 	if err := validate.Required("start_at", "body", m.StartAt); err != nil {
 		return err
@@ -219,13 +219,13 @@ func (m *CreateBudgetPeriodsAttributesItems0) validateStartAt(formats strfmt.Reg
 	return nil
 }
 
-// ContextValidate validates this create budget periods attributes items0 based on context it is used
-func (m *CreateBudgetPeriodsAttributesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this create budget periods items0 based on context it is used
+func (m *CreateBudgetPeriodsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *CreateBudgetPeriodsAttributesItems0) MarshalBinary() ([]byte, error) {
+func (m *CreateBudgetPeriodsItems0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -233,8 +233,8 @@ func (m *CreateBudgetPeriodsAttributesItems0) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CreateBudgetPeriodsAttributesItems0) UnmarshalBinary(b []byte) error {
-	var res CreateBudgetPeriodsAttributesItems0
+func (m *CreateBudgetPeriodsItems0) UnmarshalBinary(b []byte) error {
+	var res CreateBudgetPeriodsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
