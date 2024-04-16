@@ -8242,7 +8242,13 @@
               },
               "end_at": {
                 "type": "string",
+<<<<<<< Updated upstream
                 "format": "date"
+=======
+                "format": "date",
+                "description": "The end date of the period.",
+                "x-nullable": true
+>>>>>>> Stashed changes
               },
               "amount": {
                 "type": "number",
@@ -8354,7 +8360,13 @@
               },
               "end_at": {
                 "type": "string",
+<<<<<<< Updated upstream
                 "format": "date"
+=======
+                "format": "date",
+                "description": "The end date of the period.",
+                "x-nullable": true
+>>>>>>> Stashed changes
               },
               "amount": {
                 "type": "number",
