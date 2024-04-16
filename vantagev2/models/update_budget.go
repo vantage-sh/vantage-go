@@ -132,15 +132,15 @@ func (m *UpdateBudget) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateBudgetPeriodsItems0
 type UpdateBudgetPeriodsItems0 struct {
 
-	// amount
+	// The amount of the period.
 	// Required: true
 	Amount *float64 `json:"amount"`
 
-	// end at
+	// The end date of the period.
 	// Format: date
 	EndAt *strfmt.Date `json:"end_at,omitempty"`
 
-	// start at
+	// The start date of the period.
 	// Required: true
 	// Format: date
 	StartAt *strfmt.Date `json:"start_at"`

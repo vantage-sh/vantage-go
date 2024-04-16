@@ -7,7 +7,9 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -32,10 +34,10 @@ type Budget struct {
 	Name string `json:"name,omitempty"`
 
 	// The historical performance of the Budget.
-	Performance []string `json:"performance"`
+	Performance []*BudgetPerformance `json:"performance"`
 
 	// The budget periods associated with the Budget.
-	Periods []string `json:"periods"`
+	Periods []*BudgetPeriod `json:"periods"`
 
 	// token
 	Token string `json:"token,omitempty"`
@@ -49,11 +51,139 @@ type Budget struct {
 
 // Validate validates this budget
 func (m *Budget) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validatePerformance(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePeriods(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this budget based on context it is used
+func (m *Budget) validatePerformance(formats strfmt.Registry) error {
+	if swag.IsZero(m.Performance) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Performance); i++ {
+		if swag.IsZero(m.Performance[i]) { // not required
+			continue
+		}
+
+		if m.Performance[i] != nil {
+			if err := m.Performance[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("performance" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("performance" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Budget) validatePeriods(formats strfmt.Registry) error {
+	if swag.IsZero(m.Periods) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Periods); i++ {
+		if swag.IsZero(m.Periods[i]) { // not required
+			continue
+		}
+
+		if m.Periods[i] != nil {
+			if err := m.Periods[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("periods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("periods" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this budget based on the context it is used
 func (m *Budget) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePerformance(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePeriods(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Budget) contextValidatePerformance(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Performance); i++ {
+
+		if m.Performance[i] != nil {
+
+			if swag.IsZero(m.Performance[i]) { // not required
+				return nil
+			}
+
+			if err := m.Performance[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("performance" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("performance" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Budget) contextValidatePeriods(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Periods); i++ {
+
+		if m.Periods[i] != nil {
+
+			if swag.IsZero(m.Periods[i]) { // not required
+				return nil
+			}
+
+			if err := m.Periods[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("periods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("periods" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
