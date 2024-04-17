@@ -35,6 +35,12 @@ func (o *CreateBudgetAlertReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+	case 422:
+		result := NewCreateBudgetAlertUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[POST /budget_alerts] createBudgetAlert", response, response.Code())
 	}
@@ -165,6 +171,74 @@ func (o *CreateBudgetAlertBadRequest) GetPayload() *models.Errors {
 }
 
 func (o *CreateBudgetAlertBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateBudgetAlertUnprocessableEntity creates a CreateBudgetAlertUnprocessableEntity with default headers values
+func NewCreateBudgetAlertUnprocessableEntity() *CreateBudgetAlertUnprocessableEntity {
+	return &CreateBudgetAlertUnprocessableEntity{}
+}
+
+/*
+CreateBudgetAlertUnprocessableEntity describes a response with status code 422, with default header values.
+
+UnprocessableEntity
+*/
+type CreateBudgetAlertUnprocessableEntity struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this create budget alert unprocessable entity response has a 2xx status code
+func (o *CreateBudgetAlertUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create budget alert unprocessable entity response has a 3xx status code
+func (o *CreateBudgetAlertUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create budget alert unprocessable entity response has a 4xx status code
+func (o *CreateBudgetAlertUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create budget alert unprocessable entity response has a 5xx status code
+func (o *CreateBudgetAlertUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create budget alert unprocessable entity response a status code equal to that given
+func (o *CreateBudgetAlertUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the create budget alert unprocessable entity response
+func (o *CreateBudgetAlertUnprocessableEntity) Code() int {
+	return 422
+}
+
+func (o *CreateBudgetAlertUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateBudgetAlertUnprocessableEntity) String() string {
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateBudgetAlertUnprocessableEntity) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *CreateBudgetAlertUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Errors)
 

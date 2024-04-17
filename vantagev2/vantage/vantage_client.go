@@ -18,14 +18,14 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
-	"github.com/vantage-sh/vantage-go/vantagev2/vantage/filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
-	"github.com/vantage-sh/vantage-go/vantagev2/vantage/notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/saved_filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/users"
@@ -83,14 +83,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
-	cli.Filters = filters.New(transport, formats)
 	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
-	cli.Notifications = notifications.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
+	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
+	cli.SavedFilters = saved_filters.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
 	cli.Users = users.New(transport, formats)
@@ -156,21 +156,21 @@ type Vantage struct {
 
 	Dashboards dashboards.ClientService
 
-	Filters filters.ClientService
-
 	FinancialCommitmentReports financial_commitment_reports.ClientService
 
 	Folders folders.ClientService
 
 	KubernetesEfficiencyReports kubernetes_efficiency_reports.ClientService
 
-	Notifications notifications.ClientService
-
 	Ping ping.ClientService
 
 	Prices prices.ClientService
 
+	ReportNotifications report_notifications.ClientService
+
 	ResourceReports resource_reports.ClientService
+
+	SavedFilters saved_filters.ClientService
 
 	Segments segments.ClientService
 
@@ -196,14 +196,14 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.BusinessMetrics.SetTransport(transport)
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
-	c.Filters.SetTransport(transport)
 	c.FinancialCommitmentReports.SetTransport(transport)
 	c.Folders.SetTransport(transport)
 	c.KubernetesEfficiencyReports.SetTransport(transport)
-	c.Notifications.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
+	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
+	c.SavedFilters.SetTransport(transport)
 	c.Segments.SetTransport(transport)
 	c.Teams.SetTransport(transport)
 	c.Users.SetTransport(transport)
