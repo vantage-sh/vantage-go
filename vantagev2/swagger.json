@@ -5537,37 +5537,10 @@
             "schema": {
               "$ref": "#/definitions/BudgetAlert"
             },
-            "examples": {
-              "application/json": {
-                "token": "bdgt_alrt_418a03978abd05c8",
-                "budget_tokens": [
-                  "bdgt_431ab252f1a653cc"
-                ],
-                "created_at": "2024-04-09T20:49:47Z",
-                "workspace_token": "wrkspc_7babcddb31fcbeea",
-                "user_token": "usr_4dbe7a85bd596405",
-                "user_tokens": [
-                  "usr_4dbe7a85bd596405"
-                ],
-                "duration_in_days": 5,
-                "threshold": 50,
-                "period_to_track": "start_of_the_month",
-                "integration_provider": "slack",
-                "recipient_channels": [
-                  "#channel1",
-                  "#channel2"
-                ]
-              }
-            }
+            "examples": {}
           },
           "400": {
             "description": "BadRequest",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          },
-          "422": {
-            "description": "UnprocessableEntity",
             "schema": {
               "$ref": "#/definitions/Errors"
             }
@@ -5614,36 +5587,7 @@
             "schema": {
               "$ref": "#/definitions/BudgetAlerts"
             },
-            "examples": {
-              "application/json": {
-                "links": {
-                  "self": "https://api.vantage.com/v2/budget_alerts",
-                  "first": "https://api.vantage.com/v2/budget_alerts?page=1",
-                  "next": null,
-                  "last": "https://api.vantage.com/v2/budget_alerts?page=1",
-                  "prev": null
-                },
-                "budget_alerts": [
-                  {
-                    "token": "bdgt_alrt_55adf8347c08063b",
-                    "budget_tokens": [
-                      "bdgt_d3a98189c8219a98"
-                    ],
-                    "created_at": "2024-04-09T20:49:47Z",
-                    "workspace_token": "wrkspc_fe44ae5bf3a6a7cc",
-                    "user_token": null,
-                    "user_tokens": [
-                      "usr_c3ddf09099fd26eb"
-                    ],
-                    "duration_in_days": null,
-                    "threshold": 100,
-                    "period_to_track": null,
-                    "integration_provider": "slack",
-                    "recipient_channels": []
-                  }
-                ]
-              }
-            }
+            "examples": {}
           }
         },
         "tags": [
@@ -5774,28 +5718,7 @@
             "schema": {
               "$ref": "#/definitions/BudgetAlert"
             },
-            "examples": {
-              "application/json": {
-                "token": "bdgt_alrt_b67750cb1b997ad5",
-                "budget_tokens": [
-                  "bdgt_a163042aed200708"
-                ],
-                "created_at": "2024-04-09T20:49:47Z",
-                "workspace_token": "wrkspc_94539f47d5c4be31",
-                "user_token": null,
-                "user_tokens": [
-                  "usr_0a4b1a348161c474"
-                ],
-                "duration_in_days": null,
-                "threshold": 80,
-                "period_to_track": null,
-                "integration_provider": "slack",
-                "recipient_channels": [
-                  "#channel3",
-                  "#channel4"
-                ]
-              }
-            }
+            "examples": {}
           },
           "404": {
             "description": "NotFound",
@@ -5835,25 +5758,7 @@
             "schema": {
               "$ref": "#/definitions/BudgetAlert"
             },
-            "examples": {
-              "application/json": {
-                "token": "bdgt_alrt_a02816ebe8bd23e5",
-                "budget_tokens": [
-                  "bdgt_9426ffa08e115e2b"
-                ],
-                "created_at": "2024-04-09T20:49:47Z",
-                "workspace_token": "wrkspc_8afac135653f7eaa",
-                "user_token": null,
-                "user_tokens": [
-                  "usr_a84b6a8763a560bb"
-                ],
-                "duration_in_days": null,
-                "threshold": 100,
-                "period_to_track": null,
-                "integration_provider": "slack",
-                "recipient_channels": []
-              }
-            }
+            "examples": {}
           },
           "404": {
             "description": "NotFound",
@@ -8340,7 +8245,8 @@
               "end_at": {
                 "type": "string",
                 "format": "date",
-                "description": "The end date of the period."
+                "description": "The end date of the period.",
+                "x-nullable": true
               },
               "amount": {
                 "type": "number",
@@ -8495,7 +8401,8 @@
               "end_at": {
                 "type": "string",
                 "format": "date",
-                "description": "The end date of the period."
+                "description": "The end date of the period.",
+                "x-nullable": true
               },
               "amount": {
                 "type": "number",

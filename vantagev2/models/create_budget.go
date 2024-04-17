@@ -155,7 +155,7 @@ type CreateBudgetPeriodsItems0 struct {
 
 	// The end date of the period.
 	// Format: date
-	EndAt strfmt.Date `json:"end_at,omitempty"`
+	EndAt *strfmt.Date `json:"end_at,omitempty"`
 
 	// The start date of the period.
 	// Required: true
