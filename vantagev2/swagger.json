@@ -95,6 +95,10 @@
       "description": "Operations about FinancialCommitmentReports"
     },
     {
+      "name": "FinancialCommitments",
+      "description": "Operations about FinancialCommitments"
+    },
+    {
       "name": "KubernetesEfficiencyReports",
       "description": "Operations about KubernetesEfficiencyReports"
     },
@@ -117,6 +121,10 @@
     {
       "name": "BudgetAlerts",
       "description": "Operations about BudgetAlerts"
+    },
+    {
+      "name": "Integrations",
+      "description": "Operations about Integrations"
     },
     {
       "name": "Ping",
@@ -3047,27 +3055,30 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_8fd798977fbef041",
+                "token": "bsnss_mtrc_eb3df03fe026ccf8",
                 "title": "New Biz Metric",
-                "created_by_token": "usr_736c1e3753ee2900",
+                "created_by_token": "usr_f020ac22c5532342",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_659365dfc7f15a60",
+                    "cost_report_token": "rprt_fe7c2a8be46f0f0c",
                     "unit_scale": "per_thousand"
                   }
                 ],
                 "values": [
                   {
                     "date": "2024-01-03T00:00:00Z",
-                    "amount": "300.0"
+                    "amount": "300.0",
+                    "label": "Cost Center 3"
                   },
                   {
                     "date": "2024-01-02T00:00:00Z",
-                    "amount": "200.0"
+                    "amount": "200.0",
+                    "label": "Cost Center 2"
                   },
                   {
                     "date": "2024-01-01T00:00:00Z",
-                    "amount": "100.0"
+                    "amount": "100.0",
+                    "label": "Cost Center 1"
                   }
                 ]
               }
@@ -3143,9 +3154,9 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_731b7041ac0e8639",
+                    "token": "bsnss_mtrc_a94e2a6837be51a1",
                     "title": "Biz Metric",
-                    "created_by_token": null,
+                    "created_by_token": "usr_768c4ea96314b986",
                     "cost_report_tokens_with_metadata": [],
                     "values": []
                   }
@@ -3245,27 +3256,30 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_f61afeebb9482934",
+                "token": "bsnss_mtrc_4a889b4a9061e48b",
                 "title": "New Title",
-                "created_by_token": null,
+                "created_by_token": "usr_e1f3c64a6e1451a5",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_d0b678c7275142fa",
+                    "cost_report_token": "rprt_e1996c96a8e319fa",
                     "unit_scale": "per_thousand"
                   }
                 ],
                 "values": [
                   {
                     "date": "2024-01-03T00:00:00Z",
-                    "amount": "600.0"
+                    "amount": "600.0",
+                    "label": "Cost Center 3"
                   },
                   {
                     "date": "2024-01-02T00:00:00Z",
-                    "amount": "500.0"
+                    "amount": "500.0",
+                    "label": "Cost Center 2"
                   },
                   {
                     "date": "2024-01-01T00:00:00Z",
-                    "amount": "400.0"
+                    "amount": "400.0",
+                    "label": "Cost Center 1"
                   }
                 ]
               }
@@ -3329,9 +3343,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_20b28191d23d5bee",
+                "token": "bsnss_mtrc_59596ed70134f47d",
                 "title": "Biz Metric",
-                "created_by_token": null,
+                "created_by_token": "usr_e72a26290a004436",
                 "cost_report_tokens_with_metadata": [],
                 "values": []
               }
@@ -3390,22 +3404,25 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_20326908a5f928d8",
+                "token": "bsnss_mtrc_156e80749090ec63",
                 "title": "Biz Metric",
-                "created_by_token": null,
+                "created_by_token": "usr_eb8c890c9abf8d93",
                 "cost_report_tokens_with_metadata": [],
                 "values": [
                   {
                     "date": "2024-01-03T00:00:00Z",
-                    "amount": "300.3"
+                    "amount": "300.3",
+                    "label": "Cost Center 3"
                   },
                   {
                     "date": "2024-01-02T00:00:00Z",
-                    "amount": "200.2"
+                    "amount": "200.2",
+                    "label": "Cost Center 2"
                   },
                   {
                     "date": "2024-01-01T00:00:00Z",
-                    "amount": "100.1"
+                    "amount": "100.1",
+                    "label": "Cost Center 1"
                   }
                 ]
               }
@@ -4107,6 +4124,80 @@
           "FinancialCommitmentReports"
         ],
         "operationId": "getFinancialCommitmentReport"
+      }
+    },
+    "/financial_commitments": {
+      "get": {
+        "description": "Return all FinancialCommitments.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitments"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/financial_commitments",
+                  "first": "https://api.vantage.com/v2/financial_commitments?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/financial_commitments?page=1",
+                  "prev": null
+                },
+                "financial_commitments": [
+                  {
+                    "commitment_type": "aws_savings_plan",
+                    "service": "Compute",
+                    "account": "153271892032",
+                    "type": "3 Year Compute Savings Plan",
+                    "instance_count": null,
+                    "term": "1 Year",
+                    "payment_type": "No upfront",
+                    "region": null,
+                    "purchase_date": "2024-04-15",
+                    "expiration_date": "2025-04-15",
+                    "commitment": "$1.00",
+                    "status": "active",
+                    "created_at": "2024-04-15T19:51:27Z",
+                    "workspace_token": "wrkspc_8c897c3d73b69279"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitments"
+        ],
+        "operationId": "getFinancialCommitments"
       }
     },
     "/kubernetes_efficiency_reports": {
@@ -5771,6 +5862,172 @@
           "BudgetAlerts"
         ],
         "operationId": "getBudgetAlert"
+      }
+    },
+    "/integrations": {
+      "get": {
+        "description": "Return all Integrations.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integrations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/integrations",
+                  "first": "https://api.vantage.com/v2/integrations?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/integrations?page=1",
+                  "prev": null
+                },
+                "integrations": [
+                  {
+                    "token": "srvc_csts_intgrtn_bb539eb2076043b0",
+                    "provider_name": "AWS",
+                    "status": "connected",
+                    "created_at": "2024-04-11T20:03:22Z",
+                    "account": {
+                      "token": "accss_crdntl_725067ff0e5162f4",
+                      "account_name": "arn:aws:iam::179568901169:role/vantage-account-sync-20917ee9-f546-9f782f",
+                      "status": "imported",
+                      "workspace_tokens": [],
+                      "imports": []
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getIntegrations"
+      }
+    },
+    "/integrations/{integration_token}": {
+      "delete": {
+        "description": "Delete an Integration.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "deleteIntegration"
+      },
+      "get": {
+        "description": "Return an Integration.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "srvc_csts_intgrtn_fdfa2d5bffbdfaae",
+                "provider_name": "AWS",
+                "status": "connected",
+                "created_at": "2024-04-11T20:03:22Z",
+                "account": {
+                  "token": "accss_crdntl_5a7b9ec532db4040",
+                  "account_name": "arn:aws:iam::261128324583:role/vantage-account-sync-0fa7868c-6c78-e8dab3",
+                  "status": "imported",
+                  "workspace_tokens": [],
+                  "imports": []
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getIntegration"
       }
     },
     "/ping": {
@@ -7439,7 +7696,7 @@
           "items": {
             "$ref": "#/definitions/BusinessMetricValue"
           },
-          "description": "The dates and amounts for the BusinessMetric"
+          "description": "The dates, amounts, and (optional) labels for the BusinessMetric."
         }
       },
       "description": "BusinessMetric model"
@@ -7478,6 +7735,11 @@
           "type": "string",
           "example": "100.00",
           "description": "The amount of the Business Metric Value as a string to ensure precision."
+        },
+        "label": {
+          "type": "string",
+          "example": "Cost Center A",
+          "description": "The label of the Business Metric Value."
         }
       }
     },
@@ -7791,6 +8053,95 @@
         }
       },
       "description": "FinancialCommitmentReport model"
+    },
+    "FinancialCommitments": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "financial_commitments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinancialCommitment"
+          }
+        }
+      },
+      "description": "FinancialCommitments model"
+    },
+    "FinancialCommitment": {
+      "type": "object",
+      "properties": {
+        "commitment_type": {
+          "type": "string",
+          "example": "Savings Plan",
+          "description": "The commitment type (eg Savings Plan or Reserved Instance)."
+        },
+        "service": {
+          "type": "string",
+          "example": "Compute",
+          "description": "The service this commitment applies towards."
+        },
+        "account": {
+          "type": "string",
+          "example": "113074892135",
+          "description": "The account for this financial commitment."
+        },
+        "type": {
+          "type": "string",
+          "example": "m5.large",
+          "description": "The type of financial commitment."
+        },
+        "amount": {
+          "type": "string",
+          "example": "4",
+          "description": "The number of instances for the financial commitment."
+        },
+        "term": {
+          "type": "string",
+          "example": "3 Year",
+          "description": "The duration in years of the financial commitment."
+        },
+        "payment_type": {
+          "type": "string",
+          "example": "No upfront",
+          "description": "The type of payment for the financial commitment."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-east-1",
+          "description": "The region for the financial commitment."
+        },
+        "purchase_date": {
+          "type": "string",
+          "example": "2023-08-30",
+          "description": "The purchase date of the financial commitment. ISO 8601 Formatted."
+        },
+        "expiration_date": {
+          "type": "string",
+          "example": "2026-08-30",
+          "description": "The expiration date of the financial commitment. ISO 8601 Formatted."
+        },
+        "commitment": {
+          "type": "string",
+          "example": "$2.18",
+          "description": "The amount of the financial commitment."
+        },
+        "status": {
+          "type": "string",
+          "example": "active",
+          "description": "The status of the financial commitment (e.g. active vs expired)."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the Financial Commitment was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the FinancialCommitment is a part of."
+        }
+      }
     },
     "KubernetesEfficiencyReports": {
       "type": "object",
@@ -8107,7 +8458,7 @@
       "properties": {
         "cost_report_token": {
           "type": "string",
-          "description": "The token of the Cost Report folder that has the notification."
+          "description": "The token of the Cost Report that has the notification."
         },
         "threshold": {
           "type": "integer",
@@ -8116,7 +8467,7 @@
         },
         "user_tokens": {
           "type": "array",
-          "description": "The tokens of the users that receive the notification.",
+          "description": "The tokens of the Users that receive the notification.",
           "items": {
             "type": "string"
           }
@@ -8504,6 +8855,49 @@
         }
       },
       "description": "BudgetAlerts model"
+    },
+    "Integrations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "integrations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Integration"
+          }
+        }
+      },
+      "description": "Integrations model"
+    },
+    "Integration": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "provider_name": {
+          "type": "string",
+          "example": "AWS",
+          "description": "The name of the Integration."
+        },
+        "status": {
+          "type": "string",
+          "example": "connected",
+          "description": "The status of the Integration."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
+        },
+        "account": {
+          "type": "string",
+          "description": "The account for this Integration."
+        }
+      },
+      "description": "Integration model"
     }
   }
 }

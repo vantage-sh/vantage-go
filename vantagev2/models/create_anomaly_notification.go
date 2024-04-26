@@ -19,7 +19,7 @@ import (
 // swagger:model createAnomalyNotification
 type CreateAnomalyNotification struct {
 
-	// The token of the Cost Report folder that has the notification.
+	// The token of the Cost Report that has the notification.
 	// Required: true
 	CostReportToken *string `json:"cost_report_token"`
 
@@ -29,7 +29,7 @@ type CreateAnomalyNotification struct {
 	// The threshold amount that must be met for the notification to fire.
 	Threshold int32 `json:"threshold,omitempty"`
 
-	// The tokens of the users that receive the notification.
+	// The tokens of the Users that receive the notification.
 	UserTokens []string `json:"user_tokens"`
 }
 

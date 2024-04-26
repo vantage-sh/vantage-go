@@ -19,7 +19,9 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/integrations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
@@ -84,7 +86,9 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
+	cli.FinancialCommitments = financial_commitments.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
+	cli.Integrations = integrations.New(transport, formats)
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
@@ -158,7 +162,11 @@ type Vantage struct {
 
 	FinancialCommitmentReports financial_commitment_reports.ClientService
 
+	FinancialCommitments financial_commitments.ClientService
+
 	Folders folders.ClientService
+
+	Integrations integrations.ClientService
 
 	KubernetesEfficiencyReports kubernetes_efficiency_reports.ClientService
 
@@ -197,7 +205,9 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
 	c.FinancialCommitmentReports.SetTransport(transport)
+	c.FinancialCommitments.SetTransport(transport)
 	c.Folders.SetTransport(transport)
+	c.Integrations.SetTransport(transport)
 	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)

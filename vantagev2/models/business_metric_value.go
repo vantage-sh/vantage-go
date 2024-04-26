@@ -24,6 +24,10 @@ type BusinessMetricValue struct {
 	// The date of the Business Metric Value. ISO 8601 formatted.
 	// Example: 2024-03-01+00:00
 	Date string `json:"date,omitempty"`
+
+	// The label of the Business Metric Value.
+	// Example: Cost Center A
+	Label string `json:"label,omitempty"`
 }
 
 // Validate validates this business metric value

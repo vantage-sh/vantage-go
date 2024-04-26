@@ -34,7 +34,7 @@ type BusinessMetric struct {
 	// Example: bsnss_mtrc_1234
 	Token string `json:"token,omitempty"`
 
-	// The dates and amounts for the BusinessMetric
+	// The dates, amounts, and (optional) labels for the BusinessMetric.
 	Values []*BusinessMetricValue `json:"values"`
 }
 
