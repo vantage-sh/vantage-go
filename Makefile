@@ -1,4 +1,5 @@
 generate:
+	rm -r vantage{v1,v2}/{models,vantage}
 	vantagev1/generate.sh
 	vantagev2/generate.sh
 	git add .
