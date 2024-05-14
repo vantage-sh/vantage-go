@@ -28,7 +28,7 @@ type CreateBusinessMetric struct {
 	// Required: true
 	Title *string `json:"title"`
 
-	// The dates and amounts for the BusinessMetric.
+	// The dates, amounts, and (optional) labels for the BusinessMetric.
 	Values []*CreateBusinessMetricValuesItems0 `json:"values"`
 }
 
@@ -329,6 +329,9 @@ type CreateBusinessMetricValuesItems0 struct {
 	// Required: true
 	// Format: date-time
 	Date *strfmt.DateTime `json:"date"`
+
+	// label
+	Label *string `json:"label,omitempty"`
 }
 
 // Validate validates this create business metric values items0

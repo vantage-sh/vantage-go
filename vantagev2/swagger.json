@@ -127,6 +127,10 @@
       "description": "Operations about Integrations"
     },
     {
+      "name": "Recommendations",
+      "description": "Operations about Recommendations"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -1196,15 +1200,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_1e47944f3821d5c3",
+                "token": "fltr_sgmt_a22e3e52e9a93a75",
                 "title": "New Segment",
-                "parent_segment_token": "fltr_sgmt_ac17f90b94f8d00f",
+                "parent_segment_token": "fltr_sgmt_7f1af73e92e5e156",
                 "description": "I'm a Segment.",
                 "track_unallocated": false,
                 "priority": 100,
-                "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service')",
-                "created_at": "2024-02-02T01:02:08Z",
-                "workspace_token": "wrkspc_d5d4814d5e42522c"
+                "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
+                "created_at": "2024-05-14T14:34:24Z",
+                "workspace_token": "wrkspc_f75aec7671a72dd3",
+                "report_token": null
               }
             }
           },
@@ -1273,10 +1278,10 @@
                 },
                 "segments": [
                   {
-                    "token": "fltr_sgmt_0db07f2863f779cc",
-                    "title": "installation",
+                    "token": "fltr_sgmt_79b0b8ef658d6bba",
+                    "title": "neural-net",
                     "parent_segment_token": null,
-                    "description": "Multi-lateral attitude-oriented process improvement",
+                    "description": "Optimized encompassing algorithm",
                     "track_unallocated": false,
                     "report_settings": {
                       "include_credits": false,
@@ -1287,8 +1292,9 @@
                     },
                     "priority": 100,
                     "filter": "(costs.provider = 'aws')",
-                    "created_at": "2024-02-02T01:02:07Z",
-                    "workspace_token": "wrkspc_7036b752bf43a658"
+                    "created_at": "2024-05-14T14:34:22Z",
+                    "workspace_token": "wrkspc_21f36c4ad272fb7b",
+                    "report_token": "rprt_8dd4e1fe3b88c821"
                   }
                 ]
               }
@@ -1380,15 +1386,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_99969c652d4df258",
+                "token": "fltr_sgmt_1550eb291314035c",
                 "title": "Updated Segment",
-                "parent_segment_token": "fltr_sgmt_d8d4da2ef1751c13",
-                "description": "Ameliorated disintermediate challenge",
+                "parent_segment_token": "fltr_sgmt_a39cf865967ed4d8",
+                "description": "Total object-oriented productivity",
                 "track_unallocated": false,
                 "priority": 42,
-                "filter": "(costs.provider = 'azure')",
-                "created_at": "2024-02-02T01:05:01Z",
-                "workspace_token": "wrkspc_c144e5f763a5b05e"
+                "filter": "costs.provider = 'azure'",
+                "created_at": "2024-05-14T14:34:23Z",
+                "workspace_token": "wrkspc_1be9d0445f94db0b",
+                "report_token": "rprt_3e460438ae115013"
               }
             }
           },
@@ -1438,10 +1445,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "fltr_sgmt_d1de6bdb3133d61e",
-                "title": "benchmark",
+                "token": "fltr_sgmt_e528df30fe4c9da4",
+                "title": "Function-based",
                 "parent_segment_token": null,
-                "description": "Synergized bandwidth-monitored help-desk",
+                "description": "Total multi-tasking encoding",
                 "track_unallocated": false,
                 "report_settings": {
                   "include_credits": false,
@@ -1452,8 +1459,9 @@
                 },
                 "priority": 100,
                 "filter": "(costs.provider = 'aws')",
-                "created_at": "2024-02-02T01:02:09Z",
-                "workspace_token": "wrkspc_5c9b1211804105ff"
+                "created_at": "2024-05-14T14:34:18Z",
+                "workspace_token": "wrkspc_eb7573db105407df",
+                "report_token": "rprt_f7828113036f5fce"
               }
             }
           },
@@ -6030,6 +6038,325 @@
         "operationId": "getIntegration"
       }
     },
+    "/recommendations": {
+      "get": {
+        "description": "Return all Recommendations.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider_account_id",
+            "description": "Filter by provider account id (AWS account, Azure subscription id, etc).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "Filter by category.",
+            "type": "string",
+            "enum": [
+              "ebs_gp2_to_gp3",
+              "ebs_unattached_volume",
+              "elasticache_reserved_instances",
+              "elastic_search_reserved_instances",
+              "rds_reserved_instances",
+              "redshift_reserved_instances",
+              "ec2_generational_upgrades",
+              "rds_generational_upgrades",
+              "es_generational_upgrades",
+              "cw_log_retention_policy",
+              "workspace_unused",
+              "workspace_stranded",
+              "cloudfront_cloudflare",
+              "s3_cloudflare",
+              "ip_unattached",
+              "s3_bucket_intelligent_tiering",
+              "savings_plan",
+              "unused_financial_commitments",
+              "datadog_financial_commitments",
+              "az_compute_reserved_instances",
+              "az_compute_reserved_instances_cosmos",
+              "az_compute_reserved_instances_sql",
+              "az_compute_reserved_instances_app_service",
+              "az_disks_unattached",
+              "dynamodb_reserved_capacity_recommender",
+              "ec2_rightsizing_recommender",
+              "kubernetes_recommender"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "Filter by provider.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Recommendations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/recommendations",
+                  "first": "https://api.vantage.com/v2/recommendations?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/recommendations?page=1",
+                  "prev": null
+                },
+                "recommendations": [
+                  {
+                    "token": "rcmmndtn_8f62a61ced7a5742",
+                    "category": "ip_unattached",
+                    "workspace_token": "wrkspc_2bab2a7936e9b90d",
+                    "provider": "aws",
+                    "provider_account_id": "123456789012",
+                    "description": "IP address is not attached to an instance.",
+                    "potential_savings": "100.0",
+                    "service": "AWS IP",
+                    "created_at": "2024-05-06T20:26:34Z",
+                    "resources_affected_count": 0
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recommendations"
+        ],
+        "operationId": "getRecommendations"
+      }
+    },
+    "/recommendations/{recommendation_token}": {
+      "get": {
+        "description": "Return a Recommendation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recommendation_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Recommendation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rcmmndtn_8d1de80da52bebe3",
+                "category": "ip_unattached",
+                "workspace_token": "wrkspc_326b4663fe20770c",
+                "provider": "aws",
+                "provider_account_id": "123456789012",
+                "description": "IP address is not attached to an instance.",
+                "potential_savings": "100.0",
+                "service": "AWS IP",
+                "created_at": "2024-05-06T20:26:34Z",
+                "resources_affected_count": 0
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Recommendations"
+        ],
+        "operationId": "getRecommendation"
+      }
+    },
+    "/recommendations/{recommendation_token}/resources": {
+      "get": {
+        "description": "Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recommendation_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProviderResource"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources",
+                  "first": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "prev": null
+                },
+                "resources": [
+                  {
+                    "token": "prvdr_rsrc_01352c715023e445",
+                    "resource_id": "i-12345",
+                    "recommendation_actions": [
+                      {
+                        "action": "modify",
+                        "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
+                        "potential_savings": 100,
+                        "instance_type": "c5a.xlarge"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Recommendations"
+        ],
+        "operationId": "getRecommendationResources"
+      }
+    },
+    "/recommendations/{recommendation_token}/resources/{resource_token}": {
+      "get": {
+        "description": "Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recommendation_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "resource_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProviderResource"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_018edad7219e02b4",
+                "resource_id": "i-12345",
+                "recommendation_actions": [
+                  {
+                    "action": "modify",
+                    "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
+                    "potential_savings": 100,
+                    "instance_type": "c5a.xlarge"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Recommendations"
+        ],
+        "operationId": "getRecommendationResource"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -6735,6 +7062,10 @@
         "workspace_token": {
           "type": "string",
           "description": "The token for the Workspace the Segment is a part of."
+        },
+        "report_token": {
+          "type": "string",
+          "description": "The token for the Report the Segment has generated."
         }
       },
       "description": "Segment model"
@@ -7641,7 +7972,7 @@
         },
         "values": {
           "type": "array",
-          "description": "The dates and amounts for the BusinessMetric.",
+          "description": "The dates, amounts, and (optional) labels for the BusinessMetric.",
           "items": {
             "type": "object",
             "properties": {
@@ -7652,6 +7983,10 @@
               "amount": {
                 "type": "number",
                 "format": "double"
+              },
+              "label": {
+                "type": "string",
+                "x-nullable": true
               }
             },
             "required": [
@@ -7792,7 +8127,7 @@
         },
         "values": {
           "type": "array",
-          "description": "The dates and amounts for the BusinessMetric.",
+          "description": "The dates, amounts, and (optional) labels for the BusinessMetric.",
           "items": {
             "type": "object",
             "properties": {
@@ -7803,6 +8138,10 @@
               "amount": {
                 "type": "number",
                 "format": "double"
+              },
+              "label": {
+                "type": "string",
+                "x-nullable": true
               }
             },
             "required": [
@@ -8372,7 +8711,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2023-10-01",
+          "example": "2023-11-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -8898,6 +9237,111 @@
         }
       },
       "description": "Integration model"
+    },
+    "Recommendations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Recommendation"
+          }
+        }
+      },
+      "description": "Recommendations model"
+    },
+    "Recommendation": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "example": "ec2_rightsizing_recommender",
+          "description": "The category of the Recommendation."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the Recommendation is a part of."
+        },
+        "provider": {
+          "type": "string",
+          "description": "The provider the Recommendation is for."
+        },
+        "provider_account_id": {
+          "type": "string",
+          "description": "The account ID of the provider. For Azure, this is the subscription ID."
+        },
+        "description": {
+          "type": "string"
+        },
+        "potential_savings": {
+          "type": "string",
+          "example": "100.00",
+          "description": "The monthly potential savings of the Recommendation."
+        },
+        "service": {
+          "type": "string",
+          "example": "Amazon EC2",
+          "description": "The service the Recommendation is for."
+        },
+        "created_at": {
+          "type": "string",
+          "description": "The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted."
+        },
+        "resources_affected_count": {
+          "type": "string",
+          "description": "The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources."
+        }
+      },
+      "description": "Recommendation model"
+    },
+    "ProviderResource": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "string",
+          "example": "i-0a1b2c3d4e5f6g7h8",
+          "description": "The unique identifier of the Active Resource."
+        },
+        "recommendation_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RecommendationAction"
+          },
+          "description": "The actions to take to implement the Recommendation."
+        }
+      },
+      "description": "ProviderResource model"
+    },
+    "RecommendationAction": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "potential_savings": {
+          "type": "string",
+          "example": "100.00",
+          "description": "Potential savings in dollars"
+        },
+        "instance_type": {
+          "type": "string"
+        },
+        "containers": {
+          "type": "string"
+        }
+      }
     }
   }
 }

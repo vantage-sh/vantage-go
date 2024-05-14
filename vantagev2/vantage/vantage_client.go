@@ -25,6 +25,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/saved_filters"
@@ -92,6 +93,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
+	cli.Recommendations = recommendations.New(transport, formats)
 	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
 	cli.SavedFilters = saved_filters.New(transport, formats)
@@ -174,6 +176,8 @@ type Vantage struct {
 
 	Prices prices.ClientService
 
+	Recommendations recommendations.ClientService
+
 	ReportNotifications report_notifications.ClientService
 
 	ResourceReports resource_reports.ClientService
@@ -211,6 +215,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
+	c.Recommendations.SetTransport(transport)
 	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
 	c.SavedFilters.SetTransport(transport)

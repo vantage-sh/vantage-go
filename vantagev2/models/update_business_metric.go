@@ -27,7 +27,7 @@ type UpdateBusinessMetric struct {
 	// The title of the BusinessMetric.
 	Title string `json:"title,omitempty"`
 
-	// The dates and amounts for the BusinessMetric.
+	// The dates, amounts, and (optional) labels for the BusinessMetric.
 	Values []*UpdateBusinessMetricValuesItems0 `json:"values"`
 }
 
@@ -315,6 +315,9 @@ type UpdateBusinessMetricValuesItems0 struct {
 	// Required: true
 	// Format: date-time
 	Date *strfmt.DateTime `json:"date"`
+
+	// label
+	Label *string `json:"label,omitempty"`
 }
 
 // Validate validates this update business metric values items0

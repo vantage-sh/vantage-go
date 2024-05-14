@@ -39,6 +39,9 @@ type Segment struct {
 	// report settings
 	ReportSettings *SegmentReportSettings `json:"report_settings,omitempty"`
 
+	// The token for the Report the Segment has generated.
+	ReportToken string `json:"report_token,omitempty"`
+
 	// The title of the Segment.
 	// Example: OPEX
 	Title string `json:"title,omitempty"`
