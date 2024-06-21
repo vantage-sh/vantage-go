@@ -6,6 +6,7 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetIntegrationsOK) Code() int {
 }
 
 func (o *GetIntegrationsOK) Error() string {
-	return fmt.Sprintf("[GET /integrations][%d] getIntegrationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /integrations][%d] getIntegrationsOK %s", 200, payload)
 }
 
 func (o *GetIntegrationsOK) String() string {
-	return fmt.Sprintf("[GET /integrations][%d] getIntegrationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /integrations][%d] getIntegrationsOK %s", 200, payload)
 }
 
 func (o *GetIntegrationsOK) GetPayload() *models.Integrations {

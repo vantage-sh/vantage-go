@@ -24,9 +24,13 @@ type AttachedCostReportForBusinessMetric struct {
 	// Example: rprt_1234
 	CostReportToken string `json:"cost_report_token,omitempty"`
 
+	// The labels that the BusinessMetric is filtered by within a particular CostReport.
+	// Example: ["label_1","label_2"]
+	LabelFilter string `json:"label_filter,omitempty"`
+
 	// Determines the scale of the BusinessMetric's values within a particular CostReport.
 	// Example: per_hundred
-	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
+	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale string `json:"unit_scale,omitempty"`
 }
 

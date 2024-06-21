@@ -6,6 +6,7 @@ package teams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -103,11 +104,13 @@ func (o *CreateTeamCreated) Code() int {
 }
 
 func (o *CreateTeamCreated) Error() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamCreated %s", 201, payload)
 }
 
 func (o *CreateTeamCreated) String() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamCreated %s", 201, payload)
 }
 
 func (o *CreateTeamCreated) GetPayload() *models.Team {
@@ -171,11 +174,13 @@ func (o *CreateTeamBadRequest) Code() int {
 }
 
 func (o *CreateTeamBadRequest) Error() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamBadRequest %s", 400, payload)
 }
 
 func (o *CreateTeamBadRequest) String() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamBadRequest %s", 400, payload)
 }
 
 func (o *CreateTeamBadRequest) GetPayload() *models.Errors {
@@ -239,11 +244,13 @@ func (o *CreateTeamForbidden) Code() int {
 }
 
 func (o *CreateTeamForbidden) Error() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamForbidden %s", 403, payload)
 }
 
 func (o *CreateTeamForbidden) String() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamForbidden %s", 403, payload)
 }
 
 func (o *CreateTeamForbidden) GetPayload() *models.Errors {
@@ -307,11 +314,13 @@ func (o *CreateTeamNotFound) Code() int {
 }
 
 func (o *CreateTeamNotFound) Error() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamNotFound %s", 404, payload)
 }
 
 func (o *CreateTeamNotFound) String() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamNotFound %s", 404, payload)
 }
 
 func (o *CreateTeamNotFound) GetPayload() *models.Errors {
@@ -375,11 +384,13 @@ func (o *CreateTeamUnprocessableEntity) Code() int {
 }
 
 func (o *CreateTeamUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateTeamUnprocessableEntity) String() string {
-	return fmt.Sprintf("[POST /teams][%d] createTeamUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /teams][%d] createTeamUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateTeamUnprocessableEntity) GetPayload() *models.Errors {

@@ -6,6 +6,7 @@ package budgets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *CreateBudgetCreated) Code() int {
 }
 
 func (o *CreateBudgetCreated) Error() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetCreated %s", 201, payload)
 }
 
 func (o *CreateBudgetCreated) String() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetCreated %s", 201, payload)
 }
 
 func (o *CreateBudgetCreated) GetPayload() *models.Budget {
@@ -159,11 +162,13 @@ func (o *CreateBudgetBadRequest) Code() int {
 }
 
 func (o *CreateBudgetBadRequest) Error() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetBadRequest %s", 400, payload)
 }
 
 func (o *CreateBudgetBadRequest) String() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetBadRequest %s", 400, payload)
 }
 
 func (o *CreateBudgetBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *CreateBudgetUnprocessableEntity) Code() int {
 }
 
 func (o *CreateBudgetUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateBudgetUnprocessableEntity) String() string {
-	return fmt.Sprintf("[POST /budgets][%d] createBudgetUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budgets][%d] createBudgetUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateBudgetUnprocessableEntity) GetPayload() *models.Errors {

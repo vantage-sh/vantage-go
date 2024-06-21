@@ -6,6 +6,7 @@ package access_grants
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteAccessGrantNoContent) Code() int {
 }
 
 func (o *DeleteAccessGrantNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent %s", 204, payload)
 }
 
 func (o *DeleteAccessGrantNoContent) String() string {
-	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNoContent %s", 204, payload)
 }
 
 func (o *DeleteAccessGrantNoContent) GetPayload() *models.AccessGrant {
@@ -153,11 +156,13 @@ func (o *DeleteAccessGrantNotFound) Code() int {
 }
 
 func (o *DeleteAccessGrantNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound %s", 404, payload)
 }
 
 func (o *DeleteAccessGrantNotFound) String() string {
-	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /access_grants/{access_grant_token}][%d] deleteAccessGrantNotFound %s", 404, payload)
 }
 
 func (o *DeleteAccessGrantNotFound) GetPayload() *models.Errors {

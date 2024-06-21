@@ -6,6 +6,7 @@ package financial_commitment_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetFinancialCommitmentReportOK) Code() int {
 }
 
 func (o *GetFinancialCommitmentReportOK) Error() string {
-	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportOK %s", 200, payload)
 }
 
 func (o *GetFinancialCommitmentReportOK) String() string {
-	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportOK %s", 200, payload)
 }
 
 func (o *GetFinancialCommitmentReportOK) GetPayload() *models.FinancialCommitmentReport {
@@ -153,11 +156,13 @@ func (o *GetFinancialCommitmentReportNotFound) Code() int {
 }
 
 func (o *GetFinancialCommitmentReportNotFound) Error() string {
-	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportNotFound %s", 404, payload)
 }
 
 func (o *GetFinancialCommitmentReportNotFound) String() string {
-	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}][%d] getFinancialCommitmentReportNotFound %s", 404, payload)
 }
 
 func (o *GetFinancialCommitmentReportNotFound) GetPayload() *models.Errors {

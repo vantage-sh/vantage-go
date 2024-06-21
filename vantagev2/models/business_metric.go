@@ -19,7 +19,7 @@ import (
 // swagger:model BusinessMetric
 type BusinessMetric struct {
 
-	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
+	// The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
 	CostReportTokensWithMetadata []*AttachedCostReportForBusinessMetric `json:"cost_report_tokens_with_metadata"`
 
 	// The token of the User who created the BusinessMetric.

@@ -6,6 +6,7 @@ package resource_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetResourceReportOK) Code() int {
 }
 
 func (o *GetResourceReportOK) Error() string {
-	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportOK %s", 200, payload)
 }
 
 func (o *GetResourceReportOK) String() string {
-	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportOK %s", 200, payload)
 }
 
 func (o *GetResourceReportOK) GetPayload() *models.ResourceReport {
@@ -153,11 +156,13 @@ func (o *GetResourceReportNotFound) Code() int {
 }
 
 func (o *GetResourceReportNotFound) Error() string {
-	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportNotFound %s", 404, payload)
 }
 
 func (o *GetResourceReportNotFound) String() string {
-	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /resource_reports/{resource_report_token}][%d] getResourceReportNotFound %s", 404, payload)
 }
 
 func (o *GetResourceReportNotFound) GetPayload() *models.Errors {

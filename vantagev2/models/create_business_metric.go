@@ -21,7 +21,7 @@ import (
 // swagger:model createBusinessMetric
 type CreateBusinessMetric struct {
 
-	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
+	// The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
 	CostReportTokensWithMetadata []*CreateBusinessMetricCostReportTokensWithMetadataItems0 `json:"cost_report_tokens_with_metadata"`
 
 	// The title of the BusinessMetrics.
@@ -210,8 +210,11 @@ type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 	// Required: true
 	CostReportToken *string `json:"cost_report_token"`
 
+	// Include only values with these labels in the CostReport.
+	LabelFilter []string `json:"label_filter"`
+
 	// Determines the scale of the BusinessMetric's values within the CostReport.
-	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
+	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale *string `json:"unit_scale,omitempty"`
 }
 

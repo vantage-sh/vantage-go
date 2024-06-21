@@ -61,8 +61,8 @@ DeleteVirtualTagConfigParams contains all the parameters to send to the API endp
 */
 type DeleteVirtualTagConfigParams struct {
 
-	// VirtualTagConfigToken.
-	VirtualTagConfigToken string
+	// Token.
+	Token string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,15 +117,15 @@ func (o *DeleteVirtualTagConfigParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithVirtualTagConfigToken adds the virtualTagConfigToken to the delete virtual tag config params
-func (o *DeleteVirtualTagConfigParams) WithVirtualTagConfigToken(virtualTagConfigToken string) *DeleteVirtualTagConfigParams {
-	o.SetVirtualTagConfigToken(virtualTagConfigToken)
+// WithToken adds the token to the delete virtual tag config params
+func (o *DeleteVirtualTagConfigParams) WithToken(token string) *DeleteVirtualTagConfigParams {
+	o.SetToken(token)
 	return o
 }
 
-// SetVirtualTagConfigToken adds the virtualTagConfigToken to the delete virtual tag config params
-func (o *DeleteVirtualTagConfigParams) SetVirtualTagConfigToken(virtualTagConfigToken string) {
-	o.VirtualTagConfigToken = virtualTagConfigToken
+// SetToken adds the token to the delete virtual tag config params
+func (o *DeleteVirtualTagConfigParams) SetToken(token string) {
+	o.Token = token
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,8 +136,8 @@ func (o *DeleteVirtualTagConfigParams) WriteToRequest(r runtime.ClientRequest, r
 	}
 	var res []error
 
-	// path param virtual_tag_config_token
-	if err := r.SetPathParam("virtual_tag_config_token", o.VirtualTagConfigToken); err != nil {
+	// path param token
+	if err := r.SetPathParam("token", o.Token); err != nil {
 		return err
 	}
 

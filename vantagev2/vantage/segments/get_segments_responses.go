@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetSegmentsOK) Code() int {
 }
 
 func (o *GetSegmentsOK) Error() string {
-	return fmt.Sprintf("[GET /segments][%d] getSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments][%d] getSegmentsOK %s", 200, payload)
 }
 
 func (o *GetSegmentsOK) String() string {
-	return fmt.Sprintf("[GET /segments][%d] getSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments][%d] getSegmentsOK %s", 200, payload)
 }
 
 func (o *GetSegmentsOK) GetPayload() *models.Segments {

@@ -6,6 +6,7 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetDashboardsOK) Code() int {
 }
 
 func (o *GetDashboardsOK) Error() string {
-	return fmt.Sprintf("[GET /dashboards][%d] getDashboardsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards][%d] getDashboardsOK %s", 200, payload)
 }
 
 func (o *GetDashboardsOK) String() string {
-	return fmt.Sprintf("[GET /dashboards][%d] getDashboardsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards][%d] getDashboardsOK %s", 200, payload)
 }
 
 func (o *GetDashboardsOK) GetPayload() *models.Dashboards {

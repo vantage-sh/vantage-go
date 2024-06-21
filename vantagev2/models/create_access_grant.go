@@ -21,7 +21,7 @@ import (
 type CreateAccessGrant struct {
 
 	// The access level you want to grant. Defaults to 'allowed'.
-	// Enum: [denied allowed]
+	// Enum: ["denied","allowed"]
 	Access string `json:"access,omitempty"`
 
 	// The token of the resource for which you are granting access.

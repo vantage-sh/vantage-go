@@ -6,6 +6,7 @@ package budget_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *CreateBudgetAlertCreated) Code() int {
 }
 
 func (o *CreateBudgetAlertCreated) Error() string {
-	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertCreated %s", 201, payload)
 }
 
 func (o *CreateBudgetAlertCreated) String() string {
-	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertCreated %s", 201, payload)
 }
 
 func (o *CreateBudgetAlertCreated) GetPayload() *models.BudgetAlert {
@@ -153,11 +156,13 @@ func (o *CreateBudgetAlertBadRequest) Code() int {
 }
 
 func (o *CreateBudgetAlertBadRequest) Error() string {
-	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertBadRequest %s", 400, payload)
 }
 
 func (o *CreateBudgetAlertBadRequest) String() string {
-	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /budget_alerts][%d] createBudgetAlertBadRequest %s", 400, payload)
 }
 
 func (o *CreateBudgetAlertBadRequest) GetPayload() *models.Errors {

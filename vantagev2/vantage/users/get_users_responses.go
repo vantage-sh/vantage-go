@@ -6,6 +6,7 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetUsersOK) Code() int {
 }
 
 func (o *GetUsersOK) Error() string {
-	return fmt.Sprintf("[GET /users][%d] getUsersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users][%d] getUsersOK %s", 200, payload)
 }
 
 func (o *GetUsersOK) String() string {
-	return fmt.Sprintf("[GET /users][%d] getUsersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users][%d] getUsersOK %s", 200, payload)
 }
 
 func (o *GetUsersOK) GetPayload() *models.Users {
@@ -153,11 +156,13 @@ func (o *GetUsersForbidden) Code() int {
 }
 
 func (o *GetUsersForbidden) Error() string {
-	return fmt.Sprintf("[GET /users][%d] getUsersForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users][%d] getUsersForbidden %s", 403, payload)
 }
 
 func (o *GetUsersForbidden) String() string {
-	return fmt.Sprintf("[GET /users][%d] getUsersForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users][%d] getUsersForbidden %s", 403, payload)
 }
 
 func (o *GetUsersForbidden) GetPayload() *models.Errors {

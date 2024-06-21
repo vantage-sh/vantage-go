@@ -25,11 +25,11 @@ type Dashboard struct {
 	CreatedAt string `json:"created_at,omitempty"`
 
 	// Determines how to group costs in the Dashboard.
-	// Enum: [cumulative day week month]
+	// Enum: ["cumulative","day","week","month"]
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
-	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.

@@ -6,6 +6,7 @@ package saved_filters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -97,11 +98,13 @@ func (o *UpdateSavedFilterOK) Code() int {
 }
 
 func (o *UpdateSavedFilterOK) Error() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterOK %s", 200, payload)
 }
 
 func (o *UpdateSavedFilterOK) String() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterOK %s", 200, payload)
 }
 
 func (o *UpdateSavedFilterOK) GetPayload() *models.SavedFilter {
@@ -165,11 +168,13 @@ func (o *UpdateSavedFilterBadRequest) Code() int {
 }
 
 func (o *UpdateSavedFilterBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterBadRequest %s", 400, payload)
 }
 
 func (o *UpdateSavedFilterBadRequest) String() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterBadRequest %s", 400, payload)
 }
 
 func (o *UpdateSavedFilterBadRequest) GetPayload() *models.Errors {
@@ -233,11 +238,13 @@ func (o *UpdateSavedFilterNotFound) Code() int {
 }
 
 func (o *UpdateSavedFilterNotFound) Error() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *UpdateSavedFilterNotFound) String() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *UpdateSavedFilterNotFound) GetPayload() *models.Errors {
@@ -301,11 +308,13 @@ func (o *UpdateSavedFilterUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateSavedFilterUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateSavedFilterUnprocessableEntity) String() string {
-	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /saved_filters/{saved_filter_token}][%d] updateSavedFilterUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateSavedFilterUnprocessableEntity) GetPayload() *models.Errors {

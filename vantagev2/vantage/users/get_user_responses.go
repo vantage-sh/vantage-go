@@ -6,6 +6,7 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetUserOK) Code() int {
 }
 
 func (o *GetUserOK) Error() string {
-	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserOK %s", 200, payload)
 }
 
 func (o *GetUserOK) String() string {
-	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserOK %s", 200, payload)
 }
 
 func (o *GetUserOK) GetPayload() *models.User {
@@ -153,11 +156,13 @@ func (o *GetUserNotFound) Code() int {
 }
 
 func (o *GetUserNotFound) Error() string {
-	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserNotFound %s", 404, payload)
 }
 
 func (o *GetUserNotFound) String() string {
-	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/{user_token}][%d] getUserNotFound %s", 404, payload)
 }
 
 func (o *GetUserNotFound) GetPayload() *models.Errors {
