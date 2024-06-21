@@ -2,12 +2,12 @@
   "entries": {
     "tap": {
       "go-swagger/go-swagger": {
-        "revision": "4ad281fbd921cb19f27eef10d6f1720ef8d9db0d"
+        "revision": "4cf55108175bfe0fc0ae4e8ccc682e669513959c"
       }
     },
     "brew": {
       "go-swagger": {
-        "version": "0.30.5",
+        "version": "0.31.0",
         "bottle": false
       },
       "jq": {
@@ -59,12 +59,12 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.16",
+        "HOMEBREW_VERSION": "4.3.6",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
-        "CLT": "15.0.1.0.2.5",
-        "Xcode": "15.3",
-        "macOS": "14.4.1"
+        "CLT": "15.3.0.0.1.1708646388",
+        "Xcode": "15.4",
+        "macOS": "14.5"
       }
     }
   }
