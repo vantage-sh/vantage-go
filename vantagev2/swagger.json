@@ -137,6 +137,56 @@
   ],
   "paths": {
     "/workspaces": {
+      "post": {
+        "description": "Create a workspace",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "Name of the workspace.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            },
+            "examples": {
+              "application/json": {
+                "token": "wrkspc_a8b2c1867c84febc",
+                "name": "Ellingson Mineral Corporation",
+                "created_at": "2024-05-17T21:24:55Z"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "createWorkspace"
+      },
       "get": {
         "description": "Return all Workspaces that the current API token has access to.",
         "produces": [
@@ -184,8 +234,14 @@
                 },
                 "workspaces": [
                   {
-                    "token": "wrkspc_f936ced69bcbf8fa",
-                    "name": "Senger and Sons"
+                    "token": "wrkspc_ee55a4a36ada7d80",
+                    "name": "Johns-Anderson 2039e721",
+                    "created_at": "2024-05-17T21:24:56Z"
+                  },
+                  {
+                    "token": "wrkspc_d191b2396bda86a4",
+                    "name": "Wisozk, Marquardt and Kulas d7ed4ecc",
+                    "created_at": "2024-05-17T21:24:56Z"
                   }
                 ]
               }
@@ -199,6 +255,45 @@
       }
     },
     "/workspaces/{workspace_token}": {
+      "delete": {
+        "description": "Delete a Workspace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "deleteWorkspace"
+      },
       "get": {
         "description": "Return a specific Workspace.",
         "produces": [
@@ -227,8 +322,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "wrkspc_be2a1b2c1ebfa3c9",
-                "name": "Crist-Simonis"
+                "token": "wrkspc_b6510290cad5b0f9",
+                "name": "Zulauf, Hauck and O'Keefe ca58ebd3",
+                "created_at": "2024-05-17T21:24:57Z"
               }
             }
           },
@@ -859,16 +955,22 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_362b04093c087475",
+                "token": "rprt_c2ee1cd9e7ccd603",
                 "title": "New Cost Report",
-                "folder_token": "fldr_819fe3807f88ff90",
+                "folder_token": "fldr_528b03e8fa640203",
                 "saved_filter_tokens": [
-                  "svd_fltr_a50b002184902819"
+                  "svd_fltr_b39dc05166db219b"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_bc0689f1b54094b1",
-                    "unit_scale": "per_thousand"
+                    "business_metric_token": "bsnss_mtrc_36727ba9218d86a8",
+                    "unit_scale": "per_thousand",
+                    "label_filter": [
+                      "CBGB",
+                      "Roxy",
+                      "Studio 54",
+                      ""
+                    ]
                   }
                 ],
                 "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
@@ -881,8 +983,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-19T15:22:51Z",
-                "workspace_token": "wrkspc_d50edff4c3ae23b2"
+                "created_at": "2024-05-30T19:21:23Z",
+                "workspace_token": "wrkspc_eb6f18210690aacd"
               }
             }
           },
@@ -951,11 +1053,11 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_e97ef22efaa6da12",
+                    "token": "rprt_0608577e53d6c651",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_cc4a422cf86f9e26"
+                      "svd_fltr_13861a15cd961e2f"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
@@ -968,8 +1070,8 @@
                       "amortize": true,
                       "unallocated": false
                     },
-                    "created_at": "2024-03-19T15:22:54Z",
-                    "workspace_token": "wrkspc_3dc89ff43657f255"
+                    "created_at": "2024-05-30T19:21:31Z",
+                    "workspace_token": "wrkspc_6c53526b68b2edbe"
                   }
                 ]
               }
@@ -1061,16 +1163,22 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_77fec1422cfc25df",
+                "token": "rprt_b2f3c94e3dc36e50",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_54b65b6cb9af21d0",
+                "folder_token": "fldr_204ea64bf25c0c68",
                 "saved_filter_tokens": [
-                  "svd_fltr_33736ce7e17d7803"
+                  "svd_fltr_132d8ecb4811b76b"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_58c57f66d35a1ad7",
-                    "unit_scale": "per_thousand"
+                    "business_metric_token": "bsnss_mtrc_8c5768bdc4d98ba8",
+                    "unit_scale": "per_thousand",
+                    "label_filter": [
+                      "CBGB",
+                      "Roxy",
+                      "Studio 54",
+                      ""
+                    ]
                   }
                 ],
                 "filter": "costs.provider = 'azure'",
@@ -1083,8 +1191,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-19T15:22:52Z",
-                "workspace_token": "wrkspc_ca0b4a774e8fa57c"
+                "created_at": "2024-05-30T19:21:21Z",
+                "workspace_token": "wrkspc_c782abe004135948"
               }
             }
           },
@@ -1134,12 +1242,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_16a4d01d67a50631",
-                "title": "Segment Report",
-                "folder_token": "fldr_fa3d9420651c11d7",
+                "token": "rprt_7a215c422717ebd4",
+                "title": "Untitled",
+                "folder_token": null,
+                "saved_filter_tokens": [
+                  "svd_fltr_9a6bcacc848126e1"
+                ],
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
-                "groupings": null,
+                "groupings": "provider,service",
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1148,8 +1259,8 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-03-19T15:22:54Z",
-                "workspace_token": "wrkspc_6a917500aba6bca8"
+                "created_at": "2024-05-30T19:21:13Z",
+                "workspace_token": "wrkspc_4023ad1c4083b127"
               }
             }
           },
@@ -3063,13 +3174,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_eb3df03fe026ccf8",
+                "token": "bsnss_mtrc_553dd522c66cb1aa",
                 "title": "New Biz Metric",
-                "created_by_token": "usr_f020ac22c5532342",
+                "created_by_token": "usr_16adb5609ee89b8e",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_fe7c2a8be46f0f0c",
-                    "unit_scale": "per_thousand"
+                    "cost_report_token": "rprt_6633ef89c4c8c87e",
+                    "unit_scale": "per_thousand",
+                    "label_filter": [
+                      "CBGB",
+                      "Roxy",
+                      "Studio 54",
+                      ""
+                    ]
                   }
                 ],
                 "values": [
@@ -3162,9 +3279,9 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_a94e2a6837be51a1",
+                    "token": "bsnss_mtrc_11d005e278be649c",
                     "title": "Biz Metric",
-                    "created_by_token": "usr_768c4ea96314b986",
+                    "created_by_token": "usr_bce141144bee90d6",
                     "cost_report_tokens_with_metadata": [],
                     "values": []
                   }
@@ -3264,30 +3381,33 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_4a889b4a9061e48b",
+                "token": "bsnss_mtrc_a7f01adf0feb24a6",
                 "title": "New Title",
-                "created_by_token": "usr_e1f3c64a6e1451a5",
+                "created_by_token": "usr_0ce8d894fa21de5b",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_e1996c96a8e319fa",
-                    "unit_scale": "per_thousand"
+                    "cost_report_token": "rprt_3e844c470bb76b93",
+                    "unit_scale": "per_thousand",
+                    "label_filter": [
+                      "CBGB",
+                      "Roxy",
+                      "Studio 54",
+                      ""
+                    ]
                   }
                 ],
                 "values": [
                   {
                     "date": "2024-01-03T00:00:00Z",
-                    "amount": "600.0",
-                    "label": "Cost Center 3"
+                    "amount": "600.0"
                   },
                   {
                     "date": "2024-01-02T00:00:00Z",
-                    "amount": "500.0",
-                    "label": "Cost Center 2"
+                    "amount": "500.0"
                   },
                   {
                     "date": "2024-01-01T00:00:00Z",
-                    "amount": "400.0",
-                    "label": "Cost Center 1"
+                    "amount": "400.0"
                   }
                 ]
               }
@@ -3351,9 +3471,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_59596ed70134f47d",
+                "token": "bsnss_mtrc_40f153ce6c3ca185",
                 "title": "Biz Metric",
-                "created_by_token": "usr_e72a26290a004436",
+                "created_by_token": "usr_d0f62560360b1481",
                 "cost_report_tokens_with_metadata": [],
                 "values": []
               }
@@ -3412,9 +3532,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_156e80749090ec63",
+                "token": "bsnss_mtrc_5bb17b18e416648d",
                 "title": "Biz Metric",
-                "created_by_token": "usr_eb8c890c9abf8d93",
+                "created_by_token": "usr_e2ac901c508a8174",
                 "cost_report_tokens_with_metadata": [],
                 "values": [
                   {
@@ -4679,7 +4799,7 @@
         "operationId": "getVirtualTagConfigs"
       }
     },
-    "/virtual_tag_configs/{virtual_tag_config_token}": {
+    "/virtual_tag_configs/{token}": {
       "delete": {
         "description": "Deletes an existing VirtualTagConfig.",
         "produces": [
@@ -4688,7 +4808,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "virtual_tag_config_token",
+            "name": "token",
             "type": "string",
             "required": true
           }
@@ -4736,7 +4856,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "virtual_tag_config_token",
+            "name": "token",
             "type": "string",
             "required": true
           },
@@ -4820,7 +4940,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "virtual_tag_config_token",
+            "name": "token",
             "type": "string",
             "required": true
           }
@@ -5872,6 +5992,100 @@
         "operationId": "getBudgetAlert"
       }
     },
+    "/integrations/azure": {
+      "post": {
+        "description": "Create an Azure Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createAzureIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAzureIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createAzureIntegration"
+      }
+    },
+    "/integrations/gcp": {
+      "post": {
+        "description": "Create a GCP Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createGCPIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createGCPIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createGCPIntegration"
+      }
+    },
     "/integrations": {
       "get": {
         "description": "Return all Integrations.",
@@ -5879,6 +6093,38 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "Query by provider name to list all Integrations for a specific provider.",
+            "type": "string",
+            "enum": [
+              "aws",
+              "azure",
+              "gcp",
+              "snowflake",
+              "databricks",
+              "mongo",
+              "datadog",
+              "fastly",
+              "new_relic",
+              "opencost",
+              "open_ai",
+              "oracle",
+              "confluent",
+              "planetscale",
+              "coralogix",
+              "kubernetes"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "account_identifier",
+            "description": "Query by account identifier to list all Integrations that match a specific account. For Azure, this is the subscription ID. Must include provider when using this parameter.",
+            "type": "string",
+            "required": false
+          },
           {
             "in": "query",
             "name": "page",
@@ -5920,17 +6166,13 @@
                 },
                 "integrations": [
                   {
-                    "token": "srvc_csts_intgrtn_bb539eb2076043b0",
-                    "provider_name": "AWS",
-                    "status": "connected",
-                    "created_at": "2024-04-11T20:03:22Z",
-                    "account": {
-                      "token": "accss_crdntl_725067ff0e5162f4",
-                      "account_name": "arn:aws:iam::179568901169:role/vantage-account-sync-20917ee9-f546-9f782f",
-                      "status": "imported",
-                      "workspace_tokens": [],
-                      "imports": []
-                    }
+                    "token": "accss_crdntl_c9f6ba7eaa9bd4e3",
+                    "provider": "gcp",
+                    "account_identifier": "project_id-42770b41",
+                    "created_at": "2024-05-21T21:04:15Z",
+                    "workspace_tokens": [
+                      "wrkspc_e534c1af8b725308"
+                    ]
                   }
                 ]
               }
@@ -5983,6 +6225,77 @@
         ],
         "operationId": "deleteIntegration"
       },
+      "put": {
+        "description": "Update an Integration.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "workspace_tokens",
+            "description": "The Workspace tokens to associate to the Integration.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_a020600529dca85d",
+                "provider": "gcp",
+                "account_identifier": "project_id-ec142c97",
+                "created_at": "2024-05-21T21:04:17Z",
+                "workspace_tokens": [
+                  "wrkspc_03264b030fa15556"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "updateIntegration"
+      },
       "get": {
         "description": "Return an Integration.",
         "produces": [
@@ -6011,17 +6324,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "srvc_csts_intgrtn_fdfa2d5bffbdfaae",
-                "provider_name": "AWS",
-                "status": "connected",
-                "created_at": "2024-04-11T20:03:22Z",
-                "account": {
-                  "token": "accss_crdntl_5a7b9ec532db4040",
-                  "account_name": "arn:aws:iam::261128324583:role/vantage-account-sync-0fa7868c-6c78-e8dab3",
-                  "status": "imported",
-                  "workspace_tokens": [],
-                  "imports": []
-                }
+                "token": "accss_crdntl_28957db4f0058a1b",
+                "provider": "gcp",
+                "account_identifier": "project_id-9e0f845a",
+                "created_at": "2024-05-21T21:04:18Z",
+                "workspace_tokens": [
+                  "wrkspc_6a613beaf9ecfc48"
+                ]
               }
             }
           },
@@ -6280,7 +6589,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -6337,7 +6646,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -6383,21 +6692,6 @@
     }
   },
   "definitions": {
-    "Workspaces": {
-      "type": "object",
-      "properties": {
-        "links": {
-          "type": "object"
-        },
-        "workspaces": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Workspace"
-          }
-        }
-      },
-      "description": "Workspaces model"
-    },
     "Workspace": {
       "type": "object",
       "properties": {
@@ -6408,6 +6702,11 @@
           "type": "string",
           "example": "Acme Corp.",
           "description": "The name of the Workspace."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Workspace was created. ISO 8601 Formatted."
         }
       },
       "description": "Workspace model"
@@ -6426,6 +6725,21 @@
         }
       },
       "description": "Errors model"
+    },
+    "Workspaces": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "workspaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Workspace"
+          }
+        }
+      },
+      "description": "Workspaces model"
     },
     "createFolder": {
       "type": "object",
@@ -6670,6 +6984,13 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "label_filter": {
+                "type": "array",
+                "description": "Include only values with these labels in the CostReport.",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "required": [
@@ -6750,7 +7071,7 @@
           "items": {
             "$ref": "#/definitions/AttachedBusinessMetricForCostReport"
           },
-          "description": "The tokens for the BusinessMetrics assigned to the CostReport, and the unit scale."
+          "description": "The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter."
         },
         "filter": {
           "type": "string",
@@ -6828,6 +7149,14 @@
             "per_billion"
           ],
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
+        },
+        "label_filter": {
+          "type": "string",
+          "example": [
+            "label_1",
+            "label_2"
+          ],
+          "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
         }
       }
     },
@@ -6889,6 +7218,13 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "label_filter": {
+                "type": "array",
+                "description": "Include only values with these labels in the CostReport.",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "required": [
@@ -7944,7 +8280,7 @@
         },
         "cost_report_tokens_with_metadata": {
           "type": "array",
-          "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale.",
+          "description": "The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.",
           "items": {
             "type": "object",
             "properties": {
@@ -7963,6 +8299,13 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "label_filter": {
+                "type": "array",
+                "description": "Include only values with these labels in the CostReport.",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "required": [
@@ -8024,7 +8367,7 @@
           "items": {
             "$ref": "#/definitions/AttachedCostReportForBusinessMetric"
           },
-          "description": "The tokens for any CostReports that use the BusinessMetric, and the unit scale."
+          "description": "The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter."
         },
         "values": {
           "type": "array",
@@ -8055,6 +8398,14 @@
             "per_billion"
           ],
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
+        },
+        "label_filter": {
+          "type": "string",
+          "example": [
+            "label_1",
+            "label_2"
+          ],
+          "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
         }
       }
     },
@@ -8118,6 +8469,13 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "label_filter": {
+                "type": "array",
+                "description": "Include only values with these labels in the CostReport.",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "required": [
@@ -8711,7 +9069,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2023-11-01",
+          "example": "2023-12-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -9195,6 +9553,96 @@
       },
       "description": "BudgetAlerts model"
     },
+    "createAzureIntegration": {
+      "type": "object",
+      "properties": {
+        "tenant": {
+          "type": "string",
+          "description": "Azure AD Tenant ID."
+        },
+        "app_id": {
+          "type": "string",
+          "description": "Service Principal Application ID."
+        },
+        "password": {
+          "type": "string",
+          "description": "Service Principal Password."
+        }
+      },
+      "required": [
+        "tenant",
+        "app_id",
+        "password"
+      ],
+      "description": "Create an Azure Integration"
+    },
+    "Integration": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string",
+          "example": "AWS",
+          "description": "The name of the Integration."
+        },
+        "account_identifier": {
+          "type": "string",
+          "example": "011389-EF4C3E-3ED7AE",
+          "description": "The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID"
+        },
+        "status": {
+          "type": "string",
+          "example": "connected",
+          "enum": [
+            "connected",
+            "disconnected"
+          ],
+          "description": "The status of the Integration. Can be 'connected' or 'disconnected'."
+        },
+        "workspace_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "wrkspc_abcd1234",
+              "wrkspc_efgh5678"
+            ]
+          },
+          "description": "The tokens for any Workspaces that the account belongs to."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
+        }
+      },
+      "description": "Integration model"
+    },
+    "createGCPIntegration": {
+      "type": "object",
+      "properties": {
+        "billing_account_id": {
+          "type": "string",
+          "description": "GCP billing account ID."
+        },
+        "project_id": {
+          "type": "string",
+          "description": "GCP project ID."
+        },
+        "dataset_name": {
+          "type": "string",
+          "description": "BigQuery dataset name."
+        }
+      },
+      "required": [
+        "billing_account_id",
+        "project_id",
+        "dataset_name"
+      ],
+      "description": "Create a GCP Integration"
+    },
     "Integrations": {
       "type": "object",
       "properties": {
@@ -9209,34 +9657,6 @@
         }
       },
       "description": "Integrations model"
-    },
-    "Integration": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        },
-        "provider_name": {
-          "type": "string",
-          "example": "AWS",
-          "description": "The name of the Integration."
-        },
-        "status": {
-          "type": "string",
-          "example": "connected",
-          "description": "The status of the Integration."
-        },
-        "created_at": {
-          "type": "string",
-          "example": "2023-08-04T00:00:00Z",
-          "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
-        },
-        "account": {
-          "type": "string",
-          "description": "The account for this Integration."
-        }
-      },
-      "description": "Integration model"
     },
     "Recommendations": {
       "type": "object",
