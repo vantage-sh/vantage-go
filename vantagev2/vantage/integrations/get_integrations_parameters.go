@@ -62,6 +62,12 @@ GetIntegrationsParams contains all the parameters to send to the API endpoint
 */
 type GetIntegrationsParams struct {
 
+	/* AccountIdentifier.
+
+	   Query by account identifier to list all Integrations that match a specific account. For Azure, this is the subscription ID. Must include provider when using this parameter.
+	*/
+	AccountIdentifier *string
+
 	/* Limit.
 
 	   The number of results to return. The maximum is 1000.
@@ -77,6 +83,12 @@ type GetIntegrationsParams struct {
 	   Format: int32
 	*/
 	Page *int32
+
+	/* Provider.
+
+	   Query by provider name to list all Integrations for a specific provider.
+	*/
+	Provider *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -131,6 +143,17 @@ func (o *GetIntegrationsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountIdentifier adds the accountIdentifier to the get integrations params
+func (o *GetIntegrationsParams) WithAccountIdentifier(accountIdentifier *string) *GetIntegrationsParams {
+	o.SetAccountIdentifier(accountIdentifier)
+	return o
+}
+
+// SetAccountIdentifier adds the accountIdentifier to the get integrations params
+func (o *GetIntegrationsParams) SetAccountIdentifier(accountIdentifier *string) {
+	o.AccountIdentifier = accountIdentifier
+}
+
 // WithLimit adds the limit to the get integrations params
 func (o *GetIntegrationsParams) WithLimit(limit *int32) *GetIntegrationsParams {
 	o.SetLimit(limit)
@@ -153,6 +176,17 @@ func (o *GetIntegrationsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithProvider adds the provider to the get integrations params
+func (o *GetIntegrationsParams) WithProvider(provider *string) *GetIntegrationsParams {
+	o.SetProvider(provider)
+	return o
+}
+
+// SetProvider adds the provider to the get integrations params
+func (o *GetIntegrationsParams) SetProvider(provider *string) {
+	o.Provider = provider
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetIntegrationsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +194,23 @@ func (o *GetIntegrationsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.AccountIdentifier != nil {
+
+		// query param account_identifier
+		var qrAccountIdentifier string
+
+		if o.AccountIdentifier != nil {
+			qrAccountIdentifier = *o.AccountIdentifier
+		}
+		qAccountIdentifier := qrAccountIdentifier
+		if qAccountIdentifier != "" {
+
+			if err := r.SetQueryParam("account_identifier", qAccountIdentifier); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 
@@ -190,6 +241,23 @@ func (o *GetIntegrationsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Provider != nil {
+
+		// query param provider
+		var qrProvider string
+
+		if o.Provider != nil {
+			qrProvider = *o.Provider
+		}
+		qProvider := qrProvider
+		if qProvider != "" {
+
+			if err := r.SetQueryParam("provider", qProvider); err != nil {
 				return err
 			}
 		}

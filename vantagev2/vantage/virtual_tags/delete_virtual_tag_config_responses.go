@@ -42,7 +42,7 @@ func (o *DeleteVirtualTagConfigReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("[DELETE /virtual_tag_configs/{virtual_tag_config_token}] deleteVirtualTagConfig", response, response.Code())
+		return nil, runtime.NewAPIError("[DELETE /virtual_tag_configs/{token}] deleteVirtualTagConfig", response, response.Code())
 	}
 }
 
@@ -91,11 +91,11 @@ func (o *DeleteVirtualTagConfigNoContent) Code() int {
 }
 
 func (o *DeleteVirtualTagConfigNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigNoContent) String() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigNoContent  %+v", 204, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigNoContent) GetPayload() *models.VirtualTagConfig {
@@ -159,11 +159,11 @@ func (o *DeleteVirtualTagConfigForbidden) Code() int {
 }
 
 func (o *DeleteVirtualTagConfigForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigForbidden) String() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigForbidden) GetPayload() *models.Errors {
@@ -227,11 +227,11 @@ func (o *DeleteVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *DeleteVirtualTagConfigNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigNotFound) String() string {
-	return fmt.Sprintf("[DELETE /virtual_tag_configs/{virtual_tag_config_token}][%d] deleteVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /virtual_tag_configs/{token}][%d] deleteVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteVirtualTagConfigNotFound) GetPayload() *models.Errors {

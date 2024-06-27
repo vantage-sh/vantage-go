@@ -30,11 +30,93 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateWorkspace(params *CreateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateWorkspaceCreated, error)
+
+	DeleteWorkspace(params *DeleteWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteWorkspaceNoContent, error)
+
 	GetWorkspace(params *GetWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspaceOK, error)
 
 	GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspacesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateWorkspace Create a workspace
+*/
+func (a *Client) CreateWorkspace(params *CreateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateWorkspaceCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createWorkspace",
+		Method:             "POST",
+		PathPattern:        "/workspaces",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateWorkspaceCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteWorkspace Delete a Workspace
+*/
+func (a *Client) DeleteWorkspace(params *DeleteWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteWorkspaceNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteWorkspace",
+		Method:             "DELETE",
+		PathPattern:        "/workspaces/{workspace_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteWorkspaceNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*

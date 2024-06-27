@@ -63,11 +63,11 @@ UpdateVirtualTagConfigParams contains all the parameters to send to the API endp
 */
 type UpdateVirtualTagConfigParams struct {
 
+	// Token.
+	Token string
+
 	// UpdateVirtualTagConfig.
 	UpdateVirtualTagConfig *models.UpdateVirtualTagConfig
-
-	// VirtualTagConfigToken.
-	VirtualTagConfigToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,6 +122,17 @@ func (o *UpdateVirtualTagConfigParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithToken adds the token to the update virtual tag config params
+func (o *UpdateVirtualTagConfigParams) WithToken(token string) *UpdateVirtualTagConfigParams {
+	o.SetToken(token)
+	return o
+}
+
+// SetToken adds the token to the update virtual tag config params
+func (o *UpdateVirtualTagConfigParams) SetToken(token string) {
+	o.Token = token
+}
+
 // WithUpdateVirtualTagConfig adds the updateVirtualTagConfig to the update virtual tag config params
 func (o *UpdateVirtualTagConfigParams) WithUpdateVirtualTagConfig(updateVirtualTagConfig *models.UpdateVirtualTagConfig) *UpdateVirtualTagConfigParams {
 	o.SetUpdateVirtualTagConfig(updateVirtualTagConfig)
@@ -133,17 +144,6 @@ func (o *UpdateVirtualTagConfigParams) SetUpdateVirtualTagConfig(updateVirtualTa
 	o.UpdateVirtualTagConfig = updateVirtualTagConfig
 }
 
-// WithVirtualTagConfigToken adds the virtualTagConfigToken to the update virtual tag config params
-func (o *UpdateVirtualTagConfigParams) WithVirtualTagConfigToken(virtualTagConfigToken string) *UpdateVirtualTagConfigParams {
-	o.SetVirtualTagConfigToken(virtualTagConfigToken)
-	return o
-}
-
-// SetVirtualTagConfigToken adds the virtualTagConfigToken to the update virtual tag config params
-func (o *UpdateVirtualTagConfigParams) SetVirtualTagConfigToken(virtualTagConfigToken string) {
-	o.VirtualTagConfigToken = virtualTagConfigToken
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateVirtualTagConfigParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -151,15 +151,15 @@ func (o *UpdateVirtualTagConfigParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
+
+	// path param token
+	if err := r.SetPathParam("token", o.Token); err != nil {
+		return err
+	}
 	if o.UpdateVirtualTagConfig != nil {
 		if err := r.SetBodyParam(o.UpdateVirtualTagConfig); err != nil {
 			return err
 		}
-	}
-
-	// path param virtual_tag_config_token
-	if err := r.SetPathParam("virtual_tag_config_token", o.VirtualTagConfigToken); err != nil {
-		return err
 	}
 
 	if len(res) > 0 {

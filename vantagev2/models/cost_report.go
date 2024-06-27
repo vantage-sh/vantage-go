@@ -19,7 +19,7 @@ import (
 // swagger:model CostReport
 type CostReport struct {
 
-	// The tokens for the BusinessMetrics assigned to the CostReport, and the unit scale.
+	// The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter.
 	BusinessMetricTokensWithMetadata []*AttachedBusinessMetricForCostReport `json:"business_metric_tokens_with_metadata"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.

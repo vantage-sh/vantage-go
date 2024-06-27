@@ -17,6 +17,10 @@ import (
 // swagger:model Workspace
 type Workspace struct {
 
+	// The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+	// Example: 2023-08-04T00:00:00Z
+	CreatedAt string `json:"created_at,omitempty"`
+
 	// The name of the Workspace.
 	// Example: Acme Corp.
 	Name string `json:"name,omitempty"`
