@@ -10060,6 +10060,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "billing_rule_tokens": {
+          "type": "array",
+          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -10090,6 +10097,10 @@
             "type": "string"
           },
           "description": "The tokens for the Access Credentials assigned to the Managed Account."
+        },
+        "billing_rule_tokens": {
+          "type": "string",
+          "description": "The tokens for the Billing Rules assigned to the Managed Account."
         }
       },
       "description": "ManagedAccount model"
@@ -10123,6 +10134,13 @@
         "access_credential_tokens": {
           "type": "array",
           "description": "Access Credential (aka Integrations) tokens to assign to the Managed Account.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "billing_rule_tokens": {
+          "type": "array",
+          "description": "Billing Rule tokens to assign to the Managed Account.",
           "items": {
             "type": "string"
           }

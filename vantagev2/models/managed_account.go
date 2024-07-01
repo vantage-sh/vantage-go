@@ -20,6 +20,9 @@ type ManagedAccount struct {
 	// The tokens for the Access Credentials assigned to the Managed Account.
 	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
+	// The tokens for the Billing Rules assigned to the Managed Account.
+	BillingRuleTokens string `json:"billing_rule_tokens,omitempty"`
+
 	// contact email
 	ContactEmail string `json:"contact_email,omitempty"`
 
