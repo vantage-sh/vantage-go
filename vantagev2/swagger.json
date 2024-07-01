@@ -9349,7 +9349,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2023-12-01",
+          "example": "2024-01-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -10085,7 +10085,10 @@
           "description": "The token for the parent Account."
         },
         "access_credential_tokens": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": "The tokens for the Access Credentials assigned to the Managed Account."
         }
       },

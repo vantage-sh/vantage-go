@@ -18,7 +18,7 @@ import (
 type ManagedAccount struct {
 
 	// The tokens for the Access Credentials assigned to the Managed Account.
-	AccessCredentialTokens string `json:"access_credential_tokens,omitempty"`
+	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
 	// contact email
 	ContactEmail string `json:"contact_email,omitempty"`
