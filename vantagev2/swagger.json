@@ -10099,7 +10099,10 @@
           "description": "The tokens for the Access Credentials assigned to the Managed Account."
         },
         "billing_rule_tokens": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": "The tokens for the Billing Rules assigned to the Managed Account."
         }
       },
