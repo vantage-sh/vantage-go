@@ -18,10 +18,10 @@ import (
 type UpdateManagedAccount struct {
 
 	// Access Credential (aka Integrations) tokens to assign to the Managed Account.
-	AccessCredentialTokens []string `json:"access_credential_tokens,omitempty"`
+	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
 	// Billing Rule tokens to assign to the Managed Account.
-	BillingRuleTokens []string `json:"billing_rule_tokens,omitempty"`
+	BillingRuleTokens []string `json:"billing_rule_tokens"`
 
 	// The contact email address for the Managed Account.
 	ContactEmail string `json:"contact_email,omitempty"`

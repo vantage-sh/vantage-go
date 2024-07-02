@@ -10059,16 +10059,14 @@
           "description": "Access Credential (aka Integrations) tokens to assign to the Managed Account.",
           "items": {
             "type": "string"
-          },
-          "x-omitempty": true
+          }
         },
         "billing_rule_tokens": {
           "type": "array",
           "description": "Billing Rule tokens to assign to the Managed Account.",
           "items": {
             "type": "string"
-          },
-          "x-omitempty": true
+          }
         }
       },
       "required": [
@@ -10141,16 +10139,14 @@
           "description": "Access Credential (aka Integrations) tokens to assign to the Managed Account.",
           "items": {
             "type": "string"
-          },
-          "x-omitempty": true
+          }
         },
         "billing_rule_tokens": {
           "type": "array",
           "description": "Billing Rule tokens to assign to the Managed Account.",
           "items": {
             "type": "string"
-          },
-          "x-omitempty": true
+          }
         }
       },
       "description": "Update a Managed Account."
