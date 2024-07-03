@@ -135,6 +135,10 @@
       "description": "Operations about ManagedAccounts"
     },
     {
+      "name": "BillingRules",
+      "description": "Operations about BillingRules"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -6946,6 +6950,288 @@
         "operationId": "getManagedAccount"
       }
     },
+    "/billing_rules": {
+      "post": {
+        "description": "Create a Billing Rule.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createBillingRule",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createBillingRule"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingRule"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bllng_rule_9cc9eab6bb73266b",
+                "title": "Credit for Data Transfer",
+                "type": "Credit",
+                "created_by_token": "usr_ae0b14f6c9108edc",
+                "created_at": "2024-07-02T15:26:52Z",
+                "service": "Amazon S3",
+                "category": "Data Transfer",
+                "sub_category": "Outbound",
+                "start_period": "2024-05-01",
+                "amount": "300.0"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingRules"
+        ],
+        "operationId": "createBillingRule"
+      },
+      "get": {
+        "description": "Returns a list of billing rules.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingRules"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/billing_rules",
+                  "first": "https://api.vantage.com/v2/billing_rules?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/billing_rules?page=1",
+                  "prev": null
+                },
+                "billing_rules": [
+                  {
+                    "token": "bllng_rule_ac6852c686e265a1",
+                    "title": "Exclude Reserved Instance Fees",
+                    "type": "Exclusion",
+                    "created_by_token": "usr_018532419bd2e1da",
+                    "created_at": "2024-07-02T15:26:51Z",
+                    "charge_type": "Reserved Instance Fees"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "BillingRules"
+        ],
+        "operationId": "getBillingRules"
+      }
+    },
+    "/billing_rules/{billing_rule_token}": {
+      "delete": {
+        "description": "Delete a Billing Rule.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_rule_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingRule"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingRules"
+        ],
+        "operationId": "deleteBillingRule"
+      },
+      "put": {
+        "description": "Update a Billing Rule.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_rule_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateBillingRule",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateBillingRule"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingRule"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bllng_rule_16c2d217f026d23e",
+                "title": "Updated Adjustment",
+                "type": "Adjustment",
+                "created_by_token": "usr_cef510966067477f",
+                "created_at": "2024-07-02T15:26:52Z",
+                "service": "Amazon S3",
+                "category": "Data Transfer",
+                "adjusted_rate": "0.85"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingRules"
+        ],
+        "operationId": "updateBillingRule"
+      },
+      "get": {
+        "description": "Return a Billing Rule.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_rule_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingRule"
+            },
+            "examples": {
+              "application/json": {
+                "token": "bllng_rule_a2708f17b2d3fb0e",
+                "title": "Exclude Reserved Instance Fees",
+                "type": "Exclusion",
+                "created_by_token": "usr_d253a52c80171514",
+                "created_at": "2024-07-02T15:26:50Z",
+                "charge_type": "Reserved Instance Fees"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingRules"
+        ],
+        "operationId": "getBillingRule"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -10150,6 +10436,186 @@
         }
       },
       "description": "Update a Managed Account."
+    },
+    "createBillingRule": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the Billing Rule. Note: the values are case insensitive.",
+          "enum": [
+            "exclusion",
+            "adjustment",
+            "credit",
+            "charge"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the Billing Rule."
+        },
+        "charge_type": {
+          "type": "string",
+          "description": "The charge type of the Billing Rule."
+        },
+        "adjusted_rate": {
+          "type": "number",
+          "format": "double",
+          "description": "The adjusted rate of the Billing Rule. Example value: 0.85"
+        },
+        "service": {
+          "type": "string",
+          "description": "The service of the Billing Rule."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the Billing Rule."
+        },
+        "sub_category": {
+          "type": "string",
+          "description": "The subcategory of the Billing Rule."
+        },
+        "start_period": {
+          "type": "string",
+          "description": "The start period of the Billing Rule."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The credit amount for the Billing Rule. Example value: 300"
+        }
+      },
+      "required": [
+        "type",
+        "title",
+        "charge_type",
+        "adjusted_rate",
+        "service",
+        "category",
+        "sub_category",
+        "start_period",
+        "amount"
+      ],
+      "description": "Create a Billing Rule."
+    },
+    "BillingRule": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Credit for Unused EC2 Instances",
+          "description": "The title of the Billing Rule."
+        },
+        "type": {
+          "type": "string",
+          "example": "credit",
+          "description": "The type of the Billing Rule."
+        },
+        "created_by_token": {
+          "type": "string",
+          "example": "usr_1234",
+          "description": "The token of the User who created the Billing Rule."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-06-28T00:00:00Z",
+          "description": "The date and time, in UTC, the Billing Rule was created. ISO 8601 Formatted."
+        },
+        "service": {
+          "type": "string",
+          "example": "AWS Cloudfront",
+          "description": "The service for the Billing Rule (Charge)."
+        },
+        "category": {
+          "type": "string",
+          "example": "MSP Fee",
+          "description": "The category for the Billing Rule (Charge)."
+        },
+        "adjusted_rate": {
+          "type": "string",
+          "example": "0.85",
+          "description": "The adjusted rate for the Billing Rule (Adjustment)."
+        },
+        "charge_type": {
+          "type": "string",
+          "example": "RIFee",
+          "description": "The charge type for the Billing Rule."
+        },
+        "sub_category": {
+          "type": "string",
+          "example": "One-time",
+          "description": "The subcategory for the Billing Rule (Charge)."
+        },
+        "start_period": {
+          "type": "string",
+          "example": "2024-05-01",
+          "description": "The start period for the Billing Rule (Charge)."
+        },
+        "amount": {
+          "type": "string",
+          "example": "5000.25",
+          "description": "The amount for the Billing Rule (Charge)."
+        }
+      },
+      "description": "BillingRule model"
+    },
+    "BillingRules": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "billing_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BillingRule"
+          }
+        }
+      },
+      "description": "BillingRules model"
+    },
+    "updateBillingRule": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Billing Rule."
+        },
+        "charge_type": {
+          "type": "string",
+          "description": "The charge type of the Billing Rule."
+        },
+        "adjusted_rate": {
+          "type": "number",
+          "format": "double",
+          "description": "The adjusted rate of the Billing Rule. Example value: 0.85"
+        },
+        "service": {
+          "type": "string",
+          "description": "The service of the Billing Rule."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the Billing Rule."
+        },
+        "sub_category": {
+          "type": "string",
+          "description": "The subcategory of the Billing Rule."
+        },
+        "start_period": {
+          "type": "string",
+          "description": "The start period of the Billing Rule."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The credit amount for the Billing Rule. Example value: 300"
+        }
+      },
+      "description": "Update a Billing Rule."
     }
   }
 }

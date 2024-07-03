@@ -13,6 +13,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_notifications"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/billing_rules"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budget_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budgets"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
@@ -82,6 +83,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.AccessGrants = access_grants.New(transport, formats)
 	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
 	cli.AnomalyNotifications = anomaly_notifications.New(transport, formats)
+	cli.BillingRules = billing_rules.New(transport, formats)
 	cli.BudgetAlerts = budget_alerts.New(transport, formats)
 	cli.Budgets = budgets.New(transport, formats)
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
@@ -154,6 +156,8 @@ type Vantage struct {
 
 	AnomalyNotifications anomaly_notifications.ClientService
 
+	BillingRules billing_rules.ClientService
+
 	BudgetAlerts budget_alerts.ClientService
 
 	Budgets budgets.ClientService
@@ -207,6 +211,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.AccessGrants.SetTransport(transport)
 	c.AnomalyAlerts.SetTransport(transport)
 	c.AnomalyNotifications.SetTransport(transport)
+	c.BillingRules.SetTransport(transport)
 	c.BudgetAlerts.SetTransport(transport)
 	c.Budgets.SetTransport(transport)
 	c.BusinessMetrics.SetTransport(transport)
