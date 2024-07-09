@@ -26,6 +26,12 @@ type CostReport struct {
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The date interval of the CostReport.
+	DateInterval string `json:"date_interval,omitempty"`
+
+	// The end date of the CostReport.
+	EndDate string `json:"end_date,omitempty"`
+
 	// The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
@@ -36,11 +42,20 @@ type CostReport struct {
 	// Example: provider, service
 	Groupings string `json:"groupings,omitempty"`
 
+	// The previous period end date of the CostReport.
+	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
+
+	// The previous period start date of the CostReport.
+	PreviousPeriodStartDate string `json:"previous_period_start_date,omitempty"`
+
 	// The tokens for the SavedFilters assigned to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
 	// settings
 	Settings *CostReportSettings `json:"settings,omitempty"`
+
+	// The start date of the CostReport.
+	StartDate string `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
 	// Example: Production Environment

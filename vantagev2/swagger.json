@@ -963,15 +963,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_c2ee1cd9e7ccd603",
+                "token": "rprt_5f44ad28b9dc951a",
                 "title": "New Cost Report",
-                "folder_token": "fldr_528b03e8fa640203",
+                "folder_token": "fldr_f752bc0ba85e9713",
                 "saved_filter_tokens": [
-                  "svd_fltr_b39dc05166db219b"
+                  "svd_fltr_1cbf92fcba6d15f3"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_36727ba9218d86a8",
+                    "business_metric_token": "bsnss_mtrc_74a9d1a677314b1a",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -991,8 +991,13 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-05-30T19:21:23Z",
-                "workspace_token": "wrkspc_eb6f18210690aacd"
+                "created_at": "2024-07-03T00:00:00Z",
+                "workspace_token": "wrkspc_9a4bf4c944d8675b",
+                "previous_period_start_date": null,
+                "previous_period_end_date": null,
+                "start_date": "2024-07-01",
+                "end_date": "2024-07-31",
+                "date_interval": "this_month"
               }
             }
           },
@@ -1061,11 +1066,11 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_0608577e53d6c651",
+                    "token": "rprt_c8e112c7c70aaf5c",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_13861a15cd961e2f"
+                      "svd_fltr_444d248964e0fbce"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
@@ -1078,8 +1083,13 @@
                       "amortize": true,
                       "unallocated": false
                     },
-                    "created_at": "2024-05-30T19:21:31Z",
-                    "workspace_token": "wrkspc_6c53526b68b2edbe"
+                    "created_at": "2024-07-08T18:12:47Z",
+                    "workspace_token": "wrkspc_aaee1042ddd18008",
+                    "previous_period_start_date": null,
+                    "previous_period_end_date": null,
+                    "start_date": "2024-07-01",
+                    "end_date": "2024-07-31",
+                    "date_interval": "this_month"
                   }
                 ]
               }
@@ -1171,15 +1181,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_b2f3c94e3dc36e50",
+                "token": "rprt_0dada2ecf915e5f3",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_204ea64bf25c0c68",
+                "folder_token": "fldr_ea61baacdfed345a",
                 "saved_filter_tokens": [
-                  "svd_fltr_132d8ecb4811b76b"
+                  "svd_fltr_38c2e7a29e85ad90"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_8c5768bdc4d98ba8",
+                    "business_metric_token": "bsnss_mtrc_a9d11ecad882e001",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1187,6 +1197,10 @@
                       "Studio 54",
                       ""
                     ]
+                  },
+                  {
+                    "business_metric_token": "bsnss_mtrc_668deeee5467a54e",
+                    "unit_scale": "per_million"
                   }
                 ],
                 "filter": "costs.provider = 'azure'",
@@ -1199,8 +1213,13 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-05-30T19:21:21Z",
-                "workspace_token": "wrkspc_c782abe004135948"
+                "created_at": "2024-07-03T00:00:00Z",
+                "workspace_token": "wrkspc_5f5e80c9942df5df",
+                "previous_period_start_date": null,
+                "previous_period_end_date": null,
+                "start_date": "2024-07-01",
+                "end_date": "2024-07-31",
+                "date_interval": "this_month"
               }
             }
           },
@@ -1250,15 +1269,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_7a215c422717ebd4",
-                "title": "Untitled",
-                "folder_token": null,
-                "saved_filter_tokens": [
-                  "svd_fltr_9a6bcacc848126e1"
-                ],
+                "token": "rprt_8119e5d5af93787e",
+                "title": "Segment Report",
+                "folder_token": "fldr_b88d231f2b19ab84",
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
-                "groupings": "provider,service",
+                "groupings": null,
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1267,8 +1283,13 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-05-30T19:21:13Z",
-                "workspace_token": "wrkspc_4023ad1c4083b127"
+                "created_at": "2024-07-03T00:00:00Z",
+                "workspace_token": "wrkspc_475b66f46d80726f",
+                "previous_period_start_date": null,
+                "previous_period_end_date": null,
+                "start_date": "2024-07-01",
+                "end_date": "2024-07-31",
+                "date_interval": "this_month"
               }
             }
           },
@@ -7603,6 +7624,46 @@
               "default": false
             }
           }
+        },
+        "previous_period_start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The previous period start time of the CostReport."
+        },
+        "previous_period_end_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The previous peridod end time of the CostReport."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start time of the CostReport."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end time of the CostReport."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the CostReport.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months"
+          ]
         }
       },
       "required": [
@@ -7692,6 +7753,26 @@
         "workspace_token": {
           "type": "string",
           "description": "The token for the Workspace the CostReport is a part of."
+        },
+        "previous_period_start_date": {
+          "type": "string",
+          "description": "The previous period start date of the CostReport."
+        },
+        "previous_period_end_date": {
+          "type": "string",
+          "description": "The previous period end date of the CostReport."
+        },
+        "start_date": {
+          "type": "string",
+          "description": "The start date of the CostReport."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "The end date of the CostReport."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the CostReport."
         }
       },
       "description": "CostReport model"
@@ -7831,6 +7912,46 @@
               "description": "Report will show unallocated costs."
             }
           }
+        },
+        "previous_period_start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The previous period start time of the CostReport."
+        },
+        "previous_period_end_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The previous peridod end time of the CostReport."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start time of the CostReport."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end time of the CostReport."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the CostReport.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months"
+          ]
         }
       },
       "description": "Update a CostReport."
@@ -10458,10 +10579,10 @@
           "type": "string",
           "description": "The charge type of the Billing Rule."
         },
-        "adjusted_rate": {
+        "percentage": {
           "type": "number",
           "format": "double",
-          "description": "The adjusted rate of the Billing Rule. Example value: 0.85"
+          "description": "The percentage of the cost shown. Example value: 75.0"
         },
         "service": {
           "type": "string",
@@ -10482,14 +10603,14 @@
         "amount": {
           "type": "number",
           "format": "double",
-          "description": "The credit amount for the Billing Rule. Example value: 300"
+          "description": "The amount for the Billing Rule. Example value: 300"
         }
       },
       "required": [
         "type",
         "title",
         "charge_type",
-        "adjusted_rate",
+        "percentage",
         "service",
         "category",
         "sub_category",
@@ -10534,10 +10655,10 @@
           "example": "MSP Fee",
           "description": "The category for the Billing Rule (Charge)."
         },
-        "adjusted_rate": {
+        "percentage": {
           "type": "string",
-          "example": "0.85",
-          "description": "The adjusted rate for the Billing Rule (Adjustment)."
+          "example": "75.0",
+          "description": "The percentage of the cost shown for the Billing Rule (Adjustment)."
         },
         "charge_type": {
           "type": "string",
@@ -10588,10 +10709,10 @@
           "type": "string",
           "description": "The charge type of the Billing Rule."
         },
-        "adjusted_rate": {
+        "percentage": {
           "type": "number",
           "format": "double",
-          "description": "The adjusted rate of the Billing Rule. Example value: 0.85"
+          "description": "The percentage of the cost shown. Example value: 75.0"
         },
         "service": {
           "type": "string",

@@ -20,11 +20,7 @@ import (
 // swagger:model createBillingRule
 type CreateBillingRule struct {
 
-	// The adjusted rate of the Billing Rule. Example value: 0.85
-	// Required: true
-	AdjustedRate *float64 `json:"adjusted_rate"`
-
-	// The credit amount for the Billing Rule. Example value: 300
+	// The amount for the Billing Rule. Example value: 300
 	// Required: true
 	Amount *float64 `json:"amount"`
 
@@ -35,6 +31,10 @@ type CreateBillingRule struct {
 	// The charge type of the Billing Rule.
 	// Required: true
 	ChargeType *string `json:"charge_type"`
+
+	// The percentage of the cost shown. Example value: 75.0
+	// Required: true
+	Percentage *float64 `json:"percentage"`
 
 	// The service of the Billing Rule.
 	// Required: true
@@ -62,10 +62,6 @@ type CreateBillingRule struct {
 func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAdjustedRate(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateAmount(formats); err != nil {
 		res = append(res, err)
 	}
@@ -75,6 +71,10 @@ func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateChargeType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePercentage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,15 +104,6 @@ func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateBillingRule) validateAdjustedRate(formats strfmt.Registry) error {
-
-	if err := validate.Required("adjusted_rate", "body", m.AdjustedRate); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *CreateBillingRule) validateAmount(formats strfmt.Registry) error {
 
 	if err := validate.Required("amount", "body", m.Amount); err != nil {
@@ -134,6 +125,15 @@ func (m *CreateBillingRule) validateCategory(formats strfmt.Registry) error {
 func (m *CreateBillingRule) validateChargeType(formats strfmt.Registry) error {
 
 	if err := validate.Required("charge_type", "body", m.ChargeType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBillingRule) validatePercentage(formats strfmt.Registry) error {
+
+	if err := validate.Required("percentage", "body", m.Percentage); err != nil {
 		return err
 	}
 

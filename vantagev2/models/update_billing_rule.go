@@ -17,9 +17,6 @@ import (
 // swagger:model updateBillingRule
 type UpdateBillingRule struct {
 
-	// The adjusted rate of the Billing Rule. Example value: 0.85
-	AdjustedRate float64 `json:"adjusted_rate,omitempty"`
-
 	// The credit amount for the Billing Rule. Example value: 300
 	Amount float64 `json:"amount,omitempty"`
 
@@ -28,6 +25,9 @@ type UpdateBillingRule struct {
 
 	// The charge type of the Billing Rule.
 	ChargeType string `json:"charge_type,omitempty"`
+
+	// The percentage of the cost shown. Example value: 75.0
+	Percentage float64 `json:"percentage,omitempty"`
 
 	// The service of the Billing Rule.
 	Service string `json:"service,omitempty"`

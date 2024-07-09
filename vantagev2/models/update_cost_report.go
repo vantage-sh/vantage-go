@@ -24,6 +24,14 @@ type UpdateCostReport struct {
 	// The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
 	BusinessMetricTokensWithMetadata []*UpdateCostReportBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
+	// The date interval of the CostReport.
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months]
+	DateInterval string `json:"date_interval,omitempty"`
+
+	// The end time of the CostReport.
+	// Format: date-time
+	EndDate strfmt.DateTime `json:"end_date,omitempty"`
+
 	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
@@ -33,11 +41,23 @@ type UpdateCostReport struct {
 	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
+	// The previous peridod end time of the CostReport.
+	// Format: date-time
+	PreviousPeriodEndDate strfmt.DateTime `json:"previous_period_end_date,omitempty"`
+
+	// The previous period start time of the CostReport.
+	// Format: date-time
+	PreviousPeriodStartDate strfmt.DateTime `json:"previous_period_start_date,omitempty"`
+
 	// The tokens of the SavedFilters to apply to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
 	// settings
 	Settings *UpdateCostReportSettings `json:"settings,omitempty"`
+
+	// The start time of the CostReport.
+	// Format: date-time
+	StartDate strfmt.DateTime `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
 	Title string `json:"title,omitempty"`
@@ -51,7 +71,27 @@ func (m *UpdateCostReport) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreviousPeriodEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreviousPeriodStartDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStartDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,6 +127,120 @@ func (m *UpdateCostReport) validateBusinessMetricTokensWithMetadata(formats strf
 	return nil
 }
 
+var updateCostReportTypeDateIntervalPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateCostReportTypeDateIntervalPropEnum = append(updateCostReportTypeDateIntervalPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateCostReportDateIntervalThisMonth captures enum value "this_month"
+	UpdateCostReportDateIntervalThisMonth string = "this_month"
+
+	// UpdateCostReportDateIntervalLast7Days captures enum value "last_7_days"
+	UpdateCostReportDateIntervalLast7Days string = "last_7_days"
+
+	// UpdateCostReportDateIntervalLast30Days captures enum value "last_30_days"
+	UpdateCostReportDateIntervalLast30Days string = "last_30_days"
+
+	// UpdateCostReportDateIntervalLastMonth captures enum value "last_month"
+	UpdateCostReportDateIntervalLastMonth string = "last_month"
+
+	// UpdateCostReportDateIntervalLast3Months captures enum value "last_3_months"
+	UpdateCostReportDateIntervalLast3Months string = "last_3_months"
+
+	// UpdateCostReportDateIntervalLast6Months captures enum value "last_6_months"
+	UpdateCostReportDateIntervalLast6Months string = "last_6_months"
+
+	// UpdateCostReportDateIntervalCustom captures enum value "custom"
+	UpdateCostReportDateIntervalCustom string = "custom"
+
+	// UpdateCostReportDateIntervalLast12Months captures enum value "last_12_months"
+	UpdateCostReportDateIntervalLast12Months string = "last_12_months"
+
+	// UpdateCostReportDateIntervalLast24Months captures enum value "last_24_months"
+	UpdateCostReportDateIntervalLast24Months string = "last_24_months"
+
+	// UpdateCostReportDateIntervalLast36Months captures enum value "last_36_months"
+	UpdateCostReportDateIntervalLast36Months string = "last_36_months"
+
+	// UpdateCostReportDateIntervalNextMonth captures enum value "next_month"
+	UpdateCostReportDateIntervalNextMonth string = "next_month"
+
+	// UpdateCostReportDateIntervalNext3Months captures enum value "next_3_months"
+	UpdateCostReportDateIntervalNext3Months string = "next_3_months"
+
+	// UpdateCostReportDateIntervalNext6Months captures enum value "next_6_months"
+	UpdateCostReportDateIntervalNext6Months string = "next_6_months"
+
+	// UpdateCostReportDateIntervalNext12Months captures enum value "next_12_months"
+	UpdateCostReportDateIntervalNext12Months string = "next_12_months"
+)
+
+// prop value enum
+func (m *UpdateCostReport) validateDateIntervalEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateCostReportTypeDateIntervalPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateCostReport) validateDateInterval(formats strfmt.Registry) error {
+	if swag.IsZero(m.DateInterval) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateDateIntervalEnum("date_interval", "body", m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateCostReport) validateEndDate(formats strfmt.Registry) error {
+	if swag.IsZero(m.EndDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("end_date", "body", "date-time", m.EndDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateCostReport) validatePreviousPeriodEndDate(formats strfmt.Registry) error {
+	if swag.IsZero(m.PreviousPeriodEndDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("previous_period_end_date", "body", "date-time", m.PreviousPeriodEndDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateCostReport) validatePreviousPeriodStartDate(formats strfmt.Registry) error {
+	if swag.IsZero(m.PreviousPeriodStartDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("previous_period_start_date", "body", "date-time", m.PreviousPeriodStartDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *UpdateCostReport) validateSettings(formats strfmt.Registry) error {
 	if swag.IsZero(m.Settings) { // not required
 		return nil
@@ -101,6 +255,18 @@ func (m *UpdateCostReport) validateSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *UpdateCostReport) validateStartDate(formats strfmt.Registry) error {
+	if swag.IsZero(m.StartDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("start_date", "body", "date-time", m.StartDate.String(), formats); err != nil {
+		return err
 	}
 
 	return nil

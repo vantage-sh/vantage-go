@@ -17,10 +17,6 @@ import (
 // swagger:model BillingRule
 type BillingRule struct {
 
-	// The adjusted rate for the Billing Rule (Adjustment).
-	// Example: 0.85
-	AdjustedRate string `json:"adjusted_rate,omitempty"`
-
 	// The amount for the Billing Rule (Charge).
 	// Example: 5000.25
 	Amount string `json:"amount,omitempty"`
@@ -40,6 +36,10 @@ type BillingRule struct {
 	// The token of the User who created the Billing Rule.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
+
+	// The percentage of the cost shown for the Billing Rule (Adjustment).
+	// Example: 75.0
+	Percentage string `json:"percentage,omitempty"`
 
 	// The service for the Billing Rule (Charge).
 	// Example: AWS Cloudfront
