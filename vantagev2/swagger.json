@@ -6618,7 +6618,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -6675,7 +6675,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -7798,11 +7798,15 @@
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
         "label_filter": {
-          "type": "string",
-          "example": [
-            "label_1",
-            "label_2"
-          ],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "label_1",
+              "label_2"
+            ]
+          },
+          "x-omitempty": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
         }
       }
@@ -9087,11 +9091,15 @@
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
         "label_filter": {
-          "type": "string",
-          "example": [
-            "label_1",
-            "label_2"
-          ],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "label_1",
+              "label_2"
+            ]
+          },
+          "x-omitempty": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
         }
       }
