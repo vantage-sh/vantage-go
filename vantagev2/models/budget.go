@@ -29,6 +29,9 @@ type Budget struct {
 	// Example: 2024-03-19T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The token for the Creator of this Budget.
+	CreatedByToken string `json:"created_by_token,omitempty"`
+
 	// The name of the Budget.
 	// Example: Acme123 Budget
 	Name string `json:"name,omitempty"`

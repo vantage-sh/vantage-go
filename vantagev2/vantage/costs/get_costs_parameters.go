@@ -96,6 +96,48 @@ type GetCostsParams struct {
 	*/
 	Order *string
 
+	/* SettingsAmortize.
+
+	   Results will amortize.
+
+	   Default: true
+	*/
+	SettingsAmortize *bool
+
+	/* SettingsIncludeCredits.
+
+	   Results will include credits.
+	*/
+	SettingsIncludeCredits *bool
+
+	/* SettingsIncludeDiscounts.
+
+	   Results will include discounts.
+
+	   Default: true
+	*/
+	SettingsIncludeDiscounts *bool
+
+	/* SettingsIncludeRefunds.
+
+	   Results will include refunds.
+	*/
+	SettingsIncludeRefunds *bool
+
+	/* SettingsIncludeTax.
+
+	   Results will include tax.
+
+	   Default: true
+	*/
+	SettingsIncludeTax *bool
+
+	/* SettingsUnallocated.
+
+	   Results will show unallocated costs.
+	*/
+	SettingsUnallocated *bool
+
 	/* StartDate.
 
 	   First date you would like to filter costs from. ISO 8601 formatted.
@@ -121,10 +163,28 @@ func (o *GetCostsParams) WithDefaults() *GetCostsParams {
 func (o *GetCostsParams) SetDefaults() {
 	var (
 		orderDefault = string("desc")
+
+		settingsAmortizeDefault = bool(true)
+
+		settingsIncludeCreditsDefault = bool(false)
+
+		settingsIncludeDiscountsDefault = bool(true)
+
+		settingsIncludeRefundsDefault = bool(false)
+
+		settingsIncludeTaxDefault = bool(true)
+
+		settingsUnallocatedDefault = bool(false)
 	)
 
 	val := GetCostsParams{
-		Order: &orderDefault,
+		Order:                    &orderDefault,
+		SettingsAmortize:         &settingsAmortizeDefault,
+		SettingsIncludeCredits:   &settingsIncludeCreditsDefault,
+		SettingsIncludeDiscounts: &settingsIncludeDiscountsDefault,
+		SettingsIncludeRefunds:   &settingsIncludeRefundsDefault,
+		SettingsIncludeTax:       &settingsIncludeTaxDefault,
+		SettingsUnallocated:      &settingsUnallocatedDefault,
 	}
 
 	val.timeout = o.timeout
@@ -221,6 +281,72 @@ func (o *GetCostsParams) SetOrder(order *string) {
 	o.Order = order
 }
 
+// WithSettingsAmortize adds the settingsAmortize to the get costs params
+func (o *GetCostsParams) WithSettingsAmortize(settingsAmortize *bool) *GetCostsParams {
+	o.SetSettingsAmortize(settingsAmortize)
+	return o
+}
+
+// SetSettingsAmortize adds the settingsAmortize to the get costs params
+func (o *GetCostsParams) SetSettingsAmortize(settingsAmortize *bool) {
+	o.SettingsAmortize = settingsAmortize
+}
+
+// WithSettingsIncludeCredits adds the settingsIncludeCredits to the get costs params
+func (o *GetCostsParams) WithSettingsIncludeCredits(settingsIncludeCredits *bool) *GetCostsParams {
+	o.SetSettingsIncludeCredits(settingsIncludeCredits)
+	return o
+}
+
+// SetSettingsIncludeCredits adds the settingsIncludeCredits to the get costs params
+func (o *GetCostsParams) SetSettingsIncludeCredits(settingsIncludeCredits *bool) {
+	o.SettingsIncludeCredits = settingsIncludeCredits
+}
+
+// WithSettingsIncludeDiscounts adds the settingsIncludeDiscounts to the get costs params
+func (o *GetCostsParams) WithSettingsIncludeDiscounts(settingsIncludeDiscounts *bool) *GetCostsParams {
+	o.SetSettingsIncludeDiscounts(settingsIncludeDiscounts)
+	return o
+}
+
+// SetSettingsIncludeDiscounts adds the settingsIncludeDiscounts to the get costs params
+func (o *GetCostsParams) SetSettingsIncludeDiscounts(settingsIncludeDiscounts *bool) {
+	o.SettingsIncludeDiscounts = settingsIncludeDiscounts
+}
+
+// WithSettingsIncludeRefunds adds the settingsIncludeRefunds to the get costs params
+func (o *GetCostsParams) WithSettingsIncludeRefunds(settingsIncludeRefunds *bool) *GetCostsParams {
+	o.SetSettingsIncludeRefunds(settingsIncludeRefunds)
+	return o
+}
+
+// SetSettingsIncludeRefunds adds the settingsIncludeRefunds to the get costs params
+func (o *GetCostsParams) SetSettingsIncludeRefunds(settingsIncludeRefunds *bool) {
+	o.SettingsIncludeRefunds = settingsIncludeRefunds
+}
+
+// WithSettingsIncludeTax adds the settingsIncludeTax to the get costs params
+func (o *GetCostsParams) WithSettingsIncludeTax(settingsIncludeTax *bool) *GetCostsParams {
+	o.SetSettingsIncludeTax(settingsIncludeTax)
+	return o
+}
+
+// SetSettingsIncludeTax adds the settingsIncludeTax to the get costs params
+func (o *GetCostsParams) SetSettingsIncludeTax(settingsIncludeTax *bool) {
+	o.SettingsIncludeTax = settingsIncludeTax
+}
+
+// WithSettingsUnallocated adds the settingsUnallocated to the get costs params
+func (o *GetCostsParams) WithSettingsUnallocated(settingsUnallocated *bool) *GetCostsParams {
+	o.SetSettingsUnallocated(settingsUnallocated)
+	return o
+}
+
+// SetSettingsUnallocated adds the settingsUnallocated to the get costs params
+func (o *GetCostsParams) SetSettingsUnallocated(settingsUnallocated *bool) {
+	o.SettingsUnallocated = settingsUnallocated
+}
+
 // WithStartDate adds the startDate to the get costs params
 func (o *GetCostsParams) WithStartDate(startDate *string) *GetCostsParams {
 	o.SetStartDate(startDate)
@@ -307,6 +433,108 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qOrder != "" {
 
 			if err := r.SetQueryParam("order", qOrder); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsAmortize != nil {
+
+		// query param settings[amortize]
+		var qrSettingsAmortize bool
+
+		if o.SettingsAmortize != nil {
+			qrSettingsAmortize = *o.SettingsAmortize
+		}
+		qSettingsAmortize := swag.FormatBool(qrSettingsAmortize)
+		if qSettingsAmortize != "" {
+
+			if err := r.SetQueryParam("settings[amortize]", qSettingsAmortize); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsIncludeCredits != nil {
+
+		// query param settings[include_credits]
+		var qrSettingsIncludeCredits bool
+
+		if o.SettingsIncludeCredits != nil {
+			qrSettingsIncludeCredits = *o.SettingsIncludeCredits
+		}
+		qSettingsIncludeCredits := swag.FormatBool(qrSettingsIncludeCredits)
+		if qSettingsIncludeCredits != "" {
+
+			if err := r.SetQueryParam("settings[include_credits]", qSettingsIncludeCredits); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsIncludeDiscounts != nil {
+
+		// query param settings[include_discounts]
+		var qrSettingsIncludeDiscounts bool
+
+		if o.SettingsIncludeDiscounts != nil {
+			qrSettingsIncludeDiscounts = *o.SettingsIncludeDiscounts
+		}
+		qSettingsIncludeDiscounts := swag.FormatBool(qrSettingsIncludeDiscounts)
+		if qSettingsIncludeDiscounts != "" {
+
+			if err := r.SetQueryParam("settings[include_discounts]", qSettingsIncludeDiscounts); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsIncludeRefunds != nil {
+
+		// query param settings[include_refunds]
+		var qrSettingsIncludeRefunds bool
+
+		if o.SettingsIncludeRefunds != nil {
+			qrSettingsIncludeRefunds = *o.SettingsIncludeRefunds
+		}
+		qSettingsIncludeRefunds := swag.FormatBool(qrSettingsIncludeRefunds)
+		if qSettingsIncludeRefunds != "" {
+
+			if err := r.SetQueryParam("settings[include_refunds]", qSettingsIncludeRefunds); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsIncludeTax != nil {
+
+		// query param settings[include_tax]
+		var qrSettingsIncludeTax bool
+
+		if o.SettingsIncludeTax != nil {
+			qrSettingsIncludeTax = *o.SettingsIncludeTax
+		}
+		qSettingsIncludeTax := swag.FormatBool(qrSettingsIncludeTax)
+		if qSettingsIncludeTax != "" {
+
+			if err := r.SetQueryParam("settings[include_tax]", qSettingsIncludeTax); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsUnallocated != nil {
+
+		// query param settings[unallocated]
+		var qrSettingsUnallocated bool
+
+		if o.SettingsUnallocated != nil {
+			qrSettingsUnallocated = *o.SettingsUnallocated
+		}
+		qSettingsUnallocated := swag.FormatBool(qrSettingsUnallocated)
+		if qSettingsUnallocated != "" {
+
+			if err := r.SetQueryParam("settings[unallocated]", qSettingsUnallocated); err != nil {
 				return err
 			}
 		}

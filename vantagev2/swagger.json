@@ -667,13 +667,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "svd_fltr_84a8a4e35a845f97",
+                "token": "svd_fltr_4de629566ddd68c9",
                 "title": "New Saved Filter",
                 "cost_report_tokens": [],
-                "filter": "(costs.provider = 'datadog')",
-                "created_at": "2023-09-12T05:06:52Z",
-                "created_by": "usr_4011f2b8a607729d",
-                "workspace_token": "wrkspc_6f54abb1b2a5aefc"
+                "filter": "costs.provider = 'datadog'",
+                "created_at": "2024-07-15T16:08:58Z",
+                "created_by": "team_e58399e4df1175e9",
+                "workspace_token": "wrkspc_e4cacf2493142e5b"
               }
             }
           },
@@ -742,15 +742,15 @@
                 },
                 "saved_filters": [
                   {
-                    "token": "svd_fltr_52a89bb6b1c84380",
-                    "title": "White",
+                    "token": "svd_fltr_3dffc0458f7a2487",
+                    "title": "Oolong (5)",
                     "cost_report_tokens": [
-                      "rprt_fef8f7e70f993108"
+                      "rprt_3d0ae4648f5fd8f7"
                     ],
-                    "filter": "(costs.provider = 'aws' AND costs.account_id = '74')",
-                    "created_at": "2023-09-12T05:07:35Z",
-                    "created_by": "usr_055cb925f37bfa75",
-                    "workspace_token": "wrkspc_c3a582b964a67afd"
+                    "filter": "(costs.provider = 'aws' AND costs.account_id = '30')",
+                    "created_at": "2024-07-15T16:08:53Z",
+                    "created_by": "usr_95fac32734bdceab",
+                    "workspace_token": "wrkspc_914dcb0959497507"
                   }
                 ]
               }
@@ -842,13 +842,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "svd_fltr_92c840f4c76c76b3",
+                "token": "svd_fltr_eeabf4c7264f94a8",
                 "title": "Updated Saved Filter",
                 "cost_report_tokens": [],
-                "filter": "(costs.provider = 'azure')",
-                "created_at": "2023-09-12T05:07:35Z",
-                "created_by": "usr_fcd9ff9f8aa6bd1f",
-                "workspace_token": "wrkspc_49c6865bb1f6356f"
+                "filter": "costs.provider = 'azure'",
+                "created_at": "2024-07-15T16:08:55Z",
+                "created_by": "usr_240a5fd77d5da076",
+                "workspace_token": "wrkspc_0b7ef373f9c5d485"
               }
             }
           },
@@ -904,15 +904,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "svd_fltr_7d37f2b3704d1c41",
-                "title": "Black",
+                "token": "svd_fltr_be3f24eb1b5aabf6",
+                "title": "Green (8)",
                 "cost_report_tokens": [
-                  "rprt_267f8c135c20bf99"
+                  "rprt_47023ad2b735f57d"
                 ],
-                "filter": "(costs.provider = 'aws' AND costs.account_id = '57')",
-                "created_at": "2023-09-12T05:07:36Z",
-                "created_by": "usr_86017037cec4a852",
-                "workspace_token": "wrkspc_7020b8708f0e6556"
+                "filter": "(costs.provider = 'aws' AND costs.account_id = '98')",
+                "created_at": "2024-07-15T16:08:54Z",
+                "created_by": "team_73f6001f98e9012b",
+                "workspace_token": "wrkspc_be6568a301b1d06c"
               }
             }
           },
@@ -2003,6 +2003,54 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[include_credits]",
+            "description": "Results will include credits.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[include_refunds]",
+            "description": "Results will include refunds.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[include_discounts]",
+            "description": "Results will include discounts.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[include_tax]",
+            "description": "Results will include tax.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[amortize]",
+            "description": "Results will amortize.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[unallocated]",
+            "description": "Results will show unallocated costs.",
+            "type": "boolean",
+            "default": false,
             "required": false
           }
         ],
@@ -4731,19 +4779,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_f4a84302f614d658",
-                "created_by_token": "usr_b594fc347b8216fc",
+                "token": "vtag_d5503747c5ce9a21",
+                "created_by_token": "team_7589281b8e354c45",
                 "key": "Expense Code",
                 "overridable": false,
-                "backfill_until": "2024-04-01",
+                "backfill_until": "2024-07-01",
                 "values": [
                   {
-                    "name": "EXPC-1234",
-                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                    "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
+                    "name": "EXPC-1234"
                   },
                   {
-                    "name": "EXPC-9876",
-                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                    "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
+                    "name": "EXPC-9876"
                   }
                 ]
               }
@@ -4801,19 +4849,19 @@
               "application/json": {
                 "virtual_tag_configs": [
                   {
-                    "token": "vtag_8ec959d189f5e069",
-                    "created_by_token": "usr_95037e6816d8274c",
+                    "token": "vtag_1a19e1d80dbbfac1",
+                    "created_by_token": "usr_66a02851d18a9504",
                     "key": "Product Team",
                     "overridable": false,
-                    "backfill_until": "2024-04-01",
+                    "backfill_until": "2024-07-01",
                     "values": [
                       {
-                        "name": "Growth",
-                        "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                        "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
+                        "name": "Growth"
                       },
                       {
-                        "name": "API",
-                        "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                        "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
+                        "name": "API"
                       }
                     ]
                   }
@@ -4913,19 +4961,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_a479efbaec5eb18a",
-                "created_by_token": "usr_e490836e766d2f3b",
+                "token": "vtag_4430add8b8552a32",
+                "created_by_token": "usr_c3dedc15ebe12e03",
                 "key": "team",
                 "overridable": true,
-                "backfill_until": "2024-04-01",
+                "backfill_until": "2024-07-01",
                 "values": [
                   {
-                    "name": "marketing",
-                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                    "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
+                    "name": "marketing"
                   },
                   {
-                    "name": "third-party integrations",
-                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                    "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
+                    "name": "third-party integrations"
                   }
                 ]
               }
@@ -4989,19 +5037,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "vtag_d8ec602528464b61",
-                "created_by_token": "usr_64ff4a87ec8aeef2",
+                "token": "vtag_9cefbbc5f17d06fc",
+                "created_by_token": "usr_f8c083243325740b",
                 "key": "Product Team",
                 "overridable": false,
-                "backfill_until": "2024-04-01",
+                "backfill_until": "2024-07-01",
                 "values": [
                   {
-                    "name": "Growth",
-                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))"
+                    "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
+                    "name": "Growth"
                   },
                   {
-                    "name": "API",
-                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')"
+                    "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
+                    "name": "API"
                   }
                 ]
               }
@@ -5342,12 +5390,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "bdgt_67c963605b463c9a",
+                "token": "bdgt_ea1eaec89d553e34",
                 "name": "New Budget Name",
-                "workspace_token": "wrkspc_5272e025c2e51299",
-                "user_token": "usr_47ea83ecb7bb8f5d",
+                "workspace_token": "wrkspc_b83e21368ee5fd9d",
+                "user_token": null,
+                "created_by_token": "team_aea2488160e90528",
                 "cost_report_token": null,
-                "created_at": "2024-04-12T19:33:25Z",
+                "created_at": "2024-07-11T20:22:52Z",
                 "budget_alert_tokens": [],
                 "periods": [
                   {
@@ -5456,23 +5505,24 @@
                 },
                 "budgets": [
                   {
-                    "token": "bdgt_f2690e3a3cf64f4e",
-                    "name": "contextually-based",
-                    "workspace_token": "wrkspc_6210a6e46e9933c6",
-                    "user_token": "usr_a4da9c294e713e24",
-                    "cost_report_token": "rprt_5309907f17010b11",
-                    "created_at": "2024-04-12T19:33:25Z",
+                    "token": "bdgt_0d825e79a0682cc2",
+                    "name": "database",
+                    "workspace_token": "wrkspc_226ab053bd01bb2b",
+                    "user_token": "usr_8e44c17792242852",
+                    "created_by_token": "usr_8e44c17792242852",
+                    "cost_report_token": "rprt_92062240b4ffda91",
+                    "created_at": "2024-07-11T20:22:49Z",
                     "budget_alert_tokens": [],
                     "periods": [
                       {
-                        "start_at": "2024-04-01",
-                        "end_at": "2024-06-30",
+                        "start_at": "2024-07-01",
+                        "end_at": "2024-09-30",
                         "amount": "10000.0"
                       }
                     ],
                     "performance": [
                       {
-                        "date": "April, 2024",
+                        "date": "July, 2024",
                         "actual": "-100%",
                         "amount": "10000.0"
                       }
@@ -5568,12 +5618,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "bdgt_056887ad3d9c9710",
+                "token": "bdgt_39ce7f848dff6d54",
                 "name": "New Name New Budget Who Dis",
-                "workspace_token": "wrkspc_85a607a626ba9b39",
-                "user_token": "usr_5bd274f26b777577",
-                "cost_report_token": "rprt_4a53de75c432dd44",
-                "created_at": "2024-04-12T19:33:25Z",
+                "workspace_token": "wrkspc_949771e4fb8d7bfe",
+                "user_token": "usr_9b375256090d0fda",
+                "created_by_token": "usr_9b375256090d0fda",
+                "cost_report_token": "rprt_07325bc3667263b7",
+                "created_at": "2024-07-11T20:22:48Z",
                 "budget_alert_tokens": [],
                 "periods": [
                   {
@@ -5587,17 +5638,20 @@
                     "amount": "123.0"
                   },
                   {
-                    "start_at": "2024-04-01",
-                    "end_at": "2024-06-30",
+                    "start_at": "2024-07-01",
+                    "end_at": "2024-09-30",
                     "amount": "10000.0"
                   }
                 ],
                 "performance": [
                   {
-                    "date": "April, 2024",
+                    "date": "July, 2024",
                     "actual": "-100%",
                     "amount": "10000.0"
                   },
+                  null,
+                  null,
+                  null,
                   null,
                   null,
                   {
@@ -5671,23 +5725,24 @@
             },
             "examples": {
               "application/json": {
-                "token": "bdgt_46df14a770ad8e38",
-                "name": "Reverse-engineered",
-                "workspace_token": "wrkspc_cf284d188c114099",
-                "user_token": "usr_cd90de17f3dddd1b",
-                "cost_report_token": "rprt_08a5f7ad5ad7bcd6",
-                "created_at": "2024-04-12T19:33:25Z",
+                "token": "bdgt_24068dbacaaad7fb",
+                "name": "Total",
+                "workspace_token": "wrkspc_545a937d68541448",
+                "user_token": "usr_470d15b368844366",
+                "created_by_token": "usr_470d15b368844366",
+                "cost_report_token": "rprt_9ee9f29893956951",
+                "created_at": "2024-07-11T20:22:41Z",
                 "budget_alert_tokens": [],
                 "periods": [
                   {
-                    "start_at": "2024-04-01",
-                    "end_at": "2024-06-30",
+                    "start_at": "2024-07-01",
+                    "end_at": "2024-09-30",
                     "amount": "10000.0"
                   }
                 ],
                 "performance": [
                   {
-                    "date": "April, 2024",
+                    "date": "July, 2024",
                     "actual": "-100%",
                     "amount": "10000.0"
                   }
@@ -7486,7 +7541,7 @@
         },
         "created_by": {
           "type": "string",
-          "description": "The User who created the SavedFilter."
+          "description": "The token for the Creator of this SavedFilter."
         },
         "workspace_token": {
           "type": "string",
@@ -9719,17 +9774,44 @@
           "items": {
             "type": "object",
             "properties": {
+              "filter": {
+                "type": "string",
+                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+              },
               "name": {
                 "type": "string",
                 "description": "The name of the value."
               },
-              "filter": {
+              "business_metric_token": {
                 "type": "string",
-                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+                "description": "The token of an associated business metric."
+              },
+              "cost_metric": {
+                "type": "object",
+                "properties": {
+                  "filter": {
+                    "type": "string"
+                  },
+                  "aggregation": {
+                    "type": "object",
+                    "properties": {
+                      "tag": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "tag"
+                    ]
+                  }
+                },
+                "required": [
+                  "filter",
+                  "aggregation"
+                ]
               }
             },
             "required": [
-              "name"
+              "filter"
             ]
           }
         }
@@ -9780,15 +9862,46 @@
     "VirtualTagConfigValue": {
       "type": "object",
       "properties": {
+        "filter": {
+          "type": "string",
+          "example": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
+          "description": "The filter VQL for the Value."
+        },
         "name": {
           "type": "string",
           "example": "Informatics",
           "description": "The name of the Value."
         },
+        "business_metric_token": {
+          "type": "string",
+          "example": "bsnss_mtrc_abc123",
+          "description": "The token of the associated BusinessMetric."
+        },
+        "cost_metric": {
+          "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
+          "description": "The associated cost metric."
+        }
+      }
+    },
+    "VirtualTagConfigValueCostMetric": {
+      "type": "object",
+      "properties": {
         "filter": {
           "type": "string",
-          "example": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
-          "description": "The filter VQL for the Value."
+          "description": "The filter VQL for the cost metric."
+        },
+        "aggregation": {
+          "$ref": "#/definitions/VirtualTagConfigValueCostMetricAggregation",
+          "description": "The aggregation type of the CostMetric."
+        }
+      }
+    },
+    "VirtualTagConfigValueCostMetricAggregation": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "description": "The tag to aggregate on."
         }
       }
     },
@@ -9828,17 +9941,44 @@
           "items": {
             "type": "object",
             "properties": {
+              "filter": {
+                "type": "string",
+                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+              },
               "name": {
                 "type": "string",
                 "description": "The name of the value."
               },
-              "filter": {
+              "business_metric_token": {
                 "type": "string",
-                "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+                "description": "The token of an associated business metric."
+              },
+              "cost_metric": {
+                "type": "object",
+                "properties": {
+                  "filter": {
+                    "type": "string"
+                  },
+                  "aggregation": {
+                    "type": "object",
+                    "properties": {
+                      "tag": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "tag"
+                    ]
+                  }
+                },
+                "required": [
+                  "filter",
+                  "aggregation"
+                ]
               }
             },
             "required": [
-              "name"
+              "filter"
             ]
           }
         }
@@ -10027,6 +10167,10 @@
         "user_token": {
           "type": "string",
           "description": "The token for the User who created this Budget."
+        },
+        "created_by_token": {
+          "type": "string",
+          "description": "The token for the Creator of this Budget."
         },
         "cost_report_token": {
           "type": "string",

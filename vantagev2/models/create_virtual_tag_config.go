@@ -180,19 +180,29 @@ func (m *CreateVirtualTagConfig) UnmarshalBinary(b []byte) error {
 // swagger:model CreateVirtualTagConfigValuesItems0
 type CreateVirtualTagConfigValuesItems0 struct {
 
+	// The token of an associated business metric.
+	BusinessMetricToken string `json:"business_metric_token,omitempty"`
+
+	// cost metric
+	CostMetric *CreateVirtualTagConfigValuesItems0CostMetric `json:"cost_metric,omitempty"`
+
 	// The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The name of the value.
-	// Required: true
-	Name *string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // Validate validates this create virtual tag config values items0
 func (m *CreateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateName(formats); err != nil {
+	if err := m.validateCostMetric(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -202,17 +212,66 @@ func (m *CreateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *CreateVirtualTagConfigValuesItems0) validateName(formats strfmt.Registry) error {
+func (m *CreateVirtualTagConfigValuesItems0) validateCostMetric(formats strfmt.Registry) error {
+	if swag.IsZero(m.CostMetric) { // not required
+		return nil
+	}
 
-	if err := validate.Required("name", "body", m.Name); err != nil {
+	if m.CostMetric != nil {
+		if err := m.CostMetric.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this create virtual tag config values items0 based on context it is used
+// ContextValidate validate this create virtual tag config values items0 based on the context it is used
 func (m *CreateVirtualTagConfigValuesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCostMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0) contextValidateCostMetric(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CostMetric != nil {
+
+		if swag.IsZero(m.CostMetric) { // not required
+			return nil
+		}
+
+		if err := m.CostMetric.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -227,6 +286,172 @@ func (m *CreateVirtualTagConfigValuesItems0) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CreateVirtualTagConfigValuesItems0) UnmarshalBinary(b []byte) error {
 	var res CreateVirtualTagConfigValuesItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateVirtualTagConfigValuesItems0CostMetric create virtual tag config values items0 cost metric
+//
+// swagger:model CreateVirtualTagConfigValuesItems0CostMetric
+type CreateVirtualTagConfigValuesItems0CostMetric struct {
+
+	// aggregation
+	// Required: true
+	Aggregation *CreateVirtualTagConfigValuesItems0CostMetricAggregation `json:"aggregation"`
+
+	// filter
+	// Required: true
+	Filter *string `json:"filter"`
+}
+
+// Validate validates this create virtual tag config values items0 cost metric
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAggregation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) validateAggregation(formats strfmt.Registry) error {
+
+	if err := validate.Required("cost_metric"+"."+"aggregation", "body", m.Aggregation); err != nil {
+		return err
+	}
+
+	if m.Aggregation != nil {
+		if err := m.Aggregation.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric" + "." + "aggregation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric" + "." + "aggregation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("cost_metric"+"."+"filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create virtual tag config values items0 cost metric based on the context it is used
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAggregation(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) contextValidateAggregation(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Aggregation != nil {
+
+		if err := m.Aggregation.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric" + "." + "aggregation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric" + "." + "aggregation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateVirtualTagConfigValuesItems0CostMetric) UnmarshalBinary(b []byte) error {
+	var res CreateVirtualTagConfigValuesItems0CostMetric
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateVirtualTagConfigValuesItems0CostMetricAggregation create virtual tag config values items0 cost metric aggregation
+//
+// swagger:model CreateVirtualTagConfigValuesItems0CostMetricAggregation
+type CreateVirtualTagConfigValuesItems0CostMetricAggregation struct {
+
+	// tag
+	// Required: true
+	Tag *string `json:"tag"`
+}
+
+// Validate validates this create virtual tag config values items0 cost metric aggregation
+func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateTag(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) validateTag(formats strfmt.Registry) error {
+
+	if err := validate.Required("cost_metric"+"."+"aggregation"+"."+"tag", "body", m.Tag); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create virtual tag config values items0 cost metric aggregation based on context it is used
+func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) UnmarshalBinary(b []byte) error {
+	var res CreateVirtualTagConfigValuesItems0CostMetricAggregation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

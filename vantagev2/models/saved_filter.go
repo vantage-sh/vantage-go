@@ -24,7 +24,7 @@ type SavedFilter struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// The User who created the SavedFilter.
+	// The token for the Creator of this SavedFilter.
 	CreatedBy string `json:"created_by,omitempty"`
 
 	// The SavedFilter's filter, applied to any relevant CostReports. Additional documentation available at https://docs.vantage.sh/vql.

@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -16,6 +17,13 @@ import (
 //
 // swagger:model VirtualTagConfigValue
 type VirtualTagConfigValue struct {
+
+	// The token of the associated BusinessMetric.
+	// Example: bsnss_mtrc_abc123
+	BusinessMetricToken string `json:"business_metric_token,omitempty"`
+
+	// The associated cost metric.
+	CostMetric *VirtualTagConfigValueCostMetric `json:"cost_metric,omitempty"`
 
 	// The filter VQL for the Value.
 	// Example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
@@ -28,11 +36,69 @@ type VirtualTagConfigValue struct {
 
 // Validate validates this virtual tag config value
 func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCostMetric(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this virtual tag config value based on context it is used
+func (m *VirtualTagConfigValue) validateCostMetric(formats strfmt.Registry) error {
+	if swag.IsZero(m.CostMetric) { // not required
+		return nil
+	}
+
+	if m.CostMetric != nil {
+		if err := m.CostMetric.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this virtual tag config value based on the context it is used
 func (m *VirtualTagConfigValue) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCostMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VirtualTagConfigValue) contextValidateCostMetric(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CostMetric != nil {
+
+		if swag.IsZero(m.CostMetric) { // not required
+			return nil
+		}
+
+		if err := m.CostMetric.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cost_metric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cost_metric")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
