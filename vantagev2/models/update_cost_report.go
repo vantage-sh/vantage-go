@@ -24,6 +24,10 @@ type UpdateCostReport struct {
 	// The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
 	BusinessMetricTokensWithMetadata []*UpdateCostReportBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
+	// The chart type of the CostReport.
+	// Enum: [area line pie bar]
+	ChartType string `json:"chart_type,omitempty"`
+
 	// The date interval of the CostReport.
 	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months]
 	DateInterval string `json:"date_interval,omitempty"`
@@ -68,6 +72,10 @@ func (m *UpdateCostReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBusinessMetricTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateChartType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -122,6 +130,54 @@ func (m *UpdateCostReport) validateBusinessMetricTokensWithMetadata(formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+var updateCostReportTypeChartTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["area","line","pie","bar"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateCostReportTypeChartTypePropEnum = append(updateCostReportTypeChartTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateCostReportChartTypeArea captures enum value "area"
+	UpdateCostReportChartTypeArea string = "area"
+
+	// UpdateCostReportChartTypeLine captures enum value "line"
+	UpdateCostReportChartTypeLine string = "line"
+
+	// UpdateCostReportChartTypePie captures enum value "pie"
+	UpdateCostReportChartTypePie string = "pie"
+
+	// UpdateCostReportChartTypeBar captures enum value "bar"
+	UpdateCostReportChartTypeBar string = "bar"
+)
+
+// prop value enum
+func (m *UpdateCostReport) validateChartTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateCostReportTypeChartTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateCostReport) validateChartType(formats strfmt.Registry) error {
+	if swag.IsZero(m.ChartType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateChartTypeEnum("chart_type", "body", m.ChartType); err != nil {
+		return err
 	}
 
 	return nil
