@@ -6,6 +6,7 @@ package billing_rules
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetBillingRulesOK) Code() int {
 }
 
 func (o *GetBillingRulesOK) Error() string {
-	return fmt.Sprintf("[GET /billing_rules][%d] getBillingRulesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /billing_rules][%d] getBillingRulesOK %s", 200, payload)
 }
 
 func (o *GetBillingRulesOK) String() string {
-	return fmt.Sprintf("[GET /billing_rules][%d] getBillingRulesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /billing_rules][%d] getBillingRulesOK %s", 200, payload)
 }
 
 func (o *GetBillingRulesOK) GetPayload() *models.BillingRules {

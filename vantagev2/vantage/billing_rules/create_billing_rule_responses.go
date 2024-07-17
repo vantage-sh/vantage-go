@@ -6,6 +6,7 @@ package billing_rules
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *CreateBillingRuleCreated) Code() int {
 }
 
 func (o *CreateBillingRuleCreated) Error() string {
-	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleCreated %s", 201, payload)
 }
 
 func (o *CreateBillingRuleCreated) String() string {
-	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleCreated %s", 201, payload)
 }
 
 func (o *CreateBillingRuleCreated) GetPayload() *models.BillingRule {
@@ -153,11 +156,13 @@ func (o *CreateBillingRuleBadRequest) Code() int {
 }
 
 func (o *CreateBillingRuleBadRequest) Error() string {
-	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleBadRequest %s", 400, payload)
 }
 
 func (o *CreateBillingRuleBadRequest) String() string {
-	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /billing_rules][%d] createBillingRuleBadRequest %s", 400, payload)
 }
 
 func (o *CreateBillingRuleBadRequest) GetPayload() *models.Errors {

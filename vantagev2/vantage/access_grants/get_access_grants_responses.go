@@ -6,6 +6,7 @@ package access_grants
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetAccessGrantsOK) Code() int {
 }
 
 func (o *GetAccessGrantsOK) Error() string {
-	return fmt.Sprintf("[GET /access_grants][%d] getAccessGrantsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants][%d] getAccessGrantsOK %s", 200, payload)
 }
 
 func (o *GetAccessGrantsOK) String() string {
-	return fmt.Sprintf("[GET /access_grants][%d] getAccessGrantsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants][%d] getAccessGrantsOK %s", 200, payload)
 }
 
 func (o *GetAccessGrantsOK) GetPayload() *models.AccessGrants {

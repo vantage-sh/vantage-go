@@ -6,6 +6,7 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetVirtualTagConfigOK) Code() int {
 }
 
 func (o *GetVirtualTagConfigOK) Error() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigOK %s", 200, payload)
 }
 
 func (o *GetVirtualTagConfigOK) String() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigOK %s", 200, payload)
 }
 
 func (o *GetVirtualTagConfigOK) GetPayload() *models.VirtualTagConfig {
@@ -153,11 +156,13 @@ func (o *GetVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *GetVirtualTagConfigNotFound) Error() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigNotFound %s", 404, payload)
 }
 
 func (o *GetVirtualTagConfigNotFound) String() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}][%d] getVirtualTagConfigNotFound %s", 404, payload)
 }
 
 func (o *GetVirtualTagConfigNotFound) GetPayload() *models.Errors {

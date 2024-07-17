@@ -6,6 +6,7 @@ package workspaces
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteWorkspaceNoContent) Code() int {
 }
 
 func (o *DeleteWorkspaceNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent %s", 204, payload)
 }
 
 func (o *DeleteWorkspaceNoContent) String() string {
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent %s", 204, payload)
 }
 
 func (o *DeleteWorkspaceNoContent) GetPayload() *models.Workspace {
@@ -153,11 +156,13 @@ func (o *DeleteWorkspaceNotFound) Code() int {
 }
 
 func (o *DeleteWorkspaceNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound %s", 404, payload)
 }
 
 func (o *DeleteWorkspaceNotFound) String() string {
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound %s", 404, payload)
 }
 
 func (o *DeleteWorkspaceNotFound) GetPayload() *models.Errors {

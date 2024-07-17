@@ -6,6 +6,7 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *PutIntegrationsAWSOK) Code() int {
 }
 
 func (o *PutIntegrationsAWSOK) Error() string {
-	return fmt.Sprintf("[PUT /integrations/aws/{access_credential_id}][%d] putIntegrationsAWSOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/aws/{access_credential_id}][%d] putIntegrationsAWSOK %s", 200, payload)
 }
 
 func (o *PutIntegrationsAWSOK) String() string {
-	return fmt.Sprintf("[PUT /integrations/aws/{access_credential_id}][%d] putIntegrationsAWSOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/aws/{access_credential_id}][%d] putIntegrationsAWSOK %s", 200, payload)
 }
 
 func (o *PutIntegrationsAWSOK) GetPayload() *models.AwsAccessCredential {

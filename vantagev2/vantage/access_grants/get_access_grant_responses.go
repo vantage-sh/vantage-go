@@ -6,6 +6,7 @@ package access_grants
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetAccessGrantOK) Code() int {
 }
 
 func (o *GetAccessGrantOK) Error() string {
-	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantOK %s", 200, payload)
 }
 
 func (o *GetAccessGrantOK) String() string {
-	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantOK %s", 200, payload)
 }
 
 func (o *GetAccessGrantOK) GetPayload() *models.AccessGrant {
@@ -153,11 +156,13 @@ func (o *GetAccessGrantNotFound) Code() int {
 }
 
 func (o *GetAccessGrantNotFound) Error() string {
-	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantNotFound %s", 404, payload)
 }
 
 func (o *GetAccessGrantNotFound) String() string {
-	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /access_grants/{access_grant_token}][%d] getAccessGrantNotFound %s", 404, payload)
 }
 
 func (o *GetAccessGrantNotFound) GetPayload() *models.Errors {

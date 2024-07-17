@@ -6,6 +6,7 @@ package report_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *UpdateReportNotificationOK) Code() int {
 }
 
 func (o *UpdateReportNotificationOK) Error() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationOK %s", 200, payload)
 }
 
 func (o *UpdateReportNotificationOK) String() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationOK %s", 200, payload)
 }
 
 func (o *UpdateReportNotificationOK) GetPayload() *models.ReportNotification {
@@ -159,11 +162,13 @@ func (o *UpdateReportNotificationBadRequest) Code() int {
 }
 
 func (o *UpdateReportNotificationBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationBadRequest %s", 400, payload)
 }
 
 func (o *UpdateReportNotificationBadRequest) String() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationBadRequest %s", 400, payload)
 }
 
 func (o *UpdateReportNotificationBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *UpdateReportNotificationNotFound) Code() int {
 }
 
 func (o *UpdateReportNotificationNotFound) Error() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationNotFound %s", 404, payload)
 }
 
 func (o *UpdateReportNotificationNotFound) String() string {
-	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /report_notifications/{report_notification_token}][%d] updateReportNotificationNotFound %s", 404, payload)
 }
 
 func (o *UpdateReportNotificationNotFound) GetPayload() *models.Errors {

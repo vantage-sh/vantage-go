@@ -6,6 +6,7 @@ package saved_filters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteSavedFilterNoContent) Code() int {
 }
 
 func (o *DeleteSavedFilterNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNoContent %s", 204, payload)
 }
 
 func (o *DeleteSavedFilterNoContent) String() string {
-	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNoContent %s", 204, payload)
 }
 
 func (o *DeleteSavedFilterNoContent) GetPayload() *models.SavedFilter {
@@ -153,11 +156,13 @@ func (o *DeleteSavedFilterNotFound) Code() int {
 }
 
 func (o *DeleteSavedFilterNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *DeleteSavedFilterNotFound) String() string {
-	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /saved_filters/{saved_filter_token}][%d] deleteSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *DeleteSavedFilterNotFound) GetPayload() *models.Errors {

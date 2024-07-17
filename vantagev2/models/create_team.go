@@ -28,7 +28,7 @@ type CreateTeam struct {
 	Name *string `json:"name"`
 
 	// The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.
-	// Enum: [owner editor viewer]
+	// Enum: ["owner","editor","viewer"]
 	Role string `json:"role,omitempty"`
 
 	// The User emails to associate to the Team.

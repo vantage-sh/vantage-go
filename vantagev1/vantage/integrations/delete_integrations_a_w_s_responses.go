@@ -75,11 +75,11 @@ func (o *DeleteIntegrationsAWSNoContent) Code() int {
 }
 
 func (o *DeleteIntegrationsAWSNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /integrations/aws/{access_credential_id}][%d] deleteIntegrationsAWSNoContent ", 204)
+	return fmt.Sprintf("[DELETE /integrations/aws/{access_credential_id}][%d] deleteIntegrationsAWSNoContent", 204)
 }
 
 func (o *DeleteIntegrationsAWSNoContent) String() string {
-	return fmt.Sprintf("[DELETE /integrations/aws/{access_credential_id}][%d] deleteIntegrationsAWSNoContent ", 204)
+	return fmt.Sprintf("[DELETE /integrations/aws/{access_credential_id}][%d] deleteIntegrationsAWSNoContent", 204)
 }
 
 func (o *DeleteIntegrationsAWSNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

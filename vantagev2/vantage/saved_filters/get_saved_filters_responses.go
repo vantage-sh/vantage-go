@@ -6,6 +6,7 @@ package saved_filters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetSavedFiltersOK) Code() int {
 }
 
 func (o *GetSavedFiltersOK) Error() string {
-	return fmt.Sprintf("[GET /saved_filters][%d] getSavedFiltersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters][%d] getSavedFiltersOK %s", 200, payload)
 }
 
 func (o *GetSavedFiltersOK) String() string {
-	return fmt.Sprintf("[GET /saved_filters][%d] getSavedFiltersOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters][%d] getSavedFiltersOK %s", 200, payload)
 }
 
 func (o *GetSavedFiltersOK) GetPayload() *models.SavedFilters {

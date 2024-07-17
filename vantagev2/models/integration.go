@@ -34,7 +34,7 @@ type Integration struct {
 
 	// The status of the Integration. Can be 'connected' or 'disconnected'.
 	// Example: connected
-	// Enum: [connected disconnected]
+	// Enum: ["connected","disconnected"]
 	Status string `json:"status,omitempty"`
 
 	// token

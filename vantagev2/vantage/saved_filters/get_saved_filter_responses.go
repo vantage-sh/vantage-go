@@ -6,6 +6,7 @@ package saved_filters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetSavedFilterOK) Code() int {
 }
 
 func (o *GetSavedFilterOK) Error() string {
-	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK %s", 200, payload)
 }
 
 func (o *GetSavedFilterOK) String() string {
-	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterOK %s", 200, payload)
 }
 
 func (o *GetSavedFilterOK) GetPayload() *models.SavedFilter {
@@ -153,11 +156,13 @@ func (o *GetSavedFilterNotFound) Code() int {
 }
 
 func (o *GetSavedFilterNotFound) Error() string {
-	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *GetSavedFilterNotFound) String() string {
-	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /saved_filters/{saved_filter_token}][%d] getSavedFilterNotFound %s", 404, payload)
 }
 
 func (o *GetSavedFilterNotFound) GetPayload() *models.Errors {

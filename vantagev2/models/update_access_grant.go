@@ -22,7 +22,7 @@ type UpdateAccessGrant struct {
 
 	// Allowed or denied access to resource.
 	// Required: true
-	// Enum: [denied allowed]
+	// Enum: ["denied","allowed"]
 	Access *string `json:"access"`
 }
 

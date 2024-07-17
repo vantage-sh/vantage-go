@@ -6,6 +6,7 @@ package kubernetes_efficiency_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetKubernetesEfficiencyReportOK) Code() int {
 }
 
 func (o *GetKubernetesEfficiencyReportOK) Error() string {
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportOK %s", 200, payload)
 }
 
 func (o *GetKubernetesEfficiencyReportOK) String() string {
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportOK %s", 200, payload)
 }
 
 func (o *GetKubernetesEfficiencyReportOK) GetPayload() *models.KubernetesEfficiencyReport {
@@ -153,11 +156,13 @@ func (o *GetKubernetesEfficiencyReportNotFound) Code() int {
 }
 
 func (o *GetKubernetesEfficiencyReportNotFound) Error() string {
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportNotFound %s", 404, payload)
 }
 
 func (o *GetKubernetesEfficiencyReportNotFound) String() string {
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] getKubernetesEfficiencyReportNotFound %s", 404, payload)
 }
 
 func (o *GetKubernetesEfficiencyReportNotFound) GetPayload() *models.Errors {

@@ -6,6 +6,7 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -103,11 +104,13 @@ func (o *UpdateBusinessMetricOK) Code() int {
 }
 
 func (o *UpdateBusinessMetricOK) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK %s", 200, payload)
 }
 
 func (o *UpdateBusinessMetricOK) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricOK %s", 200, payload)
 }
 
 func (o *UpdateBusinessMetricOK) GetPayload() *models.BusinessMetric {
@@ -171,11 +174,13 @@ func (o *UpdateBusinessMetricBadRequest) Code() int {
 }
 
 func (o *UpdateBusinessMetricBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricBadRequest %s", 400, payload)
 }
 
 func (o *UpdateBusinessMetricBadRequest) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricBadRequest %s", 400, payload)
 }
 
 func (o *UpdateBusinessMetricBadRequest) GetPayload() *models.Errors {
@@ -239,11 +244,13 @@ func (o *UpdateBusinessMetricForbidden) Code() int {
 }
 
 func (o *UpdateBusinessMetricForbidden) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricForbidden %s", 403, payload)
 }
 
 func (o *UpdateBusinessMetricForbidden) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricForbidden %s", 403, payload)
 }
 
 func (o *UpdateBusinessMetricForbidden) GetPayload() *models.Errors {
@@ -307,11 +314,13 @@ func (o *UpdateBusinessMetricNotFound) Code() int {
 }
 
 func (o *UpdateBusinessMetricNotFound) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricNotFound %s", 404, payload)
 }
 
 func (o *UpdateBusinessMetricNotFound) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricNotFound %s", 404, payload)
 }
 
 func (o *UpdateBusinessMetricNotFound) GetPayload() *models.Errors {
@@ -375,11 +384,13 @@ func (o *UpdateBusinessMetricUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateBusinessMetricUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateBusinessMetricUnprocessableEntity) String() string {
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}][%d] updateBusinessMetricUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateBusinessMetricUnprocessableEntity) GetPayload() *models.Errors {

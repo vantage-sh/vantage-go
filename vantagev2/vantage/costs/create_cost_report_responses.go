@@ -6,6 +6,7 @@ package costs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *CreateCostReportCreated) Code() int {
 }
 
 func (o *CreateCostReportCreated) Error() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportCreated %s", 201, payload)
 }
 
 func (o *CreateCostReportCreated) String() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportCreated %s", 201, payload)
 }
 
 func (o *CreateCostReportCreated) GetPayload() *models.CostReport {
@@ -159,11 +162,13 @@ func (o *CreateCostReportBadRequest) Code() int {
 }
 
 func (o *CreateCostReportBadRequest) Error() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest %s", 400, payload)
 }
 
 func (o *CreateCostReportBadRequest) String() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportBadRequest %s", 400, payload)
 }
 
 func (o *CreateCostReportBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *CreateCostReportUnprocessableEntity) Code() int {
 }
 
 func (o *CreateCostReportUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateCostReportUnprocessableEntity) String() string {
-	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /cost_reports][%d] createCostReportUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateCostReportUnprocessableEntity) GetPayload() *models.Errors {

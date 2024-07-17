@@ -6,6 +6,7 @@ package recommendations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetRecommendationResourcesOK) Code() int {
 }
 
 func (o *GetRecommendationResourcesOK) Error() string {
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources][%d] getRecommendationResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources][%d] getRecommendationResourcesOK %s", 200, payload)
 }
 
 func (o *GetRecommendationResourcesOK) String() string {
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources][%d] getRecommendationResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources][%d] getRecommendationResourcesOK %s", 200, payload)
 }
 
 func (o *GetRecommendationResourcesOK) GetPayload() *models.ProviderResource {

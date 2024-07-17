@@ -75,11 +75,11 @@ func (o *PostIntegrationsTerraformWorkspacesWorkspaceIDIntegrationTypeCreated) C
 }
 
 func (o *PostIntegrationsTerraformWorkspacesWorkspaceIDIntegrationTypeCreated) Error() string {
-	return fmt.Sprintf("[POST /integrations/terraform/workspaces/{workspace_id}/{integration_type}][%d] postIntegrationsTerraformWorkspacesWorkspaceIdIntegrationTypeCreated ", 201)
+	return fmt.Sprintf("[POST /integrations/terraform/workspaces/{workspace_id}/{integration_type}][%d] postIntegrationsTerraformWorkspacesWorkspaceIdIntegrationTypeCreated", 201)
 }
 
 func (o *PostIntegrationsTerraformWorkspacesWorkspaceIDIntegrationTypeCreated) String() string {
-	return fmt.Sprintf("[POST /integrations/terraform/workspaces/{workspace_id}/{integration_type}][%d] postIntegrationsTerraformWorkspacesWorkspaceIdIntegrationTypeCreated ", 201)
+	return fmt.Sprintf("[POST /integrations/terraform/workspaces/{workspace_id}/{integration_type}][%d] postIntegrationsTerraformWorkspacesWorkspaceIdIntegrationTypeCreated", 201)
 }
 
 func (o *PostIntegrationsTerraformWorkspacesWorkspaceIDIntegrationTypeCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

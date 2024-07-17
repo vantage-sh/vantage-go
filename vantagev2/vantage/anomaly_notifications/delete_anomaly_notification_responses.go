@@ -6,6 +6,7 @@ package anomaly_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteAnomalyNotificationNoContent) Code() int {
 }
 
 func (o *DeleteAnomalyNotificationNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent %s", 204, payload)
 }
 
 func (o *DeleteAnomalyNotificationNoContent) String() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNoContent %s", 204, payload)
 }
 
 func (o *DeleteAnomalyNotificationNoContent) GetPayload() *models.AnomalyNotification {
@@ -153,11 +156,13 @@ func (o *DeleteAnomalyNotificationNotFound) Code() int {
 }
 
 func (o *DeleteAnomalyNotificationNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound %s", 404, payload)
 }
 
 func (o *DeleteAnomalyNotificationNotFound) String() string {
-	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /anomaly_notifications/{anomaly_notification_token}][%d] deleteAnomalyNotificationNotFound %s", 404, payload)
 }
 
 func (o *DeleteAnomalyNotificationNotFound) GetPayload() *models.Errors {

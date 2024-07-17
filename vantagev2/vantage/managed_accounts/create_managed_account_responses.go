@@ -6,6 +6,7 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *CreateManagedAccountCreated) Code() int {
 }
 
 func (o *CreateManagedAccountCreated) Error() string {
-	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountCreated %s", 201, payload)
 }
 
 func (o *CreateManagedAccountCreated) String() string {
-	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountCreated %s", 201, payload)
 }
 
 func (o *CreateManagedAccountCreated) GetPayload() *models.ManagedAccount {
@@ -153,11 +156,13 @@ func (o *CreateManagedAccountBadRequest) Code() int {
 }
 
 func (o *CreateManagedAccountBadRequest) Error() string {
-	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountBadRequest %s", 400, payload)
 }
 
 func (o *CreateManagedAccountBadRequest) String() string {
-	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /managed_accounts][%d] createManagedAccountBadRequest %s", 400, payload)
 }
 
 func (o *CreateManagedAccountBadRequest) GetPayload() *models.Errors {

@@ -6,6 +6,7 @@ package report_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetReportNotificationsOK) Code() int {
 }
 
 func (o *GetReportNotificationsOK) Error() string {
-	return fmt.Sprintf("[GET /report_notifications][%d] getReportNotificationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /report_notifications][%d] getReportNotificationsOK %s", 200, payload)
 }
 
 func (o *GetReportNotificationsOK) String() string {
-	return fmt.Sprintf("[GET /report_notifications][%d] getReportNotificationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /report_notifications][%d] getReportNotificationsOK %s", 200, payload)
 }
 
 func (o *GetReportNotificationsOK) GetPayload() *models.ReportNotifications {

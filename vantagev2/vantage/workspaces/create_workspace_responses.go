@@ -6,6 +6,7 @@ package workspaces
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *CreateWorkspaceCreated) Code() int {
 }
 
 func (o *CreateWorkspaceCreated) Error() string {
-	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceCreated %s", 201, payload)
 }
 
 func (o *CreateWorkspaceCreated) String() string {
-	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceCreated %s", 201, payload)
 }
 
 func (o *CreateWorkspaceCreated) GetPayload() *models.Workspace {
@@ -153,11 +156,13 @@ func (o *CreateWorkspaceBadRequest) Code() int {
 }
 
 func (o *CreateWorkspaceBadRequest) Error() string {
-	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceBadRequest %s", 400, payload)
 }
 
 func (o *CreateWorkspaceBadRequest) String() string {
-	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /workspaces][%d] createWorkspaceBadRequest %s", 400, payload)
 }
 
 func (o *CreateWorkspaceBadRequest) GetPayload() *models.Errors {

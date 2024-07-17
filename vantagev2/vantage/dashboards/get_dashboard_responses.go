@@ -6,6 +6,7 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetDashboardOK) Code() int {
 }
 
 func (o *GetDashboardOK) Error() string {
-	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardOK %s", 200, payload)
 }
 
 func (o *GetDashboardOK) String() string {
-	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardOK %s", 200, payload)
 }
 
 func (o *GetDashboardOK) GetPayload() *models.Dashboard {
@@ -153,11 +156,13 @@ func (o *GetDashboardNotFound) Code() int {
 }
 
 func (o *GetDashboardNotFound) Error() string {
-	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardNotFound %s", 404, payload)
 }
 
 func (o *GetDashboardNotFound) String() string {
-	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /dashboards/{dashboard_token}][%d] getDashboardNotFound %s", 404, payload)
 }
 
 func (o *GetDashboardNotFound) GetPayload() *models.Errors {

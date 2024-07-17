@@ -6,6 +6,7 @@ package folders
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetFolderOK) Code() int {
 }
 
 func (o *GetFolderOK) Error() string {
-	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderOK %s", 200, payload)
 }
 
 func (o *GetFolderOK) String() string {
-	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderOK %s", 200, payload)
 }
 
 func (o *GetFolderOK) GetPayload() *models.Folder {
@@ -153,11 +156,13 @@ func (o *GetFolderNotFound) Code() int {
 }
 
 func (o *GetFolderNotFound) Error() string {
-	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderNotFound %s", 404, payload)
 }
 
 func (o *GetFolderNotFound) String() string {
-	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /folders/{folder_token}][%d] getFolderNotFound %s", 404, payload)
 }
 
 func (o *GetFolderNotFound) GetPayload() *models.Errors {

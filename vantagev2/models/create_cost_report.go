@@ -25,16 +25,15 @@ type CreateCostReport struct {
 	BusinessMetricTokensWithMetadata []*CreateCostReportBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
 	// The chart type of the CostReport.
-	// Enum: [area line pie bar]
+	// Enum: ["area","line","pie","bar"]
 	ChartType string `json:"chart_type,omitempty"`
 
-	// The date interval of the CostReport.
-	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months]
+	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters.
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end time of the CostReport.
-	// Format: date-time
-	EndDate strfmt.DateTime `json:"end_date,omitempty"`
+	// The end time of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+	EndDate string `json:"end_date,omitempty"`
 
 	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
@@ -45,13 +44,11 @@ type CreateCostReport struct {
 	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
-	// The previous peridod end time of the CostReport.
-	// Format: date-time
-	PreviousPeriodEndDate strfmt.DateTime `json:"previous_period_end_date,omitempty"`
+	// The previous period end time of the CostReport. ISO 8601 Formatted.
+	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
 
-	// The previous period start time of the CostReport.
-	// Format: date-time
-	PreviousPeriodStartDate strfmt.DateTime `json:"previous_period_start_date,omitempty"`
+	// The previous period start time of the CostReport. ISO 8601 Formatted.
+	PreviousPeriodStartDate string `json:"previous_period_start_date,omitempty"`
 
 	// The tokens of the SavedFilters to apply to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
@@ -59,9 +56,8 @@ type CreateCostReport struct {
 	// settings
 	Settings *CreateCostReportSettings `json:"settings,omitempty"`
 
-	// The start time of the CostReport.
-	// Format: date-time
-	StartDate strfmt.DateTime `json:"start_date,omitempty"`
+	// The start time of the CostReport. ISO 8601 Formatted. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+	StartDate string `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
 	// Required: true
@@ -87,23 +83,7 @@ func (m *CreateCostReport) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateEndDate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePreviousPeriodEndDate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePreviousPeriodStartDate(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateSettings(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStartDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -269,42 +249,6 @@ func (m *CreateCostReport) validateDateInterval(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateCostReport) validateEndDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.EndDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("end_date", "body", "date-time", m.EndDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateCostReport) validatePreviousPeriodEndDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.PreviousPeriodEndDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("previous_period_end_date", "body", "date-time", m.PreviousPeriodEndDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateCostReport) validatePreviousPeriodStartDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.PreviousPeriodStartDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("previous_period_start_date", "body", "date-time", m.PreviousPeriodStartDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *CreateCostReport) validateSettings(formats strfmt.Registry) error {
 	if swag.IsZero(m.Settings) { // not required
 		return nil
@@ -319,18 +263,6 @@ func (m *CreateCostReport) validateSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *CreateCostReport) validateStartDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("start_date", "body", "date-time", m.StartDate.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -440,7 +372,7 @@ type CreateCostReportBusinessMetricTokensWithMetadataItems0 struct {
 	LabelFilter []string `json:"label_filter"`
 
 	// Determines the scale of the BusinessMetric's values within the CostReport.
-	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
+	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale *string `json:"unit_scale,omitempty"`
 }
 

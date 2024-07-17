@@ -75,11 +75,11 @@ func (o *PingOK) Code() int {
 }
 
 func (o *PingOK) Error() string {
-	return fmt.Sprintf("[GET /ping][%d] pingOK ", 200)
+	return fmt.Sprintf("[GET /ping][%d] pingOK", 200)
 }
 
 func (o *PingOK) String() string {
-	return fmt.Sprintf("[GET /ping][%d] pingOK ", 200)
+	return fmt.Sprintf("[GET /ping][%d] pingOK", 200)
 }
 
 func (o *PingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

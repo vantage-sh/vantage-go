@@ -6,6 +6,7 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *UpdateDashboardOK) Code() int {
 }
 
 func (o *UpdateDashboardOK) Error() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardOK %s", 200, payload)
 }
 
 func (o *UpdateDashboardOK) String() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardOK %s", 200, payload)
 }
 
 func (o *UpdateDashboardOK) GetPayload() *models.Dashboard {
@@ -159,11 +162,13 @@ func (o *UpdateDashboardBadRequest) Code() int {
 }
 
 func (o *UpdateDashboardBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardBadRequest %s", 400, payload)
 }
 
 func (o *UpdateDashboardBadRequest) String() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardBadRequest %s", 400, payload)
 }
 
 func (o *UpdateDashboardBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *UpdateDashboardNotFound) Code() int {
 }
 
 func (o *UpdateDashboardNotFound) Error() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardNotFound %s", 404, payload)
 }
 
 func (o *UpdateDashboardNotFound) String() string {
-	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /dashboards/{dashboard_token}][%d] updateDashboardNotFound %s", 404, payload)
 }
 
 func (o *UpdateDashboardNotFound) GetPayload() *models.Errors {

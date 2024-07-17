@@ -6,6 +6,7 @@ package billing_rules
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteBillingRuleNoContent) Code() int {
 }
 
 func (o *DeleteBillingRuleNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNoContent %s", 204, payload)
 }
 
 func (o *DeleteBillingRuleNoContent) String() string {
-	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNoContent %s", 204, payload)
 }
 
 func (o *DeleteBillingRuleNoContent) GetPayload() *models.BillingRule {
@@ -153,11 +156,13 @@ func (o *DeleteBillingRuleNotFound) Code() int {
 }
 
 func (o *DeleteBillingRuleNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNotFound %s", 404, payload)
 }
 
 func (o *DeleteBillingRuleNotFound) String() string {
-	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /billing_rules/{billing_rule_token}][%d] deleteBillingRuleNotFound %s", 404, payload)
 }
 
 func (o *DeleteBillingRuleNotFound) GetPayload() *models.Errors {
