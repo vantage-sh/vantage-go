@@ -214,7 +214,7 @@ type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 	LabelFilter []string `json:"label_filter"`
 
 	// Determines the scale of the BusinessMetric's values within the CostReport.
-	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
+	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale *string `json:"unit_scale,omitempty"`
 }
 

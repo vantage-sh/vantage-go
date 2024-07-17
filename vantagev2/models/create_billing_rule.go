@@ -54,7 +54,7 @@ type CreateBillingRule struct {
 
 	// The type of the Billing Rule. Note: the values are case insensitive.
 	// Required: true
-	// Enum: [exclusion adjustment credit charge]
+	// Enum: ["exclusion","adjustment","credit","charge"]
 	Type *string `json:"type"`
 }
 

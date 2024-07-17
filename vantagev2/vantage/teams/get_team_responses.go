@@ -6,6 +6,7 @@ package teams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetTeamOK) Code() int {
 }
 
 func (o *GetTeamOK) Error() string {
-	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamOK %s", 200, payload)
 }
 
 func (o *GetTeamOK) String() string {
-	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamOK %s", 200, payload)
 }
 
 func (o *GetTeamOK) GetPayload() *models.Team {
@@ -153,11 +156,13 @@ func (o *GetTeamNotFound) Code() int {
 }
 
 func (o *GetTeamNotFound) Error() string {
-	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamNotFound %s", 404, payload)
 }
 
 func (o *GetTeamNotFound) String() string {
-	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /teams/{team_token}][%d] getTeamNotFound %s", 404, payload)
 }
 
 func (o *GetTeamNotFound) GetPayload() *models.Errors {

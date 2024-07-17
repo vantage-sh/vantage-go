@@ -6,6 +6,7 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *DeleteBusinessMetricNoContent) Code() int {
 }
 
 func (o *DeleteBusinessMetricNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNoContent %s", 204, payload)
 }
 
 func (o *DeleteBusinessMetricNoContent) String() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNoContent %s", 204, payload)
 }
 
 func (o *DeleteBusinessMetricNoContent) GetPayload() *models.BusinessMetric {
@@ -159,11 +162,13 @@ func (o *DeleteBusinessMetricForbidden) Code() int {
 }
 
 func (o *DeleteBusinessMetricForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricForbidden %s", 403, payload)
 }
 
 func (o *DeleteBusinessMetricForbidden) String() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricForbidden %s", 403, payload)
 }
 
 func (o *DeleteBusinessMetricForbidden) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *DeleteBusinessMetricNotFound) Code() int {
 }
 
 func (o *DeleteBusinessMetricNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNotFound %s", 404, payload)
 }
 
 func (o *DeleteBusinessMetricNotFound) String() string {
-	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricNotFound %s", 404, payload)
 }
 
 func (o *DeleteBusinessMetricNotFound) GetPayload() *models.Errors {

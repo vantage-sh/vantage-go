@@ -6,6 +6,7 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -103,11 +104,13 @@ func (o *UpdateVirtualTagConfigOK) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigOK) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK %s", 200, payload)
 }
 
 func (o *UpdateVirtualTagConfigOK) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK %s", 200, payload)
 }
 
 func (o *UpdateVirtualTagConfigOK) GetPayload() *models.VirtualTagConfig {
@@ -171,11 +174,13 @@ func (o *UpdateVirtualTagConfigBadRequest) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest %s", 400, payload)
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest %s", 400, payload)
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) GetPayload() *models.Errors {
@@ -239,11 +244,13 @@ func (o *UpdateVirtualTagConfigForbidden) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigForbidden) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden %s", 403, payload)
 }
 
 func (o *UpdateVirtualTagConfigForbidden) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden  %+v", 403, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden %s", 403, payload)
 }
 
 func (o *UpdateVirtualTagConfigForbidden) GetPayload() *models.Errors {
@@ -307,11 +314,13 @@ func (o *UpdateVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigNotFound) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound %s", 404, payload)
 }
 
 func (o *UpdateVirtualTagConfigNotFound) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound %s", 404, payload)
 }
 
 func (o *UpdateVirtualTagConfigNotFound) GetPayload() *models.Errors {
@@ -375,11 +384,13 @@ func (o *UpdateVirtualTagConfigUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity %s", 422, payload)
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) GetPayload() *models.Errors {

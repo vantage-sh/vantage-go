@@ -6,6 +6,7 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetManagedAccountsOK) Code() int {
 }
 
 func (o *GetManagedAccountsOK) Error() string {
-	return fmt.Sprintf("[GET /managed_accounts][%d] getManagedAccountsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /managed_accounts][%d] getManagedAccountsOK %s", 200, payload)
 }
 
 func (o *GetManagedAccountsOK) String() string {
-	return fmt.Sprintf("[GET /managed_accounts][%d] getManagedAccountsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /managed_accounts][%d] getManagedAccountsOK %s", 200, payload)
 }
 
 func (o *GetManagedAccountsOK) GetPayload() *models.ManagedAccounts {

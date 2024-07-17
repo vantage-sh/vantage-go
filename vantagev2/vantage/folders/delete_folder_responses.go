@@ -6,6 +6,7 @@ package folders
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteFolderNoContent) Code() int {
 }
 
 func (o *DeleteFolderNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent %s", 204, payload)
 }
 
 func (o *DeleteFolderNoContent) String() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNoContent %s", 204, payload)
 }
 
 func (o *DeleteFolderNoContent) GetPayload() *models.Folder {
@@ -153,11 +156,13 @@ func (o *DeleteFolderNotFound) Code() int {
 }
 
 func (o *DeleteFolderNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNotFound %s", 404, payload)
 }
 
 func (o *DeleteFolderNotFound) String() string {
-	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /folders/{folder_token}][%d] deleteFolderNotFound %s", 404, payload)
 }
 
 func (o *DeleteFolderNotFound) GetPayload() *models.Errors {

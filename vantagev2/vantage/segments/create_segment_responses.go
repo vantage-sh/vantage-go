@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *CreateSegmentCreated) Code() int {
 }
 
 func (o *CreateSegmentCreated) Error() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentCreated %s", 201, payload)
 }
 
 func (o *CreateSegmentCreated) String() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentCreated %s", 201, payload)
 }
 
 func (o *CreateSegmentCreated) GetPayload() *models.Segment {
@@ -159,11 +162,13 @@ func (o *CreateSegmentBadRequest) Code() int {
 }
 
 func (o *CreateSegmentBadRequest) Error() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentBadRequest %s", 400, payload)
 }
 
 func (o *CreateSegmentBadRequest) String() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentBadRequest %s", 400, payload)
 }
 
 func (o *CreateSegmentBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *CreateSegmentUnprocessableEntity) Code() int {
 }
 
 func (o *CreateSegmentUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateSegmentUnprocessableEntity) String() string {
-	return fmt.Sprintf("[POST /segments][%d] createSegmentUnprocessableEntity  %+v", 422, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /segments][%d] createSegmentUnprocessableEntity %s", 422, payload)
 }
 
 func (o *CreateSegmentUnprocessableEntity) GetPayload() *models.Errors {

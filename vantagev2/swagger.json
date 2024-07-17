@@ -7689,27 +7689,23 @@
         },
         "previous_period_start_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The previous period start time of the CostReport."
+          "description": "The previous period start time of the CostReport. ISO 8601 Formatted."
         },
         "previous_period_end_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The previous peridod end time of the CostReport."
+          "description": "The previous period end time of the CostReport. ISO 8601 Formatted."
         },
         "start_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The start time of the CostReport."
+          "description": "The start time of the CostReport. ISO 8601 Formatted. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
         },
         "end_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The end time of the CostReport."
+          "description": "The end time of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the CostReport.",
+          "description": "The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters.",
           "enum": [
             "this_month",
             "last_7_days",
@@ -7995,27 +7991,23 @@
         },
         "previous_period_start_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The previous period start time of the CostReport."
+          "description": "The previous period start time of the CostReport. ISO 8601 Formatted."
         },
         "previous_period_end_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The previous peridod end time of the CostReport."
+          "description": "The previous period end time of the CostReport. ISO 8601 Formatted."
         },
         "start_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The start time of the CostReport."
+          "description": "The start time of the CostReport. ISO 8601 Formatted. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
         },
         "end_date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The end time of the CostReport."
+          "description": "The end time of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the CostReport.",
+          "description": "The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters.",
           "enum": [
             "this_month",
             "last_7_days",

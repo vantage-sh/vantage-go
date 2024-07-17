@@ -6,6 +6,7 @@ package prices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -79,11 +80,13 @@ func (o *GetProductOK) Code() int {
 }
 
 func (o *GetProductOK) Error() string {
-	return fmt.Sprintf("[GET /products/{id}][%d] getProductOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /products/{id}][%d] getProductOK %s", 200, payload)
 }
 
 func (o *GetProductOK) String() string {
-	return fmt.Sprintf("[GET /products/{id}][%d] getProductOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /products/{id}][%d] getProductOK %s", 200, payload)
 }
 
 func (o *GetProductOK) GetPayload() *models.Product {

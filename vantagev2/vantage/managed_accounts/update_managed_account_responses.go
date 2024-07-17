@@ -6,6 +6,7 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *UpdateManagedAccountOK) Code() int {
 }
 
 func (o *UpdateManagedAccountOK) Error() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountOK %s", 200, payload)
 }
 
 func (o *UpdateManagedAccountOK) String() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountOK %s", 200, payload)
 }
 
 func (o *UpdateManagedAccountOK) GetPayload() *models.ManagedAccount {
@@ -159,11 +162,13 @@ func (o *UpdateManagedAccountBadRequest) Code() int {
 }
 
 func (o *UpdateManagedAccountBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountBadRequest %s", 400, payload)
 }
 
 func (o *UpdateManagedAccountBadRequest) String() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountBadRequest %s", 400, payload)
 }
 
 func (o *UpdateManagedAccountBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *UpdateManagedAccountNotFound) Code() int {
 }
 
 func (o *UpdateManagedAccountNotFound) Error() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountNotFound %s", 404, payload)
 }
 
 func (o *UpdateManagedAccountNotFound) String() string {
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}][%d] updateManagedAccountNotFound %s", 404, payload)
 }
 
 func (o *UpdateManagedAccountNotFound) GetPayload() *models.Errors {

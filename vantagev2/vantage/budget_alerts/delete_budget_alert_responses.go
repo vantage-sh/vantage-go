@@ -6,6 +6,7 @@ package budget_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *DeleteBudgetAlertNoContent) Code() int {
 }
 
 func (o *DeleteBudgetAlertNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNoContent %s", 204, payload)
 }
 
 func (o *DeleteBudgetAlertNoContent) String() string {
-	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNoContent  %+v", 204, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNoContent %s", 204, payload)
 }
 
 func (o *DeleteBudgetAlertNoContent) GetPayload() *models.BudgetAlert {
@@ -153,11 +156,13 @@ func (o *DeleteBudgetAlertNotFound) Code() int {
 }
 
 func (o *DeleteBudgetAlertNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNotFound %s", 404, payload)
 }
 
 func (o *DeleteBudgetAlertNotFound) String() string {
-	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /budget_alerts/{budget_alert_token}][%d] deleteBudgetAlertNotFound %s", 404, payload)
 }
 
 func (o *DeleteBudgetAlertNotFound) GetPayload() *models.Errors {

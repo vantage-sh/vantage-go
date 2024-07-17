@@ -6,6 +6,7 @@ package workspaces
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *GetWorkspaceOK) Code() int {
 }
 
 func (o *GetWorkspaceOK) Error() string {
-	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceOK %s", 200, payload)
 }
 
 func (o *GetWorkspaceOK) String() string {
-	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceOK %s", 200, payload)
 }
 
 func (o *GetWorkspaceOK) GetPayload() *models.Workspace {
@@ -153,11 +156,13 @@ func (o *GetWorkspaceNotFound) Code() int {
 }
 
 func (o *GetWorkspaceNotFound) Error() string {
-	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceNotFound %s", 404, payload)
 }
 
 func (o *GetWorkspaceNotFound) String() string {
-	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /workspaces/{workspace_token}][%d] getWorkspaceNotFound %s", 404, payload)
 }
 
 func (o *GetWorkspaceNotFound) GetPayload() *models.Errors {

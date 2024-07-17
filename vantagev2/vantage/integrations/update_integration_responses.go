@@ -6,6 +6,7 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +92,13 @@ func (o *UpdateIntegrationOK) Code() int {
 }
 
 func (o *UpdateIntegrationOK) Error() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationOK %s", 200, payload)
 }
 
 func (o *UpdateIntegrationOK) String() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationOK %s", 200, payload)
 }
 
 func (o *UpdateIntegrationOK) GetPayload() *models.Integration {
@@ -159,11 +162,13 @@ func (o *UpdateIntegrationBadRequest) Code() int {
 }
 
 func (o *UpdateIntegrationBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationBadRequest %s", 400, payload)
 }
 
 func (o *UpdateIntegrationBadRequest) String() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationBadRequest %s", 400, payload)
 }
 
 func (o *UpdateIntegrationBadRequest) GetPayload() *models.Errors {
@@ -227,11 +232,13 @@ func (o *UpdateIntegrationNotFound) Code() int {
 }
 
 func (o *UpdateIntegrationNotFound) Error() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationNotFound %s", 404, payload)
 }
 
 func (o *UpdateIntegrationNotFound) String() string {
-	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationNotFound  %+v", 404, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /integrations/{integration_token}][%d] updateIntegrationNotFound %s", 404, payload)
 }
 
 func (o *UpdateIntegrationNotFound) GetPayload() *models.Errors {

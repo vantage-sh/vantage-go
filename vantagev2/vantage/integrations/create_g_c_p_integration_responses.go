@@ -6,6 +6,7 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,13 @@ func (o *CreateGCPIntegrationCreated) Code() int {
 }
 
 func (o *CreateGCPIntegrationCreated) Error() string {
-	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationCreated %s", 201, payload)
 }
 
 func (o *CreateGCPIntegrationCreated) String() string {
-	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationCreated %s", 201, payload)
 }
 
 func (o *CreateGCPIntegrationCreated) GetPayload() *models.Integration {
@@ -153,11 +156,13 @@ func (o *CreateGCPIntegrationBadRequest) Code() int {
 }
 
 func (o *CreateGCPIntegrationBadRequest) Error() string {
-	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationBadRequest %s", 400, payload)
 }
 
 func (o *CreateGCPIntegrationBadRequest) String() string {
-	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /integrations/gcp][%d] createGCPIntegrationBadRequest %s", 400, payload)
 }
 
 func (o *CreateGCPIntegrationBadRequest) GetPayload() *models.Errors {
