@@ -22,6 +22,9 @@ type CostReport struct {
 	// The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter.
 	BusinessMetricTokensWithMetadata []*AttachedBusinessMetricForCostReport `json:"business_metric_tokens_with_metadata"`
 
+	// The chart type of the CostReport.
+	ChartType string `json:"chart_type,omitempty"`
+
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`

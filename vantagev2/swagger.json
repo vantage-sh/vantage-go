@@ -963,15 +963,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_5f44ad28b9dc951a",
+                "token": "rprt_b3a88ff374c9f78d",
                 "title": "New Cost Report",
-                "folder_token": "fldr_f752bc0ba85e9713",
+                "folder_token": "fldr_f546020e4d95e40a",
                 "saved_filter_tokens": [
-                  "svd_fltr_1cbf92fcba6d15f3"
+                  "svd_fltr_0c79fb595992296f"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_74a9d1a677314b1a",
+                    "business_metric_token": "bsnss_mtrc_50f6d6fd90f62249",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -992,12 +992,13 @@
                   "unallocated": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_9a4bf4c944d8675b",
+                "workspace_token": "wrkspc_20aca0f495dc8dca",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
-                "date_interval": "this_month"
+                "date_interval": "this_month",
+                "chart_type": "line"
               }
             }
           },
@@ -1066,11 +1067,11 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_c8e112c7c70aaf5c",
+                    "token": "rprt_4931f8863e7390cf",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_444d248964e0fbce"
+                      "svd_fltr_a7c13fdd9ecd7128"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
@@ -1083,13 +1084,14 @@
                       "amortize": true,
                       "unallocated": false
                     },
-                    "created_at": "2024-07-08T18:12:47Z",
-                    "workspace_token": "wrkspc_aaee1042ddd18008",
+                    "created_at": "2024-07-15T20:43:17Z",
+                    "workspace_token": "wrkspc_5033d5c5bad03eab",
                     "previous_period_start_date": null,
                     "previous_period_end_date": null,
                     "start_date": "2024-07-01",
                     "end_date": "2024-07-31",
-                    "date_interval": "this_month"
+                    "date_interval": "this_month",
+                    "chart_type": "line"
                   }
                 ]
               }
@@ -1181,15 +1183,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_0dada2ecf915e5f3",
+                "token": "rprt_55317a343f05ae5a",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_ea61baacdfed345a",
+                "folder_token": "fldr_401d61ae3a806467",
                 "saved_filter_tokens": [
-                  "svd_fltr_38c2e7a29e85ad90"
+                  "svd_fltr_2894086f62d02cb9"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_a9d11ecad882e001",
+                    "business_metric_token": "bsnss_mtrc_c658fc65a994268c",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1199,7 +1201,7 @@
                     ]
                   },
                   {
-                    "business_metric_token": "bsnss_mtrc_668deeee5467a54e",
+                    "business_metric_token": "bsnss_mtrc_ac063aba7d734d87",
                     "unit_scale": "per_million"
                   }
                 ],
@@ -1214,12 +1216,13 @@
                   "unallocated": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_5f5e80c9942df5df",
+                "workspace_token": "wrkspc_400416eb33581497",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
-                "date_interval": "this_month"
+                "date_interval": "this_month",
+                "chart_type": "pie"
               }
             }
           },
@@ -1269,12 +1272,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_8119e5d5af93787e",
-                "title": "Segment Report",
-                "folder_token": "fldr_b88d231f2b19ab84",
+                "token": "rprt_de5b1b5a34003ad7",
+                "title": "Untitled",
+                "folder_token": null,
+                "saved_filter_tokens": [
+                  "svd_fltr_031079975ea717dd"
+                ],
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
-                "groupings": null,
+                "groupings": "provider,service",
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1283,13 +1289,14 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_475b66f46d80726f",
+                "created_at": "2024-07-15T20:43:10Z",
+                "workspace_token": "wrkspc_bc6d936b734c8884",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
-                "date_interval": "this_month"
+                "date_interval": "this_month",
+                "chart_type": "line"
               }
             }
           },
@@ -7719,6 +7726,16 @@
             "next_6_months",
             "next_12_months"
           ]
+        },
+        "chart_type": {
+          "type": "string",
+          "description": "The chart type of the CostReport.",
+          "enum": [
+            "area",
+            "line",
+            "pie",
+            "bar"
+          ]
         }
       },
       "required": [
@@ -7828,6 +7845,10 @@
         "date_interval": {
           "type": "string",
           "description": "The date interval of the CostReport."
+        },
+        "chart_type": {
+          "type": "string",
+          "description": "The chart type of the CostReport."
         }
       },
       "description": "CostReport model"
@@ -8010,6 +8031,16 @@
             "next_3_months",
             "next_6_months",
             "next_12_months"
+          ]
+        },
+        "chart_type": {
+          "type": "string",
+          "description": "The chart type of the CostReport.",
+          "enum": [
+            "area",
+            "line",
+            "pie",
+            "bar"
           ]
         }
       },
