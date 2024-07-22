@@ -32,7 +32,8 @@ type CostReport struct {
 	// The date interval of the CostReport.
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end date of the CostReport.
+	// The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+	// Example: 2024-07-15
 	EndDate string `json:"end_date,omitempty"`
 
 	// The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
@@ -45,10 +46,12 @@ type CostReport struct {
 	// Example: provider, service
 	Groupings string `json:"groupings,omitempty"`
 
-	// The previous period end date of the CostReport.
+	// The previous period end date of the CostReport. ISO 8601 Formatted.
+	// Example: 2024-06-15
 	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
 
-	// The previous period start date of the CostReport.
+	// The previous period start date of the CostReport. ISO 8601 Formatted.
+	// Example: 2024-06-01
 	PreviousPeriodStartDate string `json:"previous_period_start_date,omitempty"`
 
 	// The tokens for the SavedFilters assigned to the CostReport.
@@ -57,7 +60,8 @@ type CostReport struct {
 	// settings
 	Settings *CostReportSettings `json:"settings,omitempty"`
 
-	// The start date of the CostReport.
+	// The start date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+	// Example: 2024-07-01
 	StartDate string `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
