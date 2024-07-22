@@ -28,8 +28,12 @@ type CreateCostReport struct {
 	// Enum: ["area","line","pie","bar"]
 	ChartType *string `json:"chart_type,omitempty"`
 
+	// The date bin of the CostReport.
+	// Enum: ["cumulative","day","week","month"]
+	DateBin *string `json:"date_bin,omitempty"`
+
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -78,6 +82,10 @@ func (m *CreateCostReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateChartType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateBin(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -181,11 +189,59 @@ func (m *CreateCostReport) validateChartType(formats strfmt.Registry) error {
 	return nil
 }
 
+var createCostReportTypeDateBinPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cumulative","day","week","month"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostReportTypeDateBinPropEnum = append(createCostReportTypeDateBinPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostReportDateBinCumulative captures enum value "cumulative"
+	CreateCostReportDateBinCumulative string = "cumulative"
+
+	// CreateCostReportDateBinDay captures enum value "day"
+	CreateCostReportDateBinDay string = "day"
+
+	// CreateCostReportDateBinWeek captures enum value "week"
+	CreateCostReportDateBinWeek string = "week"
+
+	// CreateCostReportDateBinMonth captures enum value "month"
+	CreateCostReportDateBinMonth string = "month"
+)
+
+// prop value enum
+func (m *CreateCostReport) validateDateBinEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostReportTypeDateBinPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostReport) validateDateBin(formats strfmt.Registry) error {
+	if swag.IsZero(m.DateBin) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateDateBinEnum("date_bin", "body", *m.DateBin); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 var createCostReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -236,6 +292,9 @@ const (
 
 	// CreateCostReportDateIntervalNext12Months captures enum value "next_12_months"
 	CreateCostReportDateIntervalNext12Months string = "next_12_months"
+
+	// CreateCostReportDateIntervalYearToDate captures enum value "year_to_date"
+	CreateCostReportDateIntervalYearToDate string = "year_to_date"
 )
 
 // prop value enum

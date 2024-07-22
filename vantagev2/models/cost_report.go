@@ -29,6 +29,9 @@ type CostReport struct {
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The date bin of the CostReport.
+	DateBin string `json:"date_bin,omitempty"`
+
 	// The date interval of the CostReport.
 	DateInterval string `json:"date_interval,omitempty"`
 

@@ -25,7 +25,7 @@ type CreateDashboard struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -127,7 +127,7 @@ var createDashboardTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -178,6 +178,9 @@ const (
 
 	// CreateDashboardDateIntervalNext12Months captures enum value "next_12_months"
 	CreateDashboardDateIntervalNext12Months string = "next_12_months"
+
+	// CreateDashboardDateIntervalYearToDate captures enum value "year_to_date"
+	CreateDashboardDateIntervalYearToDate string = "year_to_date"
 )
 
 // prop value enum

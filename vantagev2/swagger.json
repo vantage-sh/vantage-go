@@ -963,15 +963,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_45bc8b7251b16be3",
+                "token": "rprt_9783f373184498cd",
                 "title": "New Cost Report",
-                "folder_token": "fldr_c5e7f5945819201e",
+                "folder_token": "fldr_02bd44d9af7b07e8",
                 "saved_filter_tokens": [
-                  "svd_fltr_39afe4887412863a"
+                  "svd_fltr_43bbe2f3133a30d7"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_d123912fc18bdc64",
+                    "business_metric_token": "bsnss_mtrc_e2414629ee5f2a5b",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -992,13 +992,14 @@
                   "unallocated": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_edec2983011e1f4d",
+                "workspace_token": "wrkspc_0f1aaeec11b32bc9",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
-                "chart_type": "bar"
+                "chart_type": "bar",
+                "date_bin": "day"
               }
             }
           },
@@ -1067,11 +1068,11 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_2ebf31c0afd8edc4",
+                    "token": "rprt_06850587c8f93488",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_7ca666f69e3600d4"
+                      "svd_fltr_c2656b3d52620239"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
@@ -1084,14 +1085,15 @@
                       "amortize": true,
                       "unallocated": false
                     },
-                    "created_at": "2024-07-18T21:21:26Z",
-                    "workspace_token": "wrkspc_a354b50b422a62bb",
+                    "created_at": "2024-07-22T16:47:16Z",
+                    "workspace_token": "wrkspc_894b3cd355b674cb",
                     "previous_period_start_date": null,
                     "previous_period_end_date": null,
                     "start_date": "2024-07-01",
                     "end_date": "2024-07-31",
                     "date_interval": "this_month",
-                    "chart_type": "line"
+                    "chart_type": "line",
+                    "date_bin": "cumulative"
                   }
                 ]
               }
@@ -1183,15 +1185,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_a53d1176e9ccf772",
+                "token": "rprt_af5d4e67c9cc969a",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_af2e513c1a06702f",
+                "folder_token": "fldr_40c4abedffd2635b",
                 "saved_filter_tokens": [
-                  "svd_fltr_f95cc36a83d0ae0e"
+                  "svd_fltr_37d6f9b74b196e6b"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_5f400a7bcfc37c2b",
+                    "business_metric_token": "bsnss_mtrc_7fb977537ec08a72",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1201,7 +1203,7 @@
                     ]
                   },
                   {
-                    "business_metric_token": "bsnss_mtrc_2184fc5f41d9af45",
+                    "business_metric_token": "bsnss_mtrc_723bc37034c6fc13",
                     "unit_scale": "per_million"
                   }
                 ],
@@ -1216,13 +1218,14 @@
                   "unallocated": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_f5ff5356b6390058",
+                "workspace_token": "wrkspc_594cb0434116d0db",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
-                "chart_type": "pie"
+                "chart_type": "pie",
+                "date_bin": "week"
               }
             }
           },
@@ -1272,11 +1275,11 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_c96d6df0be3e0cc7",
+                "token": "rprt_e894ef5699f7f798",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_38387f8d17fcb1d4"
+                  "svd_fltr_2fbc5b6fc12f0559"
                 ],
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
@@ -1289,14 +1292,15 @@
                   "amortize": true,
                   "unallocated": false
                 },
-                "created_at": "2024-07-18T21:21:21Z",
-                "workspace_token": "wrkspc_71db9d1f5228343c",
+                "created_at": "2024-07-22T16:47:24Z",
+                "workspace_token": "wrkspc_a233cd64c8383c9b",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
-                "chart_type": "line"
+                "chart_type": "line",
+                "date_bin": "cumulative"
               }
             }
           },
@@ -7724,7 +7728,8 @@
             "next_month",
             "next_3_months",
             "next_6_months",
-            "next_12_months"
+            "next_12_months",
+            "year_to_date"
           ]
         },
         "chart_type": {
@@ -7737,6 +7742,17 @@
             "bar"
           ],
           "default": "line"
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "The date bin of the CostReport.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ],
+          "default": "cumulative"
         }
       },
       "required": [
@@ -7856,6 +7872,10 @@
         "chart_type": {
           "type": "string",
           "description": "The chart type of the CostReport."
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "The date bin of the CostReport."
         }
       },
       "description": "CostReport model"
@@ -8033,7 +8053,8 @@
             "next_month",
             "next_3_months",
             "next_6_months",
-            "next_12_months"
+            "next_12_months",
+            "year_to_date"
           ]
         },
         "chart_type": {
@@ -8046,6 +8067,17 @@
             "bar"
           ],
           "default": "line"
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "The date bin of the CostReport.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ],
+          "default": "cumulative"
         }
       },
       "description": "Update a CostReport."
@@ -8308,7 +8340,8 @@
             "next_month",
             "next_3_months",
             "next_6_months",
-            "next_12_months"
+            "next_12_months",
+            "year_to_date"
           ]
         },
         "start_date": {
@@ -8382,7 +8415,8 @@
             "next_month",
             "next_3_months",
             "next_6_months",
-            "next_12_months"
+            "next_12_months",
+            "year_to_date"
           ],
           "description": "Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
@@ -8477,7 +8511,8 @@
             "next_month",
             "next_3_months",
             "next_6_months",
-            "next_12_months"
+            "next_12_months",
+            "year_to_date"
           ]
         },
         "start_date": {
