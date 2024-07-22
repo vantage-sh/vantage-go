@@ -26,13 +26,13 @@ type UpdateCostReport struct {
 
 	// The chart type of the CostReport.
 	// Enum: ["area","line","pie","bar"]
-	ChartType string `json:"chart_type,omitempty"`
+	ChartType *string `json:"chart_type,omitempty"`
 
-	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters.
+	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months"]
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end time of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+	// The end date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	EndDate string `json:"end_date,omitempty"`
 
 	// The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
@@ -44,10 +44,10 @@ type UpdateCostReport struct {
 	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
-	// The previous period end time of the CostReport. ISO 8601 Formatted.
+	// The previous period end date of the CostReport. ISO 8601 Formatted.
 	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
 
-	// The previous period start time of the CostReport. ISO 8601 Formatted.
+	// The previous period start date of the CostReport. ISO 8601 Formatted.
 	PreviousPeriodStartDate string `json:"previous_period_start_date,omitempty"`
 
 	// The tokens of the SavedFilters to apply to the CostReport.
@@ -56,7 +56,7 @@ type UpdateCostReport struct {
 	// settings
 	Settings *UpdateCostReportSettings `json:"settings,omitempty"`
 
-	// The start time of the CostReport. ISO 8601 Formatted. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+	// The start date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	StartDate string `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
@@ -156,7 +156,7 @@ func (m *UpdateCostReport) validateChartType(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateChartTypeEnum("chart_type", "body", m.ChartType); err != nil {
+	if err := m.validateChartTypeEnum("chart_type", "body", *m.ChartType); err != nil {
 		return err
 	}
 
