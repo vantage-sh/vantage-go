@@ -22,7 +22,7 @@ type BusinessMetric struct {
 	// The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
 	CostReportTokensWithMetadata []*AttachedCostReportForBusinessMetric `json:"cost_report_tokens_with_metadata"`
 
-	// The token of the User who created the BusinessMetric.
+	// The token of the Creator of the BusinessMetric.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
 

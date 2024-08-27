@@ -33,7 +33,7 @@ type BillingRule struct {
 	// Example: 2024-06-28T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// The token of the User who created the Billing Rule.
+	// The token of the Creator of the Billing Rule.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
 

@@ -54,17 +54,54 @@ type Client struct {
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
 
+// This client is generated with a few options you might find useful for your swagger spec.
+//
+// Feel free to add you own set of options.
+
+// WithContentType allows the client to force the Content-Type header
+// to negotiate a specific Consumer from the server.
+//
+// You may use this option to set arbitrary extensions to your MIME media type.
+func WithContentType(mime string) ClientOption {
+	return func(r *runtime.ClientOperation) {
+		r.ConsumesMediaTypes = []string{mime}
+	}
+}
+
+// WithContentTypeApplicationJSON sets the Content-Type header to "application/json".
+func WithContentTypeApplicationJSON(r *runtime.ClientOperation) {
+	r.ConsumesMediaTypes = []string{"application/json"}
+}
+
+// WithContentTypeApplicationxWwwFormUrlencoded sets the Content-Type header to "application/x-www-form-urlencoded".
+func WithContentTypeApplicationxWwwFormUrlencoded(r *runtime.ClientOperation) {
+	r.ConsumesMediaTypes = []string{"application/x-www-form-urlencoded"}
+}
+
+// WithContentTypeMultipartFormData sets the Content-Type header to "multipart/form-data".
+func WithContentTypeMultipartFormData(r *runtime.ClientOperation) {
+	r.ConsumesMediaTypes = []string{"multipart/form-data"}
+}
+
 // ClientService is the interface for Client methods
 type ClientService interface {
 	CreateAzureIntegration(params *CreateAzureIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAzureIntegrationCreated, error)
 
+	CreateCustomProviderIntegration(params *CreateCustomProviderIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCustomProviderIntegrationCreated, error)
+
 	CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error)
 
+	CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error)
+
 	DeleteIntegration(params *DeleteIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationNoContent, error)
+
+	DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserCostsUploadNoContent, error)
 
 	GetIntegration(params *GetIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationOK, error)
 
 	GetIntegrations(params *GetIntegrationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationsOK, error)
+
+	GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserCostsUploadsOK, error)
 
 	UpdateIntegration(params *UpdateIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIntegrationOK, error)
 
@@ -111,6 +148,45 @@ func (a *Client) CreateAzureIntegration(params *CreateAzureIntegrationParams, au
 }
 
 /*
+CreateCustomProviderIntegration Create a Custom Provider Integration
+*/
+func (a *Client) CreateCustomProviderIntegration(params *CreateCustomProviderIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCustomProviderIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateCustomProviderIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createCustomProviderIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/custom_provider",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateCustomProviderIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateCustomProviderIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createCustomProviderIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 CreateGCPIntegration Create a GCP Integration
 */
 func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error) {
@@ -150,6 +226,45 @@ func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authIn
 }
 
 /*
+CreateUserCostsUploadViaCsv Create UserCostsUpload via CSV for a Custom Provider Integration.
+*/
+func (a *Client) CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateUserCostsUploadViaCsvParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createUserCostsUploadViaCsv",
+		Method:             "POST",
+		PathPattern:        "/integrations/{integration_token}/costs.csv",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded", "multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateUserCostsUploadViaCsvReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateUserCostsUploadViaCsvCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createUserCostsUploadViaCsv: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 DeleteIntegration Delete an Integration.
 */
 func (a *Client) DeleteIntegration(params *DeleteIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationNoContent, error) {
@@ -185,6 +300,45 @@ func (a *Client) DeleteIntegration(params *DeleteIntegrationParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteUserCostsUpload Delete a UserCostsUpload.
+*/
+func (a *Client) DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserCostsUploadNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteUserCostsUploadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteUserCostsUpload",
+		Method:             "DELETE",
+		PathPattern:        "/integrations/{integration_token}/costs/{user_costs_upload_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteUserCostsUploadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteUserCostsUploadNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteUserCostsUpload: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -263,6 +417,45 @@ func (a *Client) GetIntegrations(params *GetIntegrationsParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getIntegrations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetUserCostsUploads List UserCostUploads.
+*/
+func (a *Client) GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserCostsUploadsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUserCostsUploadsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getUserCostsUploads",
+		Method:             "GET",
+		PathPattern:        "/integrations/{integration_token}/costs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetUserCostsUploadsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetUserCostsUploadsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getUserCostsUploads: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

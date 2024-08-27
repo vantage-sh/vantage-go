@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Cost cost
+// Cost Cost model
 //
 // swagger:model Cost
 type Cost struct {
@@ -53,7 +53,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom","github"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github"]
 	Provider string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -95,7 +95,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom","github"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -153,8 +153,8 @@ const (
 	// CostProviderKubernetes captures enum value "kubernetes"
 	CostProviderKubernetes string = "kubernetes"
 
-	// CostProviderCustom captures enum value "custom"
-	CostProviderCustom string = "custom"
+	// CostProviderCustomProvider captures enum value "custom_provider"
+	CostProviderCustomProvider string = "custom_provider"
 
 	// CostProviderGithub captures enum value "github"
 	CostProviderGithub string = "github"

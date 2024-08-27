@@ -20,10 +20,10 @@ import (
 type VirtualTagConfig struct {
 
 	// The earliest month VirtualTagConfig should be backfilled to.
-	// Example: 2024-01-01
+	// Example: 2024-02-01
 	BackfillUntil string `json:"backfill_until,omitempty"`
 
-	// The token of the User who created the VirtualTagConfig.
+	// The token of the Creator of the VirtualTagConfig.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
 

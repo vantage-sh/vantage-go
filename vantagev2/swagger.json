@@ -127,6 +127,10 @@
       "description": "Operations about Integrations"
     },
     {
+      "name": "UserCostsUpload",
+      "description": "Operations about UserCostsUploads"
+    },
+    {
       "name": "Recommendations",
       "description": "Operations about Recommendations"
     },
@@ -6119,7 +6123,16 @@
             "schema": {
               "$ref": "#/definitions/Integration"
             },
-            "examples": {}
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_6eddcfaa81f7303f",
+                "provider": "azure",
+                "account_identifier": "fake-tenant",
+                "status": "connected",
+                "workspace_tokens": [],
+                "created_at": "2024-07-29T21:41:48Z"
+              }
+            }
           },
           "400": {
             "description": "BadRequest",
@@ -6166,7 +6179,16 @@
             "schema": {
               "$ref": "#/definitions/Integration"
             },
-            "examples": {}
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_c36f82e698677581",
+                "provider": "gcp",
+                "account_identifier": "A11111-B22222-C33333",
+                "status": "connected",
+                "workspace_tokens": [],
+                "created_at": "2024-07-29T21:41:46Z"
+              }
+            }
           },
           "400": {
             "description": "BadRequest",
@@ -6179,6 +6201,68 @@
           "Integrations"
         ],
         "operationId": "createGCPIntegration"
+      }
+    },
+    "/integrations/custom_provider": {
+      "post": {
+        "description": "Create a Custom Provider Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createCustomProviderIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createCustomProviderIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_35665ec3deb12451",
+                "provider": "custom_provider",
+                "account_identifier": "Custom Provider Integration",
+                "status": "connected",
+                "workspace_tokens": [],
+                "created_at": "2024-08-27T22:22:24Z"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createCustomProviderIntegration"
       }
     },
     "/integrations": {
@@ -6210,7 +6294,7 @@
               "planetscale",
               "coralogix",
               "kubernetes",
-              "custom",
+              "custom_provider",
               "github"
             ],
             "required": false
@@ -6263,13 +6347,14 @@
                 },
                 "integrations": [
                   {
-                    "token": "accss_crdntl_c9f6ba7eaa9bd4e3",
+                    "token": "accss_crdntl_ac985d1d8bb8bc12",
                     "provider": "gcp",
-                    "account_identifier": "project_id-42770b41",
-                    "created_at": "2024-05-21T21:04:15Z",
+                    "account_identifier": "project_id-3fc92ac0",
+                    "status": "connected",
                     "workspace_tokens": [
-                      "wrkspc_e534c1af8b725308"
-                    ]
+                      "wrkspc_838cb4508ead3f6d"
+                    ],
+                    "created_at": "2024-07-29T21:41:49Z"
                   }
                 ]
               }
@@ -6341,7 +6426,7 @@
             "in": "body",
             "name": "workspace_tokens",
             "description": "The Workspace tokens to associate to the Integration.",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "array",
               "items": {
@@ -6365,13 +6450,14 @@
             },
             "examples": {
               "application/json": {
-                "token": "accss_crdntl_a020600529dca85d",
+                "token": "accss_crdntl_4de527c50afa4fd3",
                 "provider": "gcp",
-                "account_identifier": "project_id-ec142c97",
-                "created_at": "2024-05-21T21:04:17Z",
+                "account_identifier": "project_id-e38a8e02",
+                "status": "connected",
                 "workspace_tokens": [
-                  "wrkspc_03264b030fa15556"
-                ]
+                  "wrkspc_6bffe31969c9f385"
+                ],
+                "created_at": "2024-07-29T21:41:44Z"
               }
             }
           },
@@ -6421,13 +6507,14 @@
             },
             "examples": {
               "application/json": {
-                "token": "accss_crdntl_28957db4f0058a1b",
+                "token": "accss_crdntl_f45057cd18834fc7",
                 "provider": "gcp",
-                "account_identifier": "project_id-9e0f845a",
-                "created_at": "2024-05-21T21:04:18Z",
+                "account_identifier": "project_id-4d4c6f0b",
+                "status": "connected",
                 "workspace_tokens": [
-                  "wrkspc_6a613beaf9ecfc48"
-                ]
+                  "wrkspc_d69f96653fb985d6"
+                ],
+                "created_at": "2024-07-29T21:41:49Z"
               }
             }
           },
@@ -6442,6 +6529,199 @@
           "Integrations"
         ],
         "operationId": "getIntegration"
+      }
+    },
+    "/integrations/{integration_token}/costs": {
+      "get": {
+        "description": "List UserCostUploads.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserCostsUploads"
+            },
+            "examples": {
+              "application/json": {
+                "user_costs_uploads": [
+                  {
+                    "token": "usr_csts_upld_1805b925d993c7f7",
+                    "filename": "costs_0.csv",
+                    "amount": "1234.56",
+                    "start_date": "2021-01-01",
+                    "end_date": "2021-03-31",
+                    "import_status": "complete",
+                    "created_by_token": "usr_72af6fb04ab65f3a",
+                    "created_at": "2024-08-27T22:44:31.565Z"
+                  },
+                  {
+                    "token": "usr_csts_upld_c3f4d5fbb23f96ce",
+                    "filename": "costs_1.csv",
+                    "amount": "789.01",
+                    "start_date": "2021-04-01",
+                    "end_date": "2021-06-30",
+                    "import_status": "processing",
+                    "created_by_token": "usr_b06d7ed79c48f02e",
+                    "created_at": "2024-08-27T22:44:31.582Z"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getUserCostsUploads"
+      }
+    },
+    "/integrations/{integration_token}/costs/{user_costs_upload_token}": {
+      "delete": {
+        "description": "Delete a UserCostsUpload.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "user_costs_upload_token",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Cost"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations",
+          "UserCostsUpload"
+        ],
+        "operationId": "deleteUserCostsUpload"
+      }
+    },
+    "/integrations/{integration_token}/costs.csv": {
+      "post": {
+        "description": "Create UserCostsUpload via CSV for a Custom Provider Integration.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "csv",
+            "description": "CSV file containing custom costs",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "integration_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserCostsUpload"
+            },
+            "examples": {
+              "application/json": {
+                "token": "usr_csts_upld_68f53287682faaf8",
+                "filename": "costs.csv20240827-15484-pfxe9o",
+                "amount": "1000.0",
+                "start_date": "2021-01-01",
+                "end_date": "2021-02-01",
+                "import_status": "processing",
+                "created_by_token": "usr_9ad0e852b8c67db5",
+                "created_at": "2024-08-27T22:44:29.220Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations",
+          "UserCostsUpload"
+        ],
+        "operationId": "createUserCostsUploadViaCsv"
       }
     },
     "/recommendations": {
@@ -6495,11 +6775,18 @@
               "az_compute_reserved_instances_sql",
               "az_compute_reserved_instances_app_service",
               "az_disks_unattached",
+              "aws_unattached_volume_recommender",
+              "aws_unused_workspace_recommender",
               "dynamodb_reserved_capacity_recommender",
               "ec2_rightsizing_recommender",
               "kubernetes_recommender",
               "gcp_compute_rightsizing_recommender",
-              "gcp_compute_commitment_recommender"
+              "gcp_compute_commitment_recommender",
+              "ec2_snapshot_recommender",
+              "ebs_compute_optimizer_recommender",
+              "lambda_compute_optimizer_recommender",
+              "ecs_compute_optimizer_recommender",
+              "rds_compute_optimizer_recommender"
             ],
             "required": false
           },
@@ -8589,7 +8876,7 @@
             "planetscale",
             "coralogix",
             "kubernetes",
-            "custom",
+            "custom_provider",
             "github"
           ],
           "description": "The cost provider which incurred the cost."
@@ -8645,7 +8932,8 @@
           "example": "DataTransfer-Regional-Bytes",
           "description": "The subcategory for the cost."
         }
-      }
+      },
+      "description": "Cost model"
     },
     "createTeam": {
       "type": "object",
@@ -9178,7 +9466,7 @@
         "created_by_token": {
           "type": "string",
           "example": "usr_1234",
-          "description": "The token of the User who created the BusinessMetric."
+          "description": "The token of the Creator of the BusinessMetric."
         },
         "cost_report_tokens_with_metadata": {
           "type": "array",
@@ -9905,7 +10193,7 @@
         "created_by_token": {
           "type": "string",
           "example": "usr_1234",
-          "description": "The token of the User who created the VirtualTagConfig."
+          "description": "The token of the Creator of the VirtualTagConfig."
         },
         "key": {
           "type": "string",
@@ -9918,7 +10206,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-01-01",
+          "example": "2024-02-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -10242,7 +10530,7 @@
         },
         "created_by_token": {
           "type": "string",
-          "description": "The token for the Creator of this Budget."
+          "description": "The token of the Creator of the Budget."
         },
         "cost_report_token": {
           "type": "string",
@@ -10515,11 +10803,7 @@
         "workspace_tokens": {
           "type": "array",
           "items": {
-            "type": "string",
-            "example": [
-              "wrkspc_abcd1234",
-              "wrkspc_efgh5678"
-            ]
+            "type": "string"
           },
           "description": "The tokens for any Workspaces that the account belongs to."
         },
@@ -10554,6 +10838,23 @@
       ],
       "description": "Create a GCP Integration"
     },
+    "createCustomProviderIntegration": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Custom Provider Integration."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the Custom Provider Integration."
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "Create a Custom Provider Integration"
+    },
     "Integrations": {
       "type": "object",
       "properties": {
@@ -10568,6 +10869,64 @@
         }
       },
       "description": "Integrations model"
+    },
+    "UserCostsUploads": {
+      "type": "object",
+      "properties": {
+        "user_costs_uploads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserCostsUpload"
+          }
+        }
+      },
+      "description": "UserCostsUploads model"
+    },
+    "UserCostsUpload": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "usr_csts_upld_1234",
+          "description": "The token of the UserCostsUpload."
+        },
+        "filename": {
+          "type": "string",
+          "example": "usr_csts_upld_1234.parquet",
+          "description": "The filename of the uploaded costs UserCostsUpload."
+        },
+        "amount": {
+          "type": "string",
+          "example": 1234.56,
+          "description": "The total amount of the costs in the UserCostsUpload."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2021-01-01",
+          "description": "The start date of the costs in the UserCostsUpload."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2021-01-31",
+          "description": "The end date of the costs in the UserCostsUpload."
+        },
+        "import_status": {
+          "type": "string",
+          "example": "processing",
+          "description": "Import status of the UserCostsUpload."
+        },
+        "created_by_token": {
+          "type": "string",
+          "example": "usr_1234",
+          "description": "The token of the Creator of the UserCostsUpload."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-01-01T00:00:00Z",
+          "description": "When the UserCostsUpload was uploaded."
+        }
+      },
+      "description": "UserCostsUpload model"
     },
     "Recommendations": {
       "type": "object",
@@ -10862,7 +11221,7 @@
         "created_by_token": {
           "type": "string",
           "example": "usr_1234",
-          "description": "The token of the User who created the Billing Rule."
+          "description": "The token of the Creator of the Billing Rule."
         },
         "created_at": {
           "type": "string",
