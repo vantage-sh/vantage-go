@@ -56,6 +56,8 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateResourceReport(params *CreateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateResourceReportCreated, error)
+
 	DeleteResourceReport(params *DeleteResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteResourceReportNoContent, error)
 
 	GetResourceReport(params *GetResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportOK, error)
@@ -63,6 +65,45 @@ type ClientService interface {
 	GetResourceReports(params *GetResourceReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateResourceReport Create a ResourceReport.
+*/
+func (a *Client) CreateResourceReport(params *CreateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateResourceReportCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateResourceReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createResourceReport",
+		Method:             "POST",
+		PathPattern:        "/resource_reports",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateResourceReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateResourceReportCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createResourceReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*

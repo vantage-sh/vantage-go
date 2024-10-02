@@ -4017,6 +4017,69 @@
       }
     },
     "/resource_reports": {
+      "post": {
+        "description": "Create a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createResourceReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createResourceReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_rprt_638d7ed6d280d294",
+                "title": "EC2 Report",
+                "filter": "provider_resources.provider = 'aws' and provider_resources.type = 'ProviderResource::Aws::VirtualMachine'",
+                "default": false,
+                "created_at": "2024-09-23T15:59:22Z",
+                "workspace_token": "wrkspc_2689fd9afcb9ebee",
+                "segment_token": null,
+                "user_token": "usr_36c89d4e24edc34a",
+                "created_by_token": "usr_36c89d4e24edc34a"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "createResourceReport"
+      },
       "get": {
         "description": "Return all ResourceReports.",
         "produces": [
@@ -4056,23 +4119,23 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/provider_resource_reports",
-                  "first": "https://api.vantage.com/v2/provider_resource_reports?page=1",
+                  "self": "https://api.vantage.com/v2/resource_reports",
+                  "first": "https://api.vantage.com/v2/resource_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/provider_resource_reports?page=1",
+                  "last": "https://api.vantage.com/v2/resource_reports?page=1",
                   "prev": null
                 },
-                "provider_resource_reports": [
+                "resource_reports": [
                   {
-                    "token": "prvdr_rsrc_rprt_c013a8c9280ed485",
-                    "title": "Resource Report 098e130a",
+                    "token": "prvdr_rsrc_rprt_3b64f879c629e9a9",
+                    "title": "Resource Report 2db2d004",
+                    "filter": "(provider_resources.provider = 'aws')",
                     "default": false,
-                    "created_at": "2024-03-19T22:09:43Z",
-                    "workspace_token": "wrkspc_5a15339e6128797f",
-                    "report_token": null,
+                    "created_at": "2024-09-23T15:59:22Z",
+                    "workspace_token": "wrkspc_1a3b0976698e5766",
+                    "segment_token": null,
                     "user_token": null,
-                    "recommendation_service": null,
-                    "recommendation_category": null
+                    "created_by_token": null
                   }
                 ]
               }
@@ -4153,15 +4216,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_rprt_b4b9884d0bb2e121",
-                "title": "Resource Report 46d7371d",
+                "token": "prvdr_rsrc_rprt_6842a3618a987169",
+                "title": "Resource Report c776eace",
+                "filter": "(provider_resources.provider = 'aws')",
                 "default": false,
-                "created_at": "2024-03-19T22:09:43Z",
-                "workspace_token": "wrkspc_3b72a68131df0d33",
-                "report_token": null,
+                "created_at": "2024-09-23T15:59:21Z",
+                "workspace_token": "wrkspc_efd6b442e43d536f",
+                "segment_token": null,
                 "user_token": null,
-                "recommendation_service": null,
-                "recommendation_category": null
+                "created_by_token": null
               }
             }
           },
@@ -6775,6 +6838,8 @@
               "az_compute_reserved_instances_sql",
               "az_compute_reserved_instances_app_service",
               "az_disks_unattached",
+              "aws_ip_unattached_recommender",
+              "aws_stranded_workspace_recommender",
               "aws_unattached_volume_recommender",
               "aws_unused_workspace_recommender",
               "dynamodb_reserved_capacity_recommender",
@@ -6786,7 +6851,12 @@
               "ebs_compute_optimizer_recommender",
               "lambda_compute_optimizer_recommender",
               "ecs_compute_optimizer_recommender",
-              "rds_compute_optimizer_recommender"
+              "rds_compute_optimizer_recommender",
+              "azure_rightsizing_recommender",
+              "azure_compute_savings_recommender",
+              "azure_blob_storage_reserved_instances_recommender",
+              "azure_sql_paas_db_reserved_instances_recommender",
+              "azure_files_reserved_instances_recommender"
             ],
             "required": false
           },
@@ -6975,7 +7045,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100.0,
+                        "potential_savings": 100,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -7032,7 +7102,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100.0,
+                    "potential_savings": 100,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -9735,20 +9805,26 @@
       },
       "description": "Price model"
     },
-    "ResourceReports": {
+    "createResourceReport": {
       "type": "object",
       "properties": {
-        "links": {
-          "type": "object"
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the ResourceReport to."
         },
-        "resource_reports": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResourceReport"
-          }
+        "title": {
+          "type": "string",
+          "description": "The title of the ResourceReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The VQL filter for the ResourceReport."
         }
       },
-      "description": "ResourceReports model"
+      "required": [
+        "workspace_token"
+      ],
+      "description": "Create a ResourceReport."
     },
     "ResourceReport": {
       "type": "object",
@@ -9760,6 +9836,10 @@
           "type": "string",
           "example": "Acme123 Active Resources",
           "description": "The title of the ResourceReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql."
         },
         "default": {
           "type": "boolean",
@@ -9781,9 +9861,28 @@
         "user_token": {
           "type": "string",
           "description": "The token for the User who created this ResourceReport."
+        },
+        "created_by_token": {
+          "type": "string",
+          "description": "The token for the User or Team who created this ResourceReport."
         }
       },
       "description": "ResourceReport model"
+    },
+    "ResourceReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "resource_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceReport"
+          }
+        }
+      },
+      "description": "ResourceReports model"
     },
     "FinancialCommitmentReports": {
       "type": "object",
@@ -10206,7 +10305,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-02-01",
+          "example": "2024-04-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
