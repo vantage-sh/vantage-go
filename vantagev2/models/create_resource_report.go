@@ -19,7 +19,7 @@ import (
 // swagger:model createResourceReport
 type CreateResourceReport struct {
 
-	// The VQL filter for the ResourceReport.
+	// The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
 	// The title of the ResourceReport.

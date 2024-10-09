@@ -7,7 +7,9 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,8 +25,8 @@ type Resource struct {
 	// The provider billing account this resource is charged to.
 	BillingAccountID string `json:"billing_account_id,omitempty"`
 
-	// The cost of the resource.
-	Cost string `json:"cost,omitempty"`
+	// The cost of the resource broken down by category.
+	Costs []*ResourceCost `json:"costs"`
 
 	// The date and time when Vantage first observed the resource.
 	CreatedAt string `json:"created_at,omitempty"`
@@ -57,11 +59,80 @@ type Resource struct {
 
 // Validate validates this resource
 func (m *Resource) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCosts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this resource based on context it is used
+func (m *Resource) validateCosts(formats strfmt.Registry) error {
+	if swag.IsZero(m.Costs) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Costs); i++ {
+		if swag.IsZero(m.Costs[i]) { // not required
+			continue
+		}
+
+		if m.Costs[i] != nil {
+			if err := m.Costs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("costs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("costs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this resource based on the context it is used
 func (m *Resource) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCosts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Resource) contextValidateCosts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Costs); i++ {
+
+		if m.Costs[i] != nil {
+
+			if swag.IsZero(m.Costs[i]) { // not required
+				return nil
+			}
+
+			if err := m.Costs[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("costs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("costs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

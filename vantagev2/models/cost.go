@@ -53,7 +53,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode"]
 	Provider string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -95,7 +95,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -158,6 +158,9 @@ const (
 
 	// CostProviderGithub captures enum value "github"
 	CostProviderGithub string = "github"
+
+	// CostProviderLinode captures enum value "linode"
+	CostProviderLinode string = "linode"
 )
 
 // prop value enum

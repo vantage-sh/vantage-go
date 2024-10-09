@@ -2659,8 +2659,8 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_af574f2e7244c400",
-                "uuid": "f045d912-86e5-4e35-ab51-9a950e78a0dc",
+                "token": "prvdr_rsrc_99a293db073a2e99",
+                "uuid": "e930c92f-5449-4eaf-9ef5-4f714da1ab45",
                 "type": "aws_instance",
                 "label": "Faker::Business",
                 "metadata": {
@@ -2675,7 +2675,7 @@
                   "instance_type": null,
                   "platform": null,
                   "spot_instance_request_id": null,
-                  "launch_time": 1728332095,
+                  "launch_time": 1728479795,
                   "instance_lifecycle": null,
                   "name": null,
                   "platform_type": "Linux/UNIX",
@@ -2687,12 +2687,21 @@
                   "instance_type_name": "t2.micro",
                   "lifecycle": "normal"
                 },
-                "account_id": "923471637277",
-                "billing_account_id": "923471637277",
+                "account_id": "565894339657",
+                "billing_account_id": "565894339657",
                 "provider": "aws",
                 "region": "us-east-1",
-                "cost": 100,
-                "created_at": "2024-10-07T20:14:55.055Z"
+                "costs": [
+                  {
+                    "category": "Data Transfer",
+                    "amount": 3
+                  },
+                  {
+                    "category": "Compute Instance",
+                    "amount": 3
+                  }
+                ],
+                "created_at": "2024-10-09T13:16:35.719Z"
               }
             }
           }
@@ -6966,7 +6975,8 @@
               "coralogix",
               "kubernetes",
               "custom_provider",
-              "github"
+              "github",
+              "linode"
             ],
             "required": false
           },
@@ -8331,7 +8341,7 @@
           "description": "The date and time, in UTC, the Workspace was created. ISO 8601 Formatted."
         },
         "enable_currency_conversion": {
-          "type": "string",
+          "type": "boolean",
           "description": "Whether or not currency conversion is enabled for the Workspace."
         },
         "currency": {
@@ -9568,7 +9578,8 @@
             "coralogix",
             "kubernetes",
             "custom_provider",
-            "github"
+            "github",
+            "linode"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -9682,9 +9693,12 @@
           "example": "us-west-2",
           "description": "The region where the resource is located. Region values are specific to each provider."
         },
-        "cost": {
-          "type": "string",
-          "description": "The cost of the resource."
+        "costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceCost"
+          },
+          "description": "The cost of the resource broken down by category."
         },
         "created_at": {
           "type": "string",
@@ -9692,6 +9706,18 @@
         }
       },
       "description": "Resource model"
+    },
+    "ResourceCost": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The category of the cost."
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
     },
     "createResourceReport": {
       "type": "object",
@@ -9706,7 +9732,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The VQL filter for the ResourceReport."
+          "description": "The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "required": [
@@ -9773,7 +9799,7 @@
         },
         "filter": {
           "type": "string",
-          "description": "The VQL filter for the ResourceReport."
+          "description": "The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "description": "Update a ResourceReport."

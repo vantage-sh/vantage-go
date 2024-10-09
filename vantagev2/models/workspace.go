@@ -26,7 +26,7 @@ type Workspace struct {
 	Currency string `json:"currency,omitempty"`
 
 	// Whether or not currency conversion is enabled for the Workspace.
-	EnableCurrencyConversion string `json:"enable_currency_conversion,omitempty"`
+	EnableCurrencyConversion bool `json:"enable_currency_conversion,omitempty"`
 
 	// The exchange rate date that will be used to convert currency for your cost data.
 	ExchangeRateDate string `json:"exchange_rate_date,omitempty"`
