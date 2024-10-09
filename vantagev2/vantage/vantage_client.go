@@ -30,6 +30,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resources"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/saved_filters"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
@@ -100,6 +101,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Recommendations = recommendations.New(transport, formats)
 	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
+	cli.Resources = resources.New(transport, formats)
 	cli.SavedFilters = saved_filters.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
@@ -190,6 +192,8 @@ type Vantage struct {
 
 	ResourceReports resource_reports.ClientService
 
+	Resources resources.ClientService
+
 	SavedFilters saved_filters.ClientService
 
 	Segments segments.ClientService
@@ -228,6 +232,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Recommendations.SetTransport(transport)
 	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
+	c.Resources.SetTransport(transport)
 	c.SavedFilters.SetTransport(transport)
 	c.Segments.SetTransport(transport)
 	c.Teams.SetTransport(transport)

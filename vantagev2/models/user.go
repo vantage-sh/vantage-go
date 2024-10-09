@@ -21,6 +21,10 @@ type User struct {
 	// Example: john_doe@acme.com
 	Email string `json:"email,omitempty"`
 
+	// The last time the User logged in.
+	// Example: 2024-01-01T00:00:00Z
+	LastSeenAt string `json:"last_seen_at,omitempty"`
+
 	// The name of the User.
 	// Example: John Doe
 	Name string `json:"name,omitempty"`

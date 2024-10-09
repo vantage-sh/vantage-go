@@ -21,6 +21,16 @@ type Workspace struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The currency code for the Workspace that will be used for currency conversion.
+	// Example: USD
+	Currency string `json:"currency,omitempty"`
+
+	// Whether or not currency conversion is enabled for the Workspace.
+	EnableCurrencyConversion string `json:"enable_currency_conversion,omitempty"`
+
+	// The exchange rate date that will be used to convert currency for your cost data.
+	ExchangeRateDate string `json:"exchange_rate_date,omitempty"`
+
 	// The name of the Workspace.
 	// Example: Acme Corp.
 	Name string `json:"name,omitempty"`

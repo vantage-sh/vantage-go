@@ -64,6 +64,8 @@ type ClientService interface {
 
 	GetResourceReports(params *GetResourceReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportsOK, error)
 
+	UpdateResourceReport(params *UpdateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateResourceReportOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -220,6 +222,45 @@ func (a *Client) GetResourceReports(params *GetResourceReportsParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getResourceReports: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateResourceReport Update a ResourceReport.
+*/
+func (a *Client) UpdateResourceReport(params *UpdateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateResourceReportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateResourceReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateResourceReport",
+		Method:             "PUT",
+		PathPattern:        "/resource_reports/{resource_report_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateResourceReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateResourceReportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateResourceReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

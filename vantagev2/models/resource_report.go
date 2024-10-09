@@ -24,14 +24,8 @@ type ResourceReport struct {
 	// The token for the User or Team who created this ResourceReport.
 	CreatedByToken string `json:"created_by_token,omitempty"`
 
-	// Indicates whether the ResourceReport is the default report.
-	Default bool `json:"default,omitempty"`
-
 	// The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
-
-	// The token for the Segment the ResourceReport is a part of.
-	SegmentToken string `json:"segment_token,omitempty"`
 
 	// The title of the ResourceReport.
 	// Example: Acme123 Active Resources

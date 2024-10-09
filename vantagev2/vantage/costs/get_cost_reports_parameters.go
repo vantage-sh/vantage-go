@@ -62,6 +62,12 @@ GetCostReportsParams contains all the parameters to send to the API endpoint
 */
 type GetCostReportsParams struct {
 
+	/* FolderToken.
+
+	   The token for the Folder you would like to fetch Reports from.
+	*/
+	FolderToken *string
+
 	/* Limit.
 
 	   The amount of results to return. The maximum is 1000.
@@ -131,6 +137,17 @@ func (o *GetCostReportsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFolderToken adds the folderToken to the get cost reports params
+func (o *GetCostReportsParams) WithFolderToken(folderToken *string) *GetCostReportsParams {
+	o.SetFolderToken(folderToken)
+	return o
+}
+
+// SetFolderToken adds the folderToken to the get cost reports params
+func (o *GetCostReportsParams) SetFolderToken(folderToken *string) {
+	o.FolderToken = folderToken
+}
+
 // WithLimit adds the limit to the get cost reports params
 func (o *GetCostReportsParams) WithLimit(limit *int32) *GetCostReportsParams {
 	o.SetLimit(limit)
@@ -160,6 +177,23 @@ func (o *GetCostReportsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
+	if o.FolderToken != nil {
+
+		// query param folder_token
+		var qrFolderToken string
+
+		if o.FolderToken != nil {
+			qrFolderToken = *o.FolderToken
+		}
+		qFolderToken := qrFolderToken
+		if qFolderToken != "" {
+
+			if err := r.SetQueryParam("folder_token", qFolderToken); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 

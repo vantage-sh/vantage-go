@@ -64,6 +64,8 @@ type ClientService interface {
 
 	GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspacesOK, error)
 
+	UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceCreated, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -220,6 +222,45 @@ func (a *Client) GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.Cli
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getWorkspaces: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateWorkspace Update a workspace
+*/
+func (a *Client) UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateWorkspace",
+		Method:             "PUT",
+		PathPattern:        "/workspaces/{workspace_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateWorkspaceCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

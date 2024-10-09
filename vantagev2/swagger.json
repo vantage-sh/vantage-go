@@ -63,6 +63,14 @@
       "description": "Operations about Dashboards"
     },
     {
+      "name": "Resources",
+      "description": "Operations about Resources"
+    },
+    {
+      "name": "ResourceReports",
+      "description": "Operations about ResourceReports"
+    },
+    {
       "name": "Teams",
       "description": "Operations about Teams"
     },
@@ -85,10 +93,6 @@
     {
       "name": "Prices",
       "description": "Operations about Prices"
-    },
-    {
-      "name": "ResourceReports",
-      "description": "Operations about ResourceReports"
     },
     {
       "name": "FinancialCommitmentReports",
@@ -164,6 +168,33 @@
             "description": "Name of the workspace.",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "formData",
+            "name": "enable_currency_conversion",
+            "description": "Enable currency conversion for the workspace.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "currency",
+            "description": "Currency code for the workspace.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "exchange_rate_date",
+            "description": "The date to use for currency conversion.",
+            "type": "string",
+            "default": "daily_rate",
+            "enum": [
+              "daily_rate",
+              "end_of_billing_period_rate"
+            ],
+            "required": false
           }
         ],
         "security": [
@@ -181,9 +212,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "wrkspc_a8b2c1867c84febc",
+                "token": "wrkspc_c820c203e53de3e1",
                 "name": "Ellingson Mineral Corporation",
-                "created_at": "2024-05-17T21:24:55Z"
+                "created_at": "2024-10-01T01:00:55Z",
+                "enable_currency_conversion": true,
+                "currency": "JPY",
+                "exchange_rate_date": "end_of_billing_period_rate"
               }
             }
           },
@@ -237,23 +271,22 @@
             },
             "examples": {
               "application/json": {
-                "links": {
-                  "self": "https://api.vantage.com/v2/workspaces",
-                  "first": "https://api.vantage.com/v2/workspaces?page=1",
-                  "next": null,
-                  "last": "https://api.vantage.com/v2/workspaces?page=1",
-                  "prev": null
-                },
                 "workspaces": [
                   {
-                    "token": "wrkspc_ee55a4a36ada7d80",
-                    "name": "Johns-Anderson 2039e721",
-                    "created_at": "2024-05-17T21:24:56Z"
+                    "token": "wrkspc_5d9752a116e4d28e",
+                    "name": "Gulgowski, Ruecker and Rolfson b7f1c249",
+                    "created_at": "2024-10-01T01:00:56Z",
+                    "enable_currency_conversion": false,
+                    "currency": "USD",
+                    "exchange_rate_date": "daily_rate"
                   },
                   {
-                    "token": "wrkspc_d191b2396bda86a4",
-                    "name": "Wisozk, Marquardt and Kulas d7ed4ecc",
-                    "created_at": "2024-05-17T21:24:56Z"
+                    "token": "wrkspc_9a319290712d817d",
+                    "name": "Stokes Inc 2d705dab",
+                    "created_at": "2024-10-01T01:00:56Z",
+                    "enable_currency_conversion": false,
+                    "currency": "USD",
+                    "exchange_rate_date": "daily_rate"
                   }
                 ]
               }
@@ -306,6 +339,261 @@
         ],
         "operationId": "deleteWorkspace"
       },
+      "put": {
+        "description": "Update a workspace",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "Name of the workspace.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "enable_currency_conversion",
+            "description": "Enable currency conversion for the workspace.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "currency",
+            "description": "Currency code for the workspace.",
+            "type": "string",
+            "enum": [
+              "AED",
+              "AFN",
+              "ALL",
+              "AMD",
+              "ANG",
+              "AOA",
+              "ARS",
+              "AUD",
+              "AWG",
+              "AZN",
+              "BAM",
+              "BBD",
+              "BDT",
+              "BGN",
+              "BHD",
+              "BIF",
+              "BMD",
+              "BND",
+              "BOB",
+              "BRL",
+              "BSD",
+              "BTC",
+              "BTN",
+              "BWP",
+              "BYN",
+              "BYR",
+              "BZD",
+              "CAD",
+              "CDF",
+              "CHF",
+              "CLF",
+              "CLP",
+              "CNY",
+              "COP",
+              "CRC",
+              "CUC",
+              "CUP",
+              "CVE",
+              "CZK",
+              "DJF",
+              "DKK",
+              "DOP",
+              "DZD",
+              "EGP",
+              "ERN",
+              "ETB",
+              "EUR",
+              "FJD",
+              "FKP",
+              "GBP",
+              "GEL",
+              "GGP",
+              "GHS",
+              "GIP",
+              "GMD",
+              "GNF",
+              "GTQ",
+              "GYD",
+              "HKD",
+              "HNL",
+              "HRK",
+              "HTG",
+              "HUF",
+              "IDR",
+              "ILS",
+              "IMP",
+              "INR",
+              "IQD",
+              "IRR",
+              "ISK",
+              "JEP",
+              "JMD",
+              "JOD",
+              "JPY",
+              "KES",
+              "KGS",
+              "KHR",
+              "KMF",
+              "KPW",
+              "KRW",
+              "KWD",
+              "KYD",
+              "KZT",
+              "LAK",
+              "LBP",
+              "LKR",
+              "LRD",
+              "LSL",
+              "LTL",
+              "LVL",
+              "LYD",
+              "MAD",
+              "MDL",
+              "MGA",
+              "MKD",
+              "MMK",
+              "MNT",
+              "MOP",
+              "MRO",
+              "MUR",
+              "MVR",
+              "MWK",
+              "MXN",
+              "MYR",
+              "MZN",
+              "NAD",
+              "NGN",
+              "NIO",
+              "NOK",
+              "NPR",
+              "NZD",
+              "OMR",
+              "PAB",
+              "PEN",
+              "PGK",
+              "PHP",
+              "PKR",
+              "PLN",
+              "PYG",
+              "QAR",
+              "RON",
+              "RSD",
+              "RUB",
+              "RWF",
+              "SAR",
+              "SBD",
+              "SCR",
+              "SDG",
+              "SEK",
+              "SGD",
+              "SHP",
+              "SLL",
+              "SOS",
+              "SRD",
+              "SSP",
+              "STD",
+              "STN",
+              "SVC",
+              "SYP",
+              "SZL",
+              "THB",
+              "TJS",
+              "TMT",
+              "TND",
+              "TOP",
+              "TRY",
+              "TTD",
+              "TWD",
+              "TZS",
+              "UAH",
+              "UGX",
+              "USD",
+              "UYU",
+              "UZS",
+              "VEF",
+              "VND",
+              "VUV",
+              "WST",
+              "XAF",
+              "XCD",
+              "XDR",
+              "XOF",
+              "XPF",
+              "YER",
+              "ZAR",
+              "ZMW",
+              "ZWL"
+            ],
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "exchange_rate_date",
+            "description": "The date to use for currency conversion.",
+            "type": "string",
+            "default": "daily_rate",
+            "enum": [
+              "daily_rate",
+              "end_of_billing_period_rate"
+            ],
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            },
+            "examples": {
+              "application/json": {
+                "token": "wrkspc_a44f83d3e85be91d",
+                "name": "My Workspace (Edited)",
+                "created_at": "2024-10-01T01:00:56Z",
+                "enable_currency_conversion": true,
+                "currency": "EUR",
+                "exchange_rate_date": "daily_rate"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "updateWorkspace"
+      },
       "get": {
         "description": "Return a specific Workspace.",
         "produces": [
@@ -334,9 +622,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "wrkspc_b6510290cad5b0f9",
-                "name": "Zulauf, Hauck and O'Keefe ca58ebd3",
-                "created_at": "2024-05-17T21:24:57Z"
+                "token": "wrkspc_ba4878d880507623",
+                "name": "Emard, Lebsack and Schmidt 551b5e11",
+                "created_at": "2024-10-01T01:00:55Z",
+                "enable_currency_conversion": false,
+                "currency": "USD",
+                "exchange_rate_date": "daily_rate"
               }
             }
           },
@@ -1045,6 +1336,13 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "folder_token",
+            "description": "The token for the Folder you would like to fetch Reports from.",
+            "type": "string",
             "required": false
           }
         ],
@@ -2165,6 +2463,538 @@
         "operationId": "getCosts"
       }
     },
+    "/resources": {
+      "get": {
+        "description": "Return Resources contained in a ResourceReport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "resource_report_token",
+            "description": "The ResourceReport token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "The filter query language to apply to the Resources. Additional documentation available at https://docs.vantage.sh/vql.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The Workspace in which the Resources are located.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "include_cost",
+            "description": "Include cost information in the response.",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Resources"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true",
+                  "first": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
+                  "prev": null
+                },
+                "resources": [
+                  {
+                    "token": "prvdr_rsrc_4a1f4a30d86a586f",
+                    "uuid": "0a997b68-281b-441b-865a-1ce183ae5f51",
+                    "type": "aws_instance",
+                    "label": "Faker::Business",
+                    "metadata": {
+                      "instance_id": null,
+                      "image_id": null,
+                      "region": null,
+                      "vpc_id": null,
+                      "subnet_id": null,
+                      "public_ip_address": null,
+                      "private_ip_address": null,
+                      "public_dns_name": null,
+                      "instance_type": null,
+                      "platform": null,
+                      "spot_instance_request_id": null,
+                      "launch_time": 1728332095,
+                      "instance_lifecycle": null,
+                      "name": null,
+                      "platform_type": "Linux/UNIX",
+                      "spot_info": null,
+                      "spot_price": null,
+                      "datadog_agent_installed": null,
+                      "network_interfaces": null,
+                      "tags": null,
+                      "instance_type_name": "t2.micro",
+                      "lifecycle": "normal"
+                    },
+                    "account_id": "734912804094",
+                    "billing_account_id": "734912804094",
+                    "provider": "aws",
+                    "region": "us-east-1",
+                    "cost": 200,
+                    "created_at": "2024-10-06T20:14:55.898Z"
+                  },
+                  {
+                    "token": "prvdr_rsrc_21a16d1b66e134d9",
+                    "uuid": "0f21a7dc-a466-43fb-81e8-1cc2346482f4",
+                    "type": "aws_instance",
+                    "label": "Faker::Business",
+                    "metadata": {
+                      "instance_id": null,
+                      "image_id": null,
+                      "region": null,
+                      "vpc_id": null,
+                      "subnet_id": null,
+                      "public_ip_address": null,
+                      "private_ip_address": null,
+                      "public_dns_name": null,
+                      "instance_type": null,
+                      "platform": null,
+                      "spot_instance_request_id": null,
+                      "launch_time": 1728332095,
+                      "instance_lifecycle": null,
+                      "name": null,
+                      "platform_type": "Linux/UNIX",
+                      "spot_info": null,
+                      "spot_price": null,
+                      "datadog_agent_installed": null,
+                      "network_interfaces": null,
+                      "tags": null,
+                      "instance_type_name": "t2.micro",
+                      "lifecycle": "normal"
+                    },
+                    "account_id": "734912804094",
+                    "billing_account_id": "734912804094",
+                    "provider": "aws",
+                    "region": "us-east-1",
+                    "cost": 100,
+                    "created_at": "2024-10-07T20:14:55.898Z"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Resources"
+        ],
+        "operationId": "getReportResources"
+      }
+    },
+    "/resources/{resource_token}": {
+      "get": {
+        "description": "Return a single Resource",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "include_cost",
+            "description": "Include cost information in the response.",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_af574f2e7244c400",
+                "uuid": "f045d912-86e5-4e35-ab51-9a950e78a0dc",
+                "type": "aws_instance",
+                "label": "Faker::Business",
+                "metadata": {
+                  "instance_id": null,
+                  "image_id": null,
+                  "region": null,
+                  "vpc_id": null,
+                  "subnet_id": null,
+                  "public_ip_address": null,
+                  "private_ip_address": null,
+                  "public_dns_name": null,
+                  "instance_type": null,
+                  "platform": null,
+                  "spot_instance_request_id": null,
+                  "launch_time": 1728332095,
+                  "instance_lifecycle": null,
+                  "name": null,
+                  "platform_type": "Linux/UNIX",
+                  "spot_info": null,
+                  "spot_price": null,
+                  "datadog_agent_installed": null,
+                  "network_interfaces": null,
+                  "tags": null,
+                  "instance_type_name": "t2.micro",
+                  "lifecycle": "normal"
+                },
+                "account_id": "923471637277",
+                "billing_account_id": "923471637277",
+                "provider": "aws",
+                "region": "us-east-1",
+                "cost": 100,
+                "created_at": "2024-10-07T20:14:55.055Z"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Resources"
+        ],
+        "operationId": "getResource"
+      }
+    },
+    "/resource_reports": {
+      "post": {
+        "description": "Create a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createResourceReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createResourceReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_rprt_e3ab8bc7fede39ed",
+                "title": "EC2 Report",
+                "filter": "resources.provider = 'aws' and resources.type = 'ProviderResource::Aws::VirtualMachine'",
+                "created_at": "2024-10-09T13:33:41Z",
+                "workspace_token": "wrkspc_55f08f68b9a7bb53",
+                "user_token": "usr_aa3675519ffe841b",
+                "created_by_token": "usr_aa3675519ffe841b"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "createResourceReport"
+      },
+      "get": {
+        "description": "Return all ResourceReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/resource_reports",
+                  "first": "https://api.vantage.com/v2/resource_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/resource_reports?page=1",
+                  "prev": null
+                },
+                "resource_reports": [
+                  {
+                    "token": "prvdr_rsrc_rprt_eeb3d220dd1952b0",
+                    "title": "Resource Report 0faa74e0",
+                    "filter": "(resources.provider = 'aws')",
+                    "created_at": "2024-10-09T13:33:40Z",
+                    "workspace_token": "wrkspc_795b158f3e71f27a",
+                    "user_token": null,
+                    "created_by_token": null
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "getResourceReports"
+      }
+    },
+    "/resource_reports/{resource_report_token}": {
+      "delete": {
+        "description": "Delete a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "deleteResourceReport"
+      },
+      "put": {
+        "description": "Update a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateResourceReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateResourceReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_rprt_f25a2029f76f0420",
+                "title": "EC2 Edited Report",
+                "filter": "resources.provider = 'aws' and resources.type = 'aws_ebs_volume'",
+                "created_at": "2024-10-09T13:33:41Z",
+                "workspace_token": "wrkspc_eac05d4d2a1ba482",
+                "user_token": null,
+                "created_by_token": null
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "updateResourceReport"
+      },
+      "get": {
+        "description": "Return a ResourceReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resource_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResourceReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "prvdr_rsrc_rprt_e8a569debdc044a6",
+                "title": "Resource Report 44189cf9",
+                "filter": "(resources.provider = 'aws')",
+                "created_at": "2024-10-09T13:33:40Z",
+                "workspace_token": "wrkspc_f861b07777a4d78c",
+                "user_token": null,
+                "created_by_token": null
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ResourceReports"
+        ],
+        "operationId": "getResourceReport"
+      }
+    },
     "/teams": {
       "post": {
         "description": "Create a new Team.",
@@ -3155,16 +3985,18 @@
                 },
                 "users": [
                   {
-                    "token": "usr_3f30f56e7773e72b",
-                    "name": "Pres. Sudie Kuvalis",
-                    "email": "kuvalis.sudie.pres@mckenzie-herman.net",
-                    "role": "Owner"
+                    "token": "usr_aa5cce4180981299",
+                    "name": "Jeanice Bins",
+                    "email": "jeanice_bins@torp-huels.name",
+                    "role": "Owner",
+                    "last_seen_at": "2024-01-01"
                   },
                   {
-                    "token": "usr_dc69dfedf704d4ea",
-                    "name": "Carisa Tromp",
-                    "email": "carisa.tromp@morissette.co",
-                    "role": "Viewer"
+                    "token": "usr_2372916b9f9589e7",
+                    "name": "Otto Goyette",
+                    "email": "otto_goyette@cronin.net",
+                    "role": "Owner",
+                    "last_seen_at": "2024-01-01"
                   }
                 ]
               }
@@ -3212,10 +4044,11 @@
             },
             "examples": {
               "application/json": {
-                "token": "usr_92c7273af4de2fb4",
-                "name": "Miss Shirlene Weissnat",
-                "email": "miss.shirlene.weissnat@west-howe.net",
-                "role": "Owner"
+                "token": "usr_bfc6ab15e635f848",
+                "name": "Patrick White",
+                "email": "white.patrick@kassulke-nitzsche.net",
+                "role": "Owner",
+                "last_seen_at": "2024-01-01"
               }
             }
           },
@@ -4014,231 +4847,6 @@
           "Prices"
         ],
         "operationId": "getPrice"
-      }
-    },
-    "/resource_reports": {
-      "post": {
-        "description": "Create a ResourceReport.",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "createResourceReport",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/createResourceReport"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "write"
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/ResourceReport"
-            },
-            "examples": {
-              "application/json": {
-                "token": "prvdr_rsrc_rprt_638d7ed6d280d294",
-                "title": "EC2 Report",
-                "filter": "provider_resources.provider = 'aws' and provider_resources.type = 'ProviderResource::Aws::VirtualMachine'",
-                "default": false,
-                "created_at": "2024-09-23T15:59:22Z",
-                "workspace_token": "wrkspc_2689fd9afcb9ebee",
-                "segment_token": null,
-                "user_token": "usr_36c89d4e24edc34a",
-                "created_by_token": "usr_36c89d4e24edc34a"
-              }
-            }
-          },
-          "400": {
-            "description": "BadRequest",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          },
-          "422": {
-            "description": "UnprocessableEntity",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        },
-        "tags": [
-          "ResourceReports"
-        ],
-        "operationId": "createResourceReport"
-      },
-      "get": {
-        "description": "Return all ResourceReports.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "description": "The page of results to return.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "description": "The number of results to return. The maximum is 1000.",
-            "type": "integer",
-            "format": "int32",
-            "required": false
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/ResourceReports"
-            },
-            "examples": {
-              "application/json": {
-                "links": {
-                  "self": "https://api.vantage.com/v2/resource_reports",
-                  "first": "https://api.vantage.com/v2/resource_reports?page=1",
-                  "next": null,
-                  "last": "https://api.vantage.com/v2/resource_reports?page=1",
-                  "prev": null
-                },
-                "resource_reports": [
-                  {
-                    "token": "prvdr_rsrc_rprt_3b64f879c629e9a9",
-                    "title": "Resource Report 2db2d004",
-                    "filter": "(provider_resources.provider = 'aws')",
-                    "default": false,
-                    "created_at": "2024-09-23T15:59:22Z",
-                    "workspace_token": "wrkspc_1a3b0976698e5766",
-                    "segment_token": null,
-                    "user_token": null,
-                    "created_by_token": null
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "tags": [
-          "ResourceReports"
-        ],
-        "operationId": "getResourceReports"
-      }
-    },
-    "/resource_reports/{resource_report_token}": {
-      "delete": {
-        "description": "Delete a ResourceReport.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "resource_report_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "write"
-            ]
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/ResourceReport"
-            }
-          },
-          "404": {
-            "description": "NotFound",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        },
-        "tags": [
-          "ResourceReports"
-        ],
-        "operationId": "deleteResourceReport"
-      },
-      "get": {
-        "description": "Return a ResourceReport.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "resource_report_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/ResourceReport"
-            },
-            "examples": {
-              "application/json": {
-                "token": "prvdr_rsrc_rprt_6842a3618a987169",
-                "title": "Resource Report c776eace",
-                "filter": "(provider_resources.provider = 'aws')",
-                "default": false,
-                "created_at": "2024-09-23T15:59:21Z",
-                "workspace_token": "wrkspc_efd6b442e43d536f",
-                "segment_token": null,
-                "user_token": null,
-                "created_by_token": null
-              }
-            }
-          },
-          "404": {
-            "description": "NotFound",
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        },
-        "tags": [
-          "ResourceReports"
-        ],
-        "operationId": "getResourceReport"
       }
     },
     "/financial_commitment_reports": {
@@ -7721,6 +8329,19 @@
           "type": "string",
           "example": "2023-08-04T00:00:00Z",
           "description": "The date and time, in UTC, the Workspace was created. ISO 8601 Formatted."
+        },
+        "enable_currency_conversion": {
+          "type": "string",
+          "description": "Whether or not currency conversion is enabled for the Workspace."
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "description": "The currency code for the Workspace that will be used for currency conversion."
+        },
+        "exchange_rate_date": {
+          "type": "string",
+          "description": "The exchange rate date that will be used to convert currency for your cost data."
         }
       },
       "description": "Workspace model"
@@ -9005,6 +9626,158 @@
       },
       "description": "Cost model"
     },
+    "Resources": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Resource"
+          }
+        }
+      },
+      "description": "Resources model"
+    },
+    "Resource": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string",
+          "example": "i-0a1b2c3d4e5f6g7h8",
+          "description": "The unique identifier for the resource."
+        },
+        "type": {
+          "type": "string",
+          "example": "aws_instance",
+          "description": "The kind of resource."
+        },
+        "label": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string",
+          "description": "Type-specific attributes of the resource."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "The provider account where the resource is located."
+        },
+        "billing_account_id": {
+          "type": "string",
+          "description": "The provider billing account this resource is charged to."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "description": "The provider of the resource."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-west-2",
+          "description": "The region where the resource is located. Region values are specific to each provider."
+        },
+        "cost": {
+          "type": "string",
+          "description": "The cost of the resource."
+        },
+        "created_at": {
+          "type": "string",
+          "description": "The date and time when Vantage first observed the resource."
+        }
+      },
+      "description": "Resource model"
+    },
+    "createResourceReport": {
+      "type": "object",
+      "properties": {
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the ResourceReport to."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the ResourceReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The VQL filter for the ResourceReport."
+        }
+      },
+      "required": [
+        "workspace_token"
+      ],
+      "description": "Create a ResourceReport."
+    },
+    "ResourceReport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Acme123 Active Resources",
+          "description": "The title of the ResourceReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the ResourceReport is a part of."
+        },
+        "user_token": {
+          "type": "string",
+          "description": "The token for the User who created this ResourceReport."
+        },
+        "created_by_token": {
+          "type": "string",
+          "description": "The token for the User or Team who created this ResourceReport."
+        }
+      },
+      "description": "ResourceReport model"
+    },
+    "ResourceReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "resource_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceReport"
+          }
+        }
+      },
+      "description": "ResourceReports model"
+    },
+    "updateResourceReport": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the ResourceReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The VQL filter for the ResourceReport."
+        }
+      },
+      "description": "Update a ResourceReport."
+    },
     "createTeam": {
       "type": "object",
       "properties": {
@@ -9443,6 +10216,11 @@
           "type": "string",
           "example": "Admin",
           "description": "The role of the User."
+        },
+        "last_seen_at": {
+          "type": "string",
+          "example": "2024-01-01T00:00:00Z",
+          "description": "The last time the User logged in."
         }
       },
       "description": "User model"
@@ -9804,85 +10582,6 @@
         }
       },
       "description": "Price model"
-    },
-    "createResourceReport": {
-      "type": "object",
-      "properties": {
-        "workspace_token": {
-          "type": "string",
-          "description": "The token of the Workspace to add the ResourceReport to."
-        },
-        "title": {
-          "type": "string",
-          "description": "The title of the ResourceReport."
-        },
-        "filter": {
-          "type": "string",
-          "description": "The VQL filter for the ResourceReport."
-        }
-      },
-      "required": [
-        "workspace_token"
-      ],
-      "description": "Create a ResourceReport."
-    },
-    "ResourceReport": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string",
-          "example": "Acme123 Active Resources",
-          "description": "The title of the ResourceReport."
-        },
-        "filter": {
-          "type": "string",
-          "description": "The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql."
-        },
-        "default": {
-          "type": "boolean",
-          "description": "Indicates whether the ResourceReport is the default report."
-        },
-        "created_at": {
-          "type": "string",
-          "example": "2024-03-19T00:00:00Z",
-          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
-        },
-        "workspace_token": {
-          "type": "string",
-          "description": "The token for the Workspace the ResourceReport is a part of."
-        },
-        "segment_token": {
-          "type": "string",
-          "description": "The token for the Segment the ResourceReport is a part of."
-        },
-        "user_token": {
-          "type": "string",
-          "description": "The token for the User who created this ResourceReport."
-        },
-        "created_by_token": {
-          "type": "string",
-          "description": "The token for the User or Team who created this ResourceReport."
-        }
-      },
-      "description": "ResourceReport model"
-    },
-    "ResourceReports": {
-      "type": "object",
-      "properties": {
-        "links": {
-          "type": "object"
-        },
-        "resource_reports": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResourceReport"
-          }
-        }
-      },
-      "description": "ResourceReports model"
     },
     "FinancialCommitmentReports": {
       "type": "object",
