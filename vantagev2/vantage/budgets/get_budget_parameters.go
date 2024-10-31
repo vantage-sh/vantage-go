@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetBudgetParams creates a new GetBudgetParams object,
@@ -63,6 +64,12 @@ type GetBudgetParams struct {
 
 	// BudgetToken.
 	BudgetToken string
+
+	/* IncludePerformance.
+
+	   Include performance data.
+	*/
+	IncludePerformance *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -128,6 +135,17 @@ func (o *GetBudgetParams) SetBudgetToken(budgetToken string) {
 	o.BudgetToken = budgetToken
 }
 
+// WithIncludePerformance adds the includePerformance to the get budget params
+func (o *GetBudgetParams) WithIncludePerformance(includePerformance *bool) *GetBudgetParams {
+	o.SetIncludePerformance(includePerformance)
+	return o
+}
+
+// SetIncludePerformance adds the includePerformance to the get budget params
+func (o *GetBudgetParams) SetIncludePerformance(includePerformance *bool) {
+	o.IncludePerformance = includePerformance
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetBudgetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -139,6 +157,23 @@ func (o *GetBudgetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	// path param budget_token
 	if err := r.SetPathParam("budget_token", o.BudgetToken); err != nil {
 		return err
+	}
+
+	if o.IncludePerformance != nil {
+
+		// query param include_performance
+		var qrIncludePerformance bool
+
+		if o.IncludePerformance != nil {
+			qrIncludePerformance = *o.IncludePerformance
+		}
+		qIncludePerformance := swag.FormatBool(qrIncludePerformance)
+		if qIncludePerformance != "" {
+
+			if err := r.SetQueryParam("include_performance", qIncludePerformance); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {

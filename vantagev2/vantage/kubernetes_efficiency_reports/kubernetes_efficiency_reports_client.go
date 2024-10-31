@@ -56,13 +56,56 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateKubernetesEfficiencyReport(params *CreateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateKubernetesEfficiencyReportCreated, error)
+
 	DeleteKubernetesEfficiencyReport(params *DeleteKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKubernetesEfficiencyReportNoContent, error)
 
 	GetKubernetesEfficiencyReport(params *GetKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKubernetesEfficiencyReportOK, error)
 
 	GetKubernetesEfficiencyReports(params *GetKubernetesEfficiencyReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKubernetesEfficiencyReportsOK, error)
 
+	UpdateKubernetesEfficiencyReport(params *UpdateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKubernetesEfficiencyReportOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateKubernetesEfficiencyReport Create a KubernetesEfficiencyReport.
+*/
+func (a *Client) CreateKubernetesEfficiencyReport(params *CreateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateKubernetesEfficiencyReportCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateKubernetesEfficiencyReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createKubernetesEfficiencyReport",
+		Method:             "POST",
+		PathPattern:        "/kubernetes_efficiency_reports",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateKubernetesEfficiencyReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateKubernetesEfficiencyReportCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createKubernetesEfficiencyReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -179,6 +222,45 @@ func (a *Client) GetKubernetesEfficiencyReports(params *GetKubernetesEfficiencyR
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getKubernetesEfficiencyReports: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateKubernetesEfficiencyReport Update a KubernetesEfficiencyReport.
+*/
+func (a *Client) UpdateKubernetesEfficiencyReport(params *UpdateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKubernetesEfficiencyReportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateKubernetesEfficiencyReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateKubernetesEfficiencyReport",
+		Method:             "PUT",
+		PathPattern:        "/kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateKubernetesEfficiencyReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateKubernetesEfficiencyReportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateKubernetesEfficiencyReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

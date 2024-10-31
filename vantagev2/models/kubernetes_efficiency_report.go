@@ -39,7 +39,7 @@ type KubernetesEfficiencyReport struct {
 	// Example: 2024-03-20
 	EndDate string `json:"end_date,omitempty"`
 
-	// The grouping aggregations applied to the filtered data.
+	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>.
 	// Example: cluster_id, namespace
 	Groupings string `json:"groupings,omitempty"`
 
