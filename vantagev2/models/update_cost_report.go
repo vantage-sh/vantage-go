@@ -524,6 +524,9 @@ func (m *UpdateCostReportBusinessMetricTokensWithMetadataItems0) UnmarshalBinary
 // swagger:model UpdateCostReportSettings
 type UpdateCostReportSettings struct {
 
+	// Report will aggregate by.
+	AggregateBy string `json:"aggregate_by,omitempty"`
+
 	// Report will amortize.
 	Amortize bool `json:"amortize,omitempty"`
 

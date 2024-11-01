@@ -1258,15 +1258,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_9783f373184498cd",
+                "token": "rprt_833310893a5ef0b8",
                 "title": "New Cost Report",
-                "folder_token": "fldr_02bd44d9af7b07e8",
+                "folder_token": "fldr_576d66e14d911b2a",
                 "saved_filter_tokens": [
-                  "svd_fltr_43bbe2f3133a30d7"
+                  "svd_fltr_60a55554b600626f"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_e2414629ee5f2a5b",
+                    "business_metric_token": "bsnss_mtrc_86c56a209d466fd4",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1284,10 +1284,11 @@
                   "include_discounts": true,
                   "include_tax": true,
                   "amortize": true,
-                  "unallocated": false
+                  "unallocated": false,
+                  "aggregate_by": "cost"
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_0f1aaeec11b32bc9",
+                "workspace_token": "wrkspc_c5f205fefde05b46",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -1370,11 +1371,11 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_06850587c8f93488",
+                    "token": "rprt_36a9e7ada7835b71",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_c2656b3d52620239"
+                      "svd_fltr_cd5d6cd654ffbe8a"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
@@ -1385,10 +1386,11 @@
                       "include_discounts": true,
                       "include_tax": true,
                       "amortize": true,
-                      "unallocated": false
+                      "unallocated": false,
+                      "aggregate_by": "cost"
                     },
-                    "created_at": "2024-07-22T16:47:16Z",
-                    "workspace_token": "wrkspc_894b3cd355b674cb",
+                    "created_at": "2024-07-03T00:00:00Z",
+                    "workspace_token": "wrkspc_2e2953593e6c460a",
                     "previous_period_start_date": null,
                     "previous_period_end_date": null,
                     "start_date": "2024-07-01",
@@ -1487,15 +1489,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_af5d4e67c9cc969a",
+                "token": "rprt_a490c214f4bbe72f",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_40c4abedffd2635b",
+                "folder_token": "fldr_8295e9888457f397",
                 "saved_filter_tokens": [
-                  "svd_fltr_37d6f9b74b196e6b"
+                  "svd_fltr_ab6d4f05eaa6810e"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_7fb977537ec08a72",
+                    "business_metric_token": "bsnss_mtrc_12e5db929bf3922a",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1505,7 +1507,7 @@
                     ]
                   },
                   {
-                    "business_metric_token": "bsnss_mtrc_723bc37034c6fc13",
+                    "business_metric_token": "bsnss_mtrc_72d01f2ecdbc10fc",
                     "unit_scale": "per_million"
                   }
                 ],
@@ -1517,10 +1519,11 @@
                   "include_discounts": true,
                   "include_tax": true,
                   "amortize": true,
-                  "unallocated": false
+                  "unallocated": false,
+                  "aggregate_by": "cost"
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_594cb0434116d0db",
+                "workspace_token": "wrkspc_820fbab7bc9f61b7",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -1577,11 +1580,11 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_e894ef5699f7f798",
+                "token": "rprt_b82eb9c606b23f6d",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_2fbc5b6fc12f0559"
+                  "svd_fltr_0d87868df0e54711"
                 ],
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
@@ -1592,10 +1595,11 @@
                   "include_discounts": true,
                   "include_tax": true,
                   "amortize": true,
-                  "unallocated": false
+                  "unallocated": false,
+                  "aggregate_by": "cost"
                 },
-                "created_at": "2024-07-22T16:47:24Z",
-                "workspace_token": "wrkspc_a233cd64c8383c9b",
+                "created_at": "2024-07-03T00:00:00Z",
+                "workspace_token": "wrkspc_90079dc86b0ea0a8",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -2364,6 +2368,14 @@
             "description": "Results will show unallocated costs.",
             "type": "boolean",
             "default": false,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "settings[aggregate_by]",
+            "description": "Results will aggregate by.",
+            "type": "string",
+            "default": "cost",
             "required": false
           }
         ],
@@ -5101,6 +5113,72 @@
       }
     },
     "/kubernetes_efficiency_reports": {
+      "post": {
+        "description": "Create a KubernetesEfficiencyReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createKubernetesEfficiencyReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createKubernetesEfficiencyReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "kbnts_eff_rprt_64b023b8b24a6b54",
+                "title": "title",
+                "default": false,
+                "created_at": "2024-10-25T21:20:44Z",
+                "workspace_token": "wrkspc_a1cf74557db2474a",
+                "user_token": null,
+                "start_date": "2024-10-01",
+                "end_date": "2024-10-31",
+                "date_interval": "this_month",
+                "date_bucket": "day",
+                "aggregated_by": "idle_cost",
+                "groupings": "cluster_id"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "createKubernetesEfficiencyReport"
+      },
       "get": {
         "description": "Return all KubernetesEfficiencyReports.",
         "produces": [
@@ -5137,7 +5215,33 @@
             "schema": {
               "$ref": "#/definitions/KubernetesEfficiencyReports"
             },
-            "examples": {}
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/kubernetes_efficiency_reports",
+                  "first": "https://api.vantage.com/v2/kubernetes_efficiency_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/kubernetes_efficiency_reports?page=1",
+                  "prev": null
+                },
+                "kubernetes_efficiency_reports": [
+                  {
+                    "token": "kbnts_eff_rprt_f8d610afacc7e6c6",
+                    "title": "Sriracha aesthetic echo literally retro.",
+                    "default": false,
+                    "created_at": "2024-10-25T21:20:43Z",
+                    "workspace_token": "wrkspc_64768b29bebf9dfe",
+                    "user_token": null,
+                    "start_date": "2024-10-01",
+                    "end_date": "2024-10-31",
+                    "date_interval": "this_month",
+                    "date_bucket": "day",
+                    "aggregated_by": "idle_cost",
+                    "groupings": "cluster_id"
+                  }
+                ]
+              }
+            }
           }
         },
         "tags": [
@@ -5186,6 +5290,78 @@
         ],
         "operationId": "deleteKubernetesEfficiencyReport"
       },
+      "put": {
+        "description": "Update a KubernetesEfficiencyReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "kubernetes_efficiency_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateKubernetesEfficiencyReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateKubernetesEfficiencyReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "kbnts_eff_rprt_f9ee5fadf5e1a6e6",
+                "title": "new title",
+                "default": false,
+                "created_at": "2024-10-25T21:20:42Z",
+                "workspace_token": "wrkspc_303c3228e22ccb6f",
+                "user_token": null,
+                "start_date": "2024-10-01",
+                "end_date": "2024-10-31",
+                "date_interval": "this_month",
+                "date_bucket": "day",
+                "aggregated_by": "idle_cost",
+                "groupings": "cluster_id"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "updateKubernetesEfficiencyReport"
+      },
       "get": {
         "description": "Return a KubernetesEfficiencyReport.",
         "produces": [
@@ -5212,7 +5388,22 @@
             "schema": {
               "$ref": "#/definitions/KubernetesEfficiencyReport"
             },
-            "examples": {}
+            "examples": {
+              "application/json": {
+                "token": "kbnts_eff_rprt_8f8b9caaffee230b",
+                "title": "+1 disrupt.",
+                "default": false,
+                "created_at": "2024-10-25T21:20:43Z",
+                "workspace_token": "wrkspc_d6ab5f555d9bd0b5",
+                "user_token": null,
+                "start_date": "2024-10-01",
+                "end_date": "2024-10-31",
+                "date_interval": "this_month",
+                "date_bucket": "day",
+                "aggregated_by": "idle_cost",
+                "groupings": "cluster_id"
+              }
+            }
           },
           "404": {
             "description": "NotFound",
@@ -6398,6 +6589,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "include_performance",
+            "description": "Include performance data.",
+            "type": "boolean",
+            "required": false
+          },
           {
             "in": "path",
             "name": "budget_token",
@@ -8680,6 +8878,11 @@
               "type": "boolean",
               "description": "Report will show unallocated costs.",
               "default": false
+            },
+            "aggregate_by": {
+              "type": "string",
+              "description": "Report will aggregate by.",
+              "default": "cost"
             }
           }
         },
@@ -8820,6 +9023,11 @@
               "type": "boolean",
               "default": false,
               "description": "Report will show unallocated costs."
+            },
+            "aggregate_by": {
+              "type": "string",
+              "default": "cost",
+              "description": "Report will aggregate by."
             }
           },
           "description": "Report settings."
@@ -9005,6 +9213,10 @@
             "unallocated": {
               "type": "boolean",
               "description": "Report will show unallocated costs."
+            },
+            "aggregate_by": {
+              "type": "string",
+              "description": "Report will aggregate by."
             }
           }
         },
@@ -10774,20 +10986,82 @@
         }
       }
     },
-    "KubernetesEfficiencyReports": {
+    "createKubernetesEfficiencyReport": {
       "type": "object",
       "properties": {
-        "links": {
-          "type": "object"
+        "workspace_token": {
+          "type": "string",
+          "description": "The Workspace in which the KubernetesEfficiencyReport will be created."
         },
-        "kubernetes_efficiency_reports": {
+        "title": {
+          "type": "string",
+          "description": "The title of the KubernetesEfficiencyReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months",
+            "year_to_date"
+          ]
+        },
+        "aggregated_column": {
+          "type": "string",
+          "description": "The aggregated column of the report."
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "The date bin of the KubernetesEfficiencyReport.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ],
+          "default": "cumulative"
+        },
+        "groupings": {
           "type": "array",
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>.",
           "items": {
-            "$ref": "#/definitions/KubernetesEfficiencyReport"
+            "type": "string"
           }
         }
       },
-      "description": "KubernetesEfficiencyReports model"
+      "required": [
+        "workspace_token",
+        "title",
+        "start_date",
+        "end_date"
+      ],
+      "description": "Create a KubernetesEfficiencyReport."
     },
     "KubernetesEfficiencyReport": {
       "type": "object",
@@ -10844,10 +11118,96 @@
         "groupings": {
           "type": "string",
           "example": "cluster_id, namespace",
-          "description": "The grouping aggregations applied to the filtered data."
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>."
         }
       },
       "description": "KubernetesEfficiencyReport model"
+    },
+    "KubernetesEfficiencyReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "kubernetes_efficiency_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KubernetesEfficiencyReport"
+          }
+        }
+      },
+      "description": "KubernetesEfficiencyReports model"
+    },
+    "updateKubernetesEfficiencyReport": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the KubernetesEfficiencyReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "next_month",
+            "next_3_months",
+            "next_6_months",
+            "next_12_months",
+            "year_to_date"
+          ]
+        },
+        "aggregated_column": {
+          "type": "string",
+          "description": "The aggregated column of the report."
+        },
+        "date_bin": {
+          "type": "string",
+          "description": "The date bin of the KubernetesEfficiencyReport.",
+          "enum": [
+            "cumulative",
+            "day",
+            "week",
+            "month"
+          ],
+          "default": "cumulative"
+        },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "start_date",
+        "end_date"
+      ],
+      "description": "Update a KubernetesEfficiencyReport."
     },
     "AnomalyAlerts": {
       "type": "object",

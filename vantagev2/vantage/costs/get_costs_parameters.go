@@ -96,6 +96,14 @@ type GetCostsParams struct {
 	*/
 	Order *string
 
+	/* SettingsAggregateBy.
+
+	   Results will aggregate by.
+
+	   Default: "cost"
+	*/
+	SettingsAggregateBy *string
+
 	/* SettingsAmortize.
 
 	   Results will amortize.
@@ -164,6 +172,8 @@ func (o *GetCostsParams) SetDefaults() {
 	var (
 		orderDefault = string("desc")
 
+		settingsAggregateByDefault = string("cost")
+
 		settingsAmortizeDefault = bool(true)
 
 		settingsIncludeCreditsDefault = bool(false)
@@ -179,6 +189,7 @@ func (o *GetCostsParams) SetDefaults() {
 
 	val := GetCostsParams{
 		Order:                    &orderDefault,
+		SettingsAggregateBy:      &settingsAggregateByDefault,
 		SettingsAmortize:         &settingsAmortizeDefault,
 		SettingsIncludeCredits:   &settingsIncludeCreditsDefault,
 		SettingsIncludeDiscounts: &settingsIncludeDiscountsDefault,
@@ -279,6 +290,17 @@ func (o *GetCostsParams) WithOrder(order *string) *GetCostsParams {
 // SetOrder adds the order to the get costs params
 func (o *GetCostsParams) SetOrder(order *string) {
 	o.Order = order
+}
+
+// WithSettingsAggregateBy adds the settingsAggregateBy to the get costs params
+func (o *GetCostsParams) WithSettingsAggregateBy(settingsAggregateBy *string) *GetCostsParams {
+	o.SetSettingsAggregateBy(settingsAggregateBy)
+	return o
+}
+
+// SetSettingsAggregateBy adds the settingsAggregateBy to the get costs params
+func (o *GetCostsParams) SetSettingsAggregateBy(settingsAggregateBy *string) {
+	o.SettingsAggregateBy = settingsAggregateBy
 }
 
 // WithSettingsAmortize adds the settingsAmortize to the get costs params
@@ -433,6 +455,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qOrder != "" {
 
 			if err := r.SetQueryParam("order", qOrder); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsAggregateBy != nil {
+
+		// query param settings[aggregate_by]
+		var qrSettingsAggregateBy string
+
+		if o.SettingsAggregateBy != nil {
+			qrSettingsAggregateBy = *o.SettingsAggregateBy
+		}
+		qSettingsAggregateBy := qrSettingsAggregateBy
+		if qSettingsAggregateBy != "" {
+
+			if err := r.SetQueryParam("settings[aggregate_by]", qSettingsAggregateBy); err != nil {
 				return err
 			}
 		}

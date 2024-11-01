@@ -569,6 +569,9 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) UnmarshalBinary
 // swagger:model CreateCostReportSettings
 type CreateCostReportSettings struct {
 
+	// Report will aggregate by.
+	AggregateBy *string `json:"aggregate_by,omitempty"`
+
 	// Report will amortize.
 	Amortize *bool `json:"amortize,omitempty"`
 
