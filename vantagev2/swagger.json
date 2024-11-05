@@ -5146,18 +5146,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "kbnts_eff_rprt_64b023b8b24a6b54",
+                "token": "kbnts_eff_rprt_b5c0eedc83b259be",
                 "title": "title",
                 "default": false,
-                "created_at": "2024-10-25T21:20:44Z",
-                "workspace_token": "wrkspc_a1cf74557db2474a",
+                "created_at": "2024-11-05T20:32:30Z",
+                "workspace_token": "wrkspc_71e915f9671fa270",
                 "user_token": null,
-                "start_date": "2024-10-01",
-                "end_date": "2024-10-31",
+                "start_date": "2024-11-01",
+                "end_date": "2024-11-30",
                 "date_interval": "this_month",
                 "date_bucket": "day",
                 "aggregated_by": "idle_cost",
-                "groupings": "cluster_id"
+                "groupings": "cluster_id",
+                "filter": "kubernetes.cluster_id   =   'cluster-1'"
               }
             }
           },
@@ -11119,6 +11120,10 @@
           "type": "string",
           "example": "cluster_id, namespace",
           "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "description": "KubernetesEfficiencyReport model"
@@ -11390,7 +11395,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-04-01",
+          "example": "2024-05-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
