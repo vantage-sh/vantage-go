@@ -20,8 +20,9 @@ import (
 // swagger:model updateKubernetesEfficiencyReport
 type UpdateKubernetesEfficiencyReport struct {
 
-	// The aggregated column of the report.
-	AggregatedColumn string `json:"aggregated_column,omitempty"`
+	// The column by which the costs are aggregated.
+	// Enum: ["idle_cost","amount","cost_efficiency"]
+	AggregatedBy string `json:"aggregated_by,omitempty"`
 
 	// The date bin of the KubernetesEfficiencyReport.
 	// Enum: ["cumulative","day","week","month"]
@@ -55,6 +56,10 @@ type UpdateKubernetesEfficiencyReport struct {
 func (m *UpdateKubernetesEfficiencyReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAggregatedBy(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDateBin(formats); err != nil {
 		res = append(res, err)
 	}
@@ -74,6 +79,51 @@ func (m *UpdateKubernetesEfficiencyReport) Validate(formats strfmt.Registry) err
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var updateKubernetesEfficiencyReportTypeAggregatedByPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["idle_cost","amount","cost_efficiency"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateKubernetesEfficiencyReportTypeAggregatedByPropEnum = append(updateKubernetesEfficiencyReportTypeAggregatedByPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateKubernetesEfficiencyReportAggregatedByIdleCost captures enum value "idle_cost"
+	UpdateKubernetesEfficiencyReportAggregatedByIdleCost string = "idle_cost"
+
+	// UpdateKubernetesEfficiencyReportAggregatedByAmount captures enum value "amount"
+	UpdateKubernetesEfficiencyReportAggregatedByAmount string = "amount"
+
+	// UpdateKubernetesEfficiencyReportAggregatedByCostEfficiency captures enum value "cost_efficiency"
+	UpdateKubernetesEfficiencyReportAggregatedByCostEfficiency string = "cost_efficiency"
+)
+
+// prop value enum
+func (m *UpdateKubernetesEfficiencyReport) validateAggregatedByEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateKubernetesEfficiencyReportTypeAggregatedByPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateKubernetesEfficiencyReport) validateAggregatedBy(formats strfmt.Registry) error {
+	if swag.IsZero(m.AggregatedBy) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAggregatedByEnum("aggregated_by", "body", m.AggregatedBy); err != nil {
+		return err
+	}
+
 	return nil
 }
 

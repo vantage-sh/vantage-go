@@ -11033,9 +11033,14 @@
             "year_to_date"
           ]
         },
-        "aggregated_column": {
+        "aggregated_by": {
           "type": "string",
-          "description": "The aggregated column of the report."
+          "description": "The column by which the costs are aggregated.",
+          "enum": [
+            "idle_cost",
+            "amount",
+            "cost_efficiency"
+          ]
         },
         "date_bin": {
           "type": "string",
@@ -11114,7 +11119,7 @@
         },
         "aggregated_by": {
           "type": "string",
-          "description": "How costs are aggregated by. Possible values: idle_costs, amount."
+          "description": "How costs are aggregated by. Possible values: idle_cost, amount, cost_efficiency."
         },
         "groupings": {
           "type": "string",
@@ -11185,9 +11190,14 @@
             "year_to_date"
           ]
         },
-        "aggregated_column": {
+        "aggregated_by": {
           "type": "string",
-          "description": "The aggregated column of the report."
+          "description": "The column by which the costs are aggregated.",
+          "enum": [
+            "idle_cost",
+            "amount",
+            "cost_efficiency"
+          ]
         },
         "date_bin": {
           "type": "string",

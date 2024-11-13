@@ -17,7 +17,7 @@ import (
 // swagger:model KubernetesEfficiencyReport
 type KubernetesEfficiencyReport struct {
 
-	// How costs are aggregated by. Possible values: idle_costs, amount.
+	// How costs are aggregated by. Possible values: idle_cost, amount, cost_efficiency.
 	AggregatedBy string `json:"aggregated_by,omitempty"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
