@@ -11063,9 +11063,7 @@
       },
       "required": [
         "workspace_token",
-        "title",
-        "start_date",
-        "end_date"
+        "title"
       ],
       "description": "Create a KubernetesEfficiencyReport."
     },
@@ -11218,10 +11216,6 @@
           }
         }
       },
-      "required": [
-        "start_date",
-        "end_date"
-      ],
       "description": "Update a KubernetesEfficiencyReport."
     },
     "AnomalyAlerts": {

@@ -33,9 +33,8 @@ type CreateKubernetesEfficiencyReport struct {
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-	// Required: true
 	// Format: date
-	EndDate *strfmt.Date `json:"end_date"`
+	EndDate strfmt.Date `json:"end_date,omitempty"`
 
 	// The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
@@ -44,9 +43,8 @@ type CreateKubernetesEfficiencyReport struct {
 	Groupings []string `json:"groupings"`
 
 	// The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-	// Required: true
 	// Format: date
-	StartDate *strfmt.Date `json:"start_date"`
+	StartDate strfmt.Date `json:"start_date,omitempty"`
 
 	// The title of the KubernetesEfficiencyReport.
 	// Required: true
@@ -270,9 +268,8 @@ func (m *CreateKubernetesEfficiencyReport) validateDateInterval(formats strfmt.R
 }
 
 func (m *CreateKubernetesEfficiencyReport) validateEndDate(formats strfmt.Registry) error {
-
-	if err := validate.Required("end_date", "body", m.EndDate); err != nil {
-		return err
+	if swag.IsZero(m.EndDate) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("end_date", "body", "date", m.EndDate.String(), formats); err != nil {
@@ -283,9 +280,8 @@ func (m *CreateKubernetesEfficiencyReport) validateEndDate(formats strfmt.Regist
 }
 
 func (m *CreateKubernetesEfficiencyReport) validateStartDate(formats strfmt.Registry) error {
-
-	if err := validate.Required("start_date", "body", m.StartDate); err != nil {
-		return err
+	if swag.IsZero(m.StartDate) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("start_date", "body", "date", m.StartDate.String(), formats); err != nil {
