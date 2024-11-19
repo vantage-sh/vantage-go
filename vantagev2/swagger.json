@@ -11046,12 +11046,11 @@
           "type": "string",
           "description": "The date bin of the KubernetesEfficiencyReport.",
           "enum": [
-            "cumulative",
             "day",
             "week",
             "month"
           ],
-          "default": "cumulative"
+          "default": "day"
         },
         "groupings": {
           "type": "array",
@@ -11201,12 +11200,11 @@
           "type": "string",
           "description": "The date bin of the KubernetesEfficiencyReport.",
           "enum": [
-            "cumulative",
             "day",
             "week",
             "month"
           ],
-          "default": "cumulative"
+          "default": "day"
         },
         "groupings": {
           "type": "array",

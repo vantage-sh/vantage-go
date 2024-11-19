@@ -25,7 +25,7 @@ type CreateKubernetesEfficiencyReport struct {
 	AggregatedBy string `json:"aggregated_by,omitempty"`
 
 	// The date bin of the KubernetesEfficiencyReport.
-	// Enum: ["cumulative","day","week","month"]
+	// Enum: ["day","week","month"]
 	DateBin *string `json:"date_bin,omitempty"`
 
 	// The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
@@ -142,7 +142,7 @@ var createKubernetesEfficiencyReportTypeDateBinPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cumulative","day","week","month"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["day","week","month"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -151,9 +151,6 @@ func init() {
 }
 
 const (
-
-	// CreateKubernetesEfficiencyReportDateBinCumulative captures enum value "cumulative"
-	CreateKubernetesEfficiencyReportDateBinCumulative string = "cumulative"
 
 	// CreateKubernetesEfficiencyReportDateBinDay captures enum value "day"
 	CreateKubernetesEfficiencyReportDateBinDay string = "day"
