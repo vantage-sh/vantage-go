@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -42,8 +43,8 @@ type CreateDashboard struct {
 	// Required: true
 	Title *string `json:"title"`
 
-	// The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.
-	WidgetTokens []string `json:"widget_tokens"`
+	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.
+	Widgets []*CreateDashboardWidgetsItems0 `json:"widgets"`
 
 	// The token of the Workspace to add the Dashboard to. Required if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
@@ -66,6 +67,10 @@ func (m *CreateDashboard) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWidgets(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -222,8 +227,68 @@ func (m *CreateDashboard) validateTitle(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this create dashboard based on context it is used
+func (m *CreateDashboard) validateWidgets(formats strfmt.Registry) error {
+	if swag.IsZero(m.Widgets) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Widgets); i++ {
+		if swag.IsZero(m.Widgets[i]) { // not required
+			continue
+		}
+
+		if m.Widgets[i] != nil {
+			if err := m.Widgets[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("widgets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("widgets" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create dashboard based on the context it is used
 func (m *CreateDashboard) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateWidgets(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateDashboard) contextValidateWidgets(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Widgets); i++ {
+
+		if m.Widgets[i] != nil {
+
+			if swag.IsZero(m.Widgets[i]) { // not required
+				return nil
+			}
+
+			if err := m.Widgets[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("widgets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("widgets" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -238,6 +303,212 @@ func (m *CreateDashboard) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CreateDashboard) UnmarshalBinary(b []byte) error {
 	var res CreateDashboard
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateDashboardWidgetsItems0 create dashboard widgets items0
+//
+// swagger:model CreateDashboardWidgetsItems0
+type CreateDashboardWidgetsItems0 struct {
+
+	// settings
+	Settings *CreateDashboardWidgetsItems0Settings `json:"settings,omitempty"`
+
+	// The title of the Widget (defaults to the title of the Resource).
+	Title string `json:"title,omitempty"`
+
+	// The token of the represented Resource.
+	// Required: true
+	WidgetableToken *string `json:"widgetable_token"`
+}
+
+// Validate validates this create dashboard widgets items0
+func (m *CreateDashboardWidgetsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWidgetableToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateDashboardWidgetsItems0) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateDashboardWidgetsItems0) validateWidgetableToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("widgetable_token", "body", m.WidgetableToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create dashboard widgets items0 based on the context it is used
+func (m *CreateDashboardWidgetsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateDashboardWidgetsItems0) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
+
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateDashboardWidgetsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateDashboardWidgetsItems0) UnmarshalBinary(b []byte) error {
+	var res CreateDashboardWidgetsItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateDashboardWidgetsItems0Settings The settings for the DashboardWidget.
+//
+// swagger:model CreateDashboardWidgetsItems0Settings
+type CreateDashboardWidgetsItems0Settings struct {
+
+	// display type
+	// Required: true
+	// Enum: ["table","chart"]
+	DisplayType *string `json:"display_type"`
+}
+
+// Validate validates this create dashboard widgets items0 settings
+func (m *CreateDashboardWidgetsItems0Settings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDisplayType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createDashboardWidgetsItems0SettingsTypeDisplayTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["table","chart"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createDashboardWidgetsItems0SettingsTypeDisplayTypePropEnum = append(createDashboardWidgetsItems0SettingsTypeDisplayTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateDashboardWidgetsItems0SettingsDisplayTypeTable captures enum value "table"
+	CreateDashboardWidgetsItems0SettingsDisplayTypeTable string = "table"
+
+	// CreateDashboardWidgetsItems0SettingsDisplayTypeChart captures enum value "chart"
+	CreateDashboardWidgetsItems0SettingsDisplayTypeChart string = "chart"
+)
+
+// prop value enum
+func (m *CreateDashboardWidgetsItems0Settings) validateDisplayTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createDashboardWidgetsItems0SettingsTypeDisplayTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateDashboardWidgetsItems0Settings) validateDisplayType(formats strfmt.Registry) error {
+
+	if err := validate.Required("settings"+"."+"display_type", "body", m.DisplayType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateDisplayTypeEnum("settings"+"."+"display_type", "body", *m.DisplayType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create dashboard widgets items0 settings based on context it is used
+func (m *CreateDashboardWidgetsItems0Settings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateDashboardWidgetsItems0Settings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateDashboardWidgetsItems0Settings) UnmarshalBinary(b []byte) error {
+	var res CreateDashboardWidgetsItems0Settings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

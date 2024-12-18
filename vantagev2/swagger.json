@@ -1969,13 +1969,38 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_40d2a85e60872ee4",
+                "token": "dshbrd_7e272e8d3de34719",
                 "title": "New Dashboard",
                 "widget_tokens": [
-                  "rprt_d1262358f4d2de03"
+                  "fncl_cmnt_rprt_d4743c186c130e30",
+                  "kbnts_eff_rprt_892d1566bd543b67",
+                  "rprt_750074c1b25b372a"
+                ],
+                "widgets": [
+                  {
+                    "widgetable_token": "fncl_cmnt_rprt_d4743c186c130e30",
+                    "title": "All Financial Commitments",
+                    "settings": {
+                      "display_type": "chart"
+                    }
+                  },
+                  {
+                    "widgetable_token": "kbnts_eff_rprt_892d1566bd543b67",
+                    "title": "Drinking meh chia single-origin coffee intelligentsia everyday small batch.",
+                    "settings": {
+                      "display_type": "table"
+                    }
+                  },
+                  {
+                    "widgetable_token": "rprt_750074c1b25b372a",
+                    "title": "Untitled",
+                    "settings": {
+                      "display_type": "chart"
+                    }
+                  }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_03bae07fb40ef1e0"
+                  "svd_fltr_3f45aefa131861ac"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
@@ -1983,7 +2008,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_7c586d05929f60b4"
+                "workspace_token": "wrkspc_08e043cc14ced776"
               }
             }
           },
@@ -2047,21 +2072,30 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_0e00316c1b6ccdf5",
-                    "title": "O Jerusalem!",
+                    "token": "dshbrd_13d78294a06f0f84",
+                    "title": "The Torment of Others",
                     "widget_tokens": [
-                      "rprt_63e2ca172354d16a"
+                      "rprt_7c3cb814dfb6d881"
+                    ],
+                    "widgets": [
+                      {
+                        "widgetable_token": "rprt_7c3cb814dfb6d881",
+                        "title": "Untitled",
+                        "settings": {
+                          "display_type": "chart"
+                        }
+                      }
                     ],
                     "saved_filter_tokens": [
-                      "svd_fltr_447e67636b3c789a"
+                      "svd_fltr_3c6f5eb635cf88de"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2024-03-04T18:49:33Z",
-                    "updated_at": "2024-03-04T18:49:33Z",
-                    "workspace_token": "wrkspc_d42986a4825b18c7"
+                    "created_at": "2024-12-17T00:44:48Z",
+                    "updated_at": "2024-12-17T00:44:48Z",
+                    "workspace_token": "wrkspc_ea1a7802e5fe06b3"
                   }
                 ]
               }
@@ -2155,21 +2189,46 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_43f0df22a2b28fc1",
+                "token": "dshbrd_2c942eb3a8d3962a",
                 "title": "Updated Dashboard",
                 "widget_tokens": [
-                  "rprt_1f78a31ae74c183f"
+                  "fncl_cmnt_rprt_ea316a453acd20c0",
+                  "kbnts_eff_rprt_e3fc91cb63fd5469",
+                  "rprt_7b0be9c16c5a6785"
+                ],
+                "widgets": [
+                  {
+                    "widgetable_token": "fncl_cmnt_rprt_ea316a453acd20c0",
+                    "title": "All Financial Commitments",
+                    "settings": {
+                      "display_type": "chart"
+                    }
+                  },
+                  {
+                    "widgetable_token": "kbnts_eff_rprt_e3fc91cb63fd5469",
+                    "title": "Green juice listicle irony yolo hella aesthetic hammock.",
+                    "settings": {
+                      "display_type": "table"
+                    }
+                  },
+                  {
+                    "widgetable_token": "rprt_7b0be9c16c5a6785",
+                    "title": "Untitled",
+                    "settings": {
+                      "display_type": "chart"
+                    }
+                  }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_c90a915a9b8c4128"
+                  "svd_fltr_51c106391f7295b7"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
                 "end_date": "2023-08-31",
-                "created_at": "2024-03-04T18:49:32Z",
+                "created_at": "2024-12-17T00:44:45Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_1f7d72cc9302b876"
+                "workspace_token": "wrkspc_0e5c381029cdc016"
               }
             }
           },
@@ -2229,21 +2288,30 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_77736ea6e502a481",
-                    "title": "The Road Less Traveled",
+                    "token": "dshbrd_e7c5b49d826b6f71",
+                    "title": "In Death Ground",
                     "widget_tokens": [
-                      "rprt_7d955d7fbe334706"
+                      "rprt_27e80d7a8d3f34e6"
+                    ],
+                    "widgets": [
+                      {
+                        "widgetable_token": "rprt_27e80d7a8d3f34e6",
+                        "title": "Untitled",
+                        "settings": {
+                          "display_type": "chart"
+                        }
+                      }
                     ],
                     "saved_filter_tokens": [
-                      "svd_fltr_cd8f90c99b33dfa6"
+                      "svd_fltr_7bb508e881e7fe5f"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2024-03-04T18:49:33Z",
-                    "updated_at": "2024-03-04T18:49:33Z",
-                    "workspace_token": "wrkspc_863089db412905d9"
+                    "created_at": "2024-12-17T00:44:48Z",
+                    "updated_at": "2024-12-17T00:44:48Z",
+                    "workspace_token": "wrkspc_245288e3c3a7377f"
                   }
                 ]
               }
@@ -2567,7 +2635,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -2603,7 +2671,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -2706,11 +2774,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -7175,7 +7243,8 @@
               "kubernetes",
               "custom_provider",
               "github",
-              "linode"
+              "linode",
+              "grafana"
             ],
             "required": false
           },
@@ -7862,7 +7931,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -7919,7 +7988,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -9500,11 +9569,40 @@
           "type": "string",
           "description": "The title of the Dashboard."
         },
-        "widget_tokens": {
+        "widgets": {
           "type": "array",
-          "description": "The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "widgetable_token": {
+                "type": "string",
+                "description": "The token of the represented Resource."
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the Widget (defaults to the title of the Resource)."
+              },
+              "settings": {
+                "type": "object",
+                "description": "The settings for the DashboardWidget.",
+                "properties": {
+                  "display_type": {
+                    "type": "string",
+                    "enum": [
+                      "table",
+                      "chart"
+                    ]
+                  }
+                },
+                "required": [
+                  "display_type"
+                ]
+              }
+            },
+            "required": [
+              "widgetable_token"
+            ]
           }
         },
         "saved_filter_tokens": {
@@ -9576,12 +9674,11 @@
           "example": "AWS Dashboard",
           "description": "The title of the Dashboard."
         },
-        "widget_tokens": {
+        "widgets": {
           "type": "array",
           "items": {
-            "type": "string"
-          },
-          "description": "The tokens of the widgets displayed in the Dashboard. Currently only supports CostReport tokens."
+            "$ref": "#/definitions/DashboardWidget"
+          }
         },
         "saved_filter_tokens": {
           "type": "array",
@@ -9619,17 +9716,17 @@
             "next_12_months",
             "year_to_date"
           ],
-          "description": "Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
+          "description": "Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
         "start_date": {
           "type": "string",
           "example": "2023-08-04",
-          "description": "The start date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
+          "description": "The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
         },
         "end_date": {
           "type": "string",
           "example": "2023-09-04",
-          "description": "The end date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
+          "description": "The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set."
         },
         "created_at": {
           "type": "string",
@@ -9648,6 +9745,36 @@
         }
       },
       "description": "Dashboard model"
+    },
+    "DashboardWidget": {
+      "type": "object",
+      "properties": {
+        "widgetable_token": {
+          "type": "string",
+          "example": "rprt_a12b3c"
+        },
+        "title": {
+          "type": "string",
+          "example": "My Widget",
+          "description": "The title of the Widget."
+        },
+        "settings": {
+          "$ref": "#/definitions/DashboardWidgetSettings",
+          "description": "The settings for the DashboardWidget"
+        }
+      }
+    },
+    "DashboardWidgetSettings": {
+      "type": "object",
+      "properties": {
+        "display_type": {
+          "type": "string",
+          "enum": [
+            "table",
+            "chart"
+          ]
+        }
+      }
     },
     "Dashboards": {
       "type": "object",
@@ -9671,11 +9798,40 @@
           "type": "string",
           "description": "The title of the Dashboard."
         },
-        "widget_tokens": {
+        "widgets": {
           "type": "array",
-          "description": "The tokens of the widgets to add to the Dashboard. Currently only supports CostReport tokens.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "widgetable_token": {
+                "type": "string",
+                "description": "The token of the represented Resource."
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the Widget (defaults to the title of the Resource)."
+              },
+              "settings": {
+                "type": "object",
+                "description": "The settings for the DashboardWidget.",
+                "properties": {
+                  "display_type": {
+                    "type": "string",
+                    "enum": [
+                      "table",
+                      "chart"
+                    ]
+                  }
+                },
+                "required": [
+                  "display_type"
+                ]
+              }
+            },
+            "required": [
+              "widgetable_token"
+            ]
           }
         },
         "saved_filter_tokens": {
@@ -9723,6 +9879,10 @@
         "end_date": {
           "type": "string",
           "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces."
         }
       },
       "required": [
@@ -9792,7 +9952,8 @@
             "kubernetes",
             "custom_provider",
             "github",
-            "linode"
+            "linode",
+            "grafana"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -11397,7 +11558,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-05-01",
+          "example": "2024-06-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {

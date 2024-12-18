@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -28,18 +29,18 @@ type Dashboard struct {
 	// Enum: ["cumulative","day","week","month"]
 	DateBin string `json:"date_bin,omitempty"`
 
-	// Determines the date range in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
+	// Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+	// The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2023-09-04
 	EndDate string `json:"end_date,omitempty"`
 
 	// The tokens of the Saved Filters used in the Dashboard.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
-	// The start date for the date range for CostReports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+	// The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2023-08-04
 	StartDate string `json:"start_date,omitempty"`
 
@@ -55,8 +56,8 @@ type Dashboard struct {
 	// Example: 2023-08-04T00:00:00Z
 	UpdatedAt string `json:"updated_at,omitempty"`
 
-	// The tokens of the widgets displayed in the Dashboard. Currently only supports CostReport tokens.
-	WidgetTokens []string `json:"widget_tokens"`
+	// widgets
+	Widgets []*DashboardWidget `json:"widgets"`
 
 	// The token for the Workspace the Dashboard is a part of.
 	// Example: wrkspc_abcd1234567890
@@ -72,6 +73,10 @@ func (m *Dashboard) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWidgets(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -210,8 +215,68 @@ func (m *Dashboard) validateDateInterval(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this dashboard based on context it is used
+func (m *Dashboard) validateWidgets(formats strfmt.Registry) error {
+	if swag.IsZero(m.Widgets) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Widgets); i++ {
+		if swag.IsZero(m.Widgets[i]) { // not required
+			continue
+		}
+
+		if m.Widgets[i] != nil {
+			if err := m.Widgets[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("widgets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("widgets" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this dashboard based on the context it is used
 func (m *Dashboard) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateWidgets(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Dashboard) contextValidateWidgets(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Widgets); i++ {
+
+		if m.Widgets[i] != nil {
+
+			if swag.IsZero(m.Widgets[i]) { // not required
+				return nil
+			}
+
+			if err := m.Widgets[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("widgets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("widgets" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
