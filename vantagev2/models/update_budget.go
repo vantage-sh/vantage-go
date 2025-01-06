@@ -20,13 +20,16 @@ import (
 // swagger:model updateBudget
 type UpdateBudget struct {
 
-	// The CostReport token.
+	// The tokens of any child Budgets when creating a hierarchical Budget.
+	ChildBudgetTokens []string `json:"child_budget_tokens"`
+
+	// The CostReport token. Ignored for hierarchical Budgets.
 	CostReportToken string `json:"cost_report_token,omitempty"`
 
 	// The name of the Budget.
 	Name string `json:"name,omitempty"`
 
-	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD.
+	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
 	Periods []*UpdateBudgetPeriodsItems0 `json:"periods"`
 }
 

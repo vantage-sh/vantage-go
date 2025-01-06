@@ -2441,7 +2441,7 @@
           {
             "in": "query",
             "name": "settings[aggregate_by]",
-            "description": "Results will aggregate by.",
+            "description": "Results will aggregate by cost or usage.",
             "type": "string",
             "default": "cost",
             "required": false
@@ -2635,7 +2635,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200.0,
+                    "cost": 200,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -2671,7 +2671,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100.0,
+                    "cost": 100,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -2774,11 +2774,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3.0
+                    "amount": 3
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3.0
+                    "amount": 3
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -7931,7 +7931,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100.0,
+                        "potential_savings": 100,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -7988,7 +7988,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100.0,
+                    "potential_savings": 100,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -8951,7 +8951,7 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by.",
+              "description": "Report will aggregate by cost or usage.",
               "default": "cost"
             }
           }
@@ -8990,7 +8990,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "chart_type": {
@@ -9097,7 +9098,7 @@
             "aggregate_by": {
               "type": "string",
               "default": "cost",
-              "description": "Report will aggregate by."
+              "description": "Report will aggregate by cost or usage."
             }
           },
           "description": "Report settings."
@@ -9286,7 +9287,7 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by."
+              "description": "Report will aggregate by cost or usage."
             }
           }
         },
@@ -9324,7 +9325,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "chart_type": {
@@ -9640,7 +9642,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "start_date": {
@@ -9714,7 +9717,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ],
           "description": "Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set."
         },
@@ -9869,7 +9873,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "start_date": {
@@ -9900,6 +9905,10 @@
           "type": "string",
           "description": "The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code."
         },
+        "total_usage": {
+          "type": "string",
+          "description": "The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit."
+        },
         "costs": {
           "type": "array",
           "items": {
@@ -9929,6 +9938,10 @@
           "type": "string",
           "example": "USD",
           "description": "The currency of the cost."
+        },
+        "usage": {
+          "type": "object",
+          "description": "The usage amount and unit incurred by the cost."
         },
         "provider": {
           "type": "string",
@@ -11191,7 +11204,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "aggregated_by": {
@@ -11203,15 +11217,14 @@
             "cost_efficiency"
           ]
         },
-        "date_bin": {
+        "date_bucket": {
           "type": "string",
-          "description": "The date bin of the KubernetesEfficiencyReport.",
+          "description": "The date bucket of the KubernetesEfficiencyReport.",
           "enum": [
             "day",
             "week",
             "month"
-          ],
-          "default": "day"
+          ]
         },
         "groupings": {
           "type": "array",
@@ -11345,7 +11358,8 @@
             "next_3_months",
             "next_6_months",
             "next_12_months",
-            "year_to_date"
+            "year_to_date",
+            "last_3_days"
           ]
         },
         "aggregated_by": {
@@ -11357,15 +11371,14 @@
             "cost_efficiency"
           ]
         },
-        "date_bin": {
+        "date_bucket": {
           "type": "string",
-          "description": "The date bin of the KubernetesEfficiencyReport.",
+          "description": "The date bucket of the KubernetesEfficiencyReport.",
           "enum": [
             "day",
             "week",
             "month"
-          ],
-          "default": "day"
+          ]
         },
         "groupings": {
           "type": "array",
@@ -11558,7 +11571,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-06-01",
+          "example": "2024-07-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -11824,11 +11837,18 @@
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The CostReport token."
+          "description": "The CostReport token. Ignored for hierarchical Budgets."
+        },
+        "child_budget_tokens": {
+          "type": "array",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "items": {
+            "type": "string"
+          }
         },
         "periods": {
           "type": "array",
-          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD.",
+          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
           "items": {
             "type": "object",
             "properties": {
@@ -11902,6 +11922,16 @@
             ]
           },
           "description": "The tokens of the BudgetAlerts associated with the Budget."
+        },
+        "child_budget_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "bdgt_7303d69d4cfd5443"
+            ]
+          },
+          "description": "The tokens of the child Budgets associated with the hierarchical Budget."
         },
         "periods": {
           "type": "array",
@@ -11984,11 +12014,18 @@
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The CostReport token."
+          "description": "The CostReport token. Ignored for hierarchical Budgets."
+        },
+        "child_budget_tokens": {
+          "type": "array",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "items": {
+            "type": "string"
+          }
         },
         "periods": {
           "type": "array",
-          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD.",
+          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
           "items": {
             "type": "object",
             "properties": {
@@ -12225,6 +12262,9 @@
     "UserCostsUploads": {
       "type": "object",
       "properties": {
+        "links": {
+          "type": "object"
+        },
         "user_costs_uploads": {
           "type": "array",
           "items": {

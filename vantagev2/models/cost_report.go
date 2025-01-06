@@ -228,7 +228,7 @@ func (m *CostReport) UnmarshalBinary(b []byte) error {
 // swagger:model CostReportSettings
 type CostReportSettings struct {
 
-	// Report will aggregate by.
+	// Report will aggregate by cost or usage.
 	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.

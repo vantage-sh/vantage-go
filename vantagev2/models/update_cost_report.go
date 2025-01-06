@@ -33,7 +33,7 @@ type UpdateCostReport struct {
 	DateBin *string `json:"date_bin,omitempty"`
 
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -223,7 +223,7 @@ var updateCostReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -277,6 +277,9 @@ const (
 
 	// UpdateCostReportDateIntervalYearToDate captures enum value "year_to_date"
 	UpdateCostReportDateIntervalYearToDate string = "year_to_date"
+
+	// UpdateCostReportDateIntervalLast3Days captures enum value "last_3_days"
+	UpdateCostReportDateIntervalLast3Days string = "last_3_days"
 )
 
 // prop value enum
@@ -524,7 +527,7 @@ func (m *UpdateCostReportBusinessMetricTokensWithMetadataItems0) UnmarshalBinary
 // swagger:model UpdateCostReportSettings
 type UpdateCostReportSettings struct {
 
-	// Report will aggregate by.
+	// Report will aggregate by cost or usage.
 	AggregateBy string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.

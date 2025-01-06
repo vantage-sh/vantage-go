@@ -24,12 +24,12 @@ type CreateKubernetesEfficiencyReport struct {
 	// Enum: ["idle_cost","amount","cost_efficiency"]
 	AggregatedBy string `json:"aggregated_by,omitempty"`
 
-	// The date bin of the KubernetesEfficiencyReport.
+	// The date bucket of the KubernetesEfficiencyReport.
 	// Enum: ["day","week","month"]
-	DateBin *string `json:"date_bin,omitempty"`
+	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -63,7 +63,7 @@ func (m *CreateKubernetesEfficiencyReport) Validate(formats strfmt.Registry) err
 		res = append(res, err)
 	}
 
-	if err := m.validateDateBin(formats); err != nil {
+	if err := m.validateDateBucket(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,7 +138,7 @@ func (m *CreateKubernetesEfficiencyReport) validateAggregatedBy(formats strfmt.R
 	return nil
 }
 
-var createKubernetesEfficiencyReportTypeDateBinPropEnum []interface{}
+var createKubernetesEfficiencyReportTypeDateBucketPropEnum []interface{}
 
 func init() {
 	var res []string
@@ -146,37 +146,37 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		createKubernetesEfficiencyReportTypeDateBinPropEnum = append(createKubernetesEfficiencyReportTypeDateBinPropEnum, v)
+		createKubernetesEfficiencyReportTypeDateBucketPropEnum = append(createKubernetesEfficiencyReportTypeDateBucketPropEnum, v)
 	}
 }
 
 const (
 
-	// CreateKubernetesEfficiencyReportDateBinDay captures enum value "day"
-	CreateKubernetesEfficiencyReportDateBinDay string = "day"
+	// CreateKubernetesEfficiencyReportDateBucketDay captures enum value "day"
+	CreateKubernetesEfficiencyReportDateBucketDay string = "day"
 
-	// CreateKubernetesEfficiencyReportDateBinWeek captures enum value "week"
-	CreateKubernetesEfficiencyReportDateBinWeek string = "week"
+	// CreateKubernetesEfficiencyReportDateBucketWeek captures enum value "week"
+	CreateKubernetesEfficiencyReportDateBucketWeek string = "week"
 
-	// CreateKubernetesEfficiencyReportDateBinMonth captures enum value "month"
-	CreateKubernetesEfficiencyReportDateBinMonth string = "month"
+	// CreateKubernetesEfficiencyReportDateBucketMonth captures enum value "month"
+	CreateKubernetesEfficiencyReportDateBucketMonth string = "month"
 )
 
 // prop value enum
-func (m *CreateKubernetesEfficiencyReport) validateDateBinEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, createKubernetesEfficiencyReportTypeDateBinPropEnum, true); err != nil {
+func (m *CreateKubernetesEfficiencyReport) validateDateBucketEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createKubernetesEfficiencyReportTypeDateBucketPropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *CreateKubernetesEfficiencyReport) validateDateBin(formats strfmt.Registry) error {
-	if swag.IsZero(m.DateBin) { // not required
+func (m *CreateKubernetesEfficiencyReport) validateDateBucket(formats strfmt.Registry) error {
+	if swag.IsZero(m.DateBucket) { // not required
 		return nil
 	}
 
 	// value enum
-	if err := m.validateDateBinEnum("date_bin", "body", *m.DateBin); err != nil {
+	if err := m.validateDateBucketEnum("date_bucket", "body", m.DateBucket); err != nil {
 		return err
 	}
 
@@ -187,7 +187,7 @@ var createKubernetesEfficiencyReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -241,6 +241,9 @@ const (
 
 	// CreateKubernetesEfficiencyReportDateIntervalYearToDate captures enum value "year_to_date"
 	CreateKubernetesEfficiencyReportDateIntervalYearToDate string = "year_to_date"
+
+	// CreateKubernetesEfficiencyReportDateIntervalLast3Days captures enum value "last_3_days"
+	CreateKubernetesEfficiencyReportDateIntervalLast3Days string = "last_3_days"
 )
 
 // prop value enum

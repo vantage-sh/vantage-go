@@ -98,7 +98,7 @@ type GetCostsParams struct {
 
 	/* SettingsAggregateBy.
 
-	   Results will aggregate by.
+	   Results will aggregate by cost or usage.
 
 	   Default: "cost"
 	*/

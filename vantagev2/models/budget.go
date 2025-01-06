@@ -22,6 +22,9 @@ type Budget struct {
 	// The tokens of the BudgetAlerts associated with the Budget.
 	BudgetAlertTokens []string `json:"budget_alert_tokens"`
 
+	// The tokens of the child Budgets associated with the hierarchical Budget.
+	ChildBudgetTokens []string `json:"child_budget_tokens"`
+
 	// The token of the Report associated with the Budget.
 	CostReportToken string `json:"cost_report_token,omitempty"`
 

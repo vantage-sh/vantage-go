@@ -75,6 +75,9 @@ type Cost struct {
 
 	// The tag pairs attached to the cost that was incurred.
 	Tags []string `json:"tags"`
+
+	// The usage amount and unit incurred by the cost.
+	Usage interface{} `json:"usage,omitempty"`
 }
 
 // Validate validates this cost

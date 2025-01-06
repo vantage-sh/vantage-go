@@ -19,6 +19,9 @@ import (
 // swagger:model UserCostsUploads
 type UserCostsUploads struct {
 
+	// links
+	Links interface{} `json:"links,omitempty"`
+
 	// user costs uploads
 	UserCostsUploads []*UserCostsUpload `json:"user_costs_uploads"`
 }
