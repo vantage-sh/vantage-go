@@ -56,13 +56,56 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateFinancialCommitmentReport(params *CreateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFinancialCommitmentReportCreated, error)
+
 	DeleteFinancialCommitmentReport(params *DeleteFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFinancialCommitmentReportNoContent, error)
 
 	GetFinancialCommitmentReport(params *GetFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportOK, error)
 
 	GetFinancialCommitmentReports(params *GetFinancialCommitmentReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportsOK, error)
 
+	UpdateFinancialCommitmentReport(params *UpdateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFinancialCommitmentReportOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateFinancialCommitmentReport Create a FinancialCommitmentReport.
+*/
+func (a *Client) CreateFinancialCommitmentReport(params *CreateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFinancialCommitmentReportCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateFinancialCommitmentReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createFinancialCommitmentReport",
+		Method:             "POST",
+		PathPattern:        "/financial_commitment_reports",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateFinancialCommitmentReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateFinancialCommitmentReportCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createFinancialCommitmentReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -179,6 +222,45 @@ func (a *Client) GetFinancialCommitmentReports(params *GetFinancialCommitmentRep
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getFinancialCommitmentReports: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateFinancialCommitmentReport Update a FinancialCommitmentReport.
+*/
+func (a *Client) UpdateFinancialCommitmentReport(params *UpdateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFinancialCommitmentReportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateFinancialCommitmentReportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateFinancialCommitmentReport",
+		Method:             "PUT",
+		PathPattern:        "/financial_commitment_reports/{financial_commitment_report_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateFinancialCommitmentReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateFinancialCommitmentReportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateFinancialCommitmentReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

@@ -115,6 +115,10 @@
       "description": "Operations about VirtualTags"
     },
     {
+      "name": "Tags",
+      "description": "Operations about Tags"
+    },
+    {
       "name": "AnomalyNotifications",
       "description": "Operations about AnomalyNotifications"
     },
@@ -4939,6 +4943,73 @@
       }
     },
     "/financial_commitment_reports": {
+      "post": {
+        "description": "Create a FinancialCommitmentReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createFinancialCommitmentReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createFinancialCommitmentReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fncl_cmnt_rprt_d0f702a7d0ff20a4",
+                "title": "title",
+                "default": false,
+                "created_at": "2025-01-27T21:42:07Z",
+                "workspace_token": "wrkspc_609f0ae3bffb9f37",
+                "user_token": null,
+                "start_date": "2024-10-01",
+                "end_date": "2025-01-25",
+                "date_interval": "last_3_months",
+                "date_bucket": "month",
+                "groupings": "cost_type",
+                "on_demand_costs_scope": "discountable",
+                "filter": "financial_commitments.provider = 'aws'"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "createFinancialCommitmentReport"
+      },
       "get": {
         "description": "Return all FinancialCommitmentReports.",
         "produces": [
@@ -4986,18 +5057,19 @@
                 },
                 "financial_commitment_reports": [
                   {
-                    "token": "fncl_cmnt_rprt_8856c4e96c5a7a0e",
+                    "token": "fncl_cmnt_rprt_28bc840bf137769c",
                     "title": "All Financial Commitments",
                     "default": false,
-                    "created_at": "2024-03-28T18:26:26Z",
-                    "workspace_token": "wrkspc_1ca9ae316e86906f",
+                    "created_at": "2025-01-27T21:42:06Z",
+                    "workspace_token": "wrkspc_f8d8bd5e493a734c",
                     "user_token": null,
-                    "start_date": "2023-12-01",
-                    "end_date": "2024-03-26",
+                    "start_date": "2024-10-01",
+                    "end_date": "2025-01-25",
                     "date_interval": "last_3_months",
                     "date_bucket": "month",
                     "groupings": "cost_type",
-                    "on_demand_costs_scope": "discountable"
+                    "on_demand_costs_scope": "discountable",
+                    "filter": "(financial_commitments.provider = 'aws')"
                   }
                 ]
               }
@@ -5050,6 +5122,79 @@
         ],
         "operationId": "deleteFinancialCommitmentReport"
       },
+      "put": {
+        "description": "Update a FinancialCommitmentReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "financial_commitment_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateFinancialCommitmentReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateFinancialCommitmentReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "fncl_cmnt_rprt_38f1d3fcee354f6a",
+                "title": "new title",
+                "default": false,
+                "created_at": "2025-01-27T21:42:06Z",
+                "workspace_token": "wrkspc_358df7afe2a742fb",
+                "user_token": null,
+                "start_date": "2024-10-01",
+                "end_date": "2025-01-25",
+                "date_interval": "last_3_months",
+                "date_bucket": "week",
+                "groupings": "cost_type,commitment_type",
+                "on_demand_costs_scope": "discountable",
+                "filter": "(financial_commitments.provider = 'aws')"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "updateFinancialCommitmentReport"
+      },
       "get": {
         "description": "Return a FinancialCommitmentReport.",
         "produces": [
@@ -5078,18 +5223,19 @@
             },
             "examples": {
               "application/json": {
-                "token": "fncl_cmnt_rprt_674cf1d6ef5f55e5",
+                "token": "fncl_cmnt_rprt_86a93126175f91ed",
                 "title": "All Financial Commitments",
                 "default": false,
-                "created_at": "2024-03-28T18:26:26Z",
-                "workspace_token": "wrkspc_075ac35ab0dc1b4a",
+                "created_at": "2025-01-27T21:42:04Z",
+                "workspace_token": "wrkspc_0e9408c2a0682914",
                 "user_token": null,
-                "start_date": "2023-12-01",
-                "end_date": "2024-03-26",
+                "start_date": "2024-10-01",
+                "end_date": "2025-01-25",
                 "date_interval": "last_3_months",
                 "date_bucket": "month",
                 "groupings": "cost_type",
-                "on_demand_costs_scope": "discountable"
+                "on_demand_costs_scope": "discountable",
+                "filter": "(financial_commitments.provider = 'aws')"
               }
             }
           },
@@ -6021,6 +6167,151 @@
           "VirtualTags"
         ],
         "operationId": "getVirtualTagConfig"
+      }
+    },
+    "/tags": {
+      "put": {
+        "description": "Updates an existing Tag.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "updateTag",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateTag"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            },
+            "examples": {
+              "application/json": {
+                "tags": [
+                  {
+                    "tag_key": "app",
+                    "hidden": true,
+                    "providers": [
+                      "AWS",
+                      "Azure"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "operationId": "updateTag"
+      },
+      "get": {
+        "description": "Return all Tags that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search_query",
+            "description": "A search query to filter Tags by tag key.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort_direction",
+            "description": "The direction in which you would like to sort the data by. Defaults to 'asc'.",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tags"
+            },
+            "examples": {
+              "application/json": {
+                "tags": [
+                  {
+                    "tag_key": "app",
+                    "hidden": false,
+                    "providers": [
+                      "AWS",
+                      "Azure"
+                    ]
+                  },
+                  {
+                    "tag_key": "environment",
+                    "hidden": false,
+                    "providers": [
+                      "AWS",
+                      "Azure"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "operationId": "getTags"
       }
     },
     "/anomaly_notifications": {
@@ -7244,7 +7535,8 @@
               "custom_provider",
               "github",
               "linode",
-              "grafana"
+              "grafana",
+              "clickhouse"
             ],
             "required": false
           },
@@ -9966,7 +10258,8 @@
             "custom_provider",
             "github",
             "linode",
-            "grafana"
+            "grafana",
+            "clickhouse"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -10996,20 +11289,73 @@
       },
       "description": "Price model"
     },
-    "FinancialCommitmentReports": {
+    "createFinancialCommitmentReport": {
       "type": "object",
       "properties": {
-        "links": {
-          "type": "object"
+        "workspace_token": {
+          "type": "string",
+          "description": "The Workspace in which the FinancialCommitmentReport will be created."
         },
-        "financial_commitment_reports": {
+        "title": {
+          "type": "string",
+          "description": "The title of the FinancialCommitmentReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.",
+          "example": "2024-03-01"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.",
+          "example": "2024-03-01"
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the FinancialCommitmentReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "year_to_date",
+            "last_3_days"
+          ]
+        },
+        "date_bucket": {
+          "type": "string",
+          "description": "The date bucket of the FinancialCommitmentReport.",
+          "enum": [
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        "groupings": {
           "type": "array",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.",
           "items": {
-            "$ref": "#/definitions/FinancialCommitmentReport"
+            "type": "string"
           }
         }
       },
-      "description": "FinancialCommitmentReports model"
+      "required": [
+        "workspace_token",
+        "title"
+      ],
+      "description": "Create a FinancialCommitmentReport."
     },
     "FinancialCommitmentReport": {
       "type": "object",
@@ -11068,9 +11414,88 @@
           "type": "string",
           "example": "discountable",
           "description": "The scope for the costs. Possible values: discountable, all."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql."
         }
       },
       "description": "FinancialCommitmentReport model"
+    },
+    "FinancialCommitmentReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "financial_commitment_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinancialCommitmentReport"
+          }
+        }
+      },
+      "description": "FinancialCommitmentReports model"
+    },
+    "updateFinancialCommitmentReport": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the FinancialCommitmentReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.",
+          "example": "2024-03-01"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.",
+          "example": "2024-03-01"
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the FinancialCommitmentReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "enum": [
+            "this_month",
+            "last_7_days",
+            "last_30_days",
+            "last_month",
+            "last_3_months",
+            "last_6_months",
+            "custom",
+            "last_12_months",
+            "last_24_months",
+            "last_36_months",
+            "year_to_date",
+            "last_3_days"
+          ]
+        },
+        "date_bucket": {
+          "type": "string",
+          "description": "The date bucket of the FinancialCommitmentReport.",
+          "enum": [
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Update a FinancialCommitmentReport."
     },
     "FinancialCommitments": {
       "type": "object",
@@ -11571,7 +11996,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-07-01",
+          "example": "2024-08-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -11709,6 +12134,63 @@
         }
       },
       "description": "Updates an existing VirtualTagConfig."
+    },
+    "updateTag": {
+      "type": "object",
+      "properties": {
+        "tag_key": {
+          "type": "string"
+        },
+        "tag_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Whether the Tag is hidden from the Vantage UI."
+        }
+      },
+      "required": [
+        "hidden"
+      ],
+      "description": "Updates an existing Tag."
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "tag_key": {
+          "type": "string",
+          "example": "aws:createdBy",
+          "description": "The Tag key."
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Whether the Tag has been hidden from the Vantage UI."
+        },
+        "providers": {
+          "type": "string",
+          "example": [
+            "AWS",
+            "GCP"
+          ],
+          "description": "The unique providers that are covered by the Tag key."
+        }
+      },
+      "description": "Tag model"
+    },
+    "Tags": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        }
+      },
+      "description": "Tags model"
     },
     "createAnomalyNotification": {
       "type": "object",

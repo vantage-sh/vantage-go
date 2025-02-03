@@ -36,6 +36,9 @@ type FinancialCommitmentReport struct {
 	// Example: 2024-03-20
 	EndDate string `json:"end_date,omitempty"`
 
+	// The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
+	Filter string `json:"filter,omitempty"`
+
 	// The grouping aggregations applied to the filtered data.
 	// Example: cost_type, tag:account
 	Groupings string `json:"groupings,omitempty"`
