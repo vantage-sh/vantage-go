@@ -39,6 +39,10 @@ type CreateFinancialCommitmentReport struct {
 	// Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.
 	Groupings []string `json:"groupings"`
 
+	// The scope for the costs. Possible values: discountable, all.
+	// Enum: ["discountable","all"]
+	OnDemandCostsScope string `json:"on_demand_costs_scope,omitempty"`
+
 	// The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
 	// Example: 2024-03-01
 	// Format: date
@@ -66,6 +70,10 @@ func (m *CreateFinancialCommitmentReport) Validate(formats strfmt.Registry) erro
 	}
 
 	if err := m.validateEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOnDemandCostsScope(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -210,6 +218,48 @@ func (m *CreateFinancialCommitmentReport) validateEndDate(formats strfmt.Registr
 	}
 
 	if err := validate.FormatOf("end_date", "body", "date", m.EndDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var createFinancialCommitmentReportTypeOnDemandCostsScopePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["discountable","all"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createFinancialCommitmentReportTypeOnDemandCostsScopePropEnum = append(createFinancialCommitmentReportTypeOnDemandCostsScopePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateFinancialCommitmentReportOnDemandCostsScopeDiscountable captures enum value "discountable"
+	CreateFinancialCommitmentReportOnDemandCostsScopeDiscountable string = "discountable"
+
+	// CreateFinancialCommitmentReportOnDemandCostsScopeAll captures enum value "all"
+	CreateFinancialCommitmentReportOnDemandCostsScopeAll string = "all"
+)
+
+// prop value enum
+func (m *CreateFinancialCommitmentReport) validateOnDemandCostsScopeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createFinancialCommitmentReportTypeOnDemandCostsScopePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateFinancialCommitmentReport) validateOnDemandCostsScope(formats strfmt.Registry) error {
+	if swag.IsZero(m.OnDemandCostsScope) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateOnDemandCostsScopeEnum("on_demand_costs_scope", "body", m.OnDemandCostsScope); err != nil {
 		return err
 	}
 

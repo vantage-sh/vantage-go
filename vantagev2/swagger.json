@@ -11343,6 +11343,14 @@
             "month"
           ]
         },
+        "on_demand_costs_scope": {
+          "type": "string",
+          "description": "The scope for the costs. Possible values: discountable, all.",
+          "enum": [
+            "discountable",
+            "all"
+          ]
+        },
         "groupings": {
           "type": "array",
           "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.",
@@ -11485,6 +11493,14 @@
             "day",
             "week",
             "month"
+          ]
+        },
+        "on_demand_costs_scope": {
+          "type": "string",
+          "description": "The scope for the costs. Possible values: discountable, all.",
+          "enum": [
+            "discountable",
+            "all"
           ]
         },
         "groupings": {
