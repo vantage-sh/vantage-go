@@ -107,6 +107,10 @@
       "description": "Operations about KubernetesEfficiencyReports"
     },
     {
+      "name": "NetworkFlowReports",
+      "description": "Operations about NetworkFlowReports"
+    },
+    {
       "name": "AnomalyAlerts",
       "description": "Operations about AnomalyAlerts"
     },
@@ -5633,6 +5637,316 @@
         "operationId": "getKubernetesEfficiencyReport"
       }
     },
+    "/network_flow_reports": {
+      "post": {
+        "description": "Create a NetworkFlowReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createNetworkFlowReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createNetworkFlowReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "ntflw_lg_rprt_c6107e302cb8723e",
+                "title": "title",
+                "default": false,
+                "created_at": "2025-01-31T20:40:46Z",
+                "workspace_token": "wrkspc_0aa4a5d5a5fc2608",
+                "created_by_token": "team_ed7fb90535f87b9f",
+                "start_date": "2025-01-24",
+                "end_date": "2025-01-30",
+                "date_interval": "last_7_days",
+                "groupings": "resource_uuid,traffic_category,peer_resource_uuid",
+                "flow_direction": null,
+                "flow_weight": "costs",
+                "filter": "network_flow_logs.traffic_category = 'cross_az'"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowReports"
+        ],
+        "operationId": "createNetworkFlowReport"
+      },
+      "get": {
+        "description": "Return all NetworkFlowReports.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.com/v2/network_flow_reports",
+                  "first": "https://api.vantage.com/v2/network_flow_reports?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.com/v2/network_flow_reports?page=1",
+                  "prev": null
+                },
+                "network_flow_reports": [
+                  {
+                    "token": "ntflw_lg_rprt_185dd0e7ecbeefde",
+                    "title": "All Network Flow Logs",
+                    "default": false,
+                    "created_at": "2025-01-31T20:40:43Z",
+                    "workspace_token": "wrkspc_5e659968c5c9381c",
+                    "created_by_token": null,
+                    "start_date": "2025-01-24",
+                    "end_date": "2025-01-30",
+                    "date_interval": "last_7_days",
+                    "groupings": "resource_uuid,traffic_category,peer_resource_uuid",
+                    "flow_direction": null,
+                    "flow_weight": "costs",
+                    "filter": null
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowReports"
+        ],
+        "operationId": "getNetworkFlowReports"
+      }
+    },
+    "/network_flow_reports/{network_flow_report_token}": {
+      "delete": {
+        "description": "Delete a NetworkFlowReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "network_flow_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowReports"
+        ],
+        "operationId": "deleteNetworkFlowReport"
+      },
+      "put": {
+        "description": "Update a NetworkFlowReport.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "network_flow_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateNetworkFlowReport",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateNetworkFlowReport"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "ntflw_lg_rprt_a5178e27a1be73a3",
+                "title": "new title",
+                "default": false,
+                "created_at": "2025-01-31T20:40:47Z",
+                "workspace_token": "wrkspc_f8b981b7707ddda5",
+                "created_by_token": null,
+                "start_date": "2025-01-24",
+                "end_date": "2025-01-30",
+                "date_interval": "last_7_days",
+                "groupings": "region,vpc_id",
+                "flow_direction": "egress",
+                "flow_weight": "bytes",
+                "filter": null
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowReports"
+        ],
+        "operationId": "updateNetworkFlowReport"
+      },
+      "get": {
+        "description": "Return a NetworkFlowReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "network_flow_report_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowReport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "ntflw_lg_rprt_5a091da3979075e5",
+                "title": "All Network Flow Logs",
+                "default": false,
+                "created_at": "2025-01-31T20:40:44Z",
+                "workspace_token": "wrkspc_5c2f9bd4f7a647e2",
+                "created_by_token": null,
+                "start_date": "2025-01-24",
+                "end_date": "2025-01-30",
+                "date_interval": "last_7_days",
+                "groupings": "resource_uuid,traffic_category,peer_resource_uuid",
+                "flow_direction": null,
+                "flow_weight": "costs",
+                "filter": null
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowReports"
+        ],
+        "operationId": "getNetworkFlowReport"
+      }
+    },
     "/anomaly_alerts": {
       "get": {
         "description": "Return all Anomaly Alerts that the current API token has access to.",
@@ -7536,7 +7850,8 @@
               "github",
               "linode",
               "grafana",
-              "clickhouse"
+              "clickhouse",
+              "temporal"
             ],
             "required": false
           },
@@ -10259,7 +10574,8 @@
             "github",
             "linode",
             "grafana",
-            "clickhouse"
+            "clickhouse",
+            "temporal"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -11318,7 +11634,7 @@
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the FinancialCommitmentReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "description": "The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.",
           "enum": [
             "this_month",
             "last_7_days",
@@ -11353,7 +11669,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -11470,7 +11786,7 @@
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the FinancialCommitmentReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.",
+          "description": "The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.",
           "enum": [
             "this_month",
             "last_7_days",
@@ -11505,7 +11821,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -11830,6 +12146,256 @@
         }
       },
       "description": "Update a KubernetesEfficiencyReport."
+    },
+    "createNetworkFlowReport": {
+      "type": "object",
+      "properties": {
+        "workspace_token": {
+          "type": "string",
+          "description": "The Workspace in which the NetworkFlowReport will be created."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the NetworkFlowReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "enum": [
+            "last_3_days",
+            "last_7_days",
+            "custom"
+          ]
+        },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "account_id",
+              "az_id",
+              "dstaddr",
+              "dsthostname",
+              "flow_direction",
+              "interface_id",
+              "instance_id",
+              "peer_resource_uuid",
+              "peer_account_id",
+              "peer_vpc_id",
+              "peer_region",
+              "peer_az_id",
+              "peer_subnet_id",
+              "peer_interface_id",
+              "peer_instance_id",
+              "region",
+              "resource_uuid",
+              "srcaddr",
+              "srchostname",
+              "subnet_id",
+              "traffic_category",
+              "traffic_path",
+              "vpc_id"
+            ]
+          }
+        },
+        "flow_direction": {
+          "type": "string",
+          "description": "The flow direction of the NetworkFlowReport.",
+          "enum": [
+            "ingress",
+            "egress"
+          ]
+        },
+        "flow_weight": {
+          "type": "string",
+          "description": "The dimension by which the logs in the report are sorted. Defaults to costs.",
+          "enum": [
+            "costs",
+            "bytes"
+          ]
+        }
+      },
+      "required": [
+        "workspace_token",
+        "title"
+      ],
+      "description": "Create a NetworkFlowReport."
+    },
+    "NetworkFlowReport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Public Traffic Destinations",
+          "description": "The title of the NetworkFlowReport."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Indicates whether the NetworkFlowReport is the default report."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-03-19T00:00:00Z",
+          "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token for the Workspace the NetworkFlowReport is a part of."
+        },
+        "created_by_token": {
+          "type": "string",
+          "description": "The token for the User or Team that created this NetworkFlowReport."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2024-03-01",
+          "description": "The start date for the NetworkFlowReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2024-03-20",
+          "description": "The end date for the NetworkFlowReport. Only set for custom date ranges. ISO 8601 Formatted."
+        },
+        "date_interval": {
+          "type": "string",
+          "example": "last_month",
+          "description": "The date range for the NetworkFlowReport. Only present if a custom date range is not specified."
+        },
+        "groupings": {
+          "type": "string",
+          "example": "cost_type, tag:account",
+          "description": "The grouping aggregations applied to the filtered data."
+        },
+        "flow_direction": {
+          "type": "string",
+          "example": "ingress",
+          "description": "The flow weight of the NetworkFlowReport. Possible values: costs, bytes."
+        },
+        "flow_weight": {
+          "type": "string",
+          "example": "costs",
+          "description": "The flow weight of the NetworkFlowReport. Possible values: costs, bytes."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter applied to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql."
+        }
+      },
+      "description": "NetworkFlowReport model"
+    },
+    "NetworkFlowReports": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "network_flow_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkFlowReport"
+          }
+        }
+      },
+      "description": "NetworkFlowReports model"
+    },
+    "updateNetworkFlowReport": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the NetworkFlowReport."
+        },
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+        },
+        "date_interval": {
+          "type": "string",
+          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "enum": [
+            "last_3_days",
+            "last_7_days",
+            "custom"
+          ]
+        },
+        "groupings": {
+          "type": "array",
+          "description": "Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "account_id",
+              "az_id",
+              "dstaddr",
+              "dsthostname",
+              "flow_direction",
+              "interface_id",
+              "instance_id",
+              "peer_resource_uuid",
+              "peer_account_id",
+              "peer_vpc_id",
+              "peer_region",
+              "peer_az_id",
+              "peer_subnet_id",
+              "peer_interface_id",
+              "peer_instance_id",
+              "region",
+              "resource_uuid",
+              "srcaddr",
+              "srchostname",
+              "subnet_id",
+              "traffic_category",
+              "traffic_path",
+              "vpc_id"
+            ]
+          }
+        },
+        "flow_direction": {
+          "type": "string",
+          "description": "The flow direction of the NetworkFlowReport.",
+          "enum": [
+            "ingress",
+            "egress"
+          ]
+        },
+        "flow_weight": {
+          "type": "string",
+          "description": "The dimension by which the logs in the report are sorted. Defaults to costs.",
+          "enum": [
+            "costs",
+            "bytes"
+          ]
+        }
+      },
+      "description": "Update a NetworkFlowReport."
     },
     "AnomalyAlerts": {
       "type": "object",

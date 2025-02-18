@@ -24,7 +24,7 @@ type CreateFinancialCommitmentReport struct {
 	// Enum: ["day","week","month"]
 	DateBucket string `json:"date_bucket,omitempty"`
 
-	// The date interval of the FinancialCommitmentReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+	// The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
@@ -36,7 +36,7 @@ type CreateFinancialCommitmentReport struct {
 	// The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, label:<label_name>.
+	// Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.
 	Groupings []string `json:"groupings"`
 
 	// The scope for the costs. Possible values: discountable, all.
