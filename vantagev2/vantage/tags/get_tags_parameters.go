@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetTagsParams creates a new GetTagsParams object,
@@ -61,6 +62,30 @@ GetTagsParams contains all the parameters to send to the API endpoint
 */
 type GetTagsParams struct {
 
+	/* Limit.
+
+	   The number of results to return per page. Defaults to 100. The maximum is 1000.
+
+	   Format: int32
+	   Default: 100
+	*/
+	Limit *int32
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	   Default: 1
+	*/
+	Page *int32
+
+	/* Providers.
+
+	   An array of providers to scope Tags by.
+	*/
+	Providers []string
+
 	/* SearchQuery.
 
 	   A search query to filter Tags by tag key.
@@ -90,7 +115,21 @@ func (o *GetTagsParams) WithDefaults() *GetTagsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *GetTagsParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		limitDefault = int32(100)
+
+		pageDefault = int32(1)
+	)
+
+	val := GetTagsParams{
+		Limit: &limitDefault,
+		Page:  &pageDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get tags params
@@ -126,6 +165,39 @@ func (o *GetTagsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithLimit adds the limit to the get tags params
+func (o *GetTagsParams) WithLimit(limit *int32) *GetTagsParams {
+	o.SetLimit(limit)
+	return o
+}
+
+// SetLimit adds the limit to the get tags params
+func (o *GetTagsParams) SetLimit(limit *int32) {
+	o.Limit = limit
+}
+
+// WithPage adds the page to the get tags params
+func (o *GetTagsParams) WithPage(page *int32) *GetTagsParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get tags params
+func (o *GetTagsParams) SetPage(page *int32) {
+	o.Page = page
+}
+
+// WithProviders adds the providers to the get tags params
+func (o *GetTagsParams) WithProviders(providers []string) *GetTagsParams {
+	o.SetProviders(providers)
+	return o
+}
+
+// SetProviders adds the providers to the get tags params
+func (o *GetTagsParams) SetProviders(providers []string) {
+	o.Providers = providers
+}
+
 // WithSearchQuery adds the searchQuery to the get tags params
 func (o *GetTagsParams) WithSearchQuery(searchQuery *string) *GetTagsParams {
 	o.SetSearchQuery(searchQuery)
@@ -155,6 +227,51 @@ func (o *GetTagsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return err
 	}
 	var res []error
+
+	if o.Limit != nil {
+
+		// query param limit
+		var qrLimit int32
+
+		if o.Limit != nil {
+			qrLimit = *o.Limit
+		}
+		qLimit := swag.FormatInt32(qrLimit)
+		if qLimit != "" {
+
+			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Providers != nil {
+
+		// binding items for providers
+		joinedProviders := o.bindParamProviders(reg)
+
+		// query array param providers
+		if err := r.SetQueryParam("providers", joinedProviders...); err != nil {
+			return err
+		}
+	}
 
 	if o.SearchQuery != nil {
 
@@ -194,4 +311,21 @@ func (o *GetTagsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetTags binds the parameter providers
+func (o *GetTagsParams) bindParamProviders(formats strfmt.Registry) []string {
+	providersIR := o.Providers
+
+	var providersIC []string
+	for _, providersIIR := range providersIR { // explode []string
+
+		providersIIV := providersIIR // string as string
+		providersIC = append(providersIC, providersIIV)
+	}
+
+	// items.CollectionFormat: ""
+	providersIS := swag.JoinByFormat(providersIC, "")
+
+	return providersIS
 }

@@ -12,35 +12,32 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// Tag Tag model
+// TagValue tag value
 //
-// swagger:model Tag
-type Tag struct {
+// swagger:model TagValue
+type TagValue struct {
 
-	// Whether the Tag has been hidden from the Vantage UI.
-	Hidden bool `json:"hidden,omitempty"`
-
-	// The unique providers that are covered by the Tag key.
+	// The unique providers that are covered by the TagValue.
 	// Example: ["aws","gcp","custom_provider:accss_crdntl_1234567890abcdef"]
 	Providers string `json:"providers,omitempty"`
 
-	// The Tag key.
-	// Example: aws:createdBy
-	TagKey string `json:"tag_key,omitempty"`
+	// The TagValue.
+	// Example: vantage
+	TagValue string `json:"tag_value,omitempty"`
 }
 
-// Validate validates this tag
-func (m *Tag) Validate(formats strfmt.Registry) error {
+// Validate validates this tag value
+func (m *TagValue) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this tag based on context it is used
-func (m *Tag) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this tag value based on context it is used
+func (m *TagValue) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *Tag) MarshalBinary() ([]byte, error) {
+func (m *TagValue) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -48,8 +45,8 @@ func (m *Tag) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Tag) UnmarshalBinary(b []byte) error {
-	var res Tag
+func (m *TagValue) UnmarshalBinary(b []byte) error {
+	var res TagValue
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

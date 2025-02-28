@@ -56,11 +56,52 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	GetTagValues(params *GetTagValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTagValuesOK, error)
+
 	GetTags(params *GetTagsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTagsOK, error)
 
 	UpdateTag(params *UpdateTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTagOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+GetTagValues Returns corresponding TagValues for a given Tag.
+*/
+func (a *Client) GetTagValues(params *GetTagValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTagValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetTagValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getTagValues",
+		Method:             "GET",
+		PathPattern:        "/tags/{key}/values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetTagValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetTagValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getTagValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
