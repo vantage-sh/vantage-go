@@ -68,6 +68,12 @@ type GetCostsParams struct {
 	*/
 	CostReportToken string
 
+	/* DateBin.
+
+	   The date bin of the costs. Defaults to the report's default or day.
+	*/
+	DateBin *string
+
 	/* EndDate.
 
 	   Last date you would like to filter costs to. ISO 8601 formatted.
@@ -248,6 +254,17 @@ func (o *GetCostsParams) SetCostReportToken(costReportToken string) {
 	o.CostReportToken = costReportToken
 }
 
+// WithDateBin adds the dateBin to the get costs params
+func (o *GetCostsParams) WithDateBin(dateBin *string) *GetCostsParams {
+	o.SetDateBin(dateBin)
+	return o
+}
+
+// SetDateBin adds the dateBin to the get costs params
+func (o *GetCostsParams) SetDateBin(dateBin *string) {
+	o.DateBin = dateBin
+}
+
 // WithEndDate adds the endDate to the get costs params
 func (o *GetCostsParams) WithEndDate(endDate *string) *GetCostsParams {
 	o.SetEndDate(endDate)
@@ -395,6 +412,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 
 		if err := r.SetQueryParam("cost_report_token", qCostReportToken); err != nil {
 			return err
+		}
+	}
+
+	if o.DateBin != nil {
+
+		// query param date_bin
+		var qrDateBin string
+
+		if o.DateBin != nil {
+			qrDateBin = *o.DateBin
+		}
+		qDateBin := qrDateBin
+		if qDateBin != "" {
+
+			if err := r.SetQueryParam("date_bin", qDateBin); err != nil {
+				return err
+			}
 		}
 	}
 
