@@ -91,6 +91,8 @@ type ClientService interface {
 
 	GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error)
 
+	GetBusinessMetricValues(params *GetBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricValuesOK, error)
+
 	GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error)
 
 	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error)
@@ -179,7 +181,7 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 }
 
 /*
-GetBusinessMetric Return a specific BusinessMetrics.
+GetBusinessMetric Return a BusinessMetric.
 */
 func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -214,6 +216,45 @@ func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetBusinessMetricValues Return values of a BusinessMetric
+*/
+func (a *Client) GetBusinessMetricValues(params *GetBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBusinessMetricValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getBusinessMetricValues",
+		Method:             "GET",
+		PathPattern:        "/business_metrics/{business_metric_token}/values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetBusinessMetricValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetBusinessMetricValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBusinessMetricValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
