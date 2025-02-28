@@ -163,10 +163,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/services",
-                  "first": "https://api.vantage.com/v1/services?page=1",
+                  "self": "https://api.vantage.sh/v1/services",
+                  "first": "https://api.vantage.sh/v1/services?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/services?page=1",
+                  "last": "https://api.vantage.sh/v1/services?page=1",
                   "prev": null
                 },
                 "services": [
@@ -254,10 +254,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/products",
-                  "first": "https://api.vantage.com/v1/products?page=1",
+                  "self": "https://api.vantage.sh/v1/products",
+                  "first": "https://api.vantage.sh/v1/products?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/products?page=1",
+                  "last": "https://api.vantage.sh/v1/products?page=1",
                   "prev": null
                 },
                 "products": [
@@ -421,10 +421,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices",
-                  "first": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "self": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices",
+                  "first": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "last": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
                   "prev": null
                 },
                 "prices": [
@@ -570,10 +570,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/reports",
-                  "first": "https://api.vantage.com/v1/reports?page=1",
+                  "self": "https://api.vantage.sh/v1/reports",
+                  "first": "https://api.vantage.sh/v1/reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/reports?page=1",
+                  "last": "https://api.vantage.sh/v1/reports?page=1",
                   "prev": null
                 },
                 "reports": [

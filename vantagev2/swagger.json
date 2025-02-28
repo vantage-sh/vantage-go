@@ -139,10 +139,6 @@
       "description": "Operations about Integrations"
     },
     {
-      "name": "UserCostsUpload",
-      "description": "Operations about UserCostsUploads"
-    },
-    {
       "name": "Recommendations",
       "description": "Operations about Recommendations"
     },
@@ -746,10 +742,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/folders",
-                  "first": "https://api.vantage.com/v2/folders?page=1",
+                  "self": "https://api.vantage.sh/v2/folders",
+                  "first": "https://api.vantage.sh/v2/folders?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/folders?page=1",
+                  "last": "https://api.vantage.sh/v2/folders?page=1",
                   "prev": null
                 },
                 "folders": [
@@ -1037,10 +1033,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/saved_filters",
-                  "first": "https://api.vantage.com/v2/saved_filters?page=1",
+                  "self": "https://api.vantage.sh/v2/saved_filters",
+                  "first": "https://api.vantage.sh/v2/saved_filters?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/saved_filters?page=1",
+                  "last": "https://api.vantage.sh/v2/saved_filters?page=1",
                   "prev": null
                 },
                 "saved_filters": [
@@ -1371,10 +1367,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/cost_reports",
-                  "first": "https://api.vantage.com/v2/cost_reports?page=1",
+                  "self": "https://api.vantage.sh/v2/cost_reports",
+                  "first": "https://api.vantage.sh/v2/cost_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/cost_reports?page=1",
+                  "last": "https://api.vantage.sh/v2/cost_reports?page=1",
                   "prev": null
                 },
                 "cost_reports": [
@@ -1631,6 +1627,172 @@
         "operationId": "getCostReport"
       }
     },
+    "/cost_reports/{cost_report_token}/forecasted_costs": {
+      "get": {
+        "description": "Return all ForecastedCosts.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "First date you would like to filter forecasted costs from. ISO 8601 formatted.",
+            "type": "string",
+            "format": "date-time",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Last date you would like to filter forecasted costs from. ISO 8601 formatted.",
+            "type": "string",
+            "format": "date-time",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "Limit the forecasted costs to a specific provider. 'all' is accepted to filter to overall forecast.",
+            "type": "string",
+            "enum": [
+              "aws",
+              "azure",
+              "gcp",
+              "snowflake",
+              "databricks",
+              "mongo",
+              "datadog",
+              "fastly",
+              "new_relic",
+              "opencost",
+              "open_ai",
+              "oracle",
+              "confluent",
+              "planetscale",
+              "coralogix",
+              "kubernetes",
+              "custom_provider",
+              "github",
+              "linode",
+              "grafana",
+              "clickhouse",
+              "temporal",
+              "all"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "service",
+            "description": "Limit the forecasted costs to a specific service. 'all' is accepted to filter to overall forecast. e.g. 'Amazon ElastiCache'.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostReports"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs",
+                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs?page=1",
+                  "prev": null
+                },
+                "forecasted_costs": [
+                  {
+                    "date": "2024-07-04T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "all",
+                    "service": "all"
+                  },
+                  {
+                    "date": "2024-07-04T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "aws",
+                    "service": "AmazonEC2"
+                  },
+                  {
+                    "date": "2024-07-04T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "azure",
+                    "service": "Virtual Machines"
+                  },
+                  {
+                    "date": "2024-07-05T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "all",
+                    "service": "all"
+                  },
+                  {
+                    "date": "2024-07-05T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "aws",
+                    "service": "AmazonEC2"
+                  },
+                  {
+                    "date": "2024-07-05T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "azure",
+                    "service": "Virtual Machines"
+                  },
+                  {
+                    "date": "2024-07-06T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "all",
+                    "service": "all"
+                  },
+                  {
+                    "date": "2024-07-06T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "aws",
+                    "service": "AmazonEC2"
+                  },
+                  {
+                    "date": "2024-07-06T00:00:00Z",
+                    "amount": "10.0",
+                    "provider": "azure",
+                    "service": "Virtual Machines"
+                  }
+                ],
+                "currency": "USD"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "getForecastedCosts"
+      }
+    },
     "/segments": {
       "post": {
         "description": "Create a Segment.",
@@ -1735,10 +1897,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/segments",
-                  "first": "https://api.vantage.com/v2/segments?page=1",
+                  "self": "https://api.vantage.sh/v2/segments",
+                  "first": "https://api.vantage.sh/v2/segments?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/segments?page=1",
+                  "last": "https://api.vantage.sh/v2/segments?page=1",
                   "prev": null
                 },
                 "segments": [
@@ -2072,10 +2234,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/dashboards",
-                  "first": "https://api.vantage.com/v2/dashboards?page=1",
+                  "self": "https://api.vantage.sh/v2/dashboards",
+                  "first": "https://api.vantage.sh/v2/dashboards?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/dashboards?page=1",
+                  "last": "https://api.vantage.sh/v2/dashboards?page=1",
                   "prev": null
                 },
                 "dashboards": [
@@ -2288,10 +2450,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/dashboards",
-                  "first": "https://api.vantage.com/v2/dashboards?page=1",
+                  "self": "https://api.vantage.sh/v2/dashboards",
+                  "first": "https://api.vantage.sh/v2/dashboards?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/dashboards?page=1",
+                  "last": "https://api.vantage.sh/v2/dashboards?page=1",
                   "prev": null
                 },
                 "dashboards": [
@@ -2400,6 +2562,18 @@
           },
           {
             "in": "query",
+            "name": "date_bin",
+            "description": "The date bin of the costs. Defaults to the report's default or day.",
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "settings[include_credits]",
             "description": "Results will include credits.",
             "type": "boolean",
@@ -2471,10 +2645,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677",
-                  "first": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
+                  "self": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677",
+                  "first": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
+                  "last": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
                   "prev": null
                 },
                 "total_cost": {
@@ -2603,10 +2777,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true",
-                  "first": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
+                  "self": "https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true",
+                  "first": "https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
+                  "last": "https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1",
                   "prev": null
                 },
                 "resources": [
@@ -2901,10 +3075,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/resource_reports",
-                  "first": "https://api.vantage.com/v2/resource_reports?page=1",
+                  "self": "https://api.vantage.sh/v2/resource_reports",
+                  "first": "https://api.vantage.sh/v2/resource_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/resource_reports?page=1",
+                  "last": "https://api.vantage.sh/v2/resource_reports?page=1",
                   "prev": null
                 },
                 "resource_reports": [
@@ -3207,10 +3381,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/teams",
-                  "first": "https://api.vantage.com/v2/teams?page=1",
+                  "self": "https://api.vantage.sh/v2/teams",
+                  "first": "https://api.vantage.sh/v2/teams?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/teams?page=1",
+                  "last": "https://api.vantage.sh/v2/teams?page=1",
                   "prev": null
                 },
                 "teams": [
@@ -3546,10 +3720,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/access_grants",
-                  "first": "https://api.vantage.com/v2/access_grants?page=1",
+                  "self": "https://api.vantage.sh/v2/access_grants",
+                  "first": "https://api.vantage.sh/v2/access_grants?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/access_grants?page=1",
+                  "last": "https://api.vantage.sh/v2/access_grants?page=1",
                   "prev": null
                 },
                 "access_grants": [
@@ -3846,10 +4020,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/report_notifications",
-                  "first": "https://api.vantage.com/v2/report_notifications?page=1",
+                  "self": "https://api.vantage.sh/v2/report_notifications",
+                  "first": "https://api.vantage.sh/v2/report_notifications?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/report_notifications?page=1",
+                  "last": "https://api.vantage.sh/v2/report_notifications?page=1",
                   "prev": null
                 },
                 "report_notifications": [
@@ -4074,10 +4248,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/users",
-                  "first": "https://api.vantage.com/v2/users?page=1",
+                  "self": "https://api.vantage.sh/v2/users",
+                  "first": "https://api.vantage.sh/v2/users?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/users?page=1",
+                  "last": "https://api.vantage.sh/v2/users?page=1",
                   "prev": null
                 },
                 "users": [
@@ -4196,12 +4370,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_553dd522c66cb1aa",
+                "token": "bsnss_mtrc_41e1145d3ebb3155",
                 "title": "New Biz Metric",
-                "created_by_token": "usr_16adb5609ee89b8e",
+                "created_by_token": null,
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_6633ef89c4c8c87e",
+                    "cost_report_token": "rprt_30b018b108e3e4ba",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4209,23 +4383,6 @@
                       "Studio 54",
                       ""
                     ]
-                  }
-                ],
-                "values": [
-                  {
-                    "date": "2024-01-03T00:00:00Z",
-                    "amount": "300.0",
-                    "label": "Cost Center 3"
-                  },
-                  {
-                    "date": "2024-01-02T00:00:00Z",
-                    "amount": "200.0",
-                    "label": "Cost Center 2"
-                  },
-                  {
-                    "date": "2024-01-01T00:00:00Z",
-                    "amount": "100.0",
-                    "label": "Cost Center 1"
                   }
                 ]
               }
@@ -4301,11 +4458,10 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_11d005e278be649c",
+                    "token": "bsnss_mtrc_bfac77843b413978",
                     "title": "Biz Metric",
-                    "created_by_token": "usr_bce141144bee90d6",
-                    "cost_report_tokens_with_metadata": [],
-                    "values": []
+                    "created_by_token": "usr_828426985802d37a",
+                    "cost_report_tokens_with_metadata": []
                   }
                 ]
               }
@@ -4403,12 +4559,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_a7f01adf0feb24a6",
+                "token": "bsnss_mtrc_028e526b95e9bbe6",
                 "title": "New Title",
-                "created_by_token": "usr_0ce8d894fa21de5b",
+                "created_by_token": "usr_aebd6762fa2c34f8",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_3e844c470bb76b93",
+                    "cost_report_token": "rprt_497ee3012e31297e",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4416,20 +4572,10 @@
                       "Studio 54",
                       ""
                     ]
-                  }
-                ],
-                "values": [
-                  {
-                    "date": "2024-01-03T00:00:00Z",
-                    "amount": "600.0"
                   },
                   {
-                    "date": "2024-01-02T00:00:00Z",
-                    "amount": "500.0"
-                  },
-                  {
-                    "date": "2024-01-01T00:00:00Z",
-                    "amount": "400.0"
+                    "cost_report_token": "rprt_9c28c426a14a21ff",
+                    "unit_scale": "per_million"
                   }
                 ]
               }
@@ -4466,7 +4612,7 @@
         "operationId": "updateBusinessMetric"
       },
       "get": {
-        "description": "Return a specific BusinessMetrics.",
+        "description": "Return a BusinessMetric.",
         "produces": [
           "application/json"
         ],
@@ -4493,11 +4639,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_40f153ce6c3ca185",
+                "token": "bsnss_mtrc_3080a050c04104ff",
                 "title": "Biz Metric",
-                "created_by_token": "usr_d0f62560360b1481",
-                "cost_report_tokens_with_metadata": [],
-                "values": []
+                "created_by_token": "usr_daaf78d3d6b13a35",
+                "cost_report_tokens_with_metadata": []
               }
             }
           },
@@ -4554,27 +4699,10 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_5bb17b18e416648d",
+                "token": "bsnss_mtrc_acda95ce6f7fd1ba",
                 "title": "Biz Metric",
-                "created_by_token": "usr_e2ac901c508a8174",
-                "cost_report_tokens_with_metadata": [],
-                "values": [
-                  {
-                    "date": "2024-01-03T00:00:00Z",
-                    "amount": "300.3",
-                    "label": "Cost Center 3"
-                  },
-                  {
-                    "date": "2024-01-02T00:00:00Z",
-                    "amount": "200.2",
-                    "label": "Cost Center 2"
-                  },
-                  {
-                    "date": "2024-01-01T00:00:00Z",
-                    "amount": "100.1",
-                    "label": "Cost Center 1"
-                  }
-                ]
+                "created_by_token": "usr_4a71091b0c52f69f",
+                "cost_report_tokens_with_metadata": []
               }
             }
           },
@@ -4607,6 +4735,89 @@
           "BusinessMetrics"
         ],
         "operationId": "updateBusinessMetricValuesCSV"
+      }
+    },
+    "/business_metrics/{business_metric_token}/values": {
+      "get": {
+        "description": "Return values of a BusinessMetric",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Query BusinessMetrics by the first date you would like to filter from. ISO 8601 Formatted - 2021-07-15",
+            "type": "string",
+            "format": "date",
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetricValues"
+            },
+            "examples": {
+              "application/json": {
+                "values": [
+                  {
+                    "date": "2024-01-03T00:00:00Z",
+                    "amount": "300.0"
+                  },
+                  {
+                    "date": "2024-01-02T00:00:00Z",
+                    "amount": "200.0"
+                  },
+                  {
+                    "date": "2024-01-01T00:00:00Z",
+                    "amount": "100.0"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BusinessMetrics"
+        ],
+        "operationId": "getBusinessMetricValues"
       }
     },
     "/products": {
@@ -4670,10 +4881,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/products",
-                  "first": "https://api.vantage.com/v1/products?page=1",
+                  "self": "https://api.vantage.sh/v1/products",
+                  "first": "https://api.vantage.sh/v1/products?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/products?page=1",
+                  "last": "https://api.vantage.sh/v1/products?page=1",
                   "prev": null
                 },
                 "products": [
@@ -4837,10 +5048,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices",
-                  "first": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "self": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices",
+                  "first": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
+                  "last": "https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1",
                   "prev": null
                 },
                 "prices": [
@@ -5053,10 +5264,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/financial_commitment_reports",
-                  "first": "https://api.vantage.com/v2/financial_commitment_reports?page=1",
+                  "self": "https://api.vantage.sh/v2/financial_commitment_reports",
+                  "first": "https://api.vantage.sh/v2/financial_commitment_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/financial_commitment_reports?page=1",
+                  "last": "https://api.vantage.sh/v2/financial_commitment_reports?page=1",
                   "prev": null
                 },
                 "financial_commitment_reports": [
@@ -5296,10 +5507,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/financial_commitments",
-                  "first": "https://api.vantage.com/v2/financial_commitments?page=1",
+                  "self": "https://api.vantage.sh/v2/financial_commitments",
+                  "first": "https://api.vantage.sh/v2/financial_commitments?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/financial_commitments?page=1",
+                  "last": "https://api.vantage.sh/v2/financial_commitments?page=1",
                   "prev": null
                 },
                 "financial_commitments": [
@@ -5437,10 +5648,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/kubernetes_efficiency_reports",
-                  "first": "https://api.vantage.com/v2/kubernetes_efficiency_reports?page=1",
+                  "self": "https://api.vantage.sh/v2/kubernetes_efficiency_reports",
+                  "first": "https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/kubernetes_efficiency_reports?page=1",
+                  "last": "https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1",
                   "prev": null
                 },
                 "kubernetes_efficiency_reports": [
@@ -5744,10 +5955,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/network_flow_reports",
-                  "first": "https://api.vantage.com/v2/network_flow_reports?page=1",
+                  "self": "https://api.vantage.sh/v2/network_flow_reports",
+                  "first": "https://api.vantage.sh/v2/network_flow_reports?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/network_flow_reports?page=1",
+                  "last": "https://api.vantage.sh/v2/network_flow_reports?page=1",
                   "prev": null
                 },
                 "network_flow_reports": [
@@ -5987,10 +6198,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/anomaly_alerts",
-                  "first": "https://api.vantage.com/v2/anomaly_alerts?page=1",
+                  "self": "https://api.vantage.sh/v2/anomaly_alerts",
+                  "first": "https://api.vantage.sh/v2/anomaly_alerts?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/anomaly_alerts?page=1",
+                  "last": "https://api.vantage.sh/v2/anomaly_alerts?page=1",
                   "prev": null
                 },
                 "anomaly_alerts": [
@@ -6522,8 +6733,9 @@
                     "tag_key": "app",
                     "hidden": true,
                     "providers": [
-                      "AWS",
-                      "Azure"
+                      "aws",
+                      "azure",
+                      "custom_provider:accss_crdntl_11bcb3867900b0df"
                     ]
                   }
                 ]
@@ -6568,6 +6780,40 @@
         "parameters": [
           {
             "in": "query",
+            "name": "providers",
+            "description": "An array of providers to scope Tags by.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "aws",
+                "azure",
+                "gcp",
+                "snowflake",
+                "databricks",
+                "mongo",
+                "datadog",
+                "fastly",
+                "new_relic",
+                "opencost",
+                "open_ai",
+                "oracle",
+                "confluent",
+                "planetscale",
+                "coralogix",
+                "kubernetes",
+                "custom_provider",
+                "github",
+                "linode",
+                "grafana",
+                "clickhouse",
+                "temporal"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "search_query",
             "description": "A search query to filter Tags by tag key.",
             "type": "string",
@@ -6582,6 +6828,24 @@
               "asc",
               "desc"
             ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return per page. Defaults to 100. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
             "required": false
           }
         ],
@@ -6605,16 +6869,18 @@
                     "tag_key": "app",
                     "hidden": false,
                     "providers": [
-                      "AWS",
-                      "Azure"
+                      "aws",
+                      "azure",
+                      "custom_provider:accss_crdntl_14b098088d3fe0ea"
                     ]
                   },
                   {
                     "tag_key": "environment",
                     "hidden": false,
                     "providers": [
-                      "AWS",
-                      "Azure"
+                      "aws",
+                      "azure",
+                      "custom_provider:accss_crdntl_14b098088d3fe0ea"
                     ]
                   }
                 ]
@@ -6626,6 +6892,141 @@
           "Tags"
         ],
         "operationId": "getTags"
+      }
+    },
+    "/tags/{key}/values": {
+      "get": {
+        "description": "Returns corresponding TagValues for a given Tag.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "description": "The key of the Tag for which you would like to retrieve TagValues.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "providers",
+            "description": "An array of providers to scope TagValues by.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "aws",
+                "azure",
+                "gcp",
+                "snowflake",
+                "databricks",
+                "mongo",
+                "datadog",
+                "fastly",
+                "new_relic",
+                "opencost",
+                "open_ai",
+                "oracle",
+                "confluent",
+                "planetscale",
+                "coralogix",
+                "kubernetes",
+                "custom_provider",
+                "github",
+                "linode",
+                "grafana",
+                "clickhouse",
+                "temporal"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort_direction",
+            "description": "The direction in which to sort the TagValues. Defaults to 'asc'.",
+            "type": "string",
+            "default": "asc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_query",
+            "description": "A search query to filter TagValues by the value name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return per page. Defaults to 100. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TagValues"
+            },
+            "examples": {
+              "application/json": {
+                "tag_values": [
+                  {
+                    "tag_value": "production",
+                    "providers": [
+                      "aws",
+                      "azure",
+                      "custom_provider:accss_crdntl_3d5f465892a0718f"
+                    ]
+                  },
+                  {
+                    "tag_value": "staging",
+                    "providers": [
+                      "aws",
+                      "azure",
+                      "custom_provider:accss_crdntl_3d5f465892a0718f"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Tags"
+        ],
+        "operationId": "getTagValues"
       }
     },
     "/anomaly_notifications": {
@@ -6728,10 +7129,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/anomaly_notifications",
-                  "first": "https://api.vantage.com/v2/anomaly_notifications?page=1",
+                  "self": "https://api.vantage.sh/v2/anomaly_notifications",
+                  "first": "https://api.vantage.sh/v2/anomaly_notifications?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/anomaly_notifications?page=1",
+                  "last": "https://api.vantage.sh/v2/anomaly_notifications?page=1",
                   "prev": null
                 },
                 "anomaly_notifications": [
@@ -7057,10 +7458,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/budgets",
-                  "first": "https://api.vantage.com/v2/budgets?page=1",
+                  "self": "https://api.vantage.sh/v2/budgets",
+                  "first": "https://api.vantage.sh/v2/budgets?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/budgets?page=1",
+                  "last": "https://api.vantage.sh/v2/budgets?page=1",
                   "prev": null
                 },
                 "budgets": [
@@ -7895,10 +8296,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/integrations",
-                  "first": "https://api.vantage.com/v2/integrations?page=1",
+                  "self": "https://api.vantage.sh/v2/integrations",
+                  "first": "https://api.vantage.sh/v2/integrations?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/integrations?page=1",
+                  "last": "https://api.vantage.sh/v2/integrations?page=1",
                   "prev": null
                 },
                 "integrations": [
@@ -8191,8 +8592,7 @@
           }
         },
         "tags": [
-          "Integrations",
-          "UserCostsUpload"
+          "Integrations"
         ],
         "operationId": "deleteUserCostsUpload"
       }
@@ -8274,8 +8674,7 @@
           }
         },
         "tags": [
-          "Integrations",
-          "UserCostsUpload"
+          "Integrations"
         ],
         "operationId": "createUserCostsUploadViaCsv"
       }
@@ -8393,10 +8792,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/recommendations",
-                  "first": "https://api.vantage.com/v2/recommendations?page=1",
+                  "self": "https://api.vantage.sh/v2/recommendations",
+                  "first": "https://api.vantage.sh/v2/recommendations?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/recommendations?page=1",
+                  "last": "https://api.vantage.sh/v2/recommendations?page=1",
                   "prev": null
                 },
                 "recommendations": [
@@ -8524,10 +8923,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources",
-                  "first": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "self": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources",
+                  "first": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "last": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
                   "prev": null
                 },
                 "resources": [
@@ -8710,10 +9109,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/managed_accounts",
-                  "first": "https://api.vantage.com/v2/managed_accounts?page=1",
+                  "self": "https://api.vantage.sh/v2/managed_accounts",
+                  "first": "https://api.vantage.sh/v2/managed_accounts?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/managed_accounts?page=1",
+                  "last": "https://api.vantage.sh/v2/managed_accounts?page=1",
                   "prev": null
                 },
                 "managed_accounts": [
@@ -8989,10 +9388,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.com/v2/billing_rules",
-                  "first": "https://api.vantage.com/v2/billing_rules?page=1",
+                  "self": "https://api.vantage.sh/v2/billing_rules",
+                  "first": "https://api.vantage.sh/v2/billing_rules?page=1",
                   "next": null,
-                  "last": "https://api.vantage.com/v2/billing_rules?page=1",
+                  "last": "https://api.vantage.sh/v2/billing_rules?page=1",
                   "prev": null
                 },
                 "billing_rules": [
@@ -11344,13 +11743,6 @@
             "$ref": "#/definitions/AttachedCostReportForBusinessMetric"
           },
           "description": "The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter."
-        },
-        "values": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BusinessMetricValue"
-          },
-          "description": "The dates, amounts, and (optional) labels for the BusinessMetric."
         }
       },
       "description": "BusinessMetric model"
@@ -11386,26 +11778,6 @@
           },
           "x-omitempty": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
-        }
-      }
-    },
-    "BusinessMetricValue": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string",
-          "example": "2024-03-01+00:00",
-          "description": "The date of the Business Metric Value. ISO 8601 formatted."
-        },
-        "amount": {
-          "type": "string",
-          "example": "100.00",
-          "description": "The amount of the Business Metric Value as a string to ensure precision."
-        },
-        "label": {
-          "type": "string",
-          "example": "Cost Center A",
-          "description": "The label of the Business Metric Value."
         }
       }
     },
@@ -11490,6 +11862,38 @@
         }
       },
       "description": "Updates an existing BusinessMetric."
+    },
+    "BusinessMetricValues": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessMetricValue"
+          }
+        }
+      },
+      "description": "BusinessMetricValues model"
+    },
+    "BusinessMetricValue": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2024-03-01+00:00",
+          "description": "The date of the Business Metric Value. ISO 8601 formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "100.00",
+          "description": "The amount of the Business Metric Value as a string to ensure precision."
+        },
+        "label": {
+          "type": "string",
+          "example": "Cost Center A",
+          "description": "The label of the Business Metric Value."
+        }
+      }
     },
     "Products": {
       "type": "object",
@@ -12754,13 +13158,45 @@
         "providers": {
           "type": "string",
           "example": [
-            "AWS",
-            "GCP"
+            "aws",
+            "gcp",
+            "custom_provider:accss_crdntl_1234567890abcdef"
           ],
           "description": "The unique providers that are covered by the Tag key."
         }
       },
       "description": "Tag model"
+    },
+    "TagValues": {
+      "type": "object",
+      "properties": {
+        "tag_values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TagValue"
+          }
+        }
+      },
+      "description": "TagValues model"
+    },
+    "TagValue": {
+      "type": "object",
+      "properties": {
+        "tag_value": {
+          "type": "string",
+          "example": "vantage",
+          "description": "The TagValue."
+        },
+        "providers": {
+          "type": "string",
+          "example": [
+            "aws",
+            "gcp",
+            "custom_provider:accss_crdntl_1234567890abcdef"
+          ],
+          "description": "The unique providers that are covered by the TagValue."
+        }
+      }
     },
     "Tags": {
       "type": "object",
