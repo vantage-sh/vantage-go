@@ -10655,7 +10655,8 @@
             "next_12_months",
             "year_to_date",
             "last_3_days"
-          ]
+          ],
+          "x-nullable": true
         },
         "start_date": {
           "type": "string",
@@ -10671,8 +10672,7 @@
         }
       },
       "required": [
-        "title",
-        "end_date"
+        "title"
       ],
       "description": "Create a Dashboard."
     },
