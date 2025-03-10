@@ -1684,6 +1684,7 @@
               "grafana",
               "clickhouse",
               "temporal",
+              "twilio",
               "all"
             ],
             "required": false
@@ -6807,7 +6808,8 @@
                 "linode",
                 "grafana",
                 "clickhouse",
-                "temporal"
+                "temporal",
+                "twilio"
               ]
             },
             "required": false
@@ -6937,7 +6939,8 @@
                 "linode",
                 "grafana",
                 "clickhouse",
-                "temporal"
+                "temporal",
+                "twilio"
               ]
             },
             "required": false
@@ -8252,7 +8255,8 @@
               "linode",
               "grafana",
               "clickhouse",
-              "temporal"
+              "temporal",
+              "twilio"
             ],
             "required": false
           },
@@ -10211,7 +10215,8 @@
         },
         "groupings": {
           "type": "string",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "x-omitempty": false
         },
         "filter": {
           "type": "string",
@@ -10974,7 +10979,8 @@
             "linode",
             "grafana",
             "clickhouse",
-            "temporal"
+            "temporal",
+            "twilio"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -12982,7 +12988,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-08-01",
+          "example": "2024-09-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {

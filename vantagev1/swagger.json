@@ -8339,6 +8339,9 @@
         "iam_role_id": {
           "type": "string"
         },
+        "vantage_id": {
+          "type": "string"
+        },
         "policies": {
           "$ref": "#/definitions/AwsIamPolicies"
         }

@@ -29,6 +29,9 @@ type AwsProviderCredential struct {
 
 	// policies
 	Policies *AwsIamPolicies `json:"policies,omitempty"`
+
+	// vantage id
+	VantageID string `json:"vantage_id,omitempty"`
 }
 
 // Validate validates this aws provider credential

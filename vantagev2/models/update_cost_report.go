@@ -46,7 +46,7 @@ type UpdateCostReport struct {
 	FolderToken string `json:"folder_token,omitempty"`
 
 	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
-	Groupings string `json:"groupings,omitempty"`
+	Groupings string `json:"groupings"`
 
 	// The previous period end date of the CostReport. ISO 8601 Formatted.
 	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
