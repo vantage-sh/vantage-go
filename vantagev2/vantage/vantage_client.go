@@ -19,6 +19,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/data_exports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
@@ -92,6 +93,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
+	cli.DataExports = data_exports.New(transport, formats)
 	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
 	cli.FinancialCommitments = financial_commitments.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
@@ -174,6 +176,8 @@ type Vantage struct {
 
 	Dashboards dashboards.ClientService
 
+	DataExports data_exports.ClientService
+
 	FinancialCommitmentReports financial_commitment_reports.ClientService
 
 	FinancialCommitments financial_commitments.ClientService
@@ -229,6 +233,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.BusinessMetrics.SetTransport(transport)
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
+	c.DataExports.SetTransport(transport)
 	c.FinancialCommitmentReports.SetTransport(transport)
 	c.FinancialCommitments.SetTransport(transport)
 	c.Folders.SetTransport(transport)

@@ -56,6 +56,8 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateCostExport(params *CreateCostExportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostExportAccepted, error)
+
 	CreateCostReport(params *CreateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportCreated, error)
 
 	DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error)
@@ -71,6 +73,45 @@ type ClientService interface {
 	UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateCostExport Generate a DataExport of costs.
+*/
+func (a *Client) CreateCostExport(params *CreateCostExportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostExportAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateCostExportParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createCostExport",
+		Method:             "POST",
+		PathPattern:        "/costs/data_exports",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateCostExportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateCostExportAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createCostExport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*

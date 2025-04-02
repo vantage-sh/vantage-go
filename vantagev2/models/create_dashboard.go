@@ -27,7 +27,7 @@ type CreateDashboard struct {
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
-	DateInterval *string `json:"date_interval,omitempty"`
+	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	EndDate string `json:"end_date,omitempty"`
@@ -200,7 +200,7 @@ func (m *CreateDashboard) validateDateInterval(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateDateIntervalEnum("date_interval", "body", *m.DateInterval); err != nil {
+	if err := m.validateDateIntervalEnum("date_interval", "body", m.DateInterval); err != nil {
 		return err
 	}
 

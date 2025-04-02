@@ -151,6 +151,10 @@
       "description": "Operations about BillingRules"
     },
     {
+      "name": "DataExports",
+      "description": "Operations about DataExports"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -2502,6 +2506,160 @@
         "operationId": "getDashboard"
       }
     },
+    "/costs/data_exports": {
+      "post": {
+        "description": "Generate a DataExport of costs.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "cost_report_token",
+            "description": "The CostReport token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "filter",
+            "description": "The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "start_date",
+            "description": "First date you would like to filter costs from. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "end_date",
+            "description": "Last date you would like to filter costs to. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "groupings",
+            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "date_bin",
+            "description": "The date bin of the costs. Defaults to the report's default or day.",
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ],
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[include_credits]",
+            "description": "Results will include credits.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[include_refunds]",
+            "description": "Results will include refunds.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[include_discounts]",
+            "description": "Results will include discounts.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[include_tax]",
+            "description": "Results will include tax.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[amortize]",
+            "description": "Results will amortize.",
+            "type": "boolean",
+            "default": true,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[unallocated]",
+            "description": "Results will show unallocated costs.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "settings[aggregate_by]",
+            "description": "Results will aggregate by cost or usage.",
+            "type": "string",
+            "default": "cost",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The data export has been queued and will be available at the location specified in the Location header."
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Costs"
+        ],
+        "operationId": "createCostExport"
+      }
+    },
     "/costs": {
       "get": {
         "description": "Return all Costs for a CostReport.",
@@ -2514,7 +2672,14 @@
             "name": "cost_report_token",
             "description": "The CostReport token.",
             "type": "string",
-            "required": true
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.",
+            "type": "string",
+            "required": false
           },
           {
             "in": "query",
@@ -2649,7 +2814,7 @@
                   "self": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677",
                   "first": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
+                  "last": null,
                   "prev": null
                 },
                 "total_cost": {
@@ -9576,6 +9741,83 @@
         "operationId": "getBillingRule"
       }
     },
+    "/data_exports/{data_export_token}": {
+      "get": {
+        "description": "Get the status of a data export.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "data_export_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the completed data export and its manifest. If it is still pending, the response will be a 202 and the caller should check the Location and Retry-After headers to determine where and how long to wait before polling again.",
+            "schema": {
+              "$ref": "#/definitions/DataExport"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dta_xprt_964b2adb9bff37fb",
+                "status": "completed",
+                "created_at": "2025-03-27T20:46:31Z",
+                "export_type": "cost_report",
+                "manifest": {
+                  "files": [
+                    "https://example.com/file1.csv"
+                  ],
+                  "completed_at": "2025-03-27T20:46:31Z",
+                  "valid_until": "2025-03-28T20:46:31Z"
+                },
+                "attributes": {
+                  "report_token": null,
+                  "start_date": null,
+                  "end_date": null,
+                  "groupings": [],
+                  "vql": null,
+                  "settings": null,
+                  "date_bin": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "DataExports"
+        ],
+        "operationId": "getDataExport"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -10655,8 +10897,7 @@
             "next_12_months",
             "year_to_date",
             "last_3_days"
-          ],
-          "x-nullable": true
+          ]
         },
         "start_date": {
           "type": "string",
@@ -10885,8 +11126,10 @@
             "next_6_months",
             "next_12_months",
             "year_to_date",
-            "last_3_days"
-          ]
+            "last_3_days",
+            ""
+          ],
+          "x-omitempty": false
         },
         "start_date": {
           "type": "string",
@@ -10901,9 +11144,6 @@
           "description": "The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces."
         }
       },
-      "required": [
-        "end_date"
-      ],
       "description": "Update a Dashboard."
     },
     "Costs": {
@@ -12988,7 +13228,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-09-01",
+          "example": "2024-10-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -14218,6 +14458,53 @@
         }
       },
       "description": "Update a Billing Rule."
+    },
+    "DataExport": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "dta_xprt_abcd1234567890"
+        },
+        "status": {
+          "type": "string",
+          "example": "pending"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2025-03-20T12:00:00Z"
+        },
+        "export_type": {
+          "type": "string",
+          "example": "cost_report"
+        },
+        "manifest": {
+          "$ref": "#/definitions/DataExportManifest"
+        },
+        "attributes": {
+          "type": "string"
+        }
+      },
+      "description": "DataExport model"
+    },
+    "DataExportManifest": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "string",
+          "example": [
+            "https://example.com/file1.csv"
+          ]
+        },
+        "completed_at": {
+          "type": "string",
+          "example": "2025-03-20T12:00:00Z"
+        },
+        "valid_until": {
+          "type": "string",
+          "example": "2025-03-20T12:00:00Z"
+        }
+      }
     }
   }
 }

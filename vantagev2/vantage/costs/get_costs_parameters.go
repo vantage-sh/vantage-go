@@ -66,7 +66,7 @@ type GetCostsParams struct {
 
 	   The CostReport token.
 	*/
-	CostReportToken string
+	CostReportToken *string
 
 	/* DateBin.
 
@@ -79,6 +79,12 @@ type GetCostsParams struct {
 	   Last date you would like to filter costs to. ISO 8601 formatted.
 	*/
 	EndDate *string
+
+	/* Filter.
+
+	   The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
+	*/
+	Filter *string
 
 	/* Groupings.
 
@@ -244,13 +250,13 @@ func (o *GetCostsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithCostReportToken adds the costReportToken to the get costs params
-func (o *GetCostsParams) WithCostReportToken(costReportToken string) *GetCostsParams {
+func (o *GetCostsParams) WithCostReportToken(costReportToken *string) *GetCostsParams {
 	o.SetCostReportToken(costReportToken)
 	return o
 }
 
 // SetCostReportToken adds the costReportToken to the get costs params
-func (o *GetCostsParams) SetCostReportToken(costReportToken string) {
+func (o *GetCostsParams) SetCostReportToken(costReportToken *string) {
 	o.CostReportToken = costReportToken
 }
 
@@ -274,6 +280,17 @@ func (o *GetCostsParams) WithEndDate(endDate *string) *GetCostsParams {
 // SetEndDate adds the endDate to the get costs params
 func (o *GetCostsParams) SetEndDate(endDate *string) {
 	o.EndDate = endDate
+}
+
+// WithFilter adds the filter to the get costs params
+func (o *GetCostsParams) WithFilter(filter *string) *GetCostsParams {
+	o.SetFilter(filter)
+	return o
+}
+
+// SetFilter adds the filter to the get costs params
+func (o *GetCostsParams) SetFilter(filter *string) {
+	o.Filter = filter
 }
 
 // WithGroupings adds the groupings to the get costs params
@@ -405,13 +422,20 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	}
 	var res []error
 
-	// query param cost_report_token
-	qrCostReportToken := o.CostReportToken
-	qCostReportToken := qrCostReportToken
-	if qCostReportToken != "" {
+	if o.CostReportToken != nil {
 
-		if err := r.SetQueryParam("cost_report_token", qCostReportToken); err != nil {
-			return err
+		// query param cost_report_token
+		var qrCostReportToken string
+
+		if o.CostReportToken != nil {
+			qrCostReportToken = *o.CostReportToken
+		}
+		qCostReportToken := qrCostReportToken
+		if qCostReportToken != "" {
+
+			if err := r.SetQueryParam("cost_report_token", qCostReportToken); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -444,6 +468,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qEndDate != "" {
 
 			if err := r.SetQueryParam("end_date", qEndDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Filter != nil {
+
+		// query param filter
+		var qrFilter string
+
+		if o.Filter != nil {
+			qrFilter = *o.Filter
+		}
+		qFilter := qrFilter
+		if qFilter != "" {
+
+			if err := r.SetQueryParam("filter", qFilter); err != nil {
 				return err
 			}
 		}

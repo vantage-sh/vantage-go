@@ -26,12 +26,11 @@ type UpdateDashboard struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
-	DateInterval string `json:"date_interval,omitempty"`
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days",""]
+	DateInterval string `json:"date_interval"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-	// Required: true
-	EndDate *string `json:"end_date"`
+	EndDate string `json:"end_date,omitempty"`
 
 	// The tokens of the Saved Filters used in the Dashboard.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
@@ -58,10 +57,6 @@ func (m *UpdateDashboard) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateEndDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -127,7 +122,7 @@ var updateDashboardTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days",""]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -184,6 +179,9 @@ const (
 
 	// UpdateDashboardDateIntervalLast3Days captures enum value "last_3_days"
 	UpdateDashboardDateIntervalLast3Days string = "last_3_days"
+
+	// UpdateDashboardDateIntervalEmpty captures enum value ""
+	UpdateDashboardDateIntervalEmpty string = ""
 )
 
 // prop value enum
@@ -201,15 +199,6 @@ func (m *UpdateDashboard) validateDateInterval(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateDateIntervalEnum("date_interval", "body", m.DateInterval); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *UpdateDashboard) validateEndDate(formats strfmt.Registry) error {
-
-	if err := validate.Required("end_date", "body", m.EndDate); err != nil {
 		return err
 	}
 
