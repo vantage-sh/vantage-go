@@ -2983,7 +2983,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -3019,7 +3019,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -3122,11 +3122,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -9106,7 +9106,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -9163,7 +9163,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -11153,11 +11153,11 @@
           "type": "object"
         },
         "total_cost": {
-          "type": "string",
+          "type": "object",
           "description": "The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code."
         },
         "total_usage": {
-          "type": "string",
+          "type": "object",
           "description": "The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit."
         },
         "costs": {

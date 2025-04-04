@@ -26,10 +26,10 @@ type Costs struct {
 	Links interface{} `json:"links,omitempty"`
 
 	// The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code.
-	TotalCost string `json:"total_cost,omitempty"`
+	TotalCost interface{} `json:"total_cost,omitempty"`
 
 	// The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit.
-	TotalUsage string `json:"total_usage,omitempty"`
+	TotalUsage interface{} `json:"total_usage,omitempty"`
 }
 
 // Validate validates this costs
