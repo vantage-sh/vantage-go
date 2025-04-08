@@ -18,8 +18,7 @@ import (
 type TagValue struct {
 
 	// The unique providers that are covered by the TagValue.
-	// Example: ["aws","gcp","custom_provider:accss_crdntl_1234567890abcdef"]
-	Providers string `json:"providers,omitempty"`
+	Providers []string `json:"providers"`
 
 	// The TagValue.
 	// Example: vantage

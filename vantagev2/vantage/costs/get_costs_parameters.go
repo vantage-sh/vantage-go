@@ -164,6 +164,12 @@ type GetCostsParams struct {
 	*/
 	StartDate *string
 
+	/* WorkspaceToken.
+
+	   The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -412,6 +418,17 @@ func (o *GetCostsParams) WithStartDate(startDate *string) *GetCostsParams {
 // SetStartDate adds the startDate to the get costs params
 func (o *GetCostsParams) SetStartDate(startDate *string) {
 	o.StartDate = startDate
+}
+
+// WithWorkspaceToken adds the workspaceToken to the get costs params
+func (o *GetCostsParams) WithWorkspaceToken(workspaceToken *string) *GetCostsParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get costs params
+func (o *GetCostsParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -666,6 +683,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qStartDate != "" {
 
 			if err := r.SetQueryParam("start_date", qStartDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

@@ -21,8 +21,7 @@ type Tag struct {
 	Hidden bool `json:"hidden,omitempty"`
 
 	// The unique providers that are covered by the Tag key.
-	// Example: ["aws","gcp","custom_provider:accss_crdntl_1234567890abcdef"]
-	Providers string `json:"providers,omitempty"`
+	Providers []string `json:"providers"`
 
 	// The Tag key.
 	// Example: aws:createdBy

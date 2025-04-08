@@ -155,6 +155,10 @@
       "description": "Operations about DataExports"
     },
     {
+      "name": "Me",
+      "description": "Operations about Mes"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -2532,6 +2536,13 @@
           },
           {
             "in": "formData",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
             "name": "start_date",
             "description": "First date you would like to filter costs from. ISO 8601 formatted.",
             "type": "string",
@@ -2662,7 +2673,7 @@
     },
     "/costs": {
       "get": {
-        "description": "Return all Costs for a CostReport.",
+        "description": "Return all Costs for a CostReport or VQL filter.",
         "produces": [
           "application/json"
         ],
@@ -2678,6 +2689,13 @@
             "in": "query",
             "name": "filter",
             "description": "The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.",
             "type": "string",
             "required": false
           },
@@ -9818,6 +9836,30 @@
         "operationId": "getDataExport"
       }
     },
+    "/me": {
+      "get": {
+        "description": "Get information about the authenticated bearer token.",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "General information about the user."
+          }
+        },
+        "tags": [
+          "Me"
+        ],
+        "operationId": "me"
+      }
+    },
     "/ping": {
       "get": {
         "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly.",
@@ -13402,12 +13444,15 @@
           "description": "Whether the Tag has been hidden from the Vantage UI."
         },
         "providers": {
-          "type": "string",
-          "example": [
-            "aws",
-            "gcp",
-            "custom_provider:accss_crdntl_1234567890abcdef"
-          ],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "aws",
+              "gcp",
+              "custom_provider:accss_crdntl_1234567890abcdef"
+            ]
+          },
           "description": "The unique providers that are covered by the Tag key."
         }
       },
@@ -13434,12 +13479,15 @@
           "description": "The TagValue."
         },
         "providers": {
-          "type": "string",
-          "example": [
-            "aws",
-            "gcp",
-            "custom_provider:accss_crdntl_1234567890abcdef"
-          ],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "aws",
+              "gcp",
+              "custom_provider:accss_crdntl_1234567890abcdef"
+            ]
+          },
           "description": "The unique providers that are covered by the TagValue."
         }
       }

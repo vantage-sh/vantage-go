@@ -271,7 +271,7 @@ func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.C
 }
 
 /*
-GetCosts Return all Costs for a CostReport.
+GetCosts Return all Costs for a CostReport or VQL filter.
 */
 func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOK, error) {
 	// TODO: Validate the params before sending
