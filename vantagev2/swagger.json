@@ -9851,13 +9851,38 @@
         ],
         "responses": {
           "200": {
-            "description": "General information about the user."
+            "description": "Get information about the authenticated bearer token..",
+            "schema": {
+              "$ref": "#/definitions/Me"
+            },
+            "examples": {
+              "application/json": {
+                "workspaces": [
+                  {
+                    "token": "wrkspc_18a78bd32d741b67",
+                    "name": "Kohler, Hettinger and Swaniawski 7edced01",
+                    "created_at": "2025-04-08T19:30:03Z",
+                    "enable_currency_conversion": false,
+                    "currency": "USD",
+                    "exchange_rate_date": "daily_rate"
+                  },
+                  {
+                    "token": "wrkspc_2c9a0557803dccc4",
+                    "name": "Mosciski LLC 38b3a4ce",
+                    "created_at": "2025-04-08T19:30:03Z",
+                    "enable_currency_conversion": false,
+                    "currency": "USD",
+                    "exchange_rate_date": "daily_rate"
+                  }
+                ]
+              }
+            }
           }
         },
         "tags": [
           "Me"
         ],
-        "operationId": "me"
+        "operationId": "getMe"
       }
     },
     "/ping": {
@@ -14553,6 +14578,18 @@
           "example": "2025-03-20T12:00:00Z"
         }
       }
+    },
+    "Me": {
+      "type": "object",
+      "properties": {
+        "workspaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Workspace"
+          }
+        }
+      },
+      "description": "Me model"
     }
   }
 }

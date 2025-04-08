@@ -56,28 +56,28 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	Me(params *MeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MeOK, error)
+	GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-Me Get information about the authenticated bearer token.
+GetMe Get information about the authenticated bearer token.
 */
-func (a *Client) Me(params *MeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MeOK, error) {
+func (a *Client) GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewMeParams()
+		params = NewGetMeParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "me",
+		ID:                 "getMe",
 		Method:             "GET",
 		PathPattern:        "/me",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &MeReader{formats: a.formats},
+		Reader:             &GetMeReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -90,13 +90,13 @@ func (a *Client) Me(params *MeParams, authInfo runtime.ClientAuthInfoWriter, opt
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*MeOK)
+	success, ok := result.(*GetMeOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for me: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getMe: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
