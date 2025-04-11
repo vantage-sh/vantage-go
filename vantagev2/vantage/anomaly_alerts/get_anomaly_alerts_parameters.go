@@ -62,6 +62,26 @@ GetAnomalyAlertsParams contains all the parameters to send to the API endpoint
 */
 type GetAnomalyAlertsParams struct {
 
+	/* CostCategory.
+
+	   The cost category of the anomalies to return.
+	*/
+	CostCategory *string
+
+	/* CostReportToken.
+
+	   The cost report token of the anomalies to return.
+	*/
+	CostReportToken *string
+
+	/* EndDate.
+
+	   The end date of the anomalies to return. ISO 8601 formatted.
+
+	   Format: date-time
+	*/
+	EndDate *strfmt.DateTime
+
 	/* Limit.
 
 	   The amount of results to return. The maximum is 1000.
@@ -77,6 +97,26 @@ type GetAnomalyAlertsParams struct {
 	   Format: int32
 	*/
 	Page *int32
+
+	/* Provider.
+
+	   The provider of the anomalies to return.
+	*/
+	Provider *string
+
+	/* Service.
+
+	   The service of the anomalies to return.
+	*/
+	Service *string
+
+	/* StartDate.
+
+	   The start date of the anomalies to return. ISO 8601 formatted.
+
+	   Format: date-time
+	*/
+	StartDate *strfmt.DateTime
 
 	timeout    time.Duration
 	Context    context.Context
@@ -131,6 +171,39 @@ func (o *GetAnomalyAlertsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCostCategory adds the costCategory to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithCostCategory(costCategory *string) *GetAnomalyAlertsParams {
+	o.SetCostCategory(costCategory)
+	return o
+}
+
+// SetCostCategory adds the costCategory to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetCostCategory(costCategory *string) {
+	o.CostCategory = costCategory
+}
+
+// WithCostReportToken adds the costReportToken to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithCostReportToken(costReportToken *string) *GetAnomalyAlertsParams {
+	o.SetCostReportToken(costReportToken)
+	return o
+}
+
+// SetCostReportToken adds the costReportToken to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetCostReportToken(costReportToken *string) {
+	o.CostReportToken = costReportToken
+}
+
+// WithEndDate adds the endDate to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithEndDate(endDate *strfmt.DateTime) *GetAnomalyAlertsParams {
+	o.SetEndDate(endDate)
+	return o
+}
+
+// SetEndDate adds the endDate to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetEndDate(endDate *strfmt.DateTime) {
+	o.EndDate = endDate
+}
+
 // WithLimit adds the limit to the get anomaly alerts params
 func (o *GetAnomalyAlertsParams) WithLimit(limit *int32) *GetAnomalyAlertsParams {
 	o.SetLimit(limit)
@@ -153,6 +226,39 @@ func (o *GetAnomalyAlertsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithProvider adds the provider to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithProvider(provider *string) *GetAnomalyAlertsParams {
+	o.SetProvider(provider)
+	return o
+}
+
+// SetProvider adds the provider to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetProvider(provider *string) {
+	o.Provider = provider
+}
+
+// WithService adds the service to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithService(service *string) *GetAnomalyAlertsParams {
+	o.SetService(service)
+	return o
+}
+
+// SetService adds the service to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetService(service *string) {
+	o.Service = service
+}
+
+// WithStartDate adds the startDate to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) WithStartDate(startDate *strfmt.DateTime) *GetAnomalyAlertsParams {
+	o.SetStartDate(startDate)
+	return o
+}
+
+// SetStartDate adds the startDate to the get anomaly alerts params
+func (o *GetAnomalyAlertsParams) SetStartDate(startDate *strfmt.DateTime) {
+	o.StartDate = startDate
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetAnomalyAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +266,57 @@ func (o *GetAnomalyAlertsParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.CostCategory != nil {
+
+		// query param cost_category
+		var qrCostCategory string
+
+		if o.CostCategory != nil {
+			qrCostCategory = *o.CostCategory
+		}
+		qCostCategory := qrCostCategory
+		if qCostCategory != "" {
+
+			if err := r.SetQueryParam("cost_category", qCostCategory); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CostReportToken != nil {
+
+		// query param cost_report_token
+		var qrCostReportToken string
+
+		if o.CostReportToken != nil {
+			qrCostReportToken = *o.CostReportToken
+		}
+		qCostReportToken := qrCostReportToken
+		if qCostReportToken != "" {
+
+			if err := r.SetQueryParam("cost_report_token", qCostReportToken); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EndDate != nil {
+
+		// query param end_date
+		var qrEndDate strfmt.DateTime
+
+		if o.EndDate != nil {
+			qrEndDate = *o.EndDate
+		}
+		qEndDate := qrEndDate.String()
+		if qEndDate != "" {
+
+			if err := r.SetQueryParam("end_date", qEndDate); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 
@@ -190,6 +347,57 @@ func (o *GetAnomalyAlertsParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Provider != nil {
+
+		// query param provider
+		var qrProvider string
+
+		if o.Provider != nil {
+			qrProvider = *o.Provider
+		}
+		qProvider := qrProvider
+		if qProvider != "" {
+
+			if err := r.SetQueryParam("provider", qProvider); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Service != nil {
+
+		// query param service
+		var qrService string
+
+		if o.Service != nil {
+			qrService = *o.Service
+		}
+		qService := qrService
+		if qService != "" {
+
+			if err := r.SetQueryParam("service", qService); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.StartDate != nil {
+
+		// query param start_date
+		var qrStartDate strfmt.DateTime
+
+		if o.StartDate != nil {
+			qrStartDate = *o.StartDate
+		}
+		qStartDate := qrStartDate.String()
+		if qStartDate != "" {
+
+			if err := r.SetQueryParam("start_date", qStartDate); err != nil {
 				return err
 			}
 		}

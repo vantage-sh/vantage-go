@@ -43,7 +43,7 @@ func NewGetMeOK() *GetMeOK {
 /*
 GetMeOK describes a response with status code 200, with default header values.
 
-Get information about the authenticated bearer token..
+General information about the user.
 */
 type GetMeOK struct {
 	Payload *models.Me

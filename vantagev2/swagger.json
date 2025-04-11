@@ -159,6 +159,10 @@
       "description": "Operations about Mes"
     },
     {
+      "name": "CostProvider",
+      "description": "Operations about CostProviders"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -2739,7 +2743,15 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
             "type": "integer",
             "format": "int32",
             "required": false
@@ -6364,6 +6376,50 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "The start date of the anomalies to return. ISO 8601 formatted.",
+            "type": "string",
+            "format": "date-time",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "The end date of the anomalies to return. ISO 8601 formatted.",
+            "type": "string",
+            "format": "date-time",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "The provider of the anomalies to return.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "service",
+            "description": "The service of the anomalies to return.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "cost_category",
+            "description": "The cost category of the anomalies to return.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "description": "The cost report token of the anomalies to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -9851,31 +9907,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Get information about the authenticated bearer token..",
+            "description": "General information about the user.",
             "schema": {
               "$ref": "#/definitions/Me"
-            },
-            "examples": {
-              "application/json": {
-                "workspaces": [
-                  {
-                    "token": "wrkspc_18a78bd32d741b67",
-                    "name": "Kohler, Hettinger and Swaniawski 7edced01",
-                    "created_at": "2025-04-08T19:30:03Z",
-                    "enable_currency_conversion": false,
-                    "currency": "USD",
-                    "exchange_rate_date": "daily_rate"
-                  },
-                  {
-                    "token": "wrkspc_2c9a0557803dccc4",
-                    "name": "Mosciski LLC 38b3a4ce",
-                    "created_at": "2025-04-08T19:30:03Z",
-                    "enable_currency_conversion": false,
-                    "currency": "USD",
-                    "exchange_rate_date": "daily_rate"
-                  }
-                ]
-              }
             }
           }
         },
@@ -9883,6 +9917,42 @@
           "Me"
         ],
         "operationId": "getMe"
+      }
+    },
+    "/cost_providers": {
+      "get": {
+        "description": "List CostProviders available to query in a given Workspace.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to list CostProviders for. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of connected cost providers.",
+            "schema": {
+              "$ref": "#/definitions/CostProvider"
+            }
+          }
+        },
+        "tags": [
+          "CostProvider"
+        ],
+        "operationId": "getCostProviders"
       }
     },
     "/ping": {
@@ -14590,6 +14660,22 @@
         }
       },
       "description": "Me model"
+    },
+    "CostProvider": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "AWS",
+          "description": "The name of the CostProvider."
+        },
+        "key": {
+          "type": "string",
+          "example": "aws",
+          "description": "The key of the CostProvider, useful for filtering Costs."
+        }
+      },
+      "description": "CostProvider model"
     }
   }
 }

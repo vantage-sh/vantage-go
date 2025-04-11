@@ -94,7 +94,7 @@ type GetCostsParams struct {
 
 	/* Limit.
 
-	   The amount of results to return. The maximum is 1000.
+	   The amount of results to return. The maximum is 5000.
 
 	   Format: int32
 	*/
@@ -107,6 +107,14 @@ type GetCostsParams struct {
 	   Default: "desc"
 	*/
 	Order *string
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	*/
+	Page *int32
 
 	/* SettingsAggregateBy.
 
@@ -332,6 +340,17 @@ func (o *GetCostsParams) SetOrder(order *string) {
 	o.Order = order
 }
 
+// WithPage adds the page to the get costs params
+func (o *GetCostsParams) WithPage(page *int32) *GetCostsParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get costs params
+func (o *GetCostsParams) SetPage(page *int32) {
+	o.Page = page
+}
+
 // WithSettingsAggregateBy adds the settingsAggregateBy to the get costs params
 func (o *GetCostsParams) WithSettingsAggregateBy(settingsAggregateBy *string) *GetCostsParams {
 	o.SetSettingsAggregateBy(settingsAggregateBy)
@@ -547,6 +566,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qOrder != "" {
 
 			if err := r.SetQueryParam("order", qOrder); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
