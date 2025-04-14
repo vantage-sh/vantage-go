@@ -70,7 +70,7 @@ type ClientService interface {
 }
 
 /*
-CreateBillingRule Create a Billing Rule.
+CreateBillingRule Create a BillingRule.
 */
 func (a *Client) CreateBillingRule(params *CreateBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBillingRuleCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +109,7 @@ func (a *Client) CreateBillingRule(params *CreateBillingRuleParams, authInfo run
 }
 
 /*
-DeleteBillingRule Delete a Billing Rule.
+DeleteBillingRule Delete a BillingRule.
 */
 func (a *Client) DeleteBillingRule(params *DeleteBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBillingRuleNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +148,7 @@ func (a *Client) DeleteBillingRule(params *DeleteBillingRuleParams, authInfo run
 }
 
 /*
-GetBillingRule Return a Billing Rule.
+GetBillingRule Return a BillingRule.
 */
 func (a *Client) GetBillingRule(params *GetBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBillingRuleOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +226,7 @@ func (a *Client) GetBillingRules(params *GetBillingRulesParams, authInfo runtime
 }
 
 /*
-UpdateBillingRule Update a Billing Rule.
+UpdateBillingRule Update a BillingRule.
 */
 func (a *Client) UpdateBillingRule(params *UpdateBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBillingRuleOK, error) {
 	// TODO: Validate the params before sending

@@ -12,33 +12,42 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// UpdateBillingRule Update a Billing Rule.
+// UpdateBillingRule Update a BillingRule.
 //
 // swagger:model updateBillingRule
 type UpdateBillingRule struct {
 
-	// The credit amount for the Billing Rule. Example value: 300
+	// The credit amount for the BillingRule. Example value: 300
 	Amount float64 `json:"amount,omitempty"`
 
-	// The category of the Billing Rule.
+	// Determines if the BillingRule applies to all current and future managed accounts.
+	ApplyToAll bool `json:"apply_to_all,omitempty"`
+
+	// The category of the BillingRule.
 	Category string `json:"category,omitempty"`
 
-	// The charge type of the Billing Rule.
+	// The charge type of the BillingRule.
 	ChargeType string `json:"charge_type,omitempty"`
+
+	// The end date of the BillingRule. ISO 8601 formatted.
+	EndDate string `json:"end_date,omitempty"`
 
 	// The percentage of the cost shown. Example value: 75.0
 	Percentage float64 `json:"percentage,omitempty"`
 
-	// The service of the Billing Rule.
+	// The service of the BillingRule.
 	Service string `json:"service,omitempty"`
 
-	// The start period of the Billing Rule.
+	// The start date of the BillingRule. ISO 8601 formatted.
+	StartDate string `json:"start_date,omitempty"`
+
+	// The start period of the BillingRule.
 	StartPeriod string `json:"start_period,omitempty"`
 
-	// The subcategory of the Billing Rule.
+	// The subcategory of the BillingRule.
 	SubCategory string `json:"sub_category,omitempty"`
 
-	// The title of the Billing Rule.
+	// The title of the BillingRule.
 	Title string `json:"title,omitempty"`
 }
 

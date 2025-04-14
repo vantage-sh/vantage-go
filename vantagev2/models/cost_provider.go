@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CostProvider CostProvider model
+// CostProvider cost provider
 //
 // swagger:model CostProvider
 type CostProvider struct {

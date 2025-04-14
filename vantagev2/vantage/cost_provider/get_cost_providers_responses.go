@@ -43,10 +43,10 @@ func NewGetCostProvidersOK() *GetCostProvidersOK {
 /*
 GetCostProvidersOK describes a response with status code 200, with default header values.
 
-List of connected cost providers.
+List of connected CostProviders.
 */
 type GetCostProvidersOK struct {
-	Payload *models.CostProvider
+	Payload *models.CostProviders
 }
 
 // IsSuccess returns true when this get cost providers o k response has a 2xx status code
@@ -89,13 +89,13 @@ func (o *GetCostProvidersOK) String() string {
 	return fmt.Sprintf("[GET /cost_providers][%d] getCostProvidersOK %s", 200, payload)
 }
 
-func (o *GetCostProvidersOK) GetPayload() *models.CostProvider {
+func (o *GetCostProvidersOK) GetPayload() *models.CostProviders {
 	return o.Payload
 }
 
 func (o *GetCostProvidersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.CostProvider)
+	o.Payload = new(models.CostProviders)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

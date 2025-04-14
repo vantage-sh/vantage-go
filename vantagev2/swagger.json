@@ -163,6 +163,14 @@
       "description": "Operations about CostProviders"
     },
     {
+      "name": "CostService",
+      "description": "Operations about CostServices"
+    },
+    {
+      "name": "CostAlertEvents",
+      "description": "Operations about CostAlertEvents"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -9535,7 +9543,7 @@
     },
     "/billing_rules": {
       "post": {
-        "description": "Create a Billing Rule.",
+        "description": "Create a BillingRule.",
         "produces": [
           "application/json"
         ],
@@ -9659,7 +9667,7 @@
     },
     "/billing_rules/{billing_rule_token}": {
       "delete": {
-        "description": "Delete a Billing Rule.",
+        "description": "Delete a BillingRule.",
         "produces": [
           "application/json"
         ],
@@ -9698,7 +9706,7 @@
         "operationId": "deleteBillingRule"
       },
       "put": {
-        "description": "Update a Billing Rule.",
+        "description": "Update a BillingRule.",
         "produces": [
           "application/json"
         ],
@@ -9766,7 +9774,7 @@
         "operationId": "updateBillingRule"
       },
       "get": {
-        "description": "Return a Billing Rule.",
+        "description": "Return a BillingRule.",
         "produces": [
           "application/json"
         ],
@@ -9894,7 +9902,7 @@
     },
     "/me": {
       "get": {
-        "description": "Get information about the authenticated bearer token.",
+        "description": "Get information about the authenticated BearerToken.",
         "produces": [
           "application/json"
         ],
@@ -9943,9 +9951,9 @@
         ],
         "responses": {
           "200": {
-            "description": "List of connected cost providers.",
+            "description": "List of connected CostProviders.",
             "schema": {
-              "$ref": "#/definitions/CostProvider"
+              "$ref": "#/definitions/CostProviders"
             }
           }
         },
@@ -9953,6 +9961,205 @@
           "CostProvider"
         ],
         "operationId": "getCostProviders"
+      }
+    },
+    "/cost_services": {
+      "get": {
+        "description": "List CostServices available to query in a given Workspace.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to list CostServices for. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of CostServices, used to query costs using VQL.",
+            "schema": {
+              "$ref": "#/definitions/CostServices"
+            }
+          }
+        },
+        "tags": [
+          "CostService"
+        ],
+        "operationId": "getCostServices"
+      }
+    },
+    "/cost_alerts/{cost_alert_token}/events/{event_token}": {
+      "get": {
+        "description": "Get a CostAlertEvent",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "event_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostAlertEvent"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_alrt_evnt_bdc4f45f9a5f20f1",
+                "created_at": "2025-04-08T17:39:29Z",
+                "triggered_at": "2025-04-10T17:39:29Z",
+                "description": "Day over day costs for aws and storage increased by $500.0.",
+                "alert_type": "change_in_cost",
+                "metadata": {
+                  "change_in_cost": "500.0",
+                  "groupings": [
+                    "aws",
+                    "storage"
+                  ]
+                },
+                "report_token": "rprt_9585e8071c2756d4",
+                "alert_token": "cstm_alrt_rl_42159424c0cf6fcb"
+              }
+            }
+          }
+        },
+        "tags": [
+          "CostAlertEvents"
+        ],
+        "operationId": "getCostAlertEvent"
+      }
+    },
+    "/cost_alerts/{cost_alert_token}/events": {
+      "get": {
+        "description": "Get all CostAlertEvents",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "description": "The token of the CostAlertEvent.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "report_token",
+            "description": "The token of the report associated with the CostAlertEvent.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostAlertEvents"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/cost_alerts/cstm_alrt_rl_71cacf1cf755fe36/events",
+                  "first": "https://api.vantage.sh/v2/cost_alerts/cstm_alrt_rl_71cacf1cf755fe36/events?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/cost_alerts/cstm_alrt_rl_71cacf1cf755fe36/events?page=1",
+                  "prev": null
+                },
+                "cost_alert_events": [
+                  {
+                    "token": "cstm_alrt_evnt_87124a0f2989837b",
+                    "created_at": "2025-04-08T17:39:30Z",
+                    "triggered_at": "2025-04-10T17:39:30Z",
+                    "description": "Day over day costs for aws and storage increased by $500.0.",
+                    "alert_type": "change_in_cost",
+                    "metadata": {
+                      "change_in_cost": "500.0",
+                      "groupings": [
+                        "aws",
+                        "storage"
+                      ]
+                    },
+                    "report_token": "rprt_e9f27fc1c3b68204",
+                    "alert_token": "cstm_alrt_rl_71cacf1cf755fe36"
+                  },
+                  {
+                    "token": "cstm_alrt_evnt_5c67b34433ea6e97",
+                    "created_at": "2025-04-09T17:39:30Z",
+                    "triggered_at": "2025-04-10T17:39:30Z",
+                    "description": "Day over day costs for aws and storage increased by $500.0.",
+                    "alert_type": "change_in_cost",
+                    "metadata": {
+                      "change_in_cost": "500.0",
+                      "groupings": [
+                        "aws",
+                        "storage"
+                      ]
+                    },
+                    "report_token": "rprt_1bdc694530d0b3d6",
+                    "alert_token": "cstm_alrt_rl_71cacf1cf755fe36"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "CostAlertEvents"
+        ],
+        "operationId": "getCostAlertEvents"
       }
     },
     "/ping": {
@@ -14427,7 +14634,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "The type of the Billing Rule. Note: the values are case insensitive.",
+          "description": "The type of the BillingRule. Note: the values are case insensitive.",
           "enum": [
             "exclusion",
             "adjustment",
@@ -14437,11 +14644,27 @@
         },
         "title": {
           "type": "string",
-          "description": "The title of the Billing Rule."
+          "description": "The title of the BillingRule."
+        },
+        "start_period": {
+          "type": "string",
+          "description": "The start period of the BillingRule."
+        },
+        "start_date": {
+          "type": "string",
+          "description": "The start date of the BillingRule. ISO 8601 formatted."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "The end date of the BillingRule. ISO 8601 formatted."
+        },
+        "apply_to_all": {
+          "type": "boolean",
+          "description": "Determines if the BillingRule applies to all current and future managed accounts."
         },
         "charge_type": {
           "type": "string",
-          "description": "The charge type of the Billing Rule."
+          "description": "The charge type of the BillingRule."
         },
         "percentage": {
           "type": "number",
@@ -14450,38 +14673,34 @@
         },
         "service": {
           "type": "string",
-          "description": "The service of the Billing Rule."
+          "description": "The service of the BillingRule."
         },
         "category": {
           "type": "string",
-          "description": "The category of the Billing Rule."
+          "description": "The category of the BillingRule."
         },
         "sub_category": {
           "type": "string",
-          "description": "The subcategory of the Billing Rule."
-        },
-        "start_period": {
-          "type": "string",
-          "description": "The start period of the Billing Rule."
+          "description": "The subcategory of the BillingRule."
         },
         "amount": {
           "type": "number",
           "format": "double",
-          "description": "The amount for the Billing Rule. Example value: 300"
+          "description": "The amount for the BillingRule. Example value: 300"
         }
       },
       "required": [
         "type",
         "title",
+        "start_period",
         "charge_type",
         "percentage",
         "service",
         "category",
         "sub_category",
-        "start_period",
         "amount"
       ],
-      "description": "Create a Billing Rule."
+      "description": "Create a BillingRule."
     },
     "BillingRule": {
       "type": "object",
@@ -14492,57 +14711,72 @@
         "title": {
           "type": "string",
           "example": "Credit for Unused EC2 Instances",
-          "description": "The title of the Billing Rule."
+          "description": "The title of the BillingRule."
         },
         "type": {
           "type": "string",
           "example": "credit",
-          "description": "The type of the Billing Rule."
+          "description": "The type of the BillingRule."
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2024-06-28T00:00:00Z",
+          "description": "The start date of the BillingRule."
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2024-06-28T00:00:00Z",
+          "description": "The end date of the BillingRule."
+        },
+        "apply_to_all": {
+          "type": "string",
+          "example": true,
+          "description": "Whether the BillingRule applies to all future managed accounts."
         },
         "created_by_token": {
           "type": "string",
           "example": "usr_1234",
-          "description": "The token of the Creator of the Billing Rule."
+          "description": "The token of the Creator of the BillingRule."
         },
         "created_at": {
           "type": "string",
           "example": "2024-06-28T00:00:00Z",
-          "description": "The date and time, in UTC, the Billing Rule was created. ISO 8601 Formatted."
+          "description": "The date and time, in UTC, the BillingRule was created. ISO 8601 Formatted."
         },
         "service": {
           "type": "string",
           "example": "AWS Cloudfront",
-          "description": "The service for the Billing Rule (Charge)."
+          "description": "The service for the BillingRule (Charge)."
         },
         "category": {
           "type": "string",
           "example": "MSP Fee",
-          "description": "The category for the Billing Rule (Charge)."
+          "description": "The category for the BillingRule (Charge)."
         },
         "percentage": {
           "type": "string",
           "example": "75.0",
-          "description": "The percentage of the cost shown for the Billing Rule (Adjustment)."
+          "description": "The percentage of the cost shown for the BillingRule (Adjustment)."
         },
         "charge_type": {
           "type": "string",
           "example": "RIFee",
-          "description": "The charge type for the Billing Rule."
+          "description": "The charge type for the BillingRule."
         },
         "sub_category": {
           "type": "string",
           "example": "One-time",
-          "description": "The subcategory for the Billing Rule (Charge)."
+          "description": "The subcategory for the BillingRule (Charge)."
         },
         "start_period": {
           "type": "string",
           "example": "2024-05-01",
-          "description": "The start period for the Billing Rule (Charge)."
+          "description": "The start period for the BillingRule (Charge)."
         },
         "amount": {
           "type": "string",
           "example": "5000.25",
-          "description": "The amount for the Billing Rule (Charge)."
+          "description": "The amount for the BillingRule (Charge)."
         }
       },
       "description": "BillingRule model"
@@ -14567,11 +14801,11 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Billing Rule."
+          "description": "The title of the BillingRule."
         },
         "charge_type": {
           "type": "string",
-          "description": "The charge type of the Billing Rule."
+          "description": "The charge type of the BillingRule."
         },
         "percentage": {
           "type": "number",
@@ -14580,27 +14814,39 @@
         },
         "service": {
           "type": "string",
-          "description": "The service of the Billing Rule."
+          "description": "The service of the BillingRule."
         },
         "category": {
           "type": "string",
-          "description": "The category of the Billing Rule."
+          "description": "The category of the BillingRule."
         },
         "sub_category": {
           "type": "string",
-          "description": "The subcategory of the Billing Rule."
+          "description": "The subcategory of the BillingRule."
         },
         "start_period": {
           "type": "string",
-          "description": "The start period of the Billing Rule."
+          "description": "The start period of the BillingRule."
         },
         "amount": {
           "type": "number",
           "format": "double",
-          "description": "The credit amount for the Billing Rule. Example value: 300"
+          "description": "The credit amount for the BillingRule. Example value: 300"
+        },
+        "start_date": {
+          "type": "string",
+          "description": "The start date of the BillingRule. ISO 8601 formatted."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "The end date of the BillingRule. ISO 8601 formatted."
+        },
+        "apply_to_all": {
+          "type": "boolean",
+          "description": "Determines if the BillingRule applies to all current and future managed accounts."
         }
       },
-      "description": "Update a Billing Rule."
+      "description": "Update a BillingRule."
     },
     "DataExport": {
       "type": "object",
@@ -14657,9 +14903,48 @@
           "items": {
             "$ref": "#/definitions/Workspace"
           }
+        },
+        "bearer_token": {
+          "$ref": "#/definitions/BearerToken"
         }
       },
       "description": "Me model"
+    },
+    "BearerToken": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The user supplied description of this BearerToken"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the BearerToken was created. ISO 8601 Formatted."
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The scopes applied to the BearerToken used to authenticate this request."
+        }
+      }
+    },
+    "CostProviders": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "cost_providers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostProvider"
+          }
+        }
+      },
+      "description": "CostProviders model"
     },
     "CostProvider": {
       "type": "object",
@@ -14674,8 +14959,91 @@
           "example": "aws",
           "description": "The key of the CostProvider, useful for filtering Costs."
         }
+      }
+    },
+    "CostServices": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "cost_services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostService"
+          }
+        }
       },
-      "description": "CostProvider model"
+      "description": "CostServices model"
+    },
+    "CostService": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Amazon Simple Storage Service",
+          "description": "The name of the CostService."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "description": "The key value of the CostProvider."
+        }
+      }
+    },
+    "CostAlertEvent": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the CostAlertEvent was created. ISO 8601 Formatted."
+        },
+        "triggered_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the CostAlertEvent is sent. ISO 8601 Formatted."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the CostAlertEvent."
+        },
+        "alert_type": {
+          "type": "string",
+          "description": "The type of the CostAlertEvent."
+        },
+        "metadata": {
+          "type": "object",
+          "description": "The metadata of the CostAlertEvent."
+        },
+        "report_token": {
+          "type": "string",
+          "description": "The token of the report associated with the CostAlertEvent."
+        },
+        "alert_token": {
+          "type": "string",
+          "description": "The token of the alert associated with the CostAlertEvent."
+        }
+      },
+      "description": "CostAlertEvent model"
+    },
+    "CostAlertEvents": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "cost_alert_events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostAlertEvent"
+          }
+        }
+      },
+      "description": "CostAlertEvents model"
     }
   }
 }

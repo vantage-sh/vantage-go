@@ -19,6 +19,9 @@ import (
 // swagger:model Me
 type Me struct {
 
+	// bearer token
+	BearerToken *BearerToken `json:"bearer_token,omitempty"`
+
 	// workspaces
 	Workspaces []*Workspace `json:"workspaces"`
 }
@@ -27,6 +30,10 @@ type Me struct {
 func (m *Me) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBearerToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateWorkspaces(formats); err != nil {
 		res = append(res, err)
 	}
@@ -34,6 +41,25 @@ func (m *Me) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Me) validateBearerToken(formats strfmt.Registry) error {
+	if swag.IsZero(m.BearerToken) { // not required
+		return nil
+	}
+
+	if m.BearerToken != nil {
+		if err := m.BearerToken.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bearer_token")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bearer_token")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -67,6 +93,10 @@ func (m *Me) validateWorkspaces(formats strfmt.Registry) error {
 func (m *Me) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateBearerToken(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateWorkspaces(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -74,6 +104,27 @@ func (m *Me) ContextValidate(ctx context.Context, formats strfmt.Registry) error
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Me) contextValidateBearerToken(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BearerToken != nil {
+
+		if swag.IsZero(m.BearerToken) { // not required
+			return nil
+		}
+
+		if err := m.BearerToken.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bearer_token")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bearer_token")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

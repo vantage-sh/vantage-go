@@ -15,44 +15,53 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateBillingRule Create a Billing Rule.
+// CreateBillingRule Create a BillingRule.
 //
 // swagger:model createBillingRule
 type CreateBillingRule struct {
 
-	// The amount for the Billing Rule. Example value: 300
+	// The amount for the BillingRule. Example value: 300
 	// Required: true
 	Amount *float64 `json:"amount"`
 
-	// The category of the Billing Rule.
+	// Determines if the BillingRule applies to all current and future managed accounts.
+	ApplyToAll bool `json:"apply_to_all,omitempty"`
+
+	// The category of the BillingRule.
 	// Required: true
 	Category *string `json:"category"`
 
-	// The charge type of the Billing Rule.
+	// The charge type of the BillingRule.
 	// Required: true
 	ChargeType *string `json:"charge_type"`
+
+	// The end date of the BillingRule. ISO 8601 formatted.
+	EndDate string `json:"end_date,omitempty"`
 
 	// The percentage of the cost shown. Example value: 75.0
 	// Required: true
 	Percentage *float64 `json:"percentage"`
 
-	// The service of the Billing Rule.
+	// The service of the BillingRule.
 	// Required: true
 	Service *string `json:"service"`
 
-	// The start period of the Billing Rule.
+	// The start date of the BillingRule. ISO 8601 formatted.
+	StartDate string `json:"start_date,omitempty"`
+
+	// The start period of the BillingRule.
 	// Required: true
 	StartPeriod *string `json:"start_period"`
 
-	// The subcategory of the Billing Rule.
+	// The subcategory of the BillingRule.
 	// Required: true
 	SubCategory *string `json:"sub_category"`
 
-	// The title of the Billing Rule.
+	// The title of the BillingRule.
 	// Required: true
 	Title *string `json:"title"`
 
-	// The type of the Billing Rule. Note: the values are case insensitive.
+	// The type of the BillingRule. Note: the values are case insensitive.
 	// Required: true
 	// Enum: ["exclusion","adjustment","credit","charge"]
 	Type *string `json:"type"`
