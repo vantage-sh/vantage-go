@@ -19,9 +19,6 @@ import (
 // swagger:model Tags
 type Tags struct {
 
-	// links
-	Links interface{} `json:"links,omitempty"`
-
 	// tags
 	Tags []*Tag `json:"tags"`
 }

@@ -171,6 +171,10 @@
       "description": "Operations about CostAlertEvents"
     },
     {
+      "name": "CostAlerts",
+      "description": "Operations about CostAlerts"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     }
@@ -9999,65 +10003,6 @@
         "operationId": "getCostServices"
       }
     },
-    "/cost_alerts/{cost_alert_token}/events/{event_token}": {
-      "get": {
-        "description": "Get a CostAlertEvent",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "cost_alert_token",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "path",
-            "name": "event_token",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/CostAlertEvent"
-            },
-            "examples": {
-              "application/json": {
-                "token": "cstm_alrt_evnt_bdc4f45f9a5f20f1",
-                "created_at": "2025-04-08T17:39:29Z",
-                "triggered_at": "2025-04-10T17:39:29Z",
-                "description": "Day over day costs for aws and storage increased by $500.0.",
-                "alert_type": "change_in_cost",
-                "metadata": {
-                  "change_in_cost": "500.0",
-                  "groupings": [
-                    "aws",
-                    "storage"
-                  ]
-                },
-                "report_token": "rprt_9585e8071c2756d4",
-                "alert_token": "cstm_alrt_rl_42159424c0cf6fcb"
-              }
-            }
-          }
-        },
-        "tags": [
-          "CostAlertEvents"
-        ],
-        "operationId": "getCostAlertEvent"
-      }
-    },
     "/cost_alerts/{cost_alert_token}/events": {
       "get": {
         "description": "Get all CostAlertEvents",
@@ -10160,6 +10105,479 @@
           "CostAlertEvents"
         ],
         "operationId": "getCostAlertEvents"
+      }
+    },
+    "/cost_alerts/{cost_alert_token}/events/{event_token}": {
+      "get": {
+        "description": "Get a CostAlertEvent",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "event_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CostAlertEvent"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_alrt_evnt_bdc4f45f9a5f20f1",
+                "created_at": "2025-04-08T17:39:29Z",
+                "triggered_at": "2025-04-10T17:39:29Z",
+                "description": "Day over day costs for aws and storage increased by $500.0.",
+                "alert_type": "change_in_cost",
+                "metadata": {
+                  "change_in_cost": "500.0",
+                  "groupings": [
+                    "aws",
+                    "storage"
+                  ]
+                },
+                "report_token": "rprt_9585e8071c2756d4",
+                "alert_token": "cstm_alrt_rl_42159424c0cf6fcb"
+              }
+            }
+          }
+        },
+        "tags": [
+          "CostAlertEvents"
+        ],
+        "operationId": "getCostAlertEvent"
+      }
+    },
+    "/cost_alerts": {
+      "post": {
+        "description": "Create a new Cost Alert",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "title",
+            "description": "The title of the Cost Alert.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "interval",
+            "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "threshold",
+            "description": "The threshold value for the Cost Alert.",
+            "type": "number",
+            "format": "float",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "unit_type",
+            "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "email_recipients",
+            "description": "The email recipients for the Cost Alert.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "slack_channels",
+            "description": "The Slack channels that will receive the alert.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "teams_channels",
+            "description": "The Microsoft Teams channels that will receive the alert.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "report_tokens",
+            "description": "The tokens of the reports to alert on.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cost Alert created successfully.",
+            "schema": {
+              "$ref": "#/definitions/CostAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_alrt_rl_76efd4cd0f56149a",
+                "title": "New Alert",
+                "email_recipients": [
+                  "burl_mosciski@hayes.info"
+                ],
+                "slack_channels": [],
+                "teams_channels": [],
+                "created_at": "2025-04-21T15:19:49.891Z",
+                "updated_at": "2025-04-21T15:19:49.891Z",
+                "workspace_token": "wrkspc_a5e36f631519f7d3",
+                "interval": "month",
+                "threshold": 100.0,
+                "unit_type": "currency",
+                "report_tokens": [
+                  "rprt_ccf0092d336de56c"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CostAlerts"
+        ],
+        "operationId": "createCostAlert"
+      },
+      "get": {
+        "description": "List all Cost Alerts",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List all Cost Alerts",
+            "schema": {
+              "$ref": "#/definitions/CostAlerts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/cost_alerts",
+                  "first": "https://api.vantage.sh/v2/cost_alerts?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/cost_alerts?page=1",
+                  "prev": null
+                },
+                "cost_alerts": [
+                  {
+                    "token": "cstm_alrt_rl_945f63c6c91cd824",
+                    "title": "Default Alert Rule",
+                    "email_recipients": [],
+                    "slack_channels": [],
+                    "teams_channels": [],
+                    "created_at": "2024-04-21T15:19:49.673Z",
+                    "updated_at": "2025-04-21T15:19:49.673Z",
+                    "workspace_token": "wrkspc_7d5a18b7d02942da",
+                    "interval": "day",
+                    "threshold": 1000.0,
+                    "unit_type": "currency",
+                    "report_tokens": [
+                      "rprt_a88be0a2af07fe10"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "CostAlerts"
+        ],
+        "operationId": "getCostAlerts"
+      }
+    },
+    "/cost_alerts/{cost_alert_token}": {
+      "delete": {
+        "description": "Delete a Cost Alert",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "description": "The token of the Cost Alert.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Cost Alert deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/CostAlert"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CostAlerts"
+        ],
+        "operationId": "deleteCostAlert"
+      },
+      "put": {
+        "description": "Update a Cost Alert",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "description": "The token of the Cost Alert.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "title",
+            "description": "The title of the Cost Alert.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "email_recipients",
+            "description": "The email recipients for the Cost Alert.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "interval",
+            "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "threshold",
+            "description": "The threshold value for the Cost Alert.",
+            "type": "number",
+            "format": "float",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "slack_channels",
+            "description": "The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "teams_channels",
+            "description": "The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "unit_type",
+            "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "report_tokens",
+            "description": "The tokens of the reports to alert on.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cost Alert updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/CostAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_alrt_rl_65ff8613224f4469",
+                "title": "Default Alert Rule",
+                "email_recipients": [
+                  "andy.kuvalis@stanton.com",
+                  "ismael_bashirian@jenkins.biz"
+                ],
+                "slack_channels": [],
+                "teams_channels": [],
+                "created_at": "2024-04-21T15:19:48.503Z",
+                "updated_at": "2025-04-21T15:19:48.537Z",
+                "workspace_token": "wrkspc_643e0e66ee5a4611",
+                "interval": "day",
+                "threshold": 500.0,
+                "unit_type": "currency",
+                "report_tokens": [
+                  "rprt_bc47a84e3ab8a5d5"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CostAlerts"
+        ],
+        "operationId": "updateCostAlert"
+      },
+      "get": {
+        "description": "Get a Cost Alert",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cost_alert_token",
+            "description": "The token of the Cost Alert.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a Cost Alert",
+            "schema": {
+              "$ref": "#/definitions/CostAlert"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_alrt_rl_db54d080e58bf82a",
+                "title": "Default Alert Rule",
+                "email_recipients": [],
+                "slack_channels": [],
+                "teams_channels": [],
+                "created_at": "2024-04-21T15:19:49.598Z",
+                "updated_at": "2025-04-21T15:19:49.598Z",
+                "workspace_token": "wrkspc_c94c58cd1f9a6314",
+                "interval": "day",
+                "threshold": 1000.0,
+                "unit_type": "currency",
+                "report_tokens": [
+                  "rprt_7c787dfc49b17876"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CostAlerts"
+        ],
+        "operationId": "getCostAlert"
       }
     },
     "/ping": {
@@ -13797,9 +14215,6 @@
     "Tags": {
       "type": "object",
       "properties": {
-        "links": {
-          "type": "object"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -14994,6 +15409,21 @@
         }
       }
     },
+    "CostAlertEvents": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "cost_alert_events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostAlertEvent"
+          }
+        }
+      },
+      "description": "CostAlertEvents model"
+    },
     "CostAlertEvent": {
       "type": "object",
       "properties": {
@@ -15033,20 +15463,86 @@
       },
       "description": "CostAlertEvent model"
     },
-    "CostAlertEvents": {
+    "CostAlert": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "email_recipients": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The email addresses that will receive the alert."
+        },
+        "slack_channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack."
+        },
+        "teams_channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-10-01T12:00:00Z",
+          "description": "The date and time, in UTC, for when the alert was created. ISO 8601 Formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2023-10-01T12:00:00Z",
+          "description": "The date and time, in UTC, for when the alert was last updated. ISO 8601 Formatted."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The ID of the organization that owns the CostAlert."
+        },
+        "interval": {
+          "type": "string",
+          "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'."
+        },
+        "threshold": {
+          "type": "string",
+          "description": "The cost change threshold to alert on."
+        },
+        "unit_type": {
+          "type": "string",
+          "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'."
+        },
+        "report_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The tokens of the reports to alert on."
+        }
+      },
+      "description": "CostAlert model"
+    },
+    "CostAlerts": {
       "type": "object",
       "properties": {
         "links": {
           "type": "object"
         },
-        "cost_alert_events": {
+        "cost_alerts": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CostAlertEvent"
+            "$ref": "#/definitions/CostAlert"
           }
         }
       },
-      "description": "CostAlertEvents model"
+      "description": "CostAlerts model"
     }
   }
 }
