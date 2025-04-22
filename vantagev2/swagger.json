@@ -14215,6 +14215,9 @@
     "Tags": {
       "type": "object",
       "properties": {
+        "links": {
+          "type": "object"
+        },
         "tags": {
           "type": "array",
           "items": {
