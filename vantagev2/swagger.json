@@ -167,12 +167,20 @@
       "description": "Operations about CostServices"
     },
     {
+      "name": "UserFeedback",
+      "description": "Operations about UserFeedbacks"
+    },
+    {
       "name": "CostAlertEvents",
       "description": "Operations about CostAlertEvents"
     },
     {
       "name": "CostAlerts",
       "description": "Operations about CostAlerts"
+    },
+    {
+      "name": "UnitCosts",
+      "description": "Operations about UnitCosts"
     },
     {
       "name": "Ping",
@@ -10003,6 +10011,58 @@
         "operationId": "getCostServices"
       }
     },
+    "/user_feedback": {
+      "post": {
+        "description": "Provide UserFeedback for our product and features.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createUserFeedback",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createUserFeedback"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Provide UserFeedback for our product and features.",
+            "schema": {
+              "$ref": "#/definitions/UserFeedback"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "createUserFeedback"
+      }
+    },
     "/cost_alerts/{cost_alert_token}/events": {
       "get": {
         "description": "Get all CostAlertEvents",
@@ -10578,6 +10638,250 @@
           "CostAlerts"
         ],
         "operationId": "getCostAlert"
+      }
+    },
+    "/unit_costs/data_exports": {
+      "post": {
+        "description": "Generate a DataExport of unit costs.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "cost_report_token",
+            "description": "The CostReport token.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "start_date",
+            "description": "First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "end_date",
+            "description": "Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "date_bin",
+            "description": "The date bin of the unit costs. Defaults to the report's default or day.",
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ],
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The data export has been queued and will be available at the location specified in the Location header.",
+            "schema": {
+              "$ref": "#/definitions/DataExport"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "UnitCosts"
+        ],
+        "operationId": "createUnitCostsExport"
+      }
+    },
+    "/unit_costs": {
+      "get": {
+        "description": "Return all UnitCosts for a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "description": "The CostReport token.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "date_bin",
+            "description": "The date bin of the unit costs. Defaults to the report's default or day.",
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Whether to order unit costs by date in an ascending or descending manner.",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UnitCosts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/unit_costs?cost_report_token=rprt_ea7dbb4f5783d677",
+                  "first": "https://api.vantage.sh/v2/unit_costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1",
+                  "next": null,
+                  "last": null,
+                  "prev": null
+                },
+                "unit_costs": [
+                  {
+                    "business_metric_token": "bsnss_mtrc_3080a050c04104ff",
+                    "business_metric_title": "Biz Metric",
+                    "unit_cost_amount": "21.7",
+                    "business_metric_amount": "3.71",
+                    "scale": "1.0",
+                    "date": "2023-06-05"
+                  },
+                  {
+                    "business_metric_token": "bsnss_mtrc_4999b969d95095ef",
+                    "business_metric_title": "Different Biz Metric",
+                    "unit_cost_amount": "101.11",
+                    "business_metric_amount": "43.21",
+                    "scale": "1.0",
+                    "date": "2023-06-05"
+                  },
+                  {
+                    "business_metric_token": "bsnss_mtrc_3080a050c04104ff",
+                    "business_metric_title": "Biz Metric",
+                    "unit_cost_amount": "18.9",
+                    "business_metric_amount": "3.71",
+                    "scale": "1.0",
+                    "date": "2023-06-06"
+                  },
+                  {
+                    "business_metric_token": "bsnss_mtrc_4999b969d95095ef",
+                    "business_metric_title": "Different Biz Metric",
+                    "unit_cost_amount": "121.12",
+                    "business_metric_amount": "38.1",
+                    "scale": "1.0",
+                    "date": "2023-06-06"
+                  },
+                  {
+                    "business_metric_token": "bsnss_mtrc_3080a050c04104ff",
+                    "business_metric_title": "Biz Metric",
+                    "unit_cost_amount": "21.2",
+                    "business_metric_amount": "3.51",
+                    "scale": "1.0",
+                    "date": "2023-06-07"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "UnitCosts"
+        ],
+        "operationId": "getUnitCosts"
       }
     },
     "/ping": {
@@ -15412,6 +15716,42 @@
         }
       }
     },
+    "createUserFeedback": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "UserFeedback message"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "description": "Provide UserFeedback for our product and features."
+    },
+    "UserFeedback": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "Token of the feedback"
+        },
+        "message": {
+          "type": "string",
+          "description": "User feedback message"
+        },
+        "created_by_token": {
+          "type": "string",
+          "description": "Token of the creator of the feedback"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00Z",
+          "description": "Feedback creation timestamp"
+        }
+      },
+      "description": "UserFeedback model"
+    },
     "CostAlertEvents": {
       "type": "object",
       "properties": {
@@ -15546,6 +15886,59 @@
         }
       },
       "description": "CostAlerts model"
+    },
+    "UnitCosts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "unit_costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UnitCost"
+          }
+        }
+      },
+      "description": "UnitCosts model"
+    },
+    "UnitCost": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "business_metric_token": {
+          "type": "string",
+          "example": "bsnss_mtrc_1234",
+          "description": "The token of the BusinessMetric for which the unit cost was calculated."
+        },
+        "business_metric_title": {
+          "type": "string",
+          "example": "Total Revenue",
+          "description": "The title of the BusinessMetric for which the unit cost was calculated."
+        },
+        "unit_cost_amount": {
+          "type": "string",
+          "example": "4.25",
+          "description": "The amount of the unit cost."
+        },
+        "business_metric_amount": {
+          "type": "string",
+          "example": "0.371",
+          "description": "The amount of the business metric."
+        },
+        "scale": {
+          "type": "string",
+          "example": "1.0",
+          "description": "The scale of the BusinessMetric's values within a particular CostReport."
+        },
+        "date": {
+          "type": "string",
+          "example": "2023-09-05+00:00",
+          "description": "The date for which the unit cost was calculated. ISO 8601 Formatted."
+        }
+      }
     }
   }
 }

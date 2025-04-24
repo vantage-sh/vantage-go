@@ -42,6 +42,8 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/tags"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/unit_costs"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/user_feedback"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/users"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/virtual_tags"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/workspaces"
@@ -121,6 +123,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Segments = segments.New(transport, formats)
 	cli.Tags = tags.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
+	cli.UnitCosts = unit_costs.New(transport, formats)
+	cli.UserFeedback = user_feedback.New(transport, formats)
 	cli.Users = users.New(transport, formats)
 	cli.VirtualTags = virtual_tags.New(transport, formats)
 	cli.Workspaces = workspaces.New(transport, formats)
@@ -232,6 +236,10 @@ type Vantage struct {
 
 	Teams teams.ClientService
 
+	UnitCosts unit_costs.ClientService
+
+	UserFeedback user_feedback.ClientService
+
 	Users users.ClientService
 
 	VirtualTags virtual_tags.ClientService
@@ -276,6 +284,8 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Segments.SetTransport(transport)
 	c.Tags.SetTransport(transport)
 	c.Teams.SetTransport(transport)
+	c.UnitCosts.SetTransport(transport)
+	c.UserFeedback.SetTransport(transport)
 	c.Users.SetTransport(transport)
 	c.VirtualTags.SetTransport(transport)
 	c.Workspaces.SetTransport(transport)
