@@ -69,9 +69,9 @@ type GetForecastedCostsParams struct {
 
 	   Last date you would like to filter forecasted costs from. ISO 8601 formatted.
 
-	   Format: date-time
+	   Format: date
 	*/
-	EndDate *strfmt.DateTime
+	EndDate *strfmt.Date
 
 	/* Limit.
 
@@ -80,6 +80,14 @@ type GetForecastedCostsParams struct {
 	   Format: int32
 	*/
 	Limit *int32
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	*/
+	Page *int32
 
 	/* Provider.
 
@@ -97,9 +105,9 @@ type GetForecastedCostsParams struct {
 
 	   First date you would like to filter forecasted costs from. ISO 8601 formatted.
 
-	   Format: date-time
+	   Format: date
 	*/
-	StartDate *strfmt.DateTime
+	StartDate *strfmt.Date
 
 	timeout    time.Duration
 	Context    context.Context
@@ -166,13 +174,13 @@ func (o *GetForecastedCostsParams) SetCostReportToken(costReportToken string) {
 }
 
 // WithEndDate adds the endDate to the get forecasted costs params
-func (o *GetForecastedCostsParams) WithEndDate(endDate *strfmt.DateTime) *GetForecastedCostsParams {
+func (o *GetForecastedCostsParams) WithEndDate(endDate *strfmt.Date) *GetForecastedCostsParams {
 	o.SetEndDate(endDate)
 	return o
 }
 
 // SetEndDate adds the endDate to the get forecasted costs params
-func (o *GetForecastedCostsParams) SetEndDate(endDate *strfmt.DateTime) {
+func (o *GetForecastedCostsParams) SetEndDate(endDate *strfmt.Date) {
 	o.EndDate = endDate
 }
 
@@ -185,6 +193,17 @@ func (o *GetForecastedCostsParams) WithLimit(limit *int32) *GetForecastedCostsPa
 // SetLimit adds the limit to the get forecasted costs params
 func (o *GetForecastedCostsParams) SetLimit(limit *int32) {
 	o.Limit = limit
+}
+
+// WithPage adds the page to the get forecasted costs params
+func (o *GetForecastedCostsParams) WithPage(page *int32) *GetForecastedCostsParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get forecasted costs params
+func (o *GetForecastedCostsParams) SetPage(page *int32) {
+	o.Page = page
 }
 
 // WithProvider adds the provider to the get forecasted costs params
@@ -210,13 +229,13 @@ func (o *GetForecastedCostsParams) SetService(service *string) {
 }
 
 // WithStartDate adds the startDate to the get forecasted costs params
-func (o *GetForecastedCostsParams) WithStartDate(startDate *strfmt.DateTime) *GetForecastedCostsParams {
+func (o *GetForecastedCostsParams) WithStartDate(startDate *strfmt.Date) *GetForecastedCostsParams {
 	o.SetStartDate(startDate)
 	return o
 }
 
 // SetStartDate adds the startDate to the get forecasted costs params
-func (o *GetForecastedCostsParams) SetStartDate(startDate *strfmt.DateTime) {
+func (o *GetForecastedCostsParams) SetStartDate(startDate *strfmt.Date) {
 	o.StartDate = startDate
 }
 
@@ -236,7 +255,7 @@ func (o *GetForecastedCostsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if o.EndDate != nil {
 
 		// query param end_date
-		var qrEndDate strfmt.DateTime
+		var qrEndDate strfmt.Date
 
 		if o.EndDate != nil {
 			qrEndDate = *o.EndDate
@@ -262,6 +281,23 @@ func (o *GetForecastedCostsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qLimit != "" {
 
 			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
@@ -304,7 +340,7 @@ func (o *GetForecastedCostsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if o.StartDate != nil {
 
 		// query param start_date
-		var qrStartDate strfmt.DateTime
+		var qrStartDate strfmt.Date
 
 		if o.StartDate != nil {
 			qrStartDate = *o.StartDate

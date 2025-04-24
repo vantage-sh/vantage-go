@@ -14,7 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+
+	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateCostAlertParams creates a new CreateCostAlertParams object,
@@ -62,55 +63,8 @@ CreateCostAlertParams contains all the parameters to send to the API endpoint
 */
 type CreateCostAlertParams struct {
 
-	/* EmailRecipients.
-
-	   The email recipients for the Cost Alert.
-	*/
-	EmailRecipients []string
-
-	/* Interval.
-
-	   The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
-	*/
-	Interval string
-
-	/* ReportTokens.
-
-	   The tokens of the reports to alert on.
-	*/
-	ReportTokens []string
-
-	/* SlackChannels.
-
-	   The Slack channels that will receive the alert.
-	*/
-	SlackChannels []string
-
-	/* TeamsChannels.
-
-	   The Microsoft Teams channels that will receive the alert.
-	*/
-	TeamsChannels []string
-
-	/* Threshold.
-
-	   The threshold value for the Cost Alert.
-
-	   Format: float
-	*/
-	Threshold float32
-
-	/* Title.
-
-	   The title of the Cost Alert.
-	*/
-	Title string
-
-	/* UnitType.
-
-	   The unit type used to compare costs. Options are 'currency' or 'percentage'.
-	*/
-	UnitType string
+	// CreateCostAlert.
+	CreateCostAlert *models.CreateCostAlert
 
 	timeout    time.Duration
 	Context    context.Context
@@ -165,92 +119,15 @@ func (o *CreateCostAlertParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithEmailRecipients adds the emailRecipients to the create cost alert params
-func (o *CreateCostAlertParams) WithEmailRecipients(emailRecipients []string) *CreateCostAlertParams {
-	o.SetEmailRecipients(emailRecipients)
+// WithCreateCostAlert adds the createCostAlert to the create cost alert params
+func (o *CreateCostAlertParams) WithCreateCostAlert(createCostAlert *models.CreateCostAlert) *CreateCostAlertParams {
+	o.SetCreateCostAlert(createCostAlert)
 	return o
 }
 
-// SetEmailRecipients adds the emailRecipients to the create cost alert params
-func (o *CreateCostAlertParams) SetEmailRecipients(emailRecipients []string) {
-	o.EmailRecipients = emailRecipients
-}
-
-// WithInterval adds the interval to the create cost alert params
-func (o *CreateCostAlertParams) WithInterval(interval string) *CreateCostAlertParams {
-	o.SetInterval(interval)
-	return o
-}
-
-// SetInterval adds the interval to the create cost alert params
-func (o *CreateCostAlertParams) SetInterval(interval string) {
-	o.Interval = interval
-}
-
-// WithReportTokens adds the reportTokens to the create cost alert params
-func (o *CreateCostAlertParams) WithReportTokens(reportTokens []string) *CreateCostAlertParams {
-	o.SetReportTokens(reportTokens)
-	return o
-}
-
-// SetReportTokens adds the reportTokens to the create cost alert params
-func (o *CreateCostAlertParams) SetReportTokens(reportTokens []string) {
-	o.ReportTokens = reportTokens
-}
-
-// WithSlackChannels adds the slackChannels to the create cost alert params
-func (o *CreateCostAlertParams) WithSlackChannels(slackChannels []string) *CreateCostAlertParams {
-	o.SetSlackChannels(slackChannels)
-	return o
-}
-
-// SetSlackChannels adds the slackChannels to the create cost alert params
-func (o *CreateCostAlertParams) SetSlackChannels(slackChannels []string) {
-	o.SlackChannels = slackChannels
-}
-
-// WithTeamsChannels adds the teamsChannels to the create cost alert params
-func (o *CreateCostAlertParams) WithTeamsChannels(teamsChannels []string) *CreateCostAlertParams {
-	o.SetTeamsChannels(teamsChannels)
-	return o
-}
-
-// SetTeamsChannels adds the teamsChannels to the create cost alert params
-func (o *CreateCostAlertParams) SetTeamsChannels(teamsChannels []string) {
-	o.TeamsChannels = teamsChannels
-}
-
-// WithThreshold adds the threshold to the create cost alert params
-func (o *CreateCostAlertParams) WithThreshold(threshold float32) *CreateCostAlertParams {
-	o.SetThreshold(threshold)
-	return o
-}
-
-// SetThreshold adds the threshold to the create cost alert params
-func (o *CreateCostAlertParams) SetThreshold(threshold float32) {
-	o.Threshold = threshold
-}
-
-// WithTitle adds the title to the create cost alert params
-func (o *CreateCostAlertParams) WithTitle(title string) *CreateCostAlertParams {
-	o.SetTitle(title)
-	return o
-}
-
-// SetTitle adds the title to the create cost alert params
-func (o *CreateCostAlertParams) SetTitle(title string) {
-	o.Title = title
-}
-
-// WithUnitType adds the unitType to the create cost alert params
-func (o *CreateCostAlertParams) WithUnitType(unitType string) *CreateCostAlertParams {
-	o.SetUnitType(unitType)
-	return o
-}
-
-// SetUnitType adds the unitType to the create cost alert params
-func (o *CreateCostAlertParams) SetUnitType(unitType string) {
-	o.UnitType = unitType
+// SetCreateCostAlert adds the createCostAlert to the create cost alert params
+func (o *CreateCostAlertParams) SetCreateCostAlert(createCostAlert *models.CreateCostAlert) {
+	o.CreateCostAlert = createCostAlert
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -260,83 +137,8 @@ func (o *CreateCostAlertParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
-	if o.EmailRecipients != nil {
-
-		// binding items for email_recipients
-		joinedEmailRecipients := o.bindParamEmailRecipients(reg)
-
-		// form array param email_recipients
-		if err := r.SetFormParam("email_recipients", joinedEmailRecipients...); err != nil {
-			return err
-		}
-	}
-
-	// form param interval
-	frInterval := o.Interval
-	fInterval := frInterval
-	if fInterval != "" {
-		if err := r.SetFormParam("interval", fInterval); err != nil {
-			return err
-		}
-	}
-
-	if o.ReportTokens != nil {
-
-		// binding items for report_tokens
-		joinedReportTokens := o.bindParamReportTokens(reg)
-
-		// form array param report_tokens
-		if err := r.SetFormParam("report_tokens", joinedReportTokens...); err != nil {
-			return err
-		}
-	}
-
-	if o.SlackChannels != nil {
-
-		// binding items for slack_channels
-		joinedSlackChannels := o.bindParamSlackChannels(reg)
-
-		// form array param slack_channels
-		if err := r.SetFormParam("slack_channels", joinedSlackChannels...); err != nil {
-			return err
-		}
-	}
-
-	if o.TeamsChannels != nil {
-
-		// binding items for teams_channels
-		joinedTeamsChannels := o.bindParamTeamsChannels(reg)
-
-		// form array param teams_channels
-		if err := r.SetFormParam("teams_channels", joinedTeamsChannels...); err != nil {
-			return err
-		}
-	}
-
-	// form param threshold
-	frThreshold := o.Threshold
-	fThreshold := swag.FormatFloat32(frThreshold)
-	if fThreshold != "" {
-		if err := r.SetFormParam("threshold", fThreshold); err != nil {
-			return err
-		}
-	}
-
-	// form param title
-	frTitle := o.Title
-	fTitle := frTitle
-	if fTitle != "" {
-		if err := r.SetFormParam("title", fTitle); err != nil {
-			return err
-		}
-	}
-
-	// form param unit_type
-	frUnitType := o.UnitType
-	fUnitType := frUnitType
-	if fUnitType != "" {
-		if err := r.SetFormParam("unit_type", fUnitType); err != nil {
+	if o.CreateCostAlert != nil {
+		if err := r.SetBodyParam(o.CreateCostAlert); err != nil {
 			return err
 		}
 	}
@@ -345,72 +147,4 @@ func (o *CreateCostAlertParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamCreateCostAlert binds the parameter email_recipients
-func (o *CreateCostAlertParams) bindParamEmailRecipients(formats strfmt.Registry) []string {
-	emailRecipientsIR := o.EmailRecipients
-
-	var emailRecipientsIC []string
-	for _, emailRecipientsIIR := range emailRecipientsIR { // explode []string
-
-		emailRecipientsIIV := emailRecipientsIIR // string as string
-		emailRecipientsIC = append(emailRecipientsIC, emailRecipientsIIV)
-	}
-
-	// items.CollectionFormat: ""
-	emailRecipientsIS := swag.JoinByFormat(emailRecipientsIC, "")
-
-	return emailRecipientsIS
-}
-
-// bindParamCreateCostAlert binds the parameter report_tokens
-func (o *CreateCostAlertParams) bindParamReportTokens(formats strfmt.Registry) []string {
-	reportTokensIR := o.ReportTokens
-
-	var reportTokensIC []string
-	for _, reportTokensIIR := range reportTokensIR { // explode []string
-
-		reportTokensIIV := reportTokensIIR // string as string
-		reportTokensIC = append(reportTokensIC, reportTokensIIV)
-	}
-
-	// items.CollectionFormat: ""
-	reportTokensIS := swag.JoinByFormat(reportTokensIC, "")
-
-	return reportTokensIS
-}
-
-// bindParamCreateCostAlert binds the parameter slack_channels
-func (o *CreateCostAlertParams) bindParamSlackChannels(formats strfmt.Registry) []string {
-	slackChannelsIR := o.SlackChannels
-
-	var slackChannelsIC []string
-	for _, slackChannelsIIR := range slackChannelsIR { // explode []string
-
-		slackChannelsIIV := slackChannelsIIR // string as string
-		slackChannelsIC = append(slackChannelsIC, slackChannelsIIV)
-	}
-
-	// items.CollectionFormat: ""
-	slackChannelsIS := swag.JoinByFormat(slackChannelsIC, "")
-
-	return slackChannelsIS
-}
-
-// bindParamCreateCostAlert binds the parameter teams_channels
-func (o *CreateCostAlertParams) bindParamTeamsChannels(formats strfmt.Registry) []string {
-	teamsChannelsIR := o.TeamsChannels
-
-	var teamsChannelsIC []string
-	for _, teamsChannelsIIR := range teamsChannelsIR { // explode []string
-
-		teamsChannelsIIV := teamsChannelsIIR // string as string
-		teamsChannelsIC = append(teamsChannelsIC, teamsChannelsIIV)
-	}
-
-	// items.CollectionFormat: ""
-	teamsChannelsIS := swag.JoinByFormat(teamsChannelsIC, "")
-
-	return teamsChannelsIS
 }

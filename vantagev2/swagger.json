@@ -1677,7 +1677,7 @@
             "name": "start_date",
             "description": "First date you would like to filter forecasted costs from. ISO 8601 formatted.",
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "required": false
           },
           {
@@ -1685,7 +1685,7 @@
             "name": "end_date",
             "description": "Last date you would like to filter forecasted costs from. ISO 8601 formatted.",
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "required": false
           },
           {
@@ -1730,6 +1730,14 @@
           },
           {
             "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "limit",
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
@@ -1748,15 +1756,15 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/CostReports"
+              "$ref": "#/definitions/ForecastedCosts"
             },
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs",
-                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs?page=1",
+                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs",
+                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs?page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_3769ef9bb67039f5/forecasted_costs?page=1",
+                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs?page=1",
                   "prev": null
                 },
                 "forecasted_costs": [
@@ -1770,7 +1778,7 @@
                     "date": "2024-07-04T00:00:00Z",
                     "amount": "10.0",
                     "provider": "aws",
-                    "service": "AmazonEC2"
+                    "service": "Amazon Elastic Compute Cloud - Compute"
                   },
                   {
                     "date": "2024-07-04T00:00:00Z",
@@ -1788,7 +1796,7 @@
                     "date": "2024-07-05T00:00:00Z",
                     "amount": "10.0",
                     "provider": "aws",
-                    "service": "AmazonEC2"
+                    "service": "Amazon Elastic Compute Cloud - Compute"
                   },
                   {
                     "date": "2024-07-05T00:00:00Z",
@@ -1806,7 +1814,7 @@
                     "date": "2024-07-06T00:00:00Z",
                     "amount": "10.0",
                     "provider": "aws",
-                    "service": "AmazonEC2"
+                    "service": "Amazon Elastic Compute Cloud - Compute"
                   },
                   {
                     "date": "2024-07-06T00:00:00Z",
@@ -10237,73 +10245,12 @@
         ],
         "parameters": [
           {
-            "in": "formData",
-            "name": "title",
-            "description": "The title of the Cost Alert.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "interval",
-            "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "threshold",
-            "description": "The threshold value for the Cost Alert.",
-            "type": "number",
-            "format": "float",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "unit_type",
-            "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "email_recipients",
-            "description": "The email recipients for the Cost Alert.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "slack_channels",
-            "description": "The Slack channels that will receive the alert.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "teams_channels",
-            "description": "The Microsoft Teams channels that will receive the alert.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "report_tokens",
-            "description": "The tokens of the reports to alert on.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
+            "name": "createCostAlert",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createCostAlert"
+            }
           }
         ],
         "security": [
@@ -10465,73 +10412,12 @@
             "required": true
           },
           {
-            "in": "formData",
-            "name": "title",
-            "description": "The title of the Cost Alert.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "email_recipients",
-            "description": "The email recipients for the Cost Alert.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "interval",
-            "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "threshold",
-            "description": "The threshold value for the Cost Alert.",
-            "type": "number",
-            "format": "float",
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "slack_channels",
-            "description": "The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "teams_channels",
-            "description": "The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "unit_type",
-            "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "report_tokens",
-            "description": "The tokens of the reports to alert on.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "required": false
+            "name": "updateCostAlert",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateCostAlert"
+            }
           }
         ],
         "security": [
@@ -10656,6 +10542,13 @@
             "description": "The CostReport token.",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "formData",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
           },
           {
             "in": "formData",
@@ -11672,6 +11565,79 @@
         }
       },
       "description": "Update a CostReport."
+    },
+    "ForecastedCosts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "forecasted_costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ForecastedCost"
+          }
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "description": "The currency of the forecasted costs."
+        }
+      },
+      "description": "ForecastedCosts model"
+    },
+    "ForecastedCost": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "date": {
+          "type": "string",
+          "example": "2035-09-05+00:00",
+          "description": "The date the forecasted cost is projected to accrue. ISO 8601 Formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "4.25",
+          "description": "The amount of the forecasted cost."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "enum": [
+            "aws",
+            "azure",
+            "gcp",
+            "snowflake",
+            "databricks",
+            "mongo",
+            "datadog",
+            "fastly",
+            "new_relic",
+            "opencost",
+            "open_ai",
+            "oracle",
+            "confluent",
+            "planetscale",
+            "coralogix",
+            "kubernetes",
+            "custom_provider",
+            "github",
+            "linode",
+            "grafana",
+            "clickhouse",
+            "temporal",
+            "twilio"
+          ],
+          "description": "The cost provider which incurred the cost. Will be 'all' for all combined providers."
+        },
+        "service": {
+          "type": "string",
+          "example": "Amazon Elastic Compute Cloud - Compute",
+          "description": "The service for the forecasted cost. Will be 'all' for all combined services"
+        }
+      }
     },
     "createSegment": {
       "type": "object",
@@ -15806,6 +15772,63 @@
       },
       "description": "CostAlertEvent model"
     },
+    "createCostAlert": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Cost Alert."
+        },
+        "interval": {
+          "type": "string",
+          "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'."
+        },
+        "threshold": {
+          "type": "number",
+          "format": "float",
+          "description": "The threshold value for the Cost Alert."
+        },
+        "unit_type": {
+          "type": "string",
+          "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'."
+        },
+        "email_recipients": {
+          "type": "array",
+          "description": "The email recipients for the Cost Alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slack_channels": {
+          "type": "array",
+          "description": "The Slack channels that will receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "teams_channels": {
+          "type": "array",
+          "description": "The Microsoft Teams channels that will receive the alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the reports to alert on.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "interval",
+        "threshold",
+        "unit_type"
+      ],
+      "description": "Create a new Cost Alert"
+    },
     "CostAlert": {
       "type": "object",
       "properties": {
@@ -15886,6 +15909,57 @@
         }
       },
       "description": "CostAlerts model"
+    },
+    "updateCostAlert": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Cost Alert."
+        },
+        "email_recipients": {
+          "type": "array",
+          "description": "The email recipients for the Cost Alert.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "interval": {
+          "type": "string",
+          "description": "The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'."
+        },
+        "threshold": {
+          "type": "number",
+          "format": "float",
+          "description": "The threshold value for the Cost Alert."
+        },
+        "slack_channels": {
+          "type": "array",
+          "description": "The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "teams_channels": {
+          "type": "array",
+          "description": "The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unit_type": {
+          "type": "string",
+          "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'."
+        },
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the reports to alert on.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Update a Cost Alert"
     },
     "UnitCosts": {
       "type": "object",

@@ -46,7 +46,7 @@ GetForecastedCostsOK describes a response with status code 200, with default hea
 GetForecastedCostsOK get forecasted costs o k
 */
 type GetForecastedCostsOK struct {
-	Payload *models.CostReports
+	Payload *models.ForecastedCosts
 }
 
 // IsSuccess returns true when this get forecasted costs o k response has a 2xx status code
@@ -89,13 +89,13 @@ func (o *GetForecastedCostsOK) String() string {
 	return fmt.Sprintf("[GET /cost_reports/{cost_report_token}/forecasted_costs][%d] getForecastedCostsOK %s", 200, payload)
 }
 
-func (o *GetForecastedCostsOK) GetPayload() *models.CostReports {
+func (o *GetForecastedCostsOK) GetPayload() *models.ForecastedCosts {
 	return o.Payload
 }
 
 func (o *GetForecastedCostsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.CostReports)
+	o.Payload = new(models.ForecastedCosts)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -85,6 +85,12 @@ type CreateUnitCostsExportParams struct {
 	*/
 	StartDate *string
 
+	/* WorkspaceToken.
+
+	   The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -182,6 +188,17 @@ func (o *CreateUnitCostsExportParams) SetStartDate(startDate *string) {
 	o.StartDate = startDate
 }
 
+// WithWorkspaceToken adds the workspaceToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithWorkspaceToken(workspaceToken *string) *CreateUnitCostsExportParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *CreateUnitCostsExportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -239,6 +256,21 @@ func (o *CreateUnitCostsExportParams) WriteToRequest(r runtime.ClientRequest, re
 		fStartDate := frStartDate
 		if fStartDate != "" {
 			if err := r.SetFormParam("start_date", fStartDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// form param workspace_token
+		var frWorkspaceToken string
+		if o.WorkspaceToken != nil {
+			frWorkspaceToken = *o.WorkspaceToken
+		}
+		fWorkspaceToken := frWorkspaceToken
+		if fWorkspaceToken != "" {
+			if err := r.SetFormParam("workspace_token", fWorkspaceToken); err != nil {
 				return err
 			}
 		}
