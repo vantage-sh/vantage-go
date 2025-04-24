@@ -15929,8 +15929,9 @@
           "description": "The amount of the business metric."
         },
         "scale": {
-          "type": "string",
-          "example": "1.0",
+          "type": "number",
+          "format": "float",
+          "example": 1.0,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
         "date": {

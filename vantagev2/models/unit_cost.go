@@ -37,8 +37,8 @@ type UnitCost struct {
 	Links interface{} `json:"links,omitempty"`
 
 	// The scale of the BusinessMetric's values within a particular CostReport.
-	// Example: 1.0
-	Scale string `json:"scale,omitempty"`
+	// Example: 1
+	Scale float32 `json:"scale,omitempty"`
 
 	// The amount of the unit cost.
 	// Example: 4.25
