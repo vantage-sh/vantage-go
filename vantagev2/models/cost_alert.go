@@ -37,7 +37,7 @@ type CostAlert struct {
 	TeamsChannels []string `json:"teams_channels"`
 
 	// The cost change threshold to alert on.
-	Threshold string `json:"threshold,omitempty"`
+	Threshold float64 `json:"threshold,omitempty"`
 
 	// title
 	Title string `json:"title,omitempty"`
