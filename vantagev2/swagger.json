@@ -15792,6 +15792,10 @@
           "type": "string",
           "description": "The unit type used to compare costs. Options are 'currency' or 'percentage'."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Cost Alert to."
+        },
         "email_recipients": {
           "type": "array",
           "description": "The email recipients for the Cost Alert.",
@@ -15825,7 +15829,8 @@
         "title",
         "interval",
         "threshold",
-        "unit_type"
+        "unit_type",
+        "workspace_token"
       ],
       "description": "Create a new Cost Alert"
     },

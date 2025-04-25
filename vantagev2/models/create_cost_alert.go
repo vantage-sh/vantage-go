@@ -46,6 +46,10 @@ type CreateCostAlert struct {
 	// The unit type used to compare costs. Options are 'currency' or 'percentage'.
 	// Required: true
 	UnitType *string `json:"unit_type"`
+
+	// The token of the Workspace to add the Cost Alert to.
+	// Required: true
+	WorkspaceToken *string `json:"workspace_token"`
 }
 
 // Validate validates this create cost alert
@@ -65,6 +69,10 @@ func (m *CreateCostAlert) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUnitType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +112,15 @@ func (m *CreateCostAlert) validateTitle(formats strfmt.Registry) error {
 func (m *CreateCostAlert) validateUnitType(formats strfmt.Registry) error {
 
 	if err := validate.Required("unit_type", "body", m.UnitType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateCostAlert) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 
