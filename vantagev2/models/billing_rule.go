@@ -23,7 +23,7 @@ type BillingRule struct {
 
 	// Whether the BillingRule applies to all future managed accounts.
 	// Example: true
-	ApplyToAll string `json:"apply_to_all,omitempty"`
+	ApplyToAll bool `json:"apply_to_all,omitempty"`
 
 	// The category for the BillingRule (Charge).
 	// Example: MSP Fee

@@ -7,11 +7,13 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BusinessMetric BusinessMetric model
@@ -25,6 +27,17 @@ type BusinessMetric struct {
 	// The token of the Creator of the BusinessMetric.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
+
+	// The fields used to generate the UnitCosts for the BusinessMetric.
+	ImportFields interface{} `json:"import_fields,omitempty"`
+
+	// The type of import for the BusinessMetric.
+	// Example: datadog_metrics
+	// Enum: ["datadog_metrics","cloudwatch","csv"]
+	ImportType string `json:"import_type,omitempty"`
+
+	// The Integration token used to import the BusinessMetric.
+	IntegrationToken string `json:"integration_token,omitempty"`
 
 	// The title of the BusinessMetric.
 	// Example: Total Revenue
@@ -40,6 +53,10 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCostReportTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateImportType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,6 +87,51 @@ func (m *BusinessMetric) validateCostReportTokensWithMetadata(formats strfmt.Reg
 			}
 		}
 
+	}
+
+	return nil
+}
+
+var businessMetricTypeImportTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","csv"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		businessMetricTypeImportTypePropEnum = append(businessMetricTypeImportTypePropEnum, v)
+	}
+}
+
+const (
+
+	// BusinessMetricImportTypeDatadogMetrics captures enum value "datadog_metrics"
+	BusinessMetricImportTypeDatadogMetrics string = "datadog_metrics"
+
+	// BusinessMetricImportTypeCloudwatch captures enum value "cloudwatch"
+	BusinessMetricImportTypeCloudwatch string = "cloudwatch"
+
+	// BusinessMetricImportTypeCsv captures enum value "csv"
+	BusinessMetricImportTypeCsv string = "csv"
+)
+
+// prop value enum
+func (m *BusinessMetric) validateImportTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, businessMetricTypeImportTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *BusinessMetric) validateImportType(formats strfmt.Registry) error {
+	if swag.IsZero(m.ImportType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateImportTypeEnum("import_type", "body", m.ImportType); err != nil {
+		return err
 	}
 
 	return nil

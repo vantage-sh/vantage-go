@@ -21,8 +21,14 @@ import (
 // swagger:model updateBusinessMetric
 type UpdateBusinessMetric struct {
 
+	// cloudwatch fields
+	CloudwatchFields *UpdateBusinessMetricCloudwatchFields `json:"cloudwatch_fields,omitempty"`
+
 	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
 	CostReportTokensWithMetadata []*UpdateBusinessMetricCostReportTokensWithMetadataItems0 `json:"cost_report_tokens_with_metadata"`
+
+	// datadog metric fields
+	DatadogMetricFields *UpdateBusinessMetricDatadogMetricFields `json:"datadog_metric_fields,omitempty"`
 
 	// The title of the BusinessMetric.
 	Title string `json:"title,omitempty"`
@@ -35,7 +41,15 @@ type UpdateBusinessMetric struct {
 func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCloudwatchFields(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCostReportTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatadogMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -46,6 +60,25 @@ func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBusinessMetric) validateCloudwatchFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.CloudwatchFields) { // not required
+		return nil
+	}
+
+	if m.CloudwatchFields != nil {
+		if err := m.CloudwatchFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudwatch_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cloudwatch_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -70,6 +103,25 @@ func (m *UpdateBusinessMetric) validateCostReportTokensWithMetadata(formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetric) validateDatadogMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.DatadogMetricFields) { // not required
+		return nil
+	}
+
+	if m.DatadogMetricFields != nil {
+		if err := m.DatadogMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("datadog_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -105,7 +157,15 @@ func (m *UpdateBusinessMetric) validateValues(formats strfmt.Registry) error {
 func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCloudwatchFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCostReportTokensWithMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDatadogMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,6 +176,27 @@ func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBusinessMetric) contextValidateCloudwatchFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CloudwatchFields != nil {
+
+		if swag.IsZero(m.CloudwatchFields) { // not required
+			return nil
+		}
+
+		if err := m.CloudwatchFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudwatch_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cloudwatch_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -139,6 +220,27 @@ func (m *UpdateBusinessMetric) contextValidateCostReportTokensWithMetadata(ctx c
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetric) contextValidateDatadogMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DatadogMetricFields != nil {
+
+		if swag.IsZero(m.DatadogMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.DatadogMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("datadog_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -180,6 +282,273 @@ func (m *UpdateBusinessMetric) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateBusinessMetric) UnmarshalBinary(b []byte) error {
 	var res UpdateBusinessMetric
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricCloudwatchFields Cloudwatch configuration fields.
+//
+// swagger:model UpdateBusinessMetricCloudwatchFields
+type UpdateBusinessMetricCloudwatchFields struct {
+
+	// dimensions
+	Dimensions []*UpdateBusinessMetricCloudwatchFieldsDimensionsItems0 `json:"dimensions"`
+
+	// Integration token for the account from which you would like to fetch metrics.
+	// Required: true
+	IntegrationToken *string `json:"integration_token"`
+
+	// label dimension
+	LabelDimension string `json:"label_dimension,omitempty"`
+
+	// metric name
+	// Required: true
+	MetricName *string `json:"metric_name"`
+
+	// namespace
+	// Required: true
+	Namespace *string `json:"namespace"`
+
+	// region
+	// Required: true
+	Region *string `json:"region"`
+
+	// stat
+	// Required: true
+	Stat *string `json:"stat"`
+}
+
+// Validate validates this update business metric cloudwatch fields
+func (m *UpdateBusinessMetricCloudwatchFields) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDimensions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetricName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNamespace(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStat(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateDimensions(formats strfmt.Registry) error {
+	if swag.IsZero(m.Dimensions) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Dimensions); i++ {
+		if swag.IsZero(m.Dimensions[i]) { // not required
+			continue
+		}
+
+		if m.Dimensions[i] != nil {
+			if err := m.Dimensions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cloudwatch_fields" + "." + "dimensions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cloudwatch_fields" + "." + "dimensions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateIntegrationToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("cloudwatch_fields"+"."+"integration_token", "body", m.IntegrationToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateMetricName(formats strfmt.Registry) error {
+
+	if err := validate.Required("cloudwatch_fields"+"."+"metric_name", "body", m.MetricName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateNamespace(formats strfmt.Registry) error {
+
+	if err := validate.Required("cloudwatch_fields"+"."+"namespace", "body", m.Namespace); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.Required("cloudwatch_fields"+"."+"region", "body", m.Region); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) validateStat(formats strfmt.Registry) error {
+
+	if err := validate.Required("cloudwatch_fields"+"."+"stat", "body", m.Stat); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this update business metric cloudwatch fields based on the context it is used
+func (m *UpdateBusinessMetricCloudwatchFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDimensions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFields) contextValidateDimensions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Dimensions); i++ {
+
+		if m.Dimensions[i] != nil {
+
+			if swag.IsZero(m.Dimensions[i]) { // not required
+				return nil
+			}
+
+			if err := m.Dimensions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cloudwatch_fields" + "." + "dimensions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cloudwatch_fields" + "." + "dimensions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricCloudwatchFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricCloudwatchFields) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricCloudwatchFields
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricCloudwatchFieldsDimensionsItems0 update business metric cloudwatch fields dimensions items0
+//
+// swagger:model UpdateBusinessMetricCloudwatchFieldsDimensionsItems0
+type UpdateBusinessMetricCloudwatchFieldsDimensionsItems0 struct {
+
+	// name
+	// Required: true
+	Name *string `json:"name"`
+
+	// value
+	// Required: true
+	Value *string `json:"value"`
+}
+
+// Validate validates this update business metric cloudwatch fields dimensions items0
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update business metric cloudwatch fields dimensions items0 based on context it is used
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricCloudwatchFieldsDimensionsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
@@ -298,6 +667,79 @@ func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) MarshalBinary()
 // UnmarshalBinary interface implementation
 func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) UnmarshalBinary(b []byte) error {
 	var res UpdateBusinessMetricCostReportTokensWithMetadataItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricDatadogMetricFields Datadog metric configuration fields
+//
+// swagger:model UpdateBusinessMetricDatadogMetricFields
+type UpdateBusinessMetricDatadogMetricFields struct {
+
+	// Integration token for the account from which you would like to fetch metrics.
+	// Required: true
+	IntegrationToken *string `json:"integration_token"`
+
+	// Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
+	// Required: true
+	Query *string `json:"query"`
+}
+
+// Validate validates this update business metric datadog metric fields
+func (m *UpdateBusinessMetricDatadogMetricFields) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateIntegrationToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateBusinessMetricDatadogMetricFields) validateIntegrationToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("datadog_metric_fields"+"."+"integration_token", "body", m.IntegrationToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetricDatadogMetricFields) validateQuery(formats strfmt.Registry) error {
+
+	if err := validate.Required("datadog_metric_fields"+"."+"query", "body", m.Query); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update business metric datadog metric fields based on context it is used
+func (m *UpdateBusinessMetricDatadogMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricDatadogMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricDatadogMetricFields) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricDatadogMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
