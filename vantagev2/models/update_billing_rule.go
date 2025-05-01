@@ -21,7 +21,7 @@ type UpdateBillingRule struct {
 	Amount float64 `json:"amount,omitempty"`
 
 	// Determines if the BillingRule applies to all current and future managed accounts.
-	ApplyToAll bool `json:"apply_to_all,omitempty"`
+	ApplyToAll bool `json:"apply_to_all"`
 
 	// The category of the BillingRule.
 	Category string `json:"category,omitempty"`

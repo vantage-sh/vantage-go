@@ -43,6 +43,9 @@ type AnomalyAlert struct {
 	// The provider of the service causing the AnomalyAlert.
 	Provider string `json:"provider,omitempty"`
 
+	// The names of the resources the AnomalyAlert was attributed to.
+	Resources []string `json:"resources"`
+
 	// The provider service causing the AnomalyAlert.
 	Service string `json:"service,omitempty"`
 

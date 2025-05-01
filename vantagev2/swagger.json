@@ -187,8 +187,8 @@
       "description": "Operations about Pings"
     },
     {
-      "name": "open_api",
-      "description": "Operations about open_apis"
+      "name": "OpenAPISpecification",
+      "description": "Operations about OpenAPISpecifications"
     }
   ],
   "paths": {
@@ -2611,6 +2611,18 @@
               "day",
               "week",
               "month"
+            ],
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "schema",
+            "description": "The schema of the data export.",
+            "type": "string",
+            "default": "vntg",
+            "enum": [
+              "vntg",
+              "focus"
             ],
             "required": false
           },
@@ -6528,6 +6540,9 @@
                     "seven_day_average": "10.0",
                     "status": "active",
                     "feedback": null,
+                    "resources": [
+                      "production-cluster"
+                    ],
                     "cost_report_token": "rprt_3d541a4c5160711f"
                   }
                 ]
@@ -10863,7 +10878,7 @@
           }
         },
         "tags": [
-          "open_api"
+          "OpenAPISpecification"
         ],
         "operationId": "getOpenAPISpecifications"
       }
@@ -14363,6 +14378,13 @@
           "type": "string",
           "description": "The user-provided feedback of why alert was ignored/archived."
         },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The names of the resources the AnomalyAlert was attributed to."
+        },
         "cost_report_token": {
           "type": "string",
           "description": "The token of the Report associated with the AnomalyAlert."
@@ -14481,7 +14503,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2024-10-01",
+          "example": "2024-11-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -15755,7 +15777,8 @@
         },
         "apply_to_all": {
           "type": "boolean",
-          "description": "Determines if the BillingRule applies to all current and future managed accounts."
+          "description": "Determines if the BillingRule applies to all current and future managed accounts.",
+          "x-omitempty": false
         }
       },
       "description": "Update a BillingRule."

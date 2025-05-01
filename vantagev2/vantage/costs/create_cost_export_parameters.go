@@ -92,6 +92,14 @@ type CreateCostExportParams struct {
 	*/
 	Groupings []string
 
+	/* Schema.
+
+	   The schema of the data export.
+
+	   Default: "vntg"
+	*/
+	Schema *string
+
 	/* SettingsAggregateBy.
 
 	   Results will aggregate by cost or usage.
@@ -172,6 +180,8 @@ func (o *CreateCostExportParams) WithDefaults() *CreateCostExportParams {
 // All values with no default are reset to their zero value.
 func (o *CreateCostExportParams) SetDefaults() {
 	var (
+		schemaDefault = string("vntg")
+
 		settingsAggregateByDefault = string("cost")
 
 		settingsAmortizeDefault = bool(true)
@@ -188,6 +198,7 @@ func (o *CreateCostExportParams) SetDefaults() {
 	)
 
 	val := CreateCostExportParams{
+		Schema:                   &schemaDefault,
 		SettingsAggregateBy:      &settingsAggregateByDefault,
 		SettingsAmortize:         &settingsAmortizeDefault,
 		SettingsIncludeCredits:   &settingsIncludeCreditsDefault,
@@ -289,6 +300,17 @@ func (o *CreateCostExportParams) WithGroupings(groupings []string) *CreateCostEx
 // SetGroupings adds the groupings to the create cost export params
 func (o *CreateCostExportParams) SetGroupings(groupings []string) {
 	o.Groupings = groupings
+}
+
+// WithSchema adds the schema to the create cost export params
+func (o *CreateCostExportParams) WithSchema(schema *string) *CreateCostExportParams {
+	o.SetSchema(schema)
+	return o
+}
+
+// SetSchema adds the schema to the create cost export params
+func (o *CreateCostExportParams) SetSchema(schema *string) {
+	o.Schema = schema
 }
 
 // WithSettingsAggregateBy adds the settingsAggregateBy to the create cost export params
@@ -466,6 +488,21 @@ func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		// query array param groupings
 		if err := r.SetQueryParam("groupings", joinedGroupings...); err != nil {
 			return err
+		}
+	}
+
+	if o.Schema != nil {
+
+		// form param schema
+		var frSchema string
+		if o.Schema != nil {
+			frSchema = *o.Schema
+		}
+		fSchema := frSchema
+		if fSchema != "" {
+			if err := r.SetFormParam("schema", fSchema); err != nil {
+				return err
+			}
 		}
 	}
 
