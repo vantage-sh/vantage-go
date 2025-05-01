@@ -3057,7 +3057,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -3093,7 +3093,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -3196,11 +3196,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -4610,12 +4610,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_6266efc376810c96",
+                "token": "bsnss_mtrc_e8d0a6f35c9f4e8c",
                 "title": "New Biz Metric",
-                "created_by_token": null,
+                "created_by_token": "usr_464e70f8e230fa62",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_711c6d0fc815f3d8",
+                    "cost_report_token": "rprt_67a1e1ac3bb7cefd",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4626,7 +4626,7 @@
                   }
                 ],
                 "import_type": "csv",
-                "import_fields": {}
+                "integration_token": ""
               }
             }
           },
@@ -4700,41 +4700,44 @@
               "application/json": {
                 "business_metrics": [
                   {
-                    "token": "bsnss_mtrc_dc3846c1fec025cc",
-                    "title": "Ventosanzap",
-                    "created_by_token": "usr_198b69a102318f32",
+                    "token": "bsnss_mtrc_124dc3483510ac35",
+                    "title": "Overhold",
+                    "created_by_token": "usr_80447a58ff9821dd",
+                    "cost_report_tokens_with_metadata": [],
+                    "import_type": "csv",
+                    "integration_token": ""
+                  },
+                  {
+                    "token": "bsnss_mtrc_2534c89d90b714f7",
+                    "title": "Namfix",
+                    "created_by_token": "usr_752202a1bb7c9a70",
                     "cost_report_tokens_with_metadata": [],
                     "import_type": "cloudwatch",
-                    "import_fields": {
+                    "integration_token": "accss_crdntl_742fd1207f8b6816",
+                    "cloudwatch_fields": {
                       "stat": "Maximum",
                       "region": "us-east-1",
                       "namespace": "AWS/EC2",
+                      "metric_name": "CPUUtilization",
                       "dimensions": [
                         {
                           "name": "InstanceId",
                           "value": "i-06105d0faad66r97"
                         }
                       ],
-                      "metric_name": "CPUUtilization"
+                      "label_dimension": null
                     }
                   },
                   {
-                    "token": "bsnss_mtrc_411e96734c04da06",
-                    "title": "Wrapsafe",
-                    "created_by_token": "usr_2d25f6f2d0e7e65a",
+                    "token": "bsnss_mtrc_c11f0f8dea953e92",
+                    "title": "Lotstring",
+                    "created_by_token": "usr_604fcaa892a23fe9",
                     "cost_report_tokens_with_metadata": [],
                     "import_type": "datadog_metrics",
-                    "import_fields": {
+                    "integration_token": "accss_crdntl_e0e11192748e69bb",
+                    "datadog_metric_fields": {
                       "query": "avg:system.cpu.user{*}.rollup(avg, daily)"
                     }
-                  },
-                  {
-                    "token": "bsnss_mtrc_95086c4751bf71c5",
-                    "title": "Quo Lux",
-                    "created_by_token": "usr_f499e110b6090367",
-                    "cost_report_tokens_with_metadata": [],
-                    "import_type": "csv",
-                    "import_fields": {}
                   }
                 ]
               }
@@ -4832,12 +4835,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_7c6d1ab5b2d9ca24",
+                "token": "bsnss_mtrc_e3d9bf77f276d23b",
                 "title": "New Title",
-                "created_by_token": "usr_1f0cc2a400d36b2f",
+                "created_by_token": "usr_1e4b6318373f5c98",
                 "cost_report_tokens_with_metadata": [
                   {
-                    "cost_report_token": "rprt_0a75f40ee2e8a780",
+                    "cost_report_token": "rprt_54aa7c0519d3f1e2",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4847,12 +4850,12 @@
                     ]
                   },
                   {
-                    "cost_report_token": "rprt_3287fe02d892daae",
+                    "cost_report_token": "rprt_201403b36022766a",
                     "unit_scale": "per_million"
                   }
                 ],
                 "import_type": "csv",
-                "import_fields": {}
+                "integration_token": ""
               }
             }
           },
@@ -4914,12 +4917,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_2c967a1bb5915ce0",
-                "title": "Solarbreeze",
-                "created_by_token": "usr_9811b7a3f98512e1",
+                "token": "bsnss_mtrc_6d8f14830f9870ac",
+                "title": "Quo Lux",
+                "created_by_token": "usr_622d8870faf147bb",
                 "cost_report_tokens_with_metadata": [],
                 "import_type": "csv",
-                "import_fields": {}
+                "integration_token": ""
               }
             }
           },
@@ -4976,12 +4979,12 @@
             },
             "examples": {
               "application/json": {
-                "token": "bsnss_mtrc_1cd90aaf0272a5c8",
-                "title": "Quo Lux",
-                "created_by_token": "usr_1987373a4d0f5723",
+                "token": "bsnss_mtrc_6bb1021d8651923a",
+                "title": "Overhold",
+                "created_by_token": "usr_ad24de73bffb7791",
                 "cost_report_tokens_with_metadata": [],
                 "import_type": "csv",
-                "import_fields": {}
+                "integration_token": ""
               }
             }
           },
@@ -9266,7 +9269,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge"
                       }
                     ]
@@ -9323,7 +9326,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge"
                   }
                 ]
@@ -10337,7 +10340,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100,
+                "threshold": 100.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -10395,7 +10398,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000,
+                    "threshold": 1000.0,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -10505,7 +10508,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500,
+                "threshold": 500.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -10563,7 +10566,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000,
+                "threshold": 1000.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -13071,7 +13074,8 @@
               "date",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         },
         "datadog_metric_fields": {
           "type": "object",
@@ -13085,11 +13089,7 @@
               "type": "string",
               "description": "Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)"
             }
-          },
-          "required": [
-            "integration_token",
-            "query"
-          ]
+          }
         },
         "cloudwatch_fields": {
           "type": "object",
@@ -13125,21 +13125,10 @@
                   "value": {
                     "type": "string"
                   }
-                },
-                "required": [
-                  "name",
-                  "value"
-                ]
+                }
               }
             }
-          },
-          "required": [
-            "integration_token",
-            "stat",
-            "region",
-            "namespace",
-            "metric_name"
-          ]
+          }
         }
       },
       "required": [
@@ -13186,9 +13175,13 @@
           "type": "string",
           "description": "The Integration token used to import the BusinessMetric."
         },
-        "import_fields": {
-          "type": "object",
-          "description": "The fields used to generate the UnitCosts for the BusinessMetric."
+        "cloudwatch_fields": {
+          "$ref": "#/definitions/CloudwatchFields",
+          "description": "The fields used to generate the cloudwatch metrics BusinessMetric."
+        },
+        "datadog_metric_fields": {
+          "$ref": "#/definitions/DatadogMetricFields",
+          "description": "The fields used to generate the Datadog metrics for BusinessMetric."
         }
       },
       "description": "BusinessMetric model"
@@ -13224,6 +13217,69 @@
           },
           "x-omitempty": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
+        }
+      }
+    },
+    "CloudwatchFields": {
+      "type": "object",
+      "properties": {
+        "stat": {
+          "type": "string",
+          "example": "Average",
+          "enum": [
+            "Sum",
+            "Average",
+            "Minimum",
+            "Maximum"
+          ],
+          "description": "The time aggregation function used to import Cloudwatch metrics."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-east-1",
+          "description": "The region used to import Cloudwatch metrics."
+        },
+        "namespace": {
+          "type": "string",
+          "example": "AWS/EC2",
+          "description": "The namespace used to import Cloudwatch metrics."
+        },
+        "metric_name": {
+          "type": "string",
+          "example": "CPUUtilization",
+          "description": "The metric name used to import Cloudwatch metrics."
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudwatchDimension"
+          },
+          "description": "The dimensions used to pull specific statistical data for Cloudwatch metrics."
+        },
+        "label_dimension": {
+          "type": "string",
+          "description": "The dimension used to aggregate the Cloudwatch metrics."
+        }
+      }
+    },
+    "CloudwatchDimension": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "DatadogMetricFields": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "example": "sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)",
+          "description": "The query used to import Datadog metrics."
         }
       }
     },
@@ -13318,11 +13374,7 @@
               "type": "string",
               "description": "Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)"
             }
-          },
-          "required": [
-            "integration_token",
-            "query"
-          ]
+          }
         },
         "cloudwatch_fields": {
           "type": "object",
@@ -13345,7 +13397,8 @@
               "type": "string"
             },
             "label_dimension": {
-              "type": "string"
+              "type": "string",
+              "x-omitempty": false
             },
             "dimensions": {
               "type": "array",
@@ -13358,21 +13411,10 @@
                   "value": {
                     "type": "string"
                   }
-                },
-                "required": [
-                  "name",
-                  "value"
-                ]
+                }
               }
             }
-          },
-          "required": [
-            "integration_token",
-            "stat",
-            "region",
-            "namespace",
-            "metric_name"
-          ]
+          }
         }
       },
       "description": "Updates an existing BusinessMetric."
@@ -16254,7 +16296,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1,
+          "example": 1.0,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
         "date": {

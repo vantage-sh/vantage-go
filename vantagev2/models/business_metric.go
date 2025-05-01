@@ -21,6 +21,9 @@ import (
 // swagger:model BusinessMetric
 type BusinessMetric struct {
 
+	// The fields used to generate the cloudwatch metrics BusinessMetric.
+	CloudwatchFields *CloudwatchFields `json:"cloudwatch_fields,omitempty"`
+
 	// The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
 	CostReportTokensWithMetadata []*AttachedCostReportForBusinessMetric `json:"cost_report_tokens_with_metadata"`
 
@@ -28,8 +31,8 @@ type BusinessMetric struct {
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
 
-	// The fields used to generate the UnitCosts for the BusinessMetric.
-	ImportFields interface{} `json:"import_fields,omitempty"`
+	// The fields used to generate the Datadog metrics for BusinessMetric.
+	DatadogMetricFields *DatadogMetricFields `json:"datadog_metric_fields,omitempty"`
 
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
@@ -52,7 +55,15 @@ type BusinessMetric struct {
 func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCloudwatchFields(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCostReportTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatadogMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,6 +74,25 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *BusinessMetric) validateCloudwatchFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.CloudwatchFields) { // not required
+		return nil
+	}
+
+	if m.CloudwatchFields != nil {
+		if err := m.CloudwatchFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudwatch_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cloudwatch_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -87,6 +117,25 @@ func (m *BusinessMetric) validateCostReportTokensWithMetadata(formats strfmt.Reg
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) validateDatadogMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.DatadogMetricFields) { // not required
+		return nil
+	}
+
+	if m.DatadogMetricFields != nil {
+		if err := m.DatadogMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("datadog_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -141,13 +190,42 @@ func (m *BusinessMetric) validateImportType(formats strfmt.Registry) error {
 func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCloudwatchFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCostReportTokensWithMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDatadogMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateCloudwatchFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CloudwatchFields != nil {
+
+		if swag.IsZero(m.CloudwatchFields) { // not required
+			return nil
+		}
+
+		if err := m.CloudwatchFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudwatch_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cloudwatch_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -171,6 +249,27 @@ func (m *BusinessMetric) contextValidateCostReportTokensWithMetadata(ctx context
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateDatadogMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DatadogMetricFields != nil {
+
+		if swag.IsZero(m.DatadogMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.DatadogMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("datadog_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
