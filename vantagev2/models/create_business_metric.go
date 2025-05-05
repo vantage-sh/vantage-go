@@ -35,7 +35,7 @@ type CreateBusinessMetric struct {
 	Title *string `json:"title"`
 
 	// The dates, amounts, and (optional) labels for the BusinessMetric.
-	Values []*CreateBusinessMetricValuesItems0 `json:"values"`
+	Values []*CreateBusinessMetricValuesItems0 `json:"values,omitempty"`
 }
 
 // Validate validates this create business metric
@@ -312,27 +312,22 @@ type CreateBusinessMetricCloudwatchFields struct {
 	Dimensions []*CreateBusinessMetricCloudwatchFieldsDimensionsItems0 `json:"dimensions"`
 
 	// Integration token for the account from which you would like to fetch metrics.
-	// Required: true
-	IntegrationToken *string `json:"integration_token"`
+	IntegrationToken string `json:"integration_token,omitempty"`
 
 	// label dimension
 	LabelDimension string `json:"label_dimension,omitempty"`
 
 	// metric name
-	// Required: true
-	MetricName *string `json:"metric_name"`
+	MetricName string `json:"metric_name,omitempty"`
 
 	// namespace
-	// Required: true
-	Namespace *string `json:"namespace"`
+	Namespace string `json:"namespace,omitempty"`
 
 	// region
-	// Required: true
-	Region *string `json:"region"`
+	Region string `json:"region,omitempty"`
 
 	// stat
-	// Required: true
-	Stat *string `json:"stat"`
+	Stat string `json:"stat,omitempty"`
 }
 
 // Validate validates this create business metric cloudwatch fields
@@ -340,26 +335,6 @@ func (m *CreateBusinessMetricCloudwatchFields) Validate(formats strfmt.Registry)
 	var res []error
 
 	if err := m.validateDimensions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIntegrationToken(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMetricName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNamespace(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRegion(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStat(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -390,51 +365,6 @@ func (m *CreateBusinessMetricCloudwatchFields) validateDimensions(formats strfmt
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFields) validateIntegrationToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("cloudwatch_fields"+"."+"integration_token", "body", m.IntegrationToken); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFields) validateMetricName(formats strfmt.Registry) error {
-
-	if err := validate.Required("cloudwatch_fields"+"."+"metric_name", "body", m.MetricName); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFields) validateNamespace(formats strfmt.Registry) error {
-
-	if err := validate.Required("cloudwatch_fields"+"."+"namespace", "body", m.Namespace); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFields) validateRegion(formats strfmt.Registry) error {
-
-	if err := validate.Required("cloudwatch_fields"+"."+"region", "body", m.Region); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFields) validateStat(formats strfmt.Registry) error {
-
-	if err := validate.Required("cloudwatch_fields"+"."+"stat", "body", m.Stat); err != nil {
-		return err
 	}
 
 	return nil
@@ -503,47 +433,14 @@ func (m *CreateBusinessMetricCloudwatchFields) UnmarshalBinary(b []byte) error {
 type CreateBusinessMetricCloudwatchFieldsDimensionsItems0 struct {
 
 	// name
-	// Required: true
-	Name *string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// value
-	// Required: true
-	Value *string `json:"value"`
+	Value string `json:"value,omitempty"`
 }
 
 // Validate validates this create business metric cloudwatch fields dimensions items0
 func (m *CreateBusinessMetricCloudwatchFieldsDimensionsItems0) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateValue(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFieldsDimensionsItems0) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricCloudwatchFieldsDimensionsItems0) validateValue(formats strfmt.Registry) error {
-
-	if err := validate.Required("value", "body", m.Value); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -694,47 +591,14 @@ func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) UnmarshalBinary
 type CreateBusinessMetricDatadogMetricFields struct {
 
 	// Integration token for the account from which you would like to fetch metrics.
-	// Required: true
-	IntegrationToken *string `json:"integration_token"`
+	IntegrationToken string `json:"integration_token,omitempty"`
 
 	// Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
-	// Required: true
-	Query *string `json:"query"`
+	Query string `json:"query,omitempty"`
 }
 
 // Validate validates this create business metric datadog metric fields
 func (m *CreateBusinessMetricDatadogMetricFields) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateIntegrationToken(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateQuery(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *CreateBusinessMetricDatadogMetricFields) validateIntegrationToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("datadog_metric_fields"+"."+"integration_token", "body", m.IntegrationToken); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBusinessMetricDatadogMetricFields) validateQuery(formats strfmt.Registry) error {
-
-	if err := validate.Required("datadog_metric_fields"+"."+"query", "body", m.Query); err != nil {
-		return err
-	}
-
 	return nil
 }
 
