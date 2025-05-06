@@ -47,10 +47,6 @@
       "description": "Operations about Costs"
     },
     {
-      "name": "integrations",
-      "description": "Operations about integrations"
-    },
-    {
       "name": "Integrations",
       "description": "Operations about Integrations"
     },
@@ -7744,39 +7740,6 @@
           "Costs"
         ],
         "operationId": "getCosts"
-      }
-    },
-    "/integrations/terraform/workspaces/{workspace_id}/{integration_type}": {
-      "post": {
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "workspace_id",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "path",
-            "name": "integration_type",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "created Workspace"
-          }
-        },
-        "tags": [
-          "integrations"
-        ],
-        "operationId": "postIntegrationsTerraformWorkspacesWorkspaceIdIntegrationType"
       }
     },
     "/integrations/aws/{access_credential_id}": {
