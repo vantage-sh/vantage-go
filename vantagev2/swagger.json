@@ -13074,7 +13074,8 @@
               "date",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         },
         "datadog_metric_fields": {
           "type": "object",
@@ -13359,7 +13360,8 @@
               "date",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         },
         "datadog_metric_fields": {
           "type": "object",
