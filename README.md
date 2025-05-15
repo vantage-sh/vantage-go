@@ -2,7 +2,7 @@
 Generated Go Client from Vantage's API Swagger file
 
 ## Prerequisites
-- You must have `jq` and `go-swagger` command line tools installed
+- You must have `jq` and `go-swagger` command line tools installed.
 - If you have Homebrew installed, you can run `brew bundle` to install required dependencies.
 
 ## Development
