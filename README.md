@@ -1,5 +1,6 @@
 # vantage-go
 Generated Go Client from Vantage's API Swagger file
+Swagger file located at api.vantage.sh/v2/swagger.json
 
 ## Prerequisites
 - You must have `jq` and `go-swagger` command line tools installed.
