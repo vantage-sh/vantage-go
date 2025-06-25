@@ -53,6 +53,10 @@ type BillingRule struct {
 	// Example: AWS Cloudfront
 	Service string `json:"service,omitempty"`
 
+	// The SQL query for the BillingRule (Custom).
+	// Example: UPDATE costs SET costs.amount = costs.amount * 0.95
+	SQLQuery string `json:"sql_query,omitempty"`
+
 	// The start date of the BillingRule.
 	// Example: 2024-06-28T00:00:00Z
 	StartDate string `json:"start_date,omitempty"`

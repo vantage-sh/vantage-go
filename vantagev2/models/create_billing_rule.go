@@ -46,6 +46,10 @@ type CreateBillingRule struct {
 	// Required: true
 	Service *string `json:"service"`
 
+	// UPDATE costs SET costs.amount = costs.amount * 0.95
+	// Required: true
+	SQLQuery *string `json:"sql_query"`
+
 	// The start date of the BillingRule. ISO 8601 formatted.
 	StartDate string `json:"start_date,omitempty"`
 
@@ -63,7 +67,7 @@ type CreateBillingRule struct {
 
 	// The type of the BillingRule. Note: the values are case insensitive.
 	// Required: true
-	// Enum: ["exclusion","adjustment","credit","charge"]
+	// Enum: ["exclusion","adjustment","credit","charge","custom"]
 	Type *string `json:"type"`
 }
 
@@ -88,6 +92,10 @@ func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateService(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSQLQuery(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -158,6 +166,15 @@ func (m *CreateBillingRule) validateService(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *CreateBillingRule) validateSQLQuery(formats strfmt.Registry) error {
+
+	if err := validate.Required("sql_query", "body", m.SQLQuery); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *CreateBillingRule) validateStartPeriod(formats strfmt.Registry) error {
 
 	if err := validate.Required("start_period", "body", m.StartPeriod); err != nil {
@@ -189,7 +206,7 @@ var createBillingRuleTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["exclusion","adjustment","credit","charge"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["exclusion","adjustment","credit","charge","custom"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -210,6 +227,9 @@ const (
 
 	// CreateBillingRuleTypeCharge captures enum value "charge"
 	CreateBillingRuleTypeCharge string = "charge"
+
+	// CreateBillingRuleTypeCustom captures enum value "custom"
+	CreateBillingRuleTypeCustom string = "custom"
 )
 
 // prop value enum
