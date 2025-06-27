@@ -15616,7 +15616,8 @@
             "exclusion",
             "adjustment",
             "credit",
-            "charge"
+            "charge",
+            "custom"
           ]
         },
         "title": {
@@ -15664,6 +15665,10 @@
           "type": "number",
           "format": "double",
           "description": "The amount for the BillingRule. Example value: 300"
+        },
+        "sql_query": {
+          "type": "string",
+          "description": "UPDATE costs SET costs.amount = costs.amount * 0.95"
         }
       },
       "required": [
@@ -15675,7 +15680,8 @@
         "service",
         "category",
         "sub_category",
-        "amount"
+        "amount",
+        "sql_query"
       ],
       "description": "Create a BillingRule."
     },
@@ -15754,6 +15760,11 @@
           "type": "string",
           "example": "5000.25",
           "description": "The amount for the BillingRule (Charge)."
+        },
+        "sql_query": {
+          "type": "string",
+          "example": "UPDATE costs SET costs.amount = costs.amount * 0.95",
+          "description": "The SQL query for the BillingRule (Custom)."
         }
       },
       "description": "BillingRule model"
@@ -15822,6 +15833,10 @@
           "type": "boolean",
           "description": "Determines if the BillingRule applies to all current and future managed accounts.",
           "x-omitempty": false
+        },
+        "sql_query": {
+          "type": "string",
+          "description": "The SQL query of the BillingRule."
         }
       },
       "description": "Update a BillingRule."

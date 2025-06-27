@@ -38,6 +38,9 @@ type UpdateBillingRule struct {
 	// The service of the BillingRule.
 	Service string `json:"service,omitempty"`
 
+	// The SQL query of the BillingRule.
+	SQLQuery string `json:"sql_query,omitempty"`
+
 	// The start date of the BillingRule. ISO 8601 formatted.
 	StartDate string `json:"start_date,omitempty"`
 
