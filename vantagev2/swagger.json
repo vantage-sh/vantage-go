@@ -15626,7 +15626,7 @@
         },
         "start_period": {
           "type": "string",
-          "description": "The start period of the BillingRule."
+          "description": "The start period of the BillingRule. DEPRECATED: use start_date instead."
         },
         "start_date": {
           "type": "string",
@@ -15642,46 +15642,38 @@
         },
         "charge_type": {
           "type": "string",
-          "description": "The charge type of the BillingRule."
+          "description": "The charge type of the BillingRule. Required for Exclusion rules."
         },
         "percentage": {
           "type": "number",
           "format": "double",
-          "description": "The percentage of the cost shown. Example value: 75.0"
+          "description": "The percentage of the cost shown. Required for Adjustment rules. Example value: 75.0"
         },
         "service": {
           "type": "string",
-          "description": "The service of the BillingRule."
+          "description": "The service of the BillingRule. Required for Charge and Credit rules."
         },
         "category": {
           "type": "string",
-          "description": "The category of the BillingRule."
+          "description": "The category of the BillingRule. Required for Charge and Credit rules."
         },
         "sub_category": {
           "type": "string",
-          "description": "The subcategory of the BillingRule."
+          "description": "The subcategory of the BillingRule. Required for Charge and Credit rules."
         },
         "amount": {
           "type": "number",
           "format": "double",
-          "description": "The amount for the BillingRule. Example value: 300"
+          "description": "The amount for the BillingRule. Required for Charge and Credit rules. Example value: 300"
         },
         "sql_query": {
           "type": "string",
-          "description": "UPDATE costs SET costs.amount = costs.amount * 0.95"
+          "description": "The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95"
         }
       },
       "required": [
         "type",
-        "title",
-        "start_period",
-        "charge_type",
-        "percentage",
-        "service",
-        "category",
-        "sub_category",
-        "amount",
-        "sql_query"
+        "title"
       ],
       "description": "Create a BillingRule."
     },

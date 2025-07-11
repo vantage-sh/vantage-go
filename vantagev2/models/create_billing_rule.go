@@ -20,46 +20,38 @@ import (
 // swagger:model createBillingRule
 type CreateBillingRule struct {
 
-	// The amount for the BillingRule. Example value: 300
-	// Required: true
-	Amount *float64 `json:"amount"`
+	// The amount for the BillingRule. Required for Charge and Credit rules. Example value: 300
+	Amount float64 `json:"amount,omitempty"`
 
 	// Determines if the BillingRule applies to all current and future managed accounts.
 	ApplyToAll bool `json:"apply_to_all,omitempty"`
 
-	// The category of the BillingRule.
-	// Required: true
-	Category *string `json:"category"`
+	// The category of the BillingRule. Required for Charge and Credit rules.
+	Category string `json:"category,omitempty"`
 
-	// The charge type of the BillingRule.
-	// Required: true
-	ChargeType *string `json:"charge_type"`
+	// The charge type of the BillingRule. Required for Exclusion rules.
+	ChargeType string `json:"charge_type,omitempty"`
 
 	// The end date of the BillingRule. ISO 8601 formatted.
 	EndDate string `json:"end_date,omitempty"`
 
-	// The percentage of the cost shown. Example value: 75.0
-	// Required: true
-	Percentage *float64 `json:"percentage"`
+	// The percentage of the cost shown. Required for Adjustment rules. Example value: 75.0
+	Percentage float64 `json:"percentage,omitempty"`
 
-	// The service of the BillingRule.
-	// Required: true
-	Service *string `json:"service"`
+	// The service of the BillingRule. Required for Charge and Credit rules.
+	Service string `json:"service,omitempty"`
 
-	// UPDATE costs SET costs.amount = costs.amount * 0.95
-	// Required: true
-	SQLQuery *string `json:"sql_query"`
+	// The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95
+	SQLQuery string `json:"sql_query,omitempty"`
 
 	// The start date of the BillingRule. ISO 8601 formatted.
 	StartDate string `json:"start_date,omitempty"`
 
-	// The start period of the BillingRule.
-	// Required: true
-	StartPeriod *string `json:"start_period"`
+	// The start period of the BillingRule. DEPRECATED: use start_date instead.
+	StartPeriod string `json:"start_period,omitempty"`
 
-	// The subcategory of the BillingRule.
-	// Required: true
-	SubCategory *string `json:"sub_category"`
+	// The subcategory of the BillingRule. Required for Charge and Credit rules.
+	SubCategory string `json:"sub_category,omitempty"`
 
 	// The title of the BillingRule.
 	// Required: true
@@ -75,38 +67,6 @@ type CreateBillingRule struct {
 func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAmount(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCategory(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateChargeType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePercentage(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateService(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSQLQuery(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStartPeriod(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSubCategory(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateTitle(formats); err != nil {
 		res = append(res, err)
 	}
@@ -118,78 +78,6 @@ func (m *CreateBillingRule) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *CreateBillingRule) validateAmount(formats strfmt.Registry) error {
-
-	if err := validate.Required("amount", "body", m.Amount); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateCategory(formats strfmt.Registry) error {
-
-	if err := validate.Required("category", "body", m.Category); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateChargeType(formats strfmt.Registry) error {
-
-	if err := validate.Required("charge_type", "body", m.ChargeType); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validatePercentage(formats strfmt.Registry) error {
-
-	if err := validate.Required("percentage", "body", m.Percentage); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateService(formats strfmt.Registry) error {
-
-	if err := validate.Required("service", "body", m.Service); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateSQLQuery(formats strfmt.Registry) error {
-
-	if err := validate.Required("sql_query", "body", m.SQLQuery); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateStartPeriod(formats strfmt.Registry) error {
-
-	if err := validate.Required("start_period", "body", m.StartPeriod); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateBillingRule) validateSubCategory(formats strfmt.Registry) error {
-
-	if err := validate.Required("sub_category", "body", m.SubCategory); err != nil {
-		return err
-	}
-
 	return nil
 }
 
