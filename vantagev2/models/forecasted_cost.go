@@ -33,7 +33,7 @@ type ForecastedCost struct {
 
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent"]
 	Provider string `json:"provider,omitempty"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
@@ -59,7 +59,7 @@ var forecastedCostTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -137,6 +137,12 @@ const (
 
 	// ForecastedCostProviderTwilio captures enum value "twilio"
 	ForecastedCostProviderTwilio string = "twilio"
+
+	// ForecastedCostProviderAzureCsp captures enum value "azure_csp"
+	ForecastedCostProviderAzureCsp string = "azure_csp"
+
+	// ForecastedCostProviderKubernetesAgent captures enum value "kubernetes_agent"
+	ForecastedCostProviderKubernetesAgent string = "kubernetes_agent"
 )
 
 // prop value enum

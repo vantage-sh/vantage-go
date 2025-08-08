@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewCreateUserCostsUploadViaCsvParams creates a new CreateUserCostsUploadViaCsvParams object,
@@ -61,6 +62,12 @@ CreateUserCostsUploadViaCsvParams contains all the parameters to send to the API
 */
 type CreateUserCostsUploadViaCsvParams struct {
 
+	/* AutoTransform.
+
+	   Attempt to automatically transform the CSV file to match the FOCUS format.
+	*/
+	AutoTransform *bool
+
 	/* Csv.
 
 	   CSV file containing custom costs
@@ -87,7 +94,18 @@ func (o *CreateUserCostsUploadViaCsvParams) WithDefaults() *CreateUserCostsUploa
 //
 // All values with no default are reset to their zero value.
 func (o *CreateUserCostsUploadViaCsvParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		autoTransformDefault = bool(false)
+	)
+
+	val := CreateUserCostsUploadViaCsvParams{
+		AutoTransform: &autoTransformDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the create user costs upload via csv params
@@ -123,6 +141,17 @@ func (o *CreateUserCostsUploadViaCsvParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAutoTransform adds the autoTransform to the create user costs upload via csv params
+func (o *CreateUserCostsUploadViaCsvParams) WithAutoTransform(autoTransform *bool) *CreateUserCostsUploadViaCsvParams {
+	o.SetAutoTransform(autoTransform)
+	return o
+}
+
+// SetAutoTransform adds the autoTransform to the create user costs upload via csv params
+func (o *CreateUserCostsUploadViaCsvParams) SetAutoTransform(autoTransform *bool) {
+	o.AutoTransform = autoTransform
+}
+
 // WithCsv adds the csv to the create user costs upload via csv params
 func (o *CreateUserCostsUploadViaCsvParams) WithCsv(csv runtime.NamedReadCloser) *CreateUserCostsUploadViaCsvParams {
 	o.SetCsv(csv)
@@ -152,6 +181,21 @@ func (o *CreateUserCostsUploadViaCsvParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
+
+	if o.AutoTransform != nil {
+
+		// form param auto_transform
+		var frAutoTransform bool
+		if o.AutoTransform != nil {
+			frAutoTransform = *o.AutoTransform
+		}
+		fAutoTransform := swag.FormatBool(frAutoTransform)
+		if fAutoTransform != "" {
+			if err := r.SetFormParam("auto_transform", fAutoTransform); err != nil {
+				return err
+			}
+		}
+	}
 	// form file param csv
 	if err := r.SetFileParam("csv", o.Csv); err != nil {
 		return err

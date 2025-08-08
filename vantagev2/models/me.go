@@ -22,6 +22,9 @@ type Me struct {
 	// bearer token
 	BearerToken *BearerToken `json:"bearer_token,omitempty"`
 
+	// default workspace token
+	DefaultWorkspaceToken string `json:"default_workspace_token,omitempty"`
+
 	// workspaces
 	Workspaces []*Workspace `json:"workspaces"`
 }

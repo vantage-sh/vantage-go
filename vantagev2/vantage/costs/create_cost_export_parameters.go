@@ -144,6 +144,14 @@ type CreateCostExportParams struct {
 	*/
 	SettingsIncludeTax *bool
 
+	/* SettingsShowPreviousPeriod.
+
+	   Results will show previous period costs or usage comparison.
+
+	   Default: true
+	*/
+	SettingsShowPreviousPeriod *bool
+
 	/* SettingsUnallocated.
 
 	   Results will show unallocated costs.
@@ -194,18 +202,21 @@ func (o *CreateCostExportParams) SetDefaults() {
 
 		settingsIncludeTaxDefault = bool(true)
 
+		settingsShowPreviousPeriodDefault = bool(true)
+
 		settingsUnallocatedDefault = bool(false)
 	)
 
 	val := CreateCostExportParams{
-		Schema:                   &schemaDefault,
-		SettingsAggregateBy:      &settingsAggregateByDefault,
-		SettingsAmortize:         &settingsAmortizeDefault,
-		SettingsIncludeCredits:   &settingsIncludeCreditsDefault,
-		SettingsIncludeDiscounts: &settingsIncludeDiscountsDefault,
-		SettingsIncludeRefunds:   &settingsIncludeRefundsDefault,
-		SettingsIncludeTax:       &settingsIncludeTaxDefault,
-		SettingsUnallocated:      &settingsUnallocatedDefault,
+		Schema:                     &schemaDefault,
+		SettingsAggregateBy:        &settingsAggregateByDefault,
+		SettingsAmortize:           &settingsAmortizeDefault,
+		SettingsIncludeCredits:     &settingsIncludeCreditsDefault,
+		SettingsIncludeDiscounts:   &settingsIncludeDiscountsDefault,
+		SettingsIncludeRefunds:     &settingsIncludeRefundsDefault,
+		SettingsIncludeTax:         &settingsIncludeTaxDefault,
+		SettingsShowPreviousPeriod: &settingsShowPreviousPeriodDefault,
+		SettingsUnallocated:        &settingsUnallocatedDefault,
 	}
 
 	val.timeout = o.timeout
@@ -377,6 +388,17 @@ func (o *CreateCostExportParams) WithSettingsIncludeTax(settingsIncludeTax *bool
 // SetSettingsIncludeTax adds the settingsIncludeTax to the create cost export params
 func (o *CreateCostExportParams) SetSettingsIncludeTax(settingsIncludeTax *bool) {
 	o.SettingsIncludeTax = settingsIncludeTax
+}
+
+// WithSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the create cost export params
+func (o *CreateCostExportParams) WithSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) *CreateCostExportParams {
+	o.SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod)
+	return o
+}
+
+// SetSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the create cost export params
+func (o *CreateCostExportParams) SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) {
+	o.SettingsShowPreviousPeriod = settingsShowPreviousPeriod
 }
 
 // WithSettingsUnallocated adds the settingsUnallocated to the create cost export params
@@ -591,6 +613,21 @@ func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		fSettingsIncludeTax := swag.FormatBool(frSettingsIncludeTax)
 		if fSettingsIncludeTax != "" {
 			if err := r.SetFormParam("settings[include_tax]", fSettingsIncludeTax); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsShowPreviousPeriod != nil {
+
+		// form param settings[show_previous_period]
+		var frSettingsShowPreviousPeriod bool
+		if o.SettingsShowPreviousPeriod != nil {
+			frSettingsShowPreviousPeriod = *o.SettingsShowPreviousPeriod
+		}
+		fSettingsShowPreviousPeriod := swag.FormatBool(frSettingsShowPreviousPeriod)
+		if fSettingsShowPreviousPeriod != "" {
+			if err := r.SetFormParam("settings[show_previous_period]", fSettingsShowPreviousPeriod); err != nil {
 				return err
 			}
 		}

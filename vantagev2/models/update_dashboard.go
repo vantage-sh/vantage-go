@@ -26,7 +26,7 @@ type UpdateDashboard struct {
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days",""]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days",""]
 	DateInterval string `json:"date_interval"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -122,7 +122,7 @@ var updateDashboardTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days",""]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days",""]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -179,6 +179,9 @@ const (
 
 	// UpdateDashboardDateIntervalLast3Days captures enum value "last_3_days"
 	UpdateDashboardDateIntervalLast3Days string = "last_3_days"
+
+	// UpdateDashboardDateIntervalLast14Days captures enum value "last_14_days"
+	UpdateDashboardDateIntervalLast14Days string = "last_14_days"
 
 	// UpdateDashboardDateIntervalEmpty captures enum value ""
 	UpdateDashboardDateIntervalEmpty string = ""

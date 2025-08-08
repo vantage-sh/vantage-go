@@ -246,6 +246,9 @@ type CostReportSettings struct {
 	// Report will include tax.
 	IncludeTax *bool `json:"include_tax,omitempty"`
 
+	// Report will show previous period costs or usage comparison.
+	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
+
 	// Report will show unallocated costs.
 	Unallocated *bool `json:"unallocated,omitempty"`
 }
