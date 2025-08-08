@@ -160,6 +160,14 @@ type GetCostsParams struct {
 	*/
 	SettingsIncludeTax *bool
 
+	/* SettingsShowPreviousPeriod.
+
+	   Results will show previous period costs or usage comparison.
+
+	   Default: true
+	*/
+	SettingsShowPreviousPeriod *bool
+
 	/* SettingsUnallocated.
 
 	   Results will show unallocated costs.
@@ -210,18 +218,21 @@ func (o *GetCostsParams) SetDefaults() {
 
 		settingsIncludeTaxDefault = bool(true)
 
+		settingsShowPreviousPeriodDefault = bool(true)
+
 		settingsUnallocatedDefault = bool(false)
 	)
 
 	val := GetCostsParams{
-		Order:                    &orderDefault,
-		SettingsAggregateBy:      &settingsAggregateByDefault,
-		SettingsAmortize:         &settingsAmortizeDefault,
-		SettingsIncludeCredits:   &settingsIncludeCreditsDefault,
-		SettingsIncludeDiscounts: &settingsIncludeDiscountsDefault,
-		SettingsIncludeRefunds:   &settingsIncludeRefundsDefault,
-		SettingsIncludeTax:       &settingsIncludeTaxDefault,
-		SettingsUnallocated:      &settingsUnallocatedDefault,
+		Order:                      &orderDefault,
+		SettingsAggregateBy:        &settingsAggregateByDefault,
+		SettingsAmortize:           &settingsAmortizeDefault,
+		SettingsIncludeCredits:     &settingsIncludeCreditsDefault,
+		SettingsIncludeDiscounts:   &settingsIncludeDiscountsDefault,
+		SettingsIncludeRefunds:     &settingsIncludeRefundsDefault,
+		SettingsIncludeTax:         &settingsIncludeTaxDefault,
+		SettingsShowPreviousPeriod: &settingsShowPreviousPeriodDefault,
+		SettingsUnallocated:        &settingsUnallocatedDefault,
 	}
 
 	val.timeout = o.timeout
@@ -415,6 +426,17 @@ func (o *GetCostsParams) WithSettingsIncludeTax(settingsIncludeTax *bool) *GetCo
 // SetSettingsIncludeTax adds the settingsIncludeTax to the get costs params
 func (o *GetCostsParams) SetSettingsIncludeTax(settingsIncludeTax *bool) {
 	o.SettingsIncludeTax = settingsIncludeTax
+}
+
+// WithSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the get costs params
+func (o *GetCostsParams) WithSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) *GetCostsParams {
+	o.SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod)
+	return o
+}
+
+// SetSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the get costs params
+func (o *GetCostsParams) SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) {
+	o.SettingsShowPreviousPeriod = settingsShowPreviousPeriod
 }
 
 // WithSettingsUnallocated adds the settingsUnallocated to the get costs params
@@ -685,6 +707,23 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qSettingsIncludeTax != "" {
 
 			if err := r.SetQueryParam("settings[include_tax]", qSettingsIncludeTax); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SettingsShowPreviousPeriod != nil {
+
+		// query param settings[show_previous_period]
+		var qrSettingsShowPreviousPeriod bool
+
+		if o.SettingsShowPreviousPeriod != nil {
+			qrSettingsShowPreviousPeriod = *o.SettingsShowPreviousPeriod
+		}
+		qSettingsShowPreviousPeriod := swag.FormatBool(qrSettingsShowPreviousPeriod)
+		if qSettingsShowPreviousPeriod != "" {
+
+			if err := r.SetQueryParam("settings[show_previous_period]", qSettingsShowPreviousPeriod); err != nil {
 				return err
 			}
 		}

@@ -29,7 +29,7 @@ type UpdateKubernetesEfficiencyReport struct {
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -39,7 +39,7 @@ type UpdateKubernetesEfficiencyReport struct {
 	// The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>.
+	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.
 	Groupings []string `json:"groupings"`
 
 	// The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -174,7 +174,7 @@ var updateKubernetesEfficiencyReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -231,6 +231,9 @@ const (
 
 	// UpdateKubernetesEfficiencyReportDateIntervalLast3Days captures enum value "last_3_days"
 	UpdateKubernetesEfficiencyReportDateIntervalLast3Days string = "last_3_days"
+
+	// UpdateKubernetesEfficiencyReportDateIntervalLast14Days captures enum value "last_14_days"
+	UpdateKubernetesEfficiencyReportDateIntervalLast14Days string = "last_14_days"
 )
 
 // prop value enum

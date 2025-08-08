@@ -25,15 +25,15 @@ type UpdateCostReport struct {
 	BusinessMetricTokensWithMetadata []*UpdateCostReportBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
 	// The chart type of the CostReport.
-	// Enum: ["area","line","pie","bar"]
+	// Enum: ["area","line","pie","bar","multi_bar"]
 	ChartType *string `json:"chart_type,omitempty"`
 
 	// The date bin of the CostReport.
-	// Enum: ["cumulative","day","week","month"]
+	// Enum: ["cumulative","day","week","month","quarter"]
 	DateBin *string `json:"date_bin,omitempty"`
 
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
@@ -127,7 +127,7 @@ var updateCostReportTypeChartTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["area","line","pie","bar"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["area","line","pie","bar","multi_bar"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -148,6 +148,9 @@ const (
 
 	// UpdateCostReportChartTypeBar captures enum value "bar"
 	UpdateCostReportChartTypeBar string = "bar"
+
+	// UpdateCostReportChartTypeMultiBar captures enum value "multi_bar"
+	UpdateCostReportChartTypeMultiBar string = "multi_bar"
 )
 
 // prop value enum
@@ -175,7 +178,7 @@ var updateCostReportTypeDateBinPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cumulative","day","week","month"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cumulative","day","week","month","quarter"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -196,6 +199,9 @@ const (
 
 	// UpdateCostReportDateBinMonth captures enum value "month"
 	UpdateCostReportDateBinMonth string = "month"
+
+	// UpdateCostReportDateBinQuarter captures enum value "quarter"
+	UpdateCostReportDateBinQuarter string = "quarter"
 )
 
 // prop value enum
@@ -223,7 +229,7 @@ var updateCostReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -280,6 +286,9 @@ const (
 
 	// UpdateCostReportDateIntervalLast3Days captures enum value "last_3_days"
 	UpdateCostReportDateIntervalLast3Days string = "last_3_days"
+
+	// UpdateCostReportDateIntervalLast14Days captures enum value "last_14_days"
+	UpdateCostReportDateIntervalLast14Days string = "last_14_days"
 )
 
 // prop value enum
@@ -544,6 +553,9 @@ type UpdateCostReportSettings struct {
 
 	// Report will include tax.
 	IncludeTax bool `json:"include_tax,omitempty"`
+
+	// Report will show previous period costs or usage comparison.
+	ShowPreviousPeriod bool `json:"show_previous_period,omitempty"`
 
 	// Report will show unallocated costs.
 	Unallocated bool `json:"unallocated,omitempty"`

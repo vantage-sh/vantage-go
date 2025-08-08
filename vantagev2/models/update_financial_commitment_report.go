@@ -21,11 +21,11 @@ import (
 type UpdateFinancialCommitmentReport struct {
 
 	// The date bucket of the FinancialCommitmentReport.
-	// Enum: ["day","week","month"]
+	// Enum: ["hour","day","week","month"]
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days"]
+	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days","last_14_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
@@ -86,7 +86,7 @@ var updateFinancialCommitmentReportTypeDateBucketPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["day","week","month"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["hour","day","week","month"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -95,6 +95,9 @@ func init() {
 }
 
 const (
+
+	// UpdateFinancialCommitmentReportDateBucketHour captures enum value "hour"
+	UpdateFinancialCommitmentReportDateBucketHour string = "hour"
 
 	// UpdateFinancialCommitmentReportDateBucketDay captures enum value "day"
 	UpdateFinancialCommitmentReportDateBucketDay string = "day"
@@ -131,7 +134,7 @@ var updateFinancialCommitmentReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days","last_14_days"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -176,6 +179,9 @@ const (
 
 	// UpdateFinancialCommitmentReportDateIntervalLast3Days captures enum value "last_3_days"
 	UpdateFinancialCommitmentReportDateIntervalLast3Days string = "last_3_days"
+
+	// UpdateFinancialCommitmentReportDateIntervalLast14Days captures enum value "last_14_days"
+	UpdateFinancialCommitmentReportDateIntervalLast14Days string = "last_14_days"
 )
 
 // prop value enum

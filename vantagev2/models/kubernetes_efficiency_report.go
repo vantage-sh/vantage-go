@@ -42,7 +42,7 @@ type KubernetesEfficiencyReport struct {
 	// The filter applied to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, label, label:<label_name>.
+	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.
 	// Example: cluster_id, namespace
 	Groupings string `json:"groupings,omitempty"`
 

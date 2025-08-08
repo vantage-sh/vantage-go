@@ -17,6 +17,9 @@ import (
 // swagger:model updateResourceReport
 type UpdateResourceReport struct {
 
+	// Array of column names to display in the table. Column names should match those returned by the /resource_reports/columns endpoint. The order determines the display order. Only available for reports with a single resource type filter.
+	Columns []string `json:"columns"`
+
 	// The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
