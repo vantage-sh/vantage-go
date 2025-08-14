@@ -18,8 +18,7 @@ import (
 type ResourceReport struct {
 
 	// Array of column names configured for the ResourceReport table display.
-	// Example: ["provider","label","accrued_costs","region","type"]
-	Columns string `json:"columns,omitempty"`
+	Columns []string `json:"columns"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z

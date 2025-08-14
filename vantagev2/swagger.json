@@ -115,6 +115,10 @@
       "description": "Operations about AnomalyAlerts"
     },
     {
+      "name": "AuditLogs",
+      "description": "Operations about AuditLogs"
+    },
+    {
       "name": "VirtualTags",
       "description": "Operations about VirtualTags"
     },
@@ -6856,6 +6860,287 @@
         "operationId": "getAnomalyAlert"
       }
     },
+    "/audit_logs": {
+      "get": {
+        "description": "Return all AuditLogs.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "user",
+            "description": "Filter by personal or service API token that performed the action.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "Filter by action type (e.g., create, update, delete).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "object_name",
+            "description": "Filter by object name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "source",
+            "description": "Filter by source (e.g., console, api).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "object_type",
+            "description": "Filter by object type (e.g., virtual_tag, cost_report).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "token",
+            "description": "Filter by audit log token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "object_token",
+            "description": "Filter by object token (auditable_token).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Filter by start date (ISO 8601 format) for the time period.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Filter by end date (ISO 8601 format) for the time period.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuditLogs"
+            },
+            "examples": {
+              "application/json": {
+                "audit_logs": [
+                  {
+                    "token": "adt_lg_1234567890abcdef",
+                    "object_token": "rpt_1234567890abcdef",
+                    "object_type": "Report",
+                    "object_title": "Production Cost Report",
+                    "event": "record_updated",
+                    "source": "api",
+                    "user": "Example User",
+                    "workspace_title": "Production Workspace",
+                    "workspace_token": "wrkspc_5df510e54a48a137",
+                    "created_at": "2025-07-01T14:30:00Z",
+                    "object_changes": {
+                      "title": [
+                        "Old Production Report",
+                        "Production Cost Report"
+                      ],
+                      "updated_at": [
+                        "2025-06-15T10:00:00Z",
+                        "2025-07-01T14:30:00Z"
+                      ]
+                    }
+                  },
+                  {
+                    "token": "adt_lg_0987654321fedcba",
+                    "object_token": "rpt_0987654321fedcba",
+                    "object_type": "Report",
+                    "object_title": "Development Cost Report",
+                    "event": "record_created",
+                    "source": "console",
+                    "user": "Example User",
+                    "workspace_title": "Production Workspace",
+                    "workspace_token": "wrkspc_5df510e54a48a137",
+                    "created_at": "2025-06-25T09:15:00Z",
+                    "object_changes": {
+                      "key": [
+                        null,
+                        "api-created-tag-1755150452"
+                      ],
+                      "token": [
+                        null,
+                        "vtag_0497e0c2b571a71d"
+                      ],
+                      "backfill_until": [
+                        null,
+                        "2025-08-01T00:00:00.000Z"
+                      ],
+                      "created_by_type": [
+                        "User",
+                        "Team"
+                      ],
+                      "referenced_tag_keys_by_provider": [
+                        "{}",
+                        "{\"aws\":[]}"
+                      ],
+                      "account": [
+                        null,
+                        "Test Account"
+                      ],
+                      "created_by": [
+                        null,
+                        "Example User"
+                      ]
+                    }
+                  },
+                  {
+                    "token": "adt_lg_abcdef1234567890",
+                    "object_token": "bgt_abcdef1234567890",
+                    "object_type": "Budget",
+                    "object_title": "Q3 Marketing Budget",
+                    "event": "record_destroyed",
+                    "source": "api",
+                    "user": "Admin User",
+                    "workspace_title": "Production Workspace",
+                    "workspace_token": "wrkspc_5df510e54a48a137",
+                    "created_at": "2025-06-20T16:45:00Z",
+                    "object_changes": {
+                      "title": [
+                        "test_1",
+                        "test_1_updated"
+                      ]
+                    }
+                  }
+                ],
+                "_links": {
+                  "self": "/v2/audit_logs?page=1&limit=25",
+                  "first": "/v2/audit_logs?page=1&limit=25",
+                  "next": "/v2/audit_logs?page=2&limit=25",
+                  "last": "/v2/audit_logs?page=10&limit=25",
+                  "prev": null
+                },
+                "_meta": {
+                  "total_count": 248,
+                  "per_page": 25,
+                  "page": 1
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ],
+        "operationId": "getAuditLogs"
+      }
+    },
+    "/audit_logs/{audit_log_token}": {
+      "get": {
+        "description": "Return a specific AuditLog.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "audit_log_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuditLog"
+            },
+            "examples": {
+              "application/json": {
+                "token": "adt_lg_1234567890abcdef",
+                "object_token": "rpt_1234567890abcdef",
+                "object_type": "Report",
+                "object_title": "Production Cost Report",
+                "event": "record_updated",
+                "source": "api",
+                "user": "Example User",
+                "workspace_title": "Production Workspace",
+                "workspace_token": "wrkspc_5df510e54a48a137",
+                "created_at": "2025-07-01T14:30:00Z",
+                "object_changes": {
+                  "title": [
+                    "Old Production Report",
+                    "Production Cost Report"
+                  ],
+                  "updated_at": [
+                    "2025-06-15T10:00:00Z",
+                    "2025-07-01T14:30:00Z"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ],
+        "operationId": "getAuditLog"
+      }
+    },
     "/virtual_tag_configs": {
       "post": {
         "description": "Create a new VirtualTagConfig.",
@@ -9224,6 +9509,7 @@
               "s3_cloudflare",
               "ip_unattached",
               "s3_bucket_intelligent_tiering",
+              "s3_bucket_glacier_instant_retrieval",
               "savings_plan",
               "unused_financial_commitments",
               "datadog_financial_commitments",
@@ -12737,14 +13023,17 @@
           "description": "The token for the User or Team who created this ResourceReport."
         },
         "columns": {
-          "type": "string",
-          "example": [
-            "provider",
-            "label",
-            "accrued_costs",
-            "region",
-            "type"
-          ],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "provider",
+              "label",
+              "accrued_costs",
+              "region",
+              "type"
+            ]
+          },
           "description": "Array of column names configured for the ResourceReport table display."
         }
       },
@@ -14701,6 +14990,79 @@
         "status"
       ],
       "description": "Update an AnomalyAlert."
+    },
+    "AuditLogs": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "audit_logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuditLog"
+          }
+        }
+      },
+      "description": "AuditLogs model"
+    },
+    "AuditLog": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "adt_lg_1234567890abcdef",
+          "description": "The unique token identifying the audit log."
+        },
+        "object_token": {
+          "type": "string",
+          "example": "rpt_1234567890abcdef",
+          "description": "The token of the audited object."
+        },
+        "object_type": {
+          "type": "string",
+          "example": "Report",
+          "description": "The type of the audited object."
+        },
+        "object_title": {
+          "type": "string",
+          "example": "Production Cost Report",
+          "description": "The title of the audited object."
+        },
+        "event": {
+          "type": "string",
+          "example": "record_created",
+          "description": "The event type of the audit log."
+        },
+        "source": {
+          "type": "string",
+          "example": "console",
+          "description": "The source of the action (console, api, developer)."
+        },
+        "user": {
+          "type": "string",
+          "description": "The name of the user who performed the action."
+        },
+        "workspace_title": {
+          "type": "string",
+          "description": "The name of the workspace associated with the audit log."
+        },
+        "workspace_token": {
+          "type": "string",
+          "example": "wrkspc_1234567890abcdef",
+          "description": "The token of the workspace associated with the audit log."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-07-09T00:00:00Z",
+          "description": "The date and time, in UTC, the audit log was created. ISO 8601 Formatted."
+        },
+        "object_changes": {
+          "type": "object",
+          "description": "The changes made to the object."
+        }
+      },
+      "description": "AuditLog model"
     },
     "createVirtualTagConfig": {
       "type": "object",
