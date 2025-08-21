@@ -7,7 +7,9 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -20,11 +22,20 @@ type UpdateManagedAccount struct {
 	// Access Credential (aka Integrations) tokens to assign to the Managed Account.
 	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
+	// billing information attributes
+	BillingInformationAttributes *UpdateManagedAccountBillingInformationAttributes `json:"billing_information_attributes,omitempty"`
+
 	// Billing Rule tokens to assign to the Managed Account.
 	BillingRuleTokens []string `json:"billing_rule_tokens"`
 
+	// business information attributes
+	BusinessInformationAttributes *UpdateManagedAccountBusinessInformationAttributes `json:"business_information_attributes,omitempty"`
+
 	// The contact email address for the Managed Account.
 	ContactEmail string `json:"contact_email,omitempty"`
+
+	// Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only).
+	MspBillingProfileToken string `json:"msp_billing_profile_token,omitempty"`
 
 	// The name of the Managed Account.
 	Name string `json:"name,omitempty"`
@@ -32,11 +43,117 @@ type UpdateManagedAccount struct {
 
 // Validate validates this update managed account
 func (m *UpdateManagedAccount) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateBillingInformationAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBusinessInformationAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this update managed account based on context it is used
+func (m *UpdateManagedAccount) validateBillingInformationAttributes(formats strfmt.Registry) error {
+	if swag.IsZero(m.BillingInformationAttributes) { // not required
+		return nil
+	}
+
+	if m.BillingInformationAttributes != nil {
+		if err := m.BillingInformationAttributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("billing_information_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("billing_information_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateManagedAccount) validateBusinessInformationAttributes(formats strfmt.Registry) error {
+	if swag.IsZero(m.BusinessInformationAttributes) { // not required
+		return nil
+	}
+
+	if m.BusinessInformationAttributes != nil {
+		if err := m.BusinessInformationAttributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("business_information_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("business_information_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this update managed account based on the context it is used
 func (m *UpdateManagedAccount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBillingInformationAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBusinessInformationAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateManagedAccount) contextValidateBillingInformationAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BillingInformationAttributes != nil {
+
+		if swag.IsZero(m.BillingInformationAttributes) { // not required
+			return nil
+		}
+
+		if err := m.BillingInformationAttributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("billing_information_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("billing_information_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateManagedAccount) contextValidateBusinessInformationAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BusinessInformationAttributes != nil {
+
+		if swag.IsZero(m.BusinessInformationAttributes) { // not required
+			return nil
+		}
+
+		if err := m.BusinessInformationAttributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("business_information_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("business_information_attributes")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -51,6 +168,317 @@ func (m *UpdateManagedAccount) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateManagedAccount) UnmarshalBinary(b []byte) error {
 	var res UpdateManagedAccount
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateManagedAccountBillingInformationAttributes Billing address and contact information (MSP invoicing accounts only)
+//
+// swagger:model UpdateManagedAccountBillingInformationAttributes
+type UpdateManagedAccountBillingInformationAttributes struct {
+
+	// First line of billing address
+	AddressLine1 string `json:"address_line_1,omitempty"`
+
+	// Second line of billing address
+	AddressLine2 string `json:"address_line_2,omitempty"`
+
+	// Array of billing email addresses
+	BillingEmail []string `json:"billing_email"`
+
+	// City for billing address
+	City string `json:"city,omitempty"`
+
+	// Company name for billing
+	CompanyName string `json:"company_name,omitempty"`
+
+	// ISO country code
+	CountryCode string `json:"country_code,omitempty"`
+
+	// id
+	ID int32 `json:"id,omitempty"`
+
+	// Postal or ZIP code
+	PostalCode string `json:"postal_code,omitempty"`
+
+	// State or province for billing address
+	State string `json:"state,omitempty"`
+
+	// token
+	Token string `json:"token,omitempty"`
+}
+
+// Validate validates this update managed account billing information attributes
+func (m *UpdateManagedAccountBillingInformationAttributes) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this update managed account billing information attributes based on context it is used
+func (m *UpdateManagedAccountBillingInformationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateManagedAccountBillingInformationAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateManagedAccountBillingInformationAttributes) UnmarshalBinary(b []byte) error {
+	var res UpdateManagedAccountBillingInformationAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateManagedAccountBusinessInformationAttributes Business information and custom fields (MSP invoicing accounts only)
+//
+// swagger:model UpdateManagedAccountBusinessInformationAttributes
+type UpdateManagedAccountBusinessInformationAttributes struct {
+
+	// id
+	ID int32 `json:"id,omitempty"`
+
+	// metadata
+	Metadata *UpdateManagedAccountBusinessInformationAttributesMetadata `json:"metadata,omitempty"`
+
+	// token
+	Token string `json:"token,omitempty"`
+}
+
+// Validate validates this update managed account business information attributes
+func (m *UpdateManagedAccountBusinessInformationAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateManagedAccountBusinessInformationAttributes) validateMetadata(formats strfmt.Registry) error {
+	if swag.IsZero(m.Metadata) { // not required
+		return nil
+	}
+
+	if m.Metadata != nil {
+		if err := m.Metadata.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("business_information_attributes" + "." + "metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("business_information_attributes" + "." + "metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this update managed account business information attributes based on the context it is used
+func (m *UpdateManagedAccountBusinessInformationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateManagedAccountBusinessInformationAttributes) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+
+		if swag.IsZero(m.Metadata) { // not required
+			return nil
+		}
+
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("business_information_attributes" + "." + "metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("business_information_attributes" + "." + "metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributes) UnmarshalBinary(b []byte) error {
+	var res UpdateManagedAccountBusinessInformationAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateManagedAccountBusinessInformationAttributesMetadata Business metadata including custom fields
+//
+// swagger:model UpdateManagedAccountBusinessInformationAttributesMetadata
+type UpdateManagedAccountBusinessInformationAttributesMetadata struct {
+
+	// Array of custom field objects
+	CustomFields []*UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0 `json:"custom_fields"`
+}
+
+// Validate validates this update managed account business information attributes metadata
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCustomFields(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) validateCustomFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.CustomFields) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.CustomFields); i++ {
+		if swag.IsZero(m.CustomFields[i]) { // not required
+			continue
+		}
+
+		if m.CustomFields[i] != nil {
+			if err := m.CustomFields[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_information_attributes" + "." + "metadata" + "." + "custom_fields" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_information_attributes" + "." + "metadata" + "." + "custom_fields" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this update managed account business information attributes metadata based on the context it is used
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCustomFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) contextValidateCustomFields(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.CustomFields); i++ {
+
+		if m.CustomFields[i] != nil {
+
+			if swag.IsZero(m.CustomFields[i]) { // not required
+				return nil
+			}
+
+			if err := m.CustomFields[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("business_information_attributes" + "." + "metadata" + "." + "custom_fields" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("business_information_attributes" + "." + "metadata" + "." + "custom_fields" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadata) UnmarshalBinary(b []byte) error {
+	var res UpdateManagedAccountBusinessInformationAttributesMetadata
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0 update managed account business information attributes metadata custom fields items0
+//
+// swagger:model UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0
+type UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0 struct {
+
+	// Custom field name
+	Name string `json:"name,omitempty"`
+
+	// Custom field value
+	Value string `json:"value,omitempty"`
+}
+
+// Validate validates this update managed account business information attributes metadata custom fields items0
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this update managed account business information attributes metadata custom fields items0 based on context it is used
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateManagedAccountBusinessInformationAttributesMetadataCustomFieldsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -5,4 +5,3 @@ pushd $SCRIPT_DIR
 curl "${VANTAGE_HOST:-https://api.vantage.sh}/v2/swagger.json" | jq . > swagger.json
 swagger generate client -f swagger.json -c vantage vantagev2
 popd
-

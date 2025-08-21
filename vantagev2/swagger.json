@@ -151,6 +151,14 @@
       "description": "Operations about ManagedAccounts"
     },
     {
+      "name": "BillingProfiles",
+      "description": "Operations about BillingProfiles"
+    },
+    {
+      "name": "Invoices",
+      "description": "Operations about Invoices"
+    },
+    {
       "name": "BillingRules",
       "description": "Operations about BillingRules"
     },
@@ -3272,13 +3280,13 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_rprt_73606a56fdc1ff46",
+                "token": "prvdr_rsrc_rprt_d881b5362adab1c2",
                 "title": "EC2 Report",
                 "filter": "resources.provider = 'aws' and resources.type = 'aws_instance'",
-                "created_at": "2025-08-01T20:34:00Z",
-                "workspace_token": "wrkspc_2defed30ec0c8712",
+                "created_at": "2025-08-14T19:13:32Z",
+                "workspace_token": "wrkspc_e5a36fbae0021598",
                 "user_token": null,
-                "created_by_token": "team_1d855d53260c74c3",
+                "created_by_token": "team_16f0d31149f3254a",
                 "columns": [
                   "provider",
                   "label",
@@ -3357,11 +3365,11 @@
                 },
                 "resource_reports": [
                   {
-                    "token": "prvdr_rsrc_rprt_40b7eafb660cc683",
-                    "title": "Resource Report 97b4724e",
+                    "token": "prvdr_rsrc_rprt_955ad21703b22099",
+                    "title": "Resource Report 1274a351",
                     "filter": "(resources.provider = 'aws')",
-                    "created_at": "2025-08-01T20:33:58Z",
-                    "workspace_token": "wrkspc_9854658df7223ca9",
+                    "created_at": "2025-08-14T19:13:30Z",
+                    "workspace_token": "wrkspc_490ea5f144c3896c",
                     "user_token": null,
                     "created_by_token": null,
                     "columns": [
@@ -3452,6 +3460,7 @@
                   "privateIpAddress",
                   "publicDnsName",
                   "instanceType",
+                  "instanceFamily",
                   "platform",
                   "spotInstanceRequestId",
                   "launchTime",
@@ -3561,11 +3570,11 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_rprt_9d4bf7776a7b8970",
+                "token": "prvdr_rsrc_rprt_79e32da0783a830f",
                 "title": "EC2 Edited Report",
                 "filter": "resources.provider = 'aws' and resources.type = 'aws_ebs_volume'",
-                "created_at": "2025-08-01T20:33:59Z",
-                "workspace_token": "wrkspc_03cedd5001011be0",
+                "created_at": "2025-08-14T19:13:31Z",
+                "workspace_token": "wrkspc_485f11dcbe94de26",
                 "user_token": null,
                 "created_by_token": null,
                 "columns": [
@@ -3633,11 +3642,11 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_rprt_c1ede5f4e6217279",
-                "title": "Resource Report d2f30c7c",
+                "token": "prvdr_rsrc_rprt_5270d2a0708fd74f",
+                "title": "Resource Report 84541657",
                 "filter": "(resources.provider = 'aws')",
-                "created_at": "2025-08-01T20:33:57Z",
-                "workspace_token": "wrkspc_94df5de8de150cc3",
+                "created_at": "2025-08-14T19:13:30Z",
+                "workspace_token": "wrkspc_2ed2f1a59293a996",
                 "user_token": null,
                 "created_by_token": null,
                 "columns": [
@@ -10078,6 +10087,963 @@
         "operationId": "getManagedAccount"
       }
     },
+    "/billing_profiles": {
+      "post": {
+        "summary": "Create a new Billing Profile.",
+        "description": "Requires MSP invoicing to be enabled on the account.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "nickname",
+            "description": "Display name for the billing profile",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[company_name]",
+            "description": "Company name for billing",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[country_code]",
+            "description": "ISO country code",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[address_line_1]",
+            "description": "First line of billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[address_line_2]",
+            "description": "Second line of billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[city]",
+            "description": "City for billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[state]",
+            "description": "State or province for billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[postal_code]",
+            "description": "Postal or ZIP code",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[billing_email]",
+            "description": "Array of billing email addresses",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[metadata][custom_fields][name]",
+            "description": "Custom field name",
+            "type": "array",
+            "required": false,
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[metadata][custom_fields][value]",
+            "description": "Custom field value",
+            "type": "array",
+            "required": false,
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[bank_name]",
+            "description": "Name of the bank",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[beneficiary_name]",
+            "description": "Name of the account beneficiary",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[tax_id]",
+            "description": "Tax identification number",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][account_number]",
+            "description": "Bank account number (US)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][routing_number]",
+            "description": "Bank routing number (US)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][iban]",
+            "description": "International Bank Account Number (EU)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][swift_bic]",
+            "description": "SWIFT/BIC code (EU)",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingProfile"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingProfiles"
+        ],
+        "operationId": "createBillingProfile"
+      },
+      "get": {
+        "summary": "Return all Billing Profiles for the current account.",
+        "description": "Requires MSP invoicing to be enabled on the account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingProfiles"
+            }
+          }
+        },
+        "tags": [
+          "BillingProfiles"
+        ],
+        "operationId": "getBillingProfiles"
+      }
+    },
+    "/billing_profiles/{billing_profile_token}": {
+      "delete": {
+        "summary": "Delete a Billing Profile.",
+        "description": "Requires MSP invoicing to be enabled on the account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_profile_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Billing Profile deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/BillingProfile"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingProfiles"
+        ],
+        "operationId": "deleteBillingProfile"
+      },
+      "put": {
+        "summary": "Update a Billing Profile.",
+        "description": "Requires MSP invoicing to be enabled on the account.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_profile_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "nickname",
+            "description": "Display name for the billing profile",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[company_name]",
+            "description": "Company name for billing",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[country_code]",
+            "description": "ISO country code",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[address_line_1]",
+            "description": "First line of billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[address_line_2]",
+            "description": "Second line of billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[city]",
+            "description": "City for billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[state]",
+            "description": "State or province for billing address",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[postal_code]",
+            "description": "Postal or ZIP code",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "billing_information_attributes[billing_email]",
+            "description": "Array of billing email addresses",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[metadata][custom_fields][name]",
+            "description": "Custom field name",
+            "type": "array",
+            "required": false,
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "formData",
+            "name": "business_information_attributes[metadata][custom_fields][value]",
+            "description": "Custom field value",
+            "type": "array",
+            "required": false,
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[id]",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[token]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[bank_name]",
+            "description": "Name of the bank",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[beneficiary_name]",
+            "description": "Name of the account beneficiary",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[tax_id]",
+            "description": "Tax identification number",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][account_number]",
+            "description": "Bank account number (US)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][routing_number]",
+            "description": "Bank routing number (US)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][iban]",
+            "description": "International Bank Account Number (EU)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "banking_information_attributes[secure_data][swift_bic]",
+            "description": "SWIFT/BIC code (EU)",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingProfile"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingProfiles"
+        ],
+        "operationId": "updateBillingProfile"
+      },
+      "get": {
+        "summary": "Return a specific Billing Profile.",
+        "description": "Requires MSP invoicing to be enabled on the account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "billing_profile_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BillingProfile"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BillingProfiles"
+        ],
+        "operationId": "getBillingProfile"
+      }
+    },
+    "/invoices": {
+      "post": {
+        "summary": "Create a new Invoice.",
+        "description": "Only MSP accounts can create invoices.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "billing_period_start",
+            "description": "Start date of billing period (YYYY-MM-DD)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "billing_period_end",
+            "description": "End date of billing period (YYYY-MM-DD)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "account_token",
+            "description": "Token of the managed account to invoice",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "createInvoice"
+      },
+      "get": {
+        "summary": "Return all Invoices for the current account.",
+        "description": "MSP accounts see all invoices for their managed accounts. Child accounts see only their own invoices.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "managed_account_token",
+            "description": "Filter invoices by managed account token (MSP accounts only)",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoices"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "getInvoices"
+      }
+    },
+    "/invoices/{invoice_token}/regenerate": {
+      "post": {
+        "summary": "Regenerate an existing invoice.",
+        "description": "Regenerates invoice data and files. Only MSP accounts can regenerate.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invoice regeneration started",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "regenerateInvoice"
+      }
+    },
+    "/invoices/{invoice_token}/cost_report": {
+      "get": {
+        "summary": "Get cost report URL for invoice period.",
+        "description": "Returns URL to view cost report for the invoice billing period.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns cost report URL for the invoice period",
+            "schema": {
+              "$ref": "#/definitions/CostReport"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "getInvoiceCostReport"
+      }
+    },
+    "/invoices/{invoice_token}/send_and_approve": {
+      "post": {
+        "summary": "Send and approve invoice via email.",
+        "description": "Approves and sends invoice. Only MSP accounts can approve.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invoice approved and sent successfully",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "sendAndApproveInvoice"
+      }
+    },
+    "/invoices/{invoice_token}/send": {
+      "post": {
+        "summary": "Send invoice via email.",
+        "description": "Sends invoice to billing email addresses. Both MSP and child accounts can send.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invoice sent successfully",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "sendInvoice"
+      }
+    },
+    "/invoices/{invoice_token}/download": {
+      "post": {
+        "summary": "Download invoice file.",
+        "description": "MSP accounts can download PDF and CSV. Child accounts can only download PDF.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "file_type",
+            "description": "Type of file to download (pdf or csv)",
+            "type": "string",
+            "enum": [
+              "pdf",
+              "csv"
+            ],
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns download URL for the invoice file"
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "downloadInvoice"
+      }
+    },
+    "/invoices/{invoice_token}": {
+      "get": {
+        "summary": "Return a specific Invoice.",
+        "description": "Returns invoice details if user has access.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoice_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "getInvoice"
+      }
+    },
     "/billing_rules": {
       "post": {
         "description": "Create a BillingRule.",
@@ -16171,9 +17137,82 @@
             "type": "string"
           },
           "description": "The tokens for the Billing Rules assigned to the Managed Account."
+        },
+        "msp_billing_profile_token": {
+          "type": "string",
+          "description": "Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)"
+        },
+        "billing_information_attributes": {
+          "$ref": "#/definitions/BillingInformation",
+          "description": "Billing address and contact information (MSP invoicing accounts only)"
+        },
+        "business_information_attributes": {
+          "$ref": "#/definitions/BusinessInformation",
+          "description": "Business-specific information and custom fields (MSP invoicing accounts only)"
         }
       },
       "description": "ManagedAccount model"
+    },
+    "BillingInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string",
+          "description": "Company name for billing"
+        },
+        "country_code": {
+          "type": "string",
+          "description": "ISO country code"
+        },
+        "address_line_1": {
+          "type": "string",
+          "description": "First line of billing address"
+        },
+        "address_line_2": {
+          "type": "string",
+          "description": "Second line of billing address"
+        },
+        "city": {
+          "type": "string",
+          "description": "City for billing address"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province for billing address"
+        },
+        "postal_code": {
+          "type": "string",
+          "description": "Postal or ZIP code"
+        },
+        "billing_email": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of billing email addresses"
+        }
+      }
+    },
+    "BusinessInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string",
+          "description": "Business information metadata including custom fields"
+        }
+      }
     },
     "ManagedAccounts": {
       "type": "object",
@@ -16214,9 +17253,245 @@
           "items": {
             "type": "string"
           }
+        },
+        "msp_billing_profile_token": {
+          "type": "string",
+          "description": "Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only)."
+        },
+        "billing_information_attributes": {
+          "type": "object",
+          "description": "Billing address and contact information (MSP invoicing accounts only)",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "token": {
+              "type": "string"
+            },
+            "company_name": {
+              "type": "string",
+              "description": "Company name for billing"
+            },
+            "country_code": {
+              "type": "string",
+              "description": "ISO country code"
+            },
+            "address_line_1": {
+              "type": "string",
+              "description": "First line of billing address"
+            },
+            "address_line_2": {
+              "type": "string",
+              "description": "Second line of billing address"
+            },
+            "city": {
+              "type": "string",
+              "description": "City for billing address"
+            },
+            "state": {
+              "type": "string",
+              "description": "State or province for billing address"
+            },
+            "postal_code": {
+              "type": "string",
+              "description": "Postal or ZIP code"
+            },
+            "billing_email": {
+              "type": "array",
+              "description": "Array of billing email addresses",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "business_information_attributes": {
+          "type": "object",
+          "description": "Business information and custom fields (MSP invoicing accounts only)",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "token": {
+              "type": "string"
+            },
+            "metadata": {
+              "type": "object",
+              "description": "Business metadata including custom fields",
+              "properties": {
+                "custom_fields": {
+                  "type": "array",
+                  "description": "Array of custom field objects",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Custom field name"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "Custom field value"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "description": "Update a Managed Account."
+    },
+    "BillingProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string",
+          "description": "Display name for the billing profile"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the billing profile was created. ISO 8601 formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "description": "The date and time, in UTC, the billing profile was last updated. ISO 8601 formatted."
+        },
+        "billing_information_attributes": {
+          "$ref": "#/definitions/BillingInformation",
+          "description": "Billing address and contact information"
+        },
+        "business_information_attributes": {
+          "$ref": "#/definitions/BusinessInformation",
+          "description": "Business-specific information and custom fields"
+        },
+        "banking_information_attributes": {
+          "$ref": "#/definitions/BankingInformation",
+          "description": "Banking details for payments (MSP accounts only)"
+        },
+        "managed_accounts_count": {
+          "type": "string",
+          "description": "Number of managed accounts using this billing profile"
+        }
+      },
+      "description": "BillingProfile model"
+    },
+    "BankingInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "bank_name": {
+          "type": "string",
+          "description": "Name of the bank"
+        },
+        "beneficiary_name": {
+          "type": "string",
+          "description": "Name of the account beneficiary"
+        },
+        "tax_id": {
+          "type": "string",
+          "description": "Tax identification number"
+        },
+        "secure_data": {
+          "type": "string",
+          "description": "Encrypted banking details (account numbers, routing info)"
+        }
+      }
+    },
+    "BillingProfiles": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "billing_profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BillingProfile"
+          }
+        }
+      },
+      "description": "BillingProfiles model"
+    },
+    "Invoice": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "invoice_number": {
+          "type": "string",
+          "description": "Sequential invoice number for the MSP account"
+        },
+        "total": {
+          "type": "string",
+          "description": "Total amount for the invoice period"
+        },
+        "billing_period_start": {
+          "type": "string",
+          "description": "Start date of the billing period. ISO 8601 formatted."
+        },
+        "billing_period_end": {
+          "type": "string",
+          "description": "End date of the billing period. ISO 8601 formatted."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the invoice"
+        },
+        "created_at": {
+          "type": "string",
+          "description": "The date and time, in UTC, the invoice was created. ISO 8601 formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "The date and time, in UTC, the invoice was last updated. ISO 8601 formatted."
+        },
+        "account_token": {
+          "type": "string",
+          "description": "Token of the managed account this invoice belongs to"
+        },
+        "account_name": {
+          "type": "string",
+          "description": "Name of the managed account this invoice belongs to"
+        },
+        "msp_account_token": {
+          "type": "string",
+          "description": "Token of the MSP account that owns this invoice"
+        }
+      },
+      "description": "Invoice model"
+    },
+    "Invoices": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "invoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Invoice"
+          }
+        }
+      },
+      "description": "Invoices model"
     },
     "createBillingRule": {
       "type": "object",
