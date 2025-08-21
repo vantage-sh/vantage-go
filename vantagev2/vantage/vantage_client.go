@@ -14,6 +14,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/audit_logs"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/billing_profiles"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/billing_rules"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budget_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budgets"
@@ -29,6 +30,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/integrations"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/invoices"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/managed_accounts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/me"
@@ -97,6 +99,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
 	cli.AnomalyNotifications = anomaly_notifications.New(transport, formats)
 	cli.AuditLogs = audit_logs.New(transport, formats)
+	cli.BillingProfiles = billing_profiles.New(transport, formats)
 	cli.BillingRules = billing_rules.New(transport, formats)
 	cli.BudgetAlerts = budget_alerts.New(transport, formats)
 	cli.Budgets = budgets.New(transport, formats)
@@ -112,6 +115,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.FinancialCommitments = financial_commitments.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
 	cli.Integrations = integrations.New(transport, formats)
+	cli.Invoices = invoices.New(transport, formats)
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.ManagedAccounts = managed_accounts.New(transport, formats)
 	cli.Me = me.New(transport, formats)
@@ -184,6 +188,8 @@ type Vantage struct {
 
 	AuditLogs audit_logs.ClientService
 
+	BillingProfiles billing_profiles.ClientService
+
 	BillingRules billing_rules.ClientService
 
 	BudgetAlerts budget_alerts.ClientService
@@ -213,6 +219,8 @@ type Vantage struct {
 	Folders folders.ClientService
 
 	Integrations integrations.ClientService
+
+	Invoices invoices.ClientService
 
 	KubernetesEfficiencyReports kubernetes_efficiency_reports.ClientService
 
@@ -264,6 +272,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.AnomalyAlerts.SetTransport(transport)
 	c.AnomalyNotifications.SetTransport(transport)
 	c.AuditLogs.SetTransport(transport)
+	c.BillingProfiles.SetTransport(transport)
 	c.BillingRules.SetTransport(transport)
 	c.BudgetAlerts.SetTransport(transport)
 	c.Budgets.SetTransport(transport)
@@ -279,6 +288,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.FinancialCommitments.SetTransport(transport)
 	c.Folders.SetTransport(transport)
 	c.Integrations.SetTransport(transport)
+	c.Invoices.SetTransport(transport)
 	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.ManagedAccounts.SetTransport(transport)
 	c.Me.SetTransport(transport)
