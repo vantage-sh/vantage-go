@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewDownloadInvoiceParams creates a new DownloadInvoiceParams object,
@@ -61,11 +63,8 @@ DownloadInvoiceParams contains all the parameters to send to the API endpoint
 */
 type DownloadInvoiceParams struct {
 
-	/* FileType.
-
-	   Type of file to download (pdf or csv)
-	*/
-	FileType string
+	// DownloadInvoice.
+	DownloadInvoice *models.DownloadInvoice
 
 	// InvoiceToken.
 	InvoiceToken string
@@ -123,15 +122,15 @@ func (o *DownloadInvoiceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithFileType adds the fileType to the download invoice params
-func (o *DownloadInvoiceParams) WithFileType(fileType string) *DownloadInvoiceParams {
-	o.SetFileType(fileType)
+// WithDownloadInvoice adds the downloadInvoice to the download invoice params
+func (o *DownloadInvoiceParams) WithDownloadInvoice(downloadInvoice *models.DownloadInvoice) *DownloadInvoiceParams {
+	o.SetDownloadInvoice(downloadInvoice)
 	return o
 }
 
-// SetFileType adds the fileType to the download invoice params
-func (o *DownloadInvoiceParams) SetFileType(fileType string) {
-	o.FileType = fileType
+// SetDownloadInvoice adds the downloadInvoice to the download invoice params
+func (o *DownloadInvoiceParams) SetDownloadInvoice(downloadInvoice *models.DownloadInvoice) {
+	o.DownloadInvoice = downloadInvoice
 }
 
 // WithInvoiceToken adds the invoiceToken to the download invoice params
@@ -152,12 +151,8 @@ func (o *DownloadInvoiceParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
-	// form param file_type
-	frFileType := o.FileType
-	fFileType := frFileType
-	if fFileType != "" {
-		if err := r.SetFormParam("file_type", fFileType); err != nil {
+	if o.DownloadInvoice != nil {
+		if err := r.SetBodyParam(o.DownloadInvoice); err != nil {
 			return err
 		}
 	}

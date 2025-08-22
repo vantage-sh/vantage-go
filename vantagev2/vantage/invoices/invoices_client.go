@@ -76,9 +76,7 @@ type ClientService interface {
 }
 
 /*
-CreateInvoice creates a new invoice
-
-Only MSP accounts can create invoices.
+CreateInvoice Create an invoice (MSP accounts only).
 */
 func (a *Client) CreateInvoice(params *CreateInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInvoiceCreated, error) {
 	// TODO: Validate the params before sending
@@ -117,9 +115,7 @@ func (a *Client) CreateInvoice(params *CreateInvoiceParams, authInfo runtime.Cli
 }
 
 /*
-DownloadInvoice downloads invoice file
-
-MSP accounts can download PDF and CSV. Child accounts can only download PDF.
+DownloadInvoice Download invoice file (PDF or CSV).
 */
 func (a *Client) DownloadInvoice(params *DownloadInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -158,9 +154,7 @@ func (a *Client) DownloadInvoice(params *DownloadInvoiceParams, authInfo runtime
 }
 
 /*
-GetInvoice returns a specific invoice
-
-Returns invoice details if user has access.
+GetInvoice Return an invoice.
 */
 func (a *Client) GetInvoice(params *GetInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -199,9 +193,7 @@ func (a *Client) GetInvoice(params *GetInvoiceParams, authInfo runtime.ClientAut
 }
 
 /*
-GetInvoiceCostReport gets cost report URL for invoice period
-
-Returns URL to view cost report for the invoice billing period.
+GetInvoiceCostReport Get cost report URL for invoice period.
 */
 func (a *Client) GetInvoiceCostReport(params *GetInvoiceCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoiceCostReportOK, error) {
 	// TODO: Validate the params before sending
@@ -240,9 +232,7 @@ func (a *Client) GetInvoiceCostReport(params *GetInvoiceCostReportParams, authIn
 }
 
 /*
-GetInvoices returns all invoices for the current account
-
-MSP accounts see all invoices for their managed accounts. Child accounts see only their own invoices.
+GetInvoices Returns a list of invoices (MSP invoicing required).
 */
 func (a *Client) GetInvoices(params *GetInvoicesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoicesOK, error) {
 	// TODO: Validate the params before sending
@@ -281,9 +271,7 @@ func (a *Client) GetInvoices(params *GetInvoicesParams, authInfo runtime.ClientA
 }
 
 /*
-RegenerateInvoice regenerates an existing invoice
-
-Regenerates invoice data and files. Only MSP accounts can regenerate.
+RegenerateInvoice Regenerate an existing invoice (MSP accounts only).
 */
 func (a *Client) RegenerateInvoice(params *RegenerateInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegenerateInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -322,9 +310,7 @@ func (a *Client) RegenerateInvoice(params *RegenerateInvoiceParams, authInfo run
 }
 
 /*
-SendAndApproveInvoice sends and approve invoice via email
-
-Approves and sends invoice. Only MSP accounts can approve.
+SendAndApproveInvoice Send and approve invoice via email (MSP accounts only).
 */
 func (a *Client) SendAndApproveInvoice(params *SendAndApproveInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SendAndApproveInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -363,9 +349,7 @@ func (a *Client) SendAndApproveInvoice(params *SendAndApproveInvoiceParams, auth
 }
 
 /*
-SendInvoice sends invoice via email
-
-Sends invoice to billing email addresses. Both MSP and child accounts can send.
+SendInvoice Send invoice via email.
 */
 func (a *Client) SendInvoice(params *SendInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SendInvoiceOK, error) {
 	// TODO: Validate the params before sending

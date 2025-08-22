@@ -35,9 +35,6 @@ type BillingInformation struct {
 	// ISO country code
 	CountryCode string `json:"country_code,omitempty"`
 
-	// id
-	ID string `json:"id,omitempty"`
-
 	// Postal or ZIP code
 	PostalCode string `json:"postal_code,omitempty"`
 
