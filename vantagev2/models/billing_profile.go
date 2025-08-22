@@ -31,9 +31,6 @@ type BillingProfile struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
-	// id
-	ID string `json:"id,omitempty"`
-
 	// Number of managed accounts using this billing profile
 	ManagedAccountsCount string `json:"managed_accounts_count,omitempty"`
 

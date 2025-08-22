@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -17,11 +18,8 @@ import (
 // swagger:model BusinessInformation
 type BusinessInformation struct {
 
-	// id
-	ID string `json:"id,omitempty"`
-
 	// Business information metadata including custom fields
-	Metadata string `json:"metadata,omitempty"`
+	Metadata *BusinessInformationMetadata `json:"metadata,omitempty"`
 
 	// token
 	Token string `json:"token,omitempty"`
@@ -29,11 +27,69 @@ type BusinessInformation struct {
 
 // Validate validates this business information
 func (m *BusinessInformation) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this business information based on context it is used
+func (m *BusinessInformation) validateMetadata(formats strfmt.Registry) error {
+	if swag.IsZero(m.Metadata) { // not required
+		return nil
+	}
+
+	if m.Metadata != nil {
+		if err := m.Metadata.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this business information based on the context it is used
 func (m *BusinessInformation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BusinessInformation) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+
+		if swag.IsZero(m.Metadata) { // not required
+			return nil
+		}
+
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

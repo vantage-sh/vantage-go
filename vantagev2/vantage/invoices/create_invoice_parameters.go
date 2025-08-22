@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateInvoiceParams creates a new CreateInvoiceParams object,
@@ -61,23 +63,8 @@ CreateInvoiceParams contains all the parameters to send to the API endpoint
 */
 type CreateInvoiceParams struct {
 
-	/* AccountToken.
-
-	   Token of the managed account to invoice
-	*/
-	AccountToken string
-
-	/* BillingPeriodEnd.
-
-	   End date of billing period (YYYY-MM-DD)
-	*/
-	BillingPeriodEnd string
-
-	/* BillingPeriodStart.
-
-	   Start date of billing period (YYYY-MM-DD)
-	*/
-	BillingPeriodStart string
+	// CreateInvoice.
+	CreateInvoice *models.CreateInvoice
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,37 +119,15 @@ func (o *CreateInvoiceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAccountToken adds the accountToken to the create invoice params
-func (o *CreateInvoiceParams) WithAccountToken(accountToken string) *CreateInvoiceParams {
-	o.SetAccountToken(accountToken)
+// WithCreateInvoice adds the createInvoice to the create invoice params
+func (o *CreateInvoiceParams) WithCreateInvoice(createInvoice *models.CreateInvoice) *CreateInvoiceParams {
+	o.SetCreateInvoice(createInvoice)
 	return o
 }
 
-// SetAccountToken adds the accountToken to the create invoice params
-func (o *CreateInvoiceParams) SetAccountToken(accountToken string) {
-	o.AccountToken = accountToken
-}
-
-// WithBillingPeriodEnd adds the billingPeriodEnd to the create invoice params
-func (o *CreateInvoiceParams) WithBillingPeriodEnd(billingPeriodEnd string) *CreateInvoiceParams {
-	o.SetBillingPeriodEnd(billingPeriodEnd)
-	return o
-}
-
-// SetBillingPeriodEnd adds the billingPeriodEnd to the create invoice params
-func (o *CreateInvoiceParams) SetBillingPeriodEnd(billingPeriodEnd string) {
-	o.BillingPeriodEnd = billingPeriodEnd
-}
-
-// WithBillingPeriodStart adds the billingPeriodStart to the create invoice params
-func (o *CreateInvoiceParams) WithBillingPeriodStart(billingPeriodStart string) *CreateInvoiceParams {
-	o.SetBillingPeriodStart(billingPeriodStart)
-	return o
-}
-
-// SetBillingPeriodStart adds the billingPeriodStart to the create invoice params
-func (o *CreateInvoiceParams) SetBillingPeriodStart(billingPeriodStart string) {
-	o.BillingPeriodStart = billingPeriodStart
+// SetCreateInvoice adds the createInvoice to the create invoice params
+func (o *CreateInvoiceParams) SetCreateInvoice(createInvoice *models.CreateInvoice) {
+	o.CreateInvoice = createInvoice
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -172,30 +137,8 @@ func (o *CreateInvoiceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
-	// form param account_token
-	frAccountToken := o.AccountToken
-	fAccountToken := frAccountToken
-	if fAccountToken != "" {
-		if err := r.SetFormParam("account_token", fAccountToken); err != nil {
-			return err
-		}
-	}
-
-	// form param billing_period_end
-	frBillingPeriodEnd := o.BillingPeriodEnd
-	fBillingPeriodEnd := frBillingPeriodEnd
-	if fBillingPeriodEnd != "" {
-		if err := r.SetFormParam("billing_period_end", fBillingPeriodEnd); err != nil {
-			return err
-		}
-	}
-
-	// form param billing_period_start
-	frBillingPeriodStart := o.BillingPeriodStart
-	fBillingPeriodStart := frBillingPeriodStart
-	if fBillingPeriodStart != "" {
-		if err := r.SetFormParam("billing_period_start", fBillingPeriodStart); err != nil {
+	if o.CreateInvoice != nil {
+		if err := r.SetBodyParam(o.CreateInvoice); err != nil {
 			return err
 		}
 	}

@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,11 +24,8 @@ type BankingInformation struct {
 	// Name of the account beneficiary
 	BeneficiaryName string `json:"beneficiary_name,omitempty"`
 
-	// id
-	ID string `json:"id,omitempty"`
-
 	// Encrypted banking details (account numbers, routing info)
-	SecureData string `json:"secure_data,omitempty"`
+	SecureData *BankingInformationSecureData `json:"secure_data,omitempty"`
 
 	// Tax identification number
 	TaxID string `json:"tax_id,omitempty"`
@@ -38,11 +36,69 @@ type BankingInformation struct {
 
 // Validate validates this banking information
 func (m *BankingInformation) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSecureData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this banking information based on context it is used
+func (m *BankingInformation) validateSecureData(formats strfmt.Registry) error {
+	if swag.IsZero(m.SecureData) { // not required
+		return nil
+	}
+
+	if m.SecureData != nil {
+		if err := m.SecureData.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("secure_data")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("secure_data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this banking information based on the context it is used
 func (m *BankingInformation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSecureData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BankingInformation) contextValidateSecureData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SecureData != nil {
+
+		if swag.IsZero(m.SecureData) { // not required
+			return nil
+		}
+
+		if err := m.SecureData.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("secure_data")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("secure_data")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
