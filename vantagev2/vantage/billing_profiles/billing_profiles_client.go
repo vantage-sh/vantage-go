@@ -70,9 +70,7 @@ type ClientService interface {
 }
 
 /*
-CreateBillingProfile creates a new billing profile
-
-Requires MSP invoicing to be enabled on the account.
+CreateBillingProfile Create a billing profile (MSP invoicing required).
 */
 func (a *Client) CreateBillingProfile(params *CreateBillingProfileParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBillingProfileCreated, error) {
 	// TODO: Validate the params before sending
@@ -111,7 +109,7 @@ func (a *Client) CreateBillingProfile(params *CreateBillingProfileParams, authIn
 }
 
 /*
-DeleteBillingProfile deletes a billing profile
+DeleteBillingProfile deletes a billing profile m s p invoicing required
 
 Requires MSP invoicing to be enabled on the account.
 */
@@ -152,7 +150,7 @@ func (a *Client) DeleteBillingProfile(params *DeleteBillingProfileParams, authIn
 }
 
 /*
-GetBillingProfile returns a specific billing profile
+GetBillingProfile returns a billing profile m s p invoicing required
 
 Requires MSP invoicing to be enabled on the account.
 */
@@ -193,9 +191,7 @@ func (a *Client) GetBillingProfile(params *GetBillingProfileParams, authInfo run
 }
 
 /*
-GetBillingProfiles returns all billing profiles for the current account
-
-Requires MSP invoicing to be enabled on the account.
+GetBillingProfiles Returns a list of billing profiles (MSP invoicing required).
 */
 func (a *Client) GetBillingProfiles(params *GetBillingProfilesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBillingProfilesOK, error) {
 	// TODO: Validate the params before sending
@@ -234,7 +230,7 @@ func (a *Client) GetBillingProfiles(params *GetBillingProfilesParams, authInfo r
 }
 
 /*
-UpdateBillingProfile updates a billing profile
+UpdateBillingProfile updates a billing profile m s p invoicing required
 
 Requires MSP invoicing to be enabled on the account.
 */
