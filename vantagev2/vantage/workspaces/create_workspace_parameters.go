@@ -14,7 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+
+	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateWorkspaceParams creates a new CreateWorkspaceParams object,
@@ -62,33 +63,8 @@ CreateWorkspaceParams contains all the parameters to send to the API endpoint
 */
 type CreateWorkspaceParams struct {
 
-	/* Currency.
-
-	   Currency code for the workspace.
-	*/
-	Currency *string
-
-	/* EnableCurrencyConversion.
-
-	   Enable currency conversion for the workspace.
-
-	   Default: true
-	*/
-	EnableCurrencyConversion *bool
-
-	/* ExchangeRateDate.
-
-	   The date to use for currency conversion.
-
-	   Default: "daily_rate"
-	*/
-	ExchangeRateDate *string
-
-	/* Name.
-
-	   Name of the workspace.
-	*/
-	Name string
+	// CreateWorkspace.
+	CreateWorkspace *models.CreateWorkspace
 
 	timeout    time.Duration
 	Context    context.Context
@@ -107,21 +83,7 @@ func (o *CreateWorkspaceParams) WithDefaults() *CreateWorkspaceParams {
 //
 // All values with no default are reset to their zero value.
 func (o *CreateWorkspaceParams) SetDefaults() {
-	var (
-		enableCurrencyConversionDefault = bool(true)
-
-		exchangeRateDateDefault = string("daily_rate")
-	)
-
-	val := CreateWorkspaceParams{
-		EnableCurrencyConversion: &enableCurrencyConversionDefault,
-		ExchangeRateDate:         &exchangeRateDateDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create workspace params
@@ -157,48 +119,15 @@ func (o *CreateWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCurrency adds the currency to the create workspace params
-func (o *CreateWorkspaceParams) WithCurrency(currency *string) *CreateWorkspaceParams {
-	o.SetCurrency(currency)
+// WithCreateWorkspace adds the createWorkspace to the create workspace params
+func (o *CreateWorkspaceParams) WithCreateWorkspace(createWorkspace *models.CreateWorkspace) *CreateWorkspaceParams {
+	o.SetCreateWorkspace(createWorkspace)
 	return o
 }
 
-// SetCurrency adds the currency to the create workspace params
-func (o *CreateWorkspaceParams) SetCurrency(currency *string) {
-	o.Currency = currency
-}
-
-// WithEnableCurrencyConversion adds the enableCurrencyConversion to the create workspace params
-func (o *CreateWorkspaceParams) WithEnableCurrencyConversion(enableCurrencyConversion *bool) *CreateWorkspaceParams {
-	o.SetEnableCurrencyConversion(enableCurrencyConversion)
-	return o
-}
-
-// SetEnableCurrencyConversion adds the enableCurrencyConversion to the create workspace params
-func (o *CreateWorkspaceParams) SetEnableCurrencyConversion(enableCurrencyConversion *bool) {
-	o.EnableCurrencyConversion = enableCurrencyConversion
-}
-
-// WithExchangeRateDate adds the exchangeRateDate to the create workspace params
-func (o *CreateWorkspaceParams) WithExchangeRateDate(exchangeRateDate *string) *CreateWorkspaceParams {
-	o.SetExchangeRateDate(exchangeRateDate)
-	return o
-}
-
-// SetExchangeRateDate adds the exchangeRateDate to the create workspace params
-func (o *CreateWorkspaceParams) SetExchangeRateDate(exchangeRateDate *string) {
-	o.ExchangeRateDate = exchangeRateDate
-}
-
-// WithName adds the name to the create workspace params
-func (o *CreateWorkspaceParams) WithName(name string) *CreateWorkspaceParams {
-	o.SetName(name)
-	return o
-}
-
-// SetName adds the name to the create workspace params
-func (o *CreateWorkspaceParams) SetName(name string) {
-	o.Name = name
+// SetCreateWorkspace adds the createWorkspace to the create workspace params
+func (o *CreateWorkspaceParams) SetCreateWorkspace(createWorkspace *models.CreateWorkspace) {
+	o.CreateWorkspace = createWorkspace
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -208,57 +137,8 @@ func (o *CreateWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
-	if o.Currency != nil {
-
-		// form param currency
-		var frCurrency string
-		if o.Currency != nil {
-			frCurrency = *o.Currency
-		}
-		fCurrency := frCurrency
-		if fCurrency != "" {
-			if err := r.SetFormParam("currency", fCurrency); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.EnableCurrencyConversion != nil {
-
-		// form param enable_currency_conversion
-		var frEnableCurrencyConversion bool
-		if o.EnableCurrencyConversion != nil {
-			frEnableCurrencyConversion = *o.EnableCurrencyConversion
-		}
-		fEnableCurrencyConversion := swag.FormatBool(frEnableCurrencyConversion)
-		if fEnableCurrencyConversion != "" {
-			if err := r.SetFormParam("enable_currency_conversion", fEnableCurrencyConversion); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.ExchangeRateDate != nil {
-
-		// form param exchange_rate_date
-		var frExchangeRateDate string
-		if o.ExchangeRateDate != nil {
-			frExchangeRateDate = *o.ExchangeRateDate
-		}
-		fExchangeRateDate := frExchangeRateDate
-		if fExchangeRateDate != "" {
-			if err := r.SetFormParam("exchange_rate_date", fExchangeRateDate); err != nil {
-				return err
-			}
-		}
-	}
-
-	// form param name
-	frName := o.Name
-	fName := frName
-	if fName != "" {
-		if err := r.SetFormParam("name", fName); err != nil {
+	if o.CreateWorkspace != nil {
+		if err := r.SetBodyParam(o.CreateWorkspace); err != nil {
 			return err
 		}
 	}

@@ -167,6 +167,10 @@
       "description": "Operations about DataExports"
     },
     {
+      "name": "ExchangeRates",
+      "description": "Operations about ExchangeRates"
+    },
+    {
       "name": "Me",
       "description": "Operations about Mes"
     },
@@ -215,38 +219,12 @@
         ],
         "parameters": [
           {
-            "in": "formData",
-            "name": "name",
-            "description": "Name of the workspace.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "enable_currency_conversion",
-            "description": "Enable currency conversion for the workspace.",
-            "type": "boolean",
-            "default": true,
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "currency",
-            "description": "Currency code for the workspace.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "formData",
-            "name": "exchange_rate_date",
-            "description": "The date to use for currency conversion.",
-            "type": "string",
-            "default": "daily_rate",
-            "enum": [
-              "daily_rate",
-              "end_of_billing_period_rate"
-            ],
-            "required": false
+            "name": "createWorkspace",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createWorkspace"
+            }
           }
         ],
         "security": [
@@ -1735,6 +1713,8 @@
               "twilio",
               "azure_csp",
               "kubernetes_agent",
+              "anthropic",
+              "anyscale",
               "all"
             ],
             "required": false
@@ -3089,7 +3069,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200.0,
+                    "cost": 200,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -3125,7 +3105,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100.0,
+                    "cost": 100,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -3228,11 +3208,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3.0
+                    "amount": 3
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3.0
+                    "amount": 3
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -3404,7 +3384,7 @@
           {
             "in": "query",
             "name": "resource_type",
-            "description": "VQL resource type name (https://docs.vantage.sh/vql_resource_report#resource-type)",
+            "description": "VQL resource type name (https://docs.vantage.sh/vql_resource_report#costs-by-resource-type)",
             "type": "string",
             "required": true
           }
@@ -7589,7 +7569,9 @@
                 "temporal",
                 "twilio",
                 "azure_csp",
-                "kubernetes_agent"
+                "kubernetes_agent",
+                "anthropic",
+                "anyscale"
               ]
             },
             "required": false
@@ -7722,7 +7704,9 @@
                 "temporal",
                 "twilio",
                 "azure_csp",
-                "kubernetes_agent"
+                "kubernetes_agent",
+                "anthropic",
+                "anyscale"
               ]
             },
             "required": false
@@ -8558,8 +8542,7 @@
             "in": "formData",
             "name": "duration_in_days",
             "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.",
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "required": true
           },
           {
@@ -8733,8 +8716,7 @@
             "in": "formData",
             "name": "duration_in_days",
             "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.",
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "required": false
           },
           {
@@ -9040,7 +9022,9 @@
               "temporal",
               "twilio",
               "azure_csp",
-              "kubernetes_agent"
+              "kubernetes_agent",
+              "anthropic",
+              "anyscale"
             ],
             "required": false
           },
@@ -9503,7 +9487,6 @@
             "type": "string",
             "enum": [
               "ebs_gp2_to_gp3",
-              "ebs_unattached_volume",
               "elasticache_reserved_instances",
               "elastic_search_reserved_instances",
               "rds_reserved_instances",
@@ -9528,7 +9511,6 @@
               "az_compute_reserved_instances_app_service",
               "az_disks_unattached",
               "dynamodb_reserved_capacity_recommender",
-              "ec2_rightsizing_recommender",
               "kubernetes_recommender",
               "gcp_compute_rightsizing_recommender",
               "gcp_compute_commitment_recommender",
@@ -9545,7 +9527,9 @@
               "azure_sql_paas_db_reserved_instances_recommender",
               "azure_files_reserved_instances_recommender",
               "eks_in_extended_support_window",
-              "eks_approaching_extended_support_window"
+              "eks_approaching_extended_support_window",
+              "rds_in_extended_support_window",
+              "rds_approaching_extended_support_window"
             ],
             "required": false
           },
@@ -9597,15 +9581,15 @@
                 },
                 "recommendations": [
                   {
-                    "token": "rcmmndtn_8f62a61ced7a5742",
+                    "token": "rcmmndtn_7fbeafc60b129b90",
                     "category": "ip_unattached",
-                    "workspace_token": "wrkspc_2bab2a7936e9b90d",
+                    "workspace_token": "wrkspc_e3b4eeeeb0ae48b0",
                     "provider": "aws",
                     "provider_account_id": "123456789012",
                     "description": "IP address is not attached to an instance.",
                     "potential_savings": "100.0",
                     "service": "AWS IP",
-                    "created_at": "2024-05-06T20:26:34Z",
+                    "created_at": "2025-08-22T20:16:38Z",
                     "resources_affected_count": 0
                   }
                 ]
@@ -9648,15 +9632,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rcmmndtn_8d1de80da52bebe3",
+                "token": "rcmmndtn_932d6bfdd80ad3f7",
                 "category": "ip_unattached",
-                "workspace_token": "wrkspc_326b4663fe20770c",
+                "workspace_token": "wrkspc_0e0e739aacb7f268",
                 "provider": "aws",
                 "provider_account_id": "123456789012",
                 "description": "IP address is not attached to an instance.",
                 "potential_savings": "100.0",
                 "service": "AWS IP",
-                "created_at": "2024-05-06T20:26:34Z",
+                "created_at": "2025-08-22T20:16:37Z",
                 "resources_affected_count": 0
               }
             }
@@ -9720,22 +9704,23 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources",
-                  "first": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "self": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources",
+                  "first": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources?page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/recommendations/rcmmndtn_e08af6956416a359/resources?page=1",
+                  "last": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources?page=1",
                   "prev": null
                 },
                 "resources": [
                   {
-                    "token": "prvdr_rsrc_01352c715023e445",
+                    "token": "prvdr_rsrc_829cf23b3227ebc1",
                     "resource_id": "i-12345",
                     "recommendation_actions": [
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100.0,
-                        "instance_type": "c5a.xlarge"
+                        "potential_savings": 100,
+                        "instance_type": "c5a.xlarge",
+                        "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
                       }
                     ]
                   }
@@ -9785,14 +9770,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_018edad7219e02b4",
+                "token": "prvdr_rsrc_6a17353d01551f18",
                 "resource_id": "i-12345",
                 "recommendation_actions": [
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100.0,
-                    "instance_type": "c5a.xlarge"
+                    "potential_savings": 100,
+                    "instance_type": "c5a.xlarge",
+                    "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
                   }
                 ]
               }
@@ -11045,6 +11031,120 @@
         "operationId": "getDataExport"
       }
     },
+    "/exchange_rates/csv": {
+      "post": {
+        "description": "Upload Exchange Rates via CSV.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "csv",
+            "description": "CSV file containing exchange rates. Format: base_currency_code, currency_code, rate, date (YYYY-MM-DD)",
+            "type": "file",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CSV uploaded successfully"
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ExchangeRates"
+        ],
+        "operationId": "createExchangeRatesViaCsv"
+      }
+    },
+    "/exchange_rates": {
+      "get": {
+        "description": "Return all Exchange Rates.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ExchangeRates"
+            },
+            "examples": {
+              "application/json": {
+                "exchange_rates": [
+                  {
+                    "base_currency_code": "USD",
+                    "currency_code": "PHP",
+                    "rate": "300.011",
+                    "effective_date": "2025-09-01",
+                    "updated_at": "2025-09-10 00:05:41 UTC"
+                  }
+                ],
+                "meta": {
+                  "current_page": 1,
+                  "next_page": null,
+                  "prev_page": null,
+                  "total_pages": 1,
+                  "total_count": 1
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "ExchangeRates"
+        ],
+        "operationId": "getExchangeRates"
+      }
+    },
     "/me": {
       "get": {
         "description": "Get information about the authenticated BearerToken.",
@@ -11404,7 +11504,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100.0,
+                "threshold": 100,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -11462,7 +11562,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000.0,
+                    "threshold": 1000,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -11572,7 +11672,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500.0,
+                "threshold": 500,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -11630,7 +11730,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000.0,
+                "threshold": 1000,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -11954,6 +12054,37 @@
     }
   },
   "definitions": {
+    "createWorkspace": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the workspace."
+        },
+        "enable_currency_conversion": {
+          "type": "boolean",
+          "description": "Enable currency conversion for the workspace.",
+          "default": true
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code for the workspace."
+        },
+        "exchange_rate_date": {
+          "type": "string",
+          "description": "The date to use for currency conversion.",
+          "enum": [
+            "daily_rate",
+            "end_of_billing_period_rate"
+          ],
+          "default": "daily_rate"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "Create a workspace"
+    },
     "Workspace": {
       "type": "object",
       "properties": {
@@ -12801,7 +12932,9 @@
             "temporal",
             "twilio",
             "azure_csp",
-            "kubernetes_agent"
+            "kubernetes_agent",
+            "anthropic",
+            "anyscale"
           ],
           "description": "The cost provider which incurred the cost. Will be 'all' for all combined providers."
         },
@@ -13430,7 +13563,9 @@
             "temporal",
             "twilio",
             "azure_csp",
-            "kubernetes_agent"
+            "kubernetes_agent",
+            "anthropic",
+            "anyscale"
           ],
           "description": "The cost provider which incurred the cost."
         },
@@ -15665,9 +15800,13 @@
           "example": "2021-07-09T00:00:00Z",
           "description": "The date and time, in UTC, the audit log was created. ISO 8601 Formatted."
         },
-        "object_changes": {
+        "changed_values": {
           "type": "object",
-          "description": "The changes made to the object."
+          "description": "The changed values of the object."
+        },
+        "unchanged_values": {
+          "type": "object",
+          "description": "The unchanged values of the object."
         }
       },
       "description": "AuditLog model"
@@ -15766,7 +15905,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-02-01",
+          "example": "2025-03-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -16636,7 +16775,7 @@
         },
         "category": {
           "type": "string",
-          "example": "ec2_rightsizing_recommender",
+          "example": "ec2_compute_optimizer_recommender",
           "description": "The category of the Recommendation."
         },
         "workspace_token": {
@@ -16715,6 +16854,11 @@
         },
         "containers": {
           "type": "string"
+        },
+        "remediation_cli_command": {
+          "type": "string",
+          "example": "aws ec2 stop-instances --instance-ids i-1234567890abcdef0",
+          "description": "CLI command to remediate this recommendation"
         }
       }
     },
@@ -17744,6 +17888,41 @@
         }
       }
     },
+    "ExchangeRates": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "exchange_rates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/exchange_rate"
+          }
+        }
+      },
+      "description": "ExchangeRates model"
+    },
+    "exchange_rate": {
+      "type": "object",
+      "properties": {
+        "base_currency_code": {
+          "type": "string"
+        },
+        "currency_code": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "string"
+        },
+        "effective_date": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
     "Me": {
       "type": "object",
       "properties": {
@@ -18171,7 +18350,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1.0,
+          "example": 1,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
         "date": {

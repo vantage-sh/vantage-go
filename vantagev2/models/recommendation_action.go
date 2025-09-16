@@ -32,6 +32,10 @@ type RecommendationAction struct {
 	// Potential savings in dollars
 	// Example: 100.00
 	PotentialSavings string `json:"potential_savings,omitempty"`
+
+	// CLI command to remediate this recommendation
+	// Example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+	RemediationCliCommand string `json:"remediation_cli_command,omitempty"`
 }
 
 // Validate validates this recommendation action

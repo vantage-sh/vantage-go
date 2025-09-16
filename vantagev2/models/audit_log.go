@@ -17,6 +17,9 @@ import (
 // swagger:model AuditLog
 type AuditLog struct {
 
+	// The changed values of the object.
+	ChangedValues interface{} `json:"changed_values,omitempty"`
+
 	// The date and time, in UTC, the audit log was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
@@ -24,9 +27,6 @@ type AuditLog struct {
 	// The event type of the audit log.
 	// Example: record_created
 	Event string `json:"event,omitempty"`
-
-	// The changes made to the object.
-	ObjectChanges interface{} `json:"object_changes,omitempty"`
 
 	// The title of the audited object.
 	// Example: Production Cost Report
@@ -47,6 +47,9 @@ type AuditLog struct {
 	// The unique token identifying the audit log.
 	// Example: adt_lg_1234567890abcdef
 	Token string `json:"token,omitempty"`
+
+	// The unchanged values of the object.
+	UnchangedValues interface{} `json:"unchanged_values,omitempty"`
 
 	// The name of the user who performed the action.
 	User string `json:"user,omitempty"`

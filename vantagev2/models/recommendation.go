@@ -18,7 +18,7 @@ import (
 type Recommendation struct {
 
 	// The category of the Recommendation.
-	// Example: ec2_rightsizing_recommender
+	// Example: ec2_compute_optimizer_recommender
 	Category string `json:"category,omitempty"`
 
 	// The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.

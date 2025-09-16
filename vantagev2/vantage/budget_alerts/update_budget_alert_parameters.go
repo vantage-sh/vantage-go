@@ -74,10 +74,8 @@ type UpdateBudgetAlertParams struct {
 	/* DurationInDays.
 
 	   The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.
-
-	   Format: int32
 	*/
-	DurationInDays *int32
+	DurationInDays *string
 
 	/* PeriodToTrack.
 
@@ -181,13 +179,13 @@ func (o *UpdateBudgetAlertParams) SetBudgetTokens(budgetTokens []string) {
 }
 
 // WithDurationInDays adds the durationInDays to the update budget alert params
-func (o *UpdateBudgetAlertParams) WithDurationInDays(durationInDays *int32) *UpdateBudgetAlertParams {
+func (o *UpdateBudgetAlertParams) WithDurationInDays(durationInDays *string) *UpdateBudgetAlertParams {
 	o.SetDurationInDays(durationInDays)
 	return o
 }
 
 // SetDurationInDays adds the durationInDays to the update budget alert params
-func (o *UpdateBudgetAlertParams) SetDurationInDays(durationInDays *int32) {
+func (o *UpdateBudgetAlertParams) SetDurationInDays(durationInDays *string) {
 	o.DurationInDays = durationInDays
 }
 
@@ -262,11 +260,11 @@ func (o *UpdateBudgetAlertParams) WriteToRequest(r runtime.ClientRequest, reg st
 	if o.DurationInDays != nil {
 
 		// form param duration_in_days
-		var frDurationInDays int32
+		var frDurationInDays string
 		if o.DurationInDays != nil {
 			frDurationInDays = *o.DurationInDays
 		}
-		fDurationInDays := swag.FormatInt32(frDurationInDays)
+		fDurationInDays := frDurationInDays
 		if fDurationInDays != "" {
 			if err := r.SetFormParam("duration_in_days", fDurationInDays); err != nil {
 				return err

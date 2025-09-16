@@ -63,7 +63,7 @@ type GetResourceReportColumnsParams struct {
 
 	/* ResourceType.
 
-	   VQL resource type name (https://docs.vantage.sh/vql_resource_report#resource-type)
+	   VQL resource type name (https://docs.vantage.sh/vql_resource_report#costs-by-resource-type)
 	*/
 	ResourceType string
 
