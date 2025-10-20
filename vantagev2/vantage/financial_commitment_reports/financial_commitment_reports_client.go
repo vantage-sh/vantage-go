@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateFinancialCommitmentReport Create a FinancialCommitmentReport.
+CreateFinancialCommitmentReport creates financial commitment report
+
+Create a FinancialCommitmentReport.
 */
 func (a *Client) CreateFinancialCommitmentReport(params *CreateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFinancialCommitmentReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateFinancialCommitmentReport(params *CreateFinancialCommitme
 }
 
 /*
-DeleteFinancialCommitmentReport Delete a FinancialCommitmentReport.
+DeleteFinancialCommitmentReport deletes financial commitment report
+
+Delete a FinancialCommitmentReport.
 */
 func (a *Client) DeleteFinancialCommitmentReport(params *DeleteFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFinancialCommitmentReportNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteFinancialCommitmentReport(params *DeleteFinancialCommitme
 }
 
 /*
-GetFinancialCommitmentReport Return a FinancialCommitmentReport.
+GetFinancialCommitmentReport gets financial commitment report by token
+
+Return a FinancialCommitmentReport.
 */
 func (a *Client) GetFinancialCommitmentReport(params *GetFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetFinancialCommitmentReport(params *GetFinancialCommitmentRepo
 }
 
 /*
-GetFinancialCommitmentReports Return all FinancialCommitmentReports.
+GetFinancialCommitmentReports gets all financial commitment reports
+
+Return all FinancialCommitmentReports.
 */
 func (a *Client) GetFinancialCommitmentReports(params *GetFinancialCommitmentReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetFinancialCommitmentReports(params *GetFinancialCommitmentRep
 }
 
 /*
-UpdateFinancialCommitmentReport Update a FinancialCommitmentReport.
+UpdateFinancialCommitmentReport updates financial commitment report
+
+Update a FinancialCommitmentReport.
 */
 func (a *Client) UpdateFinancialCommitmentReport(params *UpdateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFinancialCommitmentReportOK, error) {
 	// TODO: Validate the params before sending

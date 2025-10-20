@@ -64,7 +64,9 @@ type ClientService interface {
 }
 
 /*
-GetUser Return a specific User.
+GetUser gets user by token
+
+Return a specific User.
 */
 func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserOK, error) {
 	// TODO: Validate the params before sending
@@ -103,7 +105,9 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetUsers Return all Users that the current API token has access to.
+GetUsers gets all users
+
+Return all Users that the current API token has access to.
 */
 func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending

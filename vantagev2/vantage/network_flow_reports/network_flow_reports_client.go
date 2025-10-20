@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateNetworkFlowReport Create a NetworkFlowReport.
+CreateNetworkFlowReport creates network flow report
+
+Create a NetworkFlowReport.
 */
 func (a *Client) CreateNetworkFlowReport(params *CreateNetworkFlowReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateNetworkFlowReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateNetworkFlowReport(params *CreateNetworkFlowReportParams, 
 }
 
 /*
-DeleteNetworkFlowReport Delete a NetworkFlowReport.
+DeleteNetworkFlowReport deletes network flow report
+
+Delete a NetworkFlowReport.
 */
 func (a *Client) DeleteNetworkFlowReport(params *DeleteNetworkFlowReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteNetworkFlowReportNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteNetworkFlowReport(params *DeleteNetworkFlowReportParams, 
 }
 
 /*
-GetNetworkFlowReport Return a NetworkFlowReport.
+GetNetworkFlowReport gets network flow report by token
+
+Return a NetworkFlowReport.
 */
 func (a *Client) GetNetworkFlowReport(params *GetNetworkFlowReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetNetworkFlowReportOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetNetworkFlowReport(params *GetNetworkFlowReportParams, authIn
 }
 
 /*
-GetNetworkFlowReports Return all NetworkFlowReports.
+GetNetworkFlowReports gets all network flow reports
+
+Return all NetworkFlowReports.
 */
 func (a *Client) GetNetworkFlowReports(params *GetNetworkFlowReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetNetworkFlowReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetNetworkFlowReports(params *GetNetworkFlowReportsParams, auth
 }
 
 /*
-UpdateNetworkFlowReport Update a NetworkFlowReport.
+UpdateNetworkFlowReport updates network flow report
+
+Update a NetworkFlowReport.
 */
 func (a *Client) UpdateNetworkFlowReport(params *UpdateNetworkFlowReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNetworkFlowReportOK, error) {
 	// TODO: Validate the params before sending

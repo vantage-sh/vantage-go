@@ -103,7 +103,9 @@ type ClientService interface {
 }
 
 /*
-CreateBusinessMetric Create a new BusinessMetric.
+CreateBusinessMetric creates business metric
+
+Create a new BusinessMetric.
 */
 func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBusinessMetricCreated, error) {
 	// TODO: Validate the params before sending
@@ -142,7 +144,9 @@ func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authIn
 }
 
 /*
-DeleteBusinessMetric Deletes an existing BusinessMetric.
+DeleteBusinessMetric deletes business metric
+
+Deletes an existing BusinessMetric.
 */
 func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricNoContent, error) {
 	// TODO: Validate the params before sending
@@ -181,7 +185,9 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 }
 
 /*
-GetBusinessMetric Return a BusinessMetric.
+GetBusinessMetric gets business metric by token
+
+Return a BusinessMetric.
 */
 func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -220,7 +226,9 @@ func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo run
 }
 
 /*
-GetBusinessMetricValues Return values of a BusinessMetric
+GetBusinessMetricValues gets business metric values
+
+Return values of a BusinessMetric
 */
 func (a *Client) GetBusinessMetricValues(params *GetBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricValuesOK, error) {
 	// TODO: Validate the params before sending
@@ -259,7 +267,9 @@ func (a *Client) GetBusinessMetricValues(params *GetBusinessMetricValuesParams, 
 }
 
 /*
-GetBusinessMetrics Return all BusinessMetrics that the current API token has access to.
+GetBusinessMetrics gets all business metrics
+
+Return all BusinessMetrics that the current API token has access to.
 */
 func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error) {
 	// TODO: Validate the params before sending
@@ -298,7 +308,9 @@ func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo r
 }
 
 /*
-UpdateBusinessMetric Updates an existing BusinessMetric.
+UpdateBusinessMetric updates business metric
+
+Updates an existing BusinessMetric.
 */
 func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -337,7 +349,9 @@ func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authIn
 }
 
 /*
-UpdateBusinessMetricValuesCSV Updates the values for an existing BusinessMetric from a CSV file.
+UpdateBusinessMetricValuesCSV updates business metric values from c s v
+
+Updates the values for an existing BusinessMetric from a CSV file.
 */
 func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error) {
 	// TODO: Validate the params before sending

@@ -199,6 +199,10 @@
       "description": "Operations about UnitCosts"
     },
     {
+      "name": "CostProviderAccounts",
+      "description": "Operations about CostProviderAccounts"
+    },
+    {
       "name": "Ping",
       "description": "Operations about Pings"
     },
@@ -210,6 +214,7 @@
   "paths": {
     "/workspaces": {
       "post": {
+        "summary": "Create workspace",
         "description": "Create a workspace",
         "produces": [
           "application/json"
@@ -264,6 +269,7 @@
         "operationId": "createWorkspace"
       },
       "get": {
+        "summary": "Get all workspaces",
         "description": "Return all Workspaces that the current API token has access to.",
         "produces": [
           "application/json"
@@ -331,6 +337,7 @@
     },
     "/workspaces/{workspace_token}": {
       "delete": {
+        "summary": "Delete workspace",
         "description": "Delete a Workspace",
         "produces": [
           "application/json"
@@ -370,6 +377,7 @@
         "operationId": "deleteWorkspace"
       },
       "put": {
+        "summary": "Update workspace",
         "description": "Update a workspace",
         "produces": [
           "application/json"
@@ -625,6 +633,7 @@
         "operationId": "updateWorkspace"
       },
       "get": {
+        "summary": "Get workspace by token",
         "description": "Return a specific Workspace.",
         "produces": [
           "application/json"
@@ -676,6 +685,7 @@
     },
     "/folders": {
       "post": {
+        "summary": "Create folder",
         "description": "Create a Folder for CostReports.",
         "produces": [
           "application/json"
@@ -730,6 +740,7 @@
         "operationId": "createFolder"
       },
       "get": {
+        "summary": "Get all folders",
         "description": "Return all Folders for CostReports.",
         "produces": [
           "application/json"
@@ -804,6 +815,7 @@
     },
     "/folders/{folder_token}": {
       "delete": {
+        "summary": "Delete folder",
         "description": "Delete a Folder for CostReports.",
         "produces": [
           "application/json"
@@ -843,6 +855,7 @@
         "operationId": "deleteFolder"
       },
       "put": {
+        "summary": "Update folder",
         "description": "Update a Folder for CostReports.",
         "produces": [
           "application/json"
@@ -909,6 +922,7 @@
         "operationId": "updateFolder"
       },
       "get": {
+        "summary": "Get folder by token",
         "description": "Return a specific Folder for CostReports.",
         "produces": [
           "application/json"
@@ -960,6 +974,7 @@
     },
     "/saved_filters": {
       "post": {
+        "summary": "Create saved filter",
         "description": "Create a SavedFilter for CostReports.",
         "produces": [
           "application/json"
@@ -1021,6 +1036,7 @@
         "operationId": "createSavedFilter"
       },
       "get": {
+        "summary": "Get all saved filters",
         "description": "Return all SavedFilters that can be applied to a CostReport.",
         "produces": [
           "application/json"
@@ -1068,7 +1084,7 @@
                 "saved_filters": [
                   {
                     "token": "svd_fltr_3dffc0458f7a2487",
-                    "title": "Oolong (5)",
+                    "title": "AWS Account",
                     "cost_report_tokens": [
                       "rprt_3d0ae4648f5fd8f7"
                     ],
@@ -1090,6 +1106,7 @@
     },
     "/saved_filters/{saved_filter_token}": {
       "delete": {
+        "summary": "Delete saved filter",
         "description": "Delete a SavedFilter for CostReports.",
         "produces": [
           "application/json"
@@ -1129,6 +1146,7 @@
         "operationId": "deleteSavedFilter"
       },
       "put": {
+        "summary": "Update saved filter",
         "description": "Update a SavedFilter for CostReports.",
         "produces": [
           "application/json"
@@ -1202,6 +1220,7 @@
         "operationId": "updateSavedFilter"
       },
       "get": {
+        "summary": "Get saved filter by token",
         "description": "Return a specific SavedFilter.",
         "produces": [
           "application/json"
@@ -1230,7 +1249,7 @@
             "examples": {
               "application/json": {
                 "token": "svd_fltr_be3f24eb1b5aabf6",
-                "title": "Green (8)",
+                "title": "AWS Account",
                 "cost_report_tokens": [
                   "rprt_47023ad2b735f57d"
                 ],
@@ -1256,6 +1275,7 @@
     },
     "/cost_reports": {
       "post": {
+        "summary": "Create cost report",
         "description": "Create a CostReport.",
         "produces": [
           "application/json"
@@ -1288,15 +1308,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_833310893a5ef0b8",
+                "token": "rprt_377f6f8b25e8053d",
                 "title": "New Cost Report",
-                "folder_token": "fldr_576d66e14d911b2a",
+                "folder_token": "fldr_f20201244e42cb99",
                 "saved_filter_tokens": [
-                  "svd_fltr_60a55554b600626f"
+                  "svd_fltr_550e30f350ffafe4"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_86c56a209d466fd4",
+                    "business_metric_token": "bsnss_mtrc_ff259eb1ce9fe935",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1307,7 +1327,7 @@
                   }
                 ],
                 "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
-                "groupings": "provider,service",
+                "groupings": "service,provider",
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1315,17 +1335,24 @@
                   "include_tax": true,
                   "amortize": true,
                   "unallocated": false,
-                  "aggregate_by": "cost"
+                  "aggregate_by": "cost",
+                  "show_previous_period": true
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_c5f205fefde05b46",
+                "workspace_token": "wrkspc_d364d177f557981e",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
                 "chart_type": "bar",
-                "date_bin": "day"
+                "date_bin": "day",
+                "chart_settings": {
+                  "y_axis_dimension": "cost",
+                  "x_axis_dimension": [
+                    "date"
+                  ]
+                }
               }
             }
           },
@@ -1348,6 +1375,7 @@
         "operationId": "createCostReport"
       },
       "get": {
+        "summary": "Get all cost reports",
         "description": "Return all CostReports.",
         "produces": [
           "application/json"
@@ -1401,15 +1429,15 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_36a9e7ada7835b71",
+                    "token": "rprt_403b6516ad289a52",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_cd5d6cd654ffbe8a"
+                      "svd_fltr_03a9f354fe7cad59"
                     ],
                     "business_metric_tokens_with_metadata": [],
                     "filter": null,
-                    "groupings": "provider,service",
+                    "groupings": "service,provider",
                     "settings": {
                       "include_credits": false,
                       "include_refunds": false,
@@ -1417,17 +1445,24 @@
                       "include_tax": true,
                       "amortize": true,
                       "unallocated": false,
-                      "aggregate_by": "cost"
+                      "aggregate_by": "cost",
+                      "show_previous_period": true
                     },
                     "created_at": "2024-07-03T00:00:00Z",
-                    "workspace_token": "wrkspc_2e2953593e6c460a",
+                    "workspace_token": "wrkspc_b7743329296e6e96",
                     "previous_period_start_date": null,
                     "previous_period_end_date": null,
                     "start_date": "2024-07-01",
                     "end_date": "2024-07-31",
                     "date_interval": "this_month",
                     "chart_type": "line",
-                    "date_bin": "cumulative"
+                    "date_bin": "cumulative",
+                    "chart_settings": {
+                      "y_axis_dimension": "cost",
+                      "x_axis_dimension": [
+                        "date"
+                      ]
+                    }
                   }
                 ]
               }
@@ -1442,6 +1477,7 @@
     },
     "/cost_reports/{cost_report_token}": {
       "delete": {
+        "summary": "Delete cost report",
         "description": "Delete a CostReport.",
         "produces": [
           "application/json"
@@ -1481,6 +1517,7 @@
         "operationId": "deleteCostReport"
       },
       "put": {
+        "summary": "Update cost report",
         "description": "Update a CostReport.",
         "produces": [
           "application/json"
@@ -1519,15 +1556,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_a490c214f4bbe72f",
+                "token": "rprt_c02b21cb3750e2c8",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_8295e9888457f397",
+                "folder_token": "fldr_5671a9c9785c0aff",
                 "saved_filter_tokens": [
-                  "svd_fltr_ab6d4f05eaa6810e"
+                  "svd_fltr_fe456f29a8e9a706"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_12e5db929bf3922a",
+                    "business_metric_token": "bsnss_mtrc_352795a0c2b0be50",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -1537,12 +1574,12 @@
                     ]
                   },
                   {
-                    "business_metric_token": "bsnss_mtrc_72d01f2ecdbc10fc",
+                    "business_metric_token": "bsnss_mtrc_13ce0c4cb90eb641",
                     "unit_scale": "per_million"
                   }
                 ],
                 "filter": "costs.provider = 'azure'",
-                "groupings": "service,account_id",
+                "groupings": "account_id,service",
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1550,17 +1587,24 @@
                   "include_tax": true,
                   "amortize": true,
                   "unallocated": false,
-                  "aggregate_by": "cost"
+                  "aggregate_by": "cost",
+                  "show_previous_period": true
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_820fbab7bc9f61b7",
+                "workspace_token": "wrkspc_b727d292ad47b28b",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
                 "chart_type": "pie",
-                "date_bin": "week"
+                "date_bin": "week",
+                "chart_settings": {
+                  "y_axis_dimension": "cost",
+                  "x_axis_dimension": [
+                    "date"
+                  ]
+                }
               }
             }
           },
@@ -1583,6 +1627,7 @@
         "operationId": "updateCostReport"
       },
       "get": {
+        "summary": "Get cost report by token",
         "description": "Return a CostReport.",
         "produces": [
           "application/json"
@@ -1610,15 +1655,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_b82eb9c606b23f6d",
+                "token": "rprt_fb27faa25ef5ea72",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_0d87868df0e54711"
+                  "svd_fltr_dd642aeffbe29367"
                 ],
                 "business_metric_tokens_with_metadata": [],
                 "filter": null,
-                "groupings": "provider,service",
+                "groupings": "service,provider",
                 "settings": {
                   "include_credits": false,
                   "include_refunds": false,
@@ -1626,17 +1671,24 @@
                   "include_tax": true,
                   "amortize": true,
                   "unallocated": false,
-                  "aggregate_by": "cost"
+                  "aggregate_by": "cost",
+                  "show_previous_period": true
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_90079dc86b0ea0a8",
+                "workspace_token": "wrkspc_e5c550d14cfa3101",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
                 "end_date": "2024-07-31",
                 "date_interval": "this_month",
                 "chart_type": "line",
-                "date_bin": "cumulative"
+                "date_bin": "cumulative",
+                "chart_settings": {
+                  "y_axis_dimension": "cost",
+                  "x_axis_dimension": [
+                    "date"
+                  ]
+                }
               }
             }
           },
@@ -1655,6 +1707,7 @@
     },
     "/cost_reports/{cost_report_token}/forecasted_costs": {
       "get": {
+        "summary": "Get forecasted costs for a cost report",
         "description": "Return all ForecastedCosts.",
         "produces": [
           "application/json"
@@ -1759,10 +1812,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs",
-                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs?page=1",
+                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs",
+                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs?page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_41bd037c4bd5bc85/forecasted_costs?page=1",
+                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs?page=1",
                   "prev": null
                 },
                 "forecasted_costs": [
@@ -1834,6 +1887,7 @@
     },
     "/segments": {
       "post": {
+        "summary": "Create segment",
         "description": "Create a Segment.",
         "produces": [
           "application/json"
@@ -1898,6 +1952,7 @@
         "operationId": "createSegment"
       },
       "get": {
+        "summary": "Get all segments",
         "description": "Return all Segments.",
         "produces": [
           "application/json"
@@ -1945,9 +2000,9 @@
                 "segments": [
                   {
                     "token": "fltr_sgmt_79b0b8ef658d6bba",
-                    "title": "neural-net",
+                    "title": "Business Units",
                     "parent_segment_token": null,
-                    "description": "Optimized encompassing algorithm",
+                    "description": "Segmented by business unit.",
                     "track_unallocated": false,
                     "report_settings": {
                       "include_credits": false,
@@ -1975,6 +2030,7 @@
     },
     "/segments/{segment_token}": {
       "delete": {
+        "summary": "Delete segment",
         "description": "Delete a Segment.",
         "produces": [
           "application/json"
@@ -2014,6 +2070,7 @@
         "operationId": "deleteSegment"
       },
       "put": {
+        "summary": "Update segment",
         "description": "Update a Segment.",
         "produces": [
           "application/json"
@@ -2055,7 +2112,7 @@
                 "token": "fltr_sgmt_1550eb291314035c",
                 "title": "Updated Segment",
                 "parent_segment_token": "fltr_sgmt_a39cf865967ed4d8",
-                "description": "Total object-oriented productivity",
+                "description": "This segment is updated.",
                 "track_unallocated": false,
                 "priority": 42,
                 "filter": "costs.provider = 'azure'",
@@ -2084,6 +2141,7 @@
         "operationId": "updateSegment"
       },
       "get": {
+        "summary": "Get segment by token",
         "description": "Return a Segment.",
         "produces": [
           "application/json"
@@ -2114,7 +2172,7 @@
                 "token": "fltr_sgmt_e528df30fe4c9da4",
                 "title": "Function-based",
                 "parent_segment_token": null,
-                "description": "Total multi-tasking encoding",
+                "description": "Segmented by function.",
                 "track_unallocated": false,
                 "report_settings": {
                   "include_credits": false,
@@ -2146,6 +2204,7 @@
     },
     "/dashboards": {
       "post": {
+        "summary": "Create dashboard",
         "description": "Create a Dashboard.",
         "produces": [
           "application/json"
@@ -2195,14 +2254,14 @@
                   },
                   {
                     "widgetable_token": "kbnts_eff_rprt_892d1566bd543b67",
-                    "title": "Drinking meh chia single-origin coffee intelligentsia everyday small batch.",
+                    "title": "All Kubernetes Nodes Efficiency",
                     "settings": {
                       "display_type": "table"
                     }
                   },
                   {
                     "widgetable_token": "rprt_750074c1b25b372a",
-                    "title": "Untitled",
+                    "title": "Azure Cost Report",
                     "settings": {
                       "display_type": "chart"
                     }
@@ -2235,6 +2294,7 @@
         "operationId": "createDashboard"
       },
       "get": {
+        "summary": "Get all dashboards",
         "description": "Return all Dashboards.",
         "produces": [
           "application/json"
@@ -2282,14 +2342,14 @@
                 "dashboards": [
                   {
                     "token": "dshbrd_13d78294a06f0f84",
-                    "title": "The Torment of Others",
+                    "title": "Executive Overview",
                     "widget_tokens": [
                       "rprt_7c3cb814dfb6d881"
                     ],
                     "widgets": [
                       {
                         "widgetable_token": "rprt_7c3cb814dfb6d881",
-                        "title": "Untitled",
+                        "title": "Cost Report",
                         "settings": {
                           "display_type": "chart"
                         }
@@ -2320,6 +2380,7 @@
     },
     "/dashboards/{dashboard_token}": {
       "delete": {
+        "summary": "Delete dashboard",
         "description": "Delete a Dashboard.",
         "produces": [
           "application/json"
@@ -2360,6 +2421,7 @@
         "operationId": "deleteDashboard"
       },
       "put": {
+        "summary": "Update dashboard",
         "description": "Update a Dashboard.",
         "produces": [
           "application/json"
@@ -2415,14 +2477,14 @@
                   },
                   {
                     "widgetable_token": "kbnts_eff_rprt_e3fc91cb63fd5469",
-                    "title": "Green juice listicle irony yolo hella aesthetic hammock.",
+                    "title": "Kubernetes Efficiency Report",
                     "settings": {
                       "display_type": "table"
                     }
                   },
                   {
                     "widgetable_token": "rprt_7b0be9c16c5a6785",
-                    "title": "Untitled",
+                    "title": "Azure Report",
                     "settings": {
                       "display_type": "chart"
                     }
@@ -2461,6 +2523,7 @@
         "operationId": "updateDashboard"
       },
       "get": {
+        "summary": "Get dashboard by token",
         "description": "Return a specific Dashboard.",
         "produces": [
           "application/json"
@@ -2498,14 +2561,14 @@
                 "dashboards": [
                   {
                     "token": "dshbrd_e7c5b49d826b6f71",
-                    "title": "In Death Ground",
+                    "title": "Executive Overview",
                     "widget_tokens": [
                       "rprt_27e80d7a8d3f34e6"
                     ],
                     "widgets": [
                       {
                         "widgetable_token": "rprt_27e80d7a8d3f34e6",
-                        "title": "Untitled",
+                        "title": "Weekly Sales Report",
                         "settings": {
                           "display_type": "chart"
                         }
@@ -2542,6 +2605,7 @@
     },
     "/costs/data_exports": {
       "post": {
+        "summary": "Generate cost data export",
         "description": "Generate a DataExport of costs.",
         "produces": [
           "application/json"
@@ -2724,6 +2788,7 @@
     },
     "/costs": {
       "get": {
+        "summary": "Get costs for cost report or VQL filter",
         "description": "Return all Costs for a CostReport or VQL filter.",
         "produces": [
           "application/json"
@@ -2979,6 +3044,7 @@
     },
     "/resources": {
       "get": {
+        "summary": "Get resources",
         "description": "Return Resources contained in a ResourceReport",
         "produces": [
           "application/json"
@@ -3069,7 +3135,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -3105,7 +3171,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -3139,6 +3205,7 @@
     },
     "/resources/{resource_token}": {
       "get": {
+        "summary": "Get resource by token",
         "description": "Return a single Resource",
         "produces": [
           "application/json"
@@ -3208,11 +3275,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -3228,6 +3295,7 @@
     },
     "/resource_reports": {
       "post": {
+        "summary": "Create resource report",
         "description": "Create a ResourceReport.",
         "produces": [
           "application/json"
@@ -3299,6 +3367,7 @@
         "operationId": "createResourceReport"
       },
       "get": {
+        "summary": "Get all resource reports",
         "description": "Return all ResourceReports.",
         "produces": [
           "application/json"
@@ -3376,6 +3445,7 @@
     },
     "/resource_reports/columns": {
       "get": {
+        "summary": "Get resource report columns",
         "description": "List available columns for a resource type.",
         "produces": [
           "application/json"
@@ -3473,6 +3543,7 @@
     },
     "/resource_reports/{resource_report_token}": {
       "delete": {
+        "summary": "Delete resource report",
         "description": "Delete a ResourceReport.",
         "produces": [
           "application/json"
@@ -3512,6 +3583,7 @@
         "operationId": "deleteResourceReport"
       },
       "put": {
+        "summary": "Update resource report",
         "description": "Update a ResourceReport.",
         "produces": [
           "application/json"
@@ -3595,6 +3667,7 @@
         "operationId": "updateResourceReport"
       },
       "get": {
+        "summary": "Get resource report by token",
         "description": "Return a ResourceReport.",
         "produces": [
           "application/json"
@@ -3657,6 +3730,7 @@
     },
     "/teams": {
       "post": {
+        "summary": "Create team",
         "description": "Create a new Team.",
         "produces": [
           "application/json"
@@ -3732,6 +3806,7 @@
         "operationId": "createTeam"
       },
       "get": {
+        "summary": "Get all teams",
         "description": "Return all Teams that the current API token has access to.",
         "produces": [
           "application/json"
@@ -3779,8 +3854,8 @@
                 "teams": [
                   {
                     "token": "team_2d4733920ec4385e",
-                    "name": "New Mexico people",
-                    "description": "Consequuntur ratione.",
+                    "name": "Prod Team",
+                    "description": "Handles all production deployments",
                     "workspace_tokens": [
                       "wrkspc_08026aa5fb4c90f8"
                     ],
@@ -3801,6 +3876,7 @@
     },
     "/teams/{team_token}": {
       "delete": {
+        "summary": "Delete team",
         "description": "Delete a Team.",
         "produces": [
           "application/json"
@@ -3858,6 +3934,7 @@
         "operationId": "deleteTeam"
       },
       "put": {
+        "summary": "Update team",
         "description": "Update a Team.",
         "produces": [
           "application/json"
@@ -3939,6 +4016,7 @@
         "operationId": "updateTeam"
       },
       "get": {
+        "summary": "Get team by token",
         "description": "Return a specific Team.",
         "produces": [
           "application/json"
@@ -3967,8 +4045,8 @@
             "examples": {
               "application/json": {
                 "token": "team_081e09bbb812d369",
-                "name": "Missouri cats",
-                "description": "Voluptas et.",
+                "name": "Prod Team",
+                "description": "Handles all production deployments.",
                 "workspace_tokens": [
                   "wrkspc_ddc003a2f0171bf8"
                 ],
@@ -3993,6 +4071,7 @@
     },
     "/access_grants": {
       "post": {
+        "summary": "Create access grant",
         "description": "Create an Access Grant.",
         "produces": [
           "application/json"
@@ -4071,6 +4150,7 @@
         "operationId": "createAccessGrant"
       },
       "get": {
+        "summary": "Get all access grants",
         "description": "Return all Access Grants that the current API token has access to.",
         "produces": [
           "application/json"
@@ -4153,6 +4233,7 @@
     },
     "/access_grants/{access_grant_token}": {
       "delete": {
+        "summary": "Delete access grant",
         "description": "Delete an Access Grant.",
         "produces": [
           "application/json"
@@ -4192,6 +4273,7 @@
         "operationId": "deleteAccessGrant"
       },
       "put": {
+        "summary": "Update access grant",
         "description": "Update an AccessGrant.",
         "produces": [
           "application/json"
@@ -4258,6 +4340,7 @@
         "operationId": "updateAccessGrant"
       },
       "get": {
+        "summary": "Get access grant by token",
         "description": "Return a specific Access Grant.",
         "produces": [
           "application/json"
@@ -4309,6 +4392,7 @@
     },
     "/report_notifications": {
       "post": {
+        "summary": "Create report notification",
         "description": "Create a ReportNotification.",
         "produces": [
           "application/json"
@@ -4371,6 +4455,7 @@
         "operationId": "createReportNotification"
       },
       "get": {
+        "summary": "Get all report notifications",
         "description": "Return all ReportNotifications.",
         "produces": [
           "application/json"
@@ -4439,6 +4524,7 @@
     },
     "/report_notifications/{report_notification_token}": {
       "delete": {
+        "summary": "Delete report notification",
         "description": "Delete a ReportNotification.",
         "produces": [
           "application/json"
@@ -4478,6 +4564,7 @@
         "operationId": "deleteReportNotification"
       },
       "put": {
+        "summary": "Update report notification",
         "description": "Update a ReportNotification.",
         "produces": [
           "application/json"
@@ -4546,6 +4633,7 @@
         "operationId": "updateReportNotification"
       },
       "get": {
+        "summary": "Get report notification by token",
         "description": "Return a ReportNotification.",
         "produces": [
           "application/json"
@@ -4599,6 +4687,7 @@
     },
     "/users": {
       "get": {
+        "summary": "Get all users",
         "description": "Return all Users that the current API token has access to.",
         "produces": [
           "application/json"
@@ -4677,6 +4766,7 @@
     },
     "/users/{user_token}": {
       "get": {
+        "summary": "Get user by token",
         "description": "Return a specific User.",
         "produces": [
           "application/json"
@@ -4727,6 +4817,7 @@
     },
     "/business_metrics": {
       "post": {
+        "summary": "Create business metric",
         "description": "Create a new BusinessMetric.",
         "produces": [
           "application/json"
@@ -4767,9 +4858,9 @@
                     "cost_report_token": "rprt_67a1e1ac3bb7cefd",
                     "unit_scale": "per_thousand",
                     "label_filter": [
-                      "CBGB",
-                      "Roxy",
-                      "Studio 54",
+                      "Dev",
+                      "Prod",
+                      "Staging",
                       ""
                     ]
                   }
@@ -4810,6 +4901,7 @@
         "operationId": "createBusinessMetric"
       },
       "get": {
+        "summary": "Get all business metrics",
         "description": "Return all BusinessMetrics that the current API token has access to.",
         "produces": [
           "application/json"
@@ -4850,7 +4942,7 @@
                 "business_metrics": [
                   {
                     "token": "bsnss_mtrc_124dc3483510ac35",
-                    "title": "Overhold",
+                    "title": "Business Metric",
                     "created_by_token": "usr_80447a58ff9821dd",
                     "cost_report_tokens_with_metadata": [],
                     "import_type": "csv",
@@ -4858,7 +4950,7 @@
                   },
                   {
                     "token": "bsnss_mtrc_2534c89d90b714f7",
-                    "title": "Namfix",
+                    "title": "AWS Metric",
                     "created_by_token": "usr_752202a1bb7c9a70",
                     "cost_report_tokens_with_metadata": [],
                     "import_type": "cloudwatch",
@@ -4879,7 +4971,7 @@
                   },
                   {
                     "token": "bsnss_mtrc_c11f0f8dea953e92",
-                    "title": "Lotstring",
+                    "title": "Datadog Metric",
                     "created_by_token": "usr_604fcaa892a23fe9",
                     "cost_report_tokens_with_metadata": [],
                     "import_type": "datadog_metrics",
@@ -4901,6 +4993,7 @@
     },
     "/business_metrics/{business_metric_token}": {
       "delete": {
+        "summary": "Delete business metric",
         "description": "Deletes an existing BusinessMetric.",
         "produces": [
           "application/json"
@@ -4946,6 +5039,7 @@
         "operationId": "deleteBusinessMetric"
       },
       "put": {
+        "summary": "Update business metric",
         "description": "Updates an existing BusinessMetric.",
         "produces": [
           "application/json"
@@ -4992,9 +5086,9 @@
                     "cost_report_token": "rprt_54aa7c0519d3f1e2",
                     "unit_scale": "per_thousand",
                     "label_filter": [
-                      "CBGB",
-                      "Roxy",
-                      "Studio 54",
+                      "Dev",
+                      "Prod",
+                      "Staging",
                       ""
                     ]
                   },
@@ -5039,6 +5133,7 @@
         "operationId": "updateBusinessMetric"
       },
       "get": {
+        "summary": "Get business metric by token",
         "description": "Return a BusinessMetric.",
         "produces": [
           "application/json"
@@ -5090,6 +5185,7 @@
     },
     "/business_metrics/{business_metric_token}/values.csv": {
       "put": {
+        "summary": "Update business metric values from CSV",
         "description": "Updates the values for an existing BusinessMetric from a CSV file.",
         "produces": [
           "application/json"
@@ -5170,6 +5266,7 @@
     },
     "/business_metrics/{business_metric_token}/values": {
       "get": {
+        "summary": "Get business metric values",
         "description": "Return values of a BusinessMetric",
         "produces": [
           "application/json"
@@ -5253,6 +5350,7 @@
     },
     "/products": {
       "get": {
+        "summary": "Get all products",
         "description": "Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.",
         "produces": [
           "application/json"
@@ -5382,6 +5480,7 @@
     },
     "/products/{id}": {
       "get": {
+        "summary": "Get product by ID",
         "description": "Return a product",
         "produces": [
           "application/json"
@@ -5435,6 +5534,7 @@
     },
     "/products/{product_id}/prices": {
       "get": {
+        "summary": "Get prices for a product",
         "description": "Return available Prices across all Regions for a Product.",
         "produces": [
           "application/json"
@@ -5535,6 +5635,7 @@
     },
     "/products/{product_id}/prices/{id}": {
       "get": {
+        "summary": "Get price by ID",
         "description": "Returns a price",
         "produces": [
           "application/json"
@@ -5590,6 +5691,7 @@
     },
     "/financial_commitment_reports": {
       "post": {
+        "summary": "Create financial commitment report",
         "description": "Create a FinancialCommitmentReport.",
         "produces": [
           "application/json"
@@ -5657,6 +5759,7 @@
         "operationId": "createFinancialCommitmentReport"
       },
       "get": {
+        "summary": "Get all financial commitment reports",
         "description": "Return all FinancialCommitmentReports.",
         "produces": [
           "application/json"
@@ -5730,6 +5833,7 @@
     },
     "/financial_commitment_reports/{financial_commitment_report_token}": {
       "delete": {
+        "summary": "Delete financial commitment report",
         "description": "Delete a FinancialCommitmentReport.",
         "produces": [
           "application/json"
@@ -5769,6 +5873,7 @@
         "operationId": "deleteFinancialCommitmentReport"
       },
       "put": {
+        "summary": "Update financial commitment report",
         "description": "Update a FinancialCommitmentReport.",
         "produces": [
           "application/json"
@@ -5842,6 +5947,7 @@
         "operationId": "updateFinancialCommitmentReport"
       },
       "get": {
+        "summary": "Get financial commitment report by token",
         "description": "Return a FinancialCommitmentReport.",
         "produces": [
           "application/json"
@@ -5900,6 +6006,7 @@
     },
     "/financial_commitments": {
       "get": {
+        "summary": "Get all financial commitments",
         "description": "Return all FinancialCommitments.",
         "produces": [
           "application/json"
@@ -5974,6 +6081,7 @@
     },
     "/kubernetes_efficiency_reports": {
       "post": {
+        "summary": "Create Kubernetes efficiency report",
         "description": "Create a KubernetesEfficiencyReport.",
         "produces": [
           "application/json"
@@ -6041,6 +6149,7 @@
         "operationId": "createKubernetesEfficiencyReport"
       },
       "get": {
+        "summary": "Get all Kubernetes efficiency reports",
         "description": "Return all KubernetesEfficiencyReports.",
         "produces": [
           "application/json"
@@ -6088,7 +6197,7 @@
                 "kubernetes_efficiency_reports": [
                   {
                     "token": "kbnts_eff_rprt_f8d610afacc7e6c6",
-                    "title": "Sriracha aesthetic echo literally retro.",
+                    "title": "Cluster Idle Costs",
                     "default": false,
                     "created_at": "2024-10-25T21:20:43Z",
                     "workspace_token": "wrkspc_64768b29bebf9dfe",
@@ -6113,6 +6222,7 @@
     },
     "/kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}": {
       "delete": {
+        "summary": "Delete Kubernetes efficiency report",
         "description": "Delete a KubernetesEfficiencyReport.",
         "produces": [
           "application/json"
@@ -6152,6 +6262,7 @@
         "operationId": "deleteKubernetesEfficiencyReport"
       },
       "put": {
+        "summary": "Update Kubernetes efficiency report",
         "description": "Update a KubernetesEfficiencyReport.",
         "produces": [
           "application/json"
@@ -6224,6 +6335,7 @@
         "operationId": "updateKubernetesEfficiencyReport"
       },
       "get": {
+        "summary": "Get Kubernetes efficiency report by token",
         "description": "Return a KubernetesEfficiencyReport.",
         "produces": [
           "application/json"
@@ -6281,6 +6393,7 @@
     },
     "/network_flow_reports": {
       "post": {
+        "summary": "Create network flow report",
         "description": "Create a NetworkFlowReport.",
         "produces": [
           "application/json"
@@ -6348,6 +6461,7 @@
         "operationId": "createNetworkFlowReport"
       },
       "get": {
+        "summary": "Get all network flow reports",
         "description": "Return all NetworkFlowReports.",
         "produces": [
           "application/json"
@@ -6421,6 +6535,7 @@
     },
     "/network_flow_reports/{network_flow_report_token}": {
       "delete": {
+        "summary": "Delete network flow report",
         "description": "Delete a NetworkFlowReport.",
         "produces": [
           "application/json"
@@ -6460,6 +6575,7 @@
         "operationId": "deleteNetworkFlowReport"
       },
       "put": {
+        "summary": "Update network flow report",
         "description": "Update a NetworkFlowReport.",
         "produces": [
           "application/json"
@@ -6533,6 +6649,7 @@
         "operationId": "updateNetworkFlowReport"
       },
       "get": {
+        "summary": "Get network flow report by token",
         "description": "Return a NetworkFlowReport.",
         "produces": [
           "application/json"
@@ -6591,6 +6708,7 @@
     },
     "/anomaly_alerts": {
       "get": {
+        "summary": "Get all anomaly alerts",
         "description": "Return all Anomaly Alerts that the current API token has access to.",
         "produces": [
           "application/json"
@@ -6710,6 +6828,7 @@
     },
     "/anomaly_alerts/{anomaly_alert_token}": {
       "put": {
+        "summary": "Update anomaly alert",
         "description": "Update an AnomalyAlert.",
         "produces": [
           "application/json"
@@ -6794,6 +6913,7 @@
         "operationId": "updateAnomalyAlert"
       },
       "get": {
+        "summary": "Get anomaly alert by token",
         "description": "Return an AnomalyAlert that the current API token has access to.",
         "produces": [
           "application/json"
@@ -6851,6 +6971,7 @@
     },
     "/audit_logs": {
       "get": {
+        "summary": "Get all audit logs",
         "description": "Return all AuditLogs.",
         "produces": [
           "application/json"
@@ -7067,6 +7188,7 @@
     },
     "/audit_logs/{audit_log_token}": {
       "get": {
+        "summary": "Get audit log by token",
         "description": "Return a specific AuditLog.",
         "produces": [
           "application/json"
@@ -7132,6 +7254,7 @@
     },
     "/virtual_tag_configs": {
       "post": {
+        "summary": "Create virtual tag config",
         "description": "Create a new VirtualTagConfig.",
         "produces": [
           "application/json"
@@ -7213,6 +7336,7 @@
         "operationId": "createVirtualTagConfig"
       },
       "get": {
+        "summary": "Get all virtual tag configs",
         "description": "Return all VirtualTagConfigs that the current API token has access to.",
         "produces": [
           "application/json"
@@ -7263,6 +7387,7 @@
     },
     "/virtual_tag_configs/{token}": {
       "delete": {
+        "summary": "Delete virtual tag config",
         "description": "Deletes an existing VirtualTagConfig.",
         "produces": [
           "application/json"
@@ -7308,6 +7433,7 @@
         "operationId": "deleteVirtualTagConfig"
       },
       "put": {
+        "summary": "Update virtual tag config",
         "description": "Updates an existing VirtualTagConfig.",
         "produces": [
           "application/json"
@@ -7395,6 +7521,7 @@
         "operationId": "updateVirtualTagConfig"
       },
       "get": {
+        "summary": "Get virtual tag config by token",
         "description": "Return a specific VirtualTagConfig.",
         "produces": [
           "application/json"
@@ -7455,6 +7582,7 @@
     },
     "/tags": {
       "put": {
+        "summary": "Update tag",
         "description": "Updates an existing Tag.",
         "produces": [
           "application/json"
@@ -7532,6 +7660,7 @@
         "operationId": "updateTag"
       },
       "get": {
+        "summary": "Get all tags",
         "description": "Return all Tags that the current API token has access to.",
         "produces": [
           "application/json"
@@ -7660,6 +7789,7 @@
     },
     "/tags/{key}/values": {
       "get": {
+        "summary": "Get tag values",
         "description": "Returns corresponding TagValues for a given Tag.",
         "produces": [
           "application/json"
@@ -7800,6 +7930,7 @@
     },
     "/anomaly_notifications": {
       "post": {
+        "summary": "Create anomaly notification",
         "description": "Create an Anomaly Notification for a Cost Report.",
         "produces": [
           "application/json"
@@ -7860,6 +7991,7 @@
         "operationId": "createAnomalyNotification"
       },
       "get": {
+        "summary": "Get all anomaly notifications",
         "description": "Return all Anomaly Notifications.",
         "produces": [
           "application/json"
@@ -7929,6 +8061,7 @@
     },
     "/anomaly_notifications/{anomaly_notification_token}": {
       "delete": {
+        "summary": "Delete anomaly notification",
         "description": "Delete an Anomaly Notification.",
         "produces": [
           "application/json"
@@ -7968,6 +8101,7 @@
         "operationId": "deleteAnomalyNotification"
       },
       "put": {
+        "summary": "Update anomaly notification",
         "description": "Update an Anomaly Notification.",
         "produces": [
           "application/json"
@@ -8034,6 +8168,7 @@
         "operationId": "updateAnomalyNotification"
       },
       "get": {
+        "summary": "Get anomaly notification by token",
         "description": "Return an Anomaly Notification that the current API token has access to.",
         "produces": [
           "application/json"
@@ -8088,6 +8223,7 @@
     },
     "/budgets": {
       "post": {
+        "summary": "Create budget",
         "description": "Create a Budget.",
         "produces": [
           "application/json"
@@ -8189,6 +8325,7 @@
         "operationId": "createBudget"
       },
       "get": {
+        "summary": "Get all budgets",
         "description": "Return all Budgets.",
         "produces": [
           "application/json"
@@ -8271,6 +8408,7 @@
     },
     "/budgets/{budget_token}": {
       "delete": {
+        "summary": "Delete budget",
         "description": "Delete a Budget.",
         "produces": [
           "application/json"
@@ -8310,6 +8448,7 @@
         "operationId": "deleteBudget"
       },
       "put": {
+        "summary": "Update budget",
         "description": "Update a Budget.",
         "produces": [
           "application/json"
@@ -8428,6 +8567,7 @@
         "operationId": "updateBudget"
       },
       "get": {
+        "summary": "Get budget by token",
         "description": "Return a Budget.",
         "produces": [
           "application/json"
@@ -8502,6 +8642,7 @@
     },
     "/budget_alerts": {
       "post": {
+        "summary": "Create budget alert",
         "description": "Create a Budget Alert.",
         "produces": [
           "application/json"
@@ -8591,6 +8732,7 @@
         "operationId": "createBudgetAlert"
       },
       "get": {
+        "summary": "Get all budget alerts",
         "description": "Return all BudgetAlerts.",
         "produces": [
           "application/json"
@@ -8637,6 +8779,7 @@
     },
     "/budget_alerts/{budget_alert_token}": {
       "delete": {
+        "summary": "Delete budget alert",
         "description": "Delete a BudgetAlert.",
         "produces": [
           "application/json"
@@ -8676,6 +8819,7 @@
         "operationId": "deleteBudgetAlert"
       },
       "put": {
+        "summary": "Update budget alert",
         "description": "Updates an existing BudgetAlert.",
         "produces": [
           "application/json"
@@ -8771,6 +8915,7 @@
         "operationId": "updateBudgetAlert"
       },
       "get": {
+        "summary": "Get budget alert by token",
         "description": "Return a BudgetAlert.",
         "produces": [
           "application/json"
@@ -8813,6 +8958,7 @@
     },
     "/integrations/azure": {
       "post": {
+        "summary": "Create Azure integration",
         "description": "Create an Azure Integration",
         "produces": [
           "application/json"
@@ -8869,6 +9015,7 @@
     },
     "/integrations/gcp": {
       "post": {
+        "summary": "Create GCP integration",
         "description": "Create a GCP Integration",
         "produces": [
           "application/json"
@@ -8925,6 +9072,7 @@
     },
     "/integrations/custom_provider": {
       "post": {
+        "summary": "Create custom provider integration",
         "description": "Create a Custom Provider Integration",
         "produces": [
           "application/json"
@@ -8987,6 +9135,7 @@
     },
     "/integrations": {
       "get": {
+        "summary": "Get all integrations",
         "description": "Return all Integrations.",
         "produces": [
           "application/json"
@@ -9098,6 +9247,7 @@
     },
     "/integrations/{integration_token}": {
       "delete": {
+        "summary": "Delete integration",
         "description": "Delete an Integration.",
         "produces": [
           "application/json"
@@ -9137,6 +9287,7 @@
         "operationId": "deleteIntegration"
       },
       "put": {
+        "summary": "Update integration",
         "description": "Update an Integration.",
         "produces": [
           "application/json"
@@ -9209,6 +9360,7 @@
         "operationId": "updateIntegration"
       },
       "get": {
+        "summary": "Get integration by token",
         "description": "Return an Integration.",
         "produces": [
           "application/json"
@@ -9262,6 +9414,7 @@
     },
     "/integrations/{integration_token}/costs": {
       "get": {
+        "summary": "Get all user costs uploads",
         "description": "List UserCostUploads.",
         "produces": [
           "application/json"
@@ -9323,6 +9476,7 @@
     },
     "/integrations/{integration_token}/costs/{user_costs_upload_token}": {
       "delete": {
+        "summary": "Delete user costs upload",
         "description": "Delete a UserCostsUpload.",
         "produces": [
           "application/json"
@@ -9371,6 +9525,7 @@
     },
     "/integrations/{integration_token}/costs.csv": {
       "post": {
+        "summary": "Upload custom provider costs",
         "description": "Create UserCostsUpload via CSV for a Custom Provider Integration.",
         "produces": [
           "application/json"
@@ -9461,6 +9616,7 @@
     },
     "/recommendations": {
       "get": {
+        "summary": "Get all recommendations",
         "description": "Return all Recommendations.",
         "produces": [
           "application/json"
@@ -9487,6 +9643,7 @@
             "type": "string",
             "enum": [
               "ebs_gp2_to_gp3",
+              "ebs_unattached_volume",
               "elasticache_reserved_instances",
               "elastic_search_reserved_instances",
               "rds_reserved_instances",
@@ -9515,6 +9672,7 @@
               "gcp_compute_rightsizing_recommender",
               "gcp_compute_commitment_recommender",
               "ec2_snapshot_recommender",
+              "ec2_rightsizing_recommender",
               "ebs_compute_optimizer_recommender",
               "lambda_compute_optimizer_recommender",
               "ecs_compute_optimizer_recommender",
@@ -9529,7 +9687,8 @@
               "eks_in_extended_support_window",
               "eks_approaching_extended_support_window",
               "rds_in_extended_support_window",
-              "rds_approaching_extended_support_window"
+              "rds_approaching_extended_support_window",
+              "datadog_metrics_unqueried"
             ],
             "required": false
           },
@@ -9605,6 +9764,7 @@
     },
     "/recommendations/{recommendation_token}": {
       "get": {
+        "summary": "Get recommendation by token",
         "description": "Return a Recommendation.",
         "produces": [
           "application/json"
@@ -9660,6 +9820,7 @@
     },
     "/recommendations/{recommendation_token}/resources": {
       "get": {
+        "summary": "Get all resources for a recommendation",
         "description": "Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.",
         "produces": [
           "application/json"
@@ -9718,7 +9879,7 @@
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100,
+                        "potential_savings": 100.0,
                         "instance_type": "c5a.xlarge",
                         "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
                       }
@@ -9737,6 +9898,7 @@
     },
     "/recommendations/{recommendation_token}/resources/{resource_token}": {
       "get": {
+        "summary": "Get specific resource for a recommendation",
         "description": "Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.",
         "produces": [
           "application/json"
@@ -9776,7 +9938,7 @@
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100,
+                    "potential_savings": 100.0,
                     "instance_type": "c5a.xlarge",
                     "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
                   }
@@ -9799,6 +9961,7 @@
     },
     "/managed_accounts": {
       "post": {
+        "summary": "Create managed account",
         "description": "Create a Managed Account.",
         "produces": [
           "application/json"
@@ -9854,6 +10017,7 @@
         "operationId": "createManagedAccount"
       },
       "get": {
+        "summary": "Get all managed accounts",
         "description": "Returns a list of managed accounts.",
         "produces": [
           "application/json"
@@ -9919,6 +10083,7 @@
     },
     "/managed_accounts/{managed_account_token}": {
       "delete": {
+        "summary": "Delete managed account",
         "description": "Delete a Managed Account.",
         "produces": [
           "application/json"
@@ -9958,6 +10123,7 @@
         "operationId": "deleteManagedAccount"
       },
       "put": {
+        "summary": "Update managed account",
         "description": "Update a Managed Account.",
         "produces": [
           "application/json"
@@ -10025,6 +10191,7 @@
         "operationId": "updateManagedAccount"
       },
       "get": {
+        "summary": "Get managed account by token",
         "description": "Return a Managed Account.",
         "produces": [
           "application/json"
@@ -10075,6 +10242,7 @@
     },
     "/billing_profiles": {
       "post": {
+        "summary": "Create billing profile",
         "description": "Create a billing profile (MSP invoicing required).",
         "produces": [
           "application/json"
@@ -10119,6 +10287,7 @@
         "operationId": "createBillingProfile"
       },
       "get": {
+        "summary": "Get all billing profiles",
         "description": "Returns a list of billing profiles (MSP invoicing required).",
         "produces": [
           "application/json"
@@ -10164,7 +10333,7 @@
     },
     "/billing_profiles/{billing_profile_token}": {
       "delete": {
-        "summary": "Delete a billing profile (MSP invoicing required).",
+        "summary": "Delete billing profile",
         "description": "Requires MSP invoicing to be enabled on the account.",
         "produces": [
           "application/json"
@@ -10204,7 +10373,7 @@
         "operationId": "deleteBillingProfile"
       },
       "put": {
-        "summary": "Update a billing profile (MSP invoicing required).",
+        "summary": "Update billing profile",
         "description": "Requires MSP invoicing to be enabled on the account.",
         "produces": [
           "application/json"
@@ -10261,7 +10430,7 @@
         "operationId": "updateBillingProfile"
       },
       "get": {
-        "summary": "Return a billing profile (MSP invoicing required).",
+        "summary": "Get billing profile by token",
         "description": "Requires MSP invoicing to be enabled on the account.",
         "produces": [
           "application/json"
@@ -10303,6 +10472,7 @@
     },
     "/invoices": {
       "post": {
+        "summary": "Create invoice",
         "description": "Create an invoice (MSP accounts only).",
         "produces": [
           "application/json"
@@ -10347,6 +10517,7 @@
         "operationId": "createInvoice"
       },
       "get": {
+        "summary": "Get all invoices",
         "description": "Returns a list of invoices (MSP invoicing required).",
         "produces": [
           "application/json"
@@ -10399,6 +10570,7 @@
     },
     "/invoices/{invoice_token}/regenerate": {
       "post": {
+        "summary": "Regenerate invoice",
         "description": "Regenerate an existing invoice (MSP accounts only).",
         "produces": [
           "application/json"
@@ -10443,6 +10615,7 @@
     },
     "/invoices/{invoice_token}/cost_report": {
       "get": {
+        "summary": "Get cost report URL",
         "description": "Get cost report URL for invoice period.",
         "produces": [
           "application/json"
@@ -10484,6 +10657,7 @@
     },
     "/invoices/{invoice_token}/send_and_approve": {
       "post": {
+        "summary": "Send and approve invoice",
         "description": "Send and approve invoice via email (MSP accounts only).",
         "produces": [
           "application/json"
@@ -10534,6 +10708,7 @@
     },
     "/invoices/{invoice_token}/send": {
       "post": {
+        "summary": "Send invoice",
         "description": "Send invoice via email.",
         "produces": [
           "application/json"
@@ -10584,6 +10759,7 @@
     },
     "/invoices/{invoice_token}/download": {
       "post": {
+        "summary": "Get invoice file",
         "description": "Download invoice file (PDF or CSV).",
         "produces": [
           "application/json"
@@ -10633,6 +10809,7 @@
     },
     "/invoices/{invoice_token}": {
       "get": {
+        "summary": "Get invoice by token",
         "description": "Return an invoice.",
         "produces": [
           "application/json"
@@ -10674,6 +10851,7 @@
     },
     "/billing_rules": {
       "post": {
+        "summary": "Create billing rule",
         "description": "Create a BillingRule.",
         "produces": [
           "application/json"
@@ -10732,6 +10910,7 @@
         "operationId": "createBillingRule"
       },
       "get": {
+        "summary": "Get all billing rules",
         "description": "Returns a list of billing rules.",
         "produces": [
           "application/json"
@@ -10798,6 +10977,7 @@
     },
     "/billing_rules/{billing_rule_token}": {
       "delete": {
+        "summary": "Delete billing rule",
         "description": "Delete a BillingRule.",
         "produces": [
           "application/json"
@@ -10837,6 +11017,7 @@
         "operationId": "deleteBillingRule"
       },
       "put": {
+        "summary": "Update billing rule",
         "description": "Update a BillingRule.",
         "produces": [
           "application/json"
@@ -10905,6 +11086,7 @@
         "operationId": "updateBillingRule"
       },
       "get": {
+        "summary": "Get billing rule by token",
         "description": "Return a BillingRule.",
         "produces": [
           "application/json"
@@ -10956,6 +11138,7 @@
     },
     "/data_exports/{data_export_token}": {
       "get": {
+        "summary": "Get status of data export",
         "description": "Get the status of a data export.",
         "produces": [
           "application/json"
@@ -11033,6 +11216,7 @@
     },
     "/exchange_rates/csv": {
       "post": {
+        "summary": "Upload exchange rates via CSV",
         "description": "Upload Exchange Rates via CSV.",
         "produces": [
           "application/json"
@@ -11082,6 +11266,7 @@
     },
     "/exchange_rates": {
       "get": {
+        "summary": "Get all exchange rates",
         "description": "Return all Exchange Rates.",
         "produces": [
           "application/json"
@@ -11147,6 +11332,7 @@
     },
     "/me": {
       "get": {
+        "summary": "Get authenticated user info",
         "description": "Get information about the authenticated BearerToken.",
         "produces": [
           "application/json"
@@ -11174,6 +11360,7 @@
     },
     "/cost_providers": {
       "get": {
+        "summary": "Get cost providers",
         "description": "List CostProviders available to query in a given Workspace.",
         "produces": [
           "application/json"
@@ -11210,6 +11397,7 @@
     },
     "/cost_services": {
       "get": {
+        "summary": "Get cost services",
         "description": "List CostServices available to query in a given Workspace.",
         "produces": [
           "application/json"
@@ -11246,6 +11434,7 @@
     },
     "/user_feedback": {
       "post": {
+        "summary": "Submit user feedback",
         "description": "Provide UserFeedback for our product and features.",
         "produces": [
           "application/json"
@@ -11298,6 +11487,7 @@
     },
     "/cost_alerts/{cost_alert_token}/events": {
       "get": {
+        "summary": "Get all cost alert events",
         "description": "Get all CostAlertEvents",
         "produces": [
           "application/json"
@@ -11402,6 +11592,7 @@
     },
     "/cost_alerts/{cost_alert_token}/events/{event_token}": {
       "get": {
+        "summary": "Get cost alert event by token",
         "description": "Get a CostAlertEvent",
         "produces": [
           "application/json"
@@ -11461,6 +11652,7 @@
     },
     "/cost_alerts": {
       "post": {
+        "summary": "Create cost alert",
         "description": "Create a new Cost Alert",
         "produces": [
           "application/json"
@@ -11504,7 +11696,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100,
+                "threshold": 100.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -11525,6 +11717,7 @@
         "operationId": "createCostAlert"
       },
       "get": {
+        "summary": "Get all cost alerts",
         "description": "List all Cost Alerts",
         "produces": [
           "application/json"
@@ -11562,7 +11755,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000,
+                    "threshold": 1000.0,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -11581,6 +11774,7 @@
     },
     "/cost_alerts/{cost_alert_token}": {
       "delete": {
+        "summary": "Delete cost alert",
         "description": "Delete a Cost Alert",
         "produces": [
           "application/json"
@@ -11621,6 +11815,7 @@
         "operationId": "deleteCostAlert"
       },
       "put": {
+        "summary": "Update cost alert",
         "description": "Update a Cost Alert",
         "produces": [
           "application/json"
@@ -11672,7 +11867,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500,
+                "threshold": 500.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -11693,6 +11888,7 @@
         "operationId": "updateCostAlert"
       },
       "get": {
+        "summary": "Get cost alert by token",
         "description": "Get a Cost Alert",
         "produces": [
           "application/json"
@@ -11730,7 +11926,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000,
+                "threshold": 1000.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -11753,6 +11949,7 @@
     },
     "/unit_costs/data_exports": {
       "post": {
+        "summary": "Generate data export of unit costs",
         "description": "Generate a DataExport of unit costs.",
         "produces": [
           "application/json"
@@ -11844,6 +12041,7 @@
     },
     "/unit_costs": {
       "get": {
+        "summary": "Get all unit costs for a cost report",
         "description": "Return all UnitCosts for a CostReport.",
         "produces": [
           "application/json"
@@ -12002,6 +12200,111 @@
           "UnitCosts"
         ],
         "operationId": "getUnitCosts"
+      }
+    },
+    "/cost_provider_accounts": {
+      "get": {
+        "summary": "Get all cost provider accounts",
+        "description": "List CostProviderAccounts available in a given Workspace.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The token of the Workspace to list CostProviderAccounts for. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "Filter by provider type.",
+            "type": "string",
+            "enum": [
+              "aws",
+              "azure",
+              "gcp",
+              "snowflake",
+              "databricks",
+              "mongo",
+              "datadog",
+              "fastly",
+              "new_relic",
+              "opencost",
+              "open_ai",
+              "oracle",
+              "confluent",
+              "planetscale",
+              "coralogix",
+              "kubernetes",
+              "custom_provider",
+              "github",
+              "linode",
+              "grafana",
+              "clickhouse",
+              "temporal",
+              "twilio",
+              "azure_csp",
+              "kubernetes_agent",
+              "anthropic",
+              "anyscale"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "account_id",
+            "description": "Filter by provider account identifier.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "account_name",
+            "description": "Filter by account name (exact match).",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of provider accounts.",
+            "schema": {
+              "$ref": "#/definitions/CostProviderAccounts"
+            },
+            "examples": {
+              "application/json": {
+                "cost_provider_accounts": [
+                  {
+                    "title": "Azure Development Account",
+                    "account_id": "azure-subscription-id",
+                    "provider_uuid": "azure-subscription-uuid",
+                    "provider": "azure"
+                  },
+                  {
+                    "title": "AWS Test Account",
+                    "account_id": "999888777666",
+                    "provider_uuid": "arn:aws:organizations::999888777666:account/o-test123456/999888777666",
+                    "provider": "aws"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "CostProviderAccounts"
+        ],
+        "operationId": "getCostProviderAccounts"
       }
     },
     "/ping": {
@@ -12516,6 +12819,23 @@
             "quarter"
           ],
           "default": "cumulative"
+        },
+        "chart_settings": {
+          "type": "object",
+          "description": "Report chart settings.",
+          "properties": {
+            "x_axis_dimension": {
+              "type": "array",
+              "description": "The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].",
+              "items": {
+                "type": "string"
+              }
+            },
+            "y_axis_dimension": {
+              "type": "string",
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+            }
+          }
         }
       },
       "required": [
@@ -12649,6 +12969,10 @@
         "date_bin": {
           "type": "string",
           "description": "The date bin of the CostReport."
+        },
+        "chart_settings": {
+          "$ref": "#/definitions/ChartSettings",
+          "description": "The chart settings of the CostReport."
         }
       },
       "description": "CostReport model"
@@ -12684,6 +13008,19 @@
           },
           "x-omitempty": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
+        }
+      }
+    },
+    "ChartSettings": {
+      "type": "object",
+      "properties": {
+        "y_axis_dimension": {
+          "type": "string",
+          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+        },
+        "x_axis_dimension": {
+          "type": "string",
+          "description": "The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date']."
         }
       }
     },
@@ -12799,6 +13136,23 @@
             "show_previous_period": {
               "type": "boolean",
               "description": "Report will show previous period costs or usage comparison."
+            }
+          }
+        },
+        "chart_settings": {
+          "type": "object",
+          "description": "Report chart settings.",
+          "properties": {
+            "x_axis_dimension": {
+              "type": "array",
+              "description": "The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].",
+              "items": {
+                "type": "string"
+              }
+            },
+            "y_axis_dimension": {
+              "type": "string",
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
             }
           }
         },
@@ -15905,7 +16259,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-03-01",
+          "example": "2025-04-01",
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
         "values": {
@@ -18350,13 +18704,53 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1,
+          "example": 1.0,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
         "date": {
           "type": "string",
           "example": "2023-09-05+00:00",
           "description": "The date for which the unit cost was calculated. ISO 8601 Formatted."
+        }
+      }
+    },
+    "CostProviderAccounts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "object"
+        },
+        "cost_provider_accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostProviderAccount"
+          }
+        }
+      },
+      "description": "CostProviderAccounts model"
+    },
+    "CostProviderAccount": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Production Account",
+          "description": "The display name of the provider account."
+        },
+        "account_id": {
+          "type": "string",
+          "example": "123456789012",
+          "description": "The provider account identifier (e.g., AWS account ID, Azure subscription ID)."
+        },
+        "provider_uuid": {
+          "type": "string",
+          "example": "arn:aws:organizations::123456789012:account/o-example12345/123456789012",
+          "description": "The provider-specific unique identifier."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "description": "The provider type (aws, azure, gcp, etc.)."
         }
       }
     }

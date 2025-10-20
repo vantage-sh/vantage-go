@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateTeam Create a new Team.
+CreateTeam creates team
+
+Create a new Team.
 */
 func (a *Client) CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTeamCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAut
 }
 
 /*
-DeleteTeam Delete a Team.
+DeleteTeam deletes team
+
+Delete a Team.
 */
 func (a *Client) DeleteTeam(params *DeleteTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTeamNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteTeam(params *DeleteTeamParams, authInfo runtime.ClientAut
 }
 
 /*
-GetTeam Return a specific Team.
+GetTeam gets team by token
+
+Return a specific Team.
 */
 func (a *Client) GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetTeams Return all Teams that the current API token has access to.
+GetTeams gets all teams
+
+Return all Teams that the current API token has access to.
 */
 func (a *Client) GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-UpdateTeam Update a Team.
+UpdateTeam updates team
+
+Update a Team.
 */
 func (a *Client) UpdateTeam(params *UpdateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamOK, error) {
 	// TODO: Validate the params before sending

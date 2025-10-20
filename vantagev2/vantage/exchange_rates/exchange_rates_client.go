@@ -93,7 +93,9 @@ type ClientService interface {
 }
 
 /*
-CreateExchangeRatesViaCsv Upload Exchange Rates via CSV.
+CreateExchangeRatesViaCsv uploads exchange rates via c s v
+
+Upload Exchange Rates via CSV.
 */
 func (a *Client) CreateExchangeRatesViaCsv(params *CreateExchangeRatesViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateExchangeRatesViaCsvCreated, error) {
 	// TODO: Validate the params before sending
@@ -132,7 +134,9 @@ func (a *Client) CreateExchangeRatesViaCsv(params *CreateExchangeRatesViaCsvPara
 }
 
 /*
-GetExchangeRates Return all Exchange Rates.
+GetExchangeRates gets all exchange rates
+
+Return all Exchange Rates.
 */
 func (a *Client) GetExchangeRates(params *GetExchangeRatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExchangeRatesOK, error) {
 	// TODO: Validate the params before sending

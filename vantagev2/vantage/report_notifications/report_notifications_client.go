@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateReportNotification Create a ReportNotification.
+CreateReportNotification creates report notification
+
+Create a ReportNotification.
 */
 func (a *Client) CreateReportNotification(params *CreateReportNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateReportNotificationCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateReportNotification(params *CreateReportNotificationParams
 }
 
 /*
-DeleteReportNotification Delete a ReportNotification.
+DeleteReportNotification deletes report notification
+
+Delete a ReportNotification.
 */
 func (a *Client) DeleteReportNotification(params *DeleteReportNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteReportNotificationNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteReportNotification(params *DeleteReportNotificationParams
 }
 
 /*
-GetReportNotification Return a ReportNotification.
+GetReportNotification gets report notification by token
+
+Return a ReportNotification.
 */
 func (a *Client) GetReportNotification(params *GetReportNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportNotificationOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetReportNotification(params *GetReportNotificationParams, auth
 }
 
 /*
-GetReportNotifications Return all ReportNotifications.
+GetReportNotifications gets all report notifications
+
+Return all ReportNotifications.
 */
 func (a *Client) GetReportNotifications(params *GetReportNotificationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportNotificationsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetReportNotifications(params *GetReportNotificationsParams, au
 }
 
 /*
-UpdateReportNotification Update a ReportNotification.
+UpdateReportNotification updates report notification
+
+Update a ReportNotification.
 */
 func (a *Client) UpdateReportNotification(params *UpdateReportNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateReportNotificationOK, error) {
 	// TODO: Validate the params before sending

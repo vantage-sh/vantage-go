@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateBudget Create a Budget.
+CreateBudget creates budget
+
+Create a Budget.
 */
 func (a *Client) CreateBudget(params *CreateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBudgetCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateBudget(params *CreateBudgetParams, authInfo runtime.Clien
 }
 
 /*
-DeleteBudget Delete a Budget.
+DeleteBudget deletes budget
+
+Delete a Budget.
 */
 func (a *Client) DeleteBudget(params *DeleteBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBudgetNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteBudget(params *DeleteBudgetParams, authInfo runtime.Clien
 }
 
 /*
-GetBudget Return a Budget.
+GetBudget gets budget by token
+
+Return a Budget.
 */
 func (a *Client) GetBudget(params *GetBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetBudget(params *GetBudgetParams, authInfo runtime.ClientAuthI
 }
 
 /*
-GetBudgets Return all Budgets.
+GetBudgets gets all budgets
+
+Return all Budgets.
 */
 func (a *Client) GetBudgets(params *GetBudgetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetBudgets(params *GetBudgetsParams, authInfo runtime.ClientAut
 }
 
 /*
-UpdateBudget Update a Budget.
+UpdateBudget updates budget
+
+Update a Budget.
 */
 func (a *Client) UpdateBudget(params *UpdateBudgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetOK, error) {
 	// TODO: Validate the params before sending

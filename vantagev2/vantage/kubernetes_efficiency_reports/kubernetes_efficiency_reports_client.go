@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateKubernetesEfficiencyReport Create a KubernetesEfficiencyReport.
+CreateKubernetesEfficiencyReport creates kubernetes efficiency report
+
+Create a KubernetesEfficiencyReport.
 */
 func (a *Client) CreateKubernetesEfficiencyReport(params *CreateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateKubernetesEfficiencyReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateKubernetesEfficiencyReport(params *CreateKubernetesEffici
 }
 
 /*
-DeleteKubernetesEfficiencyReport Delete a KubernetesEfficiencyReport.
+DeleteKubernetesEfficiencyReport deletes kubernetes efficiency report
+
+Delete a KubernetesEfficiencyReport.
 */
 func (a *Client) DeleteKubernetesEfficiencyReport(params *DeleteKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKubernetesEfficiencyReportNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteKubernetesEfficiencyReport(params *DeleteKubernetesEffici
 }
 
 /*
-GetKubernetesEfficiencyReport Return a KubernetesEfficiencyReport.
+GetKubernetesEfficiencyReport gets kubernetes efficiency report by token
+
+Return a KubernetesEfficiencyReport.
 */
 func (a *Client) GetKubernetesEfficiencyReport(params *GetKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKubernetesEfficiencyReportOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetKubernetesEfficiencyReport(params *GetKubernetesEfficiencyRe
 }
 
 /*
-GetKubernetesEfficiencyReports Return all KubernetesEfficiencyReports.
+GetKubernetesEfficiencyReports gets all kubernetes efficiency reports
+
+Return all KubernetesEfficiencyReports.
 */
 func (a *Client) GetKubernetesEfficiencyReports(params *GetKubernetesEfficiencyReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKubernetesEfficiencyReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetKubernetesEfficiencyReports(params *GetKubernetesEfficiencyR
 }
 
 /*
-UpdateKubernetesEfficiencyReport Update a KubernetesEfficiencyReport.
+UpdateKubernetesEfficiencyReport updates kubernetes efficiency report
+
+Update a KubernetesEfficiencyReport.
 */
 func (a *Client) UpdateKubernetesEfficiencyReport(params *UpdateKubernetesEfficiencyReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKubernetesEfficiencyReportOK, error) {
 	// TODO: Validate the params before sending

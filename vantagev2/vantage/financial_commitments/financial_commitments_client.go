@@ -62,7 +62,9 @@ type ClientService interface {
 }
 
 /*
-GetFinancialCommitments Return all FinancialCommitments.
+GetFinancialCommitments gets all financial commitments
+
+Return all FinancialCommitments.
 */
 func (a *Client) GetFinancialCommitments(params *GetFinancialCommitmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentsOK, error) {
 	// TODO: Validate the params before sending

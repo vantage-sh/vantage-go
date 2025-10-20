@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateCostAlert Create a new Cost Alert
+CreateCostAlert creates cost alert
+
+Create a new Cost Alert
 */
 func (a *Client) CreateCostAlert(params *CreateCostAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostAlertCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateCostAlert(params *CreateCostAlertParams, authInfo runtime
 }
 
 /*
-DeleteCostAlert Delete a Cost Alert
+DeleteCostAlert deletes cost alert
+
+Delete a Cost Alert
 */
 func (a *Client) DeleteCostAlert(params *DeleteCostAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostAlertNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteCostAlert(params *DeleteCostAlertParams, authInfo runtime
 }
 
 /*
-GetCostAlert Get a Cost Alert
+GetCostAlert gets cost alert by token
+
+Get a Cost Alert
 */
 func (a *Client) GetCostAlert(params *GetCostAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostAlertOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetCostAlert(params *GetCostAlertParams, authInfo runtime.Clien
 }
 
 /*
-GetCostAlerts List all Cost Alerts
+GetCostAlerts gets all cost alerts
+
+List all Cost Alerts
 */
 func (a *Client) GetCostAlerts(params *GetCostAlertsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostAlertsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetCostAlerts(params *GetCostAlertsParams, authInfo runtime.Cli
 }
 
 /*
-UpdateCostAlert Update a Cost Alert
+UpdateCostAlert updates cost alert
+
+Update a Cost Alert
 */
 func (a *Client) UpdateCostAlert(params *UpdateCostAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostAlertOK, error) {
 	// TODO: Validate the params before sending

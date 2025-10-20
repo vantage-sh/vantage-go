@@ -76,7 +76,9 @@ type ClientService interface {
 }
 
 /*
-CreateInvoice Create an invoice (MSP accounts only).
+CreateInvoice creates invoice
+
+Create an invoice (MSP accounts only).
 */
 func (a *Client) CreateInvoice(params *CreateInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInvoiceCreated, error) {
 	// TODO: Validate the params before sending
@@ -115,7 +117,9 @@ func (a *Client) CreateInvoice(params *CreateInvoiceParams, authInfo runtime.Cli
 }
 
 /*
-DownloadInvoice Download invoice file (PDF or CSV).
+DownloadInvoice gets invoice file
+
+Download invoice file (PDF or CSV).
 */
 func (a *Client) DownloadInvoice(params *DownloadInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +158,9 @@ func (a *Client) DownloadInvoice(params *DownloadInvoiceParams, authInfo runtime
 }
 
 /*
-GetInvoice Return an invoice.
+GetInvoice gets invoice by token
+
+Return an invoice.
 */
 func (a *Client) GetInvoice(params *GetInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -193,7 +199,9 @@ func (a *Client) GetInvoice(params *GetInvoiceParams, authInfo runtime.ClientAut
 }
 
 /*
-GetInvoiceCostReport Get cost report URL for invoice period.
+GetInvoiceCostReport gets cost report URL
+
+Get cost report URL for invoice period.
 */
 func (a *Client) GetInvoiceCostReport(params *GetInvoiceCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoiceCostReportOK, error) {
 	// TODO: Validate the params before sending
@@ -232,7 +240,9 @@ func (a *Client) GetInvoiceCostReport(params *GetInvoiceCostReportParams, authIn
 }
 
 /*
-GetInvoices Returns a list of invoices (MSP invoicing required).
+GetInvoices gets all invoices
+
+Returns a list of invoices (MSP invoicing required).
 */
 func (a *Client) GetInvoices(params *GetInvoicesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInvoicesOK, error) {
 	// TODO: Validate the params before sending
@@ -271,7 +281,9 @@ func (a *Client) GetInvoices(params *GetInvoicesParams, authInfo runtime.ClientA
 }
 
 /*
-RegenerateInvoice Regenerate an existing invoice (MSP accounts only).
+RegenerateInvoice regenerates invoice
+
+Regenerate an existing invoice (MSP accounts only).
 */
 func (a *Client) RegenerateInvoice(params *RegenerateInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegenerateInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -310,7 +322,9 @@ func (a *Client) RegenerateInvoice(params *RegenerateInvoiceParams, authInfo run
 }
 
 /*
-SendAndApproveInvoice Send and approve invoice via email (MSP accounts only).
+SendAndApproveInvoice sends and approve invoice
+
+Send and approve invoice via email (MSP accounts only).
 */
 func (a *Client) SendAndApproveInvoice(params *SendAndApproveInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SendAndApproveInvoiceOK, error) {
 	// TODO: Validate the params before sending
@@ -349,7 +363,9 @@ func (a *Client) SendAndApproveInvoice(params *SendAndApproveInvoiceParams, auth
 }
 
 /*
-SendInvoice Send invoice via email.
+SendInvoice sends invoice
+
+Send invoice via email.
 */
 func (a *Client) SendInvoice(params *SendInvoiceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SendInvoiceOK, error) {
 	// TODO: Validate the params before sending

@@ -64,7 +64,9 @@ type ClientService interface {
 }
 
 /*
-GetReportResources Return Resources contained in a ResourceReport
+GetReportResources gets resources
+
+Return Resources contained in a ResourceReport
 */
 func (a *Client) GetReportResources(params *GetReportResourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportResourcesOK, error) {
 	// TODO: Validate the params before sending
@@ -103,7 +105,9 @@ func (a *Client) GetReportResources(params *GetReportResourcesParams, authInfo r
 }
 
 /*
-GetResource Return a single Resource
+GetResource gets resource by token
+
+Return a single Resource
 */
 func (a *Client) GetResource(params *GetResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceOK, error) {
 	// TODO: Validate the params before sending

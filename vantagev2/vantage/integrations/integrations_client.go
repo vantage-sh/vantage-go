@@ -109,7 +109,9 @@ type ClientService interface {
 }
 
 /*
-CreateAzureIntegration Create an Azure Integration
+CreateAzureIntegration creates azure integration
+
+Create an Azure Integration
 */
 func (a *Client) CreateAzureIntegration(params *CreateAzureIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAzureIntegrationCreated, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +150,9 @@ func (a *Client) CreateAzureIntegration(params *CreateAzureIntegrationParams, au
 }
 
 /*
-CreateCustomProviderIntegration Create a Custom Provider Integration
+CreateCustomProviderIntegration creates custom provider integration
+
+Create a Custom Provider Integration
 */
 func (a *Client) CreateCustomProviderIntegration(params *CreateCustomProviderIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCustomProviderIntegrationCreated, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +191,9 @@ func (a *Client) CreateCustomProviderIntegration(params *CreateCustomProviderInt
 }
 
 /*
-CreateGCPIntegration Create a GCP Integration
+CreateGCPIntegration creates g c p integration
+
+Create a GCP Integration
 */
 func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +232,9 @@ func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authIn
 }
 
 /*
-CreateUserCostsUploadViaCsv Create UserCostsUpload via CSV for a Custom Provider Integration.
+CreateUserCostsUploadViaCsv uploads custom provider costs
+
+Create UserCostsUpload via CSV for a Custom Provider Integration.
 */
 func (a *Client) CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error) {
 	// TODO: Validate the params before sending
@@ -265,7 +273,9 @@ func (a *Client) CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsv
 }
 
 /*
-DeleteIntegration Delete an Integration.
+DeleteIntegration deletes integration
+
+Delete an Integration.
 */
 func (a *Client) DeleteIntegration(params *DeleteIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationNoContent, error) {
 	// TODO: Validate the params before sending
@@ -304,7 +314,9 @@ func (a *Client) DeleteIntegration(params *DeleteIntegrationParams, authInfo run
 }
 
 /*
-DeleteUserCostsUpload Delete a UserCostsUpload.
+DeleteUserCostsUpload deletes user costs upload
+
+Delete a UserCostsUpload.
 */
 func (a *Client) DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserCostsUploadNoContent, error) {
 	// TODO: Validate the params before sending
@@ -343,7 +355,9 @@ func (a *Client) DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, auth
 }
 
 /*
-GetIntegration Return an Integration.
+GetIntegration gets integration by token
+
+Return an Integration.
 */
 func (a *Client) GetIntegration(params *GetIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationOK, error) {
 	// TODO: Validate the params before sending
@@ -382,7 +396,9 @@ func (a *Client) GetIntegration(params *GetIntegrationParams, authInfo runtime.C
 }
 
 /*
-GetIntegrations Return all Integrations.
+GetIntegrations gets all integrations
+
+Return all Integrations.
 */
 func (a *Client) GetIntegrations(params *GetIntegrationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationsOK, error) {
 	// TODO: Validate the params before sending
@@ -421,7 +437,9 @@ func (a *Client) GetIntegrations(params *GetIntegrationsParams, authInfo runtime
 }
 
 /*
-GetUserCostsUploads List UserCostUploads.
+GetUserCostsUploads gets all user costs uploads
+
+List UserCostUploads.
 */
 func (a *Client) GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserCostsUploadsOK, error) {
 	// TODO: Validate the params before sending
@@ -460,7 +478,9 @@ func (a *Client) GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo
 }
 
 /*
-UpdateIntegration Update an Integration.
+UpdateIntegration updates integration
+
+Update an Integration.
 */
 func (a *Client) UpdateIntegration(params *UpdateIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIntegrationOK, error) {
 	// TODO: Validate the params before sending
