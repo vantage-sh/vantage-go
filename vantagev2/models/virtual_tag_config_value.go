@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -32,6 +33,9 @@ type VirtualTagConfigValue struct {
 	// The name of the Value.
 	// Example: Informatics
 	Name string `json:"name,omitempty"`
+
+	// Labeled percentage allocations for matching costs.
+	Percentages []*VirtualTagConfigValuePercentage `json:"percentages"`
 }
 
 // Validate validates this virtual tag config value
@@ -39,6 +43,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCostMetric(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePercentages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -67,11 +75,41 @@ func (m *VirtualTagConfigValue) validateCostMetric(formats strfmt.Registry) erro
 	return nil
 }
 
+func (m *VirtualTagConfigValue) validatePercentages(formats strfmt.Registry) error {
+	if swag.IsZero(m.Percentages) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Percentages); i++ {
+		if swag.IsZero(m.Percentages[i]) { // not required
+			continue
+		}
+
+		if m.Percentages[i] != nil {
+			if err := m.Percentages[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("percentages" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("percentages" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this virtual tag config value based on the context it is used
 func (m *VirtualTagConfigValue) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateCostMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePercentages(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,6 +135,31 @@ func (m *VirtualTagConfigValue) contextValidateCostMetric(ctx context.Context, f
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) contextValidatePercentages(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Percentages); i++ {
+
+		if m.Percentages[i] != nil {
+
+			if swag.IsZero(m.Percentages[i]) { // not required
+				return nil
+			}
+
+			if err := m.Percentages[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("percentages" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("percentages" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
