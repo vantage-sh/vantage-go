@@ -23,6 +23,9 @@ type VirtualTagConfig struct {
 	// Example: 2025-06-01
 	BackfillUntil string `json:"backfill_until,omitempty"`
 
+	// Tag keys to collapse values for.
+	CollapsedTagKeys []*VirtualTagConfigCollapsedTagKey `json:"collapsed_tag_keys"`
+
 	// The token of the Creator of the VirtualTagConfig.
 	// Example: usr_1234
 	CreatedByToken string `json:"created_by_token,omitempty"`
@@ -46,6 +49,10 @@ type VirtualTagConfig struct {
 func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCollapsedTagKeys(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateValues(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +60,32 @@ func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VirtualTagConfig) validateCollapsedTagKeys(formats strfmt.Registry) error {
+	if swag.IsZero(m.CollapsedTagKeys) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.CollapsedTagKeys); i++ {
+		if swag.IsZero(m.CollapsedTagKeys[i]) { // not required
+			continue
+		}
+
+		if m.CollapsedTagKeys[i] != nil {
+			if err := m.CollapsedTagKeys[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -86,6 +119,10 @@ func (m *VirtualTagConfig) validateValues(formats strfmt.Registry) error {
 func (m *VirtualTagConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCollapsedTagKeys(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateValues(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -93,6 +130,31 @@ func (m *VirtualTagConfig) ContextValidate(ctx context.Context, formats strfmt.R
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VirtualTagConfig) contextValidateCollapsedTagKeys(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.CollapsedTagKeys); i++ {
+
+		if m.CollapsedTagKeys[i] != nil {
+
+			if swag.IsZero(m.CollapsedTagKeys[i]) { // not required
+				return nil
+			}
+
+			if err := m.CollapsedTagKeys[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
