@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateVirtualTagConfig Create a new VirtualTagConfig.
+CreateVirtualTagConfig creates virtual tag config
+
+Create a new VirtualTagConfig.
 */
 func (a *Client) CreateVirtualTagConfig(params *CreateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateVirtualTagConfigCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateVirtualTagConfig(params *CreateVirtualTagConfigParams, au
 }
 
 /*
-DeleteVirtualTagConfig Deletes an existing VirtualTagConfig.
+DeleteVirtualTagConfig deletes virtual tag config
+
+Deletes an existing VirtualTagConfig.
 */
 func (a *Client) DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVirtualTagConfigNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, au
 }
 
 /*
-GetVirtualTagConfig Return a specific VirtualTagConfig.
+GetVirtualTagConfig gets virtual tag config by token
+
+Return a specific VirtualTagConfig.
 */
 func (a *Client) GetVirtualTagConfig(params *GetVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetVirtualTagConfig(params *GetVirtualTagConfigParams, authInfo
 }
 
 /*
-GetVirtualTagConfigs Return all VirtualTagConfigs that the current API token has access to.
+GetVirtualTagConfigs gets all virtual tag configs
+
+Return all VirtualTagConfigs that the current API token has access to.
 */
 func (a *Client) GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authIn
 }
 
 /*
-UpdateVirtualTagConfig Updates an existing VirtualTagConfig.
+UpdateVirtualTagConfig updates virtual tag config
+
+Updates an existing VirtualTagConfig.
 */
 func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error) {
 	// TODO: Validate the params before sending

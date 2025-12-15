@@ -24,6 +24,9 @@ type UpdateVirtualTagConfig struct {
 	// Format: date
 	BackfillUntil *strfmt.Date `json:"backfill_until,omitempty"`
 
+	// Tag keys to collapse values for.
+	CollapsedTagKeys []*UpdateVirtualTagConfigCollapsedTagKeysItems0 `json:"collapsed_tag_keys"`
+
 	// The key of the VirtualTagConfig.
 	Key string `json:"key,omitempty"`
 
@@ -39,6 +42,10 @@ func (m *UpdateVirtualTagConfig) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBackfillUntil(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCollapsedTagKeys(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,6 +66,32 @@ func (m *UpdateVirtualTagConfig) validateBackfillUntil(formats strfmt.Registry) 
 
 	if err := validate.FormatOf("backfill_until", "body", "date", m.BackfillUntil.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateVirtualTagConfig) validateCollapsedTagKeys(formats strfmt.Registry) error {
+	if swag.IsZero(m.CollapsedTagKeys) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.CollapsedTagKeys); i++ {
+		if swag.IsZero(m.CollapsedTagKeys[i]) { // not required
+			continue
+		}
+
+		if m.CollapsedTagKeys[i] != nil {
+			if err := m.CollapsedTagKeys[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -94,6 +127,10 @@ func (m *UpdateVirtualTagConfig) validateValues(formats strfmt.Registry) error {
 func (m *UpdateVirtualTagConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCollapsedTagKeys(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateValues(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -101,6 +138,31 @@ func (m *UpdateVirtualTagConfig) ContextValidate(ctx context.Context, formats st
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateVirtualTagConfig) contextValidateCollapsedTagKeys(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.CollapsedTagKeys); i++ {
+
+		if m.CollapsedTagKeys[i] != nil {
+
+			if swag.IsZero(m.CollapsedTagKeys[i]) { // not required
+				return nil
+			}
+
+			if err := m.CollapsedTagKeys[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("collapsed_tag_keys" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -147,6 +209,65 @@ func (m *UpdateVirtualTagConfig) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// UpdateVirtualTagConfigCollapsedTagKeysItems0 update virtual tag config collapsed tag keys items0
+//
+// swagger:model UpdateVirtualTagConfigCollapsedTagKeysItems0
+type UpdateVirtualTagConfigCollapsedTagKeysItems0 struct {
+
+	// The tag key to collapse values for.
+	// Required: true
+	Key *string `json:"key"`
+
+	// The providers this collapsed tag key applies to. Defaults to all providers.
+	Providers []string `json:"providers"`
+}
+
+// Validate validates this update virtual tag config collapsed tag keys items0
+func (m *UpdateVirtualTagConfigCollapsedTagKeysItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigCollapsedTagKeysItems0) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.Required("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update virtual tag config collapsed tag keys items0 based on context it is used
+func (m *UpdateVirtualTagConfigCollapsedTagKeysItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigCollapsedTagKeysItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigCollapsedTagKeysItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateVirtualTagConfigCollapsedTagKeysItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
 // UpdateVirtualTagConfigValuesItems0 update virtual tag config values items0
 //
 // swagger:model UpdateVirtualTagConfigValuesItems0
@@ -164,6 +285,9 @@ type UpdateVirtualTagConfigValuesItems0 struct {
 
 	// The name of the value.
 	Name string `json:"name,omitempty"`
+
+	// percentages
+	Percentages []*UpdateVirtualTagConfigValuesItems0PercentagesItems0 `json:"percentages,omitempty"`
 }
 
 // Validate validates this update virtual tag config values items0
@@ -175,6 +299,10 @@ func (m *UpdateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePercentages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -212,11 +340,41 @@ func (m *UpdateVirtualTagConfigValuesItems0) validateFilter(formats strfmt.Regis
 	return nil
 }
 
+func (m *UpdateVirtualTagConfigValuesItems0) validatePercentages(formats strfmt.Registry) error {
+	if swag.IsZero(m.Percentages) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Percentages); i++ {
+		if swag.IsZero(m.Percentages[i]) { // not required
+			continue
+		}
+
+		if m.Percentages[i] != nil {
+			if err := m.Percentages[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("percentages" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("percentages" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this update virtual tag config values items0 based on the context it is used
 func (m *UpdateVirtualTagConfigValuesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateCostMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePercentages(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -242,6 +400,31 @@ func (m *UpdateVirtualTagConfigValuesItems0) contextValidateCostMetric(ctx conte
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValuesItems0) contextValidatePercentages(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Percentages); i++ {
+
+		if m.Percentages[i] != nil {
+
+			if swag.IsZero(m.Percentages[i]) { // not required
+				return nil
+			}
+
+			if err := m.Percentages[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("percentages" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("percentages" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -424,6 +607,79 @@ func (m *UpdateVirtualTagConfigValuesItems0CostMetricAggregation) MarshalBinary(
 // UnmarshalBinary interface implementation
 func (m *UpdateVirtualTagConfigValuesItems0CostMetricAggregation) UnmarshalBinary(b []byte) error {
 	var res UpdateVirtualTagConfigValuesItems0CostMetricAggregation
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateVirtualTagConfigValuesItems0PercentagesItems0 update virtual tag config values items0 percentages items0
+//
+// swagger:model UpdateVirtualTagConfigValuesItems0PercentagesItems0
+type UpdateVirtualTagConfigValuesItems0PercentagesItems0 struct {
+
+	// pct
+	// Required: true
+	Pct *float32 `json:"pct"`
+
+	// value
+	// Required: true
+	Value *string `json:"value"`
+}
+
+// Validate validates this update virtual tag config values items0 percentages items0
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validatePct(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) validatePct(formats strfmt.Registry) error {
+
+	if err := validate.Required("pct", "body", m.Pct); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update virtual tag config values items0 percentages items0 based on context it is used
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigValuesItems0PercentagesItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateVirtualTagConfigValuesItems0PercentagesItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
