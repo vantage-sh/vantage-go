@@ -62,7 +62,9 @@ type ClientService interface {
 }
 
 /*
-GetMe Get information about the authenticated BearerToken.
+GetMe gets authenticated user info
+
+Get information about the authenticated BearerToken.
 */
 func (a *Client) GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error) {
 	// TODO: Validate the params before sending

@@ -68,7 +68,9 @@ type ClientService interface {
 }
 
 /*
-GetRecommendation Return a Recommendation.
+GetRecommendation gets recommendation by token
+
+Return a Recommendation.
 */
 func (a *Client) GetRecommendation(params *GetRecommendationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationOK, error) {
 	// TODO: Validate the params before sending
@@ -107,7 +109,9 @@ func (a *Client) GetRecommendation(params *GetRecommendationParams, authInfo run
 }
 
 /*
-GetRecommendationResource Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.
+GetRecommendationResource gets specific resource for a recommendation
+
+Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.
 */
 func (a *Client) GetRecommendationResource(params *GetRecommendationResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -146,7 +150,9 @@ func (a *Client) GetRecommendationResource(params *GetRecommendationResourcePara
 }
 
 /*
-GetRecommendationResources Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.
+GetRecommendationResources gets all resources for a recommendation
+
+Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.
 */
 func (a *Client) GetRecommendationResources(params *GetRecommendationResourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationResourcesOK, error) {
 	// TODO: Validate the params before sending
@@ -185,7 +191,9 @@ func (a *Client) GetRecommendationResources(params *GetRecommendationResourcesPa
 }
 
 /*
-GetRecommendations Return all Recommendations.
+GetRecommendations gets all recommendations
+
+Return all Recommendations.
 */
 func (a *Client) GetRecommendations(params *GetRecommendationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationsOK, error) {
 	// TODO: Validate the params before sending

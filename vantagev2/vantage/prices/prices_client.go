@@ -68,7 +68,9 @@ type ClientService interface {
 }
 
 /*
-GetPrice Returns a price
+GetPrice gets price by ID
+
+Returns a price
 */
 func (a *Client) GetPrice(params *GetPriceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPriceOK, error) {
 	// TODO: Validate the params before sending
@@ -107,7 +109,9 @@ func (a *Client) GetPrice(params *GetPriceParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-GetPrices Return available Prices across all Regions for a Product.
+GetPrices gets prices for a product
+
+Return available Prices across all Regions for a Product.
 */
 func (a *Client) GetPrices(params *GetPricesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPricesOK, error) {
 	// TODO: Validate the params before sending
@@ -146,7 +150,9 @@ func (a *Client) GetPrices(params *GetPricesParams, authInfo runtime.ClientAuthI
 }
 
 /*
-GetProduct Return a product
+GetProduct gets product by ID
+
+Return a product
 */
 func (a *Client) GetProduct(params *GetProductParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProductOK, error) {
 	// TODO: Validate the params before sending
@@ -185,7 +191,9 @@ func (a *Client) GetProduct(params *GetProductParams, authInfo runtime.ClientAut
 }
 
 /*
-GetProducts Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.
+GetProducts gets all products
+
+Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.
 */
 func (a *Client) GetProducts(params *GetProductsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProductsOK, error) {
 	// TODO: Validate the params before sending

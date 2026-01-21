@@ -30,6 +30,12 @@ func (o *GetAuditLogReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 403:
+		result := NewGetAuditLogForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewGetAuditLogNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -102,6 +108,76 @@ func (o *GetAuditLogOK) GetPayload() *models.AuditLog {
 func (o *GetAuditLogOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AuditLog)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAuditLogForbidden creates a GetAuditLogForbidden with default headers values
+func NewGetAuditLogForbidden() *GetAuditLogForbidden {
+	return &GetAuditLogForbidden{}
+}
+
+/*
+GetAuditLogForbidden describes a response with status code 403, with default header values.
+
+Forbidden
+*/
+type GetAuditLogForbidden struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this get audit log forbidden response has a 2xx status code
+func (o *GetAuditLogForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get audit log forbidden response has a 3xx status code
+func (o *GetAuditLogForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get audit log forbidden response has a 4xx status code
+func (o *GetAuditLogForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get audit log forbidden response has a 5xx status code
+func (o *GetAuditLogForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get audit log forbidden response a status code equal to that given
+func (o *GetAuditLogForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the get audit log forbidden response
+func (o *GetAuditLogForbidden) Code() int {
+	return 403
+}
+
+func (o *GetAuditLogForbidden) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden %s", 403, payload)
+}
+
+func (o *GetAuditLogForbidden) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden %s", 403, payload)
+}
+
+func (o *GetAuditLogForbidden) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *GetAuditLogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

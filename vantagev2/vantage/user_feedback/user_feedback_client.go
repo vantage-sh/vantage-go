@@ -62,7 +62,9 @@ type ClientService interface {
 }
 
 /*
-CreateUserFeedback Provide UserFeedback for our product and features.
+CreateUserFeedback submits user feedback
+
+Provide UserFeedback for our product and features.
 */
 func (a *Client) CreateUserFeedback(params *CreateUserFeedbackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserFeedbackCreated, error) {
 	// TODO: Validate the params before sending

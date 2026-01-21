@@ -30,6 +30,9 @@ type CreateBusinessMetric struct {
 	// datadog metric fields
 	DatadogMetricFields *CreateBusinessMetricDatadogMetricFields `json:"datadog_metric_fields,omitempty"`
 
+	// The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
+	ForecastedValues []*CreateBusinessMetricForecastedValuesItems0 `json:"forecasted_values,omitempty"`
+
 	// The title of the BusinessMetrics.
 	// Required: true
 	Title *string `json:"title"`
@@ -51,6 +54,10 @@ func (m *CreateBusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDatadogMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateForecastedValues(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -132,6 +139,32 @@ func (m *CreateBusinessMetric) validateDatadogMetricFields(formats strfmt.Regist
 	return nil
 }
 
+func (m *CreateBusinessMetric) validateForecastedValues(formats strfmt.Registry) error {
+	if swag.IsZero(m.ForecastedValues) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ForecastedValues); i++ {
+		if swag.IsZero(m.ForecastedValues[i]) { // not required
+			continue
+		}
+
+		if m.ForecastedValues[i] != nil {
+			if err := m.ForecastedValues[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("forecasted_values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("forecasted_values" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *CreateBusinessMetric) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
@@ -180,6 +213,10 @@ func (m *CreateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidateDatadogMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateForecastedValues(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -255,6 +292,31 @@ func (m *CreateBusinessMetric) contextValidateDatadogMetricFields(ctx context.Co
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CreateBusinessMetric) contextValidateForecastedValues(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ForecastedValues); i++ {
+
+		if m.ForecastedValues[i] != nil {
+
+			if swag.IsZero(m.ForecastedValues[i]) { // not required
+				return nil
+			}
+
+			if err := m.ForecastedValues[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("forecasted_values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("forecasted_values" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -618,6 +680,87 @@ func (m *CreateBusinessMetricDatadogMetricFields) MarshalBinary() ([]byte, error
 // UnmarshalBinary interface implementation
 func (m *CreateBusinessMetricDatadogMetricFields) UnmarshalBinary(b []byte) error {
 	var res CreateBusinessMetricDatadogMetricFields
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBusinessMetricForecastedValuesItems0 create business metric forecasted values items0
+//
+// swagger:model CreateBusinessMetricForecastedValuesItems0
+type CreateBusinessMetricForecastedValuesItems0 struct {
+
+	// amount
+	// Required: true
+	Amount *float64 `json:"amount"`
+
+	// date
+	// Required: true
+	// Format: date-time
+	Date *strfmt.DateTime `json:"date"`
+
+	// label
+	Label *string `json:"label,omitempty"`
+}
+
+// Validate validates this create business metric forecasted values items0
+func (m *CreateBusinessMetricForecastedValuesItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateBusinessMetricForecastedValuesItems0) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.Required("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBusinessMetricForecastedValuesItems0) validateDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("date", "body", m.Date); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("date", "body", "date-time", m.Date.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create business metric forecasted values items0 based on context it is used
+func (m *CreateBusinessMetricForecastedValuesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBusinessMetricForecastedValuesItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBusinessMetricForecastedValuesItems0) UnmarshalBinary(b []byte) error {
+	var res CreateBusinessMetricForecastedValuesItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

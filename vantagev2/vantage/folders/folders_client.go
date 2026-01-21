@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateFolder Create a Folder for CostReports.
+CreateFolder creates folder
+
+Create a Folder for CostReports.
 */
 func (a *Client) CreateFolder(params *CreateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFolderCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateFolder(params *CreateFolderParams, authInfo runtime.Clien
 }
 
 /*
-DeleteFolder Delete a Folder for CostReports.
+DeleteFolder deletes folder
+
+Delete a Folder for CostReports.
 */
 func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.Clien
 }
 
 /*
-GetFolder Return a specific Folder for CostReports.
+GetFolder gets folder by token
+
+Return a specific Folder for CostReports.
 */
 func (a *Client) GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFolderOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthI
 }
 
 /*
-GetFolders Return all Folders for CostReports.
+GetFolders gets all folders
+
+Return all Folders for CostReports.
 */
 func (a *Client) GetFolders(params *GetFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFoldersOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetFolders(params *GetFoldersParams, authInfo runtime.ClientAut
 }
 
 /*
-UpdateFolder Update a Folder for CostReports.
+UpdateFolder updates folder
+
+Update a Folder for CostReports.
 */
 func (a *Client) UpdateFolder(params *UpdateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFolderOK, error) {
 	// TODO: Validate the params before sending

@@ -33,7 +33,7 @@ type ForecastedCost struct {
 
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]
 	Provider string `json:"provider,omitempty"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
@@ -59,7 +59,7 @@ var forecastedCostTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -149,6 +149,12 @@ const (
 
 	// ForecastedCostProviderAnyscale captures enum value "anyscale"
 	ForecastedCostProviderAnyscale string = "anyscale"
+
+	// ForecastedCostProviderCursor captures enum value "cursor"
+	ForecastedCostProviderCursor string = "cursor"
+
+	// ForecastedCostProviderElastic captures enum value "elastic"
+	ForecastedCostProviderElastic string = "elastic"
 )
 
 // prop value enum

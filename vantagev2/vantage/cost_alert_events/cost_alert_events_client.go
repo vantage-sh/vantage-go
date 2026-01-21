@@ -64,7 +64,9 @@ type ClientService interface {
 }
 
 /*
-GetCostAlertEvent Get a CostAlertEvent
+GetCostAlertEvent gets cost alert event by token
+
+Get a CostAlertEvent
 */
 func (a *Client) GetCostAlertEvent(params *GetCostAlertEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostAlertEventOK, error) {
 	// TODO: Validate the params before sending
@@ -103,7 +105,9 @@ func (a *Client) GetCostAlertEvent(params *GetCostAlertEventParams, authInfo run
 }
 
 /*
-GetCostAlertEvents Get all CostAlertEvents
+GetCostAlertEvents gets all cost alert events
+
+Get all CostAlertEvents
 */
 func (a *Client) GetCostAlertEvents(params *GetCostAlertEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostAlertEventsOK, error) {
 	// TODO: Validate the params before sending

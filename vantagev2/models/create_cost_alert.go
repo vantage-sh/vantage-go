@@ -27,6 +27,7 @@ type CreateCostAlert struct {
 	Interval *string `json:"interval"`
 
 	// The tokens of the reports to alert on.
+	// Required: true
 	ReportTokens []string `json:"report_tokens"`
 
 	// The Slack channels that will receive the alert.
@@ -60,6 +61,10 @@ func (m *CreateCostAlert) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateReportTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateThreshold(formats); err != nil {
 		res = append(res, err)
 	}
@@ -85,6 +90,15 @@ func (m *CreateCostAlert) Validate(formats strfmt.Registry) error {
 func (m *CreateCostAlert) validateInterval(formats strfmt.Registry) error {
 
 	if err := validate.Required("interval", "body", m.Interval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateCostAlert) validateReportTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("report_tokens", "body", m.ReportTokens); err != nil {
 		return err
 	}
 

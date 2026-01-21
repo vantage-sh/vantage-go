@@ -64,15 +64,17 @@ type GetAuditLogsParams struct {
 
 	/* Action.
 
-	   Filter by action type (e.g., create, update, delete).
+	   Filter by action type.
 	*/
 	Action *string
 
 	/* EndDate.
 
-	   Filter by end date (ISO 8601 format) for the time period.
+	   Filter by end date (ISO 8601 format, e.g., 2024-06-01).
+
+	   Format: date
 	*/
-	EndDate *string
+	EndDate *strfmt.Date
 
 	/* Limit.
 
@@ -96,7 +98,7 @@ type GetAuditLogsParams struct {
 
 	/* ObjectType.
 
-	   Filter by object type (e.g., virtual_tag, cost_report).
+	   Filter by object type.
 	*/
 	ObjectType *string
 
@@ -110,15 +112,17 @@ type GetAuditLogsParams struct {
 
 	/* Source.
 
-	   Filter by source (e.g., console, api).
+	   Filter by source.
 	*/
 	Source *string
 
 	/* StartDate.
 
-	   Filter by start date (ISO 8601 format) for the time period.
+	   Filter by start date (ISO 8601 format, e.g., 2024-06-01).
+
+	   Format: date
 	*/
-	StartDate *string
+	StartDate *strfmt.Date
 
 	/* Token.
 
@@ -205,13 +209,13 @@ func (o *GetAuditLogsParams) SetAction(action *string) {
 }
 
 // WithEndDate adds the endDate to the get audit logs params
-func (o *GetAuditLogsParams) WithEndDate(endDate *string) *GetAuditLogsParams {
+func (o *GetAuditLogsParams) WithEndDate(endDate *strfmt.Date) *GetAuditLogsParams {
 	o.SetEndDate(endDate)
 	return o
 }
 
 // SetEndDate adds the endDate to the get audit logs params
-func (o *GetAuditLogsParams) SetEndDate(endDate *string) {
+func (o *GetAuditLogsParams) SetEndDate(endDate *strfmt.Date) {
 	o.EndDate = endDate
 }
 
@@ -282,13 +286,13 @@ func (o *GetAuditLogsParams) SetSource(source *string) {
 }
 
 // WithStartDate adds the startDate to the get audit logs params
-func (o *GetAuditLogsParams) WithStartDate(startDate *string) *GetAuditLogsParams {
+func (o *GetAuditLogsParams) WithStartDate(startDate *strfmt.Date) *GetAuditLogsParams {
 	o.SetStartDate(startDate)
 	return o
 }
 
 // SetStartDate adds the startDate to the get audit logs params
-func (o *GetAuditLogsParams) SetStartDate(startDate *string) {
+func (o *GetAuditLogsParams) SetStartDate(startDate *strfmt.Date) {
 	o.StartDate = startDate
 }
 
@@ -353,12 +357,12 @@ func (o *GetAuditLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if o.EndDate != nil {
 
 		// query param end_date
-		var qrEndDate string
+		var qrEndDate strfmt.Date
 
 		if o.EndDate != nil {
 			qrEndDate = *o.EndDate
 		}
-		qEndDate := qrEndDate
+		qEndDate := qrEndDate.String()
 		if qEndDate != "" {
 
 			if err := r.SetQueryParam("end_date", qEndDate); err != nil {
@@ -472,12 +476,12 @@ func (o *GetAuditLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if o.StartDate != nil {
 
 		// query param start_date
-		var qrStartDate string
+		var qrStartDate strfmt.Date
 
 		if o.StartDate != nil {
 			qrStartDate = *o.StartDate
 		}
-		qStartDate := qrStartDate
+		qStartDate := qrStartDate.String()
 		if qStartDate != "" {
 
 			if err := r.SetQueryParam("start_date", qStartDate); err != nil {

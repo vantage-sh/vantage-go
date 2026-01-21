@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateIntegrationsAWS Create AWS integration.
+CreateIntegrationsAWS creates integration
+
+Create AWS integration.
 */
 func (a *Client) CreateIntegrationsAWS(params *CreateIntegrationsAWSParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateIntegrationsAWSCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateIntegrationsAWS(params *CreateIntegrationsAWSParams, auth
 }
 
 /*
-DeleteIntegrationsAWS Delete access credential information for aws account
+DeleteIntegrationsAWS deletes access credential
+
+Delete access credential information for AWS account
 */
 func (a *Client) DeleteIntegrationsAWS(params *DeleteIntegrationsAWSParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationsAWSNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteIntegrationsAWS(params *DeleteIntegrationsAWSParams, auth
 }
 
 /*
-GetIntegrationsAWS Get access credential information for aws account
+GetIntegrationsAWS gets access credential by ID
+
+Get access credential information for AWS account
 */
 func (a *Client) GetIntegrationsAWS(params *GetIntegrationsAWSParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationsAWSOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetIntegrationsAWS(params *GetIntegrationsAWSParams, authInfo r
 }
 
 /*
-GetIntegrationsAWSInfo Get provider information
+GetIntegrationsAWSInfo gets provider information
+
+Get provider information
 */
 func (a *Client) GetIntegrationsAWSInfo(params *GetIntegrationsAWSInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationsAWSInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetIntegrationsAWSInfo(params *GetIntegrationsAWSInfoParams, au
 }
 
 /*
-PutIntegrationsAWS Update AWS integration.
+PutIntegrationsAWS updates integration
+
+Update AWS integration.
 */
 func (a *Client) PutIntegrationsAWS(params *PutIntegrationsAWSParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutIntegrationsAWSOK, error) {
 	// TODO: Validate the params before sending

@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateSegment Create a Segment.
+CreateSegment creates segment
+
+Create a Segment.
 */
 func (a *Client) CreateSegment(params *CreateSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSegmentCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateSegment(params *CreateSegmentParams, authInfo runtime.Cli
 }
 
 /*
-DeleteSegment Delete a Segment.
+DeleteSegment deletes segment
+
+Delete a Segment.
 */
 func (a *Client) DeleteSegment(params *DeleteSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSegmentNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteSegment(params *DeleteSegmentParams, authInfo runtime.Cli
 }
 
 /*
-GetSegment Return a Segment.
+GetSegment gets segment by token
+
+Return a Segment.
 */
 func (a *Client) GetSegment(params *GetSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetSegment(params *GetSegmentParams, authInfo runtime.ClientAut
 }
 
 /*
-GetSegments Return all Segments.
+GetSegments gets all segments
+
+Return all Segments.
 */
 func (a *Client) GetSegments(params *GetSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetSegments(params *GetSegmentsParams, authInfo runtime.ClientA
 }
 
 /*
-UpdateSegment Update a Segment.
+UpdateSegment updates segment
+
+Update a Segment.
 */
 func (a *Client) UpdateSegment(params *UpdateSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSegmentOK, error) {
 	// TODO: Validate the params before sending

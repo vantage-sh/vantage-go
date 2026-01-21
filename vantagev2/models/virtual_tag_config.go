@@ -20,7 +20,7 @@ import (
 type VirtualTagConfig struct {
 
 	// The earliest month VirtualTagConfig should be backfilled to.
-	// Example: 2025-06-01
+	// Example: 2025-07-01
 	BackfillUntil string `json:"backfill_until,omitempty"`
 
 	// Tag keys to collapse values for.

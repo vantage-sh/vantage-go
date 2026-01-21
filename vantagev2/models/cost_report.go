@@ -22,6 +22,9 @@ type CostReport struct {
 	// The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter.
 	BusinessMetricTokensWithMetadata []*AttachedBusinessMetricForCostReport `json:"business_metric_tokens_with_metadata"`
 
+	// The chart settings of the CostReport.
+	ChartSettings *ChartSettings `json:"chart_settings,omitempty"`
+
 	// The chart type of the CostReport.
 	ChartType string `json:"chart_type,omitempty"`
 
@@ -86,6 +89,10 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateChartSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
@@ -122,6 +129,25 @@ func (m *CostReport) validateBusinessMetricTokensWithMetadata(formats strfmt.Reg
 	return nil
 }
 
+func (m *CostReport) validateChartSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.ChartSettings) { // not required
+		return nil
+	}
+
+	if m.ChartSettings != nil {
+		if err := m.ChartSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chart_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *CostReport) validateSettings(formats strfmt.Registry) error {
 	if swag.IsZero(m.Settings) { // not required
 		return nil
@@ -146,6 +172,10 @@ func (m *CostReport) ContextValidate(ctx context.Context, formats strfmt.Registr
 	var res []error
 
 	if err := m.contextValidateBusinessMetricTokensWithMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateChartSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -179,6 +209,27 @@ func (m *CostReport) contextValidateBusinessMetricTokensWithMetadata(ctx context
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CostReport) contextValidateChartSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ChartSettings != nil {
+
+		if swag.IsZero(m.ChartSettings) { // not required
+			return nil
+		}
+
+		if err := m.ChartSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chart_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
 	}
 
 	return nil

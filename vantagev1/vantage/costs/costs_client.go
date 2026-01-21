@@ -66,7 +66,9 @@ type ClientService interface {
 }
 
 /*
-GetCosts Return available Costs for the specified Cost Report and optional time period. If no time period is specified it will return all available costs for the report.
+GetCosts gets costs for cost report
+
+Return available Costs for the specified Cost Report and optional time period. If no time period is specified it will return all available costs for the report.
 */
 func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOK, error) {
 	// TODO: Validate the params before sending
@@ -105,7 +107,9 @@ func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-GetReport Return a Cost Report.
+GetReport gets cost report by ID
+
+Return a Cost Report.
 */
 func (a *Client) GetReport(params *GetReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportOK, error) {
 	// TODO: Validate the params before sending
@@ -144,7 +148,9 @@ func (a *Client) GetReport(params *GetReportParams, authInfo runtime.ClientAuthI
 }
 
 /*
-GetReports Return all Cost Reports.
+GetReports gets all cost reports
+
+Return all Cost Reports.
 */
 func (a *Client) GetReports(params *GetReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportsOK, error) {
 	// TODO: Validate the params before sending

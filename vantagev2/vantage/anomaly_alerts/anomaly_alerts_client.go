@@ -66,7 +66,9 @@ type ClientService interface {
 }
 
 /*
-GetAnomalyAlert Return an AnomalyAlert that the current API token has access to.
+GetAnomalyAlert gets anomaly alert by token
+
+Return an AnomalyAlert that the current API token has access to.
 */
 func (a *Client) GetAnomalyAlert(params *GetAnomalyAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAnomalyAlertOK, error) {
 	// TODO: Validate the params before sending
@@ -105,7 +107,9 @@ func (a *Client) GetAnomalyAlert(params *GetAnomalyAlertParams, authInfo runtime
 }
 
 /*
-GetAnomalyAlerts Return all Anomaly Alerts that the current API token has access to.
+GetAnomalyAlerts gets all anomaly alerts
+
+Return all Anomaly Alerts that the current API token has access to.
 */
 func (a *Client) GetAnomalyAlerts(params *GetAnomalyAlertsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAnomalyAlertsOK, error) {
 	// TODO: Validate the params before sending
@@ -144,7 +148,9 @@ func (a *Client) GetAnomalyAlerts(params *GetAnomalyAlertsParams, authInfo runti
 }
 
 /*
-UpdateAnomalyAlert Update an AnomalyAlert.
+UpdateAnomalyAlert updates anomaly alert
+
+Update an AnomalyAlert.
 */
 func (a *Client) UpdateAnomalyAlert(params *UpdateAnomalyAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAnomalyAlertOK, error) {
 	// TODO: Validate the params before sending

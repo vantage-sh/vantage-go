@@ -56,13 +56,19 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	AddTeamMember(params *AddTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamMemberCreated, error)
+
 	CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTeamCreated, error)
 
 	DeleteTeam(params *DeleteTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTeamNoContent, error)
 
 	GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamOK, error)
 
+	GetTeamMembers(params *GetTeamMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamMembersOK, error)
+
 	GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamsOK, error)
+
+	RemoveTeamMember(params *RemoveTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamMemberNoContent, error)
 
 	UpdateTeam(params *UpdateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamOK, error)
 
@@ -70,7 +76,50 @@ type ClientService interface {
 }
 
 /*
-CreateTeam Create a new Team.
+AddTeamMember adds team member
+
+Add a member to a Team.
+*/
+func (a *Client) AddTeamMember(params *AddTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamMemberCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddTeamMemberParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "addTeamMember",
+		Method:             "POST",
+		PathPattern:        "/teams/{team_token}/members",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &AddTeamMemberReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AddTeamMemberCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for addTeamMember: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateTeam creates team
+
+Create a new Team.
 */
 func (a *Client) CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTeamCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +158,9 @@ func (a *Client) CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAut
 }
 
 /*
-DeleteTeam Delete a Team.
+DeleteTeam deletes team
+
+Delete a Team.
 */
 func (a *Client) DeleteTeam(params *DeleteTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTeamNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +199,9 @@ func (a *Client) DeleteTeam(params *DeleteTeamParams, authInfo runtime.ClientAut
 }
 
 /*
-GetTeam Return a specific Team.
+GetTeam gets team by token
+
+Return a specific Team.
 */
 func (a *Client) GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +240,50 @@ func (a *Client) GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetTeams Return all Teams that the current API token has access to.
+GetTeamMembers gets team members
+
+Return all members of a Team.
+*/
+func (a *Client) GetTeamMembers(params *GetTeamMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamMembersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetTeamMembersParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getTeamMembers",
+		Method:             "GET",
+		PathPattern:        "/teams/{team_token}/members",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetTeamMembersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetTeamMembersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getTeamMembers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetTeams gets all teams
+
+Return all Teams that the current API token has access to.
 */
 func (a *Client) GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +322,50 @@ func (a *Client) GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-UpdateTeam Update a Team.
+RemoveTeamMember removes team member
+
+Remove a member from a Team.
+*/
+func (a *Client) RemoveTeamMember(params *RemoveTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamMemberNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveTeamMemberParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "removeTeamMember",
+		Method:             "DELETE",
+		PathPattern:        "/teams/{team_token}/members/{user_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RemoveTeamMemberReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RemoveTeamMemberNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeTeamMember: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateTeam updates team
+
+Update a Team.
 */
 func (a *Client) UpdateTeam(params *UpdateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamOK, error) {
 	// TODO: Validate the params before sending

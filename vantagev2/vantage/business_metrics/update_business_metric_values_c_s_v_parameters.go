@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewUpdateBusinessMetricValuesCSVParams creates a new UpdateBusinessMetricValuesCSVParams object,
@@ -70,6 +71,12 @@ type UpdateBusinessMetricValuesCSVParams struct {
 	*/
 	Csv runtime.NamedReadCloser
 
+	/* Forecasted.
+
+	   When true, imports values as forecasted metrics instead of historical metrics.
+	*/
+	Forecasted *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -87,7 +94,18 @@ func (o *UpdateBusinessMetricValuesCSVParams) WithDefaults() *UpdateBusinessMetr
 //
 // All values with no default are reset to their zero value.
 func (o *UpdateBusinessMetricValuesCSVParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		forecastedDefault = bool(false)
+	)
+
+	val := UpdateBusinessMetricValuesCSVParams{
+		Forecasted: &forecastedDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update business metric values c s v params
@@ -145,6 +163,17 @@ func (o *UpdateBusinessMetricValuesCSVParams) SetCsv(csv runtime.NamedReadCloser
 	o.Csv = csv
 }
 
+// WithForecasted adds the forecasted to the update business metric values c s v params
+func (o *UpdateBusinessMetricValuesCSVParams) WithForecasted(forecasted *bool) *UpdateBusinessMetricValuesCSVParams {
+	o.SetForecasted(forecasted)
+	return o
+}
+
+// SetForecasted adds the forecasted to the update business metric values c s v params
+func (o *UpdateBusinessMetricValuesCSVParams) SetForecasted(forecasted *bool) {
+	o.Forecasted = forecasted
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateBusinessMetricValuesCSVParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +189,21 @@ func (o *UpdateBusinessMetricValuesCSVParams) WriteToRequest(r runtime.ClientReq
 	// form file param csv
 	if err := r.SetFileParam("csv", o.Csv); err != nil {
 		return err
+	}
+
+	if o.Forecasted != nil {
+
+		// form param forecasted
+		var frForecasted bool
+		if o.Forecasted != nil {
+			frForecasted = *o.Forecasted
+		}
+		fForecasted := swag.FormatBool(frForecasted)
+		if fForecasted != "" {
+			if err := r.SetFormParam("forecasted", fForecasted); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {

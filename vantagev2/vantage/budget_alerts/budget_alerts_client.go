@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateBudgetAlert Create a Budget Alert.
+CreateBudgetAlert creates budget alert
+
+Create a Budget Alert.
 */
 func (a *Client) CreateBudgetAlert(params *CreateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBudgetAlertCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateBudgetAlert(params *CreateBudgetAlertParams, authInfo run
 }
 
 /*
-DeleteBudgetAlert Delete a BudgetAlert.
+DeleteBudgetAlert deletes budget alert
+
+Delete a BudgetAlert.
 */
 func (a *Client) DeleteBudgetAlert(params *DeleteBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBudgetAlertNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteBudgetAlert(params *DeleteBudgetAlertParams, authInfo run
 }
 
 /*
-GetBudgetAlert Return a BudgetAlert.
+GetBudgetAlert gets budget alert by token
+
+Return a BudgetAlert.
 */
 func (a *Client) GetBudgetAlert(params *GetBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetAlertOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetBudgetAlert(params *GetBudgetAlertParams, authInfo runtime.C
 }
 
 /*
-GetBudgetAlerts Return all BudgetAlerts.
+GetBudgetAlerts gets all budget alerts
+
+Return all BudgetAlerts.
 */
 func (a *Client) GetBudgetAlerts(params *GetBudgetAlertsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetAlertsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetBudgetAlerts(params *GetBudgetAlertsParams, authInfo runtime
 }
 
 /*
-UpdateBudgetAlert Updates an existing BudgetAlert.
+UpdateBudgetAlert updates budget alert
+
+Updates an existing BudgetAlert.
 */
 func (a *Client) UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetAlertCreated, error) {
 	// TODO: Validate the params before sending

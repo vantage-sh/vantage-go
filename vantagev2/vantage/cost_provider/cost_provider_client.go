@@ -62,7 +62,9 @@ type ClientService interface {
 }
 
 /*
-GetCostProviders List CostProviders available to query in a given Workspace.
+GetCostProviders gets cost providers
+
+List CostProviders available to query in a given Workspace.
 */
 func (a *Client) GetCostProviders(params *GetCostProvidersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostProvidersOK, error) {
 	// TODO: Validate the params before sending

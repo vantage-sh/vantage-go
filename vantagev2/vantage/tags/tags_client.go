@@ -66,7 +66,9 @@ type ClientService interface {
 }
 
 /*
-GetTagValues Returns corresponding TagValues for a given Tag.
+GetTagValues gets tag values
+
+Returns corresponding TagValues for a given Tag.
 */
 func (a *Client) GetTagValues(params *GetTagValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTagValuesOK, error) {
 	// TODO: Validate the params before sending
@@ -105,7 +107,9 @@ func (a *Client) GetTagValues(params *GetTagValuesParams, authInfo runtime.Clien
 }
 
 /*
-GetTags Return all Tags that the current API token has access to.
+GetTags gets all tags
+
+Return all Tags that the current API token has access to.
 */
 func (a *Client) GetTags(params *GetTagsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTagsOK, error) {
 	// TODO: Validate the params before sending
@@ -144,7 +148,9 @@ func (a *Client) GetTags(params *GetTagsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-UpdateTag Updates an existing Tag.
+UpdateTag updates tag
+
+Updates an existing Tag.
 */
 func (a *Client) UpdateTag(params *UpdateTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTagOK, error) {
 	// TODO: Validate the params before sending
