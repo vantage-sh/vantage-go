@@ -53,7 +53,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]
 	Provider string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -63,6 +63,10 @@ type Cost struct {
 	// The resource id which incurred the cost.
 	// Example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
 	ResourceID string `json:"resource_id,omitempty"`
+
+	// The segment name for segment report costs.
+	// Example: Engineering
+	Segment string `json:"segment,omitempty"`
 
 	// The service which incurred the cost.
 	// Example: Amazon Elastic Compute Cloud - Compute
@@ -98,7 +102,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -188,6 +192,12 @@ const (
 
 	// CostProviderAnyscale captures enum value "anyscale"
 	CostProviderAnyscale string = "anyscale"
+
+	// CostProviderCursor captures enum value "cursor"
+	CostProviderCursor string = "cursor"
+
+	// CostProviderElastic captures enum value "elastic"
+	CostProviderElastic string = "elastic"
 )
 
 // prop value enum

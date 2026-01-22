@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateAccessGrant Create an Access Grant.
+CreateAccessGrant creates access grant
+
+Create an Access Grant.
 */
 func (a *Client) CreateAccessGrant(params *CreateAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAccessGrantCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateAccessGrant(params *CreateAccessGrantParams, authInfo run
 }
 
 /*
-DeleteAccessGrant Delete an Access Grant.
+DeleteAccessGrant deletes access grant
+
+Delete an Access Grant.
 */
 func (a *Client) DeleteAccessGrant(params *DeleteAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAccessGrantNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteAccessGrant(params *DeleteAccessGrantParams, authInfo run
 }
 
 /*
-GetAccessGrant Return a specific Access Grant.
+GetAccessGrant gets access grant by token
+
+Return a specific Access Grant.
 */
 func (a *Client) GetAccessGrant(params *GetAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAccessGrantOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetAccessGrant(params *GetAccessGrantParams, authInfo runtime.C
 }
 
 /*
-GetAccessGrants Return all Access Grants that the current API token has access to.
+GetAccessGrants gets all access grants
+
+Return all Access Grants that the current API token has access to.
 */
 func (a *Client) GetAccessGrants(params *GetAccessGrantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAccessGrantsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetAccessGrants(params *GetAccessGrantsParams, authInfo runtime
 }
 
 /*
-UpdateAccessGrant Update an AccessGrant.
+UpdateAccessGrant updates access grant
+
+Update an AccessGrant.
 */
 func (a *Client) UpdateAccessGrant(params *UpdateAccessGrantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAccessGrantOK, error) {
 	// TODO: Validate the params before sending

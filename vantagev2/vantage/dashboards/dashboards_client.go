@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateDashboard Create a Dashboard.
+CreateDashboard creates dashboard
+
+Create a Dashboard.
 */
 func (a *Client) CreateDashboard(params *CreateDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDashboardCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateDashboard(params *CreateDashboardParams, authInfo runtime
 }
 
 /*
-DeleteDashboard Delete a Dashboard.
+DeleteDashboard deletes dashboard
+
+Delete a Dashboard.
 */
 func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime
 }
 
 /*
-GetDashboard Return a specific Dashboard.
+GetDashboard gets dashboard by token
+
+Return a specific Dashboard.
 */
 func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.Clien
 }
 
 /*
-GetDashboards Return all Dashboards.
+GetDashboards gets all dashboards
+
+Return all Dashboards.
 */
 func (a *Client) GetDashboards(params *GetDashboardsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetDashboards(params *GetDashboardsParams, authInfo runtime.Cli
 }
 
 /*
-UpdateDashboard Update a Dashboard.
+UpdateDashboard updates dashboard
+
+Update a Dashboard.
 */
 func (a *Client) UpdateDashboard(params *UpdateDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardOK, error) {
 	// TODO: Validate the params before sending

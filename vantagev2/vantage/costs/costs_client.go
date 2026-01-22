@@ -76,7 +76,9 @@ type ClientService interface {
 }
 
 /*
-CreateCostExport Generate a DataExport of costs.
+CreateCostExport generates cost data export
+
+Generate a DataExport of costs.
 */
 func (a *Client) CreateCostExport(params *CreateCostExportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostExportAccepted, error) {
 	// TODO: Validate the params before sending
@@ -115,7 +117,9 @@ func (a *Client) CreateCostExport(params *CreateCostExportParams, authInfo runti
 }
 
 /*
-CreateCostReport Create a CostReport.
+CreateCostReport creates cost report
+
+Create a CostReport.
 */
 func (a *Client) CreateCostReport(params *CreateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCostReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +158,9 @@ func (a *Client) CreateCostReport(params *CreateCostReportParams, authInfo runti
 }
 
 /*
-DeleteCostReport Delete a CostReport.
+DeleteCostReport deletes cost report
+
+Delete a CostReport.
 */
 func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCostReportNoContent, error) {
 	// TODO: Validate the params before sending
@@ -193,7 +199,9 @@ func (a *Client) DeleteCostReport(params *DeleteCostReportParams, authInfo runti
 }
 
 /*
-GetCostReport Return a CostReport.
+GetCostReport gets cost report by token
+
+Return a CostReport.
 */
 func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportOK, error) {
 	// TODO: Validate the params before sending
@@ -232,7 +240,9 @@ func (a *Client) GetCostReport(params *GetCostReportParams, authInfo runtime.Cli
 }
 
 /*
-GetCostReports Return all CostReports.
+GetCostReports gets all cost reports
+
+Return all CostReports.
 */
 func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -271,7 +281,9 @@ func (a *Client) GetCostReports(params *GetCostReportsParams, authInfo runtime.C
 }
 
 /*
-GetCosts Return all Costs for a CostReport or VQL filter.
+GetCosts gets costs for cost report or v q l filter
+
+Return all Costs for a CostReport or VQL filter.
 */
 func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOK, error) {
 	// TODO: Validate the params before sending
@@ -310,7 +322,9 @@ func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-GetForecastedCosts Return all ForecastedCosts.
+GetForecastedCosts gets forecasted costs for a cost report
+
+Return all ForecastedCosts.
 */
 func (a *Client) GetForecastedCosts(params *GetForecastedCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetForecastedCostsOK, error) {
 	// TODO: Validate the params before sending
@@ -349,7 +363,9 @@ func (a *Client) GetForecastedCosts(params *GetForecastedCostsParams, authInfo r
 }
 
 /*
-UpdateCostReport Update a CostReport.
+UpdateCostReport updates cost report
+
+Update a CostReport.
 */
 func (a *Client) UpdateCostReport(params *UpdateCostReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCostReportOK, error) {
 	// TODO: Validate the params before sending

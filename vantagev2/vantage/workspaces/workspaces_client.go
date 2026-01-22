@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateWorkspace Create a workspace
+CreateWorkspace creates workspace
+
+Create a workspace
 */
 func (a *Client) CreateWorkspace(params *CreateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateWorkspaceCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateWorkspace(params *CreateWorkspaceParams, authInfo runtime
 }
 
 /*
-DeleteWorkspace Delete a Workspace
+DeleteWorkspace deletes workspace
+
+Delete a Workspace
 */
 func (a *Client) DeleteWorkspace(params *DeleteWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteWorkspaceNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteWorkspace(params *DeleteWorkspaceParams, authInfo runtime
 }
 
 /*
-GetWorkspace Return a specific Workspace.
+GetWorkspace gets workspace by token
+
+Return a specific Workspace.
 */
 func (a *Client) GetWorkspace(params *GetWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspaceOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetWorkspace(params *GetWorkspaceParams, authInfo runtime.Clien
 }
 
 /*
-GetWorkspaces Return all Workspaces that the current API token has access to.
+GetWorkspaces gets all workspaces
+
+Return all Workspaces that the current API token has access to.
 */
 func (a *Client) GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspacesOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.Cli
 }
 
 /*
-UpdateWorkspace Update a workspace
+UpdateWorkspace updates workspace
+
+Update a workspace
 */
 func (a *Client) UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceCreated, error) {
 	// TODO: Validate the params before sending

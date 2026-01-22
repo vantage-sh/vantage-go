@@ -58,6 +58,7 @@
   "paths": {
     "/providers": {
       "get": {
+        "summary": "Get all providers",
         "description": "Providers are cloud infrastructure and service providers from which all cloud prices are derived. You can think of example Providers as being AWS, GCP, Cloudflare or Datadog. Currently, Vantage only supports a single provider of AWS but over time more will be added. Use this endpoint to retrieve a provider id for other API calls.",
         "produces": [
           "application/json"
@@ -114,6 +115,7 @@
     },
     "/services": {
       "get": {
+        "summary": "Get all services",
         "description": "Return all Services. Examples of Services are EC2 for AWS. This endpoint will return all Services by default but you have the ability to filter Services by Provider using the optional query parameter documented below.",
         "produces": [
           "application/json"
@@ -191,6 +193,7 @@
     },
     "/products": {
       "get": {
+        "summary": "Get all products",
         "description": "Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.",
         "produces": [
           "application/json"
@@ -320,6 +323,7 @@
     },
     "/products/{id}": {
       "get": {
+        "summary": "Get product by ID",
         "description": "Return a product",
         "produces": [
           "application/json"
@@ -373,6 +377,7 @@
     },
     "/products/{product_id}/prices": {
       "get": {
+        "summary": "Get prices for a product",
         "description": "Return available Prices across all Regions for a Product.",
         "produces": [
           "application/json"
@@ -473,6 +478,7 @@
     },
     "/products/{product_id}/prices/{id}": {
       "get": {
+        "summary": "Get price by ID",
         "description": "Returns a price",
         "produces": [
           "application/json"
@@ -528,6 +534,7 @@
     },
     "/reports": {
       "get": {
+        "summary": "Get all cost reports",
         "description": "Return all Cost Reports.",
         "produces": [
           "application/json"
@@ -610,6 +617,7 @@
     },
     "/reports/{report_id}": {
       "get": {
+        "summary": "Get cost report by ID",
         "description": "Return a Cost Report.",
         "produces": [
           "application/json"
@@ -655,6 +663,7 @@
     },
     "/reports/{report_id}/costs": {
       "get": {
+        "summary": "Get costs for cost report",
         "description": "Return available Costs for the specified Cost Report and optional time period. If no time period is specified it will return all available costs for the report.",
         "produces": [
           "application/json"
@@ -7744,7 +7753,8 @@
     },
     "/integrations/aws/{access_credential_id}": {
       "delete": {
-        "description": "Delete access credential information for aws account",
+        "summary": "Delete access credential",
+        "description": "Delete access credential information for AWS account",
         "produces": [
           "application/json"
         ],
@@ -7775,6 +7785,7 @@
         "operationId": "deleteIntegrationsAWS"
       },
       "put": {
+        "summary": "Update integration",
         "description": "Update AWS integration.",
         "produces": [
           "application/json"
@@ -7827,7 +7838,8 @@
         "operationId": "putIntegrationsAWS"
       },
       "get": {
-        "description": "Get access credential information for aws account",
+        "summary": "Get access credential by ID",
+        "description": "Get access credential information for AWS account",
         "produces": [
           "application/json"
         ],
@@ -7873,6 +7885,7 @@
     },
     "/integrations/aws": {
       "post": {
+        "summary": "Create integration",
         "description": "Create AWS integration.",
         "produces": [
           "application/json"
@@ -7920,6 +7933,7 @@
     },
     "/integrations/aws/info": {
       "get": {
+        "summary": "Get provider information",
         "description": "Get provider information",
         "produces": [
           "application/json"

@@ -24,6 +24,9 @@ type CreateCostReport struct {
 	// The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
 	BusinessMetricTokensWithMetadata []*CreateCostReportBusinessMetricTokensWithMetadataItems0 `json:"business_metric_tokens_with_metadata"`
 
+	// chart settings
+	ChartSettings *CreateCostReportChartSettings `json:"chart_settings,omitempty"`
+
 	// The chart type of the CostReport.
 	// Enum: ["area","line","pie","bar","multi_bar"]
 	ChartType *string `json:"chart_type,omitempty"`
@@ -78,6 +81,10 @@ func (m *CreateCostReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBusinessMetricTokensWithMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateChartSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -136,6 +143,25 @@ func (m *CreateCostReport) validateBusinessMetricTokensWithMetadata(formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CreateCostReport) validateChartSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.ChartSettings) { // not required
+		return nil
+	}
+
+	if m.ChartSettings != nil {
+		if err := m.ChartSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chart_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -384,6 +410,10 @@ func (m *CreateCostReport) ContextValidate(ctx context.Context, formats strfmt.R
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateChartSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -414,6 +444,27 @@ func (m *CreateCostReport) contextValidateBusinessMetricTokensWithMetadata(ctx c
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CreateCostReport) contextValidateChartSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ChartSettings != nil {
+
+		if swag.IsZero(m.ChartSettings) { // not required
+			return nil
+		}
+
+		if err := m.ChartSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chart_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -569,6 +620,46 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) MarshalBinary()
 // UnmarshalBinary interface implementation
 func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) UnmarshalBinary(b []byte) error {
 	var res CreateCostReportBusinessMetricTokensWithMetadataItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateCostReportChartSettings Report chart settings.
+//
+// swagger:model CreateCostReportChartSettings
+type CreateCostReportChartSettings struct {
+
+	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
+	XAxisDimension []string `json:"x_axis_dimension"`
+
+	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
+	YAxisDimension string `json:"y_axis_dimension,omitempty"`
+}
+
+// Validate validates this create cost report chart settings
+func (m *CreateCostReportChartSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this create cost report chart settings based on context it is used
+func (m *CreateCostReportChartSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateCostReportChartSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateCostReportChartSettings) UnmarshalBinary(b []byte) error {
+	var res CreateCostReportChartSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

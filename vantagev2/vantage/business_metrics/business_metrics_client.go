@@ -91,6 +91,8 @@ type ClientService interface {
 
 	GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error)
 
+	GetBusinessMetricForecastedValues(params *GetBusinessMetricForecastedValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricForecastedValuesOK, error)
+
 	GetBusinessMetricValues(params *GetBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricValuesOK, error)
 
 	GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error)
@@ -103,7 +105,9 @@ type ClientService interface {
 }
 
 /*
-CreateBusinessMetric Create a new BusinessMetric.
+CreateBusinessMetric creates business metric
+
+Create a new BusinessMetric.
 */
 func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBusinessMetricCreated, error) {
 	// TODO: Validate the params before sending
@@ -142,7 +146,9 @@ func (a *Client) CreateBusinessMetric(params *CreateBusinessMetricParams, authIn
 }
 
 /*
-DeleteBusinessMetric Deletes an existing BusinessMetric.
+DeleteBusinessMetric deletes business metric
+
+Deletes an existing BusinessMetric.
 */
 func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricNoContent, error) {
 	// TODO: Validate the params before sending
@@ -181,7 +187,9 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 }
 
 /*
-GetBusinessMetric Return a BusinessMetric.
+GetBusinessMetric gets business metric by token
+
+Return a BusinessMetric.
 */
 func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -220,7 +228,50 @@ func (a *Client) GetBusinessMetric(params *GetBusinessMetricParams, authInfo run
 }
 
 /*
-GetBusinessMetricValues Return values of a BusinessMetric
+GetBusinessMetricForecastedValues gets business metric forecasted values
+
+Return forecasted values of a BusinessMetric
+*/
+func (a *Client) GetBusinessMetricForecastedValues(params *GetBusinessMetricForecastedValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricForecastedValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBusinessMetricForecastedValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getBusinessMetricForecastedValues",
+		Method:             "GET",
+		PathPattern:        "/business_metrics/{business_metric_token}/forecasted_values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetBusinessMetricForecastedValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetBusinessMetricForecastedValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBusinessMetricForecastedValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetBusinessMetricValues gets business metric values
+
+Return values of a BusinessMetric
 */
 func (a *Client) GetBusinessMetricValues(params *GetBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricValuesOK, error) {
 	// TODO: Validate the params before sending
@@ -259,7 +310,9 @@ func (a *Client) GetBusinessMetricValues(params *GetBusinessMetricValuesParams, 
 }
 
 /*
-GetBusinessMetrics Return all BusinessMetrics that the current API token has access to.
+GetBusinessMetrics gets all business metrics
+
+Return all BusinessMetrics that the current API token has access to.
 */
 func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricsOK, error) {
 	// TODO: Validate the params before sending
@@ -298,7 +351,9 @@ func (a *Client) GetBusinessMetrics(params *GetBusinessMetricsParams, authInfo r
 }
 
 /*
-UpdateBusinessMetric Updates an existing BusinessMetric.
+UpdateBusinessMetric updates business metric
+
+Updates an existing BusinessMetric.
 */
 func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error) {
 	// TODO: Validate the params before sending
@@ -337,7 +392,9 @@ func (a *Client) UpdateBusinessMetric(params *UpdateBusinessMetricParams, authIn
 }
 
 /*
-UpdateBusinessMetricValuesCSV Updates the values for an existing BusinessMetric from a CSV file.
+UpdateBusinessMetricValuesCSV updates business metric values from c s v
+
+Updates the values for an existing BusinessMetric from a CSV file.
 */
 func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error) {
 	// TODO: Validate the params before sending

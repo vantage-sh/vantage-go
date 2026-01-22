@@ -62,7 +62,9 @@ type ClientService interface {
 }
 
 /*
-GetDataExport Get the status of a data export.
+GetDataExport gets status of data export
+
+Get the status of a data export.
 */
 func (a *Client) GetDataExport(params *GetDataExportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDataExportOK, error) {
 	// TODO: Validate the params before sending

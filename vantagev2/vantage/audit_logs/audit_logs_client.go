@@ -64,7 +64,9 @@ type ClientService interface {
 }
 
 /*
-GetAuditLog Return a specific AuditLog.
+GetAuditLog gets audit log by token
+
+Return a specific AuditLog.
 */
 func (a *Client) GetAuditLog(params *GetAuditLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAuditLogOK, error) {
 	// TODO: Validate the params before sending
@@ -103,7 +105,9 @@ func (a *Client) GetAuditLog(params *GetAuditLogParams, authInfo runtime.ClientA
 }
 
 /*
-GetAuditLogs Return all AuditLogs.
+GetAuditLogs gets all audit logs
+
+Return all AuditLogs.
 */
 func (a *Client) GetAuditLogs(params *GetAuditLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAuditLogsOK, error) {
 	// TODO: Validate the params before sending

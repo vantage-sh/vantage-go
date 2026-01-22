@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -29,6 +30,9 @@ type CreateBillingProfile struct {
 	// business information attributes
 	BusinessInformationAttributes *CreateBillingProfileBusinessInformationAttributes `json:"business_information_attributes,omitempty"`
 
+	// invoice adjustment attributes
+	InvoiceAdjustmentAttributes *CreateBillingProfileInvoiceAdjustmentAttributes `json:"invoice_adjustment_attributes,omitempty"`
+
 	// Display name for the billing profile
 	// Required: true
 	Nickname *string `json:"nickname"`
@@ -47,6 +51,10 @@ func (m *CreateBillingProfile) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateBusinessInformationAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInvoiceAdjustmentAttributes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -117,6 +125,25 @@ func (m *CreateBillingProfile) validateBusinessInformationAttributes(formats str
 	return nil
 }
 
+func (m *CreateBillingProfile) validateInvoiceAdjustmentAttributes(formats strfmt.Registry) error {
+	if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
+		return nil
+	}
+
+	if m.InvoiceAdjustmentAttributes != nil {
+		if err := m.InvoiceAdjustmentAttributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("invoice_adjustment_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("invoice_adjustment_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *CreateBillingProfile) validateNickname(formats strfmt.Registry) error {
 
 	if err := validate.Required("nickname", "body", m.Nickname); err != nil {
@@ -139,6 +166,10 @@ func (m *CreateBillingProfile) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidateBusinessInformationAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInvoiceAdjustmentAttributes(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -203,6 +234,27 @@ func (m *CreateBillingProfile) contextValidateBusinessInformationAttributes(ctx 
 				return ve.ValidateName("business_information_attributes")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("business_information_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateBillingProfile) contextValidateInvoiceAdjustmentAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InvoiceAdjustmentAttributes != nil {
+
+		if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
+			return nil
+		}
+
+		if err := m.InvoiceAdjustmentAttributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("invoice_adjustment_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("invoice_adjustment_attributes")
 			}
 			return err
 		}
@@ -680,6 +732,293 @@ func (m *CreateBillingProfileBusinessInformationAttributesMetadataCustomFieldsIt
 // UnmarshalBinary interface implementation
 func (m *CreateBillingProfileBusinessInformationAttributesMetadataCustomFieldsItems0) UnmarshalBinary(b []byte) error {
 	var res CreateBillingProfileBusinessInformationAttributesMetadataCustomFieldsItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBillingProfileInvoiceAdjustmentAttributes Invoice adjustments (taxes, fees, etc.)
+//
+// swagger:model CreateBillingProfileInvoiceAdjustmentAttributes
+type CreateBillingProfileInvoiceAdjustmentAttributes struct {
+
+	// Array of adjustment items
+	AdjustmentItems []*CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0 `json:"adjustment_items"`
+
+	// token
+	Token string `json:"token,omitempty"`
+}
+
+// Validate validates this create billing profile invoice adjustment attributes
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAdjustmentItems(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) validateAdjustmentItems(formats strfmt.Registry) error {
+	if swag.IsZero(m.AdjustmentItems) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.AdjustmentItems); i++ {
+		if swag.IsZero(m.AdjustmentItems[i]) { // not required
+			continue
+		}
+
+		if m.AdjustmentItems[i] != nil {
+			if err := m.AdjustmentItems[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("invoice_adjustment_attributes" + "." + "adjustment_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("invoice_adjustment_attributes" + "." + "adjustment_items" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create billing profile invoice adjustment attributes based on the context it is used
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAdjustmentItems(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) contextValidateAdjustmentItems(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AdjustmentItems); i++ {
+
+		if m.AdjustmentItems[i] != nil {
+
+			if swag.IsZero(m.AdjustmentItems[i]) { // not required
+				return nil
+			}
+
+			if err := m.AdjustmentItems[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("invoice_adjustment_attributes" + "." + "adjustment_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("invoice_adjustment_attributes" + "." + "adjustment_items" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBillingProfileInvoiceAdjustmentAttributes) UnmarshalBinary(b []byte) error {
+	var res CreateBillingProfileInvoiceAdjustmentAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0 create billing profile invoice adjustment attributes adjustment items items0
+//
+// swagger:model CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0
+type CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0 struct {
+
+	// Type of adjustment
+	// Enum: ["charge","credit","discount"]
+	AdjustmentType *string `json:"adjustment_type,omitempty"`
+
+	// Amount or percentage value
+	// Required: true
+	Amount *float64 `json:"amount"`
+
+	// How the adjustment is calculated
+	// Required: true
+	// Enum: ["fixed","percentage"]
+	CalculationType *string `json:"calculation_type"`
+
+	// Name of the adjustment
+	// Required: true
+	Name *string `json:"name"`
+}
+
+// Validate validates this create billing profile invoice adjustment attributes adjustment items items0
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAdjustmentType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeAdjustmentTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["charge","credit","discount"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeAdjustmentTypePropEnum = append(createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeAdjustmentTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeCharge captures enum value "charge"
+	CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeCharge string = "charge"
+
+	// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeCredit captures enum value "credit"
+	CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeCredit string = "credit"
+
+	// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeDiscount captures enum value "discount"
+	CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0AdjustmentTypeDiscount string = "discount"
+)
+
+// prop value enum
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateAdjustmentTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeAdjustmentTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateAdjustmentType(formats strfmt.Registry) error {
+	if swag.IsZero(m.AdjustmentType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAdjustmentTypeEnum("adjustment_type", "body", *m.AdjustmentType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.Required("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["fixed","percentage"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeCalculationTypePropEnum = append(createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0CalculationTypeFixed captures enum value "fixed"
+	CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0CalculationTypeFixed string = "fixed"
+
+	// CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0CalculationTypePercentage captures enum value "percentage"
+	CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0CalculationTypePercentage string = "percentage"
+)
+
+// prop value enum
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0TypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateCalculationType(formats strfmt.Registry) error {
+
+	if err := validate.Required("calculation_type", "body", m.CalculationType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create billing profile invoice adjustment attributes adjustment items items0 based on context it is used
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0) UnmarshalBinary(b []byte) error {
+	var res CreateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateSavedFilter Create a SavedFilter for CostReports.
+CreateSavedFilter creates saved filter
+
+Create a SavedFilter for CostReports.
 */
 func (a *Client) CreateSavedFilter(params *CreateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSavedFilterCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateSavedFilter(params *CreateSavedFilterParams, authInfo run
 }
 
 /*
-DeleteSavedFilter Delete a SavedFilter for CostReports.
+DeleteSavedFilter deletes saved filter
+
+Delete a SavedFilter for CostReports.
 */
 func (a *Client) DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSavedFilterNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteSavedFilter(params *DeleteSavedFilterParams, authInfo run
 }
 
 /*
-GetSavedFilter Return a specific SavedFilter.
+GetSavedFilter gets saved filter by token
+
+Return a specific SavedFilter.
 */
 func (a *Client) GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFilterOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetSavedFilter(params *GetSavedFilterParams, authInfo runtime.C
 }
 
 /*
-GetSavedFilters Return all SavedFilters that can be applied to a CostReport.
+GetSavedFilters gets all saved filters
+
+Return all SavedFilters that can be applied to a CostReport.
 */
 func (a *Client) GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSavedFiltersOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetSavedFilters(params *GetSavedFiltersParams, authInfo runtime
 }
 
 /*
-UpdateSavedFilter Update a SavedFilter for CostReports.
+UpdateSavedFilter updates saved filter
+
+Update a SavedFilter for CostReports.
 */
 func (a *Client) UpdateSavedFilter(params *UpdateSavedFilterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSavedFilterOK, error) {
 	// TODO: Validate the params before sending

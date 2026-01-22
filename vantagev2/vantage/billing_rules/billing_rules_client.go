@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateBillingRule Create a BillingRule.
+CreateBillingRule creates billing rule
+
+Create a BillingRule.
 */
 func (a *Client) CreateBillingRule(params *CreateBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBillingRuleCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateBillingRule(params *CreateBillingRuleParams, authInfo run
 }
 
 /*
-DeleteBillingRule Delete a BillingRule.
+DeleteBillingRule deletes billing rule
+
+Delete a BillingRule.
 */
 func (a *Client) DeleteBillingRule(params *DeleteBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBillingRuleNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteBillingRule(params *DeleteBillingRuleParams, authInfo run
 }
 
 /*
-GetBillingRule Return a BillingRule.
+GetBillingRule gets billing rule by token
+
+Return a BillingRule.
 */
 func (a *Client) GetBillingRule(params *GetBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBillingRuleOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetBillingRule(params *GetBillingRuleParams, authInfo runtime.C
 }
 
 /*
-GetBillingRules Returns a list of billing rules.
+GetBillingRules gets all billing rules
+
+Returns a list of billing rules.
 */
 func (a *Client) GetBillingRules(params *GetBillingRulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBillingRulesOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetBillingRules(params *GetBillingRulesParams, authInfo runtime
 }
 
 /*
-UpdateBillingRule Update a BillingRule.
+UpdateBillingRule updates billing rule
+
+Update a BillingRule.
 */
 func (a *Client) UpdateBillingRule(params *UpdateBillingRuleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBillingRuleOK, error) {
 	// TODO: Validate the params before sending

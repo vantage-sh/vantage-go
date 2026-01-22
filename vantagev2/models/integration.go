@@ -28,13 +28,17 @@ type Integration struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
+	// Example: 2023-08-04T00:00:00Z
+	LastUpdated string `json:"last_updated,omitempty"`
+
 	// The name of the Integration.
 	// Example: AWS
 	Provider string `json:"provider,omitempty"`
 
-	// The status of the Integration. Can be 'connected' or 'disconnected'.
-	// Example: connected
-	// Enum: ["connected","disconnected"]
+	// The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
+	// Example: imported
+	// Enum: ["connected","error","pending","importing","imported","disconnected"]
 	Status string `json:"status,omitempty"`
 
 	// token
@@ -62,7 +66,7 @@ var integrationTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["connected","disconnected"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["connected","error","pending","importing","imported","disconnected"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -74,6 +78,18 @@ const (
 
 	// IntegrationStatusConnected captures enum value "connected"
 	IntegrationStatusConnected string = "connected"
+
+	// IntegrationStatusError captures enum value "error"
+	IntegrationStatusError string = "error"
+
+	// IntegrationStatusPending captures enum value "pending"
+	IntegrationStatusPending string = "pending"
+
+	// IntegrationStatusImporting captures enum value "importing"
+	IntegrationStatusImporting string = "importing"
+
+	// IntegrationStatusImported captures enum value "imported"
+	IntegrationStatusImported string = "imported"
 
 	// IntegrationStatusDisconnected captures enum value "disconnected"
 	IntegrationStatusDisconnected string = "disconnected"

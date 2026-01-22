@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateManagedAccount Create a Managed Account.
+CreateManagedAccount creates managed account
+
+Create a Managed Account.
 */
 func (a *Client) CreateManagedAccount(params *CreateManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateManagedAccountCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateManagedAccount(params *CreateManagedAccountParams, authIn
 }
 
 /*
-DeleteManagedAccount Delete a Managed Account.
+DeleteManagedAccount deletes managed account
+
+Delete a Managed Account.
 */
 func (a *Client) DeleteManagedAccount(params *DeleteManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteManagedAccountNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteManagedAccount(params *DeleteManagedAccountParams, authIn
 }
 
 /*
-GetManagedAccount Return a Managed Account.
+GetManagedAccount gets managed account by token
+
+Return a Managed Account.
 */
 func (a *Client) GetManagedAccount(params *GetManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetManagedAccount(params *GetManagedAccountParams, authInfo run
 }
 
 /*
-GetManagedAccounts Returns a list of managed accounts.
+GetManagedAccounts gets all managed accounts
+
+Returns a list of managed accounts.
 */
 func (a *Client) GetManagedAccounts(params *GetManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetManagedAccounts(params *GetManagedAccountsParams, authInfo r
 }
 
 /*
-UpdateManagedAccount Update a Managed Account.
+UpdateManagedAccount updates managed account
+
+Update a Managed Account.
 */
 func (a *Client) UpdateManagedAccount(params *UpdateManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountOK, error) {
 	// TODO: Validate the params before sending

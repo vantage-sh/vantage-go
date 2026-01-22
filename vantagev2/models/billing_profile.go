@@ -31,6 +31,9 @@ type BillingProfile struct {
 	// Example: 2023-08-04T00:00:00Z
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// Invoice adjustments (taxes, fees, etc.)
+	InvoiceAdjustmentAttributes *InvoiceAdjustment `json:"invoice_adjustment_attributes,omitempty"`
+
 	// Number of managed accounts using this billing profile
 	ManagedAccountsCount string `json:"managed_accounts_count,omitempty"`
 
@@ -58,6 +61,10 @@ func (m *BillingProfile) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateBusinessInformationAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInvoiceAdjustmentAttributes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -124,6 +131,25 @@ func (m *BillingProfile) validateBusinessInformationAttributes(formats strfmt.Re
 	return nil
 }
 
+func (m *BillingProfile) validateInvoiceAdjustmentAttributes(formats strfmt.Registry) error {
+	if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
+		return nil
+	}
+
+	if m.InvoiceAdjustmentAttributes != nil {
+		if err := m.InvoiceAdjustmentAttributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("invoice_adjustment_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("invoice_adjustment_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this billing profile based on the context it is used
 func (m *BillingProfile) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -137,6 +163,10 @@ func (m *BillingProfile) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateBusinessInformationAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInvoiceAdjustmentAttributes(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -201,6 +231,27 @@ func (m *BillingProfile) contextValidateBusinessInformationAttributes(ctx contex
 				return ve.ValidateName("business_information_attributes")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("business_information_attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *BillingProfile) contextValidateInvoiceAdjustmentAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InvoiceAdjustmentAttributes != nil {
+
+		if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
+			return nil
+		}
+
+		if err := m.InvoiceAdjustmentAttributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("invoice_adjustment_attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("invoice_adjustment_attributes")
 			}
 			return err
 		}

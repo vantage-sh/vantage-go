@@ -70,7 +70,9 @@ type ClientService interface {
 }
 
 /*
-CreateAnomalyNotification Create an Anomaly Notification for a Cost Report.
+CreateAnomalyNotification creates anomaly notification
+
+Create an Anomaly Notification for a Cost Report.
 */
 func (a *Client) CreateAnomalyNotification(params *CreateAnomalyNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAnomalyNotificationCreated, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +111,9 @@ func (a *Client) CreateAnomalyNotification(params *CreateAnomalyNotificationPara
 }
 
 /*
-DeleteAnomalyNotification Delete an Anomaly Notification.
+DeleteAnomalyNotification deletes anomaly notification
+
+Delete an Anomaly Notification.
 */
 func (a *Client) DeleteAnomalyNotification(params *DeleteAnomalyNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAnomalyNotificationNoContent, error) {
 	// TODO: Validate the params before sending
@@ -148,7 +152,9 @@ func (a *Client) DeleteAnomalyNotification(params *DeleteAnomalyNotificationPara
 }
 
 /*
-GetAnomalyNotification Return an Anomaly Notification that the current API token has access to.
+GetAnomalyNotification gets anomaly notification by token
+
+Return an Anomaly Notification that the current API token has access to.
 */
 func (a *Client) GetAnomalyNotification(params *GetAnomalyNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAnomalyNotificationOK, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +193,9 @@ func (a *Client) GetAnomalyNotification(params *GetAnomalyNotificationParams, au
 }
 
 /*
-GetAnomalyNotifications Return all Anomaly Notifications.
+GetAnomalyNotifications gets all anomaly notifications
+
+Return all Anomaly Notifications.
 */
 func (a *Client) GetAnomalyNotifications(params *GetAnomalyNotificationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAnomalyNotificationsOK, error) {
 	// TODO: Validate the params before sending
@@ -226,7 +234,9 @@ func (a *Client) GetAnomalyNotifications(params *GetAnomalyNotificationsParams, 
 }
 
 /*
-UpdateAnomalyNotification Update an Anomaly Notification.
+UpdateAnomalyNotification updates anomaly notification
+
+Update an Anomaly Notification.
 */
 func (a *Client) UpdateAnomalyNotification(params *UpdateAnomalyNotificationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAnomalyNotificationOK, error) {
 	// TODO: Validate the params before sending

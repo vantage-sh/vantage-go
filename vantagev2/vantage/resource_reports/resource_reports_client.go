@@ -72,7 +72,9 @@ type ClientService interface {
 }
 
 /*
-CreateResourceReport Create a ResourceReport.
+CreateResourceReport creates resource report
+
+Create a ResourceReport.
 */
 func (a *Client) CreateResourceReport(params *CreateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateResourceReportCreated, error) {
 	// TODO: Validate the params before sending
@@ -111,7 +113,9 @@ func (a *Client) CreateResourceReport(params *CreateResourceReportParams, authIn
 }
 
 /*
-DeleteResourceReport Delete a ResourceReport.
+DeleteResourceReport deletes resource report
+
+Delete a ResourceReport.
 */
 func (a *Client) DeleteResourceReport(params *DeleteResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteResourceReportNoContent, error) {
 	// TODO: Validate the params before sending
@@ -150,7 +154,9 @@ func (a *Client) DeleteResourceReport(params *DeleteResourceReportParams, authIn
 }
 
 /*
-GetResourceReport Return a ResourceReport.
+GetResourceReport gets resource report by token
+
+Return a ResourceReport.
 */
 func (a *Client) GetResourceReport(params *GetResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportOK, error) {
 	// TODO: Validate the params before sending
@@ -189,7 +195,9 @@ func (a *Client) GetResourceReport(params *GetResourceReportParams, authInfo run
 }
 
 /*
-GetResourceReportColumns List available columns for a resource type.
+GetResourceReportColumns gets resource report columns
+
+List available columns for a resource type.
 */
 func (a *Client) GetResourceReportColumns(params *GetResourceReportColumnsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportColumnsOK, error) {
 	// TODO: Validate the params before sending
@@ -228,7 +236,9 @@ func (a *Client) GetResourceReportColumns(params *GetResourceReportColumnsParams
 }
 
 /*
-GetResourceReports Return all ResourceReports.
+GetResourceReports gets all resource reports
+
+Return all ResourceReports.
 */
 func (a *Client) GetResourceReports(params *GetResourceReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceReportsOK, error) {
 	// TODO: Validate the params before sending
@@ -267,7 +277,9 @@ func (a *Client) GetResourceReports(params *GetResourceReportsParams, authInfo r
 }
 
 /*
-UpdateResourceReport Update a ResourceReport.
+UpdateResourceReport updates resource report
+
+Update a ResourceReport.
 */
 func (a *Client) UpdateResourceReport(params *UpdateResourceReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateResourceReportOK, error) {
 	// TODO: Validate the params before sending

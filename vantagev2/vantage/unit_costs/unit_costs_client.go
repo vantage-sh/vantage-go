@@ -64,7 +64,9 @@ type ClientService interface {
 }
 
 /*
-CreateUnitCostsExport Generate a DataExport of unit costs.
+CreateUnitCostsExport generates data export of unit costs
+
+Generate a DataExport of unit costs.
 */
 func (a *Client) CreateUnitCostsExport(params *CreateUnitCostsExportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUnitCostsExportAccepted, error) {
 	// TODO: Validate the params before sending
@@ -103,7 +105,9 @@ func (a *Client) CreateUnitCostsExport(params *CreateUnitCostsExportParams, auth
 }
 
 /*
-GetUnitCosts Return all UnitCosts for a CostReport.
+GetUnitCosts gets all unit costs for a cost report
+
+Return all UnitCosts for a CostReport.
 */
 func (a *Client) GetUnitCosts(params *GetUnitCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUnitCostsOK, error) {
 	// TODO: Validate the params before sending
