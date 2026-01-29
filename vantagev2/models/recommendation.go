@@ -24,10 +24,18 @@ type Recommendation struct {
 	// The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
 	CreatedAt string `json:"created_at,omitempty"`
 
+	// The currency code used by the Workspace to which this Recommendation belongs.
+	// Example: EUR
+	CurrencyCode string `json:"currency_code,omitempty"`
+
+	// The currency symbol used by the Workspace to which this Recommendation belongs.
+	// Example: EUR
+	CurrencySymbol string `json:"currency_symbol,omitempty"`
+
 	// description
 	Description string `json:"description,omitempty"`
 
-	// The monthly potential savings of the Recommendation.
+	// The monthly potential savings of the Recommendation, converted to the organization's selected currency.
 	// Example: 100.00
 	PotentialSavings string `json:"potential_savings,omitempty"`
 

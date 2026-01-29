@@ -21,7 +21,7 @@ import (
 type UpdateFinancialCommitmentReport struct {
 
 	// The date bucket of the FinancialCommitmentReport.
-	// Enum: ["hour","day","week","month"]
+	// Enum: ["hour","day","week","month","quarter"]
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
@@ -86,7 +86,7 @@ var updateFinancialCommitmentReportTypeDateBucketPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["hour","day","week","month"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["hour","day","week","month","quarter"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -107,6 +107,9 @@ const (
 
 	// UpdateFinancialCommitmentReportDateBucketMonth captures enum value "month"
 	UpdateFinancialCommitmentReportDateBucketMonth string = "month"
+
+	// UpdateFinancialCommitmentReportDateBucketQuarter captures enum value "quarter"
+	UpdateFinancialCommitmentReportDateBucketQuarter string = "quarter"
 )
 
 // prop value enum

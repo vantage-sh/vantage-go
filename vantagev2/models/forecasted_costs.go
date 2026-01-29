@@ -27,7 +27,7 @@ type ForecastedCosts struct {
 	ForecastedCosts []*ForecastedCost `json:"forecasted_costs"`
 
 	// links
-	Links interface{} `json:"links,omitempty"`
+	Links *Links `json:"links,omitempty"`
 }
 
 // Validate validates this forecasted costs
@@ -35,6 +35,10 @@ func (m *ForecastedCosts) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateForecastedCosts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,11 +74,34 @@ func (m *ForecastedCosts) validateForecastedCosts(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *ForecastedCosts) validateLinks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this forecasted costs based on the context it is used
 func (m *ForecastedCosts) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateForecastedCosts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +131,27 @@ func (m *ForecastedCosts) contextValidateForecastedCosts(ctx context.Context, fo
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *ForecastedCosts) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+
+		if swag.IsZero(m.Links) { // not required
+			return nil
+		}
+
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
 	}
 
 	return nil
