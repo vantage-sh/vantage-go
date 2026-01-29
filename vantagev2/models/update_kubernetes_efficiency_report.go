@@ -25,7 +25,7 @@ type UpdateKubernetesEfficiencyReport struct {
 	AggregatedBy string `json:"aggregated_by,omitempty"`
 
 	// The date bucket of the KubernetesEfficiencyReport.
-	// Enum: ["day","week","month"]
+	// Enum: ["day","week","month","quarter"]
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
@@ -129,7 +129,7 @@ var updateKubernetesEfficiencyReportTypeDateBucketPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["day","week","month"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["day","week","month","quarter"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -147,6 +147,9 @@ const (
 
 	// UpdateKubernetesEfficiencyReportDateBucketMonth captures enum value "month"
 	UpdateKubernetesEfficiencyReportDateBucketMonth string = "month"
+
+	// UpdateKubernetesEfficiencyReportDateBucketQuarter captures enum value "quarter"
+	UpdateKubernetesEfficiencyReportDateBucketQuarter string = "quarter"
 )
 
 // prop value enum

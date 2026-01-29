@@ -23,7 +23,7 @@ type AuditLogs struct {
 	AuditLogs []*AuditLog `json:"audit_logs"`
 
 	// links
-	Links interface{} `json:"links,omitempty"`
+	Links *Links `json:"links,omitempty"`
 }
 
 // Validate validates this audit logs
@@ -31,6 +31,10 @@ func (m *AuditLogs) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAuditLogs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,11 +70,34 @@ func (m *AuditLogs) validateAuditLogs(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *AuditLogs) validateLinks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this audit logs based on the context it is used
 func (m *AuditLogs) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateAuditLogs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,6 +127,27 @@ func (m *AuditLogs) contextValidateAuditLogs(ctx context.Context, formats strfmt
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *AuditLogs) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+
+		if swag.IsZero(m.Links) { // not required
+			return nil
+		}
+
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -8002,7 +8002,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "providers": {
           "type": "array",
@@ -8012,6 +8012,31 @@
         }
       },
       "description": "Providers model"
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string",
+          "description": "The URL of the current page of results."
+        },
+        "first": {
+          "type": "string",
+          "description": "The URL of the first page of results."
+        },
+        "next": {
+          "type": "string",
+          "description": "The URL of the next page of results, if one exists."
+        },
+        "last": {
+          "type": "string",
+          "description": "The URL of the last page of results, if one exists."
+        },
+        "prev": {
+          "type": "string",
+          "description": "The URL of the previous page of results, if one exists."
+        }
+      }
     },
     "Provider": {
       "type": "object",
@@ -8035,7 +8060,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "services": {
           "type": "array",
@@ -8073,7 +8098,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "products": {
           "type": "array",
@@ -8130,7 +8155,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "prices": {
           "type": "array",
@@ -8187,7 +8212,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "reports": {
           "type": "array",
@@ -8235,7 +8260,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "total": {
           "type": "string",

@@ -7425,7 +7425,8 @@
             "enum": [
               "day",
               "week",
-              "month"
+              "month",
+              "quarter"
             ],
             "required": false
           }
@@ -8810,6 +8811,99 @@
             "name": "provider",
             "description": "Filter by provider.",
             "type": "string",
+            "enum": [
+              "aws",
+              "gcp",
+              "azure",
+              "kubernetes",
+              "datadog"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider_ids",
+            "description": "Filter by one or more providers. Requires workspace_token.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "aws",
+                "gcp",
+                "azure",
+                "kubernetes",
+                "datadog"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "billing_account_ids",
+            "description": "Filter by billing account identifiers. Requires workspace_token.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "account_ids",
+            "description": "Filter by account identifiers. Requires workspace_token.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "regions",
+            "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "tag_key",
+            "description": "Filter by tag key (must be used with tag_value). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "tag_value",
+            "description": "Filter by tag value (requires tag_key). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter by status.",
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
             "required": false
           },
           {
@@ -8853,16 +8947,18 @@
                 },
                 "recommendations": [
                   {
-                    "token": "rcmmndtn_7fbeafc60b129b90",
+                    "token": "rcmmndtn_5cbc9cf9692619a9",
                     "category": "ip_unattached",
-                    "workspace_token": "wrkspc_e3b4eeeeb0ae48b0",
+                    "workspace_token": "wrkspc_ab4f7a41afd5f542",
                     "provider": "aws",
                     "provider_account_id": "123456789012",
                     "description": "IP address is not attached to an instance.",
                     "potential_savings": "100.0",
                     "service": "AWS IP",
-                    "created_at": "2025-08-22T20:16:38Z",
-                    "resources_affected_count": 0
+                    "created_at": "2026-01-23T21:26:59Z",
+                    "resources_affected_count": 0,
+                    "currency_code": "USD",
+                    "currency_symbol": "$"
                   }
                 ]
               }
@@ -8905,16 +9001,18 @@
             },
             "examples": {
               "application/json": {
-                "token": "rcmmndtn_932d6bfdd80ad3f7",
+                "token": "rcmmndtn_8a46f3b2590e2e79",
                 "category": "ip_unattached",
-                "workspace_token": "wrkspc_0e0e739aacb7f268",
+                "workspace_token": "wrkspc_409c070f69640c8c",
                 "provider": "aws",
                 "provider_account_id": "123456789012",
                 "description": "IP address is not attached to an instance.",
                 "potential_savings": "100.0",
                 "service": "AWS IP",
-                "created_at": "2025-08-22T20:16:37Z",
-                "resources_affected_count": 0
+                "created_at": "2026-01-23T21:26:58Z",
+                "resources_affected_count": 0,
+                "currency_code": "USD",
+                "currency_symbol": "$"
               }
             }
           },
@@ -8978,23 +9076,23 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources",
-                  "first": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources?page=1",
+                  "self": "https://api.vantage.sh/v2/recommendations/rcmmndtn_8807df39fe292cd5/resources",
+                  "first": "https://api.vantage.sh/v2/recommendations/rcmmndtn_8807df39fe292cd5/resources?page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/recommendations/rcmmndtn_b2b74ac5ad94ad95/resources?page=1",
+                  "last": "https://api.vantage.sh/v2/recommendations/rcmmndtn_8807df39fe292cd5/resources?page=1",
                   "prev": null
                 },
                 "resources": [
                   {
-                    "token": "prvdr_rsrc_829cf23b3227ebc1",
+                    "token": "prvdr_rsrc_999172bd989f02a1",
                     "resource_id": "i-12345",
                     "recommendation_actions": [
                       {
                         "action": "modify",
                         "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                        "potential_savings": 100.0,
+                        "potential_savings": "100.0",
                         "instance_type": "c5a.xlarge",
-                        "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
+                        "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type '{\"Value\": \"c5a.xlarge\"}'"
                       }
                     ]
                   }
@@ -9045,15 +9143,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "prvdr_rsrc_6a17353d01551f18",
+                "token": "prvdr_rsrc_a55a2fde1299df2f",
                 "resource_id": "i-12345",
                 "recommendation_actions": [
                   {
                     "action": "modify",
                     "description": "Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.",
-                    "potential_savings": 100.0,
+                    "potential_savings": "100.0",
                     "instance_type": "c5a.xlarge",
-                    "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type \"{\"Value\": \"c5a.xlarge\"}\""
+                    "remediation_cli_command": "aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type '{\"Value\": \"c5a.xlarge\"}'"
                   }
                 ]
               }
@@ -12900,7 +12998,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "errors": {
           "type": "array",
@@ -12911,11 +13009,36 @@
       },
       "description": "Errors model"
     },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string",
+          "description": "The URL of the current page of results."
+        },
+        "first": {
+          "type": "string",
+          "description": "The URL of the first page of results."
+        },
+        "next": {
+          "type": "string",
+          "description": "The URL of the next page of results, if one exists."
+        },
+        "last": {
+          "type": "string",
+          "description": "The URL of the last page of results, if one exists."
+        },
+        "prev": {
+          "type": "string",
+          "description": "The URL of the previous page of results, if one exists."
+        }
+      }
+    },
     "AccessGrants": {
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "access_grants": {
           "type": "array",
@@ -12947,7 +13070,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "anomaly_alerts": {
           "type": "array",
@@ -13115,7 +13238,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "anomaly_notifications": {
           "type": "array",
@@ -13155,7 +13278,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "audit_logs": {
           "type": "array",
@@ -13624,7 +13747,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "billing_profiles": {
           "type": "array",
@@ -13973,7 +14096,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "billing_rules": {
           "type": "array",
@@ -14116,7 +14239,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "budget_alerts": {
           "type": "array",
@@ -14297,7 +14420,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "budgets": {
           "type": "array",
@@ -14857,7 +14980,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_alert_events": {
           "type": "array",
@@ -15040,7 +15163,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_alerts": {
           "type": "array",
@@ -15106,7 +15229,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_provider_accounts": {
           "type": "array",
@@ -15524,7 +15647,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_reports": {
           "type": "array",
@@ -15722,7 +15845,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "forecasted_costs": {
           "type": "array",
@@ -15742,7 +15865,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "date": {
           "type": "string",
@@ -15801,7 +15924,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "total_cost": {
           "type": "object",
@@ -15824,7 +15947,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "accrued_at": {
           "type": "string",
@@ -16161,7 +16284,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "dashboards": {
           "type": "array",
@@ -16323,7 +16446,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "exchange_rates": {
           "type": "array",
@@ -16407,7 +16530,8 @@
             "hour",
             "day",
             "week",
-            "month"
+            "month",
+            "quarter"
           ]
         },
         "on_demand_costs_scope": {
@@ -16501,7 +16625,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "financial_commitment_reports": {
           "type": "array",
@@ -16561,7 +16685,8 @@
             "hour",
             "day",
             "week",
-            "month"
+            "month",
+            "quarter"
           ]
         },
         "on_demand_costs_scope": {
@@ -16586,7 +16711,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "financial_commitments": {
           "type": "array",
@@ -16742,7 +16867,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "folders": {
           "type": "array",
@@ -16890,7 +17015,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "integrations": {
           "type": "array",
@@ -16905,7 +17030,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "user_costs_uploads": {
           "type": "array",
@@ -17038,7 +17163,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "invoices": {
           "type": "array",
@@ -17129,7 +17254,8 @@
           "enum": [
             "day",
             "week",
-            "month"
+            "month",
+            "quarter"
           ]
         },
         "groupings": {
@@ -17214,7 +17340,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "kubernetes_efficiency_reports": {
           "type": "array",
@@ -17284,7 +17410,8 @@
           "enum": [
             "day",
             "week",
-            "month"
+            "month",
+            "quarter"
           ]
         },
         "groupings": {
@@ -17378,7 +17505,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "managed_accounts": {
           "type": "array",
@@ -17580,7 +17707,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_providers": {
           "type": "array",
@@ -17610,7 +17737,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "cost_services": {
           "type": "array",
@@ -17830,7 +17957,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "network_flow_reports": {
           "type": "array",
@@ -17926,7 +18053,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "prices": {
           "type": "array",
@@ -17983,7 +18110,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "products": {
           "type": "array",
@@ -18040,7 +18167,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "recommendations": {
           "type": "array",
@@ -18080,7 +18207,7 @@
         "potential_savings": {
           "type": "string",
           "example": "100.00",
-          "description": "The monthly potential savings of the Recommendation."
+          "description": "The monthly potential savings of the Recommendation, converted to the organization's selected currency."
         },
         "service": {
           "type": "string",
@@ -18094,6 +18221,16 @@
         "resources_affected_count": {
           "type": "string",
           "description": "The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources."
+        },
+        "currency_code": {
+          "type": "string",
+          "example": "EUR",
+          "description": "The currency code used by the Workspace to which this Recommendation belongs."
+        },
+        "currency_symbol": {
+          "type": "string",
+          "example": "EUR",
+          "description": "The currency symbol used by the Workspace to which this Recommendation belongs."
         }
       },
       "description": "Recommendation model"
@@ -18255,7 +18392,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "report_notifications": {
           "type": "array",
@@ -18383,7 +18520,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "resource_reports": {
           "type": "array",
@@ -18439,7 +18576,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "resources": {
           "type": "array",
@@ -18585,7 +18722,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "saved_filters": {
           "type": "array",
@@ -18751,7 +18888,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "segments": {
           "type": "array",
@@ -18907,7 +19044,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "tags": {
           "type": "array",
@@ -19021,7 +19158,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "teams": {
           "type": "array",
@@ -19131,7 +19268,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "members": {
           "type": "array",
@@ -19146,7 +19283,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "unit_costs": {
           "type": "array",
@@ -19161,7 +19298,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "business_metric_token": {
           "type": "string",
@@ -19200,7 +19337,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "users": {
           "type": "array",
@@ -19648,7 +19785,7 @@
       "type": "object",
       "properties": {
         "links": {
-          "type": "object"
+          "$ref": "#/definitions/Links"
         },
         "workspaces": {
           "type": "array",

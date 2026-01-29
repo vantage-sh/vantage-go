@@ -62,11 +62,29 @@ GetRecommendationsParams contains all the parameters to send to the API endpoint
 */
 type GetRecommendationsParams struct {
 
+	/* AccountIds.
+
+	   Filter by account identifiers. Requires workspace_token.
+	*/
+	AccountIds []string
+
+	/* BillingAccountIds.
+
+	   Filter by billing account identifiers. Requires workspace_token.
+	*/
+	BillingAccountIds []string
+
 	/* Category.
 
 	   Filter by category.
 	*/
 	Category *string
+
+	/* EndDate.
+
+	   Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token.
+	*/
+	EndDate *string
 
 	/* Limit.
 
@@ -95,6 +113,42 @@ type GetRecommendationsParams struct {
 	   Filter by provider account id (AWS account, Azure subscription id, etc).
 	*/
 	ProviderAccountID *string
+
+	/* ProviderIds.
+
+	   Filter by one or more providers. Requires workspace_token.
+	*/
+	ProviderIds []string
+
+	/* Regions.
+
+	   Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token.
+	*/
+	Regions []string
+
+	/* StartDate.
+
+	   Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token.
+	*/
+	StartDate *string
+
+	/* Status.
+
+	   Filter by status.
+	*/
+	Status *string
+
+	/* TagKey.
+
+	   Filter by tag key (must be used with tag_value). Requires workspace_token.
+	*/
+	TagKey *string
+
+	/* TagValue.
+
+	   Filter by tag value (requires tag_key). Requires workspace_token.
+	*/
+	TagValue *string
 
 	/* WorkspaceToken.
 
@@ -155,6 +209,28 @@ func (o *GetRecommendationsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountIds adds the accountIds to the get recommendations params
+func (o *GetRecommendationsParams) WithAccountIds(accountIds []string) *GetRecommendationsParams {
+	o.SetAccountIds(accountIds)
+	return o
+}
+
+// SetAccountIds adds the accountIds to the get recommendations params
+func (o *GetRecommendationsParams) SetAccountIds(accountIds []string) {
+	o.AccountIds = accountIds
+}
+
+// WithBillingAccountIds adds the billingAccountIds to the get recommendations params
+func (o *GetRecommendationsParams) WithBillingAccountIds(billingAccountIds []string) *GetRecommendationsParams {
+	o.SetBillingAccountIds(billingAccountIds)
+	return o
+}
+
+// SetBillingAccountIds adds the billingAccountIds to the get recommendations params
+func (o *GetRecommendationsParams) SetBillingAccountIds(billingAccountIds []string) {
+	o.BillingAccountIds = billingAccountIds
+}
+
 // WithCategory adds the category to the get recommendations params
 func (o *GetRecommendationsParams) WithCategory(category *string) *GetRecommendationsParams {
 	o.SetCategory(category)
@@ -164,6 +240,17 @@ func (o *GetRecommendationsParams) WithCategory(category *string) *GetRecommenda
 // SetCategory adds the category to the get recommendations params
 func (o *GetRecommendationsParams) SetCategory(category *string) {
 	o.Category = category
+}
+
+// WithEndDate adds the endDate to the get recommendations params
+func (o *GetRecommendationsParams) WithEndDate(endDate *string) *GetRecommendationsParams {
+	o.SetEndDate(endDate)
+	return o
+}
+
+// SetEndDate adds the endDate to the get recommendations params
+func (o *GetRecommendationsParams) SetEndDate(endDate *string) {
+	o.EndDate = endDate
 }
 
 // WithLimit adds the limit to the get recommendations params
@@ -210,6 +297,72 @@ func (o *GetRecommendationsParams) SetProviderAccountID(providerAccountID *strin
 	o.ProviderAccountID = providerAccountID
 }
 
+// WithProviderIds adds the providerIds to the get recommendations params
+func (o *GetRecommendationsParams) WithProviderIds(providerIds []string) *GetRecommendationsParams {
+	o.SetProviderIds(providerIds)
+	return o
+}
+
+// SetProviderIds adds the providerIds to the get recommendations params
+func (o *GetRecommendationsParams) SetProviderIds(providerIds []string) {
+	o.ProviderIds = providerIds
+}
+
+// WithRegions adds the regions to the get recommendations params
+func (o *GetRecommendationsParams) WithRegions(regions []string) *GetRecommendationsParams {
+	o.SetRegions(regions)
+	return o
+}
+
+// SetRegions adds the regions to the get recommendations params
+func (o *GetRecommendationsParams) SetRegions(regions []string) {
+	o.Regions = regions
+}
+
+// WithStartDate adds the startDate to the get recommendations params
+func (o *GetRecommendationsParams) WithStartDate(startDate *string) *GetRecommendationsParams {
+	o.SetStartDate(startDate)
+	return o
+}
+
+// SetStartDate adds the startDate to the get recommendations params
+func (o *GetRecommendationsParams) SetStartDate(startDate *string) {
+	o.StartDate = startDate
+}
+
+// WithStatus adds the status to the get recommendations params
+func (o *GetRecommendationsParams) WithStatus(status *string) *GetRecommendationsParams {
+	o.SetStatus(status)
+	return o
+}
+
+// SetStatus adds the status to the get recommendations params
+func (o *GetRecommendationsParams) SetStatus(status *string) {
+	o.Status = status
+}
+
+// WithTagKey adds the tagKey to the get recommendations params
+func (o *GetRecommendationsParams) WithTagKey(tagKey *string) *GetRecommendationsParams {
+	o.SetTagKey(tagKey)
+	return o
+}
+
+// SetTagKey adds the tagKey to the get recommendations params
+func (o *GetRecommendationsParams) SetTagKey(tagKey *string) {
+	o.TagKey = tagKey
+}
+
+// WithTagValue adds the tagValue to the get recommendations params
+func (o *GetRecommendationsParams) WithTagValue(tagValue *string) *GetRecommendationsParams {
+	o.SetTagValue(tagValue)
+	return o
+}
+
+// SetTagValue adds the tagValue to the get recommendations params
+func (o *GetRecommendationsParams) SetTagValue(tagValue *string) {
+	o.TagValue = tagValue
+}
+
 // WithWorkspaceToken adds the workspaceToken to the get recommendations params
 func (o *GetRecommendationsParams) WithWorkspaceToken(workspaceToken *string) *GetRecommendationsParams {
 	o.SetWorkspaceToken(workspaceToken)
@@ -229,6 +382,28 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
+	if o.AccountIds != nil {
+
+		// binding items for account_ids
+		joinedAccountIds := o.bindParamAccountIds(reg)
+
+		// query array param account_ids
+		if err := r.SetQueryParam("account_ids", joinedAccountIds...); err != nil {
+			return err
+		}
+	}
+
+	if o.BillingAccountIds != nil {
+
+		// binding items for billing_account_ids
+		joinedBillingAccountIds := o.bindParamBillingAccountIds(reg)
+
+		// query array param billing_account_ids
+		if err := r.SetQueryParam("billing_account_ids", joinedBillingAccountIds...); err != nil {
+			return err
+		}
+	}
+
 	if o.Category != nil {
 
 		// query param category
@@ -241,6 +416,23 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qCategory != "" {
 
 			if err := r.SetQueryParam("category", qCategory); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EndDate != nil {
+
+		// query param end_date
+		var qrEndDate string
+
+		if o.EndDate != nil {
+			qrEndDate = *o.EndDate
+		}
+		qEndDate := qrEndDate
+		if qEndDate != "" {
+
+			if err := r.SetQueryParam("end_date", qEndDate); err != nil {
 				return err
 			}
 		}
@@ -314,6 +506,96 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		}
 	}
 
+	if o.ProviderIds != nil {
+
+		// binding items for provider_ids
+		joinedProviderIds := o.bindParamProviderIds(reg)
+
+		// query array param provider_ids
+		if err := r.SetQueryParam("provider_ids", joinedProviderIds...); err != nil {
+			return err
+		}
+	}
+
+	if o.Regions != nil {
+
+		// binding items for regions
+		joinedRegions := o.bindParamRegions(reg)
+
+		// query array param regions
+		if err := r.SetQueryParam("regions", joinedRegions...); err != nil {
+			return err
+		}
+	}
+
+	if o.StartDate != nil {
+
+		// query param start_date
+		var qrStartDate string
+
+		if o.StartDate != nil {
+			qrStartDate = *o.StartDate
+		}
+		qStartDate := qrStartDate
+		if qStartDate != "" {
+
+			if err := r.SetQueryParam("start_date", qStartDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Status != nil {
+
+		// query param status
+		var qrStatus string
+
+		if o.Status != nil {
+			qrStatus = *o.Status
+		}
+		qStatus := qrStatus
+		if qStatus != "" {
+
+			if err := r.SetQueryParam("status", qStatus); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagKey != nil {
+
+		// query param tag_key
+		var qrTagKey string
+
+		if o.TagKey != nil {
+			qrTagKey = *o.TagKey
+		}
+		qTagKey := qrTagKey
+		if qTagKey != "" {
+
+			if err := r.SetQueryParam("tag_key", qTagKey); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagValue != nil {
+
+		// query param tag_value
+		var qrTagValue string
+
+		if o.TagValue != nil {
+			qrTagValue = *o.TagValue
+		}
+		qTagValue := qrTagValue
+		if qTagValue != "" {
+
+			if err := r.SetQueryParam("tag_value", qTagValue); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.WorkspaceToken != nil {
 
 		// query param workspace_token
@@ -335,4 +617,72 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetRecommendations binds the parameter account_ids
+func (o *GetRecommendationsParams) bindParamAccountIds(formats strfmt.Registry) []string {
+	accountIdsIR := o.AccountIds
+
+	var accountIdsIC []string
+	for _, accountIdsIIR := range accountIdsIR { // explode []string
+
+		accountIdsIIV := accountIdsIIR // string as string
+		accountIdsIC = append(accountIdsIC, accountIdsIIV)
+	}
+
+	// items.CollectionFormat: ""
+	accountIdsIS := swag.JoinByFormat(accountIdsIC, "")
+
+	return accountIdsIS
+}
+
+// bindParamGetRecommendations binds the parameter billing_account_ids
+func (o *GetRecommendationsParams) bindParamBillingAccountIds(formats strfmt.Registry) []string {
+	billingAccountIdsIR := o.BillingAccountIds
+
+	var billingAccountIdsIC []string
+	for _, billingAccountIdsIIR := range billingAccountIdsIR { // explode []string
+
+		billingAccountIdsIIV := billingAccountIdsIIR // string as string
+		billingAccountIdsIC = append(billingAccountIdsIC, billingAccountIdsIIV)
+	}
+
+	// items.CollectionFormat: ""
+	billingAccountIdsIS := swag.JoinByFormat(billingAccountIdsIC, "")
+
+	return billingAccountIdsIS
+}
+
+// bindParamGetRecommendations binds the parameter provider_ids
+func (o *GetRecommendationsParams) bindParamProviderIds(formats strfmt.Registry) []string {
+	providerIdsIR := o.ProviderIds
+
+	var providerIdsIC []string
+	for _, providerIdsIIR := range providerIdsIR { // explode []string
+
+		providerIdsIIV := providerIdsIIR // string as string
+		providerIdsIC = append(providerIdsIC, providerIdsIIV)
+	}
+
+	// items.CollectionFormat: ""
+	providerIdsIS := swag.JoinByFormat(providerIdsIC, "")
+
+	return providerIdsIS
+}
+
+// bindParamGetRecommendations binds the parameter regions
+func (o *GetRecommendationsParams) bindParamRegions(formats strfmt.Registry) []string {
+	regionsIR := o.Regions
+
+	var regionsIC []string
+	for _, regionsIIR := range regionsIR { // explode []string
+
+		regionsIIV := regionsIIR // string as string
+		regionsIC = append(regionsIC, regionsIIV)
+	}
+
+	// items.CollectionFormat: ""
+	regionsIS := swag.JoinByFormat(regionsIC, "")
+
+	return regionsIS
 }

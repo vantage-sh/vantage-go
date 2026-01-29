@@ -20,7 +20,7 @@ import (
 type Recommendations struct {
 
 	// links
-	Links interface{} `json:"links,omitempty"`
+	Links *Links `json:"links,omitempty"`
 
 	// recommendations
 	Recommendations []*Recommendation `json:"recommendations"`
@@ -30,6 +30,10 @@ type Recommendations struct {
 func (m *Recommendations) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateLinks(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateRecommendations(formats); err != nil {
 		res = append(res, err)
 	}
@@ -37,6 +41,25 @@ func (m *Recommendations) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Recommendations) validateLinks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -70,6 +93,10 @@ func (m *Recommendations) validateRecommendations(formats strfmt.Registry) error
 func (m *Recommendations) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateRecommendations(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -77,6 +104,27 @@ func (m *Recommendations) ContextValidate(ctx context.Context, formats strfmt.Re
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Recommendations) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+
+		if swag.IsZero(m.Links) { // not required
+			return nil
+		}
+
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
