@@ -18,7 +18,7 @@ import (
 type ChartSettings struct {
 
 	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
-	XAxisDimension string `json:"x_axis_dimension,omitempty"`
+	XAxisDimension []string `json:"x_axis_dimension"`
 
 	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
 	YAxisDimension string `json:"y_axis_dimension,omitempty"`
