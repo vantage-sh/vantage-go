@@ -13708,9 +13708,11 @@
           "type": "string"
         },
         "adjustment_items": {
-          "$ref": "#/definitions/AdjustmentItem",
-          "description": "Array of adjustment items (taxes, fees, etc.)"
-        }
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdjustmentItem"
+          },
+          "description": "Array of adjustment items (taxes, fees, etc.)"        }
       }
     },
     "AdjustmentItem": {

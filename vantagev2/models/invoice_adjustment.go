@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,7 +20,7 @@ import (
 type InvoiceAdjustment struct {
 
 	// Array of adjustment items (taxes, fees, etc.)
-	AdjustmentItems *AdjustmentItem `json:"adjustment_items,omitempty"`
+	AdjustmentItems []*AdjustmentItem `json:"adjustment_items"`
 
 	// token
 	Token string `json:"token,omitempty"`
@@ -44,15 +45,22 @@ func (m *InvoiceAdjustment) validateAdjustmentItems(formats strfmt.Registry) err
 		return nil
 	}
 
-	if m.AdjustmentItems != nil {
-		if err := m.AdjustmentItems.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("adjustment_items")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("adjustment_items")
-			}
-			return err
+	for i := 0; i < len(m.AdjustmentItems); i++ {
+		if swag.IsZero(m.AdjustmentItems[i]) { // not required
+			continue
 		}
+
+		if m.AdjustmentItems[i] != nil {
+			if err := m.AdjustmentItems[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("adjustment_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("adjustment_items" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -74,20 +82,24 @@ func (m *InvoiceAdjustment) ContextValidate(ctx context.Context, formats strfmt.
 
 func (m *InvoiceAdjustment) contextValidateAdjustmentItems(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.AdjustmentItems != nil {
+	for i := 0; i < len(m.AdjustmentItems); i++ {
 
-		if swag.IsZero(m.AdjustmentItems) { // not required
-			return nil
-		}
+		if m.AdjustmentItems[i] != nil {
 
-		if err := m.AdjustmentItems.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("adjustment_items")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("adjustment_items")
+			if swag.IsZero(m.AdjustmentItems[i]) { // not required
+				return nil
 			}
-			return err
+
+			if err := m.AdjustmentItems[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("adjustment_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("adjustment_items" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
 		}
+
 	}
 
 	return nil
