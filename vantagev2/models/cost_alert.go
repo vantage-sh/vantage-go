@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostAlert CostAlert model
@@ -19,45 +21,235 @@ type CostAlert struct {
 
 	// The date and time, in UTC, for when the alert was created. ISO 8601 Formatted.
 	// Example: 2023-10-01T12:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The email addresses that will receive the alert.
+	// Required: true
 	EmailRecipients []string `json:"email_recipients"`
 
 	// The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
-	Interval string `json:"interval,omitempty"`
+	// Required: true
+	Interval string `json:"interval"`
+
+	// The minimum dollar amount threshold for percentage-based alerts. When set, alerts will only trigger if the dollar change meets this minimum, even if the percentage threshold is exceeded.
+	// Required: true
+	MinimumThreshold *float64 `json:"minimum_threshold"`
 
 	// The tokens of the reports to alert on.
+	// Required: true
 	ReportTokens []string `json:"report_tokens"`
 
 	// The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.
+	// Required: true
 	SlackChannels []string `json:"slack_channels"`
 
 	// The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.
+	// Required: true
 	TeamsChannels []string `json:"teams_channels"`
 
 	// The cost change threshold to alert on.
-	Threshold float64 `json:"threshold,omitempty"`
+	// Required: true
+	Threshold float64 `json:"threshold"`
 
 	// title
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The unit type used to compare costs. Options are 'currency' or 'percentage'.
-	UnitType string `json:"unit_type,omitempty"`
+	// Required: true
+	UnitType string `json:"unit_type"`
 
 	// The date and time, in UTC, for when the alert was last updated. ISO 8601 Formatted.
 	// Example: 2023-10-01T12:00:00Z
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 
 	// The ID of the organization that owns the CostAlert.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this cost alert
 func (m *CostAlert) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEmailRecipients(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMinimumThreshold(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReportTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSlackChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTeamsChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateThreshold(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnitType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostAlert) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateEmailRecipients(formats strfmt.Registry) error {
+
+	if err := validate.Required("email_recipients", "body", m.EmailRecipients); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateInterval(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("interval", "body", m.Interval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateMinimumThreshold(formats strfmt.Registry) error {
+
+	if err := validate.Required("minimum_threshold", "body", m.MinimumThreshold); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateReportTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("report_tokens", "body", m.ReportTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateSlackChannels(formats strfmt.Registry) error {
+
+	if err := validate.Required("slack_channels", "body", m.SlackChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateTeamsChannels(formats strfmt.Registry) error {
+
+	if err := validate.Required("teams_channels", "body", m.TeamsChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateThreshold(formats strfmt.Registry) error {
+
+	if err := validate.Required("threshold", "body", float64(m.Threshold)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateUnitType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("unit_type", "body", m.UnitType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlert) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

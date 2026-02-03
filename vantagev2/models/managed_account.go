@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ManagedAccount ManagedAccount model
@@ -19,38 +20,55 @@ import (
 type ManagedAccount struct {
 
 	// The tokens for the Access Credentials assigned to the Managed Account.
+	// Required: true
 	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
 	// Billing address and contact information (MSP invoicing accounts only)
 	BillingInformationAttributes *BillingInformation `json:"billing_information_attributes,omitempty"`
 
 	// The tokens for the Billing Rules assigned to the Managed Account.
+	// Required: true
 	BillingRuleTokens []string `json:"billing_rule_tokens"`
 
 	// Business-specific information and custom fields (MSP invoicing accounts only)
 	BusinessInformationAttributes *BusinessInformation `json:"business_information_attributes,omitempty"`
 
 	// contact email
-	ContactEmail string `json:"contact_email,omitempty"`
+	// Required: true
+	ContactEmail string `json:"contact_email"`
+
+	// Email domain associated with this Managed Account for SSO.
+	EmailDomain string `json:"email_domain,omitempty"`
 
 	// Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
 	MspBillingProfileToken string `json:"msp_billing_profile_token,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// The token for the parent Account.
-	ParentAccountToken string `json:"parent_account_token,omitempty"`
+	// Required: true
+	ParentAccountToken string `json:"parent_account_token"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this managed account
 func (m *ManagedAccount) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccessCredentialTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateBillingInformationAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBillingRuleTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -58,9 +76,34 @@ func (m *ManagedAccount) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateContactEmail(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateParentAccountToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ManagedAccount) validateAccessCredentialTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("access_credential_tokens", "body", m.AccessCredentialTokens); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -83,6 +126,15 @@ func (m *ManagedAccount) validateBillingInformationAttributes(formats strfmt.Reg
 	return nil
 }
 
+func (m *ManagedAccount) validateBillingRuleTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("billing_rule_tokens", "body", m.BillingRuleTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *ManagedAccount) validateBusinessInformationAttributes(formats strfmt.Registry) error {
 	if swag.IsZero(m.BusinessInformationAttributes) { // not required
 		return nil
@@ -97,6 +149,42 @@ func (m *ManagedAccount) validateBusinessInformationAttributes(formats strfmt.Re
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *ManagedAccount) validateContactEmail(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("contact_email", "body", m.ContactEmail); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ManagedAccount) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ManagedAccount) validateParentAccountToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("parent_account_token", "body", m.ParentAccountToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ManagedAccount) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

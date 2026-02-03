@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostService cost service
@@ -19,15 +21,48 @@ type CostService struct {
 
 	// The name of the CostService.
 	// Example: Amazon Simple Storage Service
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// The key value of the CostProvider.
 	// Example: aws
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 }
 
 // Validate validates this cost service
 func (m *CostService) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostService) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostService) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
 	return nil
 }
 

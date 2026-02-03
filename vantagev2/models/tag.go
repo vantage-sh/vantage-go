@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Tag Tag model
@@ -18,18 +20,65 @@ import (
 type Tag struct {
 
 	// Whether the Tag has been hidden from the Vantage UI.
-	Hidden bool `json:"hidden,omitempty"`
+	// Required: true
+	Hidden bool `json:"hidden"`
 
 	// The unique providers that are covered by the Tag key.
+	// Required: true
 	Providers []string `json:"providers"`
 
 	// The Tag key.
 	// Example: aws:createdBy
-	TagKey string `json:"tag_key,omitempty"`
+	// Required: true
+	TagKey string `json:"tag_key"`
 }
 
 // Validate validates this tag
 func (m *Tag) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateHidden(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviders(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTagKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Tag) validateHidden(formats strfmt.Registry) error {
+
+	if err := validate.Required("hidden", "body", bool(m.Hidden)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Tag) validateProviders(formats strfmt.Registry) error {
+
+	if err := validate.Required("providers", "body", m.Providers); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Tag) validateTagKey(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("tag_key", "body", m.TagKey); err != nil {
+		return err
+	}
+
 	return nil
 }
 

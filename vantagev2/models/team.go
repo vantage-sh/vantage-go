@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Team Team model
@@ -19,27 +21,116 @@ type Team struct {
 
 	// The description of the Team.
 	// Example: The Team that saves costs
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description *string `json:"description"`
 
 	// The name of the Team.
 	// Example: Cost Savers
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The email addresses for Users that belong to the Team
+	// Required: true
 	UserEmails []string `json:"user_emails"`
 
 	// The tokens for Users that belong to the Team
+	// Required: true
 	UserTokens []string `json:"user_tokens"`
 
 	// The tokens for any Workspaces that the Team belongs to
+	// Required: true
 	WorkspaceTokens []string `json:"workspace_tokens"`
 }
 
 // Validate validates this team
 func (m *Team) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserEmails(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Team) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Team) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Team) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Team) validateUserEmails(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_emails", "body", m.UserEmails); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Team) validateUserTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Team) validateWorkspaceTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("workspace_tokens", "body", m.WorkspaceTokens); err != nil {
+		return err
+	}
+
 	return nil
 }
 

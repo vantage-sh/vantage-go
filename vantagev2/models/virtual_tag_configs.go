@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // VirtualTagConfigs VirtualTagConfigs model
@@ -20,6 +21,7 @@ import (
 type VirtualTagConfigs struct {
 
 	// virtual tag configs
+	// Required: true
 	VirtualTagConfigs []*VirtualTagConfig `json:"virtual_tag_configs"`
 }
 
@@ -38,8 +40,9 @@ func (m *VirtualTagConfigs) Validate(formats strfmt.Registry) error {
 }
 
 func (m *VirtualTagConfigs) validateVirtualTagConfigs(formats strfmt.Registry) error {
-	if swag.IsZero(m.VirtualTagConfigs) { // not required
-		return nil
+
+	if err := validate.Required("virtual_tag_configs", "body", m.VirtualTagConfigs); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.VirtualTagConfigs); i++ {

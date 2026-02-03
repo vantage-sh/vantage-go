@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // TeamMember TeamMember model
@@ -19,23 +21,84 @@ type TeamMember struct {
 
 	// The email address of the team member.
 	// Example: john@acme.com
-	Email string `json:"email,omitempty"`
+	// Required: true
+	Email string `json:"email"`
 
 	// The name of the team member.
 	// Example: John Doe
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// The role of the team member in the team.
 	// Example: editor
-	Role string `json:"role,omitempty"`
+	// Required: true
+	Role string `json:"role"`
 
 	// The token of the team member.
 	// Example: usr_abcd1234
-	UserToken string `json:"user_token,omitempty"`
+	// Required: true
+	UserToken string `json:"user_token"`
 }
 
 // Validate validates this team member
 func (m *TeamMember) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEmail(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRole(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TeamMember) validateEmail(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("email", "body", m.Email); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TeamMember) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TeamMember) validateRole(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("role", "body", m.Role); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TeamMember) validateUserToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("user_token", "body", m.UserToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

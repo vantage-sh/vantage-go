@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Folder Folder model
@@ -19,31 +21,120 @@ type Folder struct {
 
 	// The date and time, in UTC, the Folder was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token for the parent Folder, if any.
 	ParentFolderToken string `json:"parent_folder_token,omitempty"`
 
 	// The tokens for the SavedFilters assigned to the Folder.
+	// Required: true
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
 	// The title of the Folder.
 	// Example: Platform Team Reports
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title *string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The date and time, in UTC, the Folder was last updated at. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 
 	// The token for the Workspace the Folder is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this folder
 func (m *Folder) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSavedFilterTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Folder) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateSavedFilterTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("saved_filter_tokens", "body", m.SavedFilterTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.Required("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

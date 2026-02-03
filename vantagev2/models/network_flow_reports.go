@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // NetworkFlowReports NetworkFlowReports model
@@ -23,6 +24,7 @@ type NetworkFlowReports struct {
 	Links *Links `json:"links,omitempty"`
 
 	// network flow reports
+	// Required: true
 	NetworkFlowReports []*NetworkFlowReport `json:"network_flow_reports"`
 }
 
@@ -64,8 +66,9 @@ func (m *NetworkFlowReports) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *NetworkFlowReports) validateNetworkFlowReports(formats strfmt.Registry) error {
-	if swag.IsZero(m.NetworkFlowReports) { // not required
-		return nil
+
+	if err := validate.Required("network_flow_reports", "body", m.NetworkFlowReports); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.NetworkFlowReports); i++ {

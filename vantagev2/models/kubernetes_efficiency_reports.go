@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // KubernetesEfficiencyReports KubernetesEfficiencyReports model
@@ -20,6 +21,7 @@ import (
 type KubernetesEfficiencyReports struct {
 
 	// kubernetes efficiency reports
+	// Required: true
 	KubernetesEfficiencyReports []*KubernetesEfficiencyReport `json:"kubernetes_efficiency_reports"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *KubernetesEfficiencyReports) Validate(formats strfmt.Registry) error {
 }
 
 func (m *KubernetesEfficiencyReports) validateKubernetesEfficiencyReports(formats strfmt.Registry) error {
-	if swag.IsZero(m.KubernetesEfficiencyReports) { // not required
-		return nil
+
+	if err := validate.Required("kubernetes_efficiency_reports", "body", m.KubernetesEfficiencyReports); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.KubernetesEfficiencyReports); i++ {

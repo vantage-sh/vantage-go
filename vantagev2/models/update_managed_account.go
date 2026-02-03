@@ -34,6 +34,9 @@ type UpdateManagedAccount struct {
 	// The contact email address for the Managed Account.
 	ContactEmail string `json:"contact_email,omitempty"`
 
+	// Email domain to associate with this Managed Account for SSO.
+	EmailDomain string `json:"email_domain,omitempty"`
+
 	// Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only).
 	MspBillingProfileToken string `json:"msp_billing_profile_token,omitempty"`
 

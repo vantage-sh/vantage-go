@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Workspace Workspace model
@@ -19,28 +21,117 @@ type Workspace struct {
 
 	// The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The currency code for the Workspace that will be used for currency conversion.
 	// Example: USD
-	Currency string `json:"currency,omitempty"`
+	// Required: true
+	Currency string `json:"currency"`
 
 	// Whether or not currency conversion is enabled for the Workspace.
-	EnableCurrencyConversion bool `json:"enable_currency_conversion,omitempty"`
+	// Required: true
+	EnableCurrencyConversion bool `json:"enable_currency_conversion"`
 
 	// The exchange rate date that will be used to convert currency for your cost data.
-	ExchangeRateDate string `json:"exchange_rate_date,omitempty"`
+	// Required: true
+	ExchangeRateDate string `json:"exchange_rate_date"`
 
 	// The name of the Workspace.
 	// Example: Acme Corp.
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this workspace
 func (m *Workspace) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCurrency(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnableCurrencyConversion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExchangeRateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Workspace) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Workspace) validateCurrency(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Workspace) validateEnableCurrencyConversion(formats strfmt.Registry) error {
+
+	if err := validate.Required("enable_currency_conversion", "body", bool(m.EnableCurrencyConversion)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Workspace) validateExchangeRateDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("exchange_rate_date", "body", m.ExchangeRateDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Workspace) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Workspace) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

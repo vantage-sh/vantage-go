@@ -22,28 +22,40 @@ type ForecastedCost struct {
 
 	// The amount of the forecasted cost.
 	// Example: 4.25
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The date the forecasted cost is projected to accrue. ISO 8601 Formatted.
 	// Example: 2035-09-05+00:00
-	Date string `json:"date,omitempty"`
+	// Required: true
+	Date string `json:"date"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
+	// Required: true
 	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]
-	Provider string `json:"provider,omitempty"`
+	Provider string `json:"provider"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
 	// Example: Amazon Elastic Compute Cloud - Compute
-	Service string `json:"service,omitempty"`
+	// Required: true
+	Service string `json:"service"`
 }
 
 // Validate validates this forecasted cost
 func (m *ForecastedCost) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
@@ -53,9 +65,31 @@ func (m *ForecastedCost) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateService(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ForecastedCost) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ForecastedCost) validateDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date", "body", m.Date); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -189,12 +223,22 @@ func (m *ForecastedCost) validateProviderEnum(path, location string, value strin
 }
 
 func (m *ForecastedCost) validateProvider(formats strfmt.Registry) error {
-	if swag.IsZero(m.Provider) { // not required
-		return nil
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateProviderEnum("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ForecastedCost) validateService(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("service", "body", m.Service); err != nil {
 		return err
 	}
 

@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Service service
@@ -19,22 +21,83 @@ type Service struct {
 
 	// The type of cloud service.
 	// Example: compute
-	Category string `json:"category,omitempty"`
+	// Required: true
+	Category string `json:"category"`
 
 	// The full name of the service.
 	// Example: Elastic Compute Cloud
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID string `json:"id"`
 
 	// The common name of the service. Usually an abbreviation.
 	// Example: EC2
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 }
 
 // Validate validates this service
 func (m *Service) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCategory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Service) validateCategory(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("category", "body", m.Category); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) validateID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BillingProfile BillingProfile model
@@ -22,30 +23,38 @@ type BillingProfile struct {
 	BankingInformationAttributes *BankingInformation `json:"banking_information_attributes,omitempty"`
 
 	// Billing address and contact information
-	BillingInformationAttributes *BillingInformation `json:"billing_information_attributes,omitempty"`
+	// Required: true
+	BillingInformationAttributes *BillingInformation `json:"billing_information_attributes"`
 
 	// Business-specific information and custom fields
-	BusinessInformationAttributes *BusinessInformation `json:"business_information_attributes,omitempty"`
+	// Required: true
+	BusinessInformationAttributes *BusinessInformation `json:"business_information_attributes"`
 
 	// The date and time, in UTC, the billing profile was created. ISO 8601 formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// Invoice adjustments (taxes, fees, etc.)
-	InvoiceAdjustmentAttributes *InvoiceAdjustment `json:"invoice_adjustment_attributes,omitempty"`
+	// Required: true
+	InvoiceAdjustmentAttributes *InvoiceAdjustment `json:"invoice_adjustment_attributes"`
 
 	// Number of managed accounts using this billing profile
-	ManagedAccountsCount string `json:"managed_accounts_count,omitempty"`
+	// Required: true
+	ManagedAccountsCount string `json:"managed_accounts_count"`
 
 	// Display name for the billing profile
-	Nickname string `json:"nickname,omitempty"`
+	// Required: true
+	Nickname string `json:"nickname"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The date and time, in UTC, the billing profile was last updated. ISO 8601 formatted.
 	// Example: 2023-08-04T00:00:00Z
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 }
 
 // Validate validates this billing profile
@@ -64,7 +73,27 @@ func (m *BillingProfile) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateInvoiceAdjustmentAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateManagedAccountsCount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNickname(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,8 +123,9 @@ func (m *BillingProfile) validateBankingInformationAttributes(formats strfmt.Reg
 }
 
 func (m *BillingProfile) validateBillingInformationAttributes(formats strfmt.Registry) error {
-	if swag.IsZero(m.BillingInformationAttributes) { // not required
-		return nil
+
+	if err := validate.Required("billing_information_attributes", "body", m.BillingInformationAttributes); err != nil {
+		return err
 	}
 
 	if m.BillingInformationAttributes != nil {
@@ -113,8 +143,9 @@ func (m *BillingProfile) validateBillingInformationAttributes(formats strfmt.Reg
 }
 
 func (m *BillingProfile) validateBusinessInformationAttributes(formats strfmt.Registry) error {
-	if swag.IsZero(m.BusinessInformationAttributes) { // not required
-		return nil
+
+	if err := validate.Required("business_information_attributes", "body", m.BusinessInformationAttributes); err != nil {
+		return err
 	}
 
 	if m.BusinessInformationAttributes != nil {
@@ -131,9 +162,19 @@ func (m *BillingProfile) validateBusinessInformationAttributes(formats strfmt.Re
 	return nil
 }
 
+func (m *BillingProfile) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *BillingProfile) validateInvoiceAdjustmentAttributes(formats strfmt.Registry) error {
-	if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
-		return nil
+
+	if err := validate.Required("invoice_adjustment_attributes", "body", m.InvoiceAdjustmentAttributes); err != nil {
+		return err
 	}
 
 	if m.InvoiceAdjustmentAttributes != nil {
@@ -145,6 +186,42 @@ func (m *BillingProfile) validateInvoiceAdjustmentAttributes(formats strfmt.Regi
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *BillingProfile) validateManagedAccountsCount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("managed_accounts_count", "body", m.ManagedAccountsCount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingProfile) validateNickname(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("nickname", "body", m.Nickname); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingProfile) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingProfile) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
 	}
 
 	return nil
@@ -201,10 +278,6 @@ func (m *BillingProfile) contextValidateBillingInformationAttributes(ctx context
 
 	if m.BillingInformationAttributes != nil {
 
-		if swag.IsZero(m.BillingInformationAttributes) { // not required
-			return nil
-		}
-
 		if err := m.BillingInformationAttributes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("billing_information_attributes")
@@ -222,10 +295,6 @@ func (m *BillingProfile) contextValidateBusinessInformationAttributes(ctx contex
 
 	if m.BusinessInformationAttributes != nil {
 
-		if swag.IsZero(m.BusinessInformationAttributes) { // not required
-			return nil
-		}
-
 		if err := m.BusinessInformationAttributes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("business_information_attributes")
@@ -242,10 +311,6 @@ func (m *BillingProfile) contextValidateBusinessInformationAttributes(ctx contex
 func (m *BillingProfile) contextValidateInvoiceAdjustmentAttributes(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.InvoiceAdjustmentAttributes != nil {
-
-		if swag.IsZero(m.InvoiceAdjustmentAttributes) { // not required
-			return nil
-		}
 
 		if err := m.InvoiceAdjustmentAttributes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

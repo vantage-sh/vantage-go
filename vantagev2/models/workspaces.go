@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Workspaces Workspaces model
@@ -23,6 +24,7 @@ type Workspaces struct {
 	Links *Links `json:"links,omitempty"`
 
 	// workspaces
+	// Required: true
 	Workspaces []*Workspace `json:"workspaces"`
 }
 
@@ -64,8 +66,9 @@ func (m *Workspaces) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Workspaces) validateWorkspaces(formats strfmt.Registry) error {
-	if swag.IsZero(m.Workspaces) { // not required
-		return nil
+
+	if err := validate.Required("workspaces", "body", m.Workspaces); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Workspaces); i++ {

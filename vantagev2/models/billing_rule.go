@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BillingRule BillingRule model
@@ -23,7 +25,8 @@ type BillingRule struct {
 
 	// Whether the BillingRule applies to all future managed accounts.
 	// Example: true
-	ApplyToAll bool `json:"apply_to_all,omitempty"`
+	// Required: true
+	ApplyToAll bool `json:"apply_to_all"`
 
 	// The category for the BillingRule (Charge).
 	// Example: MSP Fee
@@ -35,11 +38,13 @@ type BillingRule struct {
 
 	// The date and time, in UTC, the BillingRule was created. ISO 8601 Formatted.
 	// Example: 2024-06-28T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token of the Creator of the BillingRule.
 	// Example: usr_1234
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	// Required: true
+	CreatedByToken string `json:"created_by_token"`
 
 	// The end date of the BillingRule.
 	// Example: 2024-06-28T00:00:00Z
@@ -71,18 +76,104 @@ type BillingRule struct {
 
 	// The title of the BillingRule.
 	// Example: Credit for Unused EC2 Instances
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The type of the BillingRule.
 	// Example: credit
-	Type string `json:"type,omitempty"`
+	// Required: true
+	Type string `json:"type"`
 }
 
 // Validate validates this billing rule
 func (m *BillingRule) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateApplyToAll(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedByToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BillingRule) validateApplyToAll(formats strfmt.Registry) error {
+
+	if err := validate.Required("apply_to_all", "body", bool(m.ApplyToAll)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingRule) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingRule) validateCreatedByToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_by_token", "body", m.CreatedByToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingRule) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingRule) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingRule) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+		return err
+	}
+
 	return nil
 }
 

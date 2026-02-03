@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BusinessInformation business information
@@ -22,7 +23,8 @@ type BusinessInformation struct {
 	Metadata *BusinessInformationMetadata `json:"metadata,omitempty"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this business information
@@ -30,6 +32,10 @@ func (m *BusinessInformation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -53,6 +59,15 @@ func (m *BusinessInformation) validateMetadata(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *BusinessInformation) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

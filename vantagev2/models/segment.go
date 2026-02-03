@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Segment Segment model
@@ -20,54 +21,149 @@ type Segment struct {
 
 	// The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The description of the Segment.
 	// Example: Operating expenses
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The token of the parent Segment of this Segment.
-	ParentSegmentToken string `json:"parent_segment_token,omitempty"`
+	// Required: true
+	ParentSegmentToken *string `json:"parent_segment_token"`
 
 	// Costs are assigned in priority order across all Segments with assigned filters.
 	// Example: 100
-	Priority int32 `json:"priority,omitempty"`
+	// Required: true
+	Priority int32 `json:"priority"`
 
 	// report settings
 	ReportSettings *SegmentReportSettings `json:"report_settings,omitempty"`
 
 	// The token for the Report the Segment has generated.
-	ReportToken string `json:"report_token,omitempty"`
+	// Required: true
+	ReportToken *string `json:"report_token"`
 
 	// The title of the Segment.
 	// Example: OPEX
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// Track Unallocated Costs which are not assigned to any of the created Segments.
 	// Example: false
-	TrackUnallocated bool `json:"track_unallocated,omitempty"`
+	// Required: true
+	TrackUnallocated bool `json:"track_unallocated"`
 
 	// The token for the Workspace the Segment is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this segment
 func (m *Segment) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateParentSegmentToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePriority(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateReportSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTrackUnallocated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Segment) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateParentSegmentToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("parent_segment_token", "body", m.ParentSegmentToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validatePriority(formats strfmt.Registry) error {
+
+	if err := validate.Required("priority", "body", int32(m.Priority)); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -85,6 +181,51 @@ func (m *Segment) validateReportSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Segment) validateReportToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("report_token", "body", m.ReportToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateTrackUnallocated(formats strfmt.Registry) error {
+
+	if err := validate.Required("track_unallocated", "body", bool(m.TrackUnallocated)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Segment) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
 	}
 
 	return nil

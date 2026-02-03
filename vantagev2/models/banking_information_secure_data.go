@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BankingInformationSecureData banking information secure data
@@ -18,20 +20,81 @@ import (
 type BankingInformationSecureData struct {
 
 	// Bank account number (US)
-	AccountNumber string `json:"account_number,omitempty"`
+	// Required: true
+	AccountNumber *string `json:"account_number"`
 
 	// International Bank Account Number (EU)
-	Iban string `json:"iban,omitempty"`
+	// Required: true
+	Iban *string `json:"iban"`
 
 	// Bank routing number (US)
-	RoutingNumber string `json:"routing_number,omitempty"`
+	// Required: true
+	RoutingNumber *string `json:"routing_number"`
 
 	// SWIFT/BIC code (EU)
-	SwiftBic string `json:"swift_bic,omitempty"`
+	// Required: true
+	SwiftBic *string `json:"swift_bic"`
 }
 
 // Validate validates this banking information secure data
 func (m *BankingInformationSecureData) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccountNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIban(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoutingNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSwiftBic(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BankingInformationSecureData) validateAccountNumber(formats strfmt.Registry) error {
+
+	if err := validate.Required("account_number", "body", m.AccountNumber); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BankingInformationSecureData) validateIban(formats strfmt.Registry) error {
+
+	if err := validate.Required("iban", "body", m.Iban); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BankingInformationSecureData) validateRoutingNumber(formats strfmt.Registry) error {
+
+	if err := validate.Required("routing_number", "body", m.RoutingNumber); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BankingInformationSecureData) validateSwiftBic(formats strfmt.Registry) error {
+
+	if err := validate.Required("swift_bic", "body", m.SwiftBic); err != nil {
+		return err
+	}
+
 	return nil
 }
 

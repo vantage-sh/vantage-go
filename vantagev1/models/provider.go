@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Provider provider
@@ -19,18 +21,65 @@ type Provider struct {
 
 	// The full descriptive name of the provider.
 	// Example: Amazon Web Services
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID string `json:"id"`
 
 	// The common name of the provider.
 	// Example: AWS
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 }
 
 // Validate validates this provider
 func (m *Provider) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Provider) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Provider) validateID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Provider) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 

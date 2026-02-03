@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DataExport DataExport model
@@ -19,33 +20,59 @@ import (
 type DataExport struct {
 
 	// attributes
-	Attributes string `json:"attributes,omitempty"`
+	// Required: true
+	Attributes string `json:"attributes"`
 
 	// created at
 	// Example: 2025-03-20T12:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// export type
 	// Example: cost_report
-	ExportType string `json:"export_type,omitempty"`
+	// Required: true
+	ExportType string `json:"export_type"`
 
 	// manifest
-	Manifest *DataExportManifest `json:"manifest,omitempty"`
+	// Required: true
+	Manifest *DataExportManifest `json:"manifest"`
 
 	// status
 	// Example: pending
-	Status string `json:"status,omitempty"`
+	// Required: true
+	Status string `json:"status"`
 
 	// token
 	// Example: dta_xprt_abcd1234567890
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this data export
 func (m *DataExport) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExportType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateManifest(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,9 +82,37 @@ func (m *DataExport) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *DataExport) validateAttributes(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("attributes", "body", m.Attributes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DataExport) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DataExport) validateExportType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("export_type", "body", m.ExportType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *DataExport) validateManifest(formats strfmt.Registry) error {
-	if swag.IsZero(m.Manifest) { // not required
-		return nil
+
+	if err := validate.Required("manifest", "body", m.Manifest); err != nil {
+		return err
 	}
 
 	if m.Manifest != nil {
@@ -69,6 +124,24 @@ func (m *DataExport) validateManifest(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *DataExport) validateStatus(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DataExport) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil
@@ -91,10 +164,6 @@ func (m *DataExport) ContextValidate(ctx context.Context, formats strfmt.Registr
 func (m *DataExport) contextValidateManifest(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Manifest != nil {
-
-		if swag.IsZero(m.Manifest) { // not required
-			return nil
-		}
 
 		if err := m.Manifest.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

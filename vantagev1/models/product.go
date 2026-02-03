@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Product Product model
@@ -19,30 +21,119 @@ type Product struct {
 
 	// The category of the cloud product
 	// Example: compute
-	Category string `json:"category,omitempty"`
+	// Required: true
+	Category string `json:"category"`
 
 	// An object of metadata about the product.
 	// Example: {"clock_speed_ghz":3.1,"gpu":0,"memory":256,"name":"M5 General Purpose 16xlarge","network_performance_description":"20 Gigabit","physical_processor_description":"Intel Xeon Platinum 8175 (Skylake)","vcpu":64}
-	Details interface{} `json:"details,omitempty"`
+	// Required: true
+	Details interface{} `json:"details"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID string `json:"id"`
 
 	// The common name of the product.
 	// Example: EC2
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// A unique slug for the provider the product belongs to.
 	// Example: aws
-	ProviderID string `json:"provider_id,omitempty"`
+	// Required: true
+	ProviderID string `json:"provider_id"`
 
 	// A unique slug for the service the product belongs to.
 	// Example: aws-ec2
-	ServiceID string `json:"service_id,omitempty"`
+	// Required: true
+	ServiceID string `json:"service_id"`
 }
 
 // Validate validates this product
 func (m *Product) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCategory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDetails(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviderID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServiceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Product) validateCategory(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("category", "body", m.Category); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Product) validateDetails(formats strfmt.Registry) error {
+
+	if m.Details == nil {
+		return errors.Required("details", "body", nil)
+	}
+
+	return nil
+}
+
+func (m *Product) validateID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Product) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Product) validateProviderID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider_id", "body", m.ProviderID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Product) validateServiceID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("service_id", "body", m.ServiceID); err != nil {
+		return err
+	}
+
 	return nil
 }
 

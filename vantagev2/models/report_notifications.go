@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ReportNotifications ReportNotifications model
@@ -23,6 +24,7 @@ type ReportNotifications struct {
 	Links *Links `json:"links,omitempty"`
 
 	// report notifications
+	// Required: true
 	ReportNotifications []*ReportNotification `json:"report_notifications"`
 }
 
@@ -64,8 +66,9 @@ func (m *ReportNotifications) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *ReportNotifications) validateReportNotifications(formats strfmt.Registry) error {
-	if swag.IsZero(m.ReportNotifications) { // not required
-		return nil
+
+	if err := validate.Required("report_notifications", "body", m.ReportNotifications); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ReportNotifications); i++ {

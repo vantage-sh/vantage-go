@@ -22,11 +22,13 @@ type Integration struct {
 
 	// The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
 	// Example: 011389-EF4C3E-3ED7AE
-	AccountIdentifier string `json:"account_identifier,omitempty"`
+	// Required: true
+	AccountIdentifier *string `json:"account_identifier"`
 
 	// The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
@@ -34,17 +36,21 @@ type Integration struct {
 
 	// The name of the Integration.
 	// Example: AWS
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 
 	// The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
 	// Example: imported
+	// Required: true
 	// Enum: ["connected","error","pending","importing","imported","disconnected"]
-	Status string `json:"status,omitempty"`
+	Status string `json:"status"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The tokens for any Workspaces that the account belongs to.
+	// Required: true
 	WorkspaceTokens []string `json:"workspace_tokens"`
 }
 
@@ -52,13 +58,60 @@ type Integration struct {
 func (m *Integration) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccountIdentifier(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Integration) validateAccountIdentifier(formats strfmt.Registry) error {
+
+	if err := validate.Required("account_identifier", "body", m.AccountIdentifier); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -104,12 +157,31 @@ func (m *Integration) validateStatusEnum(path, location string, value string) er
 }
 
 func (m *Integration) validateStatus(formats strfmt.Registry) error {
-	if swag.IsZero(m.Status) { // not required
-		return nil
+
+	if err := validate.RequiredString("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateWorkspaceTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("workspace_tokens", "body", m.WorkspaceTokens); err != nil {
 		return err
 	}
 

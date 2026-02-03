@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RecommendationAction recommendation action
@@ -18,20 +20,23 @@ import (
 type RecommendationAction struct {
 
 	// action
-	Action string `json:"action,omitempty"`
+	// Required: true
+	Action string `json:"action"`
 
 	// containers
 	Containers string `json:"containers,omitempty"`
 
 	// description
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// instance type
 	InstanceType string `json:"instance_type,omitempty"`
 
 	// Potential savings in dollars
 	// Example: 100.00
-	PotentialSavings string `json:"potential_savings,omitempty"`
+	// Required: true
+	PotentialSavings string `json:"potential_savings"`
 
 	// CLI command to remediate this recommendation
 	// Example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
@@ -40,6 +45,50 @@ type RecommendationAction struct {
 
 // Validate validates this recommendation action
 func (m *RecommendationAction) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAction(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePotentialSavings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RecommendationAction) validateAction(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("action", "body", m.Action); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RecommendationAction) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RecommendationAction) validatePotentialSavings(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("potential_savings", "body", m.PotentialSavings); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BillingProfiles BillingProfiles model
@@ -20,6 +21,7 @@ import (
 type BillingProfiles struct {
 
 	// billing profiles
+	// Required: true
 	BillingProfiles []*BillingProfile `json:"billing_profiles"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *BillingProfiles) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BillingProfiles) validateBillingProfiles(formats strfmt.Registry) error {
-	if swag.IsZero(m.BillingProfiles) { // not required
-		return nil
+
+	if err := validate.Required("billing_profiles", "body", m.BillingProfiles); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.BillingProfiles); i++ {

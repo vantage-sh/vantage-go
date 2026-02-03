@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AwsProviderCredential AwsProviderCredential model
@@ -19,7 +20,8 @@ import (
 type AwsProviderCredential struct {
 
 	// external id
-	ExternalID string `json:"external_id,omitempty"`
+	// Required: true
+	ExternalID string `json:"external_id"`
 
 	// iam role arn
 	IamRoleArn string `json:"iam_role_arn,omitempty"`
@@ -28,17 +30,27 @@ type AwsProviderCredential struct {
 	IamRoleID string `json:"iam_role_id,omitempty"`
 
 	// policies
-	Policies *AwsIamPolicies `json:"policies,omitempty"`
+	// Required: true
+	Policies *AwsIamPolicies `json:"policies"`
 
 	// vantage id
-	VantageID string `json:"vantage_id,omitempty"`
+	// Required: true
+	VantageID string `json:"vantage_id"`
 }
 
 // Validate validates this aws provider credential
 func (m *AwsProviderCredential) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateExternalID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePolicies(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVantageID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -48,9 +60,19 @@ func (m *AwsProviderCredential) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *AwsProviderCredential) validateExternalID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("external_id", "body", m.ExternalID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *AwsProviderCredential) validatePolicies(formats strfmt.Registry) error {
-	if swag.IsZero(m.Policies) { // not required
-		return nil
+
+	if err := validate.Required("policies", "body", m.Policies); err != nil {
+		return err
 	}
 
 	if m.Policies != nil {
@@ -62,6 +84,15 @@ func (m *AwsProviderCredential) validatePolicies(formats strfmt.Registry) error 
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *AwsProviderCredential) validateVantageID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("vantage_id", "body", m.VantageID); err != nil {
+		return err
 	}
 
 	return nil
@@ -84,10 +115,6 @@ func (m *AwsProviderCredential) ContextValidate(ctx context.Context, formats str
 func (m *AwsProviderCredential) contextValidatePolicies(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Policies != nil {
-
-		if swag.IsZero(m.Policies) { // not required
-			return nil
-		}
 
 		if err := m.Policies.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

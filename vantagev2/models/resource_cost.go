@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ResourceCost resource cost
@@ -18,14 +20,47 @@ import (
 type ResourceCost struct {
 
 	// amount
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The category of the cost.
-	Category string `json:"category,omitempty"`
+	// Required: true
+	Category string `json:"category"`
 }
 
 // Validate validates this resource cost
 func (m *ResourceCost) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCategory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ResourceCost) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceCost) validateCategory(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("category", "body", m.Category); err != nil {
+		return err
+	}
+
 	return nil
 }
 

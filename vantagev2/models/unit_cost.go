@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UnitCost unit cost
@@ -20,43 +21,109 @@ type UnitCost struct {
 
 	// The amount of the business metric.
 	// Example: 0.371
-	BusinessMetricAmount string `json:"business_metric_amount,omitempty"`
+	// Required: true
+	BusinessMetricAmount string `json:"business_metric_amount"`
 
 	// The title of the BusinessMetric for which the unit cost was calculated.
 	// Example: Total Revenue
-	BusinessMetricTitle string `json:"business_metric_title,omitempty"`
+	// Required: true
+	BusinessMetricTitle string `json:"business_metric_title"`
 
 	// The token of the BusinessMetric for which the unit cost was calculated.
 	// Example: bsnss_mtrc_1234
-	BusinessMetricToken string `json:"business_metric_token,omitempty"`
+	// Required: true
+	BusinessMetricToken string `json:"business_metric_token"`
 
 	// The date for which the unit cost was calculated. ISO 8601 Formatted.
 	// Example: 2023-09-05+00:00
-	Date string `json:"date,omitempty"`
+	// Required: true
+	Date string `json:"date"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 
 	// The scale of the BusinessMetric's values within a particular CostReport.
 	// Example: 1
-	Scale float32 `json:"scale,omitempty"`
+	// Required: true
+	Scale float32 `json:"scale"`
 
 	// The amount of the unit cost.
 	// Example: 4.25
-	UnitCostAmount string `json:"unit_cost_amount,omitempty"`
+	// Required: true
+	UnitCostAmount string `json:"unit_cost_amount"`
 }
 
 // Validate validates this unit cost
 func (m *UnitCost) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBusinessMetricAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBusinessMetricTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLinks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateScale(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnitCostAmount(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UnitCost) validateBusinessMetricAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("business_metric_amount", "body", m.BusinessMetricAmount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UnitCost) validateBusinessMetricTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("business_metric_title", "body", m.BusinessMetricTitle); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UnitCost) validateBusinessMetricToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UnitCost) validateDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date", "body", m.Date); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -74,6 +141,24 @@ func (m *UnitCost) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *UnitCost) validateScale(formats strfmt.Registry) error {
+
+	if err := validate.Required("scale", "body", float32(m.Scale)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UnitCost) validateUnitCostAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("unit_cost_amount", "body", m.UnitCostAmount); err != nil {
+		return err
 	}
 
 	return nil

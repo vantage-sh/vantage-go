@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AnomalyNotifications AnomalyNotifications model
@@ -20,6 +21,7 @@ import (
 type AnomalyNotifications struct {
 
 	// anomaly notifications
+	// Required: true
 	AnomalyNotifications []*AnomalyNotification `json:"anomaly_notifications"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *AnomalyNotifications) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AnomalyNotifications) validateAnomalyNotifications(formats strfmt.Registry) error {
-	if swag.IsZero(m.AnomalyNotifications) { // not required
-		return nil
+
+	if err := validate.Required("anomaly_notifications", "body", m.AnomalyNotifications); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.AnomalyNotifications); i++ {

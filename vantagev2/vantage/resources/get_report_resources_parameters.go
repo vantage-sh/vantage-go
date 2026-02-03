@@ -74,6 +74,22 @@ type GetReportResourcesParams struct {
 	*/
 	IncludeCost *bool
 
+	/* Limit.
+
+	   The number of resources to return per page.
+
+	   Format: int32
+	*/
+	Limit *int32
+
+	/* Page.
+
+	   The page number for pagination.
+
+	   Format: int32
+	*/
+	Page *int32
+
 	/* ResourceReportToken.
 
 	   The ResourceReport token.
@@ -161,6 +177,28 @@ func (o *GetReportResourcesParams) SetIncludeCost(includeCost *bool) {
 	o.IncludeCost = includeCost
 }
 
+// WithLimit adds the limit to the get report resources params
+func (o *GetReportResourcesParams) WithLimit(limit *int32) *GetReportResourcesParams {
+	o.SetLimit(limit)
+	return o
+}
+
+// SetLimit adds the limit to the get report resources params
+func (o *GetReportResourcesParams) SetLimit(limit *int32) {
+	o.Limit = limit
+}
+
+// WithPage adds the page to the get report resources params
+func (o *GetReportResourcesParams) WithPage(page *int32) *GetReportResourcesParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get report resources params
+func (o *GetReportResourcesParams) SetPage(page *int32) {
+	o.Page = page
+}
+
 // WithResourceReportToken adds the resourceReportToken to the get report resources params
 func (o *GetReportResourcesParams) WithResourceReportToken(resourceReportToken *string) *GetReportResourcesParams {
 	o.SetResourceReportToken(resourceReportToken)
@@ -220,6 +258,40 @@ func (o *GetReportResourcesParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qIncludeCost != "" {
 
 			if err := r.SetQueryParam("include_cost", qIncludeCost); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Limit != nil {
+
+		// query param limit
+		var qrLimit int32
+
+		if o.Limit != nil {
+			qrLimit = *o.Limit
+		}
+		qLimit := swag.FormatInt32(qrLimit)
+		if qLimit != "" {
+
+			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}

@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Price Price model
@@ -19,34 +21,137 @@ type Price struct {
 
 	// The amount of money this specific product price costs.
 	// Example: 1.324
-	Amount float64 `json:"amount,omitempty"`
+	// Required: true
+	Amount float64 `json:"amount"`
 
 	// The currency of the amount.
 	// Example: USD
-	Currency string `json:"currency,omitempty"`
+	// Required: true
+	Currency string `json:"currency"`
 
 	// Service specific metadata.
 	// Example: {"lifecycle":"on-demand","platform":"linux-enterprise"}
-	Details interface{} `json:"details,omitempty"`
+	// Required: true
+	Details interface{} `json:"details"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID string `json:"id"`
 
 	// The part of the product the price applies to. (compute, transfer, etc..)
 	// Example: compute
-	RateType string `json:"rate_type,omitempty"`
+	// Required: true
+	RateType string `json:"rate_type"`
 
 	// The region the price is specific to.
 	// Example: us-east-1
-	Region string `json:"region,omitempty"`
+	// Required: true
+	Region string `json:"region"`
 
 	// The unit in which the amount is billed.
 	// Example: hour
-	Unit string `json:"unit,omitempty"`
+	// Required: true
+	Unit string `json:"unit"`
 }
 
 // Validate validates this price
 func (m *Price) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCurrency(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDetails(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnit(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Price) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.Required("amount", "body", float64(m.Amount)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Price) validateCurrency(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Price) validateDetails(formats strfmt.Registry) error {
+
+	if m.Details == nil {
+		return errors.Required("details", "body", nil)
+	}
+
+	return nil
+}
+
+func (m *Price) validateID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Price) validateRateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("rate_type", "body", m.RateType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Price) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("region", "body", m.Region); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Price) validateUnit(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("unit", "body", m.Unit); err != nil {
+		return err
+	}
+
 	return nil
 }
 

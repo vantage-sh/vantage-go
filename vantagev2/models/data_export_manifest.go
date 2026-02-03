@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DataExportManifest data export manifest
@@ -19,19 +21,66 @@ type DataExportManifest struct {
 
 	// completed at
 	// Example: 2025-03-20T12:00:00Z
-	CompletedAt string `json:"completed_at,omitempty"`
+	// Required: true
+	CompletedAt string `json:"completed_at"`
 
 	// files
 	// Example: ["https://example.com/file1.csv"]
-	Files string `json:"files,omitempty"`
+	// Required: true
+	Files string `json:"files"`
 
 	// valid until
 	// Example: 2025-03-20T12:00:00Z
-	ValidUntil string `json:"valid_until,omitempty"`
+	// Required: true
+	ValidUntil string `json:"valid_until"`
 }
 
 // Validate validates this data export manifest
 func (m *DataExportManifest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCompletedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFiles(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValidUntil(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DataExportManifest) validateCompletedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("completed_at", "body", m.CompletedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DataExportManifest) validateFiles(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("files", "body", m.Files); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DataExportManifest) validateValidUntil(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("valid_until", "body", m.ValidUntil); err != nil {
+		return err
+	}
+
 	return nil
 }
 

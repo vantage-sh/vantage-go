@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ResourceReport ResourceReport model
@@ -18,34 +20,151 @@ import (
 type ResourceReport struct {
 
 	// Array of column names configured for the ResourceReport table display.
+	// Required: true
 	Columns []string `json:"columns"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token for the User or Team who created this ResourceReport.
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	// Required: true
+	CreatedByToken *string `json:"created_by_token"`
 
 	// The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The title of the ResourceReport.
 	// Example: Acme123 Active Resources
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the User who created this ResourceReport.
-	UserToken string `json:"user_token,omitempty"`
+	// Required: true
+	UserToken *string `json:"user_token"`
 
 	// The token for the Workspace the ResourceReport is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this resource report
 func (m *ResourceReport) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateColumns(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedByToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ResourceReport) validateColumns(formats strfmt.Registry) error {
+
+	if err := validate.Required("columns", "body", m.Columns); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateCreatedByToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("created_by_token", "body", m.CreatedByToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateUserToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_token", "body", m.UserToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ResourceReport) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

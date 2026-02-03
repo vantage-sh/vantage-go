@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DatadogMetricFields datadog metric fields
@@ -19,11 +21,30 @@ type DatadogMetricFields struct {
 
 	// The query used to import Datadog metrics.
 	// Example: sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
-	Query string `json:"query,omitempty"`
+	// Required: true
+	Query string `json:"query"`
 }
 
 // Validate validates this datadog metric fields
 func (m *DatadogMetricFields) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateQuery(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DatadogMetricFields) validateQuery(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("query", "body", m.Query); err != nil {
+		return err
+	}
+
 	return nil
 }
 

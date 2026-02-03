@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AnomalyAlert AnomalyAlert model
@@ -22,45 +24,204 @@ type AnomalyAlert struct {
 	AlertedAt string `json:"alerted_at,omitempty"`
 
 	// The amount observed.
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The category of the AnomalyAlert.
-	Category string `json:"category,omitempty"`
+	// Required: true
+	Category *string `json:"category"`
 
 	// The token of the Report associated with the AnomalyAlert.
-	CostReportToken string `json:"cost_report_token,omitempty"`
+	// Required: true
+	CostReportToken string `json:"cost_report_token"`
 
 	// The date and time, in UTC, the AnomalyAlert was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The user-provided feedback of why alert was ignored/archived.
 	Feedback string `json:"feedback,omitempty"`
 
 	// The previous amount observed.
-	PreviousAmount string `json:"previous_amount,omitempty"`
+	// Required: true
+	PreviousAmount string `json:"previous_amount"`
 
 	// The provider of the service causing the AnomalyAlert.
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 
 	// The names of the resources the AnomalyAlert was attributed to.
+	// Required: true
 	Resources []string `json:"resources"`
 
 	// The provider service causing the AnomalyAlert.
-	Service string `json:"service,omitempty"`
+	// Required: true
+	Service string `json:"service"`
 
 	// The seven day average of the amount observed.
-	SevenDayAverage string `json:"seven_day_average,omitempty"`
+	// Required: true
+	SevenDayAverage string `json:"seven_day_average"`
 
 	// The status of the AnomalyAlert.
-	Status string `json:"status,omitempty"`
+	// Required: true
+	Status string `json:"status"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this anomaly alert
 func (m *AnomalyAlert) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCategory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCostReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreviousAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResources(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateService(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSevenDayAverage(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AnomalyAlert) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateCategory(formats strfmt.Registry) error {
+
+	if err := validate.Required("category", "body", m.Category); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateCostReportToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("cost_report_token", "body", m.CostReportToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validatePreviousAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("previous_amount", "body", m.PreviousAmount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateResources(formats strfmt.Registry) error {
+
+	if err := validate.Required("resources", "body", m.Resources); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateService(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("service", "body", m.Service); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateSevenDayAverage(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("seven_day_average", "body", m.SevenDayAverage); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateStatus(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

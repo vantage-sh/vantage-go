@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Invoice Invoice model
@@ -18,41 +20,200 @@ import (
 type Invoice struct {
 
 	// Name of the managed account this invoice belongs to
-	AccountName string `json:"account_name,omitempty"`
+	// Required: true
+	AccountName string `json:"account_name"`
 
 	// Token of the managed account this invoice belongs to
-	AccountToken string `json:"account_token,omitempty"`
+	// Required: true
+	AccountToken string `json:"account_token"`
 
 	// End date of the billing period. ISO 8601 formatted.
-	BillingPeriodEnd string `json:"billing_period_end,omitempty"`
+	// Required: true
+	BillingPeriodEnd string `json:"billing_period_end"`
 
 	// Start date of the billing period. ISO 8601 formatted.
-	BillingPeriodStart string `json:"billing_period_start,omitempty"`
+	// Required: true
+	BillingPeriodStart string `json:"billing_period_start"`
 
 	// The date and time, in UTC, the invoice was created. ISO 8601 formatted.
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// Sequential invoice number for the MSP account
-	InvoiceNumber string `json:"invoice_number,omitempty"`
+	// Required: true
+	InvoiceNumber string `json:"invoice_number"`
 
 	// Token of the MSP account that owns this invoice
-	MspAccountToken string `json:"msp_account_token,omitempty"`
+	// Required: true
+	MspAccountToken string `json:"msp_account_token"`
 
 	// Current status of the invoice
-	Status string `json:"status,omitempty"`
+	// Required: true
+	Status string `json:"status"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// Total amount for the invoice period
-	Total string `json:"total,omitempty"`
+	// Required: true
+	Total *string `json:"total"`
 
 	// The date and time, in UTC, the invoice was last updated. ISO 8601 formatted.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 }
 
 // Validate validates this invoice
 func (m *Invoice) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccountName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAccountToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBillingPeriodEnd(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBillingPeriodStart(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInvoiceNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMspAccountToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTotal(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Invoice) validateAccountName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("account_name", "body", m.AccountName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateAccountToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("account_token", "body", m.AccountToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateBillingPeriodEnd(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("billing_period_end", "body", m.BillingPeriodEnd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateBillingPeriodStart(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("billing_period_start", "body", m.BillingPeriodStart); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateInvoiceNumber(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("invoice_number", "body", m.InvoiceNumber); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateMspAccountToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("msp_account_token", "body", m.MspAccountToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateStatus(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateTotal(formats strfmt.Registry) error {
+
+	if err := validate.Required("total", "body", m.Total); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Invoice) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
+	}
+
 	return nil
 }
 

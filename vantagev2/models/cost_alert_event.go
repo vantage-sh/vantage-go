@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostAlertEvent CostAlertEvent model
@@ -18,34 +20,151 @@ import (
 type CostAlertEvent struct {
 
 	// The token of the alert associated with the CostAlertEvent.
-	AlertToken string `json:"alert_token,omitempty"`
+	// Required: true
+	AlertToken string `json:"alert_token"`
 
 	// The type of the CostAlertEvent.
-	AlertType string `json:"alert_type,omitempty"`
+	// Required: true
+	AlertType string `json:"alert_type"`
 
 	// The date and time, in UTC, the CostAlertEvent was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The description of the CostAlertEvent.
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// The metadata of the CostAlertEvent.
-	Metadata interface{} `json:"metadata,omitempty"`
+	// Required: true
+	Metadata interface{} `json:"metadata"`
 
 	// The token of the report associated with the CostAlertEvent.
-	ReportToken string `json:"report_token,omitempty"`
+	// Required: true
+	ReportToken string `json:"report_token"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The date and time, in UTC, the CostAlertEvent is sent. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	TriggeredAt string `json:"triggered_at,omitempty"`
+	// Required: true
+	TriggeredAt string `json:"triggered_at"`
 }
 
 // Validate validates this cost alert event
 func (m *CostAlertEvent) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAlertToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAlertType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTriggeredAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostAlertEvent) validateAlertToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("alert_token", "body", m.AlertToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateAlertType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("alert_type", "body", m.AlertType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateMetadata(formats strfmt.Registry) error {
+
+	if m.Metadata == nil {
+		return errors.Required("metadata", "body", nil)
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateReportToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("report_token", "body", m.ReportToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostAlertEvent) validateTriggeredAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("triggered_at", "body", m.TriggeredAt); err != nil {
+		return err
+	}
+
 	return nil
 }
 

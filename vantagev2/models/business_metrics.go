@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BusinessMetrics BusinessMetrics model
@@ -20,6 +21,7 @@ import (
 type BusinessMetrics struct {
 
 	// business metrics
+	// Required: true
 	BusinessMetrics []*BusinessMetric `json:"business_metrics"`
 }
 
@@ -38,8 +40,9 @@ func (m *BusinessMetrics) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BusinessMetrics) validateBusinessMetrics(formats strfmt.Registry) error {
-	if swag.IsZero(m.BusinessMetrics) { // not required
-		return nil
+
+	if err := validate.Required("business_metrics", "body", m.BusinessMetrics); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.BusinessMetrics); i++ {

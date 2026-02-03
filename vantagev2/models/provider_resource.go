@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ProviderResource ProviderResource model
@@ -24,10 +25,12 @@ type ProviderResource struct {
 
 	// The unique identifier of the Active Resource.
 	// Example: i-0a1b2c3d4e5f6g7h8
-	ResourceID string `json:"resource_id,omitempty"`
+	// Required: true
+	ResourceID string `json:"resource_id"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this provider resource
@@ -35,6 +38,14 @@ func (m *ProviderResource) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateRecommendationActions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -65,6 +76,24 @@ func (m *ProviderResource) validateRecommendationActions(formats strfmt.Registry
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *ProviderResource) validateResourceID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("resource_id", "body", m.ResourceID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ProviderResource) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

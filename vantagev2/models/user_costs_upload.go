@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UserCostsUpload UserCostsUpload model
@@ -19,39 +21,156 @@ type UserCostsUpload struct {
 
 	// The total amount of the costs in the UserCostsUpload.
 	// Example: 1234.56
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// When the UserCostsUpload was uploaded.
 	// Example: 2021-01-01T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token of the Creator of the UserCostsUpload.
 	// Example: usr_1234
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	// Required: true
+	CreatedByToken string `json:"created_by_token"`
 
 	// The end date of the costs in the UserCostsUpload.
 	// Example: 2021-01-31
-	EndDate string `json:"end_date,omitempty"`
+	// Required: true
+	EndDate string `json:"end_date"`
 
 	// The filename of the uploaded costs UserCostsUpload.
 	// Example: usr_csts_upld_1234.parquet
-	Filename string `json:"filename,omitempty"`
+	// Required: true
+	Filename string `json:"filename"`
 
 	// Import status of the UserCostsUpload.
 	// Example: processing
-	ImportStatus string `json:"import_status,omitempty"`
+	// Required: true
+	ImportStatus string `json:"import_status"`
 
 	// The start date of the costs in the UserCostsUpload.
 	// Example: 2021-01-01
-	StartDate string `json:"start_date,omitempty"`
+	// Required: true
+	StartDate string `json:"start_date"`
 
 	// The token of the UserCostsUpload.
 	// Example: usr_csts_upld_1234
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this user costs upload
 func (m *UserCostsUpload) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedByToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilename(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateImportStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStartDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UserCostsUpload) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateCreatedByToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_by_token", "body", m.CreatedByToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateEndDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("end_date", "body", m.EndDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateFilename(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("filename", "body", m.Filename); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateImportStatus(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("import_status", "body", m.ImportStatus); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateStartDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("start_date", "body", m.StartDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserCostsUpload) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

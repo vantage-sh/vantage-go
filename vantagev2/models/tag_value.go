@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // TagValue tag value
@@ -18,15 +20,48 @@ import (
 type TagValue struct {
 
 	// The unique providers that are covered by the TagValue.
+	// Required: true
 	Providers []string `json:"providers"`
 
 	// The TagValue.
 	// Example: vantage
-	TagValue string `json:"tag_value,omitempty"`
+	// Required: true
+	TagValue string `json:"tag_value"`
 }
 
 // Validate validates this tag value
 func (m *TagValue) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateProviders(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTagValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TagValue) validateProviders(formats strfmt.Registry) error {
+
+	if err := validate.Required("providers", "body", m.Providers); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TagValue) validateTagValue(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("tag_value", "body", m.TagValue); err != nil {
+		return err
+	}
+
 	return nil
 }
 

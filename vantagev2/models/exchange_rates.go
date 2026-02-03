@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ExchangeRates ExchangeRates model
@@ -20,6 +21,7 @@ import (
 type ExchangeRates struct {
 
 	// exchange rates
+	// Required: true
 	ExchangeRates []*ExchangeRate `json:"exchange_rates"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *ExchangeRates) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ExchangeRates) validateExchangeRates(formats strfmt.Registry) error {
-	if swag.IsZero(m.ExchangeRates) { // not required
-		return nil
+
+	if err := validate.Required("exchange_rates", "body", m.ExchangeRates); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ExchangeRates); i++ {
