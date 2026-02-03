@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Recommendation Recommendation model
@@ -19,10 +21,12 @@ type Recommendation struct {
 
 	// The category of the Recommendation.
 	// Example: ec2_compute_optimizer_recommender
-	Category string `json:"category,omitempty"`
+	// Required: true
+	Category *string `json:"category"`
 
 	// The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The currency code used by the Workspace to which this Recommendation belongs.
 	// Example: EUR
@@ -33,34 +37,177 @@ type Recommendation struct {
 	CurrencySymbol string `json:"currency_symbol,omitempty"`
 
 	// description
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// The monthly potential savings of the Recommendation, converted to the organization's selected currency.
 	// Example: 100.00
-	PotentialSavings string `json:"potential_savings,omitempty"`
+	// Required: true
+	PotentialSavings *string `json:"potential_savings"`
 
 	// The provider the Recommendation is for.
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 
 	// The account ID of the provider. For Azure, this is the subscription ID.
-	ProviderAccountID string `json:"provider_account_id,omitempty"`
+	// Required: true
+	ProviderAccountID *string `json:"provider_account_id"`
 
 	// The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
-	ResourcesAffectedCount string `json:"resources_affected_count,omitempty"`
+	// Required: true
+	ResourcesAffectedCount string `json:"resources_affected_count"`
 
 	// The service the Recommendation is for.
 	// Example: Amazon EC2
-	Service string `json:"service,omitempty"`
+	// Required: true
+	Service string `json:"service"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the Workspace the Recommendation is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this recommendation
 func (m *Recommendation) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCategory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePotentialSavings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviderAccountID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResourcesAffectedCount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateService(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Recommendation) validateCategory(formats strfmt.Registry) error {
+
+	if err := validate.Required("category", "body", m.Category); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validatePotentialSavings(formats strfmt.Registry) error {
+
+	if err := validate.Required("potential_savings", "body", m.PotentialSavings); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateProviderAccountID(formats strfmt.Registry) error {
+
+	if err := validate.Required("provider_account_id", "body", m.ProviderAccountID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateResourcesAffectedCount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("resources_affected_count", "body", m.ResourcesAffectedCount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateService(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("service", "body", m.Service); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Users Users model
@@ -23,6 +24,7 @@ type Users struct {
 	Links *Links `json:"links,omitempty"`
 
 	// users
+	// Required: true
 	Users []*User `json:"users"`
 }
 
@@ -64,8 +66,9 @@ func (m *Users) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Users) validateUsers(formats strfmt.Registry) error {
-	if swag.IsZero(m.Users) { // not required
-		return nil
+
+	if err := validate.Required("users", "body", m.Users); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Users); i++ {

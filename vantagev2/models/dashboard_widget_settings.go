@@ -21,8 +21,9 @@ import (
 type DashboardWidgetSettings struct {
 
 	// display type
+	// Required: true
 	// Enum: ["table","chart"]
-	DisplayType string `json:"display_type,omitempty"`
+	DisplayType string `json:"display_type"`
 }
 
 // Validate validates this dashboard widget settings
@@ -69,8 +70,9 @@ func (m *DashboardWidgetSettings) validateDisplayTypeEnum(path, location string,
 }
 
 func (m *DashboardWidgetSettings) validateDisplayType(formats strfmt.Registry) error {
-	if swag.IsZero(m.DisplayType) { // not required
-		return nil
+
+	if err := validate.RequiredString("display_type", "body", m.DisplayType); err != nil {
+		return err
 	}
 
 	// value enum

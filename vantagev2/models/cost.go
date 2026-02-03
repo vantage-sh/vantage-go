@@ -26,11 +26,13 @@ type Cost struct {
 
 	// The date the cost was accrued. ISO 8601 Formatted.
 	// Example: 2023-09-05+00:00
-	AccruedAt string `json:"accrued_at,omitempty"`
+	// Required: true
+	AccruedAt string `json:"accrued_at"`
 
 	// The amount of the cost.
 	// Example: 4.25
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The cost provider's billing account id that incurred the cost.
 	// Example: 9109237192
@@ -46,14 +48,15 @@ type Cost struct {
 
 	// The currency of the cost.
 	// Example: USD
-	Currency string `json:"currency,omitempty"`
+	// Required: true
+	Currency string `json:"currency"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel"]
 	Provider string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -88,6 +91,18 @@ type Cost struct {
 func (m *Cost) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccruedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCurrency(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
 	}
@@ -99,6 +114,33 @@ func (m *Cost) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Cost) validateAccruedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("accrued_at", "body", m.AccruedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Cost) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Cost) validateCurrency(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("currency", "body", m.Currency); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -125,7 +167,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -221,6 +263,9 @@ const (
 
 	// CostProviderElastic captures enum value "elastic"
 	CostProviderElastic string = "elastic"
+
+	// CostProviderVercel captures enum value "vercel"
+	CostProviderVercel string = "vercel"
 )
 
 // prop value enum

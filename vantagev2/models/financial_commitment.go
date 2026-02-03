@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // FinancialCommitment financial commitment
@@ -19,62 +21,263 @@ type FinancialCommitment struct {
 
 	// The account for this financial commitment.
 	// Example: 113074892135
-	Account string `json:"account,omitempty"`
+	// Required: true
+	Account string `json:"account"`
 
 	// The number of instances for the financial commitment.
 	// Example: 4
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount *string `json:"amount"`
 
 	// The amount of the financial commitment.
 	// Example: $2.18
-	Commitment string `json:"commitment,omitempty"`
+	// Required: true
+	Commitment string `json:"commitment"`
 
 	// The commitment type (eg Savings Plan or Reserved Instance).
 	// Example: Savings Plan
-	CommitmentType string `json:"commitment_type,omitempty"`
+	// Required: true
+	CommitmentType string `json:"commitment_type"`
 
 	// The date and time, in UTC, the Financial Commitment was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The expiration date of the financial commitment. ISO 8601 Formatted.
 	// Example: 2026-08-30
-	ExpirationDate string `json:"expiration_date,omitempty"`
+	// Required: true
+	ExpirationDate string `json:"expiration_date"`
 
 	// The type of payment for the financial commitment.
 	// Example: No upfront
-	PaymentType string `json:"payment_type,omitempty"`
+	// Required: true
+	PaymentType *string `json:"payment_type"`
 
 	// The purchase date of the financial commitment. ISO 8601 Formatted.
 	// Example: 2023-08-30
-	PurchaseDate string `json:"purchase_date,omitempty"`
+	// Required: true
+	PurchaseDate string `json:"purchase_date"`
 
 	// The region for the financial commitment.
 	// Example: us-east-1
-	Region string `json:"region,omitempty"`
+	// Required: true
+	Region *string `json:"region"`
 
 	// The service this commitment applies towards.
 	// Example: Compute
-	Service string `json:"service,omitempty"`
+	// Required: true
+	Service string `json:"service"`
 
 	// The status of the financial commitment (e.g. active vs expired).
 	// Example: active
-	Status string `json:"status,omitempty"`
+	// Required: true
+	Status *string `json:"status"`
 
 	// The duration in years of the financial commitment.
 	// Example: 3 Year
-	Term string `json:"term,omitempty"`
+	// Required: true
+	Term *string `json:"term"`
 
 	// The type of financial commitment.
 	// Example: m5.large
-	Type string `json:"type,omitempty"`
+	// Required: true
+	Type string `json:"type"`
 
 	// The token for the Workspace the FinancialCommitment is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this financial commitment
 func (m *FinancialCommitment) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCommitment(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCommitmentType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExpirationDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePaymentType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePurchaseDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateService(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTerm(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *FinancialCommitment) validateAccount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("account", "body", m.Account); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.Required("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateCommitment(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("commitment", "body", m.Commitment); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateCommitmentType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("commitment_type", "body", m.CommitmentType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateExpirationDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("expiration_date", "body", m.ExpirationDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validatePaymentType(formats strfmt.Registry) error {
+
+	if err := validate.Required("payment_type", "body", m.PaymentType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validatePurchaseDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("purchase_date", "body", m.PurchaseDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.Required("region", "body", m.Region); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateService(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("service", "body", m.Service); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateStatus(formats strfmt.Registry) error {
+
+	if err := validate.Required("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateTerm(formats strfmt.Registry) error {
+
+	if err := validate.Required("term", "body", m.Term); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitment) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

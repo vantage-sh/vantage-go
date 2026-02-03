@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Costs Costs model
@@ -20,13 +21,15 @@ import (
 type Costs struct {
 
 	// costs
+	// Required: true
 	Costs []*Cost `json:"costs"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 
 	// The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code.
-	TotalCost interface{} `json:"total_cost,omitempty"`
+	// Required: true
+	TotalCost interface{} `json:"total_cost"`
 
 	// The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit.
 	TotalUsage interface{} `json:"total_usage,omitempty"`
@@ -44,6 +47,10 @@ func (m *Costs) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateTotalCost(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -51,8 +58,9 @@ func (m *Costs) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Costs) validateCosts(formats strfmt.Registry) error {
-	if swag.IsZero(m.Costs) { // not required
-		return nil
+
+	if err := validate.Required("costs", "body", m.Costs); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Costs); i++ {
@@ -90,6 +98,15 @@ func (m *Costs) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Costs) validateTotalCost(formats strfmt.Registry) error {
+
+	if m.TotalCost == nil {
+		return errors.Required("total_cost", "body", nil)
 	}
 
 	return nil

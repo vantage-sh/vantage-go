@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Reports Reports model
@@ -23,6 +24,7 @@ type Reports struct {
 	Links *Links `json:"links,omitempty"`
 
 	// reports
+	// Required: true
 	Reports []*Report `json:"reports"`
 }
 
@@ -64,8 +66,9 @@ func (m *Reports) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Reports) validateReports(formats strfmt.Registry) error {
-	if swag.IsZero(m.Reports) { // not required
-		return nil
+
+	if err := validate.Required("reports", "body", m.Reports); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Reports); i++ {

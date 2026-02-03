@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AnomalyNotification AnomalyNotification model
@@ -18,31 +20,134 @@ import (
 type AnomalyNotification struct {
 
 	// The token for the CostReport the AnomalyNotification is associated with.
-	CostReportToken string `json:"cost_report_token,omitempty"`
+	// Required: true
+	CostReportToken string `json:"cost_report_token"`
 
 	// The date and time, in UTC, the AnomalyNotification was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The channels that the notification is sent to.
+	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
 	// The threshold amount that must be met for the notification to fire.
-	Threshold int32 `json:"threshold,omitempty"`
+	// Required: true
+	Threshold int32 `json:"threshold"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The date and time, in UTC, the AnomalyNotification was last updated at. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 
 	// The tokens of the users that receive the notification.
+	// Required: true
 	UserTokens []string `json:"user_tokens"`
 }
 
 // Validate validates this anomaly notification
 func (m *AnomalyNotification) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCostReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateThreshold(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AnomalyNotification) validateCostReportToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("cost_report_token", "body", m.CostReportToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateRecipientChannels(formats strfmt.Registry) error {
+
+	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateThreshold(formats strfmt.Registry) error {
+
+	if err := validate.Required("threshold", "body", int32(m.Threshold)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateUserTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
+		return err
+	}
+
 	return nil
 }
 

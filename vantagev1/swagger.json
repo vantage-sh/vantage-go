@@ -8011,6 +8011,9 @@
           }
         }
       },
+      "required": [
+        "providers"
+      ],
       "description": "Providers model"
     },
     "Links": {
@@ -8042,19 +8045,27 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "name": {
           "type": "string",
           "example": "AWS",
+          "x-nullable": false,
           "description": "The common name of the provider."
         },
         "description": {
           "type": "string",
           "example": "Amazon Web Services",
+          "x-nullable": false,
           "description": "The full descriptive name of the provider."
         }
-      }
+      },
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
     },
     "Services": {
       "type": "object",
@@ -8069,30 +8080,43 @@
           }
         }
       },
+      "required": [
+        "services"
+      ],
       "description": "Services model"
     },
     "Service": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "category": {
           "type": "string",
           "example": "compute",
+          "x-nullable": false,
           "description": "The type of cloud service."
         },
         "name": {
           "type": "string",
           "example": "EC2",
+          "x-nullable": false,
           "description": "The common name of the service. Usually an abbreviation."
         },
         "description": {
           "type": "string",
           "example": "Elastic Compute Cloud",
+          "x-nullable": false,
           "description": "The full name of the service."
         }
-      }
+      },
+      "required": [
+        "id",
+        "category",
+        "name",
+        "description"
+      ]
     },
     "Products": {
       "type": "object",
@@ -8107,32 +8131,40 @@
           }
         }
       },
+      "required": [
+        "products"
+      ],
       "description": "Products model"
     },
     "Product": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "category": {
           "type": "string",
           "example": "compute",
+          "x-nullable": false,
           "description": "The category of the cloud product"
         },
         "name": {
           "type": "string",
           "example": "EC2",
+          "x-nullable": false,
           "description": "The common name of the product."
         },
         "service_id": {
           "type": "string",
           "example": "aws-ec2",
+          "x-nullable": false,
           "description": "A unique slug for the service the product belongs to."
         },
         "provider_id": {
           "type": "string",
           "example": "aws",
+          "x-nullable": false,
           "description": "A unique slug for the provider the product belongs to."
         },
         "details": {
@@ -8146,9 +8178,18 @@
             "physical_processor_description": "Intel Xeon Platinum 8175 (Skylake)",
             "network_performance_description": "20 Gigabit"
           },
+          "x-nullable": false,
           "description": "An object of metadata about the product."
         }
       },
+      "required": [
+        "id",
+        "category",
+        "name",
+        "service_id",
+        "provider_id",
+        "details"
+      ],
       "description": "Product model"
     },
     "Prices": {
@@ -8164,37 +8205,46 @@
           }
         }
       },
+      "required": [
+        "prices"
+      ],
       "description": "Prices model"
     },
     "Price": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "unit": {
           "type": "string",
           "example": "hour",
+          "x-nullable": false,
           "description": "The unit in which the amount is billed."
         },
         "region": {
           "type": "string",
           "example": "us-east-1",
+          "x-nullable": false,
           "description": "The region the price is specific to."
         },
         "rate_type": {
           "type": "string",
           "example": "compute",
+          "x-nullable": false,
           "description": "The part of the product the price applies to. (compute, transfer, etc..)"
         },
         "currency": {
           "type": "string",
           "example": "USD",
+          "x-nullable": false,
           "description": "The currency of the amount."
         },
         "amount": {
           "type": "number",
           "example": "1.324",
+          "x-nullable": false,
           "description": "The amount of money this specific product price costs."
         },
         "details": {
@@ -8203,9 +8253,19 @@
             "platform": "linux-enterprise",
             "lifecycle": "on-demand"
           },
+          "x-nullable": false,
           "description": "Service specific metadata."
         }
       },
+      "required": [
+        "id",
+        "unit",
+        "region",
+        "rate_type",
+        "currency",
+        "amount",
+        "details"
+      ],
       "description": "Price model"
     },
     "Reports": {
@@ -8221,39 +8281,56 @@
           }
         }
       },
+      "required": [
+        "reports"
+      ],
       "description": "Reports model"
     },
     "Report": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "title": {
           "type": "string",
           "example": "Production Environment",
+          "x-nullable": false,
           "description": "The title of the cost report."
         },
         "earliest_cost_date": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
+          "x-nullable": false,
           "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
         },
         "latest_cost_date": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
+          "x-nullable": false,
           "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
         },
         "created_at": {
           "type": "string",
           "example": "2021-07-09T00:00:00Z",
+          "x-nullable": false,
           "description": "The date and time, in UTC, the report was created. ISO 8601 Formatted."
         },
         "workspace": {
           "type": "string",
+          "x-nullable": false,
           "description": "The name of the workspace the report is a part of."
         }
       },
+      "required": [
+        "id",
+        "title",
+        "earliest_cost_date",
+        "latest_cost_date",
+        "created_at",
+        "workspace"
+      ],
       "description": "Report model"
     },
     "Costs": {
@@ -8264,19 +8341,27 @@
         },
         "total": {
           "type": "string",
+          "x-nullable": false,
           "description": "The sum of all amounts of costs for the entire report for the requested period."
         },
         "currency": {
           "type": "string",
+          "x-nullable": false,
           "description": "The currency both the total and cost amount values are represented in. e.g. USD"
         },
         "costs": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "x-nullable": false
         }
       },
+      "required": [
+        "total",
+        "currency",
+        "costs"
+      ],
       "description": "Costs model"
     },
     "putIntegrationsAWS": {
@@ -8301,15 +8386,21 @@
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "x-nullable": false
         },
         "cross_account_arn": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "bucket_arn": {
           "type": "string"
         }
       },
+      "required": [
+        "id",
+        "cross_account_arn"
+      ],
       "description": "AwsAccessCredential model"
     },
     "createIntegrationsAWS": {
@@ -8333,7 +8424,8 @@
       "type": "object",
       "properties": {
         "external_id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "iam_role_arn": {
           "type": "string"
@@ -8342,30 +8434,46 @@
           "type": "string"
         },
         "vantage_id": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "policies": {
           "$ref": "#/definitions/AwsIamPolicies"
         }
       },
+      "required": [
+        "external_id",
+        "vantage_id",
+        "policies"
+      ],
       "description": "AwsProviderCredential model"
     },
     "AwsIamPolicies": {
       "type": "object",
       "properties": {
         "root": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "autopilot": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "cloudwatch": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         },
         "resources": {
-          "type": "string"
+          "type": "string",
+          "x-nullable": false
         }
-      }
+      },
+      "required": [
+        "root",
+        "autopilot",
+        "cloudwatch",
+        "resources"
+      ]
     }
   }
 }

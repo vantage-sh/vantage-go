@@ -23,21 +23,25 @@ type Dashboard struct {
 
 	// The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// Determines how to group costs in the Dashboard.
+	// Required: true
 	// Enum: ["cumulative","day","week","month"]
-	DateBin string `json:"date_bin,omitempty"`
+	DateBin *string `json:"date_bin"`
 
 	// Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
+	// Required: true
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
-	DateInterval string `json:"date_interval,omitempty"`
+	DateInterval *string `json:"date_interval"`
 
 	// The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2023-09-04
 	EndDate string `json:"end_date,omitempty"`
 
 	// The tokens of the Saved Filters used in the Dashboard.
+	// Required: true
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
 
 	// The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
@@ -46,27 +50,36 @@ type Dashboard struct {
 
 	// The title of the Dashboard.
 	// Example: AWS Dashboard
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
 	// Example: dshbrd_abcd1234567890
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt string `json:"updated_at"`
 
 	// widgets
+	// Required: true
 	Widgets []*DashboardWidget `json:"widgets"`
 
 	// The token for the Workspace the Dashboard is a part of.
 	// Example: wrkspc_abcd1234567890
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this dashboard
 func (m *Dashboard) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDateBin(formats); err != nil {
 		res = append(res, err)
@@ -76,13 +89,42 @@ func (m *Dashboard) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateSavedFilterTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateWidgets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Dashboard) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -122,12 +164,13 @@ func (m *Dashboard) validateDateBinEnum(path, location string, value string) err
 }
 
 func (m *Dashboard) validateDateBin(formats strfmt.Registry) error {
-	if swag.IsZero(m.DateBin) { // not required
-		return nil
+
+	if err := validate.Required("date_bin", "body", m.DateBin); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateDateBinEnum("date_bin", "body", m.DateBin); err != nil {
+	if err := m.validateDateBinEnum("date_bin", "body", *m.DateBin); err != nil {
 		return err
 	}
 
@@ -209,12 +252,49 @@ func (m *Dashboard) validateDateIntervalEnum(path, location string, value string
 }
 
 func (m *Dashboard) validateDateInterval(formats strfmt.Registry) error {
-	if swag.IsZero(m.DateInterval) { // not required
-		return nil
+
+	if err := validate.Required("date_interval", "body", m.DateInterval); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateDateIntervalEnum("date_interval", "body", m.DateInterval); err != nil {
+	if err := m.validateDateIntervalEnum("date_interval", "body", *m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateSavedFilterTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("saved_filter_tokens", "body", m.SavedFilterTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("updated_at", "body", m.UpdatedAt); err != nil {
 		return err
 	}
 
@@ -222,8 +302,9 @@ func (m *Dashboard) validateDateInterval(formats strfmt.Registry) error {
 }
 
 func (m *Dashboard) validateWidgets(formats strfmt.Registry) error {
-	if swag.IsZero(m.Widgets) { // not required
-		return nil
+
+	if err := validate.Required("widgets", "body", m.Widgets); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Widgets); i++ {
@@ -242,6 +323,15 @@ func (m *Dashboard) validateWidgets(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
 	}
 
 	return nil

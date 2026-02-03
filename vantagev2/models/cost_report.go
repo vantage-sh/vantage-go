@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostReport CostReport model
@@ -20,30 +21,37 @@ import (
 type CostReport struct {
 
 	// The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter.
+	// Required: true
 	BusinessMetricTokensWithMetadata []*AttachedBusinessMetricForCostReport `json:"business_metric_tokens_with_metadata"`
 
 	// The chart settings of the CostReport.
-	ChartSettings *ChartSettings `json:"chart_settings,omitempty"`
+	// Required: true
+	ChartSettings *ChartSettings `json:"chart_settings"`
 
 	// The chart type of the CostReport.
-	ChartType string `json:"chart_type,omitempty"`
+	// Required: true
+	ChartType string `json:"chart_type"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The date bin of the CostReport.
-	DateBin string `json:"date_bin,omitempty"`
+	// Required: true
+	DateBin string `json:"date_bin"`
 
 	// The date interval of the CostReport.
-	DateInterval string `json:"date_interval,omitempty"`
+	// Required: true
+	DateInterval string `json:"date_interval"`
 
 	// The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2024-07-15
 	EndDate string `json:"end_date,omitempty"`
 
 	// The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The token for the Folder the CostReport is a part of.
 	FolderToken string `json:"folder_token,omitempty"`
@@ -72,13 +80,16 @@ type CostReport struct {
 
 	// The title of the CostReport.
 	// Example: Production Environment
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the Workspace the CostReport is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this cost report
@@ -93,7 +104,39 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateChartType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateBin(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,8 +147,9 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CostReport) validateBusinessMetricTokensWithMetadata(formats strfmt.Registry) error {
-	if swag.IsZero(m.BusinessMetricTokensWithMetadata) { // not required
-		return nil
+
+	if err := validate.Required("business_metric_tokens_with_metadata", "body", m.BusinessMetricTokensWithMetadata); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.BusinessMetricTokensWithMetadata); i++ {
@@ -130,8 +174,9 @@ func (m *CostReport) validateBusinessMetricTokensWithMetadata(formats strfmt.Reg
 }
 
 func (m *CostReport) validateChartSettings(formats strfmt.Registry) error {
-	if swag.IsZero(m.ChartSettings) { // not required
-		return nil
+
+	if err := validate.Required("chart_settings", "body", m.ChartSettings); err != nil {
+		return err
 	}
 
 	if m.ChartSettings != nil {
@@ -143,6 +188,51 @@ func (m *CostReport) validateChartSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateChartType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("chart_type", "body", m.ChartType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateDateBin(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date_bin", "body", m.DateBin); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateDateInterval(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date_interval", "body", m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
 	}
 
 	return nil
@@ -162,6 +252,33 @@ func (m *CostReport) validateSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
 	}
 
 	return nil
@@ -217,10 +334,6 @@ func (m *CostReport) contextValidateBusinessMetricTokensWithMetadata(ctx context
 func (m *CostReport) contextValidateChartSettings(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ChartSettings != nil {
-
-		if swag.IsZero(m.ChartSettings) { // not required
-			return nil
-		}
 
 		if err := m.ChartSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

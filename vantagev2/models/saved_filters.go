@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // SavedFilters SavedFilters model
@@ -23,6 +24,7 @@ type SavedFilters struct {
 	Links *Links `json:"links,omitempty"`
 
 	// saved filters
+	// Required: true
 	SavedFilters []*SavedFilter `json:"saved_filters"`
 }
 
@@ -64,8 +66,9 @@ func (m *SavedFilters) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *SavedFilters) validateSavedFilters(formats strfmt.Registry) error {
-	if swag.IsZero(m.SavedFilters) { // not required
-		return nil
+
+	if err := validate.Required("saved_filters", "body", m.SavedFilters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.SavedFilters); i++ {

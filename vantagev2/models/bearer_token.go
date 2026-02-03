@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BearerToken bearer token
@@ -19,17 +21,64 @@ type BearerToken struct {
 
 	// The date and time, in UTC, the BearerToken was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The user supplied description of this BearerToken
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description string `json:"description"`
 
 	// The scopes applied to the BearerToken used to authenticate this request.
+	// Required: true
 	Scope []string `json:"scope"`
 }
 
 // Validate validates this bearer token
 func (m *BearerToken) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateScope(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BearerToken) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BearerToken) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BearerToken) validateScope(formats strfmt.Registry) error {
+
+	if err := validate.Required("scope", "body", m.Scope); err != nil {
+		return err
+	}
+
 	return nil
 }
 

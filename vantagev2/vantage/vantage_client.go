@@ -40,6 +40,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/open_api_specification"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendation_views"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
@@ -127,6 +128,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.OpenAPISpecification = open_api_specification.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
+	cli.RecommendationViews = recommendation_views.New(transport, formats)
 	cli.Recommendations = recommendations.New(transport, formats)
 	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
@@ -244,6 +246,8 @@ type Vantage struct {
 
 	Prices prices.ClientService
 
+	RecommendationViews recommendation_views.ClientService
+
 	Recommendations recommendations.ClientService
 
 	ReportNotifications report_notifications.ClientService
@@ -306,6 +310,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.OpenAPISpecification.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
+	c.RecommendationViews.SetTransport(transport)
 	c.Recommendations.SetTransport(transport)
 	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)

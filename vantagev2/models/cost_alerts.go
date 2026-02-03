@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostAlerts CostAlerts model
@@ -20,6 +21,7 @@ import (
 type CostAlerts struct {
 
 	// cost alerts
+	// Required: true
 	CostAlerts []*CostAlert `json:"cost_alerts"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *CostAlerts) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CostAlerts) validateCostAlerts(formats strfmt.Registry) error {
-	if swag.IsZero(m.CostAlerts) { // not required
-		return nil
+
+	if err := validate.Required("cost_alerts", "body", m.CostAlerts); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.CostAlerts); i++ {

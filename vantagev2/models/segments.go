@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Segments Segments model
@@ -23,6 +24,7 @@ type Segments struct {
 	Links *Links `json:"links,omitempty"`
 
 	// segments
+	// Required: true
 	Segments []*Segment `json:"segments"`
 }
 
@@ -64,8 +66,9 @@ func (m *Segments) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Segments) validateSegments(formats strfmt.Registry) error {
-	if swag.IsZero(m.Segments) { // not required
-		return nil
+
+	if err := validate.Required("segments", "body", m.Segments); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Segments); i++ {

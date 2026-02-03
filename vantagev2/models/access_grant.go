@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AccessGrant AccessGrant model
@@ -18,28 +20,117 @@ import (
 type AccessGrant struct {
 
 	// The access status of the AccessGrant.
-	Access string `json:"access,omitempty"`
+	// Required: true
+	Access string `json:"access"`
 
 	// The date and time, in UTC, the AccessGrant was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token for the User who created the AccessGrant.
-	CreatedBy string `json:"created_by,omitempty"`
+	// Required: true
+	CreatedBy *string `json:"created_by"`
 
 	// The token for any resource the AccessGrant is applied to.
 	// Example: rprt_abcd1234
-	ResourceToken string `json:"resource_token,omitempty"`
+	// Required: true
+	ResourceToken string `json:"resource_token"`
 
 	// The Team token for which an AccessGrant is applied to.
-	TeamToken string `json:"team_token,omitempty"`
+	// Required: true
+	TeamToken *string `json:"team_token"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this access grant
 func (m *AccessGrant) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccess(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResourceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTeamToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AccessGrant) validateAccess(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("access", "body", m.Access); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AccessGrant) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AccessGrant) validateCreatedBy(formats strfmt.Registry) error {
+
+	if err := validate.Required("created_by", "body", m.CreatedBy); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AccessGrant) validateResourceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("resource_token", "body", m.ResourceToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AccessGrant) validateTeamToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("team_token", "body", m.TeamToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AccessGrant) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

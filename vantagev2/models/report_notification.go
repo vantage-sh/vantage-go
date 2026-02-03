@@ -22,29 +22,36 @@ type ReportNotification struct {
 
 	// The type of change the ReportNotification is tracking.
 	// Example: percentage
+	// Required: true
 	// Enum: ["percentage","dollars"]
-	Change string `json:"change,omitempty"`
+	Change string `json:"change"`
 
 	// The token for a CostReport the ReportNotification is applied to.
 	// Example: rprt_abcd1234
-	CostReportToken string `json:"cost_report_token,omitempty"`
+	// Required: true
+	CostReportToken string `json:"cost_report_token"`
 
 	// The frequency the ReportNotification is sent.
 	// Example: weekly
+	// Required: true
 	// Enum: ["daily","weekly","monthly"]
-	Frequency string `json:"frequency,omitempty"`
+	Frequency string `json:"frequency"`
 
 	// The Slack or Microsoft Teams channels that receive the notification.
+	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
 	// The title of the ReportNotification.
 	// Example: Acme Report Notification
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The Users that receive the notification.
+	// Required: true
 	UserTokens []string `json:"user_tokens"`
 }
 
@@ -56,7 +63,27 @@ func (m *ReportNotification) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCostReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFrequency(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -96,12 +123,22 @@ func (m *ReportNotification) validateChangeEnum(path, location string, value str
 }
 
 func (m *ReportNotification) validateChange(formats strfmt.Registry) error {
-	if swag.IsZero(m.Change) { // not required
-		return nil
+
+	if err := validate.RequiredString("change", "body", m.Change); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateChangeEnum("change", "body", m.Change); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateCostReportToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("cost_report_token", "body", m.CostReportToken); err != nil {
 		return err
 	}
 
@@ -141,12 +178,49 @@ func (m *ReportNotification) validateFrequencyEnum(path, location string, value 
 }
 
 func (m *ReportNotification) validateFrequency(formats strfmt.Registry) error {
-	if swag.IsZero(m.Frequency) { // not required
-		return nil
+
+	if err := validate.RequiredString("frequency", "body", m.Frequency); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateFrequencyEnum("frequency", "body", m.Frequency); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateRecipientChannels(formats strfmt.Registry) error {
+
+	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateUserTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
 		return err
 	}
 

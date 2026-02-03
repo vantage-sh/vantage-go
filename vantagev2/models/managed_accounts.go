@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ManagedAccounts ManagedAccounts model
@@ -23,6 +24,7 @@ type ManagedAccounts struct {
 	Links *Links `json:"links,omitempty"`
 
 	// managed accounts
+	// Required: true
 	ManagedAccounts []*ManagedAccount `json:"managed_accounts"`
 }
 
@@ -64,8 +66,9 @@ func (m *ManagedAccounts) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *ManagedAccounts) validateManagedAccounts(formats strfmt.Registry) error {
-	if swag.IsZero(m.ManagedAccounts) { // not required
-		return nil
+
+	if err := validate.Required("managed_accounts", "body", m.ManagedAccounts); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ManagedAccounts); i++ {

@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AwsAccessCredential AwsAccessCredential model
@@ -21,14 +23,47 @@ type AwsAccessCredential struct {
 	BucketArn string `json:"bucket_arn,omitempty"`
 
 	// cross account arn
-	CrossAccountArn string `json:"cross_account_arn,omitempty"`
+	// Required: true
+	CrossAccountArn string `json:"cross_account_arn"`
 
 	// id
-	ID int32 `json:"id,omitempty"`
+	// Required: true
+	ID int32 `json:"id"`
 }
 
 // Validate validates this aws access credential
 func (m *AwsAccessCredential) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCrossAccountArn(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AwsAccessCredential) validateCrossAccountArn(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("cross_account_arn", "body", m.CrossAccountArn); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AwsAccessCredential) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", int32(m.ID)); err != nil {
+		return err
+	}
+
 	return nil
 }
 

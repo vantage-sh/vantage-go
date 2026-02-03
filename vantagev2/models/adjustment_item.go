@@ -21,18 +21,22 @@ import (
 type AdjustmentItem struct {
 
 	// Type of adjustment
+	// Required: true
 	// Enum: ["charge","credit","discount"]
-	AdjustmentType string `json:"adjustment_type,omitempty"`
+	AdjustmentType string `json:"adjustment_type"`
 
 	// Amount or percentage value for the adjustment
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// How the adjustment is calculated
+	// Required: true
 	// Enum: ["fixed","percentage"]
-	CalculationType string `json:"calculation_type,omitempty"`
+	CalculationType string `json:"calculation_type"`
 
 	// Name of the adjustment (e.g., 'State Tax', 'Processing Fee')
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 }
 
 // Validate validates this adjustment item
@@ -43,7 +47,15 @@ func (m *AdjustmentItem) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -86,12 +98,22 @@ func (m *AdjustmentItem) validateAdjustmentTypeEnum(path, location string, value
 }
 
 func (m *AdjustmentItem) validateAdjustmentType(formats strfmt.Registry) error {
-	if swag.IsZero(m.AdjustmentType) { // not required
-		return nil
+
+	if err := validate.RequiredString("adjustment_type", "body", m.AdjustmentType); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateAdjustmentTypeEnum("adjustment_type", "body", m.AdjustmentType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AdjustmentItem) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
 		return err
 	}
 
@@ -128,12 +150,22 @@ func (m *AdjustmentItem) validateCalculationTypeEnum(path, location string, valu
 }
 
 func (m *AdjustmentItem) validateCalculationType(formats strfmt.Registry) error {
-	if swag.IsZero(m.CalculationType) { // not required
-		return nil
+
+	if err := validate.RequiredString("calculation_type", "body", m.CalculationType); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateCalculationTypeEnum("calculation_type", "body", m.CalculationType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AdjustmentItem) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
 		return err
 	}
 

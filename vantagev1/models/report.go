@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Report Report model
@@ -19,29 +21,118 @@ type Report struct {
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	EarliestCostDate string `json:"earliest_cost_date,omitempty"`
+	// Required: true
+	EarliestCostDate string `json:"earliest_cost_date"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID string `json:"id"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	LatestCostDate string `json:"latest_cost_date,omitempty"`
+	// Required: true
+	LatestCostDate string `json:"latest_cost_date"`
 
 	// The title of the cost report.
 	// Example: Production Environment
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// The name of the workspace the report is a part of.
-	Workspace string `json:"workspace,omitempty"`
+	// Required: true
+	Workspace string `json:"workspace"`
 }
 
 // Validate validates this report
 func (m *Report) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEarliestCostDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLatestCostDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspace(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Report) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Report) validateEarliestCostDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("earliest_cost_date", "body", m.EarliestCostDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Report) validateID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Report) validateLatestCostDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("latest_cost_date", "body", m.LatestCostDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Report) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Report) validateWorkspace(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace", "body", m.Workspace); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostProviderAccount cost provider account
@@ -19,23 +21,84 @@ type CostProviderAccount struct {
 
 	// The provider account identifier (e.g., AWS account ID, Azure subscription ID).
 	// Example: 123456789012
-	AccountID string `json:"account_id,omitempty"`
+	// Required: true
+	AccountID string `json:"account_id"`
 
 	// The provider type (aws, azure, gcp, etc.).
 	// Example: aws
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 
 	// The provider-specific unique identifier.
 	// Example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
-	ProviderUUID string `json:"provider_uuid,omitempty"`
+	// Required: true
+	ProviderUUID string `json:"provider_uuid"`
 
 	// The display name of the provider account.
 	// Example: Production Account
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 }
 
 // Validate validates this cost provider account
 func (m *CostProviderAccount) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccountID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviderUUID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostProviderAccount) validateAccountID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("account_id", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostProviderAccount) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostProviderAccount) validateProviderUUID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider_uuid", "body", m.ProviderUUID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostProviderAccount) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
 	return nil
 }
 

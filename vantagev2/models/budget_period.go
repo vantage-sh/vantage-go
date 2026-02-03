@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BudgetPeriod budget period
@@ -19,19 +21,66 @@ type BudgetPeriod struct {
 
 	// The amount of the Budget Period as a string to ensure precision.
 	// Example: 100.00
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	EndAt string `json:"end_at,omitempty"`
+	// Required: true
+	EndAt string `json:"end_at"`
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	StartAt string `json:"start_at,omitempty"`
+	// Required: true
+	StartAt string `json:"start_at"`
 }
 
 // Validate validates this budget period
 func (m *BudgetPeriod) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEndAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStartAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BudgetPeriod) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetPeriod) validateEndAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("end_at", "body", m.EndAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetPeriod) validateStartAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("start_at", "body", m.StartAt); err != nil {
+		return err
+	}
+
 	return nil
 }
 

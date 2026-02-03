@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // VirtualTagConfigValue virtual tag config value
@@ -28,7 +29,8 @@ type VirtualTagConfigValue struct {
 
 	// The filter VQL for the Value.
 	// Example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The name of the Value.
 	// Example: Informatics
@@ -43,6 +45,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCostMetric(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,6 +76,15 @@ func (m *VirtualTagConfigValue) validateCostMetric(formats strfmt.Registry) erro
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
 	}
 
 	return nil

@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // TagValues TagValues model
@@ -19,13 +20,21 @@ import (
 // swagger:model TagValues
 type TagValues struct {
 
+	// links
+	Links *Links `json:"links,omitempty"`
+
 	// tag values
+	// Required: true
 	TagValues []*TagValue `json:"tag_values"`
 }
 
 // Validate validates this tag values
 func (m *TagValues) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateLinks(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateTagValues(formats); err != nil {
 		res = append(res, err)
@@ -37,9 +46,29 @@ func (m *TagValues) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TagValues) validateTagValues(formats strfmt.Registry) error {
-	if swag.IsZero(m.TagValues) { // not required
+func (m *TagValues) validateLinks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Links) { // not required
 		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TagValues) validateTagValues(formats strfmt.Registry) error {
+
+	if err := validate.Required("tag_values", "body", m.TagValues); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.TagValues); i++ {
@@ -67,6 +96,10 @@ func (m *TagValues) validateTagValues(formats strfmt.Registry) error {
 func (m *TagValues) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateTagValues(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -74,6 +107,27 @@ func (m *TagValues) ContextValidate(ctx context.Context, formats strfmt.Registry
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *TagValues) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+
+		if swag.IsZero(m.Links) { // not required
+			return nil
+		}
+
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

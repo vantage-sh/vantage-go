@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Me Me model
@@ -20,12 +21,15 @@ import (
 type Me struct {
 
 	// bearer token
-	BearerToken *BearerToken `json:"bearer_token,omitempty"`
+	// Required: true
+	BearerToken *BearerToken `json:"bearer_token"`
 
 	// default workspace token
-	DefaultWorkspaceToken string `json:"default_workspace_token,omitempty"`
+	// Required: true
+	DefaultWorkspaceToken string `json:"default_workspace_token"`
 
 	// workspaces
+	// Required: true
 	Workspaces []*Workspace `json:"workspaces"`
 }
 
@@ -34,6 +38,10 @@ func (m *Me) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBearerToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefaultWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -48,8 +56,9 @@ func (m *Me) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Me) validateBearerToken(formats strfmt.Registry) error {
-	if swag.IsZero(m.BearerToken) { // not required
-		return nil
+
+	if err := validate.Required("bearer_token", "body", m.BearerToken); err != nil {
+		return err
 	}
 
 	if m.BearerToken != nil {
@@ -66,9 +75,19 @@ func (m *Me) validateBearerToken(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Me) validateDefaultWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("default_workspace_token", "body", m.DefaultWorkspaceToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Me) validateWorkspaces(formats strfmt.Registry) error {
-	if swag.IsZero(m.Workspaces) { // not required
-		return nil
+
+	if err := validate.Required("workspaces", "body", m.Workspaces); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Workspaces); i++ {
@@ -113,10 +132,6 @@ func (m *Me) ContextValidate(ctx context.Context, formats strfmt.Registry) error
 func (m *Me) contextValidateBearerToken(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.BearerToken != nil {
-
-		if swag.IsZero(m.BearerToken) { // not required
-			return nil
-		}
 
 		if err := m.BearerToken.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

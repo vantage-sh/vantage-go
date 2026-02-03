@@ -25,6 +25,7 @@ type BusinessMetric struct {
 	CloudwatchFields *CloudwatchFields `json:"cloudwatch_fields,omitempty"`
 
 	// The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
+	// Required: true
 	CostReportTokensWithMetadata []*AttachedCostReportForBusinessMetric `json:"cost_report_tokens_with_metadata"`
 
 	// The token of the Creator of the BusinessMetric.
@@ -36,19 +37,23 @@ type BusinessMetric struct {
 
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
+	// Required: true
 	// Enum: ["datadog_metrics","cloudwatch","csv"]
-	ImportType string `json:"import_type,omitempty"`
+	ImportType string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
-	IntegrationToken string `json:"integration_token,omitempty"`
+	// Required: true
+	IntegrationToken *string `json:"integration_token"`
 
 	// The title of the BusinessMetric.
 	// Example: Total Revenue
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// The token of the BusinessMetric.
 	// Example: bsnss_mtrc_1234
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this business metric
@@ -68,6 +73,18 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateImportType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,8 +114,9 @@ func (m *BusinessMetric) validateCloudwatchFields(formats strfmt.Registry) error
 }
 
 func (m *BusinessMetric) validateCostReportTokensWithMetadata(formats strfmt.Registry) error {
-	if swag.IsZero(m.CostReportTokensWithMetadata) { // not required
-		return nil
+
+	if err := validate.Required("cost_report_tokens_with_metadata", "body", m.CostReportTokensWithMetadata); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.CostReportTokensWithMetadata); i++ {
@@ -174,12 +192,40 @@ func (m *BusinessMetric) validateImportTypeEnum(path, location string, value str
 }
 
 func (m *BusinessMetric) validateImportType(formats strfmt.Registry) error {
-	if swag.IsZero(m.ImportType) { // not required
-		return nil
+
+	if err := validate.RequiredString("import_type", "body", m.ImportType); err != nil {
+		return err
 	}
 
 	// value enum
 	if err := m.validateImportTypeEnum("import_type", "body", m.ImportType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) validateIntegrationToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("integration_token", "body", m.IntegrationToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
 		return err
 	}
 

@@ -22,20 +22,26 @@ type AttachedBusinessMetricForCostReport struct {
 
 	// The token of the BusinessMetric that's attached to the CostReport.
 	// Example: bsnss_mtrc_1234
-	BusinessMetricToken string `json:"business_metric_token,omitempty"`
+	// Required: true
+	BusinessMetricToken string `json:"business_metric_token"`
 
 	// The labels that the BusinessMetric is filtered by within a particular CostReport.
 	LabelFilter []string `json:"label_filter,omitempty"`
 
 	// Determines the scale of the BusinessMetric's values within a particular CostReport.
 	// Example: per_hundred
+	// Required: true
 	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
-	UnitScale string `json:"unit_scale,omitempty"`
+	UnitScale string `json:"unit_scale"`
 }
 
 // Validate validates this attached business metric for cost report
 func (m *AttachedBusinessMetricForCostReport) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateUnitScale(formats); err != nil {
 		res = append(res, err)
@@ -44,6 +50,15 @@ func (m *AttachedBusinessMetricForCostReport) Validate(formats strfmt.Registry) 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AttachedBusinessMetricForCostReport) validateBusinessMetricToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -86,8 +101,9 @@ func (m *AttachedBusinessMetricForCostReport) validateUnitScaleEnum(path, locati
 }
 
 func (m *AttachedBusinessMetricForCostReport) validateUnitScale(formats strfmt.Registry) error {
-	if swag.IsZero(m.UnitScale) { // not required
-		return nil
+
+	if err := validate.RequiredString("unit_scale", "body", m.UnitScale); err != nil {
+		return err
 	}
 
 	// value enum

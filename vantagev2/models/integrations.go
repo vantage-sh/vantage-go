@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Integrations Integrations model
@@ -20,6 +21,7 @@ import (
 type Integrations struct {
 
 	// integrations
+	// Required: true
 	Integrations []*Integration `json:"integrations"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *Integrations) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Integrations) validateIntegrations(formats strfmt.Registry) error {
-	if swag.IsZero(m.Integrations) { // not required
-		return nil
+
+	if err := validate.Required("integrations", "body", m.Integrations); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Integrations); i++ {
