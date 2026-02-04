@@ -7751,99 +7751,10 @@
         "operationId": "getCosts"
       }
     },
-    "/integrations/aws/info": {
-      "get": {
-        "summary": "Get provider information",
-        "description": "Get provider information",
-        "produces": [
-          "application/json"
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "read"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AwsProviderCredential"
-            },
-            "examples": {
-              "application/json": {
-                "external_id": "Tj-AbciBd8123jEabVg",
-                "iam_role_arn": "arn:aws:iam::123456123456:role/vantage-account-sync-d3c35df5-3d23-485d-89ed-a737be57b090",
-                "iam_role_id": "ANOR2C0NBTD164DN34N2B",
-                "policies": {
-                  "root": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"budgets:Describe*\",\"budgets:View*\",\"ce:Get*\",\"ce:Describe*\",\"ce:List*\",\"cur:Describe*\",\"pricing:*\",\"organizations:Describe*\",\"organizations:List*\",\"savingsplans:Describe*\"],\"Resource\":\"*\",\"Effect\":\"Allow\",\"Sid\":\"VantageBillingReadOnly\"}]}",
-                  "autopilot": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"ec2:AcceptReservedInstancesExchangeQuote\",\"ec2:CancelReservedInstancesListing\",\"ec2:CreateReservedInstancesListing\",\"ec2:CreateTags\",\"ec2:DeleteQueuedReservedInstances\",\"ec2:ModifyReservedInstances\",\"ec2:PurchaseReservedInstancesOffering\",\"rds:PurchaseReservedDBInstancesOffering\",\"elasticache:PurchaseReservedCacheNodesOffering\",\"es:PurchaseReservedInstanceOffering\",\"redshift:PurchaseReservedNodeOffering\",\"redshift:AcceptReservedNodeExchange\",\"redshift:GetReservedNodeExchangeConfigurationOptions\",\"redshift:GetReservedNodeExchangeOfferings\",\"savingsplans:*\",\"servicequotas:Get*\",\"servicequotas:List*\",\"servicequotas:RequestServiceQuotaIncrease\",\"support:*\"],\"Resource\":\"*\",\"Effect\":\"Allow\"}]}",
-                  "cloudwatch": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"logs:List*\",\"logs:Describe*\",\"logs:StartQuery\",\"logs:StopQuery\",\"logs:Filter*\",\"logs:Get*\"],\"Resource\":\"arn:aws:logs:*:*:log-group:/aws/containerinsights/*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerInsightsReadOnly\"},{\"Action\":[\"logs:GetQueryResults\",\"logs:DescribeLogGroups\"],\"Resource\":\"arn:aws:logs:*:*:log-group::log-stream:*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerInsightsLogStream\"},{\"Action\":[\"autoscaling:Describe*\",\"cloudwatch:Describe*\",\"cloudwatch:Get*\",\"cloudwatch:List*\"],\"Resource\":\"*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerMetricsAccess\"}]}",
-                  "resources": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Resource\":\"*\",\"Action\":[\"a4b:List*\",\"a4b:Search*\",\"acm:Describe*\",\"acm:List*\",\"acm-pca:Describe*\",\"acm-pca:List*\",\"amplify:ListApps\",\"amplify:ListBranches\",\"amplify:ListDomainAssociations\",\"amplify:ListJobs\",\"application-autoscaling:Describe*\",\"applicationinsights:Describe*\",\"applicationinsights:List*\",\"appmesh:Describe*\",\"appmesh:List*\",\"appstream:Describe*\",\"appstream:List*\",\"appsync:List*\",\"autoscaling-plans:Describe*\",\"athena:Batch*\",\"backup:Describe*\",\"backup:List*\",\"batch:List*\",\"batch:Describe*\",\"budgets:Describe*\",\"budgets:View*\",\"ce:Get*\",\"chatbot:Describe*\",\"chime:List*\",\"chime:Retrieve*\",\"chime:Search*\",\"chime:Validate*\",\"cloud9:Describe*\",\"cloud9:List*\",\"clouddirectory:List*\",\"cloudformation:Describe*\",\"cloudhsm:List*\",\"cloudhsm:Describe*\",\"cloudsearch:Describe*\",\"cloudtrail:Describe*\",\"cloudtrail:Get*\",\"cloudtrail:List*\",\"cloudwatch:Describe*\",\"codeartifact:DescribeDomain\",\"codeartifact:DescribePackageVersion\",\"codeartifact:DescribeRepository\",\"codeartifact:ListDomains\",\"codeartifact:ListPackages\",\"codeartifact:ListPackageVersionAssets\",\"codeartifact:ListPackageVersionDependencies\",\"codeartifact:ListPackageVersions\",\"codeartifact:ListRepositories\",\"codeartifact:ListRepositoriesInDomain\",\"codebuild:DescribeCodeCoverages\",\"codebuild:DescribeTestCases\",\"codebuild:Get*\",\"codebuild:List*\",\"codebuild:BatchGetBuilds\",\"codebuild:BatchGetProjects\",\"codecommit:Describe*\",\"codeguru-profiler:Describe*\",\"codeguru-profiler:List*\",\"codeguru-reviewer:Describe*\",\"codeguru-reviewer:List*\",\"codepipeline:List*\",\"codepipeline:Get*\",\"codestar:Describe*\",\"connect:Describe*\",\"dataexchange:List*\",\"datasync:Describe*\",\"datasync:List*\",\"datapipeline:Describe*\",\"datapipeline:List*\",\"detective:List*\",\"discovery:Describe*\",\"dms:Describe*\",\"ds:Check*\",\"ds:Describe*\",\"ds:List*\",\"dynamodb:Describe*\",\"dynamodb:List*\",\"ec2:Describe*\",\"ec2:GetCapacityReservationUsage\",\"ec2:GetEbsEncryptionByDefault\",\"ec2:SearchTransitGatewayRoutes\",\"ecr:BatchCheck*\",\"ecr:BatchGet*\",\"ecr:Describe*\",\"ecr:List*\",\"eks:DescribeCluster\",\"eks:DescribeUpdate\",\"eks:Describe*\",\"eks:ListClusters\",\"eks:ListUpdates\",\"eks:List*\",\"elasticache:List*\",\"elasticbeanstalk:Check*\",\"elasticbeanstalk:Describe*\",\"elasticbeanstalk:List*\",\"elasticbeanstalk:Request*\",\"elasticbeanstalk:Retrieve*\",\"elasticbeanstalk:Validate*\",\"elasticfilesystem:Describe*\",\"elasticloadbalancing:Describe*\",\"elasticmapreduce:Describe*\",\"elasticmapreduce:View*\",\"elemental-appliances-software:List*\",\"es:Describe*\",\"es:List*\",\"events:Describe*\",\"events:List*\",\"events:Test*\",\"firehose:Describe*\",\"fsx:Describe*\",\"fsx:List*\",\"freertos:Describe*\",\"freertos:List*\",\"glacier:Describe*\",\"globalaccelerator:Describe*\",\"globalaccelerator:List*\",\"glue:ListCrawlers\",\"glue:ListDevEndpoints\",\"glue:ListJobs\",\"glue:ListMLTransforms\",\"glue:ListTriggers\",\"glue:ListWorkflows\",\"guardduty:List*\",\"health:Describe*\",\"iam:Get*\",\"imagebuilder:List*\",\"importexport:List*\",\"inspector:Describe*\",\"inspector:Preview*\",\"iot:Describe*\",\"iotanalytics:Describe*\",\"iotanalytics:List*\",\"iotsitewise:Describe*\",\"iotsitewise:List*\",\"kafka:Describe*\",\"kafka:List*\",\"kinesisanalytics:Describe*\",\"kinesisanalytics:Discover*\",\"kinesisanalytics:List*\",\"kinesisvideo:Describe*\",\"kinesisvideo:List*\",\"kinesis:Describe*\",\"kinesis:List*\",\"kms:Describe*\",\"kms:List*\",\"license-manager:List*\",\"logs:ListTagsLogGroup\",\"logs:TestMetricFilter\",\"mediaconvert:DescribeEndpoints\",\"mediaconvert:List*\",\"mediapackage:List*\",\"mediapackage:Describe*\",\"medialive:List*\",\"medialive:Describe*\",\"mediaconnect:List*\",\"mediaconnect:Describe*\",\"mediapackage-vod:List*\",\"mediapackage-vod:Describe*\",\"mediastore:List*\",\"mediastore:Describe*\",\"mediatailor:List*\",\"mediatailor:Describe*\",\"mgh:Describe*\",\"mgh:List*\",\"mobilehub:Describe*\",\"mobilehub:List*\",\"mobiletargeting:List*\",\"mq:Describe*\",\"mq:List*\",\"opsworks-cm:List*\",\"organizations:Describe*\",\"outposts:List*\",\"personalize:Describe*\",\"personalize:List*\",\"pi:DescribeDimensionKeys\",\"qldb:ListLedgers\",\"qldb:ListTagsForResource\",\"ram:List*\",\"rekognition:List*\",\"rds:List*\",\"redshift:Describe*\",\"redshift:View*\",\"resource-groups:Get*\",\"resource-groups:List*\",\"resource-groups:Search*\",\"robomaker:BatchDescribe*\",\"robomaker:Describe*\",\"robomaker:List*\",\"route53domains:Check*\",\"route53domains:Get*\",\"route53domains:View*\",\"s3:List*\",\"s3:GetBucketLocation\",\"s3:GetBucketTagging\",\"schemas:Describe*\",\"schemas:List*\",\"secretsmanager:List*\",\"secretsmanager:Describe*\",\"securityhub:Describe*\",\"securityhub:List*\",\"serverlessrepo:List*\",\"servicecatalog:Describe*\",\"servicediscovery:Get*\",\"servicediscovery:List*\",\"ses:Describe*\",\"shield:Describe*\",\"snowball:Describe*\",\"snowball:List*\",\"sqs:List*\",\"ssm:Describe*\",\"ssm:List*\",\"sso:Describe*\",\"sso:List*\",\"sso:Search*\",\"sso-directory:Describe*\",\"sso-directory:List*\",\"sso-directory:Search*\",\"states:List*\",\"states:Describe*\",\"storagegateway:Describe*\",\"storagegateway:List*\",\"sts:GetCallerIdentity\",\"sts:GetSessionToken\",\"swf:Describe*\",\"synthetics:Describe*\",\"synthetics:List*\",\"tag:Get*\",\"transfer:Describe*\",\"transfer:List*\",\"transcribe:List*\",\"wafv2:Describe*\",\"worklink:Describe*\",\"worklink:List*\"]}]}"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Integrations"
-        ],
-        "operationId": "getIntegrationsAWSInfo"
-      }
-    },
-    "/integrations/aws": {
-      "post": {
-        "summary": "Create integration",
-        "description": "Create AWS integration.",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "createIntegrationsAWS",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/createIntegrationsAWS"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-              "write"
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AwsAccessCredential"
-            },
-            "examples": {
-              "application/json": {
-                "id": 1,
-                "cross_account_arn": "arn:aws:iam::123456123456:role/vantage-example-cross-account-role",
-                "bucket_arn": "arn:aws:s3:::vantage-cur-example-bucket-name"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Integrations"
-        ],
-        "operationId": "createIntegrationsAWS"
-      }
-    },
     "/integrations/aws/{access_credential_id}": {
-      "get": {
-        "summary": "Get access credential by ID",
-        "description": "Get access credential information for AWS account",
+      "delete": {
+        "summary": "Delete access credential",
+        "description": "Delete access credential information for AWS account",
         "produces": [
           "application/json"
         ],
@@ -7864,27 +7775,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AwsAccessCredential"
-            },
-            "examples": {
-              "application/json": {
-                "id": 1,
-                "cross_account_arn": "arn:aws:iam::123456123456:role/vantage-example-cross-account-role",
-                "bucket_arn": "arn:aws:s3:::vantage-cur-example-bucket-name"
-              }
-            }
-          },
-          "404": {
+          "204": {
             "description": ""
           }
         },
         "tags": [
           "Integrations"
         ],
-        "operationId": "getIntegrationsAWS"
+        "operationId": "deleteIntegrationsAWS"
       },
       "put": {
         "summary": "Update integration",
@@ -7939,9 +7837,9 @@
         ],
         "operationId": "putIntegrationsAWS"
       },
-      "delete": {
-        "summary": "Delete access credential",
-        "description": "Delete access credential information for AWS account",
+      "get": {
+        "summary": "Get access credential by ID",
+        "description": "Get access credential information for AWS account",
         "produces": [
           "application/json"
         ],
@@ -7962,14 +7860,116 @@
           }
         ],
         "responses": {
-          "204": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AwsAccessCredential"
+            },
+            "examples": {
+              "application/json": {
+                "id": 1,
+                "cross_account_arn": "arn:aws:iam::123456123456:role/vantage-example-cross-account-role",
+                "bucket_arn": "arn:aws:s3:::vantage-cur-example-bucket-name"
+              }
+            }
+          },
+          "404": {
             "description": ""
           }
         },
         "tags": [
           "Integrations"
         ],
-        "operationId": "deleteIntegrationsAWS"
+        "operationId": "getIntegrationsAWS"
+      }
+    },
+    "/integrations/aws": {
+      "post": {
+        "summary": "Create integration",
+        "description": "Create AWS integration.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createIntegrationsAWS",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createIntegrationsAWS"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AwsAccessCredential"
+            },
+            "examples": {
+              "application/json": {
+                "id": 1,
+                "cross_account_arn": "arn:aws:iam::123456123456:role/vantage-example-cross-account-role",
+                "bucket_arn": "arn:aws:s3:::vantage-cur-example-bucket-name"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createIntegrationsAWS"
+      }
+    },
+    "/integrations/aws/info": {
+      "get": {
+        "summary": "Get provider information",
+        "description": "Get provider information",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AwsProviderCredential"
+            },
+            "examples": {
+              "application/json": {
+                "external_id": "Tj-AbciBd8123jEabVg",
+                "iam_role_arn": "arn:aws:iam::123456123456:role/vantage-account-sync-d3c35df5-3d23-485d-89ed-a737be57b090",
+                "iam_role_id": "ANOR2C0NBTD164DN34N2B",
+                "policies": {
+                  "root": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"budgets:Describe*\",\"budgets:View*\",\"ce:Get*\",\"ce:Describe*\",\"ce:List*\",\"cur:Describe*\",\"pricing:*\",\"organizations:Describe*\",\"organizations:List*\",\"savingsplans:Describe*\"],\"Resource\":\"*\",\"Effect\":\"Allow\",\"Sid\":\"VantageBillingReadOnly\"}]}",
+                  "autopilot": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"ec2:AcceptReservedInstancesExchangeQuote\",\"ec2:CancelReservedInstancesListing\",\"ec2:CreateReservedInstancesListing\",\"ec2:CreateTags\",\"ec2:DeleteQueuedReservedInstances\",\"ec2:ModifyReservedInstances\",\"ec2:PurchaseReservedInstancesOffering\",\"rds:PurchaseReservedDBInstancesOffering\",\"elasticache:PurchaseReservedCacheNodesOffering\",\"es:PurchaseReservedInstanceOffering\",\"redshift:PurchaseReservedNodeOffering\",\"redshift:AcceptReservedNodeExchange\",\"redshift:GetReservedNodeExchangeConfigurationOptions\",\"redshift:GetReservedNodeExchangeOfferings\",\"savingsplans:*\",\"servicequotas:Get*\",\"servicequotas:List*\",\"servicequotas:RequestServiceQuotaIncrease\",\"support:*\"],\"Resource\":\"*\",\"Effect\":\"Allow\"}]}",
+                  "cloudwatch": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"logs:List*\",\"logs:Describe*\",\"logs:StartQuery\",\"logs:StopQuery\",\"logs:Filter*\",\"logs:Get*\"],\"Resource\":\"arn:aws:logs:*:*:log-group:/aws/containerinsights/*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerInsightsReadOnly\"},{\"Action\":[\"logs:GetQueryResults\",\"logs:DescribeLogGroups\"],\"Resource\":\"arn:aws:logs:*:*:log-group::log-stream:*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerInsightsLogStream\"},{\"Action\":[\"autoscaling:Describe*\",\"cloudwatch:Describe*\",\"cloudwatch:Get*\",\"cloudwatch:List*\"],\"Resource\":\"*\",\"Effect\":\"Allow\",\"Sid\":\"VantageContainerMetricsAccess\"}]}",
+                  "resources": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Resource\":\"*\",\"Action\":[\"a4b:List*\",\"a4b:Search*\",\"acm:Describe*\",\"acm:List*\",\"acm-pca:Describe*\",\"acm-pca:List*\",\"amplify:ListApps\",\"amplify:ListBranches\",\"amplify:ListDomainAssociations\",\"amplify:ListJobs\",\"application-autoscaling:Describe*\",\"applicationinsights:Describe*\",\"applicationinsights:List*\",\"appmesh:Describe*\",\"appmesh:List*\",\"appstream:Describe*\",\"appstream:List*\",\"appsync:List*\",\"autoscaling-plans:Describe*\",\"athena:Batch*\",\"backup:Describe*\",\"backup:List*\",\"batch:List*\",\"batch:Describe*\",\"budgets:Describe*\",\"budgets:View*\",\"ce:Get*\",\"chatbot:Describe*\",\"chime:List*\",\"chime:Retrieve*\",\"chime:Search*\",\"chime:Validate*\",\"cloud9:Describe*\",\"cloud9:List*\",\"clouddirectory:List*\",\"cloudformation:Describe*\",\"cloudhsm:List*\",\"cloudhsm:Describe*\",\"cloudsearch:Describe*\",\"cloudtrail:Describe*\",\"cloudtrail:Get*\",\"cloudtrail:List*\",\"cloudwatch:Describe*\",\"codeartifact:DescribeDomain\",\"codeartifact:DescribePackageVersion\",\"codeartifact:DescribeRepository\",\"codeartifact:ListDomains\",\"codeartifact:ListPackages\",\"codeartifact:ListPackageVersionAssets\",\"codeartifact:ListPackageVersionDependencies\",\"codeartifact:ListPackageVersions\",\"codeartifact:ListRepositories\",\"codeartifact:ListRepositoriesInDomain\",\"codebuild:DescribeCodeCoverages\",\"codebuild:DescribeTestCases\",\"codebuild:Get*\",\"codebuild:List*\",\"codebuild:BatchGetBuilds\",\"codebuild:BatchGetProjects\",\"codecommit:Describe*\",\"codeguru-profiler:Describe*\",\"codeguru-profiler:List*\",\"codeguru-reviewer:Describe*\",\"codeguru-reviewer:List*\",\"codepipeline:List*\",\"codepipeline:Get*\",\"codestar:Describe*\",\"connect:Describe*\",\"dataexchange:List*\",\"datasync:Describe*\",\"datasync:List*\",\"datapipeline:Describe*\",\"datapipeline:List*\",\"detective:List*\",\"discovery:Describe*\",\"dms:Describe*\",\"ds:Check*\",\"ds:Describe*\",\"ds:List*\",\"dynamodb:Describe*\",\"dynamodb:List*\",\"ec2:Describe*\",\"ec2:GetCapacityReservationUsage\",\"ec2:GetEbsEncryptionByDefault\",\"ec2:SearchTransitGatewayRoutes\",\"ecr:BatchCheck*\",\"ecr:BatchGet*\",\"ecr:Describe*\",\"ecr:List*\",\"eks:DescribeCluster\",\"eks:DescribeUpdate\",\"eks:Describe*\",\"eks:ListClusters\",\"eks:ListUpdates\",\"eks:List*\",\"elasticache:List*\",\"elasticbeanstalk:Check*\",\"elasticbeanstalk:Describe*\",\"elasticbeanstalk:List*\",\"elasticbeanstalk:Request*\",\"elasticbeanstalk:Retrieve*\",\"elasticbeanstalk:Validate*\",\"elasticfilesystem:Describe*\",\"elasticloadbalancing:Describe*\",\"elasticmapreduce:Describe*\",\"elasticmapreduce:View*\",\"elemental-appliances-software:List*\",\"es:Describe*\",\"es:List*\",\"events:Describe*\",\"events:List*\",\"events:Test*\",\"firehose:Describe*\",\"fsx:Describe*\",\"fsx:List*\",\"freertos:Describe*\",\"freertos:List*\",\"glacier:Describe*\",\"globalaccelerator:Describe*\",\"globalaccelerator:List*\",\"glue:ListCrawlers\",\"glue:ListDevEndpoints\",\"glue:ListJobs\",\"glue:ListMLTransforms\",\"glue:ListTriggers\",\"glue:ListWorkflows\",\"guardduty:List*\",\"health:Describe*\",\"iam:Get*\",\"imagebuilder:List*\",\"importexport:List*\",\"inspector:Describe*\",\"inspector:Preview*\",\"iot:Describe*\",\"iotanalytics:Describe*\",\"iotanalytics:List*\",\"iotsitewise:Describe*\",\"iotsitewise:List*\",\"kafka:Describe*\",\"kafka:List*\",\"kinesisanalytics:Describe*\",\"kinesisanalytics:Discover*\",\"kinesisanalytics:List*\",\"kinesisvideo:Describe*\",\"kinesisvideo:List*\",\"kinesis:Describe*\",\"kinesis:List*\",\"kms:Describe*\",\"kms:List*\",\"license-manager:List*\",\"logs:ListTagsLogGroup\",\"logs:TestMetricFilter\",\"mediaconvert:DescribeEndpoints\",\"mediaconvert:List*\",\"mediapackage:List*\",\"mediapackage:Describe*\",\"medialive:List*\",\"medialive:Describe*\",\"mediaconnect:List*\",\"mediaconnect:Describe*\",\"mediapackage-vod:List*\",\"mediapackage-vod:Describe*\",\"mediastore:List*\",\"mediastore:Describe*\",\"mediatailor:List*\",\"mediatailor:Describe*\",\"mgh:Describe*\",\"mgh:List*\",\"mobilehub:Describe*\",\"mobilehub:List*\",\"mobiletargeting:List*\",\"mq:Describe*\",\"mq:List*\",\"opsworks-cm:List*\",\"organizations:Describe*\",\"outposts:List*\",\"personalize:Describe*\",\"personalize:List*\",\"pi:DescribeDimensionKeys\",\"qldb:ListLedgers\",\"qldb:ListTagsForResource\",\"ram:List*\",\"rekognition:List*\",\"rds:List*\",\"redshift:Describe*\",\"redshift:View*\",\"resource-groups:Get*\",\"resource-groups:List*\",\"resource-groups:Search*\",\"robomaker:BatchDescribe*\",\"robomaker:Describe*\",\"robomaker:List*\",\"route53domains:Check*\",\"route53domains:Get*\",\"route53domains:View*\",\"s3:List*\",\"s3:GetBucketLocation\",\"s3:GetBucketTagging\",\"schemas:Describe*\",\"schemas:List*\",\"secretsmanager:List*\",\"secretsmanager:Describe*\",\"securityhub:Describe*\",\"securityhub:List*\",\"serverlessrepo:List*\",\"servicecatalog:Describe*\",\"servicediscovery:Get*\",\"servicediscovery:List*\",\"ses:Describe*\",\"shield:Describe*\",\"snowball:Describe*\",\"snowball:List*\",\"sqs:List*\",\"ssm:Describe*\",\"ssm:List*\",\"sso:Describe*\",\"sso:List*\",\"sso:Search*\",\"sso-directory:Describe*\",\"sso-directory:List*\",\"sso-directory:Search*\",\"states:List*\",\"states:Describe*\",\"storagegateway:Describe*\",\"storagegateway:List*\",\"sts:GetCallerIdentity\",\"sts:GetSessionToken\",\"swf:Describe*\",\"synthetics:Describe*\",\"synthetics:List*\",\"tag:Get*\",\"transfer:Describe*\",\"transfer:List*\",\"transcribe:List*\",\"wafv2:Describe*\",\"worklink:Describe*\",\"worklink:List*\"]}]}"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getIntegrationsAWSInfo"
       }
     },
     "/ping": {
@@ -8364,6 +8364,62 @@
       ],
       "description": "Costs model"
     },
+    "putIntegrationsAWS": {
+      "type": "object",
+      "properties": {
+        "cross_account_arn": {
+          "type": "string",
+          "description": "ARN of the role that has cross account access granted for the vantage role."
+        },
+        "bucket_arn": {
+          "type": "string",
+          "description": "The bucket where AWS CUR can be accessed."
+        }
+      },
+      "required": [
+        "cross_account_arn"
+      ],
+      "description": "Update AWS integration."
+    },
+    "AwsAccessCredential": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false
+        },
+        "cross_account_arn": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "bucket_arn": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "cross_account_arn"
+      ],
+      "description": "AwsAccessCredential model"
+    },
+    "createIntegrationsAWS": {
+      "type": "object",
+      "properties": {
+        "cross_account_arn": {
+          "type": "string",
+          "description": "ARN of the role that has cross account access granted for the vantage role."
+        },
+        "bucket_arn": {
+          "type": "string",
+          "description": "The bucket where AWS CUR can be accessed."
+        }
+      },
+      "required": [
+        "cross_account_arn"
+      ],
+      "description": "Create AWS integration."
+    },
     "AwsProviderCredential": {
       "type": "object",
       "properties": {
@@ -8418,62 +8474,6 @@
         "cloudwatch",
         "resources"
       ]
-    },
-    "createIntegrationsAWS": {
-      "type": "object",
-      "properties": {
-        "cross_account_arn": {
-          "type": "string",
-          "description": "ARN of the role that has cross account access granted for the vantage role."
-        },
-        "bucket_arn": {
-          "type": "string",
-          "description": "The bucket where AWS CUR can be accessed."
-        }
-      },
-      "required": [
-        "cross_account_arn"
-      ],
-      "description": "Create AWS integration."
-    },
-    "AwsAccessCredential": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "x-nullable": false
-        },
-        "cross_account_arn": {
-          "type": "string",
-          "x-nullable": false
-        },
-        "bucket_arn": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "cross_account_arn"
-      ],
-      "description": "AwsAccessCredential model"
-    },
-    "putIntegrationsAWS": {
-      "type": "object",
-      "properties": {
-        "cross_account_arn": {
-          "type": "string",
-          "description": "ARN of the role that has cross account access granted for the vantage role."
-        },
-        "bucket_arn": {
-          "type": "string",
-          "description": "The bucket where AWS CUR can be accessed."
-        }
-      },
-      "required": [
-        "cross_account_arn"
-      ],
-      "description": "Update AWS integration."
     }
   }
 }

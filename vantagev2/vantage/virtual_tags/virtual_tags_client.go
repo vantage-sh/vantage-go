@@ -60,9 +60,13 @@ type ClientService interface {
 
 	DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVirtualTagConfigNoContent, error)
 
+	GetAsyncVirtualTagConfigStatus(params *GetAsyncVirtualTagConfigStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAsyncVirtualTagConfigStatusOK, error)
+
 	GetVirtualTagConfig(params *GetVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigOK, error)
 
 	GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigsOK, error)
+
+	UpdateAsyncVirtualTagConfig(params *UpdateAsyncVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAsyncVirtualTagConfigAccepted, error)
 
 	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error)
 
@@ -152,6 +156,47 @@ func (a *Client) DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, au
 }
 
 /*
+GetAsyncVirtualTagConfigStatus gets async virtual tag config update status
+
+Check the status of an async VirtualTagConfig update.
+*/
+func (a *Client) GetAsyncVirtualTagConfigStatus(params *GetAsyncVirtualTagConfigStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAsyncVirtualTagConfigStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAsyncVirtualTagConfigStatusParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getAsyncVirtualTagConfigStatus",
+		Method:             "GET",
+		PathPattern:        "/virtual_tag_configs/async/{request_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAsyncVirtualTagConfigStatusReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAsyncVirtualTagConfigStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getAsyncVirtualTagConfigStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 GetVirtualTagConfig gets virtual tag config by token
 
 Return a specific VirtualTagConfig.
@@ -230,6 +275,47 @@ func (a *Client) GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getVirtualTagConfigs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateAsyncVirtualTagConfig updates virtual tag config asynchronously
+
+Asynchronously updates an existing VirtualTagConfig.
+*/
+func (a *Client) UpdateAsyncVirtualTagConfig(params *UpdateAsyncVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAsyncVirtualTagConfigAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateAsyncVirtualTagConfigParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateAsyncVirtualTagConfig",
+		Method:             "PUT",
+		PathPattern:        "/virtual_tag_configs/{token}/async",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateAsyncVirtualTagConfigReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateAsyncVirtualTagConfigAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateAsyncVirtualTagConfig: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

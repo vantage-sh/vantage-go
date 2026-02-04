@@ -15,8 +15,6 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateKubernetesEfficiencyReportExportParams creates a new CreateKubernetesEfficiencyReportExportParams object,
@@ -64,14 +62,47 @@ CreateKubernetesEfficiencyReportExportParams contains all the parameters to send
 */
 type CreateKubernetesEfficiencyReportExportParams struct {
 
-	// CreateKubernetesEfficiencyReportExport.
-	CreateKubernetesEfficiencyReportExport *models.CreateKubernetesEfficiencyReportExport
+	/* DateBin.
+
+	   The date bin of the data. Defaults to the report's default or day.
+	*/
+	DateBin *string
+
+	/* EndDate.
+
+	   Last date you would like to filter data to. ISO 8601 formatted.
+	*/
+	EndDate *string
+
+	/* Filter.
+
+	   The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+	*/
+	Filter *string
 
 	/* Groupings.
 
 	   Group the results by specific field(s). Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.
 	*/
 	Groupings []string
+
+	/* KubernetesEfficiencyReportToken.
+
+	   The KubernetesEfficiencyReport token. If not provided, the default report for the workspace will be used.
+	*/
+	KubernetesEfficiencyReportToken *string
+
+	/* StartDate.
+
+	   First date you would like to filter data from. ISO 8601 formatted.
+	*/
+	StartDate *string
+
+	/* WorkspaceToken.
+
+	   The token of the Workspace to export data from. Ignored if 'kubernetes_efficiency_report_token' is set. Required if the API token is associated with multiple Workspaces.
+	*/
+	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -126,15 +157,37 @@ func (o *CreateKubernetesEfficiencyReportExportParams) SetHTTPClient(client *htt
 	o.HTTPClient = client
 }
 
-// WithCreateKubernetesEfficiencyReportExport adds the createKubernetesEfficiencyReportExport to the create kubernetes efficiency report export params
-func (o *CreateKubernetesEfficiencyReportExportParams) WithCreateKubernetesEfficiencyReportExport(createKubernetesEfficiencyReportExport *models.CreateKubernetesEfficiencyReportExport) *CreateKubernetesEfficiencyReportExportParams {
-	o.SetCreateKubernetesEfficiencyReportExport(createKubernetesEfficiencyReportExport)
+// WithDateBin adds the dateBin to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithDateBin(dateBin *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetDateBin(dateBin)
 	return o
 }
 
-// SetCreateKubernetesEfficiencyReportExport adds the createKubernetesEfficiencyReportExport to the create kubernetes efficiency report export params
-func (o *CreateKubernetesEfficiencyReportExportParams) SetCreateKubernetesEfficiencyReportExport(createKubernetesEfficiencyReportExport *models.CreateKubernetesEfficiencyReportExport) {
-	o.CreateKubernetesEfficiencyReportExport = createKubernetesEfficiencyReportExport
+// SetDateBin adds the dateBin to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetDateBin(dateBin *string) {
+	o.DateBin = dateBin
+}
+
+// WithEndDate adds the endDate to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithEndDate(endDate *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetEndDate(endDate)
+	return o
+}
+
+// SetEndDate adds the endDate to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetEndDate(endDate *string) {
+	o.EndDate = endDate
+}
+
+// WithFilter adds the filter to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithFilter(filter *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetFilter(filter)
+	return o
+}
+
+// SetFilter adds the filter to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetFilter(filter *string) {
+	o.Filter = filter
 }
 
 // WithGroupings adds the groupings to the create kubernetes efficiency report export params
@@ -148,6 +201,39 @@ func (o *CreateKubernetesEfficiencyReportExportParams) SetGroupings(groupings []
 	o.Groupings = groupings
 }
 
+// WithKubernetesEfficiencyReportToken adds the kubernetesEfficiencyReportToken to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithKubernetesEfficiencyReportToken(kubernetesEfficiencyReportToken *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetKubernetesEfficiencyReportToken(kubernetesEfficiencyReportToken)
+	return o
+}
+
+// SetKubernetesEfficiencyReportToken adds the kubernetesEfficiencyReportToken to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetKubernetesEfficiencyReportToken(kubernetesEfficiencyReportToken *string) {
+	o.KubernetesEfficiencyReportToken = kubernetesEfficiencyReportToken
+}
+
+// WithStartDate adds the startDate to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithStartDate(startDate *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetStartDate(startDate)
+	return o
+}
+
+// SetStartDate adds the startDate to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetStartDate(startDate *string) {
+	o.StartDate = startDate
+}
+
+// WithWorkspaceToken adds the workspaceToken to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) WithWorkspaceToken(workspaceToken *string) *CreateKubernetesEfficiencyReportExportParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the create kubernetes efficiency report export params
+func (o *CreateKubernetesEfficiencyReportExportParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *CreateKubernetesEfficiencyReportExportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -155,9 +241,49 @@ func (o *CreateKubernetesEfficiencyReportExportParams) WriteToRequest(r runtime.
 		return err
 	}
 	var res []error
-	if o.CreateKubernetesEfficiencyReportExport != nil {
-		if err := r.SetBodyParam(o.CreateKubernetesEfficiencyReportExport); err != nil {
-			return err
+
+	if o.DateBin != nil {
+
+		// form param date_bin
+		var frDateBin string
+		if o.DateBin != nil {
+			frDateBin = *o.DateBin
+		}
+		fDateBin := frDateBin
+		if fDateBin != "" {
+			if err := r.SetFormParam("date_bin", fDateBin); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EndDate != nil {
+
+		// form param end_date
+		var frEndDate string
+		if o.EndDate != nil {
+			frEndDate = *o.EndDate
+		}
+		fEndDate := frEndDate
+		if fEndDate != "" {
+			if err := r.SetFormParam("end_date", fEndDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Filter != nil {
+
+		// form param filter
+		var frFilter string
+		if o.Filter != nil {
+			frFilter = *o.Filter
+		}
+		fFilter := frFilter
+		if fFilter != "" {
+			if err := r.SetFormParam("filter", fFilter); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -169,6 +295,51 @@ func (o *CreateKubernetesEfficiencyReportExportParams) WriteToRequest(r runtime.
 		// query array param groupings
 		if err := r.SetQueryParam("groupings", joinedGroupings...); err != nil {
 			return err
+		}
+	}
+
+	if o.KubernetesEfficiencyReportToken != nil {
+
+		// form param kubernetes_efficiency_report_token
+		var frKubernetesEfficiencyReportToken string
+		if o.KubernetesEfficiencyReportToken != nil {
+			frKubernetesEfficiencyReportToken = *o.KubernetesEfficiencyReportToken
+		}
+		fKubernetesEfficiencyReportToken := frKubernetesEfficiencyReportToken
+		if fKubernetesEfficiencyReportToken != "" {
+			if err := r.SetFormParam("kubernetes_efficiency_report_token", fKubernetesEfficiencyReportToken); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.StartDate != nil {
+
+		// form param start_date
+		var frStartDate string
+		if o.StartDate != nil {
+			frStartDate = *o.StartDate
+		}
+		fStartDate := frStartDate
+		if fStartDate != "" {
+			if err := r.SetFormParam("start_date", fStartDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// form param workspace_token
+		var frWorkspaceToken string
+		if o.WorkspaceToken != nil {
+			frWorkspaceToken = *o.WorkspaceToken
+		}
+		fWorkspaceToken := frWorkspaceToken
+		if fWorkspaceToken != "" {
+			if err := r.SetFormParam("workspace_token", fWorkspaceToken); err != nil {
+				return err
+			}
 		}
 	}
 

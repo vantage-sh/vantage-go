@@ -14,8 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/vantage-sh/vantage-go/vantagev2/models"
+	"github.com/go-openapi/swag"
 )
 
 // NewUpdateWorkspaceParams creates a new UpdateWorkspaceParams object,
@@ -63,8 +62,33 @@ UpdateWorkspaceParams contains all the parameters to send to the API endpoint
 */
 type UpdateWorkspaceParams struct {
 
-	// UpdateWorkspace.
-	UpdateWorkspace *models.UpdateWorkspace
+	/* Currency.
+
+	   Currency code for the workspace.
+	*/
+	Currency *string
+
+	/* EnableCurrencyConversion.
+
+	   Enable currency conversion for the workspace.
+
+	   Default: true
+	*/
+	EnableCurrencyConversion *bool
+
+	/* ExchangeRateDate.
+
+	   The date to use for currency conversion.
+
+	   Default: "daily_rate"
+	*/
+	ExchangeRateDate *string
+
+	/* Name.
+
+	   Name of the workspace.
+	*/
+	Name *string
 
 	// WorkspaceToken.
 	WorkspaceToken string
@@ -86,7 +110,21 @@ func (o *UpdateWorkspaceParams) WithDefaults() *UpdateWorkspaceParams {
 //
 // All values with no default are reset to their zero value.
 func (o *UpdateWorkspaceParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		enableCurrencyConversionDefault = bool(true)
+
+		exchangeRateDateDefault = string("daily_rate")
+	)
+
+	val := UpdateWorkspaceParams{
+		EnableCurrencyConversion: &enableCurrencyConversionDefault,
+		ExchangeRateDate:         &exchangeRateDateDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update workspace params
@@ -122,15 +160,48 @@ func (o *UpdateWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithUpdateWorkspace adds the updateWorkspace to the update workspace params
-func (o *UpdateWorkspaceParams) WithUpdateWorkspace(updateWorkspace *models.UpdateWorkspace) *UpdateWorkspaceParams {
-	o.SetUpdateWorkspace(updateWorkspace)
+// WithCurrency adds the currency to the update workspace params
+func (o *UpdateWorkspaceParams) WithCurrency(currency *string) *UpdateWorkspaceParams {
+	o.SetCurrency(currency)
 	return o
 }
 
-// SetUpdateWorkspace adds the updateWorkspace to the update workspace params
-func (o *UpdateWorkspaceParams) SetUpdateWorkspace(updateWorkspace *models.UpdateWorkspace) {
-	o.UpdateWorkspace = updateWorkspace
+// SetCurrency adds the currency to the update workspace params
+func (o *UpdateWorkspaceParams) SetCurrency(currency *string) {
+	o.Currency = currency
+}
+
+// WithEnableCurrencyConversion adds the enableCurrencyConversion to the update workspace params
+func (o *UpdateWorkspaceParams) WithEnableCurrencyConversion(enableCurrencyConversion *bool) *UpdateWorkspaceParams {
+	o.SetEnableCurrencyConversion(enableCurrencyConversion)
+	return o
+}
+
+// SetEnableCurrencyConversion adds the enableCurrencyConversion to the update workspace params
+func (o *UpdateWorkspaceParams) SetEnableCurrencyConversion(enableCurrencyConversion *bool) {
+	o.EnableCurrencyConversion = enableCurrencyConversion
+}
+
+// WithExchangeRateDate adds the exchangeRateDate to the update workspace params
+func (o *UpdateWorkspaceParams) WithExchangeRateDate(exchangeRateDate *string) *UpdateWorkspaceParams {
+	o.SetExchangeRateDate(exchangeRateDate)
+	return o
+}
+
+// SetExchangeRateDate adds the exchangeRateDate to the update workspace params
+func (o *UpdateWorkspaceParams) SetExchangeRateDate(exchangeRateDate *string) {
+	o.ExchangeRateDate = exchangeRateDate
+}
+
+// WithName adds the name to the update workspace params
+func (o *UpdateWorkspaceParams) WithName(name *string) *UpdateWorkspaceParams {
+	o.SetName(name)
+	return o
+}
+
+// SetName adds the name to the update workspace params
+func (o *UpdateWorkspaceParams) SetName(name *string) {
+	o.Name = name
 }
 
 // WithWorkspaceToken adds the workspaceToken to the update workspace params
@@ -151,9 +222,64 @@ func (o *UpdateWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-	if o.UpdateWorkspace != nil {
-		if err := r.SetBodyParam(o.UpdateWorkspace); err != nil {
-			return err
+
+	if o.Currency != nil {
+
+		// form param currency
+		var frCurrency string
+		if o.Currency != nil {
+			frCurrency = *o.Currency
+		}
+		fCurrency := frCurrency
+		if fCurrency != "" {
+			if err := r.SetFormParam("currency", fCurrency); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EnableCurrencyConversion != nil {
+
+		// form param enable_currency_conversion
+		var frEnableCurrencyConversion bool
+		if o.EnableCurrencyConversion != nil {
+			frEnableCurrencyConversion = *o.EnableCurrencyConversion
+		}
+		fEnableCurrencyConversion := swag.FormatBool(frEnableCurrencyConversion)
+		if fEnableCurrencyConversion != "" {
+			if err := r.SetFormParam("enable_currency_conversion", fEnableCurrencyConversion); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ExchangeRateDate != nil {
+
+		// form param exchange_rate_date
+		var frExchangeRateDate string
+		if o.ExchangeRateDate != nil {
+			frExchangeRateDate = *o.ExchangeRateDate
+		}
+		fExchangeRateDate := frExchangeRateDate
+		if fExchangeRateDate != "" {
+			if err := r.SetFormParam("exchange_rate_date", fExchangeRateDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Name != nil {
+
+		// form param name
+		var frName string
+		if o.Name != nil {
+			frName = *o.Name
+		}
+		fName := frName
+		if fName != "" {
+			if err := r.SetFormParam("name", fName); err != nil {
+				return err
+			}
 		}
 	}
 

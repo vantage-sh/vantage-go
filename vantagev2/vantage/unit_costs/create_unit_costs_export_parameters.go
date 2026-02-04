@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateUnitCostsExportParams creates a new CreateUnitCostsExportParams object,
@@ -63,8 +61,35 @@ CreateUnitCostsExportParams contains all the parameters to send to the API endpo
 */
 type CreateUnitCostsExportParams struct {
 
-	// CreateUnitCostsExport.
-	CreateUnitCostsExport *models.CreateUnitCostsExport
+	/* CostReportToken.
+
+	   The CostReport token.
+	*/
+	CostReportToken string
+
+	/* DateBin.
+
+	   The date bin of the unit costs. Defaults to the report's default or day.
+	*/
+	DateBin *string
+
+	/* EndDate.
+
+	   Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.
+	*/
+	EndDate *string
+
+	/* StartDate.
+
+	   First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.
+	*/
+	StartDate *string
+
+	/* WorkspaceToken.
+
+	   The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.
+	*/
+	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +144,59 @@ func (o *CreateUnitCostsExportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCreateUnitCostsExport adds the createUnitCostsExport to the create unit costs export params
-func (o *CreateUnitCostsExportParams) WithCreateUnitCostsExport(createUnitCostsExport *models.CreateUnitCostsExport) *CreateUnitCostsExportParams {
-	o.SetCreateUnitCostsExport(createUnitCostsExport)
+// WithCostReportToken adds the costReportToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithCostReportToken(costReportToken string) *CreateUnitCostsExportParams {
+	o.SetCostReportToken(costReportToken)
 	return o
 }
 
-// SetCreateUnitCostsExport adds the createUnitCostsExport to the create unit costs export params
-func (o *CreateUnitCostsExportParams) SetCreateUnitCostsExport(createUnitCostsExport *models.CreateUnitCostsExport) {
-	o.CreateUnitCostsExport = createUnitCostsExport
+// SetCostReportToken adds the costReportToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetCostReportToken(costReportToken string) {
+	o.CostReportToken = costReportToken
+}
+
+// WithDateBin adds the dateBin to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithDateBin(dateBin *string) *CreateUnitCostsExportParams {
+	o.SetDateBin(dateBin)
+	return o
+}
+
+// SetDateBin adds the dateBin to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetDateBin(dateBin *string) {
+	o.DateBin = dateBin
+}
+
+// WithEndDate adds the endDate to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithEndDate(endDate *string) *CreateUnitCostsExportParams {
+	o.SetEndDate(endDate)
+	return o
+}
+
+// SetEndDate adds the endDate to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetEndDate(endDate *string) {
+	o.EndDate = endDate
+}
+
+// WithStartDate adds the startDate to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithStartDate(startDate *string) *CreateUnitCostsExportParams {
+	o.SetStartDate(startDate)
+	return o
+}
+
+// SetStartDate adds the startDate to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetStartDate(startDate *string) {
+	o.StartDate = startDate
+}
+
+// WithWorkspaceToken adds the workspaceToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) WithWorkspaceToken(workspaceToken *string) *CreateUnitCostsExportParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the create unit costs export params
+func (o *CreateUnitCostsExportParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,9 +206,73 @@ func (o *CreateUnitCostsExportParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-	if o.CreateUnitCostsExport != nil {
-		if err := r.SetBodyParam(o.CreateUnitCostsExport); err != nil {
+
+	// form param cost_report_token
+	frCostReportToken := o.CostReportToken
+	fCostReportToken := frCostReportToken
+	if fCostReportToken != "" {
+		if err := r.SetFormParam("cost_report_token", fCostReportToken); err != nil {
 			return err
+		}
+	}
+
+	if o.DateBin != nil {
+
+		// form param date_bin
+		var frDateBin string
+		if o.DateBin != nil {
+			frDateBin = *o.DateBin
+		}
+		fDateBin := frDateBin
+		if fDateBin != "" {
+			if err := r.SetFormParam("date_bin", fDateBin); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EndDate != nil {
+
+		// form param end_date
+		var frEndDate string
+		if o.EndDate != nil {
+			frEndDate = *o.EndDate
+		}
+		fEndDate := frEndDate
+		if fEndDate != "" {
+			if err := r.SetFormParam("end_date", fEndDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.StartDate != nil {
+
+		// form param start_date
+		var frStartDate string
+		if o.StartDate != nil {
+			frStartDate = *o.StartDate
+		}
+		fStartDate := frStartDate
+		if fStartDate != "" {
+			if err := r.SetFormParam("start_date", fStartDate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// form param workspace_token
+		var frWorkspaceToken string
+		if o.WorkspaceToken != nil {
+			frWorkspaceToken = *o.WorkspaceToken
+		}
+		fWorkspaceToken := frWorkspaceToken
+		if fWorkspaceToken != "" {
+			if err := r.SetFormParam("workspace_token", fWorkspaceToken); err != nil {
+				return err
+			}
 		}
 	}
 

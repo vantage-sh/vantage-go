@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewUpdateIntegrationParams creates a new UpdateIntegrationParams object,
@@ -66,8 +64,11 @@ type UpdateIntegrationParams struct {
 	// IntegrationToken.
 	IntegrationToken string
 
-	// UpdateIntegration.
-	UpdateIntegration *models.UpdateIntegration
+	/* WorkspaceTokens.
+
+	   The Workspace tokens to associate to the Integration.
+	*/
+	WorkspaceTokens []string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -133,15 +134,15 @@ func (o *UpdateIntegrationParams) SetIntegrationToken(integrationToken string) {
 	o.IntegrationToken = integrationToken
 }
 
-// WithUpdateIntegration adds the updateIntegration to the update integration params
-func (o *UpdateIntegrationParams) WithUpdateIntegration(updateIntegration *models.UpdateIntegration) *UpdateIntegrationParams {
-	o.SetUpdateIntegration(updateIntegration)
+// WithWorkspaceTokens adds the workspaceTokens to the update integration params
+func (o *UpdateIntegrationParams) WithWorkspaceTokens(workspaceTokens []string) *UpdateIntegrationParams {
+	o.SetWorkspaceTokens(workspaceTokens)
 	return o
 }
 
-// SetUpdateIntegration adds the updateIntegration to the update integration params
-func (o *UpdateIntegrationParams) SetUpdateIntegration(updateIntegration *models.UpdateIntegration) {
-	o.UpdateIntegration = updateIntegration
+// SetWorkspaceTokens adds the workspaceTokens to the update integration params
+func (o *UpdateIntegrationParams) SetWorkspaceTokens(workspaceTokens []string) {
+	o.WorkspaceTokens = workspaceTokens
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -156,8 +157,8 @@ func (o *UpdateIntegrationParams) WriteToRequest(r runtime.ClientRequest, reg st
 	if err := r.SetPathParam("integration_token", o.IntegrationToken); err != nil {
 		return err
 	}
-	if o.UpdateIntegration != nil {
-		if err := r.SetBodyParam(o.UpdateIntegration); err != nil {
+	if o.WorkspaceTokens != nil {
+		if err := r.SetBodyParam(o.WorkspaceTokens); err != nil {
 			return err
 		}
 	}

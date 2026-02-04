@@ -36,7 +36,7 @@ type ForecastedCost struct {
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
 	// Required: true
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel"]
 	Provider string `json:"provider"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
@@ -116,7 +116,7 @@ var forecastedCostTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -212,6 +212,9 @@ const (
 
 	// ForecastedCostProviderElastic captures enum value "elastic"
 	ForecastedCostProviderElastic string = "elastic"
+
+	// ForecastedCostProviderVercel captures enum value "vercel"
+	ForecastedCostProviderVercel string = "vercel"
 )
 
 // prop value enum

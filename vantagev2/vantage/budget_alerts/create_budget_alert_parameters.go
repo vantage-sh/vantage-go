@@ -14,8 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/vantage-sh/vantage-go/vantagev2/models"
+	"github.com/go-openapi/swag"
 )
 
 // NewCreateBudgetAlertParams creates a new CreateBudgetAlertParams object,
@@ -63,8 +62,43 @@ CreateBudgetAlertParams contains all the parameters to send to the API endpoint
 */
 type CreateBudgetAlertParams struct {
 
-	// CreateBudgetAlert.
-	CreateBudgetAlert *models.CreateBudgetAlert
+	/* BudgetTokens.
+
+	   The tokens of the Budget that has the alert.
+	*/
+	BudgetTokens []string
+
+	/* DurationInDays.
+
+	   The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.
+	*/
+	DurationInDays string
+
+	/* PeriodToTrack.
+
+	   The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Defaults to start_of_the_month if not passed. Possible values: start_of_the_month, end_of_the_month.
+	*/
+	PeriodToTrack *string
+
+	/* RecipientChannels.
+
+	   The channels receiving the alerts. Requires an integration provider to be connected.
+	*/
+	RecipientChannels []string
+
+	/* Threshold.
+
+	   The threshold amount that must be met for the alert to fire.
+
+	   Format: int32
+	*/
+	Threshold int32
+
+	/* UserTokens.
+
+	   The tokens of the users that receive the alert.
+	*/
+	UserTokens []string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,15 +153,70 @@ func (o *CreateBudgetAlertParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCreateBudgetAlert adds the createBudgetAlert to the create budget alert params
-func (o *CreateBudgetAlertParams) WithCreateBudgetAlert(createBudgetAlert *models.CreateBudgetAlert) *CreateBudgetAlertParams {
-	o.SetCreateBudgetAlert(createBudgetAlert)
+// WithBudgetTokens adds the budgetTokens to the create budget alert params
+func (o *CreateBudgetAlertParams) WithBudgetTokens(budgetTokens []string) *CreateBudgetAlertParams {
+	o.SetBudgetTokens(budgetTokens)
 	return o
 }
 
-// SetCreateBudgetAlert adds the createBudgetAlert to the create budget alert params
-func (o *CreateBudgetAlertParams) SetCreateBudgetAlert(createBudgetAlert *models.CreateBudgetAlert) {
-	o.CreateBudgetAlert = createBudgetAlert
+// SetBudgetTokens adds the budgetTokens to the create budget alert params
+func (o *CreateBudgetAlertParams) SetBudgetTokens(budgetTokens []string) {
+	o.BudgetTokens = budgetTokens
+}
+
+// WithDurationInDays adds the durationInDays to the create budget alert params
+func (o *CreateBudgetAlertParams) WithDurationInDays(durationInDays string) *CreateBudgetAlertParams {
+	o.SetDurationInDays(durationInDays)
+	return o
+}
+
+// SetDurationInDays adds the durationInDays to the create budget alert params
+func (o *CreateBudgetAlertParams) SetDurationInDays(durationInDays string) {
+	o.DurationInDays = durationInDays
+}
+
+// WithPeriodToTrack adds the periodToTrack to the create budget alert params
+func (o *CreateBudgetAlertParams) WithPeriodToTrack(periodToTrack *string) *CreateBudgetAlertParams {
+	o.SetPeriodToTrack(periodToTrack)
+	return o
+}
+
+// SetPeriodToTrack adds the periodToTrack to the create budget alert params
+func (o *CreateBudgetAlertParams) SetPeriodToTrack(periodToTrack *string) {
+	o.PeriodToTrack = periodToTrack
+}
+
+// WithRecipientChannels adds the recipientChannels to the create budget alert params
+func (o *CreateBudgetAlertParams) WithRecipientChannels(recipientChannels []string) *CreateBudgetAlertParams {
+	o.SetRecipientChannels(recipientChannels)
+	return o
+}
+
+// SetRecipientChannels adds the recipientChannels to the create budget alert params
+func (o *CreateBudgetAlertParams) SetRecipientChannels(recipientChannels []string) {
+	o.RecipientChannels = recipientChannels
+}
+
+// WithThreshold adds the threshold to the create budget alert params
+func (o *CreateBudgetAlertParams) WithThreshold(threshold int32) *CreateBudgetAlertParams {
+	o.SetThreshold(threshold)
+	return o
+}
+
+// SetThreshold adds the threshold to the create budget alert params
+func (o *CreateBudgetAlertParams) SetThreshold(threshold int32) {
+	o.Threshold = threshold
+}
+
+// WithUserTokens adds the userTokens to the create budget alert params
+func (o *CreateBudgetAlertParams) WithUserTokens(userTokens []string) *CreateBudgetAlertParams {
+	o.SetUserTokens(userTokens)
+	return o
+}
+
+// SetUserTokens adds the userTokens to the create budget alert params
+func (o *CreateBudgetAlertParams) SetUserTokens(userTokens []string) {
+	o.UserTokens = userTokens
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -137,8 +226,69 @@ func (o *CreateBudgetAlertParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.CreateBudgetAlert != nil {
-		if err := r.SetBodyParam(o.CreateBudgetAlert); err != nil {
+
+	if o.BudgetTokens != nil {
+
+		// binding items for budget_tokens
+		joinedBudgetTokens := o.bindParamBudgetTokens(reg)
+
+		// form array param budget_tokens
+		if err := r.SetFormParam("budget_tokens", joinedBudgetTokens...); err != nil {
+			return err
+		}
+	}
+
+	// form param duration_in_days
+	frDurationInDays := o.DurationInDays
+	fDurationInDays := frDurationInDays
+	if fDurationInDays != "" {
+		if err := r.SetFormParam("duration_in_days", fDurationInDays); err != nil {
+			return err
+		}
+	}
+
+	if o.PeriodToTrack != nil {
+
+		// form param period_to_track
+		var frPeriodToTrack string
+		if o.PeriodToTrack != nil {
+			frPeriodToTrack = *o.PeriodToTrack
+		}
+		fPeriodToTrack := frPeriodToTrack
+		if fPeriodToTrack != "" {
+			if err := r.SetFormParam("period_to_track", fPeriodToTrack); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.RecipientChannels != nil {
+
+		// binding items for recipient_channels
+		joinedRecipientChannels := o.bindParamRecipientChannels(reg)
+
+		// form array param recipient_channels
+		if err := r.SetFormParam("recipient_channels", joinedRecipientChannels...); err != nil {
+			return err
+		}
+	}
+
+	// form param threshold
+	frThreshold := o.Threshold
+	fThreshold := swag.FormatInt32(frThreshold)
+	if fThreshold != "" {
+		if err := r.SetFormParam("threshold", fThreshold); err != nil {
+			return err
+		}
+	}
+
+	if o.UserTokens != nil {
+
+		// binding items for user_tokens
+		joinedUserTokens := o.bindParamUserTokens(reg)
+
+		// form array param user_tokens
+		if err := r.SetFormParam("user_tokens", joinedUserTokens...); err != nil {
 			return err
 		}
 	}
@@ -147,4 +297,55 @@ func (o *CreateBudgetAlertParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamCreateBudgetAlert binds the parameter budget_tokens
+func (o *CreateBudgetAlertParams) bindParamBudgetTokens(formats strfmt.Registry) []string {
+	budgetTokensIR := o.BudgetTokens
+
+	var budgetTokensIC []string
+	for _, budgetTokensIIR := range budgetTokensIR { // explode []string
+
+		budgetTokensIIV := budgetTokensIIR // string as string
+		budgetTokensIC = append(budgetTokensIC, budgetTokensIIV)
+	}
+
+	// items.CollectionFormat: ""
+	budgetTokensIS := swag.JoinByFormat(budgetTokensIC, "")
+
+	return budgetTokensIS
+}
+
+// bindParamCreateBudgetAlert binds the parameter recipient_channels
+func (o *CreateBudgetAlertParams) bindParamRecipientChannels(formats strfmt.Registry) []string {
+	recipientChannelsIR := o.RecipientChannels
+
+	var recipientChannelsIC []string
+	for _, recipientChannelsIIR := range recipientChannelsIR { // explode []string
+
+		recipientChannelsIIV := recipientChannelsIIR // string as string
+		recipientChannelsIC = append(recipientChannelsIC, recipientChannelsIIV)
+	}
+
+	// items.CollectionFormat: ""
+	recipientChannelsIS := swag.JoinByFormat(recipientChannelsIC, "")
+
+	return recipientChannelsIS
+}
+
+// bindParamCreateBudgetAlert binds the parameter user_tokens
+func (o *CreateBudgetAlertParams) bindParamUserTokens(formats strfmt.Registry) []string {
+	userTokensIR := o.UserTokens
+
+	var userTokensIC []string
+	for _, userTokensIIR := range userTokensIR { // explode []string
+
+		userTokensIIV := userTokensIIR // string as string
+		userTokensIC = append(userTokensIC, userTokensIIV)
+	}
+
+	// items.CollectionFormat: ""
+	userTokensIS := swag.JoinByFormat(userTokensIC, "")
+
+	return userTokensIS
 }
