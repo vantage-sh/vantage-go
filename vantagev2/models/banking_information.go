@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BankingInformation banking information
@@ -19,32 +20,70 @@ import (
 type BankingInformation struct {
 
 	// Name of the bank
-	BankName string `json:"bank_name,omitempty"`
+	// Required: true
+	BankName *string `json:"bank_name"`
 
 	// Name of the account beneficiary
-	BeneficiaryName string `json:"beneficiary_name,omitempty"`
+	// Required: true
+	BeneficiaryName *string `json:"beneficiary_name"`
 
 	// Encrypted banking details (account numbers, routing info)
 	SecureData *BankingInformationSecureData `json:"secure_data,omitempty"`
 
 	// Tax identification number
-	TaxID string `json:"tax_id,omitempty"`
+	// Required: true
+	TaxID *string `json:"tax_id"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this banking information
 func (m *BankingInformation) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBankName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBeneficiaryName(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSecureData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTaxID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *BankingInformation) validateBankName(formats strfmt.Registry) error {
+
+	if err := validate.Required("bank_name", "body", m.BankName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BankingInformation) validateBeneficiaryName(formats strfmt.Registry) error {
+
+	if err := validate.Required("beneficiary_name", "body", m.BeneficiaryName); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -62,6 +101,24 @@ func (m *BankingInformation) validateSecureData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *BankingInformation) validateTaxID(formats strfmt.Registry) error {
+
+	if err := validate.Required("tax_id", "body", m.TaxID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BankingInformation) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

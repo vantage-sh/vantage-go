@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AuditLog AuditLog model
@@ -18,38 +20,47 @@ import (
 type AuditLog struct {
 
 	// The changed values of the object.
-	ChangedValues interface{} `json:"changed_values,omitempty"`
+	// Required: true
+	ChangedValues interface{} `json:"changed_values"`
 
 	// The date and time, in UTC, the audit log was created. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The event type of the audit log.
 	// Example: record_created
-	Event string `json:"event,omitempty"`
+	// Required: true
+	Event string `json:"event"`
 
 	// The title of the audited object.
 	// Example: Production Cost Report
-	ObjectTitle string `json:"object_title,omitempty"`
+	// Required: true
+	ObjectTitle *string `json:"object_title"`
 
 	// The token of the audited object.
 	// Example: rpt_1234567890abcdef
-	ObjectToken string `json:"object_token,omitempty"`
+	// Required: true
+	ObjectToken *string `json:"object_token"`
 
 	// The type of the audited object.
 	// Example: Report
-	ObjectType string `json:"object_type,omitempty"`
+	// Required: true
+	ObjectType string `json:"object_type"`
 
 	// The source of the action (console, api, developer).
 	// Example: console
-	Source string `json:"source,omitempty"`
+	// Required: true
+	Source string `json:"source"`
 
 	// The unique token identifying the audit log.
 	// Example: adt_lg_1234567890abcdef
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The unchanged values of the object.
-	UnchangedValues interface{} `json:"unchanged_values,omitempty"`
+	// Required: true
+	UnchangedValues interface{} `json:"unchanged_values"`
 
 	// The name of the user who performed the action.
 	User string `json:"user,omitempty"`
@@ -64,6 +75,128 @@ type AuditLog struct {
 
 // Validate validates this audit log
 func (m *AuditLog) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateChangedValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEvent(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObjectTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObjectToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObjectType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSource(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnchangedValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AuditLog) validateChangedValues(formats strfmt.Registry) error {
+
+	if m.ChangedValues == nil {
+		return errors.Required("changed_values", "body", nil)
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateEvent(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("event", "body", m.Event); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateObjectTitle(formats strfmt.Registry) error {
+
+	if err := validate.Required("object_title", "body", m.ObjectTitle); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateObjectToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("object_token", "body", m.ObjectToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateObjectType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("object_type", "body", m.ObjectType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateSource(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("source", "body", m.Source); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuditLog) validateUnchangedValues(formats strfmt.Registry) error {
+
+	if m.UnchangedValues == nil {
+		return errors.Required("unchanged_values", "body", nil)
+	}
+
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Teams Teams model
@@ -23,6 +24,7 @@ type Teams struct {
 	Links *Links `json:"links,omitempty"`
 
 	// teams
+	// Required: true
 	Teams []*Team `json:"teams"`
 }
 
@@ -64,8 +66,9 @@ func (m *Teams) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Teams) validateTeams(formats strfmt.Registry) error {
-	if swag.IsZero(m.Teams) { // not required
-		return nil
+
+	if err := validate.Required("teams", "body", m.Teams); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Teams); i++ {

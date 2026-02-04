@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Invoices Invoices model
@@ -20,6 +21,7 @@ import (
 type Invoices struct {
 
 	// invoices
+	// Required: true
 	Invoices []*Invoice `json:"invoices"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *Invoices) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Invoices) validateInvoices(formats strfmt.Registry) error {
-	if swag.IsZero(m.Invoices) { // not required
-		return nil
+
+	if err := validate.Required("invoices", "body", m.Invoices); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Invoices); i++ {

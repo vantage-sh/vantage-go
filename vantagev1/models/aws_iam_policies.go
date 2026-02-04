@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AwsIamPolicies aws iam policies
@@ -18,20 +20,81 @@ import (
 type AwsIamPolicies struct {
 
 	// autopilot
-	Autopilot string `json:"autopilot,omitempty"`
+	// Required: true
+	Autopilot string `json:"autopilot"`
 
 	// cloudwatch
-	Cloudwatch string `json:"cloudwatch,omitempty"`
+	// Required: true
+	Cloudwatch string `json:"cloudwatch"`
 
 	// resources
-	Resources string `json:"resources,omitempty"`
+	// Required: true
+	Resources string `json:"resources"`
 
 	// root
-	Root string `json:"root,omitempty"`
+	// Required: true
+	Root string `json:"root"`
 }
 
 // Validate validates this aws iam policies
 func (m *AwsIamPolicies) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAutopilot(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudwatch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResources(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoot(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AwsIamPolicies) validateAutopilot(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("autopilot", "body", m.Autopilot); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AwsIamPolicies) validateCloudwatch(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("cloudwatch", "body", m.Cloudwatch); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AwsIamPolicies) validateResources(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("resources", "body", m.Resources); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AwsIamPolicies) validateRoot(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("root", "body", m.Root); err != nil {
+		return err
+	}
+
 	return nil
 }
 

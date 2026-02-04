@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Folders Folders model
@@ -20,6 +21,7 @@ import (
 type Folders struct {
 
 	// folders
+	// Required: true
 	Folders []*Folder `json:"folders"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *Folders) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Folders) validateFolders(formats strfmt.Registry) error {
-	if swag.IsZero(m.Folders) { // not required
-		return nil
+
+	if err := validate.Required("folders", "body", m.Folders); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Folders); i++ {

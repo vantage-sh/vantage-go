@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // VirtualTagConfigCollapsedTagKey virtual tag config collapsed tag key
@@ -19,14 +21,47 @@ type VirtualTagConfigCollapsedTagKey struct {
 
 	// The tag key to collapse values for.
 	// Example: team
-	Key string `json:"key,omitempty"`
+	// Required: true
+	Key string `json:"key"`
 
 	// The providers this collapsed tag key applies to. Defaults to all providers.
+	// Required: true
 	Providers []string `json:"providers"`
 }
 
 // Validate validates this virtual tag config collapsed tag key
 func (m *VirtualTagConfigCollapsedTagKey) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviders(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VirtualTagConfigCollapsedTagKey) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigCollapsedTagKey) validateProviders(formats strfmt.Registry) error {
+
+	if err := validate.Required("providers", "body", m.Providers); err != nil {
+		return err
+	}
+
 	return nil
 }
 

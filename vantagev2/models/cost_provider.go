@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostProvider cost provider
@@ -19,15 +21,48 @@ type CostProvider struct {
 
 	// The key of the CostProvider, useful for filtering Costs.
 	// Example: aws
-	Key string `json:"key,omitempty"`
+	// Required: true
+	Key string `json:"key"`
 
 	// The name of the CostProvider.
 	// Example: AWS
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 }
 
 // Validate validates this cost provider
 func (m *CostProvider) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CostProvider) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostProvider) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 

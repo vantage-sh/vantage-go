@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Resource Resource model
@@ -20,54 +21,122 @@ import (
 type Resource struct {
 
 	// The provider account where the resource is located.
-	AccountID string `json:"account_id,omitempty"`
+	// Required: true
+	AccountID *string `json:"account_id"`
 
 	// The provider billing account this resource is charged to.
-	BillingAccountID string `json:"billing_account_id,omitempty"`
+	// Required: true
+	BillingAccountID *string `json:"billing_account_id"`
 
 	// The cost of the resource broken down by category.
 	Costs []*ResourceCost `json:"costs"`
 
 	// The date and time when Vantage first observed the resource.
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// label
-	Label string `json:"label,omitempty"`
+	// Required: true
+	Label *string `json:"label"`
 
 	// Type-specific attributes of the resource.
-	Metadata string `json:"metadata,omitempty"`
+	// Required: true
+	Metadata *string `json:"metadata"`
 
 	// The provider of the resource.
 	// Example: aws
-	Provider string `json:"provider,omitempty"`
+	// Required: true
+	Provider string `json:"provider"`
 
 	// The region where the resource is located. Region values are specific to each provider.
 	// Example: us-west-2
-	Region string `json:"region,omitempty"`
+	// Required: true
+	Region *string `json:"region"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The kind of resource.
 	// Example: aws_instance
-	Type string `json:"type,omitempty"`
+	// Required: true
+	Type string `json:"type"`
 
 	// The unique identifier for the resource.
 	// Example: i-0a1b2c3d4e5f6g7h8
-	UUID string `json:"uuid,omitempty"`
+	// Required: true
+	UUID string `json:"uuid"`
 }
 
 // Validate validates this resource
 func (m *Resource) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccountID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBillingAccountID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCosts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUUID(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Resource) validateAccountID(formats strfmt.Registry) error {
+
+	if err := validate.Required("account_id", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateBillingAccountID(formats strfmt.Registry) error {
+
+	if err := validate.Required("billing_account_id", "body", m.BillingAccountID); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -92,6 +161,78 @@ func (m *Resource) validateCosts(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Resource) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateMetadata(formats strfmt.Registry) error {
+
+	if err := validate.Required("metadata", "body", m.Metadata); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateProvider(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.Required("region", "body", m.Region); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateUUID(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("uuid", "body", m.UUID); err != nil {
+		return err
 	}
 
 	return nil

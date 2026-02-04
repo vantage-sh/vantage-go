@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DashboardWidget dashboard widget
@@ -19,15 +20,18 @@ import (
 type DashboardWidget struct {
 
 	// The settings for the DashboardWidget
-	Settings *DashboardWidgetSettings `json:"settings,omitempty"`
+	// Required: true
+	Settings *DashboardWidgetSettings `json:"settings"`
 
 	// The title of the Widget.
 	// Example: My Widget
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// widgetable token
 	// Example: rprt_a12b3c
-	WidgetableToken string `json:"widgetable_token,omitempty"`
+	// Required: true
+	WidgetableToken string `json:"widgetable_token"`
 }
 
 // Validate validates this dashboard widget
@@ -38,6 +42,14 @@ func (m *DashboardWidget) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWidgetableToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -45,8 +57,9 @@ func (m *DashboardWidget) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DashboardWidget) validateSettings(formats strfmt.Registry) error {
-	if swag.IsZero(m.Settings) { // not required
-		return nil
+
+	if err := validate.Required("settings", "body", m.Settings); err != nil {
+		return err
 	}
 
 	if m.Settings != nil {
@@ -58,6 +71,24 @@ func (m *DashboardWidget) validateSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *DashboardWidget) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DashboardWidget) validateWidgetableToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("widgetable_token", "body", m.WidgetableToken); err != nil {
+		return err
 	}
 
 	return nil
@@ -80,10 +111,6 @@ func (m *DashboardWidget) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *DashboardWidget) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Settings != nil {
-
-		if swag.IsZero(m.Settings) { // not required
-			return nil
-		}
 
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

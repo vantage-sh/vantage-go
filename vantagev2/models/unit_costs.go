@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UnitCosts UnitCosts model
@@ -23,6 +24,7 @@ type UnitCosts struct {
 	Links *Links `json:"links,omitempty"`
 
 	// unit costs
+	// Required: true
 	UnitCosts []*UnitCost `json:"unit_costs"`
 }
 
@@ -64,8 +66,9 @@ func (m *UnitCosts) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *UnitCosts) validateUnitCosts(formats strfmt.Registry) error {
-	if swag.IsZero(m.UnitCosts) { // not required
-		return nil
+
+	if err := validate.Required("unit_costs", "body", m.UnitCosts); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.UnitCosts); i++ {

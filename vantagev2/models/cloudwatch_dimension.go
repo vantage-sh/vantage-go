@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CloudwatchDimension cloudwatch dimension
@@ -18,14 +20,47 @@ import (
 type CloudwatchDimension struct {
 
 	// name
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name string `json:"name"`
 
 	// value
-	Value string `json:"value,omitempty"`
+	// Required: true
+	Value string `json:"value"`
 }
 
 // Validate validates this cloudwatch dimension
 func (m *CloudwatchDimension) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CloudwatchDimension) validateName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CloudwatchDimension) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("value", "body", m.Value); err != nil {
+		return err
+	}
+
 	return nil
 }
 

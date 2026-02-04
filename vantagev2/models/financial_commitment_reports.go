@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // FinancialCommitmentReports FinancialCommitmentReports model
@@ -20,6 +21,7 @@ import (
 type FinancialCommitmentReports struct {
 
 	// financial commitment reports
+	// Required: true
 	FinancialCommitmentReports []*FinancialCommitmentReport `json:"financial_commitment_reports"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *FinancialCommitmentReports) Validate(formats strfmt.Registry) error {
 }
 
 func (m *FinancialCommitmentReports) validateFinancialCommitmentReports(formats strfmt.Registry) error {
-	if swag.IsZero(m.FinancialCommitmentReports) { // not required
-		return nil
+
+	if err := validate.Required("financial_commitment_reports", "body", m.FinancialCommitmentReports); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.FinancialCommitmentReports); i++ {

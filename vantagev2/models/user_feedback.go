@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UserFeedback UserFeedback model
@@ -19,20 +21,67 @@ type UserFeedback struct {
 
 	// Feedback creation timestamp
 	// Example: 2023-01-01T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// Token of the creator of the feedback
 	CreatedByToken string `json:"created_by_token,omitempty"`
 
 	// User feedback message
-	Message string `json:"message,omitempty"`
+	// Required: true
+	Message string `json:"message"`
 
 	// Token of the feedback
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this user feedback
 func (m *UserFeedback) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMessage(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UserFeedback) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserFeedback) validateMessage(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("message", "body", m.Message); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserFeedback) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

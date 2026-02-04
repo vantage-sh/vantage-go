@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ResourceReportColumns ResourceReportColumns model
@@ -18,11 +20,30 @@ import (
 type ResourceReportColumns struct {
 
 	// Array of available column names for the specified resource type.
+	// Required: true
 	Columns []string `json:"columns"`
 }
 
 // Validate validates this resource report columns
 func (m *ResourceReportColumns) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateColumns(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ResourceReportColumns) validateColumns(formats strfmt.Registry) error {
+
+	if err := validate.Required("columns", "body", m.Columns); err != nil {
+		return err
+	}
+
 	return nil
 }
 

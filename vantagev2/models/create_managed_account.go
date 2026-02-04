@@ -29,6 +29,9 @@ type CreateManagedAccount struct {
 	// Required: true
 	ContactEmail *string `json:"contact_email"`
 
+	// Email domain to associate with this Managed Account for SSO.
+	EmailDomain string `json:"email_domain,omitempty"`
+
 	// The name of the Managed Account.
 	// Required: true
 	Name *string `json:"name"`

@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BillingInformation billing information
@@ -18,35 +20,166 @@ import (
 type BillingInformation struct {
 
 	// First line of billing address
-	AddressLine1 string `json:"address_line_1,omitempty"`
+	// Required: true
+	AddressLine1 *string `json:"address_line_1"`
 
 	// Second line of billing address
-	AddressLine2 string `json:"address_line_2,omitempty"`
+	// Required: true
+	AddressLine2 *string `json:"address_line_2"`
 
 	// Array of billing email addresses
+	// Required: true
 	BillingEmail []string `json:"billing_email"`
 
 	// City for billing address
-	City string `json:"city,omitempty"`
+	// Required: true
+	City *string `json:"city"`
 
 	// Company name for billing
-	CompanyName string `json:"company_name,omitempty"`
+	// Required: true
+	CompanyName *string `json:"company_name"`
 
 	// ISO country code
-	CountryCode string `json:"country_code,omitempty"`
+	// Required: true
+	CountryCode *string `json:"country_code"`
 
 	// Postal or ZIP code
-	PostalCode string `json:"postal_code,omitempty"`
+	// Required: true
+	PostalCode *string `json:"postal_code"`
 
 	// State or province for billing address
-	State string `json:"state,omitempty"`
+	// Required: true
+	State *string `json:"state"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this billing information
 func (m *BillingInformation) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAddressLine1(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAddressLine2(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBillingEmail(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCity(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCompanyName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCountryCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePostalCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateState(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BillingInformation) validateAddressLine1(formats strfmt.Registry) error {
+
+	if err := validate.Required("address_line_1", "body", m.AddressLine1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateAddressLine2(formats strfmt.Registry) error {
+
+	if err := validate.Required("address_line_2", "body", m.AddressLine2); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateBillingEmail(formats strfmt.Registry) error {
+
+	if err := validate.Required("billing_email", "body", m.BillingEmail); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateCity(formats strfmt.Registry) error {
+
+	if err := validate.Required("city", "body", m.City); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateCompanyName(formats strfmt.Registry) error {
+
+	if err := validate.Required("company_name", "body", m.CompanyName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateCountryCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("country_code", "body", m.CountryCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validatePostalCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("postal_code", "body", m.PostalCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateState(formats strfmt.Registry) error {
+
+	if err := validate.Required("state", "body", m.State); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BillingInformation) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

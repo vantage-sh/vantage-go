@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BudgetPerformance budget performance
@@ -19,19 +21,66 @@ type BudgetPerformance struct {
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	Actual string `json:"actual,omitempty"`
+	// Required: true
+	Actual string `json:"actual"`
 
 	// The amount of the Budget Period as a string to ensure precision.
 	// Example: 100.00
-	Amount string `json:"amount,omitempty"`
+	// Required: true
+	Amount string `json:"amount"`
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	Date string `json:"date,omitempty"`
+	// Required: true
+	Date string `json:"date"`
 }
 
 // Validate validates this budget performance
 func (m *BudgetPerformance) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateActual(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BudgetPerformance) validateActual(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("actual", "body", m.Actual); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetPerformance) validateAmount(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetPerformance) validateDate(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date", "body", m.Date); err != nil {
+		return err
+	}
+
 	return nil
 }
 

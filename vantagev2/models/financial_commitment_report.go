@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // FinancialCommitmentReport FinancialCommitmentReport model
@@ -19,54 +21,227 @@ type FinancialCommitmentReport struct {
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// How costs are grouped and displayed in the FinancialCommitmentReport. Possible values: day, week, month.
 	// Example: month
-	DateBucket string `json:"date_bucket,omitempty"`
+	// Required: true
+	DateBucket string `json:"date_bucket"`
 
 	// The date range for the FinancialCommitmentReport. Only present if a custom date range is not specified.
 	// Example: last_month
-	DateInterval string `json:"date_interval,omitempty"`
+	// Required: true
+	DateInterval *string `json:"date_interval"`
 
 	// Indicates whether the FinancialCommitmentReport is the default report.
-	Default bool `json:"default,omitempty"`
+	// Required: true
+	Default bool `json:"default"`
 
 	// The end date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
 	// Example: 2024-03-20
-	EndDate string `json:"end_date,omitempty"`
+	// Required: true
+	EndDate *string `json:"end_date"`
 
 	// The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The grouping aggregations applied to the filtered data.
 	// Example: cost_type, tag:account
-	Groupings string `json:"groupings,omitempty"`
+	// Required: true
+	Groupings *string `json:"groupings"`
 
 	// The scope for the costs. Possible values: discountable, all.
 	// Example: discountable
-	OnDemandCostsScope string `json:"on_demand_costs_scope,omitempty"`
+	// Required: true
+	OnDemandCostsScope string `json:"on_demand_costs_scope"`
 
 	// The start date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
 	// Example: 2024-03-01
-	StartDate string `json:"start_date,omitempty"`
+	// Required: true
+	StartDate *string `json:"start_date"`
 
 	// The title of the FinancialCommitmentReport.
 	// Example: Acme123 Financial Commitment Report
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the User who created this FinancialCommitmentReport.
 	UserToken string `json:"user_token,omitempty"`
 
 	// The token for the Workspace the FinancialCommitmentReport is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this financial commitment report
 func (m *FinancialCommitmentReport) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateBucket(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefault(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGroupings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOnDemandCostsScope(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStartDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateDateBucket(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("date_bucket", "body", m.DateBucket); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateDateInterval(formats strfmt.Registry) error {
+
+	if err := validate.Required("date_interval", "body", m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateDefault(formats strfmt.Registry) error {
+
+	if err := validate.Required("default", "body", bool(m.Default)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateEndDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("end_date", "body", m.EndDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateGroupings(formats strfmt.Registry) error {
+
+	if err := validate.Required("groupings", "body", m.Groupings); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateOnDemandCostsScope(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("on_demand_costs_scope", "body", m.OnDemandCostsScope); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateStartDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("start_date", "body", m.StartDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FinancialCommitmentReport) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

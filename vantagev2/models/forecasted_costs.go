@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ForecastedCosts ForecastedCosts model
@@ -21,9 +22,11 @@ type ForecastedCosts struct {
 
 	// The currency of the forecasted costs.
 	// Example: USD
-	Currency string `json:"currency,omitempty"`
+	// Required: true
+	Currency *string `json:"currency"`
 
 	// forecasted costs
+	// Required: true
 	ForecastedCosts []*ForecastedCost `json:"forecasted_costs"`
 
 	// links
@@ -33,6 +36,10 @@ type ForecastedCosts struct {
 // Validate validates this forecasted costs
 func (m *ForecastedCosts) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateCurrency(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateForecastedCosts(formats); err != nil {
 		res = append(res, err)
@@ -48,9 +55,19 @@ func (m *ForecastedCosts) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ForecastedCosts) validateCurrency(formats strfmt.Registry) error {
+
+	if err := validate.Required("currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *ForecastedCosts) validateForecastedCosts(formats strfmt.Registry) error {
-	if swag.IsZero(m.ForecastedCosts) { // not required
-		return nil
+
+	if err := validate.Required("forecasted_costs", "body", m.ForecastedCosts); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ForecastedCosts); i++ {

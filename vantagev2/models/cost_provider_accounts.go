@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CostProviderAccounts CostProviderAccounts model
@@ -20,6 +21,7 @@ import (
 type CostProviderAccounts struct {
 
 	// cost provider accounts
+	// Required: true
 	CostProviderAccounts []*CostProviderAccount `json:"cost_provider_accounts"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *CostProviderAccounts) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CostProviderAccounts) validateCostProviderAccounts(formats strfmt.Registry) error {
-	if swag.IsZero(m.CostProviderAccounts) { // not required
-		return nil
+
+	if err := validate.Required("cost_provider_accounts", "body", m.CostProviderAccounts); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.CostProviderAccounts); i++ {

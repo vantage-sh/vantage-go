@@ -39,7 +39,7 @@ type CreateCostReport struct {
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+	// The end date of the CostReport. ISO 8601 Formatted. Required when start_date is provided. Incompatible with 'date_interval' parameter.
 	// Required: true
 	EndDate *string `json:"end_date"`
 
@@ -52,7 +52,7 @@ type CreateCostReport struct {
 	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
-	// The previous period end date of the CostReport. ISO 8601 Formatted.
+	// The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
 	// Required: true
 	PreviousPeriodEndDate *string `json:"previous_period_end_date"`
 

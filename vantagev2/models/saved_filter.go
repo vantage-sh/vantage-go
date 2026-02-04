@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // SavedFilter SavedFilter model
@@ -18,32 +20,135 @@ import (
 type SavedFilter struct {
 
 	// The tokens for any CostReports the SavedFilter is applied to.
+	// Required: true
 	CostReportTokens []string `json:"cost_report_tokens"`
 
 	// The date and time, in UTC, the report was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token for the Creator of this SavedFilter.
-	CreatedBy string `json:"created_by,omitempty"`
+	// Required: true
+	CreatedBy *string `json:"created_by"`
 
 	// The SavedFilter's filter, applied to any relevant CostReports. Additional documentation available at https://docs.vantage.sh/vql.
 	// Example: costs.provider = 'azure'
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The title of the SavedFilter.
 	// Example: Platform Team Reports
-	Title string `json:"title,omitempty"`
+	// Required: true
+	Title string `json:"title"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the Workspace the SavedFilter is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this saved filter
 func (m *SavedFilter) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCostReportTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SavedFilter) validateCostReportTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("cost_report_tokens", "body", m.CostReportTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateCreatedBy(formats strfmt.Registry) error {
+
+	if err := validate.Required("created_by", "body", m.CreatedBy); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateTitle(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SavedFilter) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

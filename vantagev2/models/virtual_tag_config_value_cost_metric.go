@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // VirtualTagConfigValueCostMetric virtual tag config value cost metric
@@ -19,10 +20,12 @@ import (
 type VirtualTagConfigValueCostMetric struct {
 
 	// The aggregation type of the CostMetric.
-	Aggregation *VirtualTagConfigValueCostMetricAggregation `json:"aggregation,omitempty"`
+	// Required: true
+	Aggregation *VirtualTagConfigValueCostMetricAggregation `json:"aggregation"`
 
 	// The filter VQL for the cost metric.
-	Filter string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 }
 
 // Validate validates this virtual tag config value cost metric
@@ -33,6 +36,10 @@ func (m *VirtualTagConfigValueCostMetric) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -40,8 +47,9 @@ func (m *VirtualTagConfigValueCostMetric) Validate(formats strfmt.Registry) erro
 }
 
 func (m *VirtualTagConfigValueCostMetric) validateAggregation(formats strfmt.Registry) error {
-	if swag.IsZero(m.Aggregation) { // not required
-		return nil
+
+	if err := validate.Required("aggregation", "body", m.Aggregation); err != nil {
+		return err
 	}
 
 	if m.Aggregation != nil {
@@ -53,6 +61,15 @@ func (m *VirtualTagConfigValueCostMetric) validateAggregation(formats strfmt.Reg
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValueCostMetric) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
 	}
 
 	return nil
@@ -75,10 +92,6 @@ func (m *VirtualTagConfigValueCostMetric) ContextValidate(ctx context.Context, f
 func (m *VirtualTagConfigValueCostMetric) contextValidateAggregation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Aggregation != nil {
-
-		if swag.IsZero(m.Aggregation) { // not required
-			return nil
-		}
 
 		if err := m.Aggregation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

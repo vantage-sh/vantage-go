@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Budget Budget model
@@ -20,9 +21,11 @@ import (
 type Budget struct {
 
 	// The tokens of the BudgetAlerts associated with the Budget.
+	// Required: true
 	BudgetAlertTokens []string `json:"budget_alert_tokens"`
 
 	// The tokens of the child Budgets associated with the hierarchical Budget.
+	// Required: true
 	ChildBudgetTokens []string `json:"child_budget_tokens"`
 
 	// The token of the Report associated with the Budget.
@@ -30,34 +33,55 @@ type Budget struct {
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The token of the Creator of the Budget.
 	CreatedByToken string `json:"created_by_token,omitempty"`
 
 	// The name of the Budget.
 	// Example: Acme123 Budget
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name *string `json:"name"`
 
 	// The historical performance of the Budget.
 	Performance []*BudgetPerformance `json:"performance"`
 
 	// The budget periods associated with the Budget.
+	// Required: true
 	Periods []*BudgetPeriod `json:"periods"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the User who created this Budget.
 	UserToken string `json:"user_token,omitempty"`
 
 	// The token for the Workspace the Budget is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this budget
 func (m *Budget) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateBudgetAlertTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateChildBudgetTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validatePerformance(formats); err != nil {
 		res = append(res, err)
@@ -67,9 +91,53 @@ func (m *Budget) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Budget) validateBudgetAlertTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("budget_alert_tokens", "body", m.BudgetAlertTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Budget) validateChildBudgetTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("child_budget_tokens", "body", m.ChildBudgetTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Budget) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Budget) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -100,8 +168,9 @@ func (m *Budget) validatePerformance(formats strfmt.Registry) error {
 }
 
 func (m *Budget) validatePeriods(formats strfmt.Registry) error {
-	if swag.IsZero(m.Periods) { // not required
-		return nil
+
+	if err := validate.Required("periods", "body", m.Periods); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Periods); i++ {
@@ -120,6 +189,24 @@ func (m *Budget) validatePeriods(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Budget) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Budget) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
 	}
 
 	return nil

@@ -22,27 +22,33 @@ import (
 type CloudwatchFields struct {
 
 	// The dimensions used to pull specific statistical data for Cloudwatch metrics.
+	// Required: true
 	Dimensions []*CloudwatchDimension `json:"dimensions"`
 
 	// The dimension used to aggregate the Cloudwatch metrics.
-	LabelDimension string `json:"label_dimension,omitempty"`
+	// Required: true
+	LabelDimension *string `json:"label_dimension"`
 
 	// The metric name used to import Cloudwatch metrics.
 	// Example: CPUUtilization
-	MetricName string `json:"metric_name,omitempty"`
+	// Required: true
+	MetricName string `json:"metric_name"`
 
 	// The namespace used to import Cloudwatch metrics.
 	// Example: AWS/EC2
-	Namespace string `json:"namespace,omitempty"`
+	// Required: true
+	Namespace string `json:"namespace"`
 
 	// The region used to import Cloudwatch metrics.
 	// Example: us-east-1
-	Region string `json:"region,omitempty"`
+	// Required: true
+	Region string `json:"region"`
 
 	// The time aggregation function used to import Cloudwatch metrics.
 	// Example: Average
+	// Required: true
 	// Enum: ["Sum","Average","Minimum","Maximum"]
-	Stat string `json:"stat,omitempty"`
+	Stat string `json:"stat"`
 }
 
 // Validate validates this cloudwatch fields
@@ -50,6 +56,22 @@ func (m *CloudwatchFields) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDimensions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelDimension(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetricName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNamespace(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,8 +86,9 @@ func (m *CloudwatchFields) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CloudwatchFields) validateDimensions(formats strfmt.Registry) error {
-	if swag.IsZero(m.Dimensions) { // not required
-		return nil
+
+	if err := validate.Required("dimensions", "body", m.Dimensions); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Dimensions); i++ {
@@ -84,6 +107,42 @@ func (m *CloudwatchFields) validateDimensions(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CloudwatchFields) validateLabelDimension(formats strfmt.Registry) error {
+
+	if err := validate.Required("label_dimension", "body", m.LabelDimension); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CloudwatchFields) validateMetricName(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("metric_name", "body", m.MetricName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CloudwatchFields) validateNamespace(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("namespace", "body", m.Namespace); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CloudwatchFields) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("region", "body", m.Region); err != nil {
+		return err
 	}
 
 	return nil
@@ -125,8 +184,9 @@ func (m *CloudwatchFields) validateStatEnum(path, location string, value string)
 }
 
 func (m *CloudwatchFields) validateStat(formats strfmt.Registry) error {
-	if swag.IsZero(m.Stat) { // not required
-		return nil
+
+	if err := validate.RequiredString("stat", "body", m.Stat); err != nil {
+		return err
 	}
 
 	// value enum

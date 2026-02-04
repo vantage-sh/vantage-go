@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AuditLogs AuditLogs model
@@ -20,6 +21,7 @@ import (
 type AuditLogs struct {
 
 	// audit logs
+	// Required: true
 	AuditLogs []*AuditLog `json:"audit_logs"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *AuditLogs) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AuditLogs) validateAuditLogs(formats strfmt.Registry) error {
-	if swag.IsZero(m.AuditLogs) { // not required
-		return nil
+
+	if err := validate.Required("audit_logs", "body", m.AuditLogs); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.AuditLogs); i++ {

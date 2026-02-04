@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Providers Providers model
@@ -23,6 +24,7 @@ type Providers struct {
 	Links *Links `json:"links,omitempty"`
 
 	// providers
+	// Required: true
 	Providers []*Provider `json:"providers"`
 }
 
@@ -64,8 +66,9 @@ func (m *Providers) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *Providers) validateProviders(formats strfmt.Registry) error {
-	if swag.IsZero(m.Providers) { // not required
-		return nil
+
+	if err := validate.Required("providers", "body", m.Providers); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Providers); i++ {

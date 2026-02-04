@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ChartSettings chart settings
@@ -18,14 +20,47 @@ import (
 type ChartSettings struct {
 
 	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
+	// Required: true
 	XAxisDimension []string `json:"x_axis_dimension"`
 
 	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
-	YAxisDimension string `json:"y_axis_dimension,omitempty"`
+	// Required: true
+	YAxisDimension string `json:"y_axis_dimension"`
 }
 
 // Validate validates this chart settings
 func (m *ChartSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateXAxisDimension(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateYAxisDimension(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ChartSettings) validateXAxisDimension(formats strfmt.Registry) error {
+
+	if err := validate.Required("x_axis_dimension", "body", m.XAxisDimension); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ChartSettings) validateYAxisDimension(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("y_axis_dimension", "body", m.YAxisDimension); err != nil {
+		return err
+	}
+
 	return nil
 }
 

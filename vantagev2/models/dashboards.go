@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Dashboards Dashboards model
@@ -20,6 +21,7 @@ import (
 type Dashboards struct {
 
 	// dashboards
+	// Required: true
 	Dashboards []*Dashboard `json:"dashboards"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *Dashboards) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Dashboards) validateDashboards(formats strfmt.Registry) error {
-	if swag.IsZero(m.Dashboards) { // not required
-		return nil
+
+	if err := validate.Required("dashboards", "body", m.Dashboards); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Dashboards); i++ {

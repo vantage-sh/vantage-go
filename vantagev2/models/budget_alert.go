@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BudgetAlert BudgetAlert model
@@ -18,14 +20,17 @@ import (
 type BudgetAlert struct {
 
 	// The tokens for the Budgets that the Budget Alert is monitoring to trigger alerts on.
+	// Required: true
 	BudgetTokens []string `json:"budget_tokens"`
 
 	// The date and time, in UTC, the Budget Alert was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	// Required: true
+	CreatedAt string `json:"created_at"`
 
 	// The number of days from the start or end of the month to trigger the alert if the threshold is reached.
-	DurationInDays string `json:"duration_in_days,omitempty"`
+	// Required: true
+	DurationInDays *string `json:"duration_in_days"`
 
 	// The provider used for sending alerts. This must be configured in the console. Possible values are: slack, microsoft_graph.
 	// Example: slack
@@ -33,31 +38,159 @@ type BudgetAlert struct {
 
 	// The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Possible values: start_of_the_month, end_of_the_month.
 	// Example: start_of_the_month
-	PeriodToTrack string `json:"period_to_track,omitempty"`
+	// Required: true
+	PeriodToTrack *string `json:"period_to_track"`
 
 	// The channels receiving the alerts. Requires an integration provider to be connected.
 	// Example: ["#budget-notifications","#finance"]
-	RecipientChannels string `json:"recipient_channels,omitempty"`
+	// Required: true
+	RecipientChannels string `json:"recipient_channels"`
 
 	// Alerts only send if they reach this number (as a percentage). When threshold is 100, that means alerts are triggered once costs reach 100% of the budget.
 	// Example: 75
-	Threshold string `json:"threshold,omitempty"`
+	// Required: true
+	Threshold string `json:"threshold"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// The token for the User who created this BudgetAlert.
 	UserToken string `json:"user_token,omitempty"`
 
 	// The Users that receive the alert.
+	// Required: true
 	UserTokens []string `json:"user_tokens"`
 
 	// The token for the Workspace the ResourceReport is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this budget alert
 func (m *BudgetAlert) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateBudgetTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDurationInDays(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePeriodToTrack(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateThreshold(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BudgetAlert) validateBudgetTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("budget_tokens", "body", m.BudgetTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateCreatedAt(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateDurationInDays(formats strfmt.Registry) error {
+
+	if err := validate.Required("duration_in_days", "body", m.DurationInDays); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validatePeriodToTrack(formats strfmt.Registry) error {
+
+	if err := validate.Required("period_to_track", "body", m.PeriodToTrack); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateRecipientChannels(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateThreshold(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("threshold", "body", m.Threshold); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateUserTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

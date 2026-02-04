@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AccessGrants AccessGrants model
@@ -20,6 +21,7 @@ import (
 type AccessGrants struct {
 
 	// access grants
+	// Required: true
 	AccessGrants []*AccessGrant `json:"access_grants"`
 
 	// links
@@ -45,8 +47,9 @@ func (m *AccessGrants) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AccessGrants) validateAccessGrants(formats strfmt.Registry) error {
-	if swag.IsZero(m.AccessGrants) { // not required
-		return nil
+
+	if err := validate.Required("access_grants", "body", m.AccessGrants); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.AccessGrants); i++ {

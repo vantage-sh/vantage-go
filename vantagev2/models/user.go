@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // User User model
@@ -19,7 +21,8 @@ type User struct {
 
 	// The email of the User.
 	// Example: john_doe@acme.com
-	Email string `json:"email,omitempty"`
+	// Required: true
+	Email string `json:"email"`
 
 	// The last time the User logged in.
 	// Example: 2024-01-01T00:00:00Z
@@ -27,18 +30,78 @@ type User struct {
 
 	// The name of the User.
 	// Example: John Doe
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name *string `json:"name"`
 
 	// The role of the User.
 	// Example: Admin
-	Role string `json:"role,omitempty"`
+	// Required: true
+	Role string `json:"role"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this user
 func (m *User) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEmail(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRole(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *User) validateEmail(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("email", "body", m.Email); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *User) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *User) validateRole(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("role", "body", m.Role); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *User) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
 	return nil
 }
 

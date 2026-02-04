@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ExchangeRate exchange rate
@@ -18,23 +20,98 @@ import (
 type ExchangeRate struct {
 
 	// base currency code
-	BaseCurrencyCode string `json:"base_currency_code,omitempty"`
+	// Required: true
+	BaseCurrencyCode *string `json:"base_currency_code"`
 
 	// currency code
-	CurrencyCode string `json:"currency_code,omitempty"`
+	// Required: true
+	CurrencyCode *string `json:"currency_code"`
 
 	// effective date
-	EffectiveDate string `json:"effective_date,omitempty"`
+	// Required: true
+	EffectiveDate *string `json:"effective_date"`
 
 	// rate
-	Rate string `json:"rate,omitempty"`
+	// Required: true
+	Rate *string `json:"rate"`
 
 	// updated at
-	UpdatedAt string `json:"updated_at,omitempty"`
+	// Required: true
+	UpdatedAt *string `json:"updated_at"`
 }
 
 // Validate validates this exchange rate
 func (m *ExchangeRate) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateBaseCurrencyCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCurrencyCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEffectiveDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ExchangeRate) validateBaseCurrencyCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("base_currency_code", "body", m.BaseCurrencyCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ExchangeRate) validateCurrencyCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("currency_code", "body", m.CurrencyCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ExchangeRate) validateEffectiveDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("effective_date", "body", m.EffectiveDate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ExchangeRate) validateRate(formats strfmt.Registry) error {
+
+	if err := validate.Required("rate", "body", m.Rate); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ExchangeRate) validateUpdatedAt(formats strfmt.Registry) error {
+
+	if err := validate.Required("updated_at", "body", m.UpdatedAt); err != nil {
+		return err
+	}
+
 	return nil
 }
 

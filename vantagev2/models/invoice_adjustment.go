@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // InvoiceAdjustment invoice adjustment
@@ -20,10 +21,12 @@ import (
 type InvoiceAdjustment struct {
 
 	// Array of adjustment items (taxes, fees, etc.)
+	// Required: true
 	AdjustmentItems []*AdjustmentItem `json:"adjustment_items"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this invoice adjustment
@@ -34,6 +37,10 @@ func (m *InvoiceAdjustment) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -41,8 +48,9 @@ func (m *InvoiceAdjustment) Validate(formats strfmt.Registry) error {
 }
 
 func (m *InvoiceAdjustment) validateAdjustmentItems(formats strfmt.Registry) error {
-	if swag.IsZero(m.AdjustmentItems) { // not required
-		return nil
+
+	if err := validate.Required("adjustment_items", "body", m.AdjustmentItems); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.AdjustmentItems); i++ {
@@ -61,6 +69,15 @@ func (m *InvoiceAdjustment) validateAdjustmentItems(formats strfmt.Registry) err
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *InvoiceAdjustment) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

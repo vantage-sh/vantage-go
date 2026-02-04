@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // VirtualTagConfig VirtualTagConfig model
@@ -20,28 +21,34 @@ import (
 type VirtualTagConfig struct {
 
 	// The earliest month VirtualTagConfig should be backfilled to.
-	// Example: 2025-07-01
-	BackfillUntil string `json:"backfill_until,omitempty"`
+	// Example: 2025-08-01
+	// Required: true
+	BackfillUntil string `json:"backfill_until"`
 
 	// Tag keys to collapse values for.
 	CollapsedTagKeys []*VirtualTagConfigCollapsedTagKey `json:"collapsed_tag_keys"`
 
 	// The token of the Creator of the VirtualTagConfig.
 	// Example: usr_1234
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	// Required: true
+	CreatedByToken *string `json:"created_by_token"`
 
 	// The key of the VirtualTagConfig.
 	// Example: Cost Center
-	Key string `json:"key,omitempty"`
+	// Required: true
+	Key string `json:"key"`
 
 	// Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.
-	Overridable bool `json:"overridable,omitempty"`
+	// Required: true
+	Overridable bool `json:"overridable"`
 
 	// The token of the VirtualTagConfig.
 	// Example: vtag_1234
-	Token string `json:"token,omitempty"`
+	// Required: true
+	Token string `json:"token"`
 
 	// Values for the VirtualTagConfig, with match precedence determined by their relative order in the list.
+	// Required: true
 	Values []*VirtualTagConfigValue `json:"values"`
 }
 
@@ -49,7 +56,27 @@ type VirtualTagConfig struct {
 func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBackfillUntil(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCollapsedTagKeys(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatedByToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOverridable(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +87,15 @@ func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VirtualTagConfig) validateBackfillUntil(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("backfill_until", "body", m.BackfillUntil); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -89,9 +125,46 @@ func (m *VirtualTagConfig) validateCollapsedTagKeys(formats strfmt.Registry) err
 	return nil
 }
 
+func (m *VirtualTagConfig) validateCreatedByToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("created_by_token", "body", m.CreatedByToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfig) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfig) validateOverridable(formats strfmt.Registry) error {
+
+	if err := validate.Required("overridable", "body", bool(m.Overridable)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfig) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *VirtualTagConfig) validateValues(formats strfmt.Registry) error {
-	if swag.IsZero(m.Values) { // not required
-		return nil
+
+	if err := validate.Required("values", "body", m.Values); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Values); i++ {

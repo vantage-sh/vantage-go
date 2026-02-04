@@ -22,12 +22,12 @@ type VirtualTagConfigValuePercentage struct {
 	// The percentage of matched costs associated with the value.
 	// Example: 50
 	// Required: true
-	Pct *float64 `json:"pct"`
+	Pct float64 `json:"pct"`
 
 	// The tag value associated with a percentage of matched costs.
 	// Example: cost-center-a
 	// Required: true
-	Value *string `json:"value"`
+	Value string `json:"value"`
 }
 
 // Validate validates this virtual tag config value percentage
@@ -50,7 +50,7 @@ func (m *VirtualTagConfigValuePercentage) Validate(formats strfmt.Registry) erro
 
 func (m *VirtualTagConfigValuePercentage) validatePct(formats strfmt.Registry) error {
 
-	if err := validate.Required("pct", "body", m.Pct); err != nil {
+	if err := validate.Required("pct", "body", float64(m.Pct)); err != nil {
 		return err
 	}
 
@@ -59,7 +59,7 @@ func (m *VirtualTagConfigValuePercentage) validatePct(formats strfmt.Registry) e
 
 func (m *VirtualTagConfigValuePercentage) validateValue(formats strfmt.Registry) error {
 
-	if err := validate.Required("value", "body", m.Value); err != nil {
+	if err := validate.RequiredString("value", "body", m.Value); err != nil {
 		return err
 	}
 
