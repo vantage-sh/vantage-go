@@ -56,6 +56,10 @@ type RecommendationView struct {
 	// Example: Production Recommendations
 	Title string `json:"title,omitempty"`
 
+	// Filter recommendations with monthly savings greater than or equal to this amount.
+	// Example: 100
+	MinSavings float64 `json:"min_savings,omitempty"`
+
 	// token
 	Token string `json:"token,omitempty"`
 

@@ -19685,6 +19685,10 @@
         "end_date": {
           "type": "string",
           "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+        },
+        "min_savings": {
+          "type": "number",
+          "description": "Filter recommendations with monthly savings greater than or equal to this amount."
         }
       },
       "required": [
@@ -19778,6 +19782,11 @@
         "created_by": {
           "type": "string",
           "description": "The token for the Creator of this RecommendationView."
+        },
+        "min_savings": {
+          "type": "number",
+          "example": 100.0,
+          "description": "Filter recommendations with monthly savings greater than or equal to this amount."
         }
       },
       "description": "RecommendationView model"
@@ -19847,6 +19856,10 @@
         "end_date": {
           "type": "string",
           "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+        },
+        "min_savings": {
+          "type": "number",
+          "description": "Filter recommendations with monthly savings greater than or equal to this amount."
         }
       },
       "description": "Update a RecommendationView."

@@ -47,6 +47,9 @@ type CreateRecommendationView struct {
 	// Required: true
 	Title *string `json:"title"`
 
+	// Filter recommendations with monthly savings greater than or equal to this amount.
+	MinSavings float64 `json:"min_savings,omitempty"`
+
 	// The Workspace to associate the RecommendationView with.
 	// Required: true
 	WorkspaceToken *string `json:"workspace_token"`

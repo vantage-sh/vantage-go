@@ -43,6 +43,9 @@ type UpdateRecommendationView struct {
 
 	// The title of the RecommendationView.
 	Title string `json:"title,omitempty"`
+
+	// Filter recommendations with monthly savings greater than or equal to this amount.
+	MinSavings float64 `json:"min_savings,omitempty"`
 }
 
 // Validate validates this update recommendation view
