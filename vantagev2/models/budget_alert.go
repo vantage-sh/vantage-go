@@ -30,11 +30,11 @@ type BudgetAlert struct {
 
 	// The number of days from the start or end of the month to trigger the alert if the threshold is reached.
 	// Required: true
-	DurationInDays *string `json:"duration_in_days"`
+	DurationInDays *int32 `json:"duration_in_days"`
 
 	// The provider used for sending alerts. This must be configured in the console. Possible values are: slack, microsoft_graph.
 	// Example: slack
-	IntegrationProvider string `json:"integration_provider,omitempty"`
+	IntegrationProvider *string `json:"integration_provider,omitempty"`
 
 	// The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Possible values: start_of_the_month, end_of_the_month.
 	// Example: start_of_the_month
@@ -42,21 +42,20 @@ type BudgetAlert struct {
 	PeriodToTrack *string `json:"period_to_track"`
 
 	// The channels receiving the alerts. Requires an integration provider to be connected.
-	// Example: ["#budget-notifications","#finance"]
 	// Required: true
-	RecipientChannels string `json:"recipient_channels"`
+	RecipientChannels []string `json:"recipient_channels"`
 
 	// Alerts only send if they reach this number (as a percentage). When threshold is 100, that means alerts are triggered once costs reach 100% of the budget.
 	// Example: 75
 	// Required: true
-	Threshold string `json:"threshold"`
+	Threshold int32 `json:"threshold"`
 
 	// token
 	// Required: true
 	Token string `json:"token"`
 
 	// The token for the User who created this BudgetAlert.
-	UserToken string `json:"user_token,omitempty"`
+	UserToken *string `json:"user_token,omitempty"`
 
 	// The Users that receive the alert.
 	// Required: true
@@ -151,7 +150,7 @@ func (m *BudgetAlert) validatePeriodToTrack(formats strfmt.Registry) error {
 
 func (m *BudgetAlert) validateRecipientChannels(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("recipient_channels", "body", m.RecipientChannels); err != nil {
+	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
 		return err
 	}
 
@@ -160,7 +159,7 @@ func (m *BudgetAlert) validateRecipientChannels(formats strfmt.Registry) error {
 
 func (m *BudgetAlert) validateThreshold(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("threshold", "body", m.Threshold); err != nil {
+	if err := validate.Required("threshold", "body", int32(m.Threshold)); err != nil {
 		return err
 	}
 

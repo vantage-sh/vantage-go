@@ -58,7 +58,7 @@ SendInvoiceOK describes a response with status code 200, with default header val
 Invoice sent successfully
 */
 type SendInvoiceOK struct {
-	Payload *models.Invoice
+	Payload *models.SendInvoice
 }
 
 // IsSuccess returns true when this send invoice o k response has a 2xx status code
@@ -101,13 +101,13 @@ func (o *SendInvoiceOK) String() string {
 	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceOK %s", 200, payload)
 }
 
-func (o *SendInvoiceOK) GetPayload() *models.Invoice {
+func (o *SendInvoiceOK) GetPayload() *models.SendInvoice {
 	return o.Payload
 }
 
 func (o *SendInvoiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Invoice)
+	o.Payload = new(models.SendInvoice)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

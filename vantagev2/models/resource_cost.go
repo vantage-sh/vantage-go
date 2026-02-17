@@ -19,9 +19,9 @@ import (
 // swagger:model ResourceCost
 type ResourceCost struct {
 
-	// amount
+	// The cost amount.
 	// Required: true
-	Amount string `json:"amount"`
+	Amount float32 `json:"amount"`
 
 	// The category of the cost.
 	// Required: true
@@ -48,7 +48,7 @@ func (m *ResourceCost) Validate(formats strfmt.Registry) error {
 
 func (m *ResourceCost) validateAmount(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("amount", "body", m.Amount); err != nil {
+	if err := validate.Required("amount", "body", float32(m.Amount)); err != nil {
 		return err
 	}
 

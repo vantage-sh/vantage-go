@@ -22,7 +22,7 @@ type Cost struct {
 
 	// The cost provider's account id that incurred the cost.
 	// Example: 9109237192
-	AccountID string `json:"account_id,omitempty"`
+	AccountID *string `json:"account_id,omitempty"`
 
 	// The date the cost was accrued. ISO 8601 Formatted.
 	// Example: 2023-09-05+00:00
@@ -36,15 +36,15 @@ type Cost struct {
 
 	// The cost provider's billing account id that incurred the cost.
 	// Example: 9109237192
-	BillingAccountID string `json:"billing_account_id,omitempty"`
+	BillingAccountID *string `json:"billing_account_id,omitempty"`
 
 	// The category for the cost.
 	// Example: Data Transfer
-	CostCategory string `json:"cost_category,omitempty"`
+	CostCategory *string `json:"cost_category,omitempty"`
 
 	// The subcategory for the cost.
 	// Example: DataTransfer-Regional-Bytes
-	CostSubcategory string `json:"cost_subcategory,omitempty"`
+	CostSubcategory *string `json:"cost_subcategory,omitempty"`
 
 	// The currency of the cost.
 	// Example: USD
@@ -57,28 +57,28 @@ type Cost struct {
 	// The cost provider which incurred the cost.
 	// Example: aws
 	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel"]
-	Provider string `json:"provider,omitempty"`
+	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
 	// Example: us-east-1
-	Region string `json:"region,omitempty"`
+	Region *string `json:"region,omitempty"`
 
 	// The resource id which incurred the cost.
 	// Example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
-	ResourceID string `json:"resource_id,omitempty"`
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// The segment name for segment report costs.
 	// Example: Engineering
-	Segment string `json:"segment,omitempty"`
+	Segment *string `json:"segment,omitempty"`
 
 	// The service which incurred the cost.
 	// Example: Amazon Elastic Compute Cloud - Compute
-	Service string `json:"service,omitempty"`
+	Service *string `json:"service,omitempty"`
 
 	// The tag attached to the cost that was incurred.
 	// DEPRECATED: does not support multiple tags.
 	// Example: production
-	Tag string `json:"tag,omitempty"`
+	Tag *string `json:"tag,omitempty"`
 
 	// The tag pairs attached to the cost that was incurred.
 	Tags []string `json:"tags"`
@@ -282,7 +282,7 @@ func (m *Cost) validateProvider(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateProviderEnum("provider", "body", m.Provider); err != nil {
+	if err := m.validateProviderEnum("provider", "body", *m.Provider); err != nil {
 		return err
 	}
 

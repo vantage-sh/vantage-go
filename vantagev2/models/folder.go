@@ -25,7 +25,7 @@ type Folder struct {
 	CreatedAt string `json:"created_at"`
 
 	// The token for the parent Folder, if any.
-	ParentFolderToken string `json:"parent_folder_token,omitempty"`
+	ParentFolderToken *string `json:"parent_folder_token,omitempty"`
 
 	// The tokens for the SavedFilters assigned to the Folder.
 	// Required: true

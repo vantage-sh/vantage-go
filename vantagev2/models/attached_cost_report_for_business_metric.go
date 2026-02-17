@@ -23,7 +23,7 @@ type AttachedCostReportForBusinessMetric struct {
 	// The token of the CostReport the BusinessMetric is attached to.
 	// Example: rprt_1234
 	// Required: true
-	CostReportToken string `json:"cost_report_token"`
+	CostReportToken *string `json:"cost_report_token"`
 
 	// The labels that the BusinessMetric is filtered by within a particular CostReport.
 	LabelFilter []string `json:"label_filter,omitempty"`
@@ -55,7 +55,7 @@ func (m *AttachedCostReportForBusinessMetric) Validate(formats strfmt.Registry) 
 
 func (m *AttachedCostReportForBusinessMetric) validateCostReportToken(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("cost_report_token", "body", m.CostReportToken); err != nil {
+	if err := validate.Required("cost_report_token", "body", m.CostReportToken); err != nil {
 		return err
 	}
 

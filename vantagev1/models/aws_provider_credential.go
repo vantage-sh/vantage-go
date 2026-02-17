@@ -24,10 +24,10 @@ type AwsProviderCredential struct {
 	ExternalID string `json:"external_id"`
 
 	// iam role arn
-	IamRoleArn string `json:"iam_role_arn,omitempty"`
+	IamRoleArn *string `json:"iam_role_arn,omitempty"`
 
 	// iam role id
-	IamRoleID string `json:"iam_role_id,omitempty"`
+	IamRoleID *string `json:"iam_role_id,omitempty"`
 
 	// policies
 	// Required: true

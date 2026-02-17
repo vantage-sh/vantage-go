@@ -38,7 +38,7 @@ type Dashboard struct {
 
 	// The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2023-09-04
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// The tokens of the Saved Filters used in the Dashboard.
 	// Required: true
@@ -46,7 +46,7 @@ type Dashboard struct {
 
 	// The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2023-08-04
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// The title of the Dashboard.
 	// Example: AWS Dashboard

@@ -99,7 +99,7 @@ type ClientService interface {
 
 	UpdateBusinessMetric(params *UpdateBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricOK, error)
 
-	UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error)
+	UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -396,7 +396,7 @@ UpdateBusinessMetricValuesCSV updates business metric values from c s v
 
 Updates the values for an existing BusinessMetric from a CSV file.
 */
-func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVCreated, error) {
+func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValuesCSVParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBusinessMetricValuesCSVOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateBusinessMetricValuesCSVParams()
@@ -422,7 +422,7 @@ func (a *Client) UpdateBusinessMetricValuesCSV(params *UpdateBusinessMetricValue
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateBusinessMetricValuesCSVCreated)
+	success, ok := result.(*UpdateBusinessMetricValuesCSVOK)
 	if ok {
 		return success, nil
 	}

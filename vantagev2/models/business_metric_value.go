@@ -31,7 +31,7 @@ type BusinessMetricValue struct {
 
 	// The label of the Business Metric Value.
 	// Example: Cost Center A
-	Label string `json:"label,omitempty"`
+	Label *string `json:"label,omitempty"`
 }
 
 // Validate validates this business metric value

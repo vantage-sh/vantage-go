@@ -22,17 +22,16 @@ type DataExportManifest struct {
 	// completed at
 	// Example: 2025-03-20T12:00:00Z
 	// Required: true
-	CompletedAt string `json:"completed_at"`
+	CompletedAt *string `json:"completed_at"`
 
 	// files
-	// Example: ["https://example.com/file1.csv"]
 	// Required: true
-	Files string `json:"files"`
+	Files []string `json:"files"`
 
 	// valid until
 	// Example: 2025-03-20T12:00:00Z
 	// Required: true
-	ValidUntil string `json:"valid_until"`
+	ValidUntil *string `json:"valid_until"`
 }
 
 // Validate validates this data export manifest
@@ -59,7 +58,7 @@ func (m *DataExportManifest) Validate(formats strfmt.Registry) error {
 
 func (m *DataExportManifest) validateCompletedAt(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("completed_at", "body", m.CompletedAt); err != nil {
+	if err := validate.Required("completed_at", "body", m.CompletedAt); err != nil {
 		return err
 	}
 
@@ -68,7 +67,7 @@ func (m *DataExportManifest) validateCompletedAt(formats strfmt.Registry) error 
 
 func (m *DataExportManifest) validateFiles(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("files", "body", m.Files); err != nil {
+	if err := validate.Required("files", "body", m.Files); err != nil {
 		return err
 	}
 
@@ -77,7 +76,7 @@ func (m *DataExportManifest) validateFiles(formats strfmt.Registry) error {
 
 func (m *DataExportManifest) validateValidUntil(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("valid_until", "body", m.ValidUntil); err != nil {
+	if err := validate.Required("valid_until", "body", m.ValidUntil); err != nil {
 		return err
 	}
 

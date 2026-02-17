@@ -18,19 +18,19 @@ import (
 type Links struct {
 
 	// The URL of the first page of results.
-	First string `json:"first,omitempty"`
+	First *string `json:"first,omitempty"`
 
 	// The URL of the last page of results, if one exists.
-	Last string `json:"last,omitempty"`
+	Last *string `json:"last,omitempty"`
 
 	// The URL of the next page of results, if one exists.
-	Next string `json:"next,omitempty"`
+	Next *string `json:"next,omitempty"`
 
 	// The URL of the previous page of results, if one exists.
-	Prev string `json:"prev,omitempty"`
+	Prev *string `json:"prev,omitempty"`
 
 	// The URL of the current page of results.
-	Self string `json:"self,omitempty"`
+	Self *string `json:"self,omitempty"`
 }
 
 // Validate validates this links

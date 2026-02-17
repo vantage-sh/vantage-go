@@ -41,7 +41,7 @@ type Resource struct {
 
 	// Type-specific attributes of the resource.
 	// Required: true
-	Metadata *string `json:"metadata"`
+	Metadata interface{} `json:"metadata"`
 
 	// The provider of the resource.
 	// Example: aws
@@ -186,8 +186,8 @@ func (m *Resource) validateLabel(formats strfmt.Registry) error {
 
 func (m *Resource) validateMetadata(formats strfmt.Registry) error {
 
-	if err := validate.Required("metadata", "body", m.Metadata); err != nil {
-		return err
+	if m.Metadata == nil {
+		return errors.Required("metadata", "body", nil)
 	}
 
 	return nil

@@ -49,10 +49,10 @@ func NewGetInvoiceCostReportOK() *GetInvoiceCostReportOK {
 /*
 GetInvoiceCostReportOK describes a response with status code 200, with default header values.
 
-Returns cost report URL for the invoice period
+Get cost report URL for invoice period.
 */
 type GetInvoiceCostReportOK struct {
-	Payload *models.CostReport
+	Payload *models.CostReportURL
 }
 
 // IsSuccess returns true when this get invoice cost report o k response has a 2xx status code
@@ -95,13 +95,13 @@ func (o *GetInvoiceCostReportOK) String() string {
 	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportOK %s", 200, payload)
 }
 
-func (o *GetInvoiceCostReportOK) GetPayload() *models.CostReport {
+func (o *GetInvoiceCostReportOK) GetPayload() *models.CostReportURL {
 	return o.Payload
 }
 
 func (o *GetInvoiceCostReportOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.CostReport)
+	o.Payload = new(models.CostReportURL)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

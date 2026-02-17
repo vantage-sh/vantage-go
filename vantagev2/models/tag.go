@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Tag Tag model
+// Tag tag
 //
 // swagger:model Tag
 type Tag struct {

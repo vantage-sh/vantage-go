@@ -24,8 +24,8 @@ type UpdateBusinessMetricValuesCSVReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateBusinessMetricValuesCSVReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewUpdateBusinessMetricValuesCSVCreated()
+	case 200:
+		result := NewUpdateBusinessMetricValuesCSVOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,65 +59,65 @@ func (o *UpdateBusinessMetricValuesCSVReader) ReadResponse(response runtime.Clie
 	}
 }
 
-// NewUpdateBusinessMetricValuesCSVCreated creates a UpdateBusinessMetricValuesCSVCreated with default headers values
-func NewUpdateBusinessMetricValuesCSVCreated() *UpdateBusinessMetricValuesCSVCreated {
-	return &UpdateBusinessMetricValuesCSVCreated{}
+// NewUpdateBusinessMetricValuesCSVOK creates a UpdateBusinessMetricValuesCSVOK with default headers values
+func NewUpdateBusinessMetricValuesCSVOK() *UpdateBusinessMetricValuesCSVOK {
+	return &UpdateBusinessMetricValuesCSVOK{}
 }
 
 /*
-UpdateBusinessMetricValuesCSVCreated describes a response with status code 201, with default header values.
+UpdateBusinessMetricValuesCSVOK describes a response with status code 200, with default header values.
 
-UpdateBusinessMetricValuesCSVCreated update business metric values c s v created
+UpdateBusinessMetricValuesCSVOK update business metric values c s v o k
 */
-type UpdateBusinessMetricValuesCSVCreated struct {
+type UpdateBusinessMetricValuesCSVOK struct {
 	Payload *models.BusinessMetric
 }
 
-// IsSuccess returns true when this update business metric values c s v created response has a 2xx status code
-func (o *UpdateBusinessMetricValuesCSVCreated) IsSuccess() bool {
+// IsSuccess returns true when this update business metric values c s v o k response has a 2xx status code
+func (o *UpdateBusinessMetricValuesCSVOK) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this update business metric values c s v created response has a 3xx status code
-func (o *UpdateBusinessMetricValuesCSVCreated) IsRedirect() bool {
+// IsRedirect returns true when this update business metric values c s v o k response has a 3xx status code
+func (o *UpdateBusinessMetricValuesCSVOK) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this update business metric values c s v created response has a 4xx status code
-func (o *UpdateBusinessMetricValuesCSVCreated) IsClientError() bool {
+// IsClientError returns true when this update business metric values c s v o k response has a 4xx status code
+func (o *UpdateBusinessMetricValuesCSVOK) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this update business metric values c s v created response has a 5xx status code
-func (o *UpdateBusinessMetricValuesCSVCreated) IsServerError() bool {
+// IsServerError returns true when this update business metric values c s v o k response has a 5xx status code
+func (o *UpdateBusinessMetricValuesCSVOK) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this update business metric values c s v created response a status code equal to that given
-func (o *UpdateBusinessMetricValuesCSVCreated) IsCode(code int) bool {
-	return code == 201
+// IsCode returns true when this update business metric values c s v o k response a status code equal to that given
+func (o *UpdateBusinessMetricValuesCSVOK) IsCode(code int) bool {
+	return code == 200
 }
 
-// Code gets the status code for the update business metric values c s v created response
-func (o *UpdateBusinessMetricValuesCSVCreated) Code() int {
-	return 201
+// Code gets the status code for the update business metric values c s v o k response
+func (o *UpdateBusinessMetricValuesCSVOK) Code() int {
+	return 200
 }
 
-func (o *UpdateBusinessMetricValuesCSVCreated) Error() string {
+func (o *UpdateBusinessMetricValuesCSVOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK %s", 200, payload)
 }
 
-func (o *UpdateBusinessMetricValuesCSVCreated) String() string {
+func (o *UpdateBusinessMetricValuesCSVOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK %s", 200, payload)
 }
 
-func (o *UpdateBusinessMetricValuesCSVCreated) GetPayload() *models.BusinessMetric {
+func (o *UpdateBusinessMetricValuesCSVOK) GetPayload() *models.BusinessMetric {
 	return o.Payload
 }
 
-func (o *UpdateBusinessMetricValuesCSVCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UpdateBusinessMetricValuesCSVOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BusinessMetric)
 

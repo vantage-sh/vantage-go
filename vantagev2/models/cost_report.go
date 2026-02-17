@@ -47,26 +47,26 @@ type CostReport struct {
 
 	// The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2024-07-15
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
 	// Required: true
 	Filter *string `json:"filter"`
 
 	// The token for the Folder the CostReport is a part of.
-	FolderToken string `json:"folder_token,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"`
 
 	// The grouping aggregations applied to the filtered data.
 	// Example: provider, service
-	Groupings string `json:"groupings,omitempty"`
+	Groupings *string `json:"groupings,omitempty"`
 
 	// The previous period end date of the CostReport. ISO 8601 Formatted.
 	// Example: 2024-06-15
-	PreviousPeriodEndDate string `json:"previous_period_end_date,omitempty"`
+	PreviousPeriodEndDate *string `json:"previous_period_end_date,omitempty"`
 
 	// The previous period start date of the CostReport. ISO 8601 Formatted.
 	// Example: 2024-06-01
-	PreviousPeriodStartDate string `json:"previous_period_start_date,omitempty"`
+	PreviousPeriodStartDate *string `json:"previous_period_start_date,omitempty"`
 
 	// The tokens for the SavedFilters assigned to the CostReport.
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
@@ -76,7 +76,7 @@ type CostReport struct {
 
 	// The start date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2024-07-01
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// The title of the CostReport.
 	// Example: Production Environment

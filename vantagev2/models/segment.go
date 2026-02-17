@@ -290,19 +290,19 @@ func (m *Segment) UnmarshalBinary(b []byte) error {
 type SegmentReportSettings struct {
 
 	// amortize
-	Amortize bool `json:"amortize,omitempty"`
+	Amortize *bool `json:"amortize,omitempty"`
 
 	// include credits
-	IncludeCredits bool `json:"include_credits,omitempty"`
+	IncludeCredits *bool `json:"include_credits,omitempty"`
 
 	// include discounts
-	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
 
 	// include refunds
-	IncludeRefunds bool `json:"include_refunds,omitempty"`
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
 
 	// include tax
-	IncludeTax bool `json:"include_tax,omitempty"`
+	IncludeTax *bool `json:"include_tax,omitempty"`
 }
 
 // Validate validates this segment report settings

@@ -15,6 +15,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+
+	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
 
 // NewCreateCostExportParams creates a new CreateCostExportParams object,
@@ -62,113 +64,14 @@ CreateCostExportParams contains all the parameters to send to the API endpoint
 */
 type CreateCostExportParams struct {
 
-	/* CostReportToken.
-
-	   The CostReport token.
-	*/
-	CostReportToken *string
-
-	/* DateBin.
-
-	   The date bin of the costs. Defaults to the report's default or day.
-	*/
-	DateBin *string
-
-	/* EndDate.
-
-	   Last date you would like to filter costs to. ISO 8601 formatted.
-	*/
-	EndDate *string
-
-	/* Filter.
-
-	   The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
-	*/
-	Filter *string
+	// CreateCostExport.
+	CreateCostExport *models.CreateCostExport
 
 	/* Groupings.
 
 	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	*/
 	Groupings []string
-
-	/* Schema.
-
-	   The schema of the data export.
-
-	   Default: "vntg"
-	*/
-	Schema *string
-
-	/* SettingsAggregateBy.
-
-	   Results will aggregate by cost or usage.
-
-	   Default: "cost"
-	*/
-	SettingsAggregateBy *string
-
-	/* SettingsAmortize.
-
-	   Results will amortize.
-
-	   Default: true
-	*/
-	SettingsAmortize *bool
-
-	/* SettingsIncludeCredits.
-
-	   Results will include credits.
-	*/
-	SettingsIncludeCredits *bool
-
-	/* SettingsIncludeDiscounts.
-
-	   Results will include discounts.
-
-	   Default: true
-	*/
-	SettingsIncludeDiscounts *bool
-
-	/* SettingsIncludeRefunds.
-
-	   Results will include refunds.
-	*/
-	SettingsIncludeRefunds *bool
-
-	/* SettingsIncludeTax.
-
-	   Results will include tax.
-
-	   Default: true
-	*/
-	SettingsIncludeTax *bool
-
-	/* SettingsShowPreviousPeriod.
-
-	   Results will show previous period costs or usage comparison.
-
-	   Default: true
-	*/
-	SettingsShowPreviousPeriod *bool
-
-	/* SettingsUnallocated.
-
-	   Results will show unallocated costs.
-	*/
-	SettingsUnallocated *bool
-
-	/* StartDate.
-
-	   First date you would like to filter costs from. ISO 8601 formatted.
-	*/
-	StartDate *string
-
-	/* WorkspaceToken.
-
-	   The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.
-	*/
-	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -187,42 +90,7 @@ func (o *CreateCostExportParams) WithDefaults() *CreateCostExportParams {
 //
 // All values with no default are reset to their zero value.
 func (o *CreateCostExportParams) SetDefaults() {
-	var (
-		schemaDefault = string("vntg")
-
-		settingsAggregateByDefault = string("cost")
-
-		settingsAmortizeDefault = bool(true)
-
-		settingsIncludeCreditsDefault = bool(false)
-
-		settingsIncludeDiscountsDefault = bool(true)
-
-		settingsIncludeRefundsDefault = bool(false)
-
-		settingsIncludeTaxDefault = bool(true)
-
-		settingsShowPreviousPeriodDefault = bool(true)
-
-		settingsUnallocatedDefault = bool(false)
-	)
-
-	val := CreateCostExportParams{
-		Schema:                     &schemaDefault,
-		SettingsAggregateBy:        &settingsAggregateByDefault,
-		SettingsAmortize:           &settingsAmortizeDefault,
-		SettingsIncludeCredits:     &settingsIncludeCreditsDefault,
-		SettingsIncludeDiscounts:   &settingsIncludeDiscountsDefault,
-		SettingsIncludeRefunds:     &settingsIncludeRefundsDefault,
-		SettingsIncludeTax:         &settingsIncludeTaxDefault,
-		SettingsShowPreviousPeriod: &settingsShowPreviousPeriodDefault,
-		SettingsUnallocated:        &settingsUnallocatedDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create cost export params
@@ -258,48 +126,15 @@ func (o *CreateCostExportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCostReportToken adds the costReportToken to the create cost export params
-func (o *CreateCostExportParams) WithCostReportToken(costReportToken *string) *CreateCostExportParams {
-	o.SetCostReportToken(costReportToken)
+// WithCreateCostExport adds the createCostExport to the create cost export params
+func (o *CreateCostExportParams) WithCreateCostExport(createCostExport *models.CreateCostExport) *CreateCostExportParams {
+	o.SetCreateCostExport(createCostExport)
 	return o
 }
 
-// SetCostReportToken adds the costReportToken to the create cost export params
-func (o *CreateCostExportParams) SetCostReportToken(costReportToken *string) {
-	o.CostReportToken = costReportToken
-}
-
-// WithDateBin adds the dateBin to the create cost export params
-func (o *CreateCostExportParams) WithDateBin(dateBin *string) *CreateCostExportParams {
-	o.SetDateBin(dateBin)
-	return o
-}
-
-// SetDateBin adds the dateBin to the create cost export params
-func (o *CreateCostExportParams) SetDateBin(dateBin *string) {
-	o.DateBin = dateBin
-}
-
-// WithEndDate adds the endDate to the create cost export params
-func (o *CreateCostExportParams) WithEndDate(endDate *string) *CreateCostExportParams {
-	o.SetEndDate(endDate)
-	return o
-}
-
-// SetEndDate adds the endDate to the create cost export params
-func (o *CreateCostExportParams) SetEndDate(endDate *string) {
-	o.EndDate = endDate
-}
-
-// WithFilter adds the filter to the create cost export params
-func (o *CreateCostExportParams) WithFilter(filter *string) *CreateCostExportParams {
-	o.SetFilter(filter)
-	return o
-}
-
-// SetFilter adds the filter to the create cost export params
-func (o *CreateCostExportParams) SetFilter(filter *string) {
-	o.Filter = filter
+// SetCreateCostExport adds the createCostExport to the create cost export params
+func (o *CreateCostExportParams) SetCreateCostExport(createCostExport *models.CreateCostExport) {
+	o.CreateCostExport = createCostExport
 }
 
 // WithGroupings adds the groupings to the create cost export params
@@ -313,127 +148,6 @@ func (o *CreateCostExportParams) SetGroupings(groupings []string) {
 	o.Groupings = groupings
 }
 
-// WithSchema adds the schema to the create cost export params
-func (o *CreateCostExportParams) WithSchema(schema *string) *CreateCostExportParams {
-	o.SetSchema(schema)
-	return o
-}
-
-// SetSchema adds the schema to the create cost export params
-func (o *CreateCostExportParams) SetSchema(schema *string) {
-	o.Schema = schema
-}
-
-// WithSettingsAggregateBy adds the settingsAggregateBy to the create cost export params
-func (o *CreateCostExportParams) WithSettingsAggregateBy(settingsAggregateBy *string) *CreateCostExportParams {
-	o.SetSettingsAggregateBy(settingsAggregateBy)
-	return o
-}
-
-// SetSettingsAggregateBy adds the settingsAggregateBy to the create cost export params
-func (o *CreateCostExportParams) SetSettingsAggregateBy(settingsAggregateBy *string) {
-	o.SettingsAggregateBy = settingsAggregateBy
-}
-
-// WithSettingsAmortize adds the settingsAmortize to the create cost export params
-func (o *CreateCostExportParams) WithSettingsAmortize(settingsAmortize *bool) *CreateCostExportParams {
-	o.SetSettingsAmortize(settingsAmortize)
-	return o
-}
-
-// SetSettingsAmortize adds the settingsAmortize to the create cost export params
-func (o *CreateCostExportParams) SetSettingsAmortize(settingsAmortize *bool) {
-	o.SettingsAmortize = settingsAmortize
-}
-
-// WithSettingsIncludeCredits adds the settingsIncludeCredits to the create cost export params
-func (o *CreateCostExportParams) WithSettingsIncludeCredits(settingsIncludeCredits *bool) *CreateCostExportParams {
-	o.SetSettingsIncludeCredits(settingsIncludeCredits)
-	return o
-}
-
-// SetSettingsIncludeCredits adds the settingsIncludeCredits to the create cost export params
-func (o *CreateCostExportParams) SetSettingsIncludeCredits(settingsIncludeCredits *bool) {
-	o.SettingsIncludeCredits = settingsIncludeCredits
-}
-
-// WithSettingsIncludeDiscounts adds the settingsIncludeDiscounts to the create cost export params
-func (o *CreateCostExportParams) WithSettingsIncludeDiscounts(settingsIncludeDiscounts *bool) *CreateCostExportParams {
-	o.SetSettingsIncludeDiscounts(settingsIncludeDiscounts)
-	return o
-}
-
-// SetSettingsIncludeDiscounts adds the settingsIncludeDiscounts to the create cost export params
-func (o *CreateCostExportParams) SetSettingsIncludeDiscounts(settingsIncludeDiscounts *bool) {
-	o.SettingsIncludeDiscounts = settingsIncludeDiscounts
-}
-
-// WithSettingsIncludeRefunds adds the settingsIncludeRefunds to the create cost export params
-func (o *CreateCostExportParams) WithSettingsIncludeRefunds(settingsIncludeRefunds *bool) *CreateCostExportParams {
-	o.SetSettingsIncludeRefunds(settingsIncludeRefunds)
-	return o
-}
-
-// SetSettingsIncludeRefunds adds the settingsIncludeRefunds to the create cost export params
-func (o *CreateCostExportParams) SetSettingsIncludeRefunds(settingsIncludeRefunds *bool) {
-	o.SettingsIncludeRefunds = settingsIncludeRefunds
-}
-
-// WithSettingsIncludeTax adds the settingsIncludeTax to the create cost export params
-func (o *CreateCostExportParams) WithSettingsIncludeTax(settingsIncludeTax *bool) *CreateCostExportParams {
-	o.SetSettingsIncludeTax(settingsIncludeTax)
-	return o
-}
-
-// SetSettingsIncludeTax adds the settingsIncludeTax to the create cost export params
-func (o *CreateCostExportParams) SetSettingsIncludeTax(settingsIncludeTax *bool) {
-	o.SettingsIncludeTax = settingsIncludeTax
-}
-
-// WithSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the create cost export params
-func (o *CreateCostExportParams) WithSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) *CreateCostExportParams {
-	o.SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod)
-	return o
-}
-
-// SetSettingsShowPreviousPeriod adds the settingsShowPreviousPeriod to the create cost export params
-func (o *CreateCostExportParams) SetSettingsShowPreviousPeriod(settingsShowPreviousPeriod *bool) {
-	o.SettingsShowPreviousPeriod = settingsShowPreviousPeriod
-}
-
-// WithSettingsUnallocated adds the settingsUnallocated to the create cost export params
-func (o *CreateCostExportParams) WithSettingsUnallocated(settingsUnallocated *bool) *CreateCostExportParams {
-	o.SetSettingsUnallocated(settingsUnallocated)
-	return o
-}
-
-// SetSettingsUnallocated adds the settingsUnallocated to the create cost export params
-func (o *CreateCostExportParams) SetSettingsUnallocated(settingsUnallocated *bool) {
-	o.SettingsUnallocated = settingsUnallocated
-}
-
-// WithStartDate adds the startDate to the create cost export params
-func (o *CreateCostExportParams) WithStartDate(startDate *string) *CreateCostExportParams {
-	o.SetStartDate(startDate)
-	return o
-}
-
-// SetStartDate adds the startDate to the create cost export params
-func (o *CreateCostExportParams) SetStartDate(startDate *string) {
-	o.StartDate = startDate
-}
-
-// WithWorkspaceToken adds the workspaceToken to the create cost export params
-func (o *CreateCostExportParams) WithWorkspaceToken(workspaceToken *string) *CreateCostExportParams {
-	o.SetWorkspaceToken(workspaceToken)
-	return o
-}
-
-// SetWorkspaceToken adds the workspaceToken to the create cost export params
-func (o *CreateCostExportParams) SetWorkspaceToken(workspaceToken *string) {
-	o.WorkspaceToken = workspaceToken
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -441,64 +155,9 @@ func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
-	if o.CostReportToken != nil {
-
-		// form param cost_report_token
-		var frCostReportToken string
-		if o.CostReportToken != nil {
-			frCostReportToken = *o.CostReportToken
-		}
-		fCostReportToken := frCostReportToken
-		if fCostReportToken != "" {
-			if err := r.SetFormParam("cost_report_token", fCostReportToken); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.DateBin != nil {
-
-		// form param date_bin
-		var frDateBin string
-		if o.DateBin != nil {
-			frDateBin = *o.DateBin
-		}
-		fDateBin := frDateBin
-		if fDateBin != "" {
-			if err := r.SetFormParam("date_bin", fDateBin); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.EndDate != nil {
-
-		// form param end_date
-		var frEndDate string
-		if o.EndDate != nil {
-			frEndDate = *o.EndDate
-		}
-		fEndDate := frEndDate
-		if fEndDate != "" {
-			if err := r.SetFormParam("end_date", fEndDate); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.Filter != nil {
-
-		// form param filter
-		var frFilter string
-		if o.Filter != nil {
-			frFilter = *o.Filter
-		}
-		fFilter := frFilter
-		if fFilter != "" {
-			if err := r.SetFormParam("filter", fFilter); err != nil {
-				return err
-			}
+	if o.CreateCostExport != nil {
+		if err := r.SetBodyParam(o.CreateCostExport); err != nil {
+			return err
 		}
 	}
 
@@ -510,171 +169,6 @@ func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		// query array param groupings
 		if err := r.SetQueryParam("groupings", joinedGroupings...); err != nil {
 			return err
-		}
-	}
-
-	if o.Schema != nil {
-
-		// form param schema
-		var frSchema string
-		if o.Schema != nil {
-			frSchema = *o.Schema
-		}
-		fSchema := frSchema
-		if fSchema != "" {
-			if err := r.SetFormParam("schema", fSchema); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsAggregateBy != nil {
-
-		// form param settings[aggregate_by]
-		var frSettingsAggregateBy string
-		if o.SettingsAggregateBy != nil {
-			frSettingsAggregateBy = *o.SettingsAggregateBy
-		}
-		fSettingsAggregateBy := frSettingsAggregateBy
-		if fSettingsAggregateBy != "" {
-			if err := r.SetFormParam("settings[aggregate_by]", fSettingsAggregateBy); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsAmortize != nil {
-
-		// form param settings[amortize]
-		var frSettingsAmortize bool
-		if o.SettingsAmortize != nil {
-			frSettingsAmortize = *o.SettingsAmortize
-		}
-		fSettingsAmortize := swag.FormatBool(frSettingsAmortize)
-		if fSettingsAmortize != "" {
-			if err := r.SetFormParam("settings[amortize]", fSettingsAmortize); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsIncludeCredits != nil {
-
-		// form param settings[include_credits]
-		var frSettingsIncludeCredits bool
-		if o.SettingsIncludeCredits != nil {
-			frSettingsIncludeCredits = *o.SettingsIncludeCredits
-		}
-		fSettingsIncludeCredits := swag.FormatBool(frSettingsIncludeCredits)
-		if fSettingsIncludeCredits != "" {
-			if err := r.SetFormParam("settings[include_credits]", fSettingsIncludeCredits); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsIncludeDiscounts != nil {
-
-		// form param settings[include_discounts]
-		var frSettingsIncludeDiscounts bool
-		if o.SettingsIncludeDiscounts != nil {
-			frSettingsIncludeDiscounts = *o.SettingsIncludeDiscounts
-		}
-		fSettingsIncludeDiscounts := swag.FormatBool(frSettingsIncludeDiscounts)
-		if fSettingsIncludeDiscounts != "" {
-			if err := r.SetFormParam("settings[include_discounts]", fSettingsIncludeDiscounts); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsIncludeRefunds != nil {
-
-		// form param settings[include_refunds]
-		var frSettingsIncludeRefunds bool
-		if o.SettingsIncludeRefunds != nil {
-			frSettingsIncludeRefunds = *o.SettingsIncludeRefunds
-		}
-		fSettingsIncludeRefunds := swag.FormatBool(frSettingsIncludeRefunds)
-		if fSettingsIncludeRefunds != "" {
-			if err := r.SetFormParam("settings[include_refunds]", fSettingsIncludeRefunds); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsIncludeTax != nil {
-
-		// form param settings[include_tax]
-		var frSettingsIncludeTax bool
-		if o.SettingsIncludeTax != nil {
-			frSettingsIncludeTax = *o.SettingsIncludeTax
-		}
-		fSettingsIncludeTax := swag.FormatBool(frSettingsIncludeTax)
-		if fSettingsIncludeTax != "" {
-			if err := r.SetFormParam("settings[include_tax]", fSettingsIncludeTax); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsShowPreviousPeriod != nil {
-
-		// form param settings[show_previous_period]
-		var frSettingsShowPreviousPeriod bool
-		if o.SettingsShowPreviousPeriod != nil {
-			frSettingsShowPreviousPeriod = *o.SettingsShowPreviousPeriod
-		}
-		fSettingsShowPreviousPeriod := swag.FormatBool(frSettingsShowPreviousPeriod)
-		if fSettingsShowPreviousPeriod != "" {
-			if err := r.SetFormParam("settings[show_previous_period]", fSettingsShowPreviousPeriod); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.SettingsUnallocated != nil {
-
-		// form param settings[unallocated]
-		var frSettingsUnallocated bool
-		if o.SettingsUnallocated != nil {
-			frSettingsUnallocated = *o.SettingsUnallocated
-		}
-		fSettingsUnallocated := swag.FormatBool(frSettingsUnallocated)
-		if fSettingsUnallocated != "" {
-			if err := r.SetFormParam("settings[unallocated]", fSettingsUnallocated); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.StartDate != nil {
-
-		// form param start_date
-		var frStartDate string
-		if o.StartDate != nil {
-			frStartDate = *o.StartDate
-		}
-		fStartDate := frStartDate
-		if fStartDate != "" {
-			if err := r.SetFormParam("start_date", fStartDate); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.WorkspaceToken != nil {
-
-		// form param workspace_token
-		var frWorkspaceToken string
-		if o.WorkspaceToken != nil {
-			frWorkspaceToken = *o.WorkspaceToken
-		}
-		fWorkspaceToken := frWorkspaceToken
-		if fWorkspaceToken != "" {
-			if err := r.SetFormParam("workspace_token", fWorkspaceToken); err != nil {
-				return err
-			}
 		}
 	}
 

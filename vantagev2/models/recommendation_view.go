@@ -25,14 +25,14 @@ type RecommendationView struct {
 
 	// The date and time, in UTC, the view was created. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The token for the Creator of this RecommendationView.
-	CreatedBy string `json:"created_by,omitempty"`
+	CreatedBy *string `json:"created_by,omitempty"`
 
 	// Filter recommendations created on/before this YYYY-MM-DD date.
 	// Example: 2024-12-31
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// Filter by one or more providers.
 	ProviderIds []string `json:"provider_ids"`
@@ -42,25 +42,25 @@ type RecommendationView struct {
 
 	// Filter recommendations created on/after this YYYY-MM-DD date.
 	// Example: 2024-01-01
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// Filter by tag key (must be used with tag_value).
 	// Example: environment
-	TagKey string `json:"tag_key,omitempty"`
+	TagKey *string `json:"tag_key,omitempty"`
 
 	// Filter by tag value (requires tag_key).
 	// Example: production
-	TagValue string `json:"tag_value,omitempty"`
+	TagValue *string `json:"tag_value,omitempty"`
 
 	// The title of the RecommendationView.
 	// Example: Production Recommendations
-	Title string `json:"title,omitempty"`
+	Title *string `json:"title,omitempty"`
 
 	// token
-	Token string `json:"token,omitempty"`
+	Token *string `json:"token,omitempty"`
 
 	// The token for the Workspace the RecommendationView is a part of.
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	WorkspaceToken *string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this recommendation view

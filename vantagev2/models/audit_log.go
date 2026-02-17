@@ -63,14 +63,14 @@ type AuditLog struct {
 	UnchangedValues interface{} `json:"unchanged_values"`
 
 	// The name of the user who performed the action.
-	User string `json:"user,omitempty"`
+	User *string `json:"user,omitempty"`
 
 	// The name of the workspace associated with the audit log.
-	WorkspaceTitle string `json:"workspace_title,omitempty"`
+	WorkspaceTitle *string `json:"workspace_title,omitempty"`
 
 	// The token of the workspace associated with the audit log.
 	// Example: wrkspc_1234567890abcdef
-	WorkspaceToken string `json:"workspace_token,omitempty"`
+	WorkspaceToken *string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this audit log

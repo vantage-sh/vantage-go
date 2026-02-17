@@ -71,7 +71,7 @@ type KubernetesEfficiencyReport struct {
 	Token string `json:"token"`
 
 	// The token for the User who created this KubernetesEfficiencyReport.
-	UserToken string `json:"user_token,omitempty"`
+	UserToken *string `json:"user_token,omitempty"`
 
 	// The token for the Workspace the KubernetesEfficiencyReport is a part of.
 	// Required: true
