@@ -62,6 +62,8 @@ type ClientService interface {
 
 	GetRecommendationResources(params *GetRecommendationResourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationResourcesOK, error)
 
+	GetRecommendationTypeResources(params *GetRecommendationTypeResourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationTypeResourcesOK, error)
+
 	GetRecommendations(params *GetRecommendationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -187,6 +189,47 @@ func (a *Client) GetRecommendationResources(params *GetRecommendationResourcesPa
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getRecommendationResources: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetRecommendationTypeResources gets all resources for a recommendation type
+
+Return all Active Resources associated with recommendations of the specified type.
+*/
+func (a *Client) GetRecommendationTypeResources(params *GetRecommendationTypeResourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationTypeResourcesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRecommendationTypeResourcesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getRecommendationTypeResources",
+		Method:             "GET",
+		PathPattern:        "/recommendations/by_type/{type}/resources",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetRecommendationTypeResourcesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRecommendationTypeResourcesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRecommendationTypeResources: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

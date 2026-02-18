@@ -27,7 +27,7 @@ type FinancialCommitment struct {
 	// The number of instances for the financial commitment.
 	// Example: 4
 	// Required: true
-	Amount *string `json:"amount"`
+	Amount *int32 `json:"amount"`
 
 	// The amount of the financial commitment.
 	// Example: $2.18

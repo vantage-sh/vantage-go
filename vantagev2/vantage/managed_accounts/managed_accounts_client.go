@@ -58,6 +58,8 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CreateManagedAccount(params *CreateManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateManagedAccountCreated, error)
 
+	CreateSsoConnectionForManagedAccount(params *CreateSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSsoConnectionForManagedAccountCreated, error)
+
 	DeleteManagedAccount(params *DeleteManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteManagedAccountNoContent, error)
 
 	GetManagedAccount(params *GetManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountOK, error)
@@ -65,6 +67,8 @@ type ClientService interface {
 	GetManagedAccounts(params *GetManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountsOK, error)
 
 	UpdateManagedAccount(params *UpdateManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountOK, error)
+
+	UpdateSsoConnectionForManagedAccount(params *UpdateSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSsoConnectionForManagedAccountOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -107,6 +111,47 @@ func (a *Client) CreateManagedAccount(params *CreateManagedAccountParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for createManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateSsoConnectionForManagedAccount configures s s o for managed account
+
+Configure SSO for a Managed Account.
+*/
+func (a *Client) CreateSsoConnectionForManagedAccount(params *CreateSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSsoConnectionForManagedAccountCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSsoConnectionForManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createSsoConnectionForManagedAccount",
+		Method:             "POST",
+		PathPattern:        "/managed_accounts/{managed_account_token}/sso_connection",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateSsoConnectionForManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateSsoConnectionForManagedAccountCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createSsoConnectionForManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -271,6 +316,47 @@ func (a *Client) UpdateManagedAccount(params *UpdateManagedAccountParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateSsoConnectionForManagedAccount updates s s o configuration for managed account
+
+Update SSO configuration for a Managed Account.
+*/
+func (a *Client) UpdateSsoConnectionForManagedAccount(params *UpdateSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSsoConnectionForManagedAccountOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSsoConnectionForManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateSsoConnectionForManagedAccount",
+		Method:             "PUT",
+		PathPattern:        "/managed_accounts/{managed_account_token}/sso_connection",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateSsoConnectionForManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateSsoConnectionForManagedAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateSsoConnectionForManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

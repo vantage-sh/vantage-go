@@ -21,7 +21,7 @@ type DataExport struct {
 
 	// attributes
 	// Required: true
-	Attributes string `json:"attributes"`
+	Attributes interface{} `json:"attributes"`
 
 	// created at
 	// Example: 2025-03-20T12:00:00Z
@@ -84,8 +84,8 @@ func (m *DataExport) Validate(formats strfmt.Registry) error {
 
 func (m *DataExport) validateAttributes(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("attributes", "body", m.Attributes); err != nil {
-		return err
+	if m.Attributes == nil {
+		return errors.Required("attributes", "body", nil)
 	}
 
 	return nil

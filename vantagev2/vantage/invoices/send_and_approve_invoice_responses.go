@@ -58,7 +58,7 @@ SendAndApproveInvoiceOK describes a response with status code 200, with default 
 Invoice approved and sent successfully
 */
 type SendAndApproveInvoiceOK struct {
-	Payload *models.Invoice
+	Payload *models.SendInvoice
 }
 
 // IsSuccess returns true when this send and approve invoice o k response has a 2xx status code
@@ -101,13 +101,13 @@ func (o *SendAndApproveInvoiceOK) String() string {
 	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceOK %s", 200, payload)
 }
 
-func (o *SendAndApproveInvoiceOK) GetPayload() *models.Invoice {
+func (o *SendAndApproveInvoiceOK) GetPayload() *models.SendInvoice {
 	return o.Payload
 }
 
 func (o *SendAndApproveInvoiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Invoice)
+	o.Payload = new(models.SendInvoice)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

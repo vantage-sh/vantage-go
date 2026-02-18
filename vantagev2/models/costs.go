@@ -29,10 +29,10 @@ type Costs struct {
 
 	// The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code.
 	// Required: true
-	TotalCost interface{} `json:"total_cost"`
+	TotalCost *CostPartial `json:"total_cost"`
 
 	// The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit.
-	TotalUsage interface{} `json:"total_usage,omitempty"`
+	TotalUsage []*UsagePartial `json:"total_usage"`
 }
 
 // Validate validates this costs
@@ -48,6 +48,10 @@ func (m *Costs) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTotalCost(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTotalUsage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,8 +109,45 @@ func (m *Costs) validateLinks(formats strfmt.Registry) error {
 
 func (m *Costs) validateTotalCost(formats strfmt.Registry) error {
 
-	if m.TotalCost == nil {
-		return errors.Required("total_cost", "body", nil)
+	if err := validate.Required("total_cost", "body", m.TotalCost); err != nil {
+		return err
+	}
+
+	if m.TotalCost != nil {
+		if err := m.TotalCost.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("total_cost")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("total_cost")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Costs) validateTotalUsage(formats strfmt.Registry) error {
+	if swag.IsZero(m.TotalUsage) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.TotalUsage); i++ {
+		if swag.IsZero(m.TotalUsage[i]) { // not required
+			continue
+		}
+
+		if m.TotalUsage[i] != nil {
+			if err := m.TotalUsage[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("total_usage" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("total_usage" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -121,6 +162,14 @@ func (m *Costs) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 	}
 
 	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTotalCost(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTotalUsage(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -171,6 +220,48 @@ func (m *Costs) contextValidateLinks(ctx context.Context, formats strfmt.Registr
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Costs) contextValidateTotalCost(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.TotalCost != nil {
+
+		if err := m.TotalCost.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("total_cost")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("total_cost")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Costs) contextValidateTotalUsage(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.TotalUsage); i++ {
+
+		if m.TotalUsage[i] != nil {
+
+			if swag.IsZero(m.TotalUsage[i]) { // not required
+				return nil
+			}
+
+			if err := m.TotalUsage[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("total_usage" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("total_usage" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

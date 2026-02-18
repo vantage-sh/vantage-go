@@ -29,7 +29,7 @@ type Budget struct {
 	ChildBudgetTokens []string `json:"child_budget_tokens"`
 
 	// The token of the Report associated with the Budget.
-	CostReportToken string `json:"cost_report_token,omitempty"`
+	CostReportToken *string `json:"cost_report_token,omitempty"`
 
 	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
 	// Example: 2024-03-19T00:00:00Z
@@ -37,7 +37,7 @@ type Budget struct {
 	CreatedAt string `json:"created_at"`
 
 	// The token of the Creator of the Budget.
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	CreatedByToken *string `json:"created_by_token,omitempty"`
 
 	// The name of the Budget.
 	// Example: Acme123 Budget
@@ -56,7 +56,7 @@ type Budget struct {
 	Token string `json:"token"`
 
 	// The token for the User who created this Budget.
-	UserToken string `json:"user_token,omitempty"`
+	UserToken *string `json:"user_token,omitempty"`
 
 	// The token for the Workspace the Budget is a part of.
 	// Required: true

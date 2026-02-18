@@ -26,7 +26,7 @@ type Me struct {
 
 	// default workspace token
 	// Required: true
-	DefaultWorkspaceToken string `json:"default_workspace_token"`
+	DefaultWorkspaceToken *string `json:"default_workspace_token"`
 
 	// workspaces
 	// Required: true
@@ -77,7 +77,7 @@ func (m *Me) validateBearerToken(formats strfmt.Registry) error {
 
 func (m *Me) validateDefaultWorkspaceToken(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("default_workspace_token", "body", m.DefaultWorkspaceToken); err != nil {
+	if err := validate.Required("default_workspace_token", "body", m.DefaultWorkspaceToken); err != nil {
 		return err
 	}
 

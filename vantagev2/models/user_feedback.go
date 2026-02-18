@@ -25,7 +25,7 @@ type UserFeedback struct {
 	CreatedAt string `json:"created_at"`
 
 	// Token of the creator of the feedback
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	CreatedByToken *string `json:"created_by_token,omitempty"`
 
 	// User feedback message
 	// Required: true

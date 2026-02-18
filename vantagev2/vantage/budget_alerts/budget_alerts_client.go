@@ -64,7 +64,7 @@ type ClientService interface {
 
 	GetBudgetAlerts(params *GetBudgetAlertsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBudgetAlertsOK, error)
 
-	UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetAlertCreated, error)
+	UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetAlertOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -238,7 +238,7 @@ UpdateBudgetAlert updates budget alert
 
 Updates an existing BudgetAlert.
 */
-func (a *Client) UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetAlertCreated, error) {
+func (a *Client) UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBudgetAlertOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateBudgetAlertParams()
@@ -264,7 +264,7 @@ func (a *Client) UpdateBudgetAlert(params *UpdateBudgetAlertParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateBudgetAlertCreated)
+	success, ok := result.(*UpdateBudgetAlertOK)
 	if ok {
 		return success, nil
 	}

@@ -25,7 +25,7 @@ type NetworkFlowReport struct {
 	CreatedAt string `json:"created_at"`
 
 	// The token for the User or Team that created this NetworkFlowReport.
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	CreatedByToken *string `json:"created_by_token,omitempty"`
 
 	// The date range for the NetworkFlowReport. Only present if a custom date range is not specified.
 	// Example: last_month

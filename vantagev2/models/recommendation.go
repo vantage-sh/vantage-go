@@ -22,7 +22,7 @@ type Recommendation struct {
 	// The category of the Recommendation.
 	// Example: ec2_compute_optimizer_recommender
 	// Required: true
-	Category *string `json:"category"`
+	Category string `json:"category"`
 
 	// The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
 	// Required: true
@@ -30,11 +30,11 @@ type Recommendation struct {
 
 	// The currency code used by the Workspace to which this Recommendation belongs.
 	// Example: EUR
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode *string `json:"currency_code,omitempty"`
 
 	// The currency symbol used by the Workspace to which this Recommendation belongs.
 	// Example: EUR
-	CurrencySymbol string `json:"currency_symbol,omitempty"`
+	CurrencySymbol *string `json:"currency_symbol,omitempty"`
 
 	// description
 	// Required: true
@@ -55,7 +55,7 @@ type Recommendation struct {
 
 	// The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
 	// Required: true
-	ResourcesAffectedCount string `json:"resources_affected_count"`
+	ResourcesAffectedCount int32 `json:"resources_affected_count"`
 
 	// The service the Recommendation is for.
 	// Example: Amazon EC2
@@ -65,6 +65,11 @@ type Recommendation struct {
 	// token
 	// Required: true
 	Token string `json:"token"`
+
+	// The type of the Recommendation. This is analogous to category, but with a uniform format.
+	// Example: aws:ec2:co-rightsizing
+	// Required: true
+	Type string `json:"type"`
 
 	// The token for the Workspace the Recommendation is a part of.
 	// Required: true
@@ -111,6 +116,10 @@ func (m *Recommendation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
@@ -123,7 +132,7 @@ func (m *Recommendation) Validate(formats strfmt.Registry) error {
 
 func (m *Recommendation) validateCategory(formats strfmt.Registry) error {
 
-	if err := validate.Required("category", "body", m.Category); err != nil {
+	if err := validate.RequiredString("category", "body", m.Category); err != nil {
 		return err
 	}
 
@@ -177,7 +186,7 @@ func (m *Recommendation) validateProviderAccountID(formats strfmt.Registry) erro
 
 func (m *Recommendation) validateResourcesAffectedCount(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("resources_affected_count", "body", m.ResourcesAffectedCount); err != nil {
+	if err := validate.Required("resources_affected_count", "body", int32(m.ResourcesAffectedCount)); err != nil {
 		return err
 	}
 
@@ -196,6 +205,15 @@ func (m *Recommendation) validateService(formats strfmt.Registry) error {
 func (m *Recommendation) validateToken(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 

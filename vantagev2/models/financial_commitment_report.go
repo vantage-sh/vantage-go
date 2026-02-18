@@ -72,7 +72,7 @@ type FinancialCommitmentReport struct {
 	Token string `json:"token"`
 
 	// The token for the User who created this FinancialCommitmentReport.
-	UserToken string `json:"user_token,omitempty"`
+	UserToken *string `json:"user_token,omitempty"`
 
 	// The token for the Workspace the FinancialCommitmentReport is a part of.
 	// Required: true

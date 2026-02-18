@@ -20,7 +20,7 @@ import (
 type AwsAccessCredential struct {
 
 	// bucket arn
-	BucketArn string `json:"bucket_arn,omitempty"`
+	BucketArn *string `json:"bucket_arn,omitempty"`
 
 	// cross account arn
 	// Required: true

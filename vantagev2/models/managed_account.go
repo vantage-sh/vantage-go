@@ -38,10 +38,10 @@ type ManagedAccount struct {
 	ContactEmail string `json:"contact_email"`
 
 	// Email domain associated with this Managed Account for SSO.
-	EmailDomain string `json:"email_domain,omitempty"`
+	EmailDomain *string `json:"email_domain,omitempty"`
 
 	// Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
-	MspBillingProfileToken string `json:"msp_billing_profile_token,omitempty"`
+	MspBillingProfileToken *string `json:"msp_billing_profile_token,omitempty"`
 
 	// name
 	// Required: true

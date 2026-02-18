@@ -30,7 +30,7 @@ type BusinessMetric struct {
 
 	// The token of the Creator of the BusinessMetric.
 	// Example: usr_1234
-	CreatedByToken string `json:"created_by_token,omitempty"`
+	CreatedByToken *string `json:"created_by_token,omitempty"`
 
 	// The fields used to generate the Datadog metrics for BusinessMetric.
 	DatadogMetricFields *DatadogMetricFields `json:"datadog_metric_fields,omitempty"`
@@ -39,7 +39,7 @@ type BusinessMetric struct {
 	// Example: datadog_metrics
 	// Required: true
 	// Enum: ["datadog_metrics","cloudwatch","csv"]
-	ImportType string `json:"import_type"`
+	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
 	// Required: true
@@ -193,12 +193,12 @@ func (m *BusinessMetric) validateImportTypeEnum(path, location string, value str
 
 func (m *BusinessMetric) validateImportType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("import_type", "body", m.ImportType); err != nil {
+	if err := validate.Required("import_type", "body", m.ImportType); err != nil {
 		return err
 	}
 
 	// value enum
-	if err := m.validateImportTypeEnum("import_type", "body", m.ImportType); err != nil {
+	if err := m.validateImportTypeEnum("import_type", "body", *m.ImportType); err != nil {
 		return err
 	}
 

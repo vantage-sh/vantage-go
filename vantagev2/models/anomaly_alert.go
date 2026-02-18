@@ -21,7 +21,7 @@ type AnomalyAlert struct {
 
 	// The date and time, in UTC, the AnomalyAlert is sent. ISO 8601 Formatted.
 	// Example: 2021-07-09T00:00:00Z
-	AlertedAt string `json:"alerted_at,omitempty"`
+	AlertedAt *string `json:"alerted_at,omitempty"`
 
 	// The amount observed.
 	// Required: true
@@ -41,7 +41,7 @@ type AnomalyAlert struct {
 	CreatedAt string `json:"created_at"`
 
 	// The user-provided feedback of why alert was ignored/archived.
-	Feedback string `json:"feedback,omitempty"`
+	Feedback *string `json:"feedback,omitempty"`
 
 	// The previous amount observed.
 	// Required: true

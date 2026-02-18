@@ -62,7 +62,7 @@ type ClientService interface {
 
 	GetWorkspaces(params *GetWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetWorkspacesOK, error)
 
-	UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceCreated, error)
+	UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -195,7 +195,7 @@ UpdateWorkspace updates workspace
 
 Update a workspace
 */
-func (a *Client) UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceCreated, error) {
+func (a *Client) UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateWorkspaceParams()
@@ -221,7 +221,7 @@ func (a *Client) UpdateWorkspace(params *UpdateWorkspaceParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateWorkspaceCreated)
+	success, ok := result.(*UpdateWorkspaceOK)
 	if ok {
 		return success, nil
 	}

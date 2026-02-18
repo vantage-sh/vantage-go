@@ -18,7 +18,7 @@ import (
 type VirtualTagConfigValueCostMetricAggregation struct {
 
 	// The tag to aggregate on.
-	Tag string `json:"tag,omitempty"`
+	Tag *string `json:"tag,omitempty"`
 }
 
 // Validate validates this virtual tag config value cost metric aggregation

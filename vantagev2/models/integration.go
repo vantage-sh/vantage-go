@@ -32,7 +32,7 @@ type Integration struct {
 
 	// The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
-	LastUpdated string `json:"last_updated,omitempty"`
+	LastUpdated *string `json:"last_updated,omitempty"`
 
 	// The name of the Integration.
 	// Example: AWS

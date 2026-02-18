@@ -24,8 +24,8 @@ type UpdateBudgetAlertReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateBudgetAlertReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewUpdateBudgetAlertCreated()
+	case 200:
+		result := NewUpdateBudgetAlertOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -41,65 +41,65 @@ func (o *UpdateBudgetAlertReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewUpdateBudgetAlertCreated creates a UpdateBudgetAlertCreated with default headers values
-func NewUpdateBudgetAlertCreated() *UpdateBudgetAlertCreated {
-	return &UpdateBudgetAlertCreated{}
+// NewUpdateBudgetAlertOK creates a UpdateBudgetAlertOK with default headers values
+func NewUpdateBudgetAlertOK() *UpdateBudgetAlertOK {
+	return &UpdateBudgetAlertOK{}
 }
 
 /*
-UpdateBudgetAlertCreated describes a response with status code 201, with default header values.
+UpdateBudgetAlertOK describes a response with status code 200, with default header values.
 
-UpdateBudgetAlertCreated update budget alert created
+UpdateBudgetAlertOK update budget alert o k
 */
-type UpdateBudgetAlertCreated struct {
+type UpdateBudgetAlertOK struct {
 	Payload *models.BudgetAlert
 }
 
-// IsSuccess returns true when this update budget alert created response has a 2xx status code
-func (o *UpdateBudgetAlertCreated) IsSuccess() bool {
+// IsSuccess returns true when this update budget alert o k response has a 2xx status code
+func (o *UpdateBudgetAlertOK) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this update budget alert created response has a 3xx status code
-func (o *UpdateBudgetAlertCreated) IsRedirect() bool {
+// IsRedirect returns true when this update budget alert o k response has a 3xx status code
+func (o *UpdateBudgetAlertOK) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this update budget alert created response has a 4xx status code
-func (o *UpdateBudgetAlertCreated) IsClientError() bool {
+// IsClientError returns true when this update budget alert o k response has a 4xx status code
+func (o *UpdateBudgetAlertOK) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this update budget alert created response has a 5xx status code
-func (o *UpdateBudgetAlertCreated) IsServerError() bool {
+// IsServerError returns true when this update budget alert o k response has a 5xx status code
+func (o *UpdateBudgetAlertOK) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this update budget alert created response a status code equal to that given
-func (o *UpdateBudgetAlertCreated) IsCode(code int) bool {
-	return code == 201
+// IsCode returns true when this update budget alert o k response a status code equal to that given
+func (o *UpdateBudgetAlertOK) IsCode(code int) bool {
+	return code == 200
 }
 
-// Code gets the status code for the update budget alert created response
-func (o *UpdateBudgetAlertCreated) Code() int {
-	return 201
+// Code gets the status code for the update budget alert o k response
+func (o *UpdateBudgetAlertOK) Code() int {
+	return 200
 }
 
-func (o *UpdateBudgetAlertCreated) Error() string {
+func (o *UpdateBudgetAlertOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /budget_alerts/{budget_alert_token}][%d] updateBudgetAlertCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /budget_alerts/{budget_alert_token}][%d] updateBudgetAlertOK %s", 200, payload)
 }
 
-func (o *UpdateBudgetAlertCreated) String() string {
+func (o *UpdateBudgetAlertOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /budget_alerts/{budget_alert_token}][%d] updateBudgetAlertCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /budget_alerts/{budget_alert_token}][%d] updateBudgetAlertOK %s", 200, payload)
 }
 
-func (o *UpdateBudgetAlertCreated) GetPayload() *models.BudgetAlert {
+func (o *UpdateBudgetAlertOK) GetPayload() *models.BudgetAlert {
 	return o.Payload
 }
 
-func (o *UpdateBudgetAlertCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UpdateBudgetAlertOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BudgetAlert)
 

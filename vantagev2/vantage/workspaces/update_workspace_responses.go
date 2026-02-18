@@ -24,8 +24,8 @@ type UpdateWorkspaceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateWorkspaceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewUpdateWorkspaceCreated()
+	case 200:
+		result := NewUpdateWorkspaceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -41,65 +41,65 @@ func (o *UpdateWorkspaceReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewUpdateWorkspaceCreated creates a UpdateWorkspaceCreated with default headers values
-func NewUpdateWorkspaceCreated() *UpdateWorkspaceCreated {
-	return &UpdateWorkspaceCreated{}
+// NewUpdateWorkspaceOK creates a UpdateWorkspaceOK with default headers values
+func NewUpdateWorkspaceOK() *UpdateWorkspaceOK {
+	return &UpdateWorkspaceOK{}
 }
 
 /*
-UpdateWorkspaceCreated describes a response with status code 201, with default header values.
+UpdateWorkspaceOK describes a response with status code 200, with default header values.
 
-UpdateWorkspaceCreated update workspace created
+UpdateWorkspaceOK update workspace o k
 */
-type UpdateWorkspaceCreated struct {
+type UpdateWorkspaceOK struct {
 	Payload *models.Workspace
 }
 
-// IsSuccess returns true when this update workspace created response has a 2xx status code
-func (o *UpdateWorkspaceCreated) IsSuccess() bool {
+// IsSuccess returns true when this update workspace o k response has a 2xx status code
+func (o *UpdateWorkspaceOK) IsSuccess() bool {
 	return true
 }
 
-// IsRedirect returns true when this update workspace created response has a 3xx status code
-func (o *UpdateWorkspaceCreated) IsRedirect() bool {
+// IsRedirect returns true when this update workspace o k response has a 3xx status code
+func (o *UpdateWorkspaceOK) IsRedirect() bool {
 	return false
 }
 
-// IsClientError returns true when this update workspace created response has a 4xx status code
-func (o *UpdateWorkspaceCreated) IsClientError() bool {
+// IsClientError returns true when this update workspace o k response has a 4xx status code
+func (o *UpdateWorkspaceOK) IsClientError() bool {
 	return false
 }
 
-// IsServerError returns true when this update workspace created response has a 5xx status code
-func (o *UpdateWorkspaceCreated) IsServerError() bool {
+// IsServerError returns true when this update workspace o k response has a 5xx status code
+func (o *UpdateWorkspaceOK) IsServerError() bool {
 	return false
 }
 
-// IsCode returns true when this update workspace created response a status code equal to that given
-func (o *UpdateWorkspaceCreated) IsCode(code int) bool {
-	return code == 201
+// IsCode returns true when this update workspace o k response a status code equal to that given
+func (o *UpdateWorkspaceOK) IsCode(code int) bool {
+	return code == 200
 }
 
-// Code gets the status code for the update workspace created response
-func (o *UpdateWorkspaceCreated) Code() int {
-	return 201
+// Code gets the status code for the update workspace o k response
+func (o *UpdateWorkspaceOK) Code() int {
+	return 200
 }
 
-func (o *UpdateWorkspaceCreated) Error() string {
+func (o *UpdateWorkspaceOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK %s", 200, payload)
 }
 
-func (o *UpdateWorkspaceCreated) String() string {
+func (o *UpdateWorkspaceOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK %s", 200, payload)
 }
 
-func (o *UpdateWorkspaceCreated) GetPayload() *models.Workspace {
+func (o *UpdateWorkspaceOK) GetPayload() *models.Workspace {
 	return o.Payload
 }
 
-func (o *UpdateWorkspaceCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UpdateWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Workspace)
 

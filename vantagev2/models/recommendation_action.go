@@ -24,14 +24,14 @@ type RecommendationAction struct {
 	Action string `json:"action"`
 
 	// containers
-	Containers string `json:"containers,omitempty"`
+	Containers *string `json:"containers,omitempty"`
 
 	// description
 	// Required: true
 	Description string `json:"description"`
 
 	// instance type
-	InstanceType string `json:"instance_type,omitempty"`
+	InstanceType *string `json:"instance_type,omitempty"`
 
 	// Potential savings in dollars
 	// Example: 100.00
@@ -40,7 +40,7 @@ type RecommendationAction struct {
 
 	// CLI command to remediate this recommendation
 	// Example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
-	RemediationCliCommand string `json:"remediation_cli_command,omitempty"`
+	RemediationCliCommand *string `json:"remediation_cli_command,omitempty"`
 }
 
 // Validate validates this recommendation action
