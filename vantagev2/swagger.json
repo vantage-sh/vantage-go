@@ -12580,7 +12580,13 @@
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
-                    "name": "EXPC-1234"
+                    "name": "EXPC-1234",
+                    "date_ranges": [
+                      {
+                        "start_date": "2024-01-01",
+                        "end_date": "2024-12-31"
+                      }
+                    ]
                   },
                   {
                     "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
@@ -12659,7 +12665,13 @@
                 "values": [
                   {
                     "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
-                    "name": "Growth"
+                    "name": "Growth",
+                    "date_ranges": [
+                      {
+                        "start_date": "2024-01-01",
+                        "end_date": "2024-12-31"
+                      }
+                    ]
                   },
                   {
                     "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
@@ -12729,7 +12741,13 @@
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
-                    "name": "marketing"
+                    "name": "marketing",
+                    "date_ranges": [
+                      {
+                        "start_date": "2024-01-01",
+                        "end_date": "2024-12-31"
+                      }
+                    ]
                   },
                   {
                     "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
@@ -21618,6 +21636,13 @@
             "$ref": "#/definitions/VirtualTagConfigValuePercentage"
           },
           "description": "Labeled percentage allocations for matching costs."
+        },
+        "date_ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualTagConfigValueDateRange"
+          },
+          "description": "Date ranges restricting when this value applies."
         }
       },
       "required": [
@@ -21671,6 +21696,25 @@
       "required": [
         "value",
         "pct"
+      ]
+    },
+    "VirtualTagConfigValueDateRange": {
+      "type": "object",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The start date of the range (inclusive), or null for unbounded."
+        },
+        "end_date": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The end date of the range (inclusive), or null for unbounded."
+        }
+      },
+      "required": [
+        "start_date",
+        "end_date"
       ]
     },
     "VirtualTagConfigStatus": {
@@ -21822,6 +21866,24 @@
                   ]
                 },
                 "x-omitempty": true
+              },
+              "date_ranges": {
+                "type": "array",
+                "description": "Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start_date": {
+                      "type": "string",
+                      "description": "Inclusive start date (YYYY-MM-DD), or null for unbounded."
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "description": "Inclusive end date (YYYY-MM-DD), or null for unbounded."
+                    }
+                  }
+                },
+                "x-omitempty": true
               }
             },
             "required": [
@@ -21937,6 +21999,24 @@
                   ]
                 },
                 "x-omitempty": true
+              },
+              "date_ranges": {
+                "type": "array",
+                "description": "Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start_date": {
+                      "type": "string",
+                      "description": "Inclusive start date (YYYY-MM-DD), or null for unbounded."
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "description": "Inclusive end date (YYYY-MM-DD), or null for unbounded."
+                    }
+                  }
+                },
+                "x-omitempty": true
               }
             },
             "required": [
@@ -22046,6 +22126,24 @@
                     "value",
                     "pct"
                   ]
+                },
+                "x-omitempty": true
+              },
+              "date_ranges": {
+                "type": "array",
+                "description": "Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start_date": {
+                      "type": "string",
+                      "description": "Inclusive start date (YYYY-MM-DD), or null for unbounded."
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "description": "Inclusive end date (YYYY-MM-DD), or null for unbounded."
+                    }
+                  }
                 },
                 "x-omitempty": true
               }

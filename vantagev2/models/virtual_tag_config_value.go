@@ -27,6 +27,9 @@ type VirtualTagConfigValue struct {
 	// The associated cost metric.
 	CostMetric *VirtualTagConfigValueCostMetric `json:"cost_metric,omitempty"`
 
+	// Date ranges restricting when this value applies.
+	DateRanges []*VirtualTagConfigValueDateRange `json:"date_ranges"`
+
 	// The filter VQL for the Value.
 	// Example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
 	// Required: true
@@ -45,6 +48,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCostMetric(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDateRanges(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -76,6 +83,32 @@ func (m *VirtualTagConfigValue) validateCostMetric(formats strfmt.Registry) erro
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) validateDateRanges(formats strfmt.Registry) error {
+	if swag.IsZero(m.DateRanges) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.DateRanges); i++ {
+		if swag.IsZero(m.DateRanges[i]) { // not required
+			continue
+		}
+
+		if m.DateRanges[i] != nil {
+			if err := m.DateRanges[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -124,6 +157,10 @@ func (m *VirtualTagConfigValue) ContextValidate(ctx context.Context, formats str
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateDateRanges(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidatePercentages(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -150,6 +187,31 @@ func (m *VirtualTagConfigValue) contextValidateCostMetric(ctx context.Context, f
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) contextValidateDateRanges(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.DateRanges); i++ {
+
+		if m.DateRanges[i] != nil {
+
+			if swag.IsZero(m.DateRanges[i]) { // not required
+				return nil
+			}
+
+			if err := m.DateRanges[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
