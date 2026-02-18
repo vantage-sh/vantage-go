@@ -307,9 +307,6 @@ type CreateVirtualTagConfigValuesItems0 struct {
 	// cost metric
 	CostMetric *CreateVirtualTagConfigValuesItems0CostMetric `json:"cost_metric,omitempty"`
 
-	// Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).
-	DateRanges []*CreateVirtualTagConfigValuesItems0DateRangesItems0 `json:"date_ranges,omitempty"`
-
 	// The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
 	// Required: true
 	Filter *string `json:"filter"`
@@ -326,10 +323,6 @@ func (m *CreateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) e
 	var res []error
 
 	if err := m.validateCostMetric(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDateRanges(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -361,32 +354,6 @@ func (m *CreateVirtualTagConfigValuesItems0) validateCostMetric(formats strfmt.R
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *CreateVirtualTagConfigValuesItems0) validateDateRanges(formats strfmt.Registry) error {
-	if swag.IsZero(m.DateRanges) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.DateRanges); i++ {
-		if swag.IsZero(m.DateRanges[i]) { // not required
-			continue
-		}
-
-		if m.DateRanges[i] != nil {
-			if err := m.DateRanges[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -435,10 +402,6 @@ func (m *CreateVirtualTagConfigValuesItems0) ContextValidate(ctx context.Context
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateDateRanges(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidatePercentages(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -465,31 +428,6 @@ func (m *CreateVirtualTagConfigValuesItems0) contextValidateCostMetric(ctx conte
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *CreateVirtualTagConfigValuesItems0) contextValidateDateRanges(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.DateRanges); i++ {
-
-		if m.DateRanges[i] != nil {
-
-			if swag.IsZero(m.DateRanges[i]) { // not required
-				return nil
-			}
-
-			if err := m.DateRanges[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -697,46 +635,6 @@ func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) MarshalBinary(
 // UnmarshalBinary interface implementation
 func (m *CreateVirtualTagConfigValuesItems0CostMetricAggregation) UnmarshalBinary(b []byte) error {
 	var res CreateVirtualTagConfigValuesItems0CostMetricAggregation
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// CreateVirtualTagConfigValuesItems0DateRangesItems0 create virtual tag config values items0 date ranges items0
-//
-// swagger:model CreateVirtualTagConfigValuesItems0DateRangesItems0
-type CreateVirtualTagConfigValuesItems0DateRangesItems0 struct {
-
-	// Inclusive end date (YYYY-MM-DD), or null for unbounded.
-	EndDate string `json:"end_date,omitempty"`
-
-	// Inclusive start date (YYYY-MM-DD), or null for unbounded.
-	StartDate string `json:"start_date,omitempty"`
-}
-
-// Validate validates this create virtual tag config values items0 date ranges items0
-func (m *CreateVirtualTagConfigValuesItems0DateRangesItems0) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this create virtual tag config values items0 date ranges items0 based on context it is used
-func (m *CreateVirtualTagConfigValuesItems0DateRangesItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *CreateVirtualTagConfigValuesItems0DateRangesItems0) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *CreateVirtualTagConfigValuesItems0DateRangesItems0) UnmarshalBinary(b []byte) error {
-	var res CreateVirtualTagConfigValuesItems0DateRangesItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
