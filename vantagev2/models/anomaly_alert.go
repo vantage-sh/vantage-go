@@ -51,6 +51,10 @@ type AnomalyAlert struct {
 	// Required: true
 	Provider string `json:"provider"`
 
+	// The tokens of the Resources the AnomalyAlert was attributed to.
+	// Required: true
+	ResourceTokens []string `json:"resource_tokens"`
+
 	// The names of the resources the AnomalyAlert was attributed to.
 	// Required: true
 	Resources []string `json:"resources"`
@@ -97,6 +101,10 @@ func (m *AnomalyAlert) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResourceTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -174,6 +182,15 @@ func (m *AnomalyAlert) validatePreviousAmount(formats strfmt.Registry) error {
 func (m *AnomalyAlert) validateProvider(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("provider", "body", m.Provider); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyAlert) validateResourceTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("resource_tokens", "body", m.ResourceTokens); err != nil {
 		return err
 	}
 

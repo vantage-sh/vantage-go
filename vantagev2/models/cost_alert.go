@@ -32,7 +32,7 @@ type CostAlert struct {
 	// Required: true
 	Interval string `json:"interval"`
 
-	// The minimum dollar amount threshold for percentage-based alerts. When set, alerts will only trigger if the dollar change meets this minimum, even if the percentage threshold is exceeded.
+	// The minimum monetary amount threshold for percentage-based alerts. When set, alerts will only trigger if the cost change meets this minimum, even if the percentage threshold is exceeded.
 	// Required: true
 	MinimumThreshold *float64 `json:"minimum_threshold"`
 

@@ -23,7 +23,7 @@ type UpdateCostAlert struct {
 	// The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
 	Interval string `json:"interval,omitempty"`
 
-	// The minimum dollar amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
+	// The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
 	MinimumThreshold float32 `json:"minimum_threshold,omitempty"`
 
 	// The tokens of the reports to alert on.

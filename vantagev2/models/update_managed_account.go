@@ -37,11 +37,17 @@ type UpdateManagedAccount struct {
 	// Email domain to associate with this Managed Account for SSO.
 	EmailDomain string `json:"email_domain,omitempty"`
 
+	// Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only). Defaults to false.
+	IncludeManagedAccountIntegrations bool `json:"include_managed_account_integrations,omitempty"`
+
 	// Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only).
 	MspBillingProfileToken string `json:"msp_billing_profile_token,omitempty"`
 
 	// The name of the Managed Account.
 	Name string `json:"name,omitempty"`
+
+	// Number of days until payment is due after invoice date (MSP invoicing accounts only). Defaults to 10.
+	PaymentTermsDays int32 `json:"payment_terms_days,omitempty"`
 }
 
 // Validate validates this update managed account

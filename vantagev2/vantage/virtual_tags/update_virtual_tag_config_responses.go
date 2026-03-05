@@ -30,6 +30,12 @@ func (o *UpdateVirtualTagConfigReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
+	case 202:
+		result := NewUpdateVirtualTagConfigAccepted()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 400:
 		result := NewUpdateVirtualTagConfigBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -120,6 +126,76 @@ func (o *UpdateVirtualTagConfigOK) GetPayload() *models.VirtualTagConfig {
 func (o *UpdateVirtualTagConfigOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VirtualTagConfig)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateVirtualTagConfigAccepted creates a UpdateVirtualTagConfigAccepted with default headers values
+func NewUpdateVirtualTagConfigAccepted() *UpdateVirtualTagConfigAccepted {
+	return &UpdateVirtualTagConfigAccepted{}
+}
+
+/*
+UpdateVirtualTagConfigAccepted describes a response with status code 202, with default header values.
+
+Request accepted for processing
+*/
+type UpdateVirtualTagConfigAccepted struct {
+	Payload *models.AsyncVirtualTagConfigUpdate
+}
+
+// IsSuccess returns true when this update virtual tag config accepted response has a 2xx status code
+func (o *UpdateVirtualTagConfigAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update virtual tag config accepted response has a 3xx status code
+func (o *UpdateVirtualTagConfigAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update virtual tag config accepted response has a 4xx status code
+func (o *UpdateVirtualTagConfigAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update virtual tag config accepted response has a 5xx status code
+func (o *UpdateVirtualTagConfigAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update virtual tag config accepted response a status code equal to that given
+func (o *UpdateVirtualTagConfigAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the update virtual tag config accepted response
+func (o *UpdateVirtualTagConfigAccepted) Code() int {
+	return 202
+}
+
+func (o *UpdateVirtualTagConfigAccepted) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted %s", 202, payload)
+}
+
+func (o *UpdateVirtualTagConfigAccepted) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted %s", 202, payload)
+}
+
+func (o *UpdateVirtualTagConfigAccepted) GetPayload() *models.AsyncVirtualTagConfigUpdate {
+	return o.Payload
+}
+
+func (o *UpdateVirtualTagConfigAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.AsyncVirtualTagConfigUpdate)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

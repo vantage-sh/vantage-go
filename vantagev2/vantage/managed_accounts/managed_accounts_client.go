@@ -62,6 +62,8 @@ type ClientService interface {
 
 	DeleteManagedAccount(params *DeleteManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteManagedAccountNoContent, error)
 
+	DeleteSsoConnectionForManagedAccount(params *DeleteSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSsoConnectionForManagedAccountNoContent, error)
+
 	GetManagedAccount(params *GetManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountOK, error)
 
 	GetManagedAccounts(params *GetManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountsOK, error)
@@ -193,6 +195,47 @@ func (a *Client) DeleteManagedAccount(params *DeleteManagedAccountParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteSsoConnectionForManagedAccount deletes s s o connection for managed account
+
+Delete SSO connection for a Managed Account.
+*/
+func (a *Client) DeleteSsoConnectionForManagedAccount(params *DeleteSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSsoConnectionForManagedAccountNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSsoConnectionForManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteSsoConnectionForManagedAccount",
+		Method:             "DELETE",
+		PathPattern:        "/managed_accounts/{managed_account_token}/sso_connection",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSsoConnectionForManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSsoConnectionForManagedAccountNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteSsoConnectionForManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

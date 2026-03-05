@@ -63,7 +63,7 @@ type BudgetAlert struct {
 
 	// The token for the Workspace the ResourceReport is a part of.
 	// Required: true
-	WorkspaceToken string `json:"workspace_token"`
+	WorkspaceToken *string `json:"workspace_token"`
 }
 
 // Validate validates this budget alert
@@ -186,7 +186,7 @@ func (m *BudgetAlert) validateUserTokens(formats strfmt.Registry) error {
 
 func (m *BudgetAlert) validateWorkspaceToken(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
+	if err := validate.Required("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 

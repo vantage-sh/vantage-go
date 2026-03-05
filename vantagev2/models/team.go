@@ -19,6 +19,11 @@ import (
 // swagger:model Team
 type Team struct {
 
+	// The token of the default Dashboard for the Team.
+	// Example: dshbrd_abcd1234
+	// Required: true
+	DefaultDashboardToken *string `json:"default_dashboard_token"`
+
 	// The description of the Team.
 	// Example: The Team that saves costs
 	// Required: true
@@ -50,6 +55,10 @@ type Team struct {
 func (m *Team) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDefaultDashboardToken(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -77,6 +86,15 @@ func (m *Team) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Team) validateDefaultDashboardToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("default_dashboard_token", "body", m.DefaultDashboardToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

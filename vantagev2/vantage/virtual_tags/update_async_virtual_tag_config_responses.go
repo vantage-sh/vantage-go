@@ -70,6 +70,7 @@ UpdateAsyncVirtualTagConfigAccepted describes a response with status code 202, w
 Request accepted for processing
 */
 type UpdateAsyncVirtualTagConfigAccepted struct {
+	Payload *models.AsyncVirtualTagConfigUpdate
 }
 
 // IsSuccess returns true when this update async virtual tag config accepted response has a 2xx status code
@@ -103,14 +104,27 @@ func (o *UpdateAsyncVirtualTagConfigAccepted) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) Error() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted", 202)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted %s", 202, payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) String() string {
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted", 202)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted %s", 202, payload)
+}
+
+func (o *UpdateAsyncVirtualTagConfigAccepted) GetPayload() *models.AsyncVirtualTagConfigUpdate {
+	return o.Payload
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.AsyncVirtualTagConfigUpdate)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

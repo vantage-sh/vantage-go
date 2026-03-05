@@ -52,6 +52,7 @@ DownloadInvoiceOK describes a response with status code 200, with default header
 Returns download URL for the invoice file
 */
 type DownloadInvoiceOK struct {
+	Payload *models.DownloadInvoice
 }
 
 // IsSuccess returns true when this download invoice o k response has a 2xx status code
@@ -85,14 +86,27 @@ func (o *DownloadInvoiceOK) Code() int {
 }
 
 func (o *DownloadInvoiceOK) Error() string {
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK", 200)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK %s", 200, payload)
 }
 
 func (o *DownloadInvoiceOK) String() string {
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK", 200)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK %s", 200, payload)
+}
+
+func (o *DownloadInvoiceOK) GetPayload() *models.DownloadInvoice {
+	return o.Payload
 }
 
 func (o *DownloadInvoiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.DownloadInvoice)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

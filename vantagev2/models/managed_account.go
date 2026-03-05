@@ -40,6 +40,9 @@ type ManagedAccount struct {
 	// Email domain associated with this Managed Account for SSO.
 	EmailDomain *string `json:"email_domain,omitempty"`
 
+	// Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only)
+	IncludeManagedAccountIntegrations *bool `json:"include_managed_account_integrations,omitempty"`
+
 	// Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
 	MspBillingProfileToken *string `json:"msp_billing_profile_token,omitempty"`
 
@@ -50,6 +53,9 @@ type ManagedAccount struct {
 	// The token for the parent Account.
 	// Required: true
 	ParentAccountToken string `json:"parent_account_token"`
+
+	// Number of days until payment is due after invoice date (MSP invoicing accounts only)
+	PaymentTermsDays *int32 `json:"payment_terms_days,omitempty"`
 
 	// token
 	// Required: true

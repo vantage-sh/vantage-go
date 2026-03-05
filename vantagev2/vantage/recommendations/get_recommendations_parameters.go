@@ -76,7 +76,7 @@ type GetRecommendationsParams struct {
 
 	/* Category.
 
-	   Filter by category.
+	   Filter by exact recommendation category. Ignored when type is provided.
 	*/
 	Category *string
 
@@ -149,6 +149,12 @@ type GetRecommendationsParams struct {
 	   Filter by tag value (requires tag_key). Requires workspace_token.
 	*/
 	TagValue *string
+
+	/* Type.
+
+	   Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing.
+	*/
+	Type *string
 
 	/* WorkspaceToken.
 
@@ -361,6 +367,17 @@ func (o *GetRecommendationsParams) WithTagValue(tagValue *string) *GetRecommenda
 // SetTagValue adds the tagValue to the get recommendations params
 func (o *GetRecommendationsParams) SetTagValue(tagValue *string) {
 	o.TagValue = tagValue
+}
+
+// WithType adds the typeVar to the get recommendations params
+func (o *GetRecommendationsParams) WithType(typeVar *string) *GetRecommendationsParams {
+	o.SetType(typeVar)
+	return o
+}
+
+// SetType adds the type to the get recommendations params
+func (o *GetRecommendationsParams) SetType(typeVar *string) {
+	o.Type = typeVar
 }
 
 // WithWorkspaceToken adds the workspaceToken to the get recommendations params
@@ -591,6 +608,23 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTagValue != "" {
 
 			if err := r.SetQueryParam("tag_value", qTagValue); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Type != nil {
+
+		// query param type
+		var qrType string
+
+		if o.Type != nil {
+			qrType = *o.Type
+		}
+		qType := qrType
+		if qType != "" {
+
+			if err := r.SetQueryParam("type", qType); err != nil {
 				return err
 			}
 		}

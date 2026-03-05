@@ -34,6 +34,10 @@ type Integration struct {
 	// Example: 2023-08-04T00:00:00Z
 	LastUpdated *string `json:"last_updated,omitempty"`
 
+	// The tokens for any Managed Accounts that are associated with the Integration.
+	// Required: true
+	ManagedAccountTokens []string `json:"managed_account_tokens"`
+
 	// The name of the Integration.
 	// Example: AWS
 	// Required: true
@@ -63,6 +67,10 @@ func (m *Integration) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateManagedAccountTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,6 +108,15 @@ func (m *Integration) validateAccountIdentifier(formats strfmt.Registry) error {
 func (m *Integration) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateManagedAccountTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("managed_account_tokens", "body", m.ManagedAccountTokens); err != nil {
 		return err
 	}
 

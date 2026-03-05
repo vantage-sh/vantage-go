@@ -70,7 +70,7 @@ type ClientService interface {
 
 	UpdateAsyncVirtualTagConfig(params *UpdateAsyncVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAsyncVirtualTagConfigAccepted, error)
 
-	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error)
+	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, *UpdateVirtualTagConfigAccepted, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -368,7 +368,7 @@ UpdateVirtualTagConfig updates virtual tag config
 
 Updates an existing VirtualTagConfig.
 */
-func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, error) {
+func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, *UpdateVirtualTagConfigAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateVirtualTagConfigParams()
@@ -392,15 +392,16 @@ func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, au
 
 	result, err := a.transport.Submit(op)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	success, ok := result.(*UpdateVirtualTagConfigOK)
-	if ok {
-		return success, nil
+	switch value := result.(type) {
+	case *UpdateVirtualTagConfigOK:
+		return value, nil, nil
+	case *UpdateVirtualTagConfigAccepted:
+		return nil, value, nil
 	}
-	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for updateVirtualTagConfig: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for virtual_tags: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

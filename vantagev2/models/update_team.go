@@ -20,6 +20,9 @@ import (
 // swagger:model updateTeam
 type UpdateTeam struct {
 
+	// The token of a Dashboard to set as the Team default. Send an empty string to clear.
+	DefaultDashboardToken string `json:"default_dashboard_token,omitempty"`
+
 	// The description of the Team.
 	Description string `json:"description,omitempty"`
 

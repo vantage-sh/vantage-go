@@ -236,7 +236,7 @@ func (a *Client) GetRecommendationTypeResources(params *GetRecommendationTypeRes
 /*
 GetRecommendations gets all recommendations
 
-Return all Recommendations.
+Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing).
 */
 func (a *Client) GetRecommendations(params *GetRecommendationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRecommendationsOK, error) {
 	// TODO: Validate the params before sending

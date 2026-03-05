@@ -644,6 +644,9 @@
                     "resources": [
                       "production-cluster"
                     ],
+                    "resource_tokens": [
+                      "rsrc_abcd1234efgh5678"
+                    ],
                     "cost_report_token": "rprt_3d541a4c5160711f"
                   }
                 ]
@@ -698,6 +701,12 @@
                 "seven_day_average": "10.0",
                 "status": "active",
                 "feedback": null,
+                "resources": [
+                  "production-cluster"
+                ],
+                "resource_tokens": [
+                  "rsrc_abcd1234efgh5678"
+                ],
                 "cost_report_token": "rprt_bf0a30084fbf52c2"
               }
             }
@@ -3399,7 +3408,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000.0,
+                    "threshold": 1000,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -3460,7 +3469,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100.0,
+                "threshold": 100,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -3521,7 +3530,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000.0,
+                "threshold": 1000,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -3594,7 +3603,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500.0,
+                "threshold": 500,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -6079,7 +6088,8 @@
                     "workspace_tokens": [
                       "wrkspc_838cb4508ead3f6d"
                     ],
-                    "created_at": "2024-07-29T21:41:49Z"
+                    "created_at": "2024-07-29T21:41:49Z",
+                    "managed_account_tokens": []
                   }
                 ]
               }
@@ -6130,7 +6140,10 @@
                 "workspace_tokens": [
                   "wrkspc_d69f96653fb985d6"
                 ],
-                "created_at": "2024-07-29T21:41:49Z"
+                "created_at": "2024-07-29T21:41:49Z",
+                "managed_account_tokens": [
+                  "acct_1a2b3c4d5e6f7890"
+                ]
               }
             }
           },
@@ -6194,7 +6207,8 @@
                 "workspace_tokens": [
                   "wrkspc_6bffe31969c9f385"
                 ],
-                "created_at": "2024-07-29T21:41:44Z"
+                "created_at": "2024-07-29T21:41:44Z",
+                "managed_account_tokens": []
               }
             }
           },
@@ -6298,7 +6312,8 @@
                 "status": "imported",
                 "last_updated": null,
                 "workspace_tokens": [],
-                "created_at": "2024-08-27T22:22:24Z"
+                "created_at": "2024-08-27T22:22:24Z",
+                "managed_account_tokens": []
               }
             }
           },
@@ -6564,7 +6579,8 @@
                 "status": "imported",
                 "last_updated": null,
                 "workspace_tokens": [],
-                "created_at": "2024-07-29T21:41:46Z"
+                "created_at": "2024-07-29T21:41:46Z",
+                "managed_account_tokens": []
               }
             }
           },
@@ -6622,7 +6638,8 @@
                 "status": "imported",
                 "last_updated": null,
                 "workspace_tokens": [],
-                "created_at": "2024-07-29T21:41:48Z"
+                "created_at": "2024-07-29T21:41:48Z",
+                "managed_account_tokens": []
               }
             }
           },
@@ -6814,7 +6831,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns download URL for the invoice file"
+            "description": "Returns download URL for the invoice file",
+            "schema": {
+              "$ref": "#/definitions/DownloadInvoice"
+            }
           },
           "404": {
             "description": "NotFound",
@@ -7797,6 +7817,52 @@
           "ManagedAccounts"
         ],
         "operationId": "updateSsoConnectionForManagedAccount"
+      },
+      "delete": {
+        "summary": "Delete SSO connection for managed account",
+        "description": "Delete SSO connection for a Managed Account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "managed_account_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ManagedAccount"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ManagedAccounts"
+        ],
+        "operationId": "deleteSsoConnectionForManagedAccount"
       }
     },
     "/me": {
@@ -8613,7 +8679,7 @@
     "/recommendations": {
       "get": {
         "summary": "Get all recommendations",
-        "description": "Return all Recommendations.",
+        "description": "Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing).",
         "produces": [
           "application/json"
         ],
@@ -8737,58 +8803,15 @@
           {
             "in": "query",
             "name": "category",
-            "description": "Filter by category.",
+            "description": "Filter by exact recommendation category. Ignored when type is provided.",
             "type": "string",
-            "enum": [
-              "ebs_gp2_to_gp3",
-              "ebs_unattached_volume",
-              "elasticache_reserved_instances",
-              "elastic_search_reserved_instances",
-              "rds_reserved_instances",
-              "redshift_reserved_instances",
-              "ec2_generational_upgrades",
-              "rds_generational_upgrades",
-              "es_generational_upgrades",
-              "cw_log_retention_policy",
-              "workspace_unused",
-              "workspace_stranded",
-              "cloudfront_cloudflare",
-              "s3_cloudflare",
-              "ip_unattached",
-              "s3_bucket_intelligent_tiering",
-              "s3_bucket_glacier_instant_retrieval",
-              "savings_plan",
-              "database_savings_plan",
-              "unused_financial_commitments",
-              "datadog_financial_commitments",
-              "az_compute_reserved_instances",
-              "az_compute_reserved_instances_cosmos",
-              "az_compute_reserved_instances_sql",
-              "az_compute_reserved_instances_app_service",
-              "az_disks_unattached",
-              "dynamodb_reserved_capacity_recommender",
-              "kubernetes_recommender",
-              "gcp_compute_rightsizing_recommender",
-              "gcp_compute_commitment_recommender",
-              "ec2_snapshot_recommender",
-              "ec2_rightsizing_recommender",
-              "ebs_compute_optimizer_recommender",
-              "lambda_compute_optimizer_recommender",
-              "ecs_compute_optimizer_recommender",
-              "idle_compute_optimizer_recommender",
-              "rds_compute_optimizer_recommender",
-              "ec2_compute_optimizer_recommender",
-              "azure_rightsizing_recommender",
-              "azure_compute_savings_recommender",
-              "azure_blob_storage_reserved_instances_recommender",
-              "azure_sql_paas_db_reserved_instances_recommender",
-              "azure_files_reserved_instances_recommender",
-              "eks_in_extended_support_window",
-              "eks_approaching_extended_support_window",
-              "rds_in_extended_support_window",
-              "rds_approaching_extended_support_window",
-              "datadog_metrics_unqueried"
-            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing.",
+            "type": "string",
             "required": false
           },
           {
@@ -10417,7 +10440,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200.0,
+                    "cost": 200,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -10453,7 +10476,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100.0,
+                    "cost": 100,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -10557,11 +10580,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3.0
+                    "amount": 3
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3.0
+                    "amount": 3
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -11611,7 +11634,8 @@
                     ],
                     "user_tokens": [
                       "usr_c59398553e838116"
-                    ]
+                    ],
+                    "default_dashboard_token": null
                   }
                 ]
               }
@@ -11665,7 +11689,8 @@
                 ],
                 "user_tokens": [
                   "usr_a00e614b5843c234"
-                ]
+                ],
+                "default_dashboard_token": null
               }
             }
           },
@@ -11738,7 +11763,8 @@
                 ],
                 "user_tokens": [
                   "usr_7c309915e847cfc6"
-                ]
+                ],
+                "default_dashboard_token": null
               }
             }
           },
@@ -11802,7 +11828,8 @@
                 ],
                 "user_tokens": [
                   "usr_d268561e520c7aac"
-                ]
+                ],
+                "default_dashboard_token": null
               }
             }
           },
@@ -12518,11 +12545,11 @@
                         "percentages": [
                           {
                             "value": "apples-a",
-                            "pct": 50.0
+                            "pct": 50
                           },
                           {
                             "value": "apples-b",
-                            "pct": 50.0
+                            "pct": 50
                           }
                         ]
                       }
@@ -12757,6 +12784,12 @@
               }
             }
           },
+          "202": {
+            "description": "Request accepted for processing",
+            "schema": {
+              "$ref": "#/definitions/AsyncVirtualTagConfigUpdate"
+            }
+          },
           "404": {
             "description": "NotFound",
             "schema": {
@@ -12949,7 +12982,10 @@
         ],
         "responses": {
           "202": {
-            "description": "Request accepted for processing"
+            "description": "Request accepted for processing",
+            "schema": {
+              "$ref": "#/definitions/AsyncVirtualTagConfigUpdate"
+            }
           },
           "404": {
             "description": "NotFound",
@@ -13547,6 +13583,14 @@
           "x-nullable": false,
           "description": "The names of the resources the AnomalyAlert was attributed to."
         },
+        "resource_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens of the Resources the AnomalyAlert was attributed to."
+        },
         "cost_report_token": {
           "type": "string",
           "x-nullable": false,
@@ -13564,6 +13608,7 @@
         "seven_day_average",
         "status",
         "resources",
+        "resource_tokens",
         "cost_report_token"
       ],
       "description": "AnomalyAlert model"
@@ -14792,7 +14837,7 @@
         },
         "workspace_token": {
           "type": "string",
-          "x-nullable": false,
+          "x-nullable": true,
           "description": "The token for the Workspace the ResourceReport is a part of."
         },
         "user_token": {
@@ -15929,7 +15974,7 @@
         "minimum_threshold": {
           "type": "number",
           "x-nullable": true,
-          "description": "The minimum dollar amount threshold for percentage-based alerts. When set, alerts will only trigger if the dollar change meets this minimum, even if the percentage threshold is exceeded."
+          "description": "The minimum monetary amount threshold for percentage-based alerts. When set, alerts will only trigger if the cost change meets this minimum, even if the percentage threshold is exceeded."
         },
         "report_tokens": {
           "type": "array",
@@ -16012,7 +16057,7 @@
         "minimum_threshold": {
           "type": "number",
           "format": "float",
-          "description": "The minimum dollar amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'."
+          "description": "The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'."
         }
       },
       "required": [
@@ -16076,7 +16121,7 @@
         "minimum_threshold": {
           "type": "number",
           "format": "float",
-          "description": "The minimum dollar amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'."
+          "description": "The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'."
         }
       },
       "description": "Update a Cost Alert"
@@ -16898,7 +16943,8 @@
           "description": "The schema of the data export.",
           "enum": [
             "vntg",
-            "focus"
+            "focus",
+            "comparison"
           ],
           "default": "vntg"
         }
@@ -18175,6 +18221,14 @@
           "example": "2023-08-04T00:00:00Z",
           "x-nullable": false,
           "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
+        },
+        "managed_account_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens for any Managed Accounts that are associated with the Integration."
         }
       },
       "required": [
@@ -18183,7 +18237,8 @@
         "account_identifier",
         "status",
         "workspace_tokens",
-        "created_at"
+        "created_at",
+        "managed_account_tokens"
       ],
       "description": "Integration model"
     },
@@ -18475,6 +18530,21 @@
         "file_type"
       ],
       "description": "Download invoice file (PDF or CSV)."
+    },
+    "DownloadInvoice": {
+      "type": "object",
+      "properties": {
+        "download_url": {
+          "type": "string",
+          "example": "https://example.com/invoice.pdf",
+          "x-nullable": false,
+          "description": "The URL to download the invoice file."
+        }
+      },
+      "required": [
+        "download_url"
+      ],
+      "description": "DownloadInvoice model"
     },
     "SendInvoice": {
       "type": "object",
@@ -18874,6 +18944,17 @@
           "x-nullable": true,
           "description": "Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)"
         },
+        "payment_terms_days": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "description": "Number of days until payment is due after invoice date (MSP invoicing accounts only)"
+        },
+        "include_managed_account_integrations": {
+          "type": "boolean",
+          "x-nullable": true,
+          "description": "Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only)"
+        },
         "billing_information_attributes": {
           "$ref": "#/definitions/BillingInformation",
           "description": "Billing address and contact information (MSP invoicing accounts only)"
@@ -18961,6 +19042,15 @@
         "msp_billing_profile_token": {
           "type": "string",
           "description": "Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only)."
+        },
+        "payment_terms_days": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of days until payment is due after invoice date (MSP invoicing accounts only). Defaults to 10."
+        },
+        "include_managed_account_integrations": {
+          "type": "boolean",
+          "description": "Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only). Defaults to false."
         },
         "billing_information_attributes": {
           "type": "object",
@@ -21160,6 +21250,12 @@
           },
           "x-nullable": false,
           "description": "The tokens for Users that belong to the Team"
+        },
+        "default_dashboard_token": {
+          "type": "string",
+          "example": "dshbrd_abcd1234",
+          "x-nullable": true,
+          "description": "The token of the default Dashboard for the Team."
         }
       },
       "required": [
@@ -21168,7 +21264,8 @@
         "description",
         "workspace_tokens",
         "user_emails",
-        "user_tokens"
+        "user_tokens",
+        "default_dashboard_token"
       ],
       "description": "Team model"
     },
@@ -21212,6 +21309,10 @@
             "editor",
             "viewer"
           ]
+        },
+        "default_dashboard_token": {
+          "type": "string",
+          "description": "The token of a Dashboard to set as the Team default. Send an empty string to clear."
         }
       },
       "required": [
@@ -21259,6 +21360,10 @@
             "editor",
             "viewer"
           ]
+        },
+        "default_dashboard_token": {
+          "type": "string",
+          "description": "The token of a Dashboard to set as the Team default. Send an empty string to clear."
         }
       },
       "description": "Update a Team."
@@ -21428,7 +21533,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1.0,
+          "example": 1,
           "x-nullable": false,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
@@ -21549,7 +21654,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-08-01",
+          "example": "2025-09-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -21688,7 +21793,7 @@
         },
         "pct": {
           "type": "number",
-          "example": 50.0,
+          "example": 50,
           "x-nullable": false,
           "description": "The percentage of matched costs associated with the value."
         }
@@ -22026,6 +22131,28 @@
         }
       },
       "description": "Updates an existing VirtualTagConfig."
+    },
+    "AsyncVirtualTagConfigUpdate": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000",
+          "x-nullable": false,
+          "description": "The request ID of the async virtual tag config update."
+        },
+        "status_url": {
+          "type": "string",
+          "example": "/v2/virtual_tag_configs/async/550e8400-e29b-41d4-a716-446655440000",
+          "x-nullable": false,
+          "description": "The status path of the async virtual tag config update."
+        }
+      },
+      "required": [
+        "request_id",
+        "status_url"
+      ],
+      "description": "AsyncVirtualTagConfigUpdate model"
     },
     "updateAsyncVirtualTagConfig": {
       "type": "object",

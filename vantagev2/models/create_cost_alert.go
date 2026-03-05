@@ -26,7 +26,7 @@ type CreateCostAlert struct {
 	// Required: true
 	Interval *string `json:"interval"`
 
-	// The minimum dollar amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
+	// The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
 	MinimumThreshold float32 `json:"minimum_threshold,omitempty"`
 
 	// The tokens of the reports to alert on.

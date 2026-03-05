@@ -34,7 +34,7 @@ type CreateCostExport struct {
 	Filter string `json:"filter,omitempty"`
 
 	// The schema of the data export.
-	// Enum: ["vntg","focus"]
+	// Enum: ["vntg","focus","comparison"]
 	Schema *string `json:"schema,omitempty"`
 
 	// First date you would like to filter costs from. ISO 8601 formatted.
@@ -114,7 +114,7 @@ var createCostExportTypeSchemaPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["vntg","focus"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["vntg","focus","comparison"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -129,6 +129,9 @@ const (
 
 	// CreateCostExportSchemaFocus captures enum value "focus"
 	CreateCostExportSchemaFocus string = "focus"
+
+	// CreateCostExportSchemaComparison captures enum value "comparison"
+	CreateCostExportSchemaComparison string = "comparison"
 )
 
 // prop value enum
