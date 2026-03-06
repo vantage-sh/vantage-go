@@ -628,7 +628,7 @@ func (m *UpdateCostReportChartSettings) UnmarshalBinary(b []byte) error {
 type UpdateCostReportSettings struct {
 
 	// Report will aggregate by cost or usage.
-	AggregateBy string `json:"aggregate_by,omitempty"`
+	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.
 	Amortize *bool `json:"amortize,omitempty"`

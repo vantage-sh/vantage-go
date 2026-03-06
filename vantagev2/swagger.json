@@ -16922,7 +16922,8 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by cost or usage."
+              "description": "Report will aggregate by cost or usage.",
+              "x-nullable": true
             },
             "show_previous_period": {
               "type": "boolean",
