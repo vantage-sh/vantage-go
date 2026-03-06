@@ -21447,7 +21447,8 @@
         },
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the Team default. Send null to clear."
+          "description": "The token of a Dashboard to set as the Team default. Send null to clear.",
+          "x-nullable": true
         }
       },
       "required": [
@@ -21498,7 +21499,8 @@
         },
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the Team default. Send null to clear."
+          "description": "The token of a Dashboard to set as the Team default. Send null to clear.",
+          "x-nullable": true
         }
       },
       "description": "Update a Team."
