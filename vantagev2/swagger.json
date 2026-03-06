@@ -7891,6 +7891,51 @@
           "Me"
         ],
         "operationId": "getMe"
+      },
+      "put": {
+        "summary": "Update authenticated user",
+        "description": "Update the authenticated User.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "updateMe",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateMe"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Me"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Me"
+        ],
+        "operationId": "updateMe"
       }
     },
     "/cost_providers": {
@@ -12487,6 +12532,63 @@
           "Users"
         ],
         "operationId": "getUser"
+      },
+      "put": {
+        "summary": "Update a user",
+        "description": "Update a specific User.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateUser",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateUser"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "operationId": "updateUser"
       }
     },
     "/virtual_tag_configs": {
@@ -16790,27 +16892,33 @@
           "properties": {
             "include_credits": {
               "type": "boolean",
-              "description": "Report will include credits."
+              "description": "Report will include credits.",
+              "x-nullable": true
             },
             "include_refunds": {
               "type": "boolean",
-              "description": "Report will include refunds."
+              "description": "Report will include refunds.",
+              "x-nullable": true
             },
             "include_discounts": {
               "type": "boolean",
-              "description": "Report will include discounts."
+              "description": "Report will include discounts.",
+              "x-nullable": true
             },
             "include_tax": {
               "type": "boolean",
-              "description": "Report will include tax."
+              "description": "Report will include tax.",
+              "x-nullable": true
             },
             "amortize": {
               "type": "boolean",
-              "description": "Report will amortize."
+              "description": "Report will amortize.",
+              "x-nullable": true
             },
             "unallocated": {
               "type": "boolean",
-              "description": "Report will show unallocated costs."
+              "description": "Report will show unallocated costs.",
+              "x-nullable": true
             },
             "aggregate_by": {
               "type": "string",
@@ -16818,7 +16926,8 @@
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Report will show previous period costs or usage comparison."
+              "description": "Report will show previous period costs or usage comparison.",
+              "x-nullable": true
             }
           }
         },
@@ -19190,6 +19299,11 @@
           "type": "string",
           "x-nullable": true
         },
+        "default_dashboard_token": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token of the default Dashboard for the User."
+        },
         "workspaces": {
           "type": "array",
           "items": {
@@ -19281,6 +19395,16 @@
         "created_at",
         "scope"
       ]
+    },
+    "updateMe": {
+      "type": "object",
+      "properties": {
+        "default_dashboard_token": {
+          "type": "string",
+          "description": "The token of a Dashboard to set as the User default. Send null to clear."
+        }
+      },
+      "description": "Update the authenticated User."
     },
     "CostProviders": {
       "type": "object",
@@ -20962,23 +21086,28 @@
           "properties": {
             "include_credits": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include credits."
+              "description": "Reports created under this Segment will include credits.",
+              "x-nullable": true
             },
             "include_refunds": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include refunds."
+              "description": "Reports created under this Segment will include refunds.",
+              "x-nullable": true
             },
             "include_discounts": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include discounts."
+              "description": "Reports created under this Segment will include discounts.",
+              "x-nullable": true
             },
             "include_tax": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include tax."
+              "description": "Reports created under this Segment will include tax.",
+              "x-nullable": true
             },
             "amortize": {
               "type": "boolean",
-              "description": "Reports created under this Segment will amortize."
+              "description": "Reports created under this Segment will amortize.",
+              "x-nullable": true
             }
           }
         },
@@ -21027,23 +21156,28 @@
           "properties": {
             "include_credits": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include credits."
+              "description": "Reports created under this Segment will include credits.",
+              "x-nullable": true
             },
             "include_refunds": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include refunds."
+              "description": "Reports created under this Segment will include refunds.",
+              "x-nullable": true
             },
             "include_discounts": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include discounts."
+              "description": "Reports created under this Segment will include discounts.",
+              "x-nullable": true
             },
             "include_tax": {
               "type": "boolean",
-              "description": "Reports created under this Segment will include tax."
+              "description": "Reports created under this Segment will include tax.",
+              "x-nullable": true
             },
             "amortize": {
               "type": "boolean",
-              "description": "Reports created under this Segment will amortize."
+              "description": "Reports created under this Segment will amortize.",
+              "x-nullable": true
             }
           }
         },
@@ -21312,7 +21446,7 @@
         },
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the Team default. Send an empty string to clear."
+          "description": "The token of a Dashboard to set as the Team default. Send null to clear."
         }
       },
       "required": [
@@ -21363,7 +21497,7 @@
         },
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the Team default. Send an empty string to clear."
+          "description": "The token of a Dashboard to set as the Team default. Send null to clear."
         }
       },
       "description": "Update a Team."
@@ -21596,6 +21730,12 @@
           "x-nullable": false,
           "description": "The role of the User."
         },
+        "default_dashboard_token": {
+          "type": "string",
+          "example": "dshbrd_abcdef123456",
+          "x-nullable": true,
+          "description": "The token of the default Dashboard for the User."
+        },
         "last_seen_at": {
           "type": "string",
           "example": "2024-01-01T00:00:00Z",
@@ -21610,6 +21750,16 @@
         "role"
       ],
       "description": "User model"
+    },
+    "updateUser": {
+      "type": "object",
+      "properties": {
+        "default_dashboard_token": {
+          "type": "string",
+          "description": "The token of a Dashboard to set as the User default. Send null to clear."
+        }
+      },
+      "description": "Update a specific User."
     },
     "VirtualTagConfigs": {
       "type": "object",

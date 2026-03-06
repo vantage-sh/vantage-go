@@ -150,19 +150,19 @@ func (m *CreateSegment) UnmarshalBinary(b []byte) error {
 type CreateSegmentReportSettings struct {
 
 	// Reports created under this Segment will amortize.
-	Amortize bool `json:"amortize,omitempty"`
+	Amortize *bool `json:"amortize,omitempty"`
 
 	// Reports created under this Segment will include credits.
-	IncludeCredits bool `json:"include_credits,omitempty"`
+	IncludeCredits *bool `json:"include_credits,omitempty"`
 
 	// Reports created under this Segment will include discounts.
-	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
 
 	// Reports created under this Segment will include refunds.
-	IncludeRefunds bool `json:"include_refunds,omitempty"`
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
 
 	// Reports created under this Segment will include tax.
-	IncludeTax bool `json:"include_tax,omitempty"`
+	IncludeTax *bool `json:"include_tax,omitempty"`
 }
 
 // Validate validates this create segment report settings

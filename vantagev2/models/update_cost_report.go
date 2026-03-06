@@ -631,25 +631,25 @@ type UpdateCostReportSettings struct {
 	AggregateBy string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.
-	Amortize bool `json:"amortize,omitempty"`
+	Amortize *bool `json:"amortize,omitempty"`
 
 	// Report will include credits.
-	IncludeCredits bool `json:"include_credits,omitempty"`
+	IncludeCredits *bool `json:"include_credits,omitempty"`
 
 	// Report will include discounts.
-	IncludeDiscounts bool `json:"include_discounts,omitempty"`
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
 
 	// Report will include refunds.
-	IncludeRefunds bool `json:"include_refunds,omitempty"`
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
 
 	// Report will include tax.
-	IncludeTax bool `json:"include_tax,omitempty"`
+	IncludeTax *bool `json:"include_tax,omitempty"`
 
 	// Report will show previous period costs or usage comparison.
-	ShowPreviousPeriod bool `json:"show_previous_period,omitempty"`
+	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
 	// Report will show unallocated costs.
-	Unallocated bool `json:"unallocated,omitempty"`
+	Unallocated *bool `json:"unallocated,omitempty"`
 }
 
 // Validate validates this update cost report settings

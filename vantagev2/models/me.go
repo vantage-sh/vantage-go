@@ -24,6 +24,9 @@ type Me struct {
 	// Required: true
 	BearerToken *BearerToken `json:"bearer_token"`
 
+	// The token of the default Dashboard for the User.
+	DefaultDashboardToken *string `json:"default_dashboard_token,omitempty"`
+
 	// default workspace token
 	// Required: true
 	DefaultWorkspaceToken *string `json:"default_workspace_token"`

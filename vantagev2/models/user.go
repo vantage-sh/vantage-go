@@ -19,6 +19,10 @@ import (
 // swagger:model User
 type User struct {
 
+	// The token of the default Dashboard for the User.
+	// Example: dshbrd_abcdef123456
+	DefaultDashboardToken *string `json:"default_dashboard_token,omitempty"`
+
 	// The email of the User.
 	// Example: john_doe@acme.com
 	// Required: true
