@@ -21448,6 +21448,7 @@
         "default_dashboard_token": {
           "type": "string",
           "description": "The token of a Dashboard to set as the Team default. Send null to clear.",
+          "x-omitempty": false,
           "x-nullable": true
         }
       },
@@ -21500,6 +21501,7 @@
         "default_dashboard_token": {
           "type": "string",
           "description": "The token of a Dashboard to set as the Team default. Send null to clear.",
+          "x-omitempty": false,
           "x-nullable": true
         }
       },

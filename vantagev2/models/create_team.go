@@ -21,7 +21,7 @@ import (
 type CreateTeam struct {
 
 	// The token of a Dashboard to set as the Team default. Send null to clear.
-	DefaultDashboardToken *string `json:"default_dashboard_token,omitempty"`
+	DefaultDashboardToken *string `json:"default_dashboard_token"`
 
 	// The description of the Team.
 	Description string `json:"description,omitempty"`
