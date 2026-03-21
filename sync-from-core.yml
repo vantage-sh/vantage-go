@@ -1,0 +1,197 @@
+# Regenerates the Go SDK from vantage-sh/core's OpenAPI (local Rails test server) and opens a PR here.
+#
+# Triggered by repository_dispatch from vantage-sh/core (event: vantage-core-api-sync) or manually.
+# Uses the default GITHUB_TOKEN for push + PR in this repo.
+#
+# If vantage-sh/core is private, add secret CORE_CHECKOUT_TOKEN (contents: read on core) and set
+# token on the checkout step below.
+
+name: Sync SDK from vantage-core
+
+on:
+  repository_dispatch:
+    types: [vantage-core-api-sync]
+  workflow_dispatch:
+    inputs:
+      core_commit_sha:
+        description: Full vantage-sh/core commit SHA to build Swagger from
+        required: true
+        type: string
+      core_repository:
+        description: Source repo (owner/name)
+        required: false
+        type: string
+        default: "vantage-sh/core"
+
+concurrency:
+  group: sync-from-core-${{ github.event.client_payload.commit_sha || github.event.inputs.core_commit_sha }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-and-pr:
+    runs-on: ubuntu-latest
+    env:
+      CORE_COMMIT_SHA: ${{ github.event.client_payload.commit_sha || github.event.inputs.core_commit_sha }}
+      CORE_REPOSITORY: ${{ github.event.client_payload.repository || github.event.inputs.core_repository || 'vantage-sh/core' }}
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: vantage_test
+        ports: ["5432:5432"]
+      clickhouse:
+        image: clickhouse/clickhouse-server:25.10
+        ports: ["8123:8123", "9000:9000"]
+        options: --name clickhouse
+        env:
+          CLICKHOUSE_SKIP_USER_SETUP: 1
+      redis:
+        image: redis:6.2.6
+        ports: ["6379:6379"]
+
+    steps:
+      - name: Validate inputs
+        run: |
+          if [ -z "${CORE_COMMIT_SHA:-}" ] || [ "${CORE_COMMIT_SHA}" = "null" ]; then
+            echo "Missing core commit SHA (client_payload.commit_sha or workflow input)."
+            exit 1
+          fi
+          echo "Using ${CORE_REPOSITORY}@${CORE_COMMIT_SHA}"
+
+      - name: Checkout vantage-go
+        uses: actions/checkout@v6
+
+      - name: Checkout vantage-sh/core
+        uses: actions/checkout@v6
+        with:
+          repository: vantage-sh/core
+          path: core
+          ref: ${{ env.CORE_COMMIT_SHA }}
+
+      - name: Install ClickHouse client (from core)
+        uses: vantage-sh/core/.github/branch-clickhouse-cache@${{ env.CORE_COMMIT_SHA }}
+
+      - name: Cache DuckDB
+        id: duckdb-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.duckdb-cache
+          key: ${{ runner.os }}-duckdb-0.9.0
+
+      - name: Download DuckDB
+        if: steps.duckdb-cache.outputs.cache-hit != 'true'
+        uses: robinraju/release-downloader@v1.9
+        with:
+          repository: duckdb/duckdb
+          tag: v0.9.0
+          fileName: libduckdb-linux-amd64.zip
+
+      - name: Extract and cache DuckDB
+        if: steps.duckdb-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          unzip -o libduckdb-linux-amd64.zip
+          mkdir -p ~/.duckdb-cache
+          mv duckdb.h duckdb.hpp ~/.duckdb-cache/
+          mv libduckdb.so ~/.duckdb-cache/
+
+      - name: Install DuckDB headers and library
+        shell: bash
+        run: |
+          sudo cp ~/.duckdb-cache/duckdb.h ~/.duckdb-cache/duckdb.hpp /usr/local/include/
+          sudo cp ~/.duckdb-cache/libduckdb.so /usr/local/lib/
+          sudo ldconfig
+
+      - name: Setup Ruby and install gems (core)
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: core
+
+      - name: Setup test database
+        working-directory: core
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://postgres@localhost/vantage_test
+          ASSET_PRECOMPILE: "1"
+        run: bin/rake db:create db:schema:load
+
+      - name: Run Rails (Swagger)
+        working-directory: core
+        env:
+          ASSET_PRECOMPILE: 1
+          RAILS_ENV: test
+          RUBY_YJIT_ENABLE: true
+          TEMPORAL_LOCAL: 1
+          DATABASE_URL: postgresql://postgres@localhost/vantage_test
+          API_SPEC_URL: http://localhost:3000/v2/swagger.json
+        run: |
+          bin/rails server -d
+          curl -I --retry 10 --retry-delay 1 --retry-all-errors -s -o /dev/null "$API_SPEC_URL"
+
+      - name: Install go-swagger
+        env:
+          GO_SWAGGER_VERSION: v0.30.5
+        run: |
+          wget -q "https://github.com/go-swagger/go-swagger/releases/download/${GO_SWAGGER_VERSION}/swagger_linux_amd64"
+          chmod +x swagger_linux_amd64
+          sudo mv swagger_linux_amd64 /usr/local/bin/swagger
+
+      - name: Generate / vantage-go
+        env:
+          VANTAGE_HOST: http://localhost:3000
+        run: make generate SHELL=/bin/bash
+
+      - name: Get default branch
+        id: vgo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "default_branch=$(gh api repos/${{ github.repository }} --jq -r .default_branch)" >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "No generated changes; skipping PR."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          SHORT_SHA="${CORE_COMMIT_SHA:0:7}"
+          BRANCH="sync/api-from-core-${SHORT_SHA}"
+
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore: regenerate API client from vantage-core" \
+            -m "Synced from ${CORE_REPOSITORY}@${CORE_COMMIT_SHA}."
+
+          git push -u origin "$BRANCH" --force-with-lease
+
+          BODY="$(printf '%s\n\n%s' \
+            "Automated regeneration after API changes landed in [\`${CORE_REPOSITORY}\`](https://github.com/${CORE_REPOSITORY}/commit/${CORE_COMMIT_SHA})." \
+            "Trigger: \`repository_dispatch\` from \`${CORE_REPOSITORY}\` (or manual workflow run).")"
+
+          EXISTING=$(gh api "repos/${{ github.repository }}/pulls" --paginate --jq ".[] | select(.head.ref==\"$BRANCH\" and .state==\"open\") | .number" | head -1)
+          if [ -z "$EXISTING" ]; then
+            gh pr create \
+              --base "${{ steps.vgo.outputs.default_branch }}" \
+              --head "$BRANCH" \
+              --title "chore: regenerate API client from vantage-core (${SHORT_SHA})" \
+              --body "$BODY"
+          else
+            echo "Open PR #${EXISTING} already exists for head ${BRANCH}; skipping create."
+          fi
+
+      - name: Print Rails server logs (on failure)
+        if: failure()
+        working-directory: core
+        run: cat log/test.log
