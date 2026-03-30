@@ -30,6 +30,9 @@ type VirtualTagConfigValue struct {
 	// Date ranges restricting when this value applies.
 	DateRanges []*VirtualTagConfigValueDateRange `json:"date_ranges"`
 
+	// The display name for this allocation value.
+	DisplayName *string `json:"display_name,omitempty"`
+
 	// The filter VQL for the Value.
 	// Example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
 	// Required: true

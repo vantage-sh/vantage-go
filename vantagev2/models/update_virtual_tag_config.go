@@ -282,6 +282,9 @@ type UpdateVirtualTagConfigValuesItems0 struct {
 	// Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).
 	DateRanges []*UpdateVirtualTagConfigValuesItems0DateRangesItems0 `json:"date_ranges,omitempty"`
 
+	// The display name for an allocation value (cost_metric or percentages). Invalid when name is set.
+	DisplayName string `json:"display_name,omitempty"`
+
 	// The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
 	// Required: true
 	Filter *string `json:"filter"`

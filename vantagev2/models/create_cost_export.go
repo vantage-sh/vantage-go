@@ -33,9 +33,15 @@ type CreateCostExport struct {
 	// The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
 	Filter string `json:"filter,omitempty"`
 
+	// Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	Groupings []string `json:"groupings"`
+
 	// The schema of the data export.
 	// Enum: ["vntg","focus","comparison"]
 	Schema *string `json:"schema,omitempty"`
+
+	// settings
+	Settings *CreateCostExportSettings `json:"settings,omitempty"`
 
 	// First date you would like to filter costs from. ISO 8601 formatted.
 	StartDate string `json:"start_date,omitempty"`
@@ -53,6 +59,10 @@ func (m *CreateCostExport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSchema(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -155,8 +165,57 @@ func (m *CreateCostExport) validateSchema(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this create cost export based on context it is used
+func (m *CreateCostExport) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create cost export based on the context it is used
 func (m *CreateCostExport) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateCostExport) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
+
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -171,6 +230,64 @@ func (m *CreateCostExport) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CreateCostExport) UnmarshalBinary(b []byte) error {
 	var res CreateCostExport
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateCostExportSettings Cost-related settings.
+//
+// swagger:model CreateCostExportSettings
+type CreateCostExportSettings struct {
+
+	// Results will aggregate by cost or usage.
+	AggregateBy *string `json:"aggregate_by,omitempty"`
+
+	// Results will amortize.
+	Amortize *bool `json:"amortize,omitempty"`
+
+	// Results will include credits.
+	IncludeCredits *bool `json:"include_credits,omitempty"`
+
+	// Results will include discounts.
+	IncludeDiscounts *bool `json:"include_discounts,omitempty"`
+
+	// Results will include refunds.
+	IncludeRefunds *bool `json:"include_refunds,omitempty"`
+
+	// Results will include tax.
+	IncludeTax *bool `json:"include_tax,omitempty"`
+
+	// Results will show previous period costs or usage comparison.
+	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
+
+	// Results will show unallocated costs.
+	Unallocated *bool `json:"unallocated,omitempty"`
+}
+
+// Validate validates this create cost export settings
+func (m *CreateCostExportSettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this create cost export settings based on context it is used
+func (m *CreateCostExportSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateCostExportSettings) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateCostExportSettings) UnmarshalBinary(b []byte) error {
+	var res CreateCostExportSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

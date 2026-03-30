@@ -34,6 +34,10 @@ type AwsIamPolicies struct {
 	// root
 	// Required: true
 	Root string `json:"root"`
+
+	// s3 request metrics
+	// Required: true
+	S3RequestMetrics string `json:"s3_request_metrics"`
 }
 
 // Validate validates this aws iam policies
@@ -53,6 +57,10 @@ func (m *AwsIamPolicies) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRoot(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateS3RequestMetrics(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -92,6 +100,15 @@ func (m *AwsIamPolicies) validateResources(formats strfmt.Registry) error {
 func (m *AwsIamPolicies) validateRoot(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("root", "body", m.Root); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AwsIamPolicies) validateS3RequestMetrics(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("s3_request_metrics", "body", m.S3RequestMetrics); err != nil {
 		return err
 	}
 

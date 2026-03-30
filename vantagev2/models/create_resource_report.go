@@ -25,6 +25,9 @@ type CreateResourceReport struct {
 	// The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
+	// The token of the Folder to add the ResourceReport to.
+	FolderToken string `json:"folder_token,omitempty"`
+
 	// The title of the ResourceReport.
 	Title string `json:"title,omitempty"`
 

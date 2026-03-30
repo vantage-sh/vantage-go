@@ -25,7 +25,7 @@ type RecommendationProviderResources struct {
 
 	// resources
 	// Required: true
-	Resources []*ProviderResource `json:"resources"`
+	Resources []*RecommendationProviderResource `json:"resources"`
 }
 
 // Validate validates this recommendation provider resources

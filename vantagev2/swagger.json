@@ -1180,7 +1180,8 @@
             "enum": [
               "virtual_tag",
               "cost_report",
-              "recommendation_commitment"
+              "recommendation_commitment",
+              "segment"
             ],
             "required": false
           },
@@ -3715,7 +3716,9 @@
               "anyscale",
               "cursor",
               "elastic",
-              "vercel"
+              "vercel",
+              "redis_cloud",
+              "circle_ci"
             ],
             "required": false
           },
@@ -4271,6 +4274,8 @@
               "cursor",
               "elastic",
               "vercel",
+              "redis_cloud",
+              "circle_ci",
               "all"
             ],
             "required": false
@@ -4399,17 +4404,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "query",
-            "name": "groupings",
-            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv",
-            "required": false
-          },
           {
             "name": "createCostExport",
             "in": "body",
@@ -5719,6 +5713,17 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Filter by folder type.",
+            "type": "string",
+            "enum": [
+              "CostFolder",
+              "ProviderResourceFolder"
+            ],
+            "required": false
           }
         ],
         "security": [
@@ -6028,7 +6033,9 @@
               "anyscale",
               "cursor",
               "elastic",
-              "vercel"
+              "vercel",
+              "redis_cloud",
+              "circle_ci"
             ],
             "required": false
           },
@@ -9092,7 +9099,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ProviderResource"
+              "$ref": "#/definitions/RecommendationProviderResource"
             },
             "examples": {
               "application/json": {
@@ -11306,7 +11313,9 @@
                 "anyscale",
                 "cursor",
                 "elastic",
-                "vercel"
+                "vercel",
+                "redis_cloud",
+                "circle_ci"
               ]
             },
             "required": false
@@ -11363,23 +11372,32 @@
             },
             "examples": {
               "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/tags",
+                  "first": "https://api.vantage.sh/v2/tags?page=1",
+                  "next": null,
+                  "last": null,
+                  "prev": null
+                },
                 "tags": [
                   {
                     "tag_key": "app",
                     "hidden": false,
+                    "preferred": false,
                     "providers": [
                       "aws",
                       "azure",
-                      "custom_provider:accss_crdntl_14b098088d3fe0ea"
+                      "custom_provider:accss_crdntl_ef89becbcf119a74"
                     ]
                   },
                   {
                     "tag_key": "environment",
                     "hidden": false,
+                    "preferred": false,
                     "providers": [
                       "aws",
                       "azure",
-                      "custom_provider:accss_crdntl_14b098088d3fe0ea"
+                      "custom_provider:accss_crdntl_ef89becbcf119a74"
                     ]
                   }
                 ]
@@ -11430,10 +11448,11 @@
                   {
                     "tag_key": "app",
                     "hidden": true,
+                    "preferred": false,
                     "providers": [
                       "aws",
                       "azure",
-                      "custom_provider:accss_crdntl_11bcb3867900b0df"
+                      "custom_provider:accss_crdntl_6d2b7b71244943a1"
                     ]
                   }
                 ]
@@ -11523,7 +11542,9 @@
                 "anyscale",
                 "cursor",
                 "elastic",
-                "vercel"
+                "vercel",
+                "redis_cloud",
+                "circle_ci"
               ]
             },
             "required": false
@@ -11582,11 +11603,11 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "next": "[link to next page]",
-                  "prev": "[link to previous page]",
-                  "self": "<link to current page>",
-                  "first": "<link to first page>",
-                  "last": "[link to last page]"
+                  "self": "https://api.vantage.sh/v2/tags/environment/values?sort_column=tag_value&sort_direction=asc",
+                  "first": "https://api.vantage.sh/v2/tags/environment/values?sort_column=tag_value&sort_direction=asc&page=1",
+                  "next": null,
+                  "last": null,
+                  "prev": null
                 },
                 "tag_values": [
                   {
@@ -11594,7 +11615,7 @@
                     "providers": [
                       "aws",
                       "azure",
-                      "custom_provider:accss_crdntl_3d5f465892a0718f"
+                      "custom_provider:accss_crdntl_b180279f14faa5b7"
                     ]
                   },
                   {
@@ -11602,7 +11623,7 @@
                     "providers": [
                       "aws",
                       "azure",
-                      "custom_provider:accss_crdntl_3d5f465892a0718f"
+                      "custom_provider:accss_crdntl_b180279f14faa5b7"
                     ]
                   }
                 ]
@@ -13393,6 +13414,58 @@
           "Workspaces"
         ],
         "operationId": "updateWorkspace"
+      },
+      "delete": {
+        "summary": "Delete workspace",
+        "description": "Delete a workspace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Workspaces"
+        ],
+        "operationId": "deleteWorkspace"
       }
     },
     "/ping": {
@@ -16393,6 +16466,12 @@
               "default": true,
               "x-nullable": true,
               "description": "Report will show previous period costs or usage comparison."
+            },
+            "complete_period": {
+              "type": "boolean",
+              "default": false,
+              "x-nullable": true,
+              "description": "Report will restrict date ranges to completed periods only."
             }
           },
           "description": "Report settings."
@@ -16606,6 +16685,8 @@
             "cursor",
             "elastic",
             "vercel",
+            "redis_cloud",
+            "circle_ci",
             "all"
           ],
           "x-nullable": false,
@@ -16733,6 +16814,11 @@
               "type": "boolean",
               "description": "Report will show previous period costs or usage comparison.",
               "default": true
+            },
+            "complete_period": {
+              "type": "boolean",
+              "description": "Report will restrict date ranges to completed periods only.",
+              "default": false
             }
           }
         },
@@ -16929,6 +17015,10 @@
               "type": "boolean",
               "description": "Report will show previous period costs or usage comparison.",
               "x-nullable": true
+            },
+            "complete_period": {
+              "type": "boolean",
+              "description": "Report will restrict date ranges to completed periods only."
             }
           }
         },
@@ -17038,6 +17128,13 @@
           "type": "string",
           "description": "Last date you would like to filter costs to. ISO 8601 formatted."
         },
+        "groupings": {
+          "type": "array",
+          "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "items": {
+            "type": "string"
+          }
+        },
         "date_bin": {
           "type": "string",
           "description": "The date bin of the costs. Defaults to the report's default or day.",
@@ -17057,6 +17154,52 @@
             "comparison"
           ],
           "default": "vntg"
+        },
+        "settings": {
+          "type": "object",
+          "description": "Cost-related settings.",
+          "properties": {
+            "include_credits": {
+              "type": "boolean",
+              "description": "Results will include credits.",
+              "default": false
+            },
+            "include_refunds": {
+              "type": "boolean",
+              "description": "Results will include refunds.",
+              "default": false
+            },
+            "include_discounts": {
+              "type": "boolean",
+              "description": "Results will include discounts.",
+              "default": true
+            },
+            "include_tax": {
+              "type": "boolean",
+              "description": "Results will include tax.",
+              "default": true
+            },
+            "amortize": {
+              "type": "boolean",
+              "description": "Results will amortize.",
+              "default": true
+            },
+            "unallocated": {
+              "type": "boolean",
+              "description": "Results will show unallocated costs.",
+              "default": false
+            },
+            "aggregate_by": {
+              "type": "string",
+              "description": "Results will aggregate by cost or usage.",
+              "default": "cost"
+            },
+            "show_previous_period": {
+              "type": "boolean",
+              "description": "Results will show previous period costs or usage comparison.",
+              "default": true
+            }
+          }
         }
       },
       "description": "Generate a DataExport of costs."
@@ -17195,7 +17338,9 @@
             "anyscale",
             "cursor",
             "elastic",
-            "vercel"
+            "vercel",
+            "redis_cloud",
+            "circle_ci"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -18171,6 +18316,11 @@
           "x-nullable": true,
           "description": "The title of the Folder."
         },
+        "type": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The type of the Folder."
+        },
         "parent_folder_token": {
           "type": "string",
           "x-nullable": true,
@@ -18205,6 +18355,7 @@
       "required": [
         "token",
         "title",
+        "type",
         "saved_filter_tokens",
         "created_at",
         "updated_at",
@@ -18233,6 +18384,15 @@
         "workspace_token": {
           "type": "string",
           "description": "The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the Folder.",
+          "enum": [
+            "CostFolder",
+            "ProviderResourceFolder"
+          ],
+          "default": "CostFolder"
         }
       },
       "required": [
@@ -19402,7 +19562,9 @@
       "properties": {
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the User default. Send null to clear."
+          "description": "The token of a Dashboard to set as the User default. Send null to clear.",
+          "x-omitempty": false,
+          "x-nullable": true
         }
       },
       "description": "Update the authenticated User."
@@ -20076,7 +20238,7 @@
         "resources": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ProviderResource"
+            "$ref": "#/definitions/RecommendationProviderResource"
           }
         }
       },
@@ -20085,12 +20247,67 @@
       ],
       "description": "RecommendationProviderResources model"
     },
-    "ProviderResource": {
+    "RecommendationProviderResource": {
       "type": "object",
       "properties": {
         "token": {
           "type": "string",
           "x-nullable": false
+        },
+        "uuid": {
+          "type": "string",
+          "example": "i-0a1b2c3d4e5f6g7h8",
+          "x-nullable": false,
+          "description": "The unique identifier for the resource."
+        },
+        "type": {
+          "type": "string",
+          "example": "aws_instance",
+          "x-nullable": false,
+          "description": "The kind of resource."
+        },
+        "label": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "metadata": {
+          "type": "object",
+          "x-nullable": true,
+          "description": "Type-specific attributes of the resource."
+        },
+        "account_id": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The provider account where the resource is located."
+        },
+        "billing_account_id": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The provider billing account this resource is charged to."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "x-nullable": false,
+          "description": "The provider of the resource."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-west-2",
+          "x-nullable": true,
+          "description": "The region where the resource is located. Region values are specific to each provider."
+        },
+        "costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceCost"
+          },
+          "description": "The cost of the resource broken down by category."
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The date and time when Vantage first observed the resource."
         },
         "resource_id": {
           "type": "string",
@@ -20108,9 +20325,38 @@
       },
       "required": [
         "token",
+        "uuid",
+        "type",
+        "label",
+        "metadata",
+        "account_id",
+        "billing_account_id",
+        "provider",
+        "region",
+        "created_at",
         "resource_id"
       ],
-      "description": "ProviderResource model"
+      "description": "RecommendationProviderResource model"
+    },
+    "ResourceCost": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The category of the cost."
+        },
+        "amount": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": false,
+          "description": "The cost amount."
+        }
+      },
+      "required": [
+        "category",
+        "amount"
+      ]
     },
     "RecommendationAction": {
       "type": "object",
@@ -20639,6 +20885,11 @@
           "x-nullable": true,
           "description": "The token for the User or Team who created this ResourceReport."
         },
+        "folder_token": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token for the Folder the ResourceReport is a part of."
+        },
         "columns": {
           "type": "array",
           "items": {
@@ -20688,6 +20939,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Folder to add the ResourceReport to."
         }
       },
       "required": [
@@ -20712,6 +20967,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Folder to move the ResourceReport to."
         }
       },
       "description": "Update a ResourceReport."
@@ -20810,26 +21069,6 @@
         "created_at"
       ],
       "description": "Resource model"
-    },
-    "ResourceCost": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "string",
-          "x-nullable": false,
-          "description": "The category of the cost."
-        },
-        "amount": {
-          "type": "number",
-          "format": "float",
-          "x-nullable": false,
-          "description": "The cost amount."
-        }
-      },
-      "required": [
-        "category",
-        "amount"
-      ]
     },
     "SavedFilters": {
       "type": "object",
@@ -21225,6 +21464,11 @@
           "x-nullable": false,
           "description": "Whether the Tag has been hidden from the Vantage UI."
         },
+        "preferred": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the Tag has been marked as preferred."
+        },
         "providers": {
           "type": "array",
           "items": {
@@ -21242,6 +21486,7 @@
       "required": [
         "tag_key",
         "hidden",
+        "preferred",
         "providers"
       ]
     },
@@ -21761,7 +22006,9 @@
       "properties": {
         "default_dashboard_token": {
           "type": "string",
-          "description": "The token of a Dashboard to set as the User default. Send null to clear."
+          "description": "The token of a Dashboard to set as the User default. Send null to clear.",
+          "x-omitempty": false,
+          "x-nullable": true
         }
       },
       "description": "Update a specific User."
@@ -21889,6 +22136,11 @@
         "cost_metric": {
           "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
           "description": "The associated cost metric."
+        },
+        "display_name": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The display name for this allocation value."
         },
         "percentages": {
           "type": "array",
@@ -22084,6 +22336,10 @@
                 "type": "string",
                 "description": "The token of an associated business metric."
               },
+              "display_name": {
+                "type": "string",
+                "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
+              },
               "cost_metric": {
                 "type": "object",
                 "properties": {
@@ -22216,6 +22472,10 @@
               "business_metric_token": {
                 "type": "string",
                 "description": "The token of an associated business metric."
+              },
+              "display_name": {
+                "type": "string",
+                "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
               },
               "cost_metric": {
                 "type": "object",
@@ -22367,6 +22627,10 @@
               "business_metric_token": {
                 "type": "string",
                 "description": "The token of an associated business metric."
+              },
+              "display_name": {
+                "type": "string",
+                "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
               },
               "cost_metric": {
                 "type": "object",

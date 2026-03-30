@@ -40,6 +40,10 @@ type Folder struct {
 	// Required: true
 	Token string `json:"token"`
 
+	// The type of the Folder.
+	// Required: true
+	Type string `json:"type"`
+
 	// The date and time, in UTC, the Folder was last updated at. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
 	// Required: true
@@ -67,6 +71,10 @@ func (m *Folder) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -114,6 +122,15 @@ func (m *Folder) validateTitle(formats strfmt.Registry) error {
 func (m *Folder) validateToken(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Folder) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 

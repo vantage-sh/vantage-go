@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -29,6 +30,10 @@ type CreateFolder struct {
 	// Required: true
 	Title *string `json:"title"`
 
+	// The type of the Folder.
+	// Enum: ["CostFolder","ProviderResourceFolder"]
+	Type *string `json:"type,omitempty"`
+
 	// The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
@@ -41,6 +46,10 @@ func (m *CreateFolder) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -50,6 +59,48 @@ func (m *CreateFolder) Validate(formats strfmt.Registry) error {
 func (m *CreateFolder) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var createFolderTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["CostFolder","ProviderResourceFolder"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createFolderTypeTypePropEnum = append(createFolderTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateFolderTypeCostFolder captures enum value "CostFolder"
+	CreateFolderTypeCostFolder string = "CostFolder"
+
+	// CreateFolderTypeProviderResourceFolder captures enum value "ProviderResourceFolder"
+	CreateFolderTypeProviderResourceFolder string = "ProviderResourceFolder"
+)
+
+// prop value enum
+func (m *CreateFolder) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createFolderTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateFolder) validateType(formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 

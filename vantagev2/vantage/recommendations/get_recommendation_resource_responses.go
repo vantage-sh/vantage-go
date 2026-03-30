@@ -52,7 +52,7 @@ GetRecommendationResourceOK describes a response with status code 200, with defa
 GetRecommendationResourceOK get recommendation resource o k
 */
 type GetRecommendationResourceOK struct {
-	Payload *models.ProviderResource
+	Payload *models.RecommendationProviderResource
 }
 
 // IsSuccess returns true when this get recommendation resource o k response has a 2xx status code
@@ -95,13 +95,13 @@ func (o *GetRecommendationResourceOK) String() string {
 	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceOK %s", 200, payload)
 }
 
-func (o *GetRecommendationResourceOK) GetPayload() *models.ProviderResource {
+func (o *GetRecommendationResourceOK) GetPayload() *models.RecommendationProviderResource {
 	return o.Payload
 }
 
 func (o *GetRecommendationResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ProviderResource)
+	o.Payload = new(models.RecommendationProviderResource)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

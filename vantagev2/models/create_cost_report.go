@@ -678,6 +678,9 @@ type CreateCostReportSettings struct {
 	// Report will amortize.
 	Amortize *bool `json:"amortize,omitempty"`
 
+	// Report will restrict date ranges to completed periods only.
+	CompletePeriod *bool `json:"complete_period,omitempty"`
+
 	// Report will include credits.
 	IncludeCredits *bool `json:"include_credits,omitempty"`
 

@@ -36,7 +36,7 @@ type ForecastedCost struct {
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
 	// Required: true
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","all"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","all"]
 	Provider string `json:"provider"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
@@ -116,7 +116,7 @@ var forecastedCostTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","all"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","all"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -215,6 +215,12 @@ const (
 
 	// ForecastedCostProviderVercel captures enum value "vercel"
 	ForecastedCostProviderVercel string = "vercel"
+
+	// ForecastedCostProviderRedisCloud captures enum value "redis_cloud"
+	ForecastedCostProviderRedisCloud string = "redis_cloud"
+
+	// ForecastedCostProviderCircleCi captures enum value "circle_ci"
+	ForecastedCostProviderCircleCi string = "circle_ci"
 
 	// ForecastedCostProviderAll captures enum value "all"
 	ForecastedCostProviderAll string = "all"

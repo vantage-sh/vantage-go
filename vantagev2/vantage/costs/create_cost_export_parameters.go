@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/models"
 )
@@ -66,12 +65,6 @@ type CreateCostExportParams struct {
 
 	// CreateCostExport.
 	CreateCostExport *models.CreateCostExport
-
-	/* Groupings.
-
-	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
-	*/
-	Groupings []string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -137,17 +130,6 @@ func (o *CreateCostExportParams) SetCreateCostExport(createCostExport *models.Cr
 	o.CreateCostExport = createCostExport
 }
 
-// WithGroupings adds the groupings to the create cost export params
-func (o *CreateCostExportParams) WithGroupings(groupings []string) *CreateCostExportParams {
-	o.SetGroupings(groupings)
-	return o
-}
-
-// SetGroupings adds the groupings to the create cost export params
-func (o *CreateCostExportParams) SetGroupings(groupings []string) {
-	o.Groupings = groupings
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -161,36 +143,8 @@ func (o *CreateCostExportParams) WriteToRequest(r runtime.ClientRequest, reg str
 		}
 	}
 
-	if o.Groupings != nil {
-
-		// binding items for groupings
-		joinedGroupings := o.bindParamGroupings(reg)
-
-		// query array param groupings
-		if err := r.SetQueryParam("groupings", joinedGroupings...); err != nil {
-			return err
-		}
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamCreateCostExport binds the parameter groupings
-func (o *CreateCostExportParams) bindParamGroupings(formats strfmt.Registry) []string {
-	groupingsIR := o.Groupings
-
-	var groupingsIC []string
-	for _, groupingsIIR := range groupingsIR { // explode []string
-
-		groupingsIIV := groupingsIIR // string as string
-		groupingsIC = append(groupingsIC, groupingsIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	groupingsIS := swag.JoinByFormat(groupingsIC, "csv")
-
-	return groupingsIS
 }

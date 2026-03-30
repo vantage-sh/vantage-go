@@ -23,6 +23,10 @@ type Tag struct {
 	// Required: true
 	Hidden bool `json:"hidden"`
 
+	// Whether the Tag has been marked as preferred.
+	// Required: true
+	Preferred bool `json:"preferred"`
+
 	// The unique providers that are covered by the Tag key.
 	// Required: true
 	Providers []string `json:"providers"`
@@ -38,6 +42,10 @@ func (m *Tag) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateHidden(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreferred(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -58,6 +66,15 @@ func (m *Tag) Validate(formats strfmt.Registry) error {
 func (m *Tag) validateHidden(formats strfmt.Registry) error {
 
 	if err := validate.Required("hidden", "body", bool(m.Hidden)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Tag) validatePreferred(formats strfmt.Registry) error {
+
+	if err := validate.Required("preferred", "body", bool(m.Preferred)); err != nil {
 		return err
 	}
 

@@ -18,7 +18,7 @@ import (
 type UpdateMe struct {
 
 	// The token of a Dashboard to set as the User default. Send null to clear.
-	DefaultDashboardToken string `json:"default_dashboard_token,omitempty"`
+	DefaultDashboardToken *string `json:"default_dashboard_token"`
 }
 
 // Validate validates this update me

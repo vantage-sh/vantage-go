@@ -36,6 +36,9 @@ type ResourceReport struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// The token for the Folder the ResourceReport is a part of.
+	FolderToken *string `json:"folder_token,omitempty"`
+
 	// The title of the ResourceReport.
 	// Example: Acme123 Active Resources
 	// Required: true

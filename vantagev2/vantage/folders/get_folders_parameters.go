@@ -78,6 +78,12 @@ type GetFoldersParams struct {
 	*/
 	Page *int32
 
+	/* Type.
+
+	   Filter by folder type.
+	*/
+	Type *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -153,6 +159,17 @@ func (o *GetFoldersParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithType adds the typeVar to the get folders params
+func (o *GetFoldersParams) WithType(typeVar *string) *GetFoldersParams {
+	o.SetType(typeVar)
+	return o
+}
+
+// SetType adds the type to the get folders params
+func (o *GetFoldersParams) SetType(typeVar *string) {
+	o.Type = typeVar
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetFoldersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +207,23 @@ func (o *GetFoldersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Type != nil {
+
+		// query param type
+		var qrType string
+
+		if o.Type != nil {
+			qrType = *o.Type
+		}
+		qType := qrType
+		if qType != "" {
+
+			if err := r.SetQueryParam("type", qType); err != nil {
 				return err
 			}
 		}
