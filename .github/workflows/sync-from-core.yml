@@ -36,7 +36,7 @@ jobs:
 
       - name: Install go-swagger
         env:
-          GO_SWAGGER_VERSION: v0.30.5
+          GO_SWAGGER_VERSION: v0.31.0
         run: |
           wget -q "https://github.com/go-swagger/go-swagger/releases/download/${GO_SWAGGER_VERSION}/swagger_linux_amd64"
           chmod +x swagger_linux_amd64
