@@ -3409,7 +3409,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000,
+                    "threshold": 1000.0,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -3470,7 +3470,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100,
+                "threshold": 100.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -3531,7 +3531,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000,
+                "threshold": 1000.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -3604,7 +3604,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500,
+                "threshold": 500.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -4540,7 +4540,8 @@
               "day",
               "week",
               "month",
-              "quarter"
+              "quarter",
+              "hour"
             ],
             "required": false
           },
@@ -9014,7 +9015,7 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The number of results to return. The maximum is 1000.",
+            "description": "The number of results to return. Defaults to 25. The maximum is 500.",
             "type": "integer",
             "format": "int32",
             "required": false
@@ -10492,7 +10493,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -10528,7 +10529,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -10632,11 +10633,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -12300,7 +12301,8 @@
               "day",
               "week",
               "month",
-              "quarter"
+              "quarter",
+              "hour"
             ],
             "required": false
           },
@@ -12668,11 +12670,11 @@
                         "percentages": [
                           {
                             "value": "apples-a",
-                            "pct": 50
+                            "pct": 50.0
                           },
                           {
                             "value": "apples-b",
-                            "pct": 50
+                            "pct": 50.0
                           }
                         ]
                       }
@@ -16881,7 +16883,8 @@
             "day",
             "week",
             "month",
-            "quarter"
+            "quarter",
+            "hour"
           ],
           "default": "cumulative"
         },
@@ -17098,7 +17101,8 @@
             "day",
             "week",
             "month",
-            "quarter"
+            "quarter",
+            "hour"
           ],
           "default": "cumulative"
         }
@@ -17142,7 +17146,8 @@
             "day",
             "week",
             "month",
-            "quarter"
+            "quarter",
+            "hour"
           ]
         },
         "schema": {
@@ -21857,7 +21862,8 @@
             "day",
             "week",
             "month",
-            "quarter"
+            "quarter",
+            "hour"
           ]
         }
       },
@@ -21917,7 +21923,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1,
+          "example": 1.0,
           "x-nullable": false,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
@@ -22056,7 +22062,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-09-01",
+          "example": "2025-10-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -22103,13 +22109,18 @@
               "gcp"
             ]
           },
-          "x-nullable": false,
-          "description": "The providers this collapsed tag key applies to. Defaults to all providers."
+          "x-nullable": true,
+          "description": "The providers this collapsed tag key applies to. Defaults to all providers when omitted."
+        },
+        "filter": {
+          "type": "string",
+          "example": "(costs.provider = 'aws') OR (costs.provider = 'gcp')",
+          "x-nullable": true,
+          "description": "The VQL filter this collapsed tag key applies to."
         }
       },
       "required": [
-        "key",
-        "providers"
+        "key"
       ]
     },
     "VirtualTagConfigValue": {
@@ -22141,6 +22152,13 @@
           "type": "string",
           "x-nullable": true,
           "description": "The display name for this allocation value."
+        },
+        "label_transforms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualTagConfigValueLabelTransform"
+          },
+          "description": "Label transforms applied to business metric labels."
         },
         "percentages": {
           "type": "array",
@@ -22189,6 +22207,39 @@
         }
       }
     },
+    "VirtualTagConfigValueLabelTransform": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "split",
+            "format"
+          ],
+          "x-nullable": false,
+          "description": "The label transform type."
+        },
+        "delimiter": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Delimiter used by split transforms."
+        },
+        "index": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "description": "Zero-based index used by split transforms."
+        },
+        "template": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Template used by format transforms."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
     "VirtualTagConfigValuePercentage": {
       "type": "object",
       "properties": {
@@ -22200,7 +22251,7 @@
         },
         "pct": {
           "type": "number",
-          "example": 50,
+          "example": 50.0,
           "x-nullable": false,
           "description": "The percentage of matched costs associated with the value."
         }
@@ -22311,6 +22362,10 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "filter": {
+                "type": "string",
+                "description": "The VQL filter this collapsed tag key applies to."
               }
             },
             "required": [
@@ -22339,6 +22394,31 @@
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
+              },
+              "label_transforms": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "delimiter": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "template": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "x-omitempty": true
               },
               "cost_metric": {
                 "type": "object",
@@ -22448,6 +22528,10 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "filter": {
+                "type": "string",
+                "description": "The VQL filter this collapsed tag key applies to."
               }
             },
             "required": [
@@ -22476,6 +22560,31 @@
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
+              },
+              "label_transforms": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "delimiter": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "template": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "x-omitempty": true
               },
               "cost_metric": {
                 "type": "object",
@@ -22603,6 +22712,10 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "filter": {
+                "type": "string",
+                "description": "The VQL filter this collapsed tag key applies to."
               }
             },
             "required": [
@@ -22631,6 +22744,31 @@
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
+              },
+              "label_transforms": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "delimiter": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "template": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "x-omitempty": true
               },
               "cost_metric": {
                 "type": "object",

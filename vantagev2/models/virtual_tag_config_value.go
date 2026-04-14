@@ -38,6 +38,9 @@ type VirtualTagConfigValue struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// Label transforms applied to business metric labels.
+	LabelTransforms []*VirtualTagConfigValueLabelTransform `json:"label_transforms"`
+
 	// The name of the Value.
 	// Example: Informatics
 	Name *string `json:"name,omitempty"`
@@ -59,6 +62,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelTransforms(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -126,6 +133,32 @@ func (m *VirtualTagConfigValue) validateFilter(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *VirtualTagConfigValue) validateLabelTransforms(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelTransforms) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.LabelTransforms); i++ {
+		if swag.IsZero(m.LabelTransforms[i]) { // not required
+			continue
+		}
+
+		if m.LabelTransforms[i] != nil {
+			if err := m.LabelTransforms[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *VirtualTagConfigValue) validatePercentages(formats strfmt.Registry) error {
 	if swag.IsZero(m.Percentages) { // not required
 		return nil
@@ -161,6 +194,10 @@ func (m *VirtualTagConfigValue) ContextValidate(ctx context.Context, formats str
 	}
 
 	if err := m.contextValidateDateRanges(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLabelTransforms(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -210,6 +247,31 @@ func (m *VirtualTagConfigValue) contextValidateDateRanges(ctx context.Context, f
 					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) contextValidateLabelTransforms(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.LabelTransforms); i++ {
+
+		if m.LabelTransforms[i] != nil {
+
+			if swag.IsZero(m.LabelTransforms[i]) { // not required
+				return nil
+			}
+
+			if err := m.LabelTransforms[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("label_transforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

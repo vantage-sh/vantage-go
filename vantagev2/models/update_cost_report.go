@@ -32,7 +32,7 @@ type UpdateCostReport struct {
 	ChartType *string `json:"chart_type,omitempty"`
 
 	// The date bin of the CostReport.
-	// Enum: ["cumulative","day","week","month","quarter"]
+	// Enum: ["cumulative","day","week","month","quarter","hour"]
 	DateBin *string `json:"date_bin,omitempty"`
 
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
@@ -204,7 +204,7 @@ var updateCostReportTypeDateBinPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cumulative","day","week","month","quarter"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cumulative","day","week","month","quarter","hour"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -228,6 +228,9 @@ const (
 
 	// UpdateCostReportDateBinQuarter captures enum value "quarter"
 	UpdateCostReportDateBinQuarter string = "quarter"
+
+	// UpdateCostReportDateBinHour captures enum value "hour"
+	UpdateCostReportDateBinHour string = "hour"
 )
 
 // prop value enum
