@@ -6,7 +6,6 @@ package kubernetes_efficiency_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateKubernetesEfficiencyReportExportAccepted) Code() int {
 }
 
 func (o *CreateKubernetesEfficiencyReportExportAccepted) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportAccepted %s", 202, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportAccepted  %+v", 202, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportAccepted) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportAccepted %s", 202, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportAccepted  %+v", 202, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportAccepted) GetPayload() *models.DataExport {
@@ -162,13 +159,11 @@ func (o *CreateKubernetesEfficiencyReportExportBadRequest) Code() int {
 }
 
 func (o *CreateKubernetesEfficiencyReportExportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateKubernetesEfficiencyReportExportNotFound) Code() int {
 }
 
 func (o *CreateKubernetesEfficiencyReportExportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /kubernetes_efficiency_reports/data_exports][%d] createKubernetesEfficiencyReportExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateKubernetesEfficiencyReportExportNotFound) GetPayload() *models.Errors {

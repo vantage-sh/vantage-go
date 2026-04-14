@@ -6,7 +6,6 @@ package me
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *UpdateMeOK) Code() int {
 }
 
 func (o *UpdateMeOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /me][%d] updateMeOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /me][%d] updateMeOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateMeOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /me][%d] updateMeOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /me][%d] updateMeOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateMeOK) GetPayload() *models.Me {
@@ -156,13 +153,11 @@ func (o *UpdateMeUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateMeUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /me][%d] updateMeUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /me][%d] updateMeUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateMeUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /me][%d] updateMeUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /me][%d] updateMeUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateMeUnprocessableEntity) GetPayload() *models.Errors {

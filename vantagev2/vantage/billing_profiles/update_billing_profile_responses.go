@@ -6,7 +6,6 @@ package billing_profiles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateBillingProfileOK) Code() int {
 }
 
 func (o *UpdateBillingProfileOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateBillingProfileOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateBillingProfileOK) GetPayload() *models.BillingProfile {
@@ -162,13 +159,11 @@ func (o *UpdateBillingProfileBadRequest) Code() int {
 }
 
 func (o *UpdateBillingProfileBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateBillingProfileBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateBillingProfileBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateBillingProfileNotFound) Code() int {
 }
 
 func (o *UpdateBillingProfileNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateBillingProfileNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /billing_profiles/{billing_profile_token}][%d] updateBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateBillingProfileNotFound) GetPayload() *models.Errors {

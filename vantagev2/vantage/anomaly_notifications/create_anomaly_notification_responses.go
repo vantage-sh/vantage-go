@@ -6,7 +6,6 @@ package anomaly_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateAnomalyNotificationCreated) Code() int {
 }
 
 func (o *CreateAnomalyNotificationCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAnomalyNotificationCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAnomalyNotificationCreated) GetPayload() *models.AnomalyNotification {
@@ -156,13 +153,11 @@ func (o *CreateAnomalyNotificationBadRequest) Code() int {
 }
 
 func (o *CreateAnomalyNotificationBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAnomalyNotificationBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /anomaly_notifications][%d] createAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAnomalyNotificationBadRequest) GetPayload() *models.Errors {

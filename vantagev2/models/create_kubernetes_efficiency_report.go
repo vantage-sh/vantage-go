@@ -21,15 +21,15 @@ import (
 type CreateKubernetesEfficiencyReport struct {
 
 	// The column by which the costs are aggregated.
-	// Enum: ["idle_cost","amount","cost_efficiency"]
+	// Enum: [idle_cost amount cost_efficiency]
 	AggregatedBy string `json:"aggregated_by,omitempty"`
 
 	// The date bucket of the KubernetesEfficiencyReport.
-	// Enum: ["day","week","month","quarter"]
+	// Enum: [day week month quarter]
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months year_to_date last_3_days last_14_days]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.

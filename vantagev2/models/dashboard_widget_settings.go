@@ -22,7 +22,7 @@ type DashboardWidgetSettings struct {
 
 	// display type
 	// Required: true
-	// Enum: ["table","chart"]
+	// Enum: [table chart]
 	DisplayType string `json:"display_type"`
 }
 

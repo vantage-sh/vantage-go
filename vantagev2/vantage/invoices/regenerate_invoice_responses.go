@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *RegenerateInvoiceOK) Code() int {
 }
 
 func (o *RegenerateInvoiceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *RegenerateInvoiceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *RegenerateInvoiceOK) GetPayload() *models.Invoice {
@@ -156,13 +153,11 @@ func (o *RegenerateInvoiceNotFound) Code() int {
 }
 
 func (o *RegenerateInvoiceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *RegenerateInvoiceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/regenerate][%d] regenerateInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *RegenerateInvoiceNotFound) GetPayload() *models.Errors {

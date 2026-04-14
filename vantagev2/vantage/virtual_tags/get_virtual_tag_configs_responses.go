@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetVirtualTagConfigsOK) Code() int {
 }
 
 func (o *GetVirtualTagConfigsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs][%d] getVirtualTagConfigsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs][%d] getVirtualTagConfigsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVirtualTagConfigsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs][%d] getVirtualTagConfigsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs][%d] getVirtualTagConfigsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVirtualTagConfigsOK) GetPayload() *models.VirtualTagConfigs {

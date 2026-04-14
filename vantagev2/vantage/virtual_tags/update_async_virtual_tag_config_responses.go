@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *UpdateAsyncVirtualTagConfigAccepted) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted %s", 202, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted  %+v", 202, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted %s", 202, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigAccepted  %+v", 202, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigAccepted) GetPayload() *models.AsyncVirtualTagConfigUpdate {
@@ -174,13 +171,11 @@ func (o *UpdateAsyncVirtualTagConfigBadRequest) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *UpdateAsyncVirtualTagConfigForbidden) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *UpdateAsyncVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *UpdateAsyncVirtualTagConfigUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateAsyncVirtualTagConfigUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}/async][%d] updateAsyncVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateAsyncVirtualTagConfigUnprocessableEntity) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package resource_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateResourceReportCreated) Code() int {
 }
 
 func (o *CreateResourceReportCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateResourceReportCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateResourceReportCreated) GetPayload() *models.ResourceReport {
@@ -162,13 +159,11 @@ func (o *CreateResourceReportBadRequest) Code() int {
 }
 
 func (o *CreateResourceReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateResourceReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateResourceReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateResourceReportUnprocessableEntity) Code() int {
 }
 
 func (o *CreateResourceReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateResourceReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /resource_reports][%d] createResourceReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateResourceReportUnprocessableEntity) GetPayload() *models.Errors {

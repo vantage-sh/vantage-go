@@ -6,7 +6,6 @@ package costs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *GetCostsOK) Code() int {
 }
 
 func (o *GetCostsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostsOK) GetPayload() *models.Costs {
@@ -168,13 +165,11 @@ func (o *GetCostsBadRequest) Code() int {
 }
 
 func (o *GetCostsBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetCostsBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetCostsBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *GetCostsPaymentRequired) Code() int {
 }
 
 func (o *GetCostsPaymentRequired) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetCostsPaymentRequired) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetCostsPaymentRequired) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *GetCostsNotFound) Code() int {
 }
 
 func (o *GetCostsNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostsNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /costs][%d] getCostsNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /costs][%d] getCostsNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostsNotFound) GetPayload() *models.Errors {

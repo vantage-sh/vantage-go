@@ -28,15 +28,15 @@ type CreateCostReport struct {
 	ChartSettings *CreateCostReportChartSettings `json:"chart_settings,omitempty"`
 
 	// The chart type of the CostReport.
-	// Enum: ["area","line","pie","bar","multi_bar"]
+	// Enum: [area line pie bar multi_bar]
 	ChartType *string `json:"chart_type,omitempty"`
 
 	// The date bin of the CostReport.
-	// Enum: ["cumulative","day","week","month","quarter"]
+	// Enum: [cumulative day week month quarter hour]
 	DateBin *string `json:"date_bin,omitempty"`
 
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months year_to_date last_3_days last_14_days]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the CostReport. ISO 8601 Formatted. Required when start_date is provided. Incompatible with 'date_interval' parameter.
@@ -222,7 +222,7 @@ var createCostReportTypeDateBinPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cumulative","day","week","month","quarter"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cumulative","day","week","month","quarter","hour"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -246,6 +246,9 @@ const (
 
 	// CreateCostReportDateBinQuarter captures enum value "quarter"
 	CreateCostReportDateBinQuarter string = "quarter"
+
+	// CreateCostReportDateBinHour captures enum value "hour"
+	CreateCostReportDateBinHour string = "hour"
 )
 
 // prop value enum
@@ -522,7 +525,7 @@ type CreateCostReportBusinessMetricTokensWithMetadataItems0 struct {
 	LabelFilter []string `json:"label_filter"`
 
 	// Determines the scale of the BusinessMetric's values within the CostReport.
-	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
+	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
 	UnitScale *string `json:"unit_scale,omitempty"`
 }
 

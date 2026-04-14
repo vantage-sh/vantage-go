@@ -6,7 +6,6 @@ package budgets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteBudgetNoContent) Code() int {
 }
 
 func (o *DeleteBudgetNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteBudgetNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteBudgetNoContent) GetPayload() *models.Budget {
@@ -156,13 +153,11 @@ func (o *DeleteBudgetNotFound) Code() int {
 }
 
 func (o *DeleteBudgetNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteBudgetNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /budgets/{budget_token}][%d] deleteBudgetNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteBudgetNotFound) GetPayload() *models.Errors {

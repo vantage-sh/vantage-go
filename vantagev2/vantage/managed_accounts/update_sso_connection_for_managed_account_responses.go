@@ -6,7 +6,6 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateSsoConnectionForManagedAccountOK) Code() int {
 }
 
 func (o *UpdateSsoConnectionForManagedAccountOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountOK) GetPayload() *models.ManagedAccount {
@@ -162,13 +159,11 @@ func (o *UpdateSsoConnectionForManagedAccountBadRequest) Code() int {
 }
 
 func (o *UpdateSsoConnectionForManagedAccountBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateSsoConnectionForManagedAccountNotFound) Code() int {
 }
 
 func (o *UpdateSsoConnectionForManagedAccountNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /managed_accounts/{managed_account_token}/sso_connection][%d] updateSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateSsoConnectionForManagedAccountNotFound) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetBusinessMetricOK) Code() int {
 }
 
 func (o *GetBusinessMetricOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricOK) GetPayload() *models.BusinessMetric {
@@ -156,13 +153,11 @@ func (o *GetBusinessMetricNotFound) Code() int {
 }
 
 func (o *GetBusinessMetricNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBusinessMetricNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}][%d] getBusinessMetricNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBusinessMetricNotFound) GetPayload() *models.Errors {

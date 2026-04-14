@@ -6,7 +6,6 @@ package folders
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetFoldersOK) Code() int {
 }
 
 func (o *GetFoldersOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /folders][%d] getFoldersOK %s", 200, payload)
+	return fmt.Sprintf("[GET /folders][%d] getFoldersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetFoldersOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /folders][%d] getFoldersOK %s", 200, payload)
+	return fmt.Sprintf("[GET /folders][%d] getFoldersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetFoldersOK) GetPayload() *models.Folders {

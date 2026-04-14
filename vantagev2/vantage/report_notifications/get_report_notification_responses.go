@@ -6,7 +6,6 @@ package report_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetReportNotificationOK) Code() int {
 }
 
 func (o *GetReportNotificationOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetReportNotificationOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetReportNotificationOK) GetPayload() *models.ReportNotification {
@@ -156,13 +153,11 @@ func (o *GetReportNotificationNotFound) Code() int {
 }
 
 func (o *GetReportNotificationNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetReportNotificationNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /report_notifications/{report_notification_token}][%d] getReportNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetReportNotificationNotFound) GetPayload() *models.Errors {

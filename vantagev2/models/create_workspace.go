@@ -27,7 +27,7 @@ type CreateWorkspace struct {
 	EnableCurrencyConversion *bool `json:"enable_currency_conversion,omitempty"`
 
 	// The date to use for currency conversion.
-	// Enum: ["daily_rate","end_of_billing_period_rate"]
+	// Enum: [daily_rate end_of_billing_period_rate]
 	ExchangeRateDate *string `json:"exchange_rate_date,omitempty"`
 
 	// Name of the workspace.

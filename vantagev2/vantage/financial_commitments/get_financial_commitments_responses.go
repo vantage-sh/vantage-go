@@ -6,7 +6,6 @@ package financial_commitments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetFinancialCommitmentsOK) Code() int {
 }
 
 func (o *GetFinancialCommitmentsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /financial_commitments][%d] getFinancialCommitmentsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /financial_commitments][%d] getFinancialCommitmentsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetFinancialCommitmentsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /financial_commitments][%d] getFinancialCommitmentsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /financial_commitments][%d] getFinancialCommitmentsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetFinancialCommitmentsOK) GetPayload() *models.FinancialCommitments {

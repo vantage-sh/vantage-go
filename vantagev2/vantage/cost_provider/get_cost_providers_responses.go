@@ -6,7 +6,6 @@ package cost_provider
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetCostProvidersOK) Code() int {
 }
 
 func (o *GetCostProvidersOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_providers][%d] getCostProvidersOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_providers][%d] getCostProvidersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostProvidersOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_providers][%d] getCostProvidersOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_providers][%d] getCostProvidersOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostProvidersOK) GetPayload() *models.CostProviders {

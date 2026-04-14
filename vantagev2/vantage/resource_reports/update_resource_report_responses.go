@@ -6,7 +6,6 @@ package resource_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *UpdateResourceReportOK) Code() int {
 }
 
 func (o *UpdateResourceReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateResourceReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateResourceReportOK) GetPayload() *models.ResourceReport {
@@ -168,13 +165,11 @@ func (o *UpdateResourceReportBadRequest) Code() int {
 }
 
 func (o *UpdateResourceReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateResourceReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateResourceReportBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *UpdateResourceReportNotFound) Code() int {
 }
 
 func (o *UpdateResourceReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateResourceReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateResourceReportNotFound) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *UpdateResourceReportUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateResourceReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateResourceReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /resource_reports/{resource_report_token}][%d] updateResourceReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateResourceReportUnprocessableEntity) GetPayload() *models.Errors {

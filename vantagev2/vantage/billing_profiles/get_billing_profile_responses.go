@@ -6,7 +6,6 @@ package billing_profiles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetBillingProfileOK) Code() int {
 }
 
 func (o *GetBillingProfileOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileOK %s", 200, payload)
+	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBillingProfileOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileOK %s", 200, payload)
+	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBillingProfileOK) GetPayload() *models.BillingProfile {
@@ -156,13 +153,11 @@ func (o *GetBillingProfileNotFound) Code() int {
 }
 
 func (o *GetBillingProfileNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBillingProfileNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /billing_profiles/{billing_profile_token}][%d] getBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBillingProfileNotFound) GetPayload() *models.Errors {

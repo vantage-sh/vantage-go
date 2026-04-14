@@ -6,7 +6,6 @@ package financial_commitment_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateFinancialCommitmentReportCreated) Code() int {
 }
 
 func (o *CreateFinancialCommitmentReportCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportCreated) GetPayload() *models.FinancialCommitmentReport {
@@ -162,13 +159,11 @@ func (o *CreateFinancialCommitmentReportBadRequest) Code() int {
 }
 
 func (o *CreateFinancialCommitmentReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateFinancialCommitmentReportUnprocessableEntity) Code() int {
 }
 
 func (o *CreateFinancialCommitmentReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /financial_commitment_reports][%d] createFinancialCommitmentReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateFinancialCommitmentReportUnprocessableEntity) GetPayload() *models.Errors {

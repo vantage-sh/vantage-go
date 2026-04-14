@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DownloadInvoiceOK) Code() int {
 }
 
 func (o *DownloadInvoiceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *DownloadInvoiceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *DownloadInvoiceOK) GetPayload() *models.DownloadInvoice {
@@ -156,13 +153,11 @@ func (o *DownloadInvoiceNotFound) Code() int {
 }
 
 func (o *DownloadInvoiceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DownloadInvoiceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/download][%d] downloadInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DownloadInvoiceNotFound) GetPayload() *models.Errors {

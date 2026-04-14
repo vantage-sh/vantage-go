@@ -6,7 +6,6 @@ package network_flow_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateNetworkFlowReportCreated) Code() int {
 }
 
 func (o *CreateNetworkFlowReportCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportCreated) GetPayload() *models.NetworkFlowReport {
@@ -162,13 +159,11 @@ func (o *CreateNetworkFlowReportBadRequest) Code() int {
 }
 
 func (o *CreateNetworkFlowReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateNetworkFlowReportUnprocessableEntity) Code() int {
 }
 
 func (o *CreateNetworkFlowReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /network_flow_reports][%d] createNetworkFlowReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateNetworkFlowReportUnprocessableEntity) GetPayload() *models.Errors {

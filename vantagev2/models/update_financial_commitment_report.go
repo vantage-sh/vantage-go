@@ -21,11 +21,11 @@ import (
 type UpdateFinancialCommitmentReport struct {
 
 	// The date bucket of the FinancialCommitmentReport.
-	// Enum: ["hour","day","week","month","quarter"]
+	// Enum: [hour day week month quarter]
 	DateBucket string `json:"date_bucket,omitempty"`
 
 	// The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","year_to_date","last_3_days","last_14_days"]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months year_to_date last_3_days last_14_days]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
@@ -40,7 +40,7 @@ type UpdateFinancialCommitmentReport struct {
 	Groupings []string `json:"groupings"`
 
 	// The scope for the costs. Possible values: discountable, all.
-	// Enum: ["discountable","all"]
+	// Enum: [discountable all]
 	OnDemandCostsScope string `json:"on_demand_costs_scope,omitempty"`
 
 	// The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.

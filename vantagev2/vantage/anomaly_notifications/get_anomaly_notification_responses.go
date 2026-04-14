@@ -6,7 +6,6 @@ package anomaly_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetAnomalyNotificationOK) Code() int {
 }
 
 func (o *GetAnomalyNotificationOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyNotificationOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyNotificationOK) GetPayload() *models.AnomalyNotification {
@@ -156,13 +153,11 @@ func (o *GetAnomalyNotificationNotFound) Code() int {
 }
 
 func (o *GetAnomalyNotificationNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAnomalyNotificationNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /anomaly_notifications/{anomaly_notification_token}][%d] getAnomalyNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAnomalyNotificationNotFound) GetPayload() *models.Errors {

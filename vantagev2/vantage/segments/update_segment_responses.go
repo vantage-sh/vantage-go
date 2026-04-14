@@ -6,7 +6,6 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateSegmentOK) Code() int {
 }
 
 func (o *UpdateSegmentOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSegmentOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSegmentOK) GetPayload() *models.Segment {
@@ -162,13 +159,11 @@ func (o *UpdateSegmentBadRequest) Code() int {
 }
 
 func (o *UpdateSegmentBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateSegmentBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateSegmentBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateSegmentNotFound) Code() int {
 }
 
 func (o *UpdateSegmentNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateSegmentNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /segments/{segment_token}][%d] updateSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateSegmentNotFound) GetPayload() *models.Errors {

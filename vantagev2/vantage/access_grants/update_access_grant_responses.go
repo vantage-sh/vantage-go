@@ -6,7 +6,6 @@ package access_grants
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateAccessGrantOK) Code() int {
 }
 
 func (o *UpdateAccessGrantOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAccessGrantOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAccessGrantOK) GetPayload() *models.AccessGrant {
@@ -162,13 +159,11 @@ func (o *UpdateAccessGrantBadRequest) Code() int {
 }
 
 func (o *UpdateAccessGrantBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAccessGrantBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAccessGrantBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateAccessGrantNotFound) Code() int {
 }
 
 func (o *UpdateAccessGrantNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAccessGrantNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /access_grants/{access_grant_token}][%d] updateAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAccessGrantNotFound) GetPayload() *models.Errors {

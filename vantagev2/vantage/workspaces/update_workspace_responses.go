@@ -6,7 +6,6 @@ package workspaces
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *UpdateWorkspaceOK) Code() int {
 }
 
 func (o *UpdateWorkspaceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateWorkspaceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateWorkspaceOK) GetPayload() *models.Workspace {
@@ -156,13 +153,11 @@ func (o *UpdateWorkspaceBadRequest) Code() int {
 }
 
 func (o *UpdateWorkspaceBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateWorkspaceBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /workspaces/{workspace_token}][%d] updateWorkspaceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateWorkspaceBadRequest) GetPayload() *models.Errors {

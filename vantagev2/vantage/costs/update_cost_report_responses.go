@@ -6,7 +6,6 @@ package costs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateCostReportOK) Code() int {
 }
 
 func (o *UpdateCostReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateCostReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateCostReportOK) GetPayload() *models.CostReport {
@@ -162,13 +159,11 @@ func (o *UpdateCostReportBadRequest) Code() int {
 }
 
 func (o *UpdateCostReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateCostReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateCostReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateCostReportNotFound) Code() int {
 }
 
 func (o *UpdateCostReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateCostReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /cost_reports/{cost_report_token}][%d] updateCostReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateCostReportNotFound) GetPayload() *models.Errors {

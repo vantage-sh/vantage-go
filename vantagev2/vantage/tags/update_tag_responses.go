@@ -6,7 +6,6 @@ package tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *UpdateTagOK) Code() int {
 }
 
 func (o *UpdateTagOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateTagOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateTagOK) GetPayload() *models.Tags {
@@ -174,13 +171,11 @@ func (o *UpdateTagBadRequest) Code() int {
 }
 
 func (o *UpdateTagBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateTagBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateTagBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *UpdateTagForbidden) Code() int {
 }
 
 func (o *UpdateTagForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateTagForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateTagForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *UpdateTagNotFound) Code() int {
 }
 
 func (o *UpdateTagNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateTagNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateTagNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *UpdateTagUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateTagUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateTagUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /tags][%d] updateTagUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /tags][%d] updateTagUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateTagUnprocessableEntity) GetPayload() *models.Errors {

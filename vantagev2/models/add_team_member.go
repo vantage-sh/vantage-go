@@ -22,7 +22,7 @@ type AddTeamMember struct {
 
 	// The role to assign to the user. Defaults to 'editor'.
 	// Required: true
-	// Enum: ["owner","editor","viewer","integration_owner"]
+	// Enum: [owner editor viewer integration_owner]
 	Role *string `json:"role"`
 
 	// The email address of the user to add to the Team.

@@ -6,7 +6,6 @@ package workspaces
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *DeleteWorkspaceNoContent) Code() int {
 }
 
 func (o *DeleteWorkspaceNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteWorkspaceNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteWorkspaceNoContent) GetPayload() *models.Workspace {
@@ -168,13 +165,11 @@ func (o *DeleteWorkspaceForbidden) Code() int {
 }
 
 func (o *DeleteWorkspaceForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceForbidden %s", 403, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceForbidden  %+v", 403, o.Payload)
 }
 
 func (o *DeleteWorkspaceForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceForbidden %s", 403, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceForbidden  %+v", 403, o.Payload)
 }
 
 func (o *DeleteWorkspaceForbidden) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *DeleteWorkspaceNotFound) Code() int {
 }
 
 func (o *DeleteWorkspaceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteWorkspaceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteWorkspaceNotFound) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *DeleteWorkspaceUnprocessableEntity) Code() int {
 }
 
 func (o *DeleteWorkspaceUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *DeleteWorkspaceUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[DELETE /workspaces/{workspace_token}][%d] deleteWorkspaceUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *DeleteWorkspaceUnprocessableEntity) GetPayload() *models.Errors {

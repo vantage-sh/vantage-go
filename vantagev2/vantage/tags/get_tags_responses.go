@@ -6,7 +6,6 @@ package tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetTagsOK) Code() int {
 }
 
 func (o *GetTagsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags][%d] getTagsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /tags][%d] getTagsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTagsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags][%d] getTagsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /tags][%d] getTagsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTagsOK) GetPayload() *models.Tags {

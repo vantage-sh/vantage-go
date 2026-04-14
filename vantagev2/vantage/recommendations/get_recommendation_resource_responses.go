@@ -6,7 +6,6 @@ package recommendations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetRecommendationResourceOK) Code() int {
 }
 
 func (o *GetRecommendationResourceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationResourceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationResourceOK) GetPayload() *models.RecommendationProviderResource {
@@ -156,13 +153,11 @@ func (o *GetRecommendationResourceNotFound) Code() int {
 }
 
 func (o *GetRecommendationResourceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetRecommendationResourceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /recommendations/{recommendation_token}/resources/{resource_token}][%d] getRecommendationResourceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetRecommendationResourceNotFound) GetPayload() *models.Errors {

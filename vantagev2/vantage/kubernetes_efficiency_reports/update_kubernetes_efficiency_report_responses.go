@@ -6,7 +6,6 @@ package kubernetes_efficiency_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateKubernetesEfficiencyReportOK) Code() int {
 }
 
 func (o *UpdateKubernetesEfficiencyReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportOK) GetPayload() *models.KubernetesEfficiencyReport {
@@ -162,13 +159,11 @@ func (o *UpdateKubernetesEfficiencyReportBadRequest) Code() int {
 }
 
 func (o *UpdateKubernetesEfficiencyReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateKubernetesEfficiencyReportUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateKubernetesEfficiencyReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] updateKubernetesEfficiencyReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateKubernetesEfficiencyReportUnprocessableEntity) GetPayload() *models.Errors {

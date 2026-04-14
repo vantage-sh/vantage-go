@@ -6,7 +6,6 @@ package tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetTagValuesOK) Code() int {
 }
 
 func (o *GetTagValuesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTagValuesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTagValuesOK) GetPayload() *models.TagValues {
@@ -156,13 +153,11 @@ func (o *GetTagValuesNotFound) Code() int {
 }
 
 func (o *GetTagValuesNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetTagValuesNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /tags/{key}/values][%d] getTagValuesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetTagValuesNotFound) GetPayload() *models.Errors {

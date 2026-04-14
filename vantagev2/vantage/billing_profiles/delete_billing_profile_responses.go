@@ -6,7 +6,6 @@ package billing_profiles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteBillingProfileNoContent) Code() int {
 }
 
 func (o *DeleteBillingProfileNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteBillingProfileNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteBillingProfileNoContent) GetPayload() *models.BillingProfile {
@@ -156,13 +153,11 @@ func (o *DeleteBillingProfileNotFound) Code() int {
 }
 
 func (o *DeleteBillingProfileNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteBillingProfileNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /billing_profiles/{billing_profile_token}][%d] deleteBillingProfileNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteBillingProfileNotFound) GetPayload() *models.Errors {

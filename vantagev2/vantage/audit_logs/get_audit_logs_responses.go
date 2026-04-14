@@ -6,7 +6,6 @@ package audit_logs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetAuditLogsOK) Code() int {
 }
 
 func (o *GetAuditLogsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAuditLogsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAuditLogsOK) GetPayload() *models.AuditLogs {
@@ -156,13 +153,11 @@ func (o *GetAuditLogsForbidden) Code() int {
 }
 
 func (o *GetAuditLogsForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsForbidden  %+v", 403, o.Payload)
 }
 
 func (o *GetAuditLogsForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /audit_logs][%d] getAuditLogsForbidden  %+v", 403, o.Payload)
 }
 
 func (o *GetAuditLogsForbidden) GetPayload() *models.Errors {

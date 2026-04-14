@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *CreateUserCostsUploadViaCsvCreated) Code() int {
 }
 
 func (o *CreateUserCostsUploadViaCsvCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvCreated) GetPayload() *models.UserCostsUpload {
@@ -174,13 +171,11 @@ func (o *CreateUserCostsUploadViaCsvBadRequest) Code() int {
 }
 
 func (o *CreateUserCostsUploadViaCsvBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *CreateUserCostsUploadViaCsvForbidden) Code() int {
 }
 
 func (o *CreateUserCostsUploadViaCsvForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *CreateUserCostsUploadViaCsvNotFound) Code() int {
 }
 
 func (o *CreateUserCostsUploadViaCsvNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *CreateUserCostsUploadViaCsvUnprocessableEntity) Code() int {
 }
 
 func (o *CreateUserCostsUploadViaCsvUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /integrations/{integration_token}/costs.csv][%d] createUserCostsUploadViaCsvUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateUserCostsUploadViaCsvUnprocessableEntity) GetPayload() *models.Errors {

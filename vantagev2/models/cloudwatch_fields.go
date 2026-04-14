@@ -47,7 +47,7 @@ type CloudwatchFields struct {
 	// The time aggregation function used to import Cloudwatch metrics.
 	// Example: Average
 	// Required: true
-	// Enum: ["Sum","Average","Minimum","Maximum"]
+	// Enum: [Sum Average Minimum Maximum]
 	Stat string `json:"stat"`
 }
 

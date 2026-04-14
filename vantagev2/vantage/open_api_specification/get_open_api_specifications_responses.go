@@ -75,11 +75,11 @@ func (o *GetOpenAPISpecificationsOK) Code() int {
 }
 
 func (o *GetOpenAPISpecificationsOK) Error() string {
-	return fmt.Sprintf("[GET /oas_v3.json][%d] getOpenApiSpecificationsOK", 200)
+	return fmt.Sprintf("[GET /oas_v3.json][%d] getOpenApiSpecificationsOK ", 200)
 }
 
 func (o *GetOpenAPISpecificationsOK) String() string {
-	return fmt.Sprintf("[GET /oas_v3.json][%d] getOpenApiSpecificationsOK", 200)
+	return fmt.Sprintf("[GET /oas_v3.json][%d] getOpenApiSpecificationsOK ", 200)
 }
 
 func (o *GetOpenAPISpecificationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

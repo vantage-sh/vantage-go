@@ -22,7 +22,7 @@ type DownloadInvoice struct {
 
 	// Type of file to download (pdf or csv)
 	// Required: true
-	// Enum: ["pdf","csv"]
+	// Enum: [pdf csv]
 	FileType *string `json:"file_type"`
 }
 

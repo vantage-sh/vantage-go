@@ -6,7 +6,6 @@ package network_flow_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetNetworkFlowReportOK) Code() int {
 }
 
 func (o *GetNetworkFlowReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetNetworkFlowReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetNetworkFlowReportOK) GetPayload() *models.NetworkFlowReport {
@@ -156,13 +153,11 @@ func (o *GetNetworkFlowReportNotFound) Code() int {
 }
 
 func (o *GetNetworkFlowReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetNetworkFlowReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /network_flow_reports/{network_flow_report_token}][%d] getNetworkFlowReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetNetworkFlowReportNotFound) GetPayload() *models.Errors {

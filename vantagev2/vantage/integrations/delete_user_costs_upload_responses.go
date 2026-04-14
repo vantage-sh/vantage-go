@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteUserCostsUploadNoContent) Code() int {
 }
 
 func (o *DeleteUserCostsUploadNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteUserCostsUploadNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteUserCostsUploadNoContent) GetPayload() *models.Cost {
@@ -156,13 +153,11 @@ func (o *DeleteUserCostsUploadNotFound) Code() int {
 }
 
 func (o *DeleteUserCostsUploadNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteUserCostsUploadNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteUserCostsUploadNotFound) GetPayload() *models.Errors {

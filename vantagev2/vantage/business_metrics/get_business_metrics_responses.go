@@ -6,7 +6,6 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetBusinessMetricsOK) Code() int {
 }
 
 func (o *GetBusinessMetricsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics][%d] getBusinessMetricsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics][%d] getBusinessMetricsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics][%d] getBusinessMetricsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics][%d] getBusinessMetricsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricsOK) GetPayload() *models.BusinessMetrics {

@@ -6,7 +6,6 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *CreateBusinessMetricCreated) Code() int {
 }
 
 func (o *CreateBusinessMetricCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateBusinessMetricCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateBusinessMetricCreated) GetPayload() *models.BusinessMetric {
@@ -174,13 +171,11 @@ func (o *CreateBusinessMetricBadRequest) Code() int {
 }
 
 func (o *CreateBusinessMetricBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateBusinessMetricBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateBusinessMetricBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *CreateBusinessMetricForbidden) Code() int {
 }
 
 func (o *CreateBusinessMetricForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateBusinessMetricForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateBusinessMetricForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *CreateBusinessMetricNotFound) Code() int {
 }
 
 func (o *CreateBusinessMetricNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateBusinessMetricNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateBusinessMetricNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *CreateBusinessMetricUnprocessableEntity) Code() int {
 }
 
 func (o *CreateBusinessMetricUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateBusinessMetricUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /business_metrics][%d] createBusinessMetricUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateBusinessMetricUnprocessableEntity) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package folders
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateFolderOK) Code() int {
 }
 
 func (o *UpdateFolderOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFolderOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFolderOK) GetPayload() *models.Folder {
@@ -162,13 +159,11 @@ func (o *UpdateFolderBadRequest) Code() int {
 }
 
 func (o *UpdateFolderBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateFolderBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateFolderBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateFolderNotFound) Code() int {
 }
 
 func (o *UpdateFolderNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateFolderNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /folders/{folder_token}][%d] updateFolderNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateFolderNotFound) GetPayload() *models.Errors {

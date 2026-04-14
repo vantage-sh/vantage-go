@@ -6,7 +6,6 @@ package exchange_rates
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetExchangeRatesOK) Code() int {
 }
 
 func (o *GetExchangeRatesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /exchange_rates][%d] getExchangeRatesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /exchange_rates][%d] getExchangeRatesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetExchangeRatesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /exchange_rates][%d] getExchangeRatesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /exchange_rates][%d] getExchangeRatesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetExchangeRatesOK) GetPayload() *models.ExchangeRates {

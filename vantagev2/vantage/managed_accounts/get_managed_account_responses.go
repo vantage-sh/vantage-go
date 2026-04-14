@@ -6,7 +6,6 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetManagedAccountOK) Code() int {
 }
 
 func (o *GetManagedAccountOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountOK %s", 200, payload)
+	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountOK  %+v", 200, o.Payload)
 }
 
 func (o *GetManagedAccountOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountOK %s", 200, payload)
+	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountOK  %+v", 200, o.Payload)
 }
 
 func (o *GetManagedAccountOK) GetPayload() *models.ManagedAccount {
@@ -156,13 +153,11 @@ func (o *GetManagedAccountNotFound) Code() int {
 }
 
 func (o *GetManagedAccountNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetManagedAccountNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /managed_accounts/{managed_account_token}][%d] getManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetManagedAccountNotFound) GetPayload() *models.Errors {

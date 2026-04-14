@@ -6,7 +6,6 @@ package anomaly_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *UpdateAnomalyAlertOK) Code() int {
 }
 
 func (o *UpdateAnomalyAlertOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertOK) GetPayload() *models.AnomalyAlert {
@@ -174,13 +171,11 @@ func (o *UpdateAnomalyAlertBadRequest) Code() int {
 }
 
 func (o *UpdateAnomalyAlertBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *UpdateAnomalyAlertForbidden) Code() int {
 }
 
 func (o *UpdateAnomalyAlertForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *UpdateAnomalyAlertNotFound) Code() int {
 }
 
 func (o *UpdateAnomalyAlertNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *UpdateAnomalyAlertUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateAnomalyAlertUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /anomaly_alerts/{anomaly_alert_token}][%d] updateAnomalyAlertUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateAnomalyAlertUnprocessableEntity) GetPayload() *models.Errors {

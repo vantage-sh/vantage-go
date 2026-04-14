@@ -6,7 +6,6 @@ package anomaly_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetAnomalyAlertsOK) Code() int {
 }
 
 func (o *GetAnomalyAlertsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_alerts][%d] getAnomalyAlertsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /anomaly_alerts][%d] getAnomalyAlertsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyAlertsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /anomaly_alerts][%d] getAnomalyAlertsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /anomaly_alerts][%d] getAnomalyAlertsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAnomalyAlertsOK) GetPayload() *models.AnomalyAlerts {

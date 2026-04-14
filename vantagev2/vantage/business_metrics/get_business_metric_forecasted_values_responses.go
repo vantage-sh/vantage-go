@@ -6,7 +6,6 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetBusinessMetricForecastedValuesOK) Code() int {
 }
 
 func (o *GetBusinessMetricForecastedValuesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricForecastedValuesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBusinessMetricForecastedValuesOK) GetPayload() *models.BusinessMetricValues {
@@ -156,13 +153,11 @@ func (o *GetBusinessMetricForecastedValuesNotFound) Code() int {
 }
 
 func (o *GetBusinessMetricForecastedValuesNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBusinessMetricForecastedValuesNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/forecasted_values][%d] getBusinessMetricForecastedValuesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBusinessMetricForecastedValuesNotFound) GetPayload() *models.Errors {

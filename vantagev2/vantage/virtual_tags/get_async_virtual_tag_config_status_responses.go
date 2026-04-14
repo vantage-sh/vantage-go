@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +84,11 @@ func (o *GetAsyncVirtualTagConfigStatusOK) Code() int {
 }
 
 func (o *GetAsyncVirtualTagConfigStatusOK) Error() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusOK", 200)
+	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusOK ", 200)
 }
 
 func (o *GetAsyncVirtualTagConfigStatusOK) String() string {
-	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusOK", 200)
+	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusOK ", 200)
 }
 
 func (o *GetAsyncVirtualTagConfigStatusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -142,13 +141,11 @@ func (o *GetAsyncVirtualTagConfigStatusNotFound) Code() int {
 }
 
 func (o *GetAsyncVirtualTagConfigStatusNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAsyncVirtualTagConfigStatusNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/async/{request_id}][%d] getAsyncVirtualTagConfigStatusNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAsyncVirtualTagConfigStatusNotFound) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateSsoConnectionForManagedAccountCreated) Code() int {
 }
 
 func (o *CreateSsoConnectionForManagedAccountCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountCreated) GetPayload() *models.ManagedAccount {
@@ -162,13 +159,11 @@ func (o *CreateSsoConnectionForManagedAccountBadRequest) Code() int {
 }
 
 func (o *CreateSsoConnectionForManagedAccountBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateSsoConnectionForManagedAccountNotFound) Code() int {
 }
 
 func (o *CreateSsoConnectionForManagedAccountNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /managed_accounts/{managed_account_token}/sso_connection][%d] createSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateSsoConnectionForManagedAccountNotFound) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package network_flow_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteNetworkFlowReportNoContent) Code() int {
 }
 
 func (o *DeleteNetworkFlowReportNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteNetworkFlowReportNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteNetworkFlowReportNoContent) GetPayload() *models.NetworkFlowReport {
@@ -156,13 +153,11 @@ func (o *DeleteNetworkFlowReportNotFound) Code() int {
 }
 
 func (o *DeleteNetworkFlowReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteNetworkFlowReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /network_flow_reports/{network_flow_report_token}][%d] deleteNetworkFlowReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteNetworkFlowReportNotFound) GetPayload() *models.Errors {

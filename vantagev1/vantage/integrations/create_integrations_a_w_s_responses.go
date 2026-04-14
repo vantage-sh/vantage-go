@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *CreateIntegrationsAWSCreated) Code() int {
 }
 
 func (o *CreateIntegrationsAWSCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/aws][%d] createIntegrationsAWSCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/aws][%d] createIntegrationsAWSCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateIntegrationsAWSCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/aws][%d] createIntegrationsAWSCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/aws][%d] createIntegrationsAWSCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateIntegrationsAWSCreated) GetPayload() *models.AwsAccessCredential {

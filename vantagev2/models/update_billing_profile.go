@@ -840,7 +840,7 @@ func (m *UpdateBillingProfileInvoiceAdjustmentAttributes) UnmarshalBinary(b []by
 type UpdateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0 struct {
 
 	// Type of adjustment
-	// Enum: ["charge","credit","discount"]
+	// Enum: [charge credit discount]
 	AdjustmentType *string `json:"adjustment_type,omitempty"`
 
 	// Amount or percentage value
@@ -849,7 +849,7 @@ type UpdateBillingProfileInvoiceAdjustmentAttributesAdjustmentItemsItems0 struct
 
 	// How the adjustment is calculated
 	// Required: true
-	// Enum: ["fixed","percentage"]
+	// Enum: [fixed percentage]
 	CalculationType *string `json:"calculation_type"`
 
 	// Name of the adjustment

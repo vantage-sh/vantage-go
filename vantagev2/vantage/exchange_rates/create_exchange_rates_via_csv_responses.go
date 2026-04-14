@@ -6,7 +6,6 @@ package exchange_rates
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -91,11 +90,11 @@ func (o *CreateExchangeRatesViaCsvCreated) Code() int {
 }
 
 func (o *CreateExchangeRatesViaCsvCreated) Error() string {
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvCreated", 201)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvCreated ", 201)
 }
 
 func (o *CreateExchangeRatesViaCsvCreated) String() string {
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvCreated", 201)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvCreated ", 201)
 }
 
 func (o *CreateExchangeRatesViaCsvCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,13 +147,11 @@ func (o *CreateExchangeRatesViaCsvBadRequest) Code() int {
 }
 
 func (o *CreateExchangeRatesViaCsvBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateExchangeRatesViaCsvBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateExchangeRatesViaCsvBadRequest) GetPayload() *models.Errors {
@@ -218,13 +215,11 @@ func (o *CreateExchangeRatesViaCsvForbidden) Code() int {
 }
 
 func (o *CreateExchangeRatesViaCsvForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateExchangeRatesViaCsvForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /exchange_rates/csv][%d] createExchangeRatesViaCsvForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateExchangeRatesViaCsvForbidden) GetPayload() *models.Errors {

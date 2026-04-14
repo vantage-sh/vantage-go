@@ -6,7 +6,6 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateUserOK) Code() int {
 }
 
 func (o *UpdateUserOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateUserOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateUserOK) GetPayload() *models.User {
@@ -162,13 +159,11 @@ func (o *UpdateUserNotFound) Code() int {
 }
 
 func (o *UpdateUserNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateUserNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateUserNotFound) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateUserUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateUserUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateUserUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /users/{user_token}][%d] updateUserUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateUserUnprocessableEntity) GetPayload() *models.Errors {

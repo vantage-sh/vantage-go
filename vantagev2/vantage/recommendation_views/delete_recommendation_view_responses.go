@@ -6,7 +6,6 @@ package recommendation_views
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteRecommendationViewNoContent) Code() int {
 }
 
 func (o *DeleteRecommendationViewNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteRecommendationViewNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteRecommendationViewNoContent) GetPayload() *models.RecommendationView {
@@ -156,13 +153,11 @@ func (o *DeleteRecommendationViewNotFound) Code() int {
 }
 
 func (o *DeleteRecommendationViewNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteRecommendationViewNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /recommendation_views/{recommendation_view_token}][%d] deleteRecommendationViewNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteRecommendationViewNotFound) GetPayload() *models.Errors {

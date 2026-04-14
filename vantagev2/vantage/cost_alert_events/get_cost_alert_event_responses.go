@@ -6,7 +6,6 @@ package cost_alert_events
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetCostAlertEventOK) Code() int {
 }
 
 func (o *GetCostAlertEventOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}/events/{event_token}][%d] getCostAlertEventOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}/events/{event_token}][%d] getCostAlertEventOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostAlertEventOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}/events/{event_token}][%d] getCostAlertEventOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}/events/{event_token}][%d] getCostAlertEventOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostAlertEventOK) GetPayload() *models.CostAlertEvent {

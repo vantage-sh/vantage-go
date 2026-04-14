@@ -6,7 +6,6 @@ package audit_logs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *GetAuditLogOK) Code() int {
 }
 
 func (o *GetAuditLogOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogOK %s", 200, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAuditLogOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogOK %s", 200, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAuditLogOK) GetPayload() *models.AuditLog {
@@ -162,13 +159,11 @@ func (o *GetAuditLogForbidden) Code() int {
 }
 
 func (o *GetAuditLogForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden  %+v", 403, o.Payload)
 }
 
 func (o *GetAuditLogForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden %s", 403, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogForbidden  %+v", 403, o.Payload)
 }
 
 func (o *GetAuditLogForbidden) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *GetAuditLogNotFound) Code() int {
 }
 
 func (o *GetAuditLogNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAuditLogNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /audit_logs/{audit_log_token}][%d] getAuditLogNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetAuditLogNotFound) GetPayload() *models.Errors {

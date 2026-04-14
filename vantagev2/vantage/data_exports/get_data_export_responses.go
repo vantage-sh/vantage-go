@@ -6,7 +6,6 @@ package data_exports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *GetDataExportOK) Code() int {
 }
 
 func (o *GetDataExportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetDataExportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetDataExportOK) GetPayload() *models.DataExport {
@@ -168,13 +165,11 @@ func (o *GetDataExportBadRequest) Code() int {
 }
 
 func (o *GetDataExportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetDataExportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetDataExportBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *GetDataExportPaymentRequired) Code() int {
 }
 
 func (o *GetDataExportPaymentRequired) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetDataExportPaymentRequired) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetDataExportPaymentRequired) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *GetDataExportNotFound) Code() int {
 }
 
 func (o *GetDataExportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetDataExportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /data_exports/{data_export_token}][%d] getDataExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetDataExportNotFound) GetPayload() *models.Errors {

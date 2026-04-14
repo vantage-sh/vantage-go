@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *SendAndApproveInvoiceOK) Code() int {
 }
 
 func (o *SendAndApproveInvoiceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceOK) GetPayload() *models.SendInvoice {
@@ -162,13 +159,11 @@ func (o *SendAndApproveInvoiceBadRequest) Code() int {
 }
 
 func (o *SendAndApproveInvoiceBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *SendAndApproveInvoiceNotFound) Code() int {
 }
 
 func (o *SendAndApproveInvoiceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send_and_approve][%d] sendAndApproveInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *SendAndApproveInvoiceNotFound) GetPayload() *models.Errors {

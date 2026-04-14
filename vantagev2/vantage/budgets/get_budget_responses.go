@@ -6,7 +6,6 @@ package budgets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetBudgetOK) Code() int {
 }
 
 func (o *GetBudgetOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetOK %s", 200, payload)
+	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBudgetOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetOK %s", 200, payload)
+	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetOK  %+v", 200, o.Payload)
 }
 
 func (o *GetBudgetOK) GetPayload() *models.Budget {
@@ -156,13 +153,11 @@ func (o *GetBudgetNotFound) Code() int {
 }
 
 func (o *GetBudgetNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBudgetNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /budgets/{budget_token}][%d] getBudgetNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetBudgetNotFound) GetPayload() *models.Errors {

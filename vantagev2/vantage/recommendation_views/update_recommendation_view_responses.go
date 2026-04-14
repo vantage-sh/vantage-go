@@ -6,7 +6,6 @@ package recommendation_views
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *UpdateRecommendationViewOK) Code() int {
 }
 
 func (o *UpdateRecommendationViewOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateRecommendationViewOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateRecommendationViewOK) GetPayload() *models.RecommendationView {
@@ -168,13 +165,11 @@ func (o *UpdateRecommendationViewBadRequest) Code() int {
 }
 
 func (o *UpdateRecommendationViewBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateRecommendationViewBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateRecommendationViewBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *UpdateRecommendationViewNotFound) Code() int {
 }
 
 func (o *UpdateRecommendationViewNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateRecommendationViewNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateRecommendationViewNotFound) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *UpdateRecommendationViewUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateRecommendationViewUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateRecommendationViewUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /recommendation_views/{recommendation_view_token}][%d] updateRecommendationViewUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateRecommendationViewUnprocessableEntity) GetPayload() *models.Errors {

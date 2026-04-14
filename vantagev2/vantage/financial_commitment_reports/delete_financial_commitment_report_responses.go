@@ -6,7 +6,6 @@ package financial_commitment_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteFinancialCommitmentReportNoContent) Code() int {
 }
 
 func (o *DeleteFinancialCommitmentReportNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteFinancialCommitmentReportNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteFinancialCommitmentReportNoContent) GetPayload() *models.FinancialCommitmentReport {
@@ -156,13 +153,11 @@ func (o *DeleteFinancialCommitmentReportNotFound) Code() int {
 }
 
 func (o *DeleteFinancialCommitmentReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteFinancialCommitmentReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /financial_commitment_reports/{financial_commitment_report_token}][%d] deleteFinancialCommitmentReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteFinancialCommitmentReportNotFound) GetPayload() *models.Errors {

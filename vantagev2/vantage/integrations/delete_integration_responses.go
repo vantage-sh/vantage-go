@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteIntegrationNoContent) Code() int {
 }
 
 func (o *DeleteIntegrationNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteIntegrationNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteIntegrationNoContent) GetPayload() *models.Integration {
@@ -156,13 +153,11 @@ func (o *DeleteIntegrationNotFound) Code() int {
 }
 
 func (o *DeleteIntegrationNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteIntegrationNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}][%d] deleteIntegrationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteIntegrationNotFound) GetPayload() *models.Errors {

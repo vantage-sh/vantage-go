@@ -6,7 +6,6 @@ package cost_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetCostAlertOK) Code() int {
 }
 
 func (o *GetCostAlertOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostAlertOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertOK %s", 200, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertOK  %+v", 200, o.Payload)
 }
 
 func (o *GetCostAlertOK) GetPayload() *models.CostAlert {
@@ -156,13 +153,11 @@ func (o *GetCostAlertNotFound) Code() int {
 }
 
 func (o *GetCostAlertNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostAlertNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /cost_alerts/{cost_alert_token}][%d] getCostAlertNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetCostAlertNotFound) GetPayload() *models.Errors {

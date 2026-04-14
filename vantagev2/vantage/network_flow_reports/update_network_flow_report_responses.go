@@ -6,7 +6,6 @@ package network_flow_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateNetworkFlowReportOK) Code() int {
 }
 
 func (o *UpdateNetworkFlowReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportOK) GetPayload() *models.NetworkFlowReport {
@@ -162,13 +159,11 @@ func (o *UpdateNetworkFlowReportBadRequest) Code() int {
 }
 
 func (o *UpdateNetworkFlowReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateNetworkFlowReportUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateNetworkFlowReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /network_flow_reports/{network_flow_report_token}][%d] updateNetworkFlowReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateNetworkFlowReportUnprocessableEntity) GetPayload() *models.Errors {

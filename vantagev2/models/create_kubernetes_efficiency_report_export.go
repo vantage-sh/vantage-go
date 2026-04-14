@@ -21,7 +21,7 @@ import (
 type CreateKubernetesEfficiencyReportExport struct {
 
 	// The date bin of the data. Defaults to the report's default or day.
-	// Enum: ["day","week","month","quarter"]
+	// Enum: [day week month quarter]
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Last date you would like to filter data to. ISO 8601 formatted.

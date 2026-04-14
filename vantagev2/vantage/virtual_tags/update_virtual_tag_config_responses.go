@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -110,13 +109,11 @@ func (o *UpdateVirtualTagConfigOK) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigOK) GetPayload() *models.VirtualTagConfig {
@@ -180,13 +177,11 @@ func (o *UpdateVirtualTagConfigAccepted) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigAccepted) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted %s", 202, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted  %+v", 202, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigAccepted) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted %s", 202, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigAccepted  %+v", 202, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigAccepted) GetPayload() *models.AsyncVirtualTagConfigUpdate {
@@ -250,13 +245,11 @@ func (o *UpdateVirtualTagConfigBadRequest) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigBadRequest) GetPayload() *models.Errors {
@@ -320,13 +313,11 @@ func (o *UpdateVirtualTagConfigForbidden) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigForbidden) GetPayload() *models.Errors {
@@ -390,13 +381,11 @@ func (o *UpdateVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigNotFound) GetPayload() *models.Errors {
@@ -460,13 +449,11 @@ func (o *UpdateVirtualTagConfigUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /virtual_tag_configs/{token}][%d] updateVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateVirtualTagConfigUnprocessableEntity) GetPayload() *models.Errors {

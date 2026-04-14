@@ -22,7 +22,7 @@ type AdjustmentItem struct {
 
 	// Type of adjustment
 	// Required: true
-	// Enum: ["charge","credit","discount"]
+	// Enum: [charge credit discount]
 	AdjustmentType string `json:"adjustment_type"`
 
 	// Amount or percentage value for the adjustment
@@ -31,7 +31,7 @@ type AdjustmentItem struct {
 
 	// How the adjustment is calculated
 	// Required: true
-	// Enum: ["fixed","percentage"]
+	// Enum: [fixed percentage]
 	CalculationType string `json:"calculation_type"`
 
 	// Name of the adjustment (e.g., 'State Tax', 'Processing Fee')

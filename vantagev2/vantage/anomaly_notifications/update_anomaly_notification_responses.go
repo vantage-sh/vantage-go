@@ -6,7 +6,6 @@ package anomaly_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *UpdateAnomalyNotificationOK) Code() int {
 }
 
 func (o *UpdateAnomalyNotificationOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationOK) GetPayload() *models.AnomalyNotification {
@@ -156,13 +153,11 @@ func (o *UpdateAnomalyNotificationBadRequest) Code() int {
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /anomaly_notifications/{anomaly_notification_token}][%d] updateAnomalyNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateAnomalyNotificationBadRequest) GetPayload() *models.Errors {

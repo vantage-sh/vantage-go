@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateAzureIntegrationCreated) Code() int {
 }
 
 func (o *CreateAzureIntegrationCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAzureIntegrationCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAzureIntegrationCreated) GetPayload() *models.Integration {
@@ -156,13 +153,11 @@ func (o *CreateAzureIntegrationBadRequest) Code() int {
 }
 
 func (o *CreateAzureIntegrationBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAzureIntegrationBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/azure][%d] createAzureIntegrationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAzureIntegrationBadRequest) GetPayload() *models.Errors {

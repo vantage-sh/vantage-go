@@ -6,7 +6,6 @@ package recommendations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetRecommendationTypeResourcesOK) Code() int {
 }
 
 func (o *GetRecommendationTypeResourcesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationTypeResourcesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationTypeResourcesOK) GetPayload() *models.RecommendationProviderResources {
@@ -156,13 +153,11 @@ func (o *GetRecommendationTypeResourcesNotFound) Code() int {
 }
 
 func (o *GetRecommendationTypeResourcesNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetRecommendationTypeResourcesNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /recommendations/by_type/{type}/resources][%d] getRecommendationTypeResourcesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetRecommendationTypeResourcesNotFound) GetPayload() *models.Errors {

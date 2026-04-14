@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *GetVirtualTagConfigStatusOK) Code() int {
 }
 
 func (o *GetVirtualTagConfigStatusOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusOK %s", 200, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusOK %s", 200, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusOK) GetPayload() *models.VirtualTagConfigStatus {
@@ -162,13 +159,11 @@ func (o *GetVirtualTagConfigStatusAccepted) Code() int {
 }
 
 func (o *GetVirtualTagConfigStatusAccepted) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusAccepted %s", 202, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusAccepted  %+v", 202, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusAccepted) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusAccepted %s", 202, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusAccepted  %+v", 202, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusAccepted) GetPayload() *models.VirtualTagConfigStatus {
@@ -232,13 +227,11 @@ func (o *GetVirtualTagConfigStatusNotFound) Code() int {
 }
 
 func (o *GetVirtualTagConfigStatusNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /virtual_tag_configs/{token}/status][%d] getVirtualTagConfigStatusNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetVirtualTagConfigStatusNotFound) GetPayload() *models.Errors {

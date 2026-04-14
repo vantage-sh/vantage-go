@@ -6,7 +6,6 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteManagedAccountNoContent) Code() int {
 }
 
 func (o *DeleteManagedAccountNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteManagedAccountNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteManagedAccountNoContent) GetPayload() *models.ManagedAccount {
@@ -156,13 +153,11 @@ func (o *DeleteManagedAccountNotFound) Code() int {
 }
 
 func (o *DeleteManagedAccountNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteManagedAccountNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}][%d] deleteManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteManagedAccountNotFound) GetPayload() *models.Errors {

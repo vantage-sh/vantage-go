@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateInvoiceCreated) Code() int {
 }
 
 func (o *CreateInvoiceCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices][%d] createInvoiceCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /invoices][%d] createInvoiceCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateInvoiceCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices][%d] createInvoiceCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /invoices][%d] createInvoiceCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateInvoiceCreated) GetPayload() *models.Invoice {
@@ -156,13 +153,11 @@ func (o *CreateInvoiceBadRequest) Code() int {
 }
 
 func (o *CreateInvoiceBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices][%d] createInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices][%d] createInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateInvoiceBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices][%d] createInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices][%d] createInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateInvoiceBadRequest) GetPayload() *models.Errors {

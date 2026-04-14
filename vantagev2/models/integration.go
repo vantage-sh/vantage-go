@@ -46,7 +46,7 @@ type Integration struct {
 	// The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
 	// Example: imported
 	// Required: true
-	// Enum: ["connected","error","pending","importing","imported","disconnected"]
+	// Enum: [connected error pending importing imported disconnected]
 	Status string `json:"status"`
 
 	// token

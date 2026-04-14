@@ -6,7 +6,6 @@ package me
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetMeOK) Code() int {
 }
 
 func (o *GetMeOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /me][%d] getMeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /me][%d] getMeOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMeOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /me][%d] getMeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /me][%d] getMeOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMeOK) GetPayload() *models.Me {

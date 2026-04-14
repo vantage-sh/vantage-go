@@ -6,7 +6,6 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteSegmentNoContent) Code() int {
 }
 
 func (o *DeleteSegmentNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteSegmentNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteSegmentNoContent) GetPayload() *models.Segment {
@@ -156,13 +153,11 @@ func (o *DeleteSegmentNotFound) Code() int {
 }
 
 func (o *DeleteSegmentNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteSegmentNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /segments/{segment_token}][%d] deleteSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteSegmentNotFound) GetPayload() *models.Errors {

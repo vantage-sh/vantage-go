@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetInvoiceCostReportOK) Code() int {
 }
 
 func (o *GetInvoiceCostReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetInvoiceCostReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportOK %s", 200, payload)
+	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportOK  %+v", 200, o.Payload)
 }
 
 func (o *GetInvoiceCostReportOK) GetPayload() *models.CostReportURL {
@@ -156,13 +153,11 @@ func (o *GetInvoiceCostReportNotFound) Code() int {
 }
 
 func (o *GetInvoiceCostReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetInvoiceCostReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /invoices/{invoice_token}/cost_report][%d] getInvoiceCostReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetInvoiceCostReportNotFound) GetPayload() *models.Errors {

@@ -22,7 +22,7 @@ import (
 type CreateNetworkFlowReport struct {
 
 	// The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
-	// Enum: ["last_3_days","last_7_days","custom"]
+	// Enum: [last_3_days last_7_days custom]
 	DateInterval string `json:"date_interval,omitempty"`
 
 	// The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
@@ -33,11 +33,11 @@ type CreateNetworkFlowReport struct {
 	Filter string `json:"filter,omitempty"`
 
 	// The flow direction of the NetworkFlowReport.
-	// Enum: ["ingress","egress"]
+	// Enum: [ingress egress]
 	FlowDirection string `json:"flow_direction,omitempty"`
 
 	// The dimension by which the logs in the report are sorted. Defaults to costs.
-	// Enum: ["costs","bytes"]
+	// Enum: [costs bytes]
 	FlowWeight string `json:"flow_weight,omitempty"`
 
 	// Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.

@@ -6,7 +6,6 @@ package report_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteReportNotificationNoContent) Code() int {
 }
 
 func (o *DeleteReportNotificationNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteReportNotificationNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteReportNotificationNoContent) GetPayload() *models.ReportNotification {
@@ -156,13 +153,11 @@ func (o *DeleteReportNotificationNotFound) Code() int {
 }
 
 func (o *DeleteReportNotificationNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteReportNotificationNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /report_notifications/{report_notification_token}][%d] deleteReportNotificationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteReportNotificationNotFound) GetPayload() *models.Errors {

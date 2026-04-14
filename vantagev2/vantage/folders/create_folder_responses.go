@@ -6,7 +6,6 @@ package folders
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateFolderCreated) Code() int {
 }
 
 func (o *CreateFolderCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /folders][%d] createFolderCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /folders][%d] createFolderCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateFolderCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /folders][%d] createFolderCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /folders][%d] createFolderCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateFolderCreated) GetPayload() *models.Folder {
@@ -156,13 +153,11 @@ func (o *CreateFolderBadRequest) Code() int {
 }
 
 func (o *CreateFolderBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateFolderBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /folders][%d] createFolderBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateFolderBadRequest) GetPayload() *models.Errors {

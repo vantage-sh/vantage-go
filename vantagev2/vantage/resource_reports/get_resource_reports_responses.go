@@ -6,7 +6,6 @@ package resource_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetResourceReportsOK) Code() int {
 }
 
 func (o *GetResourceReportsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports][%d] getResourceReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resource_reports][%d] getResourceReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetResourceReportsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports][%d] getResourceReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resource_reports][%d] getResourceReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetResourceReportsOK) GetPayload() *models.ResourceReports {

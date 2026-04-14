@@ -6,7 +6,6 @@ package resources
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *GetReportResourcesOK) Code() int {
 }
 
 func (o *GetReportResourcesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetReportResourcesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetReportResourcesOK) GetPayload() *models.Resources {
@@ -168,13 +165,11 @@ func (o *GetReportResourcesBadRequest) Code() int {
 }
 
 func (o *GetReportResourcesBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetReportResourcesBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetReportResourcesBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *GetReportResourcesPaymentRequired) Code() int {
 }
 
 func (o *GetReportResourcesPaymentRequired) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetReportResourcesPaymentRequired) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *GetReportResourcesPaymentRequired) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *GetReportResourcesNotFound) Code() int {
 }
 
 func (o *GetReportResourcesNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetReportResourcesNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resources][%d] getReportResourcesNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /resources][%d] getReportResourcesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetReportResourcesNotFound) GetPayload() *models.Errors {

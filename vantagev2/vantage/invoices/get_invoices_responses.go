@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetInvoicesOK) Code() int {
 }
 
 func (o *GetInvoicesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices][%d] getInvoicesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /invoices][%d] getInvoicesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetInvoicesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /invoices][%d] getInvoicesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /invoices][%d] getInvoicesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetInvoicesOK) GetPayload() *models.Invoices {

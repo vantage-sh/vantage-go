@@ -6,7 +6,6 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetSegmentOK) Code() int {
 }
 
 func (o *GetSegmentOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentOK %s", 200, payload)
+	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSegmentOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentOK %s", 200, payload)
+	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSegmentOK) GetPayload() *models.Segment {
@@ -156,13 +153,11 @@ func (o *GetSegmentNotFound) Code() int {
 }
 
 func (o *GetSegmentNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetSegmentNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /segments/{segment_token}][%d] getSegmentNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetSegmentNotFound) GetPayload() *models.Errors {

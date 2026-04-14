@@ -6,7 +6,6 @@ package billing_profiles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateBillingProfileCreated) Code() int {
 }
 
 func (o *CreateBillingProfileCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateBillingProfileCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateBillingProfileCreated) GetPayload() *models.BillingProfile {
@@ -156,13 +153,11 @@ func (o *CreateBillingProfileBadRequest) Code() int {
 }
 
 func (o *CreateBillingProfileBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateBillingProfileBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /billing_profiles][%d] createBillingProfileBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateBillingProfileBadRequest) GetPayload() *models.Errors {

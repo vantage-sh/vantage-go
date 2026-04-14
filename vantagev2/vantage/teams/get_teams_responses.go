@@ -6,7 +6,6 @@ package teams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetTeamsOK) Code() int {
 }
 
 func (o *GetTeamsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /teams][%d] getTeamsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /teams][%d] getTeamsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTeamsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /teams][%d] getTeamsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /teams][%d] getTeamsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTeamsOK) GetPayload() *models.Teams {

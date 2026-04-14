@@ -28,12 +28,12 @@ type Dashboard struct {
 
 	// Determines how to group costs in the Dashboard.
 	// Required: true
-	// Enum: ["cumulative","day","week","month"]
+	// Enum: [cumulative day week month]
 	DateBin *string `json:"date_bin"`
 
 	// Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
 	// Required: true
-	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
+	// Enum: [this_month last_7_days last_30_days last_month last_3_months last_6_months custom last_12_months last_24_months last_36_months next_month next_3_months next_6_months next_12_months year_to_date last_3_days last_14_days]
 	DateInterval *string `json:"date_interval"`
 
 	// The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.

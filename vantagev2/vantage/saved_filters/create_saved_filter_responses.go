@@ -6,7 +6,6 @@ package saved_filters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateSavedFilterCreated) Code() int {
 }
 
 func (o *CreateSavedFilterCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSavedFilterCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSavedFilterCreated) GetPayload() *models.SavedFilter {
@@ -162,13 +159,11 @@ func (o *CreateSavedFilterBadRequest) Code() int {
 }
 
 func (o *CreateSavedFilterBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateSavedFilterBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateSavedFilterBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateSavedFilterUnprocessableEntity) Code() int {
 }
 
 func (o *CreateSavedFilterUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateSavedFilterUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /saved_filters][%d] createSavedFilterUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateSavedFilterUnprocessableEntity) GetPayload() *models.Errors {

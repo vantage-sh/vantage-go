@@ -6,7 +6,6 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateDashboardCreated) Code() int {
 }
 
 func (o *CreateDashboardCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /dashboards][%d] createDashboardCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /dashboards][%d] createDashboardCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateDashboardCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /dashboards][%d] createDashboardCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /dashboards][%d] createDashboardCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateDashboardCreated) GetPayload() *models.Dashboard {
@@ -156,13 +153,11 @@ func (o *CreateDashboardBadRequest) Code() int {
 }
 
 func (o *CreateDashboardBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /dashboards][%d] createDashboardBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /dashboards][%d] createDashboardBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateDashboardBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /dashboards][%d] createDashboardBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /dashboards][%d] createDashboardBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateDashboardBadRequest) GetPayload() *models.Errors {

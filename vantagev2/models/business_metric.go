@@ -38,7 +38,7 @@ type BusinessMetric struct {
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
 	// Required: true
-	// Enum: ["datadog_metrics","cloudwatch","csv"]
+	// Enum: [datadog_metrics cloudwatch csv]
 	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.

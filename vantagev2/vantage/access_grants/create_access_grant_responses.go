@@ -6,7 +6,6 @@ package access_grants
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -110,13 +109,11 @@ func (o *CreateAccessGrantCreated) Code() int {
 }
 
 func (o *CreateAccessGrantCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAccessGrantCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateAccessGrantCreated) GetPayload() *models.AccessGrant {
@@ -180,13 +177,11 @@ func (o *CreateAccessGrantBadRequest) Code() int {
 }
 
 func (o *CreateAccessGrantBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAccessGrantBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateAccessGrantBadRequest) GetPayload() *models.Errors {
@@ -250,13 +245,11 @@ func (o *CreateAccessGrantForbidden) Code() int {
 }
 
 func (o *CreateAccessGrantForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateAccessGrantForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateAccessGrantForbidden) GetPayload() *models.Errors {
@@ -320,13 +313,11 @@ func (o *CreateAccessGrantNotFound) Code() int {
 }
 
 func (o *CreateAccessGrantNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateAccessGrantNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateAccessGrantNotFound) GetPayload() *models.Errors {
@@ -390,13 +381,11 @@ func (o *CreateAccessGrantNotAcceptable) Code() int {
 }
 
 func (o *CreateAccessGrantNotAcceptable) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotAcceptable %s", 406, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotAcceptable  %+v", 406, o.Payload)
 }
 
 func (o *CreateAccessGrantNotAcceptable) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotAcceptable %s", 406, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantNotAcceptable  %+v", 406, o.Payload)
 }
 
 func (o *CreateAccessGrantNotAcceptable) GetPayload() *models.Errors {
@@ -460,13 +449,11 @@ func (o *CreateAccessGrantUnprocessableEntity) Code() int {
 }
 
 func (o *CreateAccessGrantUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateAccessGrantUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /access_grants][%d] createAccessGrantUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateAccessGrantUnprocessableEntity) GetPayload() *models.Errors {

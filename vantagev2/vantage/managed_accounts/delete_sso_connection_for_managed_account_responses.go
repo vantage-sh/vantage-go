@@ -6,7 +6,6 @@ package managed_accounts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *DeleteSsoConnectionForManagedAccountNoContent) Code() int {
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNoContent) GetPayload() *models.ManagedAccount {
@@ -162,13 +159,11 @@ func (o *DeleteSsoConnectionForManagedAccountBadRequest) Code() int {
 }
 
 func (o *DeleteSsoConnectionForManagedAccountBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountBadRequest %s", 400, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *DeleteSsoConnectionForManagedAccountNotFound) Code() int {
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /managed_accounts/{managed_account_token}/sso_connection][%d] deleteSsoConnectionForManagedAccountNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteSsoConnectionForManagedAccountNotFound) GetPayload() *models.Errors {

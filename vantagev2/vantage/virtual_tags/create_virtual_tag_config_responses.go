@@ -6,7 +6,6 @@ package virtual_tags
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *CreateVirtualTagConfigCreated) Code() int {
 }
 
 func (o *CreateVirtualTagConfigCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigCreated) GetPayload() *models.VirtualTagConfig {
@@ -174,13 +171,11 @@ func (o *CreateVirtualTagConfigBadRequest) Code() int {
 }
 
 func (o *CreateVirtualTagConfigBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *CreateVirtualTagConfigForbidden) Code() int {
 }
 
 func (o *CreateVirtualTagConfigForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *CreateVirtualTagConfigNotFound) Code() int {
 }
 
 func (o *CreateVirtualTagConfigNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *CreateVirtualTagConfigUnprocessableEntity) Code() int {
 }
 
 func (o *CreateVirtualTagConfigUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /virtual_tag_configs][%d] createVirtualTagConfigUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateVirtualTagConfigUnprocessableEntity) GetPayload() *models.Errors {

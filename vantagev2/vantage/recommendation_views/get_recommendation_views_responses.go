@@ -6,7 +6,6 @@ package recommendation_views
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetRecommendationViewsOK) Code() int {
 }
 
 func (o *GetRecommendationViewsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendation_views][%d] getRecommendationViewsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendation_views][%d] getRecommendationViewsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationViewsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /recommendation_views][%d] getRecommendationViewsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /recommendation_views][%d] getRecommendationViewsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendationViewsOK) GetPayload() *models.RecommendationViews {

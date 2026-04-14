@@ -6,7 +6,6 @@ package financial_commitment_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *UpdateFinancialCommitmentReportOK) Code() int {
 }
 
 func (o *UpdateFinancialCommitmentReportOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportOK) GetPayload() *models.FinancialCommitmentReport {
@@ -162,13 +159,11 @@ func (o *UpdateFinancialCommitmentReportBadRequest) Code() int {
 }
 
 func (o *UpdateFinancialCommitmentReportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *UpdateFinancialCommitmentReportUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateFinancialCommitmentReportUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /financial_commitment_reports/{financial_commitment_report_token}][%d] updateFinancialCommitmentReportUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateFinancialCommitmentReportUnprocessableEntity) GetPayload() *models.Errors {

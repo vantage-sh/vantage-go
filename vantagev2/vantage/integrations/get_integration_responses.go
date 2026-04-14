@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetIntegrationOK) Code() int {
 }
 
 func (o *GetIntegrationOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetIntegrationOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationOK %s", 200, payload)
+	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationOK  %+v", 200, o.Payload)
 }
 
 func (o *GetIntegrationOK) GetPayload() *models.Integration {
@@ -156,13 +153,11 @@ func (o *GetIntegrationNotFound) Code() int {
 }
 
 func (o *GetIntegrationNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetIntegrationNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationNotFound %s", 404, payload)
+	return fmt.Sprintf("[GET /integrations/{integration_token}][%d] getIntegrationNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetIntegrationNotFound) GetPayload() *models.Errors {

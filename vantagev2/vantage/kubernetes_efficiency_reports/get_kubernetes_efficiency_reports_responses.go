@@ -6,7 +6,6 @@ package kubernetes_efficiency_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetKubernetesEfficiencyReportsOK) Code() int {
 }
 
 func (o *GetKubernetesEfficiencyReportsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports][%d] getKubernetesEfficiencyReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports][%d] getKubernetesEfficiencyReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetKubernetesEfficiencyReportsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /kubernetes_efficiency_reports][%d] getKubernetesEfficiencyReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /kubernetes_efficiency_reports][%d] getKubernetesEfficiencyReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetKubernetesEfficiencyReportsOK) GetPayload() *models.KubernetesEfficiencyReports {

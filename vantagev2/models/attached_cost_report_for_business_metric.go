@@ -31,7 +31,7 @@ type AttachedCostReportForBusinessMetric struct {
 	// Determines the scale of the BusinessMetric's values within a particular CostReport.
 	// Example: per_hundred
 	// Required: true
-	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
+	// Enum: [per_unit per_hundred per_thousand per_million per_billion]
 	UnitScale string `json:"unit_scale"`
 }
 

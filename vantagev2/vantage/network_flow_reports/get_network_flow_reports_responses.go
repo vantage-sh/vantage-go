@@ -6,7 +6,6 @@ package network_flow_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -80,13 +79,11 @@ func (o *GetNetworkFlowReportsOK) Code() int {
 }
 
 func (o *GetNetworkFlowReportsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports][%d] getNetworkFlowReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /network_flow_reports][%d] getNetworkFlowReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetNetworkFlowReportsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /network_flow_reports][%d] getNetworkFlowReportsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /network_flow_reports][%d] getNetworkFlowReportsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetNetworkFlowReportsOK) GetPayload() *models.NetworkFlowReports {

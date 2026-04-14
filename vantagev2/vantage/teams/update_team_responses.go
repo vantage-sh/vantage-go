@@ -6,7 +6,6 @@ package teams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *UpdateTeamOK) Code() int {
 }
 
 func (o *UpdateTeamOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateTeamOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateTeamOK) GetPayload() *models.Team {
@@ -174,13 +171,11 @@ func (o *UpdateTeamBadRequest) Code() int {
 }
 
 func (o *UpdateTeamBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateTeamBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateTeamBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *UpdateTeamForbidden) Code() int {
 }
 
 func (o *UpdateTeamForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateTeamForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateTeamForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *UpdateTeamNotFound) Code() int {
 }
 
 func (o *UpdateTeamNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateTeamNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateTeamNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *UpdateTeamUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateTeamUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateTeamUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /teams/{team_token}][%d] updateTeamUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateTeamUnprocessableEntity) GetPayload() *models.Errors {

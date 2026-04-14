@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateCustomProviderIntegrationCreated) Code() int {
 }
 
 func (o *CreateCustomProviderIntegrationCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationCreated) GetPayload() *models.Integration {
@@ -162,13 +159,11 @@ func (o *CreateCustomProviderIntegrationBadRequest) Code() int {
 }
 
 func (o *CreateCustomProviderIntegrationBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateCustomProviderIntegrationForbidden) Code() int {
 }
 
 func (o *CreateCustomProviderIntegrationForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationForbidden %s", 403, payload)
+	return fmt.Sprintf("[POST /integrations/custom_provider][%d] createCustomProviderIntegrationForbidden  %+v", 403, o.Payload)
 }
 
 func (o *CreateCustomProviderIntegrationForbidden) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package cost_alerts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *CreateCostAlertCreated) Code() int {
 }
 
 func (o *CreateCostAlertCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCostAlertCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateCostAlertCreated) GetPayload() *models.CostAlert {
@@ -156,13 +153,11 @@ func (o *CreateCostAlertBadRequest) Code() int {
 }
 
 func (o *CreateCostAlertBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateCostAlertBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /cost_alerts][%d] createCostAlertBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateCostAlertBadRequest) GetPayload() *models.Errors {

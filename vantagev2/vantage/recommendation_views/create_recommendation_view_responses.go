@@ -6,7 +6,6 @@ package recommendation_views
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateRecommendationViewCreated) Code() int {
 }
 
 func (o *CreateRecommendationViewCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateRecommendationViewCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateRecommendationViewCreated) GetPayload() *models.RecommendationView {
@@ -162,13 +159,11 @@ func (o *CreateRecommendationViewBadRequest) Code() int {
 }
 
 func (o *CreateRecommendationViewBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateRecommendationViewBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateRecommendationViewBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateRecommendationViewUnprocessableEntity) Code() int {
 }
 
 func (o *CreateRecommendationViewUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateRecommendationViewUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /recommendation_views][%d] createRecommendationViewUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateRecommendationViewUnprocessableEntity) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package invoices
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *SendInvoiceOK) Code() int {
 }
 
 func (o *SendInvoiceOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *SendInvoiceOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceOK %s", 200, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceOK  %+v", 200, o.Payload)
 }
 
 func (o *SendInvoiceOK) GetPayload() *models.SendInvoice {
@@ -162,13 +159,11 @@ func (o *SendInvoiceBadRequest) Code() int {
 }
 
 func (o *SendInvoiceBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *SendInvoiceBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *SendInvoiceBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *SendInvoiceNotFound) Code() int {
 }
 
 func (o *SendInvoiceNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *SendInvoiceNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /invoices/{invoice_token}/send][%d] sendInvoiceNotFound  %+v", 404, o.Payload)
 }
 
 func (o *SendInvoiceNotFound) GetPayload() *models.Errors {

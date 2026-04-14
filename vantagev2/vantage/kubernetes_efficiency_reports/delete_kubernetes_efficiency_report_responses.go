@@ -6,7 +6,6 @@ package kubernetes_efficiency_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteKubernetesEfficiencyReportNoContent) Code() int {
 }
 
 func (o *DeleteKubernetesEfficiencyReportNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteKubernetesEfficiencyReportNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteKubernetesEfficiencyReportNoContent) GetPayload() *models.KubernetesEfficiencyReport {
@@ -156,13 +153,11 @@ func (o *DeleteKubernetesEfficiencyReportNotFound) Code() int {
 }
 
 func (o *DeleteKubernetesEfficiencyReportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteKubernetesEfficiencyReportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}][%d] deleteKubernetesEfficiencyReportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteKubernetesEfficiencyReportNotFound) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package business_metrics
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -104,13 +103,11 @@ func (o *UpdateBusinessMetricValuesCSVOK) Code() int {
 }
 
 func (o *UpdateBusinessMetricValuesCSVOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVOK) GetPayload() *models.BusinessMetric {
@@ -174,13 +171,11 @@ func (o *UpdateBusinessMetricValuesCSVBadRequest) Code() int {
 }
 
 func (o *UpdateBusinessMetricValuesCSVBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVBadRequest %s", 400, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVBadRequest) GetPayload() *models.Errors {
@@ -244,13 +239,11 @@ func (o *UpdateBusinessMetricValuesCSVForbidden) Code() int {
 }
 
 func (o *UpdateBusinessMetricValuesCSVForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVForbidden %s", 403, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVForbidden  %+v", 403, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVForbidden) GetPayload() *models.Errors {
@@ -314,13 +307,11 @@ func (o *UpdateBusinessMetricValuesCSVNotFound) Code() int {
 }
 
 func (o *UpdateBusinessMetricValuesCSVNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVNotFound %s", 404, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVNotFound  %+v", 404, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVNotFound) GetPayload() *models.Errors {
@@ -384,13 +375,11 @@ func (o *UpdateBusinessMetricValuesCSVUnprocessableEntity) Code() int {
 }
 
 func (o *UpdateBusinessMetricValuesCSVUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[PUT /business_metrics/{business_metric_token}/values.csv][%d] updateBusinessMetricValuesCSVUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *UpdateBusinessMetricValuesCSVUnprocessableEntity) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package resource_reports
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetResourceReportColumnsOK) Code() int {
 }
 
 func (o *GetResourceReportColumnsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetResourceReportColumnsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsOK %s", 200, payload)
+	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetResourceReportColumnsOK) GetPayload() *models.ResourceReportColumns {
@@ -156,13 +153,11 @@ func (o *GetResourceReportColumnsBadRequest) Code() int {
 }
 
 func (o *GetResourceReportColumnsBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetResourceReportColumnsBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsBadRequest %s", 400, payload)
+	return fmt.Sprintf("[GET /resource_reports/columns][%d] getResourceReportColumnsBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetResourceReportColumnsBadRequest) GetPayload() *models.Errors {

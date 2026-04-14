@@ -6,7 +6,6 @@ package integrations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *GetIntegrationsAWSOK) Code() int {
 }
 
 func (o *GetIntegrationsAWSOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSOK %s", 200, payload)
+	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSOK  %+v", 200, o.Payload)
 }
 
 func (o *GetIntegrationsAWSOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSOK %s", 200, payload)
+	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSOK  %+v", 200, o.Payload)
 }
 
 func (o *GetIntegrationsAWSOK) GetPayload() *models.AwsAccessCredential {
@@ -155,11 +152,11 @@ func (o *GetIntegrationsAWSNotFound) Code() int {
 }
 
 func (o *GetIntegrationsAWSNotFound) Error() string {
-	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSNotFound", 404)
+	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSNotFound ", 404)
 }
 
 func (o *GetIntegrationsAWSNotFound) String() string {
-	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSNotFound", 404)
+	return fmt.Sprintf("[GET /integrations/aws/{access_credential_id}][%d] getIntegrationsAWSNotFound ", 404)
 }
 
 func (o *GetIntegrationsAWSNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

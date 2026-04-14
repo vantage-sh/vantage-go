@@ -28,7 +28,7 @@ type CreateSsoConnectionForManagedAccount struct {
 
 	// The type of SSO connection. Currently supported: saml.
 	// Required: true
-	// Enum: ["saml"]
+	// Enum: [saml]
 	Type *string `json:"type"`
 }
 

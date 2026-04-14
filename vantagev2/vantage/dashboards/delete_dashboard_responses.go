@@ -6,7 +6,6 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,13 +85,11 @@ func (o *DeleteDashboardNoContent) Code() int {
 }
 
 func (o *DeleteDashboardNoContent) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteDashboardNoContent) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent %s", 204, payload)
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNoContent  %+v", 204, o.Payload)
 }
 
 func (o *DeleteDashboardNoContent) GetPayload() *models.Dashboard {
@@ -156,13 +153,11 @@ func (o *DeleteDashboardNotFound) Code() int {
 }
 
 func (o *DeleteDashboardNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteDashboardNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNotFound %s", 404, payload)
+	return fmt.Sprintf("[DELETE /dashboards/{dashboard_token}][%d] deleteDashboardNotFound  %+v", 404, o.Payload)
 }
 
 func (o *DeleteDashboardNotFound) GetPayload() *models.Errors {

@@ -6,7 +6,6 @@ package unit_costs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -98,13 +97,11 @@ func (o *CreateUnitCostsExportAccepted) Code() int {
 }
 
 func (o *CreateUnitCostsExportAccepted) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportAccepted %s", 202, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportAccepted  %+v", 202, o.Payload)
 }
 
 func (o *CreateUnitCostsExportAccepted) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportAccepted %s", 202, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportAccepted  %+v", 202, o.Payload)
 }
 
 func (o *CreateUnitCostsExportAccepted) GetPayload() *models.DataExport {
@@ -168,13 +165,11 @@ func (o *CreateUnitCostsExportBadRequest) Code() int {
 }
 
 func (o *CreateUnitCostsExportBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUnitCostsExportBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUnitCostsExportBadRequest) GetPayload() *models.Errors {
@@ -238,13 +233,11 @@ func (o *CreateUnitCostsExportPaymentRequired) Code() int {
 }
 
 func (o *CreateUnitCostsExportPaymentRequired) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *CreateUnitCostsExportPaymentRequired) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportPaymentRequired %s", 402, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportPaymentRequired  %+v", 402, o.Payload)
 }
 
 func (o *CreateUnitCostsExportPaymentRequired) GetPayload() *models.Errors {
@@ -308,13 +301,11 @@ func (o *CreateUnitCostsExportNotFound) Code() int {
 }
 
 func (o *CreateUnitCostsExportNotFound) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateUnitCostsExportNotFound) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportNotFound %s", 404, payload)
+	return fmt.Sprintf("[POST /unit_costs/data_exports][%d] createUnitCostsExportNotFound  %+v", 404, o.Payload)
 }
 
 func (o *CreateUnitCostsExportNotFound) GetPayload() *models.Errors {

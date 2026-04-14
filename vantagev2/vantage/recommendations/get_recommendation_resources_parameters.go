@@ -64,7 +64,7 @@ type GetRecommendationResourcesParams struct {
 
 	/* Limit.
 
-	   The number of results to return. The maximum is 1000.
+	   The number of results to return. Defaults to 25. The maximum is 500.
 
 	   Format: int32
 	*/

@@ -6,7 +6,6 @@ package report_notifications
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateReportNotificationCreated) Code() int {
 }
 
 func (o *CreateReportNotificationCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateReportNotificationCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateReportNotificationCreated) GetPayload() *models.ReportNotification {
@@ -162,13 +159,11 @@ func (o *CreateReportNotificationBadRequest) Code() int {
 }
 
 func (o *CreateReportNotificationBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateReportNotificationBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateReportNotificationBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateReportNotificationUnprocessableEntity) Code() int {
 }
 
 func (o *CreateReportNotificationUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateReportNotificationUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /report_notifications][%d] createReportNotificationUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateReportNotificationUnprocessableEntity) GetPayload() *models.Errors {

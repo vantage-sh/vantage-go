@@ -6,7 +6,6 @@ package user_feedback
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -92,13 +91,11 @@ func (o *CreateUserFeedbackCreated) Code() int {
 }
 
 func (o *CreateUserFeedbackCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateUserFeedbackCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateUserFeedbackCreated) GetPayload() *models.UserFeedback {
@@ -162,13 +159,11 @@ func (o *CreateUserFeedbackBadRequest) Code() int {
 }
 
 func (o *CreateUserFeedbackBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUserFeedbackBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *CreateUserFeedbackBadRequest) GetPayload() *models.Errors {
@@ -232,13 +227,11 @@ func (o *CreateUserFeedbackUnprocessableEntity) Code() int {
 }
 
 func (o *CreateUserFeedbackUnprocessableEntity) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateUserFeedbackUnprocessableEntity) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackUnprocessableEntity %s", 422, payload)
+	return fmt.Sprintf("[POST /user_feedback][%d] createUserFeedbackUnprocessableEntity  %+v", 422, o.Payload)
 }
 
 func (o *CreateUserFeedbackUnprocessableEntity) GetPayload() *models.Errors {

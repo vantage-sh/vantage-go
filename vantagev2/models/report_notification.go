@@ -23,7 +23,7 @@ type ReportNotification struct {
 	// The type of change the ReportNotification is tracking.
 	// Example: percentage
 	// Required: true
-	// Enum: ["percentage","dollars"]
+	// Enum: [percentage dollars]
 	Change string `json:"change"`
 
 	// The token for a CostReport the ReportNotification is applied to.
@@ -34,7 +34,7 @@ type ReportNotification struct {
 	// The frequency the ReportNotification is sent.
 	// Example: weekly
 	// Required: true
-	// Enum: ["daily","weekly","monthly"]
+	// Enum: [daily weekly monthly]
 	Frequency string `json:"frequency"`
 
 	// The Slack or Microsoft Teams channels that receive the notification.
