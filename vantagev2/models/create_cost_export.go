@@ -24,7 +24,7 @@ type CreateCostExport struct {
 	CostReportToken string `json:"cost_report_token,omitempty"`
 
 	// The date bin of the costs. Defaults to the report's default or day.
-	// Enum: ["day","week","month","quarter"]
+	// Enum: ["day","week","month","quarter","hour"]
 	DateBin string `json:"date_bin,omitempty"`
 
 	// Last date you would like to filter costs to. ISO 8601 formatted.
@@ -76,7 +76,7 @@ var createCostExportTypeDateBinPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["day","week","month","quarter"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["day","week","month","quarter","hour"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -97,6 +97,9 @@ const (
 
 	// CreateCostExportDateBinQuarter captures enum value "quarter"
 	CreateCostExportDateBinQuarter string = "quarter"
+
+	// CreateCostExportDateBinHour captures enum value "hour"
+	CreateCostExportDateBinHour string = "hour"
 )
 
 // prop value enum

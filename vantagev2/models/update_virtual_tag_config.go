@@ -214,6 +214,9 @@ func (m *UpdateVirtualTagConfig) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateVirtualTagConfigCollapsedTagKeysItems0
 type UpdateVirtualTagConfigCollapsedTagKeysItems0 struct {
 
+	// The VQL filter this collapsed tag key applies to.
+	Filter string `json:"filter,omitempty"`
+
 	// The tag key to collapse values for.
 	// Required: true
 	Key *string `json:"key"`
@@ -289,6 +292,9 @@ type UpdateVirtualTagConfigValuesItems0 struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// label transforms
+	LabelTransforms []*UpdateVirtualTagConfigValuesItems0LabelTransformsItems0 `json:"label_transforms,omitempty"`
+
 	// The name of the value.
 	Name string `json:"name,omitempty"`
 
@@ -309,6 +315,10 @@ func (m *UpdateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelTransforms(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -376,6 +386,32 @@ func (m *UpdateVirtualTagConfigValuesItems0) validateFilter(formats strfmt.Regis
 	return nil
 }
 
+func (m *UpdateVirtualTagConfigValuesItems0) validateLabelTransforms(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelTransforms) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.LabelTransforms); i++ {
+		if swag.IsZero(m.LabelTransforms[i]) { // not required
+			continue
+		}
+
+		if m.LabelTransforms[i] != nil {
+			if err := m.LabelTransforms[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *UpdateVirtualTagConfigValuesItems0) validatePercentages(formats strfmt.Registry) error {
 	if swag.IsZero(m.Percentages) { // not required
 		return nil
@@ -411,6 +447,10 @@ func (m *UpdateVirtualTagConfigValuesItems0) ContextValidate(ctx context.Context
 	}
 
 	if err := m.contextValidateDateRanges(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLabelTransforms(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -460,6 +500,31 @@ func (m *UpdateVirtualTagConfigValuesItems0) contextValidateDateRanges(ctx conte
 					return ve.ValidateName("date_ranges" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("date_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValuesItems0) contextValidateLabelTransforms(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.LabelTransforms); i++ {
+
+		if m.LabelTransforms[i] != nil {
+
+			if swag.IsZero(m.LabelTransforms[i]) { // not required
+				return nil
+			}
+
+			if err := m.LabelTransforms[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("label_transforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("label_transforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -712,6 +777,71 @@ func (m *UpdateVirtualTagConfigValuesItems0DateRangesItems0) MarshalBinary() ([]
 // UnmarshalBinary interface implementation
 func (m *UpdateVirtualTagConfigValuesItems0DateRangesItems0) UnmarshalBinary(b []byte) error {
 	var res UpdateVirtualTagConfigValuesItems0DateRangesItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateVirtualTagConfigValuesItems0LabelTransformsItems0 update virtual tag config values items0 label transforms items0
+//
+// swagger:model UpdateVirtualTagConfigValuesItems0LabelTransformsItems0
+type UpdateVirtualTagConfigValuesItems0LabelTransformsItems0 struct {
+
+	// delimiter
+	Delimiter string `json:"delimiter,omitempty"`
+
+	// index
+	Index int32 `json:"index,omitempty"`
+
+	// template
+	Template string `json:"template,omitempty"`
+
+	// type
+	// Required: true
+	Type *string `json:"type"`
+}
+
+// Validate validates this update virtual tag config values items0 label transforms items0
+func (m *UpdateVirtualTagConfigValuesItems0LabelTransformsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValuesItems0LabelTransformsItems0) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update virtual tag config values items0 label transforms items0 based on context it is used
+func (m *UpdateVirtualTagConfigValuesItems0LabelTransformsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigValuesItems0LabelTransformsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateVirtualTagConfigValuesItems0LabelTransformsItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateVirtualTagConfigValuesItems0LabelTransformsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
