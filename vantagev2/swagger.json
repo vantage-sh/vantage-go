@@ -6452,8 +6452,8 @@
           {
             "in": "path",
             "name": "user_costs_upload_token",
-            "type": "integer",
-            "format": "int32",
+            "description": "Token of the UserCostsUpload to delete.",
+            "type": "string",
             "required": true
           }
         ],
