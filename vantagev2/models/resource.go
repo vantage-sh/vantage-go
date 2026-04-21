@@ -53,6 +53,10 @@ type Resource struct {
 	// Required: true
 	Region *string `json:"region"`
 
+	// Key-value pairs of tags associated with the resource.
+	// Required: true
+	Tags interface{} `json:"tags"`
+
 	// token
 	// Required: true
 	Token string `json:"token"`
@@ -101,6 +105,10 @@ func (m *Resource) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRegion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -206,6 +214,15 @@ func (m *Resource) validateRegion(formats strfmt.Registry) error {
 
 	if err := validate.Required("region", "body", m.Region); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Resource) validateTags(formats strfmt.Registry) error {
+
+	if m.Tags == nil {
+		return errors.Required("tags", "body", nil)
 	}
 
 	return nil
