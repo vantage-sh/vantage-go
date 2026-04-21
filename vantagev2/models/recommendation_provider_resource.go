@@ -61,6 +61,10 @@ type RecommendationProviderResource struct {
 	// Required: true
 	ResourceID string `json:"resource_id"`
 
+	// Key-value pairs of tags associated with the resource.
+	// Required: true
+	Tags interface{} `json:"tags"`
+
 	// token
 	// Required: true
 	Token string `json:"token"`
@@ -117,6 +121,10 @@ func (m *RecommendationProviderResource) Validate(formats strfmt.Registry) error
 	}
 
 	if err := m.validateResourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -257,6 +265,15 @@ func (m *RecommendationProviderResource) validateResourceID(formats strfmt.Regis
 
 	if err := validate.RequiredString("resource_id", "body", m.ResourceID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *RecommendationProviderResource) validateTags(formats strfmt.Registry) error {
+
+	if m.Tags == nil {
+		return errors.Required("tags", "body", nil)
 	}
 
 	return nil

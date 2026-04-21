@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewDeleteUserCostsUploadParams creates a new DeleteUserCostsUploadParams object,
@@ -65,10 +64,11 @@ type DeleteUserCostsUploadParams struct {
 	// IntegrationToken.
 	IntegrationToken string
 
-	// UserCostsUploadToken.
-	//
-	// Format: int32
-	UserCostsUploadToken int32
+	/* UserCostsUploadToken.
+
+	   Token of the UserCostsUpload to delete.
+	*/
+	UserCostsUploadToken string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *DeleteUserCostsUploadParams) SetIntegrationToken(integrationToken strin
 }
 
 // WithUserCostsUploadToken adds the userCostsUploadToken to the delete user costs upload params
-func (o *DeleteUserCostsUploadParams) WithUserCostsUploadToken(userCostsUploadToken int32) *DeleteUserCostsUploadParams {
+func (o *DeleteUserCostsUploadParams) WithUserCostsUploadToken(userCostsUploadToken string) *DeleteUserCostsUploadParams {
 	o.SetUserCostsUploadToken(userCostsUploadToken)
 	return o
 }
 
 // SetUserCostsUploadToken adds the userCostsUploadToken to the delete user costs upload params
-func (o *DeleteUserCostsUploadParams) SetUserCostsUploadToken(userCostsUploadToken int32) {
+func (o *DeleteUserCostsUploadParams) SetUserCostsUploadToken(userCostsUploadToken string) {
 	o.UserCostsUploadToken = userCostsUploadToken
 }
 
@@ -159,7 +159,7 @@ func (o *DeleteUserCostsUploadParams) WriteToRequest(r runtime.ClientRequest, re
 	}
 
 	// path param user_costs_upload_token
-	if err := r.SetPathParam("user_costs_upload_token", swag.FormatInt32(o.UserCostsUploadToken)); err != nil {
+	if err := r.SetPathParam("user_costs_upload_token", o.UserCostsUploadToken); err != nil {
 		return err
 	}
 

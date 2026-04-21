@@ -818,13 +818,13 @@ func (m *CreateVirtualTagConfigValuesItems0DateRangesItems0) UnmarshalBinary(b [
 type CreateVirtualTagConfigValuesItems0LabelTransformsItems0 struct {
 
 	// delimiter
-	Delimiter string `json:"delimiter,omitempty"`
+	Delimiter *string `json:"delimiter,omitempty"`
 
 	// index
-	Index int32 `json:"index,omitempty"`
+	Index *int32 `json:"index,omitempty"`
 
 	// template
-	Template string `json:"template,omitempty"`
+	Template *string `json:"template,omitempty"`
 
 	// type
 	// Required: true

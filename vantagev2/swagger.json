@@ -6452,8 +6452,8 @@
           {
             "in": "path",
             "name": "user_costs_upload_token",
-            "type": "integer",
-            "format": "int32",
+            "description": "Token of the UserCostsUpload to delete.",
+            "type": "string",
             "required": true
           }
         ],
@@ -20314,6 +20314,11 @@
           "x-nullable": false,
           "description": "The date and time when Vantage first observed the resource."
         },
+        "tags": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "Key-value pairs of tags associated with the resource."
+        },
         "resource_id": {
           "type": "string",
           "example": "i-0a1b2c3d4e5f6g7h8",
@@ -20339,6 +20344,7 @@
         "provider",
         "region",
         "created_at",
+        "tags",
         "resource_id"
       ],
       "description": "RecommendationProviderResource model"
@@ -21059,6 +21065,11 @@
           "type": "string",
           "x-nullable": false,
           "description": "The date and time when Vantage first observed the resource."
+        },
+        "tags": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "Key-value pairs of tags associated with the resource."
         }
       },
       "required": [
@@ -21071,7 +21082,8 @@
         "billing_account_id",
         "provider",
         "region",
-        "created_at"
+        "created_at",
+        "tags"
       ],
       "description": "Resource model"
     },
@@ -22404,14 +22416,17 @@
                       "type": "string"
                     },
                     "delimiter": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     },
                     "index": {
                       "type": "integer",
-                      "format": "int32"
+                      "format": "int32",
+                      "x-nullable": true
                     },
                     "template": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     }
                   },
                   "required": [
@@ -22570,14 +22585,17 @@
                       "type": "string"
                     },
                     "delimiter": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     },
                     "index": {
                       "type": "integer",
-                      "format": "int32"
+                      "format": "int32",
+                      "x-nullable": true
                     },
                     "template": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     }
                   },
                   "required": [
