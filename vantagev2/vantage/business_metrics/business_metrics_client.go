@@ -89,6 +89,8 @@ type ClientService interface {
 
 	DeleteBusinessMetric(params *DeleteBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricNoContent, error)
 
+	DeleteBusinessMetricValues(params *DeleteBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricValuesOK, error)
+
 	GetBusinessMetric(params *GetBusinessMetricParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricOK, error)
 
 	GetBusinessMetricForecastedValues(params *GetBusinessMetricForecastedValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBusinessMetricForecastedValuesOK, error)
@@ -183,6 +185,47 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteBusinessMetric: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteBusinessMetricValues deletes business metric values
+
+Deletes Business Metric values (historical or forecasted unit metrics).
+*/
+func (a *Client) DeleteBusinessMetricValues(params *DeleteBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricValuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteBusinessMetricValuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteBusinessMetricValues",
+		Method:             "DELETE",
+		PathPattern:        "/business_metrics/{business_metric_token}/values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteBusinessMetricValuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteBusinessMetricValuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteBusinessMetricValues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
