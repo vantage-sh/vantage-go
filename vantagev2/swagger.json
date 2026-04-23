@@ -22772,14 +22772,17 @@
                       "type": "string"
                     },
                     "delimiter": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     },
                     "index": {
                       "type": "integer",
-                      "format": "int32"
+                      "format": "int32",
+                      "x-nullable": true
                     },
                     "template": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     }
                   },
                   "required": [
