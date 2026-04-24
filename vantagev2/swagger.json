@@ -3029,6 +3029,92 @@
           "BusinessMetrics"
         ],
         "operationId": "getBusinessMetricValues"
+      },
+      "delete": {
+        "summary": "Delete business metric values",
+        "description": "Deletes Business Metric values (historical or forecasted unit metrics).",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Inclusive lower bound (ISO 8601 date or datetime, UTC). Date-only values start at 00:00:00 UTC that day.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Inclusive upper bound (ISO 8601 date or datetime, UTC). Date-only values include the full calendar day through 23:59:59.999999999 UTC.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "label",
+            "description": "When present in the query string (including as an empty value), only unit metrics with this exact label are deleted. Omit the parameter to delete all labels in range.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "forecasted",
+            "description": "When true, deletes forecasted unit metrics instead of historical ones.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetricValuesDeleteResponse"
+            },
+            "examples": {
+              "application/json": {
+                "deleted_count": 120
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BusinessMetrics"
+        ],
+        "operationId": "deleteBusinessMetricValues"
       }
     },
     "/business_metrics/{business_metric_token}/forecasted_values": {
@@ -15988,6 +16074,22 @@
       },
       "description": "Updates an existing BusinessMetric."
     },
+    "BusinessMetricValuesDeleteResponse": {
+      "type": "object",
+      "properties": {
+        "deleted_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 120,
+          "x-nullable": false,
+          "description": "Number of unit metric rows removed."
+        }
+      },
+      "required": [
+        "deleted_count"
+      ],
+      "description": "BusinessMetricValuesDeleteResponse model"
+    },
     "CostAlertEvents": {
       "type": "object",
       "properties": {
@@ -22772,14 +22874,17 @@
                       "type": "string"
                     },
                     "delimiter": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     },
                     "index": {
                       "type": "integer",
-                      "format": "int32"
+                      "format": "int32",
+                      "x-nullable": true
                     },
                     "template": {
-                      "type": "string"
+                      "type": "string",
+                      "x-nullable": true
                     }
                   },
                   "required": [
