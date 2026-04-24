@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VANTAGE_HOST: ${{ github.event.inputs.vantage_host || 'https://api.vantage.sh' }}
+      CORE_PR_URL: ${{ github.event.client_payload.core_pr_url }}
     steps:
       - name: Checkout vantage-go
         uses: actions/checkout@v4
@@ -77,11 +78,15 @@ jobs:
             --jq ".[] | select(.head.ref==\"$BRANCH\" and .state==\"open\") | .number" | head -1)
 
           if [ -z "$EXISTING" ]; then
+            PR_BODY="Automated regeneration of the Go SDK client from the Vantage OpenAPI spec."
+            if [ -n "$CORE_PR_URL" ]; then
+              PR_BODY="${PR_BODY}"$'\n\n'"Triggered by: ${CORE_PR_URL}"
+            fi
             gh pr create \
               --base "$DEFAULT_BRANCH" \
               --head "$BRANCH" \
               --title "chore: regenerate API client" \
-              --body "Automated regeneration of the Go SDK client from the Vantage OpenAPI spec."
+              --body "$PR_BODY"
           else
             echo "Open PR #${EXISTING} already exists for head ${BRANCH}; skipping create."
           fi
