@@ -1,6 +1,6 @@
 module github.com/vantage-sh/vantage-go
 
-go 1.20
+go 1.26.2
 
 require (
 	github.com/go-openapi/errors v0.20.4
