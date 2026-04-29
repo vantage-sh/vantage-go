@@ -51,7 +51,7 @@ type KubernetesEfficiencyReport struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
-	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.
+	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.
 	// Example: cluster_id, namespace
 	// Required: true
 	Groupings *string `json:"groupings"`

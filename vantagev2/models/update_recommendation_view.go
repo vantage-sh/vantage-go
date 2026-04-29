@@ -26,6 +26,9 @@ type UpdateRecommendationView struct {
 	// Filter recommendations created on/before this YYYY-MM-DD date.
 	EndDate string `json:"end_date,omitempty"`
 
+	// Filter recommendations with at least this amount of potential savings.
+	MinSavings float32 `json:"min_savings,omitempty"`
+
 	// Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
 	ProviderIds []string `json:"provider_ids"`
 
@@ -43,6 +46,9 @@ type UpdateRecommendationView struct {
 
 	// The title of the RecommendationView.
 	Title string `json:"title,omitempty"`
+
+	// Filter by one or more recommendation type slugs.
+	Types []string `json:"types"`
 }
 
 // Validate validates this update recommendation view

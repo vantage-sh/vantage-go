@@ -7287,7 +7287,7 @@
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.",
+            "description": "Group the results by specific field(s). Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.",
             "type": "array",
             "items": {
               "type": "string"
@@ -19043,7 +19043,7 @@
           "type": "string",
           "example": "cluster_id, namespace",
           "x-nullable": true,
-          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>."
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>."
         },
         "filter": {
           "type": "string",
@@ -19172,7 +19172,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.",
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -19249,7 +19249,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.",
+          "description": "Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -20600,6 +20600,18 @@
           "x-nullable": true,
           "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1)."
         },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "aws:ec2:rightsizing",
+              "aws:ebs:unattached-volume"
+            ]
+          },
+          "x-nullable": true,
+          "description": "Filter by one or more recommendation type slugs."
+        },
         "tag_key": {
           "type": "string",
           "example": "environment",
@@ -20611,6 +20623,13 @@
           "example": "production",
           "x-nullable": true,
           "description": "Filter by tag value (requires tag_key)."
+        },
+        "min_savings": {
+          "type": "number",
+          "format": "float",
+          "example": 100.5,
+          "x-nullable": true,
+          "description": "Filter recommendations with at least this amount of potential savings."
         },
         "created_at": {
           "type": "string",
@@ -20665,6 +20684,13 @@
             "type": "string"
           }
         },
+        "types": {
+          "type": "array",
+          "description": "Filter by one or more recommendation type slugs.",
+          "items": {
+            "type": "string"
+          }
+        },
         "tag_key": {
           "type": "string",
           "description": "Filter by tag key (must be used with tag_value)."
@@ -20680,6 +20706,11 @@
         "end_date": {
           "type": "string",
           "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+        },
+        "min_savings": {
+          "type": "number",
+          "format": "float",
+          "description": "Filter recommendations with at least this amount of potential savings."
         }
       },
       "required": [
@@ -20723,6 +20754,13 @@
             "type": "string"
           }
         },
+        "types": {
+          "type": "array",
+          "description": "Filter by one or more recommendation type slugs.",
+          "items": {
+            "type": "string"
+          }
+        },
         "tag_key": {
           "type": "string",
           "description": "Filter by tag key (must be used with tag_value)."
@@ -20738,6 +20776,11 @@
         "end_date": {
           "type": "string",
           "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+        },
+        "min_savings": {
+          "type": "number",
+          "format": "float",
+          "description": "Filter recommendations with at least this amount of potential savings."
         }
       },
       "description": "Update a RecommendationView."

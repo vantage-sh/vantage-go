@@ -34,6 +34,10 @@ type RecommendationView struct {
 	// Example: 2024-12-31
 	EndDate *string `json:"end_date,omitempty"`
 
+	// Filter recommendations with at least this amount of potential savings.
+	// Example: 100.5
+	MinSavings *float32 `json:"min_savings,omitempty"`
+
 	// Filter by one or more providers.
 	ProviderIds []string `json:"provider_ids"`
 
@@ -58,6 +62,9 @@ type RecommendationView struct {
 
 	// token
 	Token *string `json:"token,omitempty"`
+
+	// Filter by one or more recommendation type slugs.
+	Types []string `json:"types"`
 
 	// The token for the Workspace the RecommendationView is a part of.
 	WorkspaceToken *string `json:"workspace_token,omitempty"`
