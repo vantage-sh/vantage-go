@@ -69,7 +69,7 @@ type CreateKubernetesEfficiencyReportExportParams struct {
 
 	/* Groupings.
 
-	   Group the results by specific field(s). Valid groupings: cluster_id, namespace, labeled, category, pod, label, label:<label_name>.
+	   Group the results by specific field(s). Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.
 	*/
 	Groupings []string
 
