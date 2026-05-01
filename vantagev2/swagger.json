@@ -22219,7 +22219,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-10-01",
+          "example": "2025-11-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
