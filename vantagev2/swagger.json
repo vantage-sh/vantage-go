@@ -3495,7 +3495,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000.0,
+                    "threshold": 1000,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -3556,7 +3556,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100.0,
+                "threshold": 100,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -3617,7 +3617,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000.0,
+                "threshold": 1000,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -3690,7 +3690,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500.0,
+                "threshold": 500,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -8911,6 +8911,14 @@
           },
           {
             "in": "query",
+            "name": "min_savings",
+            "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.",
+            "type": "number",
+            "format": "float",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "page",
             "description": "The page of results to return.",
             "type": "integer",
@@ -9315,6 +9323,14 @@
               "active",
               "archived"
             ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "min_savings",
+            "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.",
+            "type": "number",
+            "format": "float",
             "required": false
           },
           {
@@ -10579,7 +10595,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200.0,
+                    "cost": 200,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -10615,7 +10631,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100.0,
+                    "cost": 100,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -10719,11 +10735,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3.0
+                    "amount": 3
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3.0
+                    "amount": 3
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -12756,11 +12772,11 @@
                         "percentages": [
                           {
                             "value": "apples-a",
-                            "pct": 50.0
+                            "pct": 50
                           },
                           {
                             "value": "apples-b",
-                            "pct": 50.0
+                            "pct": 50
                           }
                         ]
                       }
@@ -22080,7 +22096,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1.0,
+          "example": 1,
           "x-nullable": false,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
@@ -22219,7 +22235,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-10-01",
+          "example": "2025-11-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -22408,7 +22424,7 @@
         },
         "pct": {
           "type": "number",
-          "example": 50.0,
+          "example": 50,
           "x-nullable": false,
           "description": "The percentage of matched costs associated with the value."
         }

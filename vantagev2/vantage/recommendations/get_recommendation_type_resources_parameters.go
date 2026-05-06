@@ -88,6 +88,14 @@ type GetRecommendationTypeResourcesParams struct {
 	*/
 	Limit *int32
 
+	/* MinSavings.
+
+	   Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.
+
+	   Format: float
+	*/
+	MinSavings *float32
+
 	/* Page.
 
 	   The page of results to return.
@@ -236,6 +244,17 @@ func (o *GetRecommendationTypeResourcesParams) WithLimit(limit *int32) *GetRecom
 // SetLimit adds the limit to the get recommendation type resources params
 func (o *GetRecommendationTypeResourcesParams) SetLimit(limit *int32) {
 	o.Limit = limit
+}
+
+// WithMinSavings adds the minSavings to the get recommendation type resources params
+func (o *GetRecommendationTypeResourcesParams) WithMinSavings(minSavings *float32) *GetRecommendationTypeResourcesParams {
+	o.SetMinSavings(minSavings)
+	return o
+}
+
+// SetMinSavings adds the minSavings to the get recommendation type resources params
+func (o *GetRecommendationTypeResourcesParams) SetMinSavings(minSavings *float32) {
+	o.MinSavings = minSavings
 }
 
 // WithPage adds the page to the get recommendation type resources params
@@ -396,6 +415,23 @@ func (o *GetRecommendationTypeResourcesParams) WriteToRequest(r runtime.ClientRe
 		if qLimit != "" {
 
 			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MinSavings != nil {
+
+		// query param min_savings
+		var qrMinSavings float32
+
+		if o.MinSavings != nil {
+			qrMinSavings = *o.MinSavings
+		}
+		qMinSavings := swag.FormatFloat32(qrMinSavings)
+		if qMinSavings != "" {
+
+			if err := r.SetQueryParam("min_savings", qMinSavings); err != nil {
 				return err
 			}
 		}
