@@ -8911,6 +8911,14 @@
           },
           {
             "in": "query",
+            "name": "min_savings",
+            "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.",
+            "type": "number",
+            "format": "float",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "page",
             "description": "The page of results to return.",
             "type": "integer",
@@ -9315,6 +9323,14 @@
               "active",
               "archived"
             ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "min_savings",
+            "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.",
+            "type": "number",
+            "format": "float",
             "required": false
           },
           {
@@ -22219,7 +22235,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-10-01",
+          "example": "2025-11-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
