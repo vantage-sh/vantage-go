@@ -1121,7 +1121,7 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. Defaults to 100. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
             "required": false
@@ -1315,17 +1315,12 @@
                     }
                   }
                 ],
-                "_links": {
-                  "self": "/v2/audit_logs?page=1&limit=25",
-                  "first": "/v2/audit_logs?page=1&limit=25",
-                  "next": "/v2/audit_logs?page=2&limit=25",
-                  "last": "/v2/audit_logs?page=10&limit=25",
+                "links": {
+                  "self": "/v2/audit_logs?page=1",
+                  "first": "/v2/audit_logs?page=1",
+                  "next": "/v2/audit_logs?page=2",
+                  "last": "/v2/audit_logs?page=3",
                   "prev": null
-                },
-                "_meta": {
-                  "total_count": 248,
-                  "per_page": 25,
-                  "page": 1
                 }
               }
             }
@@ -3495,7 +3490,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000,
+                    "threshold": 1000.0,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -3556,7 +3551,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100,
+                "threshold": 100.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -3617,7 +3612,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000,
+                "threshold": 1000.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -3690,7 +3685,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500,
+                "threshold": 500.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -9007,6 +9002,7 @@
                     "provider": "aws",
                     "provider_account_id": "123456789012",
                     "description": "IP address is not attached to an instance.",
+                    "documentation_url": "https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources",
                     "potential_savings": "100.0",
                     "service": "AWS IP",
                     "created_at": "2026-01-28T16:53:32Z",
@@ -9062,6 +9058,7 @@
                 "provider": "aws",
                 "provider_account_id": "123456789012",
                 "description": "IP address is not attached to an instance.",
+                "documentation_url": "https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources",
                 "potential_savings": "100.0",
                 "service": "AWS IP",
                 "created_at": "2026-01-28T16:53:23Z",
@@ -10595,7 +10592,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -10631,7 +10628,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -10735,11 +10732,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -12772,11 +12769,11 @@
                         "percentages": [
                           {
                             "value": "apples-a",
-                            "pct": 50
+                            "pct": 50.0
                           },
                           {
                             "value": "apples-b",
-                            "pct": 50
+                            "pct": 50.0
                           }
                         ]
                       }
@@ -20301,6 +20298,12 @@
           "type": "string",
           "x-nullable": false
         },
+        "documentation_url": {
+          "type": "string",
+          "example": "https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering",
+          "x-nullable": true,
+          "description": "A URL to related documentation if available."
+        },
         "potential_savings": {
           "type": "string",
           "example": "100.00",
@@ -20345,6 +20348,7 @@
         "provider",
         "provider_account_id",
         "description",
+        "documentation_url",
         "potential_savings",
         "service",
         "created_at",
@@ -22096,7 +22100,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1,
+          "example": 1.0,
           "x-nullable": false,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
@@ -22424,7 +22428,7 @@
         },
         "pct": {
           "type": "number",
-          "example": 50,
+          "example": 50.0,
           "x-nullable": false,
           "description": "The percentage of matched costs associated with the value."
         }
