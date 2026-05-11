@@ -43,6 +43,10 @@ jobs:
           chmod +x swagger_linux_amd64
           sudo mv swagger_linux_amd64 /usr/local/bin/swagger
 
+      - name: Wait for prod swagger to update
+        if: github.event_name == 'repository_dispatch'
+        run: sleep 600
+
       - name: Generate SDK
         run: make generate SHELL=/bin/bash
 
