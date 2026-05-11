@@ -40,6 +40,11 @@ type Recommendation struct {
 	// Required: true
 	Description string `json:"description"`
 
+	// A URL to related documentation if available.
+	// Example: https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering
+	// Required: true
+	DocumentationURL *string `json:"documentation_url"`
+
 	// The monthly potential savings of the Recommendation, converted to the organization's selected currency.
 	// Example: 100.00
 	// Required: true
@@ -89,6 +94,10 @@ func (m *Recommendation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDocumentationURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -151,6 +160,15 @@ func (m *Recommendation) validateCreatedAt(formats strfmt.Registry) error {
 func (m *Recommendation) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Recommendation) validateDocumentationURL(formats strfmt.Registry) error {
+
+	if err := validate.Required("documentation_url", "body", m.DocumentationURL); err != nil {
 		return err
 	}
 

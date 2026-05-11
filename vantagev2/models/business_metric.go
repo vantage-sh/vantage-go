@@ -38,12 +38,15 @@ type BusinessMetric struct {
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
 	// Required: true
-	// Enum: ["datadog_metrics","cloudwatch","csv"]
+	// Enum: ["datadog_metrics","cloudwatch","snowflake_metrics","csv"]
 	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
 	// Required: true
 	IntegrationToken *string `json:"integration_token"`
+
+	// The fields used to generate the Snowflake metrics for BusinessMetric.
+	SnowflakeMetricFields *SnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
 
 	// The title of the BusinessMetric.
 	// Example: Total Revenue
@@ -77,6 +80,10 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIntegrationToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSnowflakeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -163,7 +170,7 @@ var businessMetricTypeImportTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","csv"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","snowflake_metrics","csv"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -178,6 +185,9 @@ const (
 
 	// BusinessMetricImportTypeCloudwatch captures enum value "cloudwatch"
 	BusinessMetricImportTypeCloudwatch string = "cloudwatch"
+
+	// BusinessMetricImportTypeSnowflakeMetrics captures enum value "snowflake_metrics"
+	BusinessMetricImportTypeSnowflakeMetrics string = "snowflake_metrics"
 
 	// BusinessMetricImportTypeCsv captures enum value "csv"
 	BusinessMetricImportTypeCsv string = "csv"
@@ -214,6 +224,25 @@ func (m *BusinessMetric) validateIntegrationToken(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *BusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.SnowflakeMetricFields) { // not required
+		return nil
+	}
+
+	if m.SnowflakeMetricFields != nil {
+		if err := m.SnowflakeMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *BusinessMetric) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("title", "body", m.Title); err != nil {
@@ -245,6 +274,10 @@ func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateDatadogMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSnowflakeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -313,6 +346,27 @@ func (m *BusinessMetric) contextValidateDatadogMetricFields(ctx context.Context,
 				return ve.ValidateName("datadog_metric_fields")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateSnowflakeMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SnowflakeMetricFields != nil {
+
+		if swag.IsZero(m.SnowflakeMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.SnowflakeMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
 			}
 			return err
 		}
