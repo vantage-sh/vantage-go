@@ -17514,6 +17514,12 @@
           "x-nullable": true,
           "description": "The resource id which incurred the cost."
         },
+        "resource_name": {
+          "type": "string",
+          "example": "claude_code_key_name",
+          "x-nullable": true,
+          "description": "The human-readable resource name when Vantage can enrich the resource id."
+        },
         "tag": {
           "type": "string",
           "example": "production",
@@ -22554,14 +22560,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22723,14 +22729,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22910,14 +22916,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
