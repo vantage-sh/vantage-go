@@ -3,7 +3,7 @@ module github.com/vantage-sh/vantage-go
 go 1.26.2
 
 require (
-	github.com/go-openapi/errors v0.20.4
+	github.com/go-openapi/errors v0.22.7
 	github.com/go-openapi/runtime v0.26.0
 	github.com/go-openapi/strfmt v0.21.7
 	github.com/go-openapi/swag v0.22.4
