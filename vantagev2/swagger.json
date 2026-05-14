@@ -12742,18 +12742,28 @@
                     "key": "Product Team",
                     "overridable": false,
                     "backfill_until": "2025-12-01",
+                    "collapsed_tag_keys": [],
                     "values": [
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND costs.account_id IN ('1234', '5678'))",
-                        "name": "Growth"
+                        "name": "Growth",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
-                        "name": "API"
+                        "name": "API",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service = 'AmazonEC2')",
-                        "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0"
+                        "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service != 'Amazon Elastic Compute Cloud')",
@@ -12762,10 +12772,14 @@
                           "aggregation": {
                             "tag": "aws:CreatedBy"
                           }
-                        }
+                        },
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'azure' AND costs.service = 'Azure Compute')",
+                        "label_transforms": [],
                         "percentages": [
                           {
                             "value": "apples-a",
@@ -12775,7 +12789,8 @@
                             "value": "apples-b",
                             "pct": 50.0
                           }
-                        ]
+                        ],
+                        "date_ranges": []
                       }
                     ]
                   }
@@ -12828,10 +12843,13 @@
                 "key": "Expense Code",
                 "overridable": false,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "EXPC-1234",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -12841,7 +12859,10 @@
                   },
                   {
                     "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
-                    "name": "EXPC-9876"
+                    "name": "EXPC-9876",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -12913,10 +12934,13 @@
                 "key": "Product Team",
                 "overridable": false,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
                     "name": "Growth",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -12926,7 +12950,10 @@
                   },
                   {
                     "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
-                    "name": "API"
+                    "name": "API",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -12989,10 +13016,13 @@
                 "key": "team",
                 "overridable": true,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "marketing",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -13002,7 +13032,10 @@
                   },
                   {
                     "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
-                    "name": "third-party integrations"
+                    "name": "third-party integrations",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -17513,6 +17546,12 @@
           "example": "arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0",
           "x-nullable": true,
           "description": "The resource id which incurred the cost."
+        },
+        "resource_name": {
+          "type": "string",
+          "example": "claude_code_key_name",
+          "x-nullable": true,
+          "description": "The human-readable resource name when Vantage can enrich the resource id."
         },
         "tag": {
           "type": "string",
@@ -22283,6 +22322,7 @@
         "key",
         "overridable",
         "backfill_until",
+        "collapsed_tag_keys",
         "values"
       ],
       "description": "VirtualTagConfig model"
@@ -22305,18 +22345,20 @@
               "gcp"
             ]
           },
-          "x-nullable": true,
-          "description": "The providers this collapsed tag key applies to. Defaults to all providers when omitted."
+          "x-nullable": false,
+          "description": "The providers this collapsed tag key applies to. Empty when it applies to all providers."
         },
         "filter": {
           "type": "string",
           "example": "(costs.provider = 'aws') OR (costs.provider = 'gcp')",
           "x-nullable": true,
-          "description": "The VQL filter this collapsed tag key applies to."
+          "description": "The VQL filter this collapsed tag key applies to. Null when the key is provider-scoped or unset."
         }
       },
       "required": [
-        "key"
+        "key",
+        "providers",
+        "filter"
       ]
     },
     "VirtualTagConfigValue": {
@@ -22372,7 +22414,10 @@
         }
       },
       "required": [
-        "filter"
+        "filter",
+        "label_transforms",
+        "percentages",
+        "date_ranges"
       ]
     },
     "VirtualTagConfigValueCostMetric": {
@@ -22554,14 +22599,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22723,14 +22768,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22910,14 +22955,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [

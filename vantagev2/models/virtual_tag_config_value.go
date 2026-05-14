@@ -28,6 +28,7 @@ type VirtualTagConfigValue struct {
 	CostMetric *VirtualTagConfigValueCostMetric `json:"cost_metric,omitempty"`
 
 	// Date ranges restricting when this value applies.
+	// Required: true
 	DateRanges []*VirtualTagConfigValueDateRange `json:"date_ranges"`
 
 	// The display name for this allocation value.
@@ -39,6 +40,7 @@ type VirtualTagConfigValue struct {
 	Filter *string `json:"filter"`
 
 	// Label transforms applied to business metric labels.
+	// Required: true
 	LabelTransforms []*VirtualTagConfigValueLabelTransform `json:"label_transforms"`
 
 	// The name of the Value.
@@ -46,6 +48,7 @@ type VirtualTagConfigValue struct {
 	Name *string `json:"name,omitempty"`
 
 	// Labeled percentage allocations for matching costs.
+	// Required: true
 	Percentages []*VirtualTagConfigValuePercentage `json:"percentages"`
 }
 
@@ -99,8 +102,9 @@ func (m *VirtualTagConfigValue) validateCostMetric(formats strfmt.Registry) erro
 }
 
 func (m *VirtualTagConfigValue) validateDateRanges(formats strfmt.Registry) error {
-	if swag.IsZero(m.DateRanges) { // not required
-		return nil
+
+	if err := validate.Required("date_ranges", "body", m.DateRanges); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.DateRanges); i++ {
@@ -134,8 +138,9 @@ func (m *VirtualTagConfigValue) validateFilter(formats strfmt.Registry) error {
 }
 
 func (m *VirtualTagConfigValue) validateLabelTransforms(formats strfmt.Registry) error {
-	if swag.IsZero(m.LabelTransforms) { // not required
-		return nil
+
+	if err := validate.Required("label_transforms", "body", m.LabelTransforms); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.LabelTransforms); i++ {
@@ -160,8 +165,9 @@ func (m *VirtualTagConfigValue) validateLabelTransforms(formats strfmt.Registry)
 }
 
 func (m *VirtualTagConfigValue) validatePercentages(formats strfmt.Registry) error {
-	if swag.IsZero(m.Percentages) { // not required
-		return nil
+
+	if err := validate.Required("percentages", "body", m.Percentages); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Percentages); i++ {
