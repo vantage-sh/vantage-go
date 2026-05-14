@@ -28,7 +28,7 @@ jobs:
       CORE_PR_URL: ${{ github.event.client_payload.core_pr_url }}
     steps:
       - name: Checkout vantage-go
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Go
         uses: actions/setup-go@v5
