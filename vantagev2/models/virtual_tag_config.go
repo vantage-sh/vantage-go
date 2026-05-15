@@ -26,6 +26,7 @@ type VirtualTagConfig struct {
 	BackfillUntil string `json:"backfill_until"`
 
 	// Tag keys to collapse values for.
+	// Required: true
 	CollapsedTagKeys []*VirtualTagConfigCollapsedTagKey `json:"collapsed_tag_keys"`
 
 	// The token of the Creator of the VirtualTagConfig.
@@ -100,8 +101,9 @@ func (m *VirtualTagConfig) validateBackfillUntil(formats strfmt.Registry) error 
 }
 
 func (m *VirtualTagConfig) validateCollapsedTagKeys(formats strfmt.Registry) error {
-	if swag.IsZero(m.CollapsedTagKeys) { // not required
-		return nil
+
+	if err := validate.Required("collapsed_tag_keys", "body", m.CollapsedTagKeys); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.CollapsedTagKeys); i++ {
