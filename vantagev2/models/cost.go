@@ -67,6 +67,10 @@ type Cost struct {
 	// Example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
 	ResourceID *string `json:"resource_id,omitempty"`
 
+	// The human-readable resource name when Vantage can enrich the resource id.
+	// Example: claude_code_key_name
+	ResourceName *string `json:"resource_name,omitempty"`
+
 	// The segment name for segment report costs.
 	// Example: Engineering
 	Segment *string `json:"segment,omitempty"`
