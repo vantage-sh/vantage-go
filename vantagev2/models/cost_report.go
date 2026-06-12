@@ -45,6 +45,11 @@ type CostReport struct {
 	// Required: true
 	DateInterval string `json:"date_interval"`
 
+	// The default forecast selection for the CostReport.
+	// Example: {"kind":"baseline"}
+	// Required: true
+	DefaultForecast interface{} `json:"default_forecast"`
+
 	// The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2024-07-15
 	EndDate *string `json:"end_date,omitempty"`
@@ -117,6 +122,10 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefaultForecast(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -224,6 +233,15 @@ func (m *CostReport) validateDateInterval(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("date_interval", "body", m.DateInterval); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateDefaultForecast(formats strfmt.Registry) error {
+
+	if m.DefaultForecast == nil {
+		return errors.Required("default_forecast", "body", nil)
 	}
 
 	return nil

@@ -19,16 +19,18 @@ import (
 // swagger:model VirtualTagConfigCollapsedTagKey
 type VirtualTagConfigCollapsedTagKey struct {
 
-	// The VQL filter this collapsed tag key applies to.
+	// The VQL filter this collapsed tag key applies to. Null when the key is provider-scoped or unset.
 	// Example: (costs.provider = 'aws') OR (costs.provider = 'gcp')
-	Filter *string `json:"filter,omitempty"`
+	// Required: true
+	Filter *string `json:"filter"`
 
 	// The tag key to collapse values for.
 	// Example: team
 	// Required: true
 	Key string `json:"key"`
 
-	// The providers this collapsed tag key applies to. Defaults to all providers when omitted.
+	// The providers this collapsed tag key applies to. Empty when it applies to all providers.
+	// Required: true
 	Providers []string `json:"providers"`
 }
 
@@ -36,7 +38,15 @@ type VirtualTagConfigCollapsedTagKey struct {
 func (m *VirtualTagConfigCollapsedTagKey) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviders(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -46,9 +56,27 @@ func (m *VirtualTagConfigCollapsedTagKey) Validate(formats strfmt.Registry) erro
 	return nil
 }
 
+func (m *VirtualTagConfigCollapsedTagKey) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *VirtualTagConfigCollapsedTagKey) validateKey(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigCollapsedTagKey) validateProviders(formats strfmt.Registry) error {
+
+	if err := validate.Required("providers", "body", m.Providers); err != nil {
 		return err
 	}
 

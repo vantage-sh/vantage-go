@@ -42,7 +42,7 @@ type CreateDashboard struct {
 	// Required: true
 	Title *string `json:"title"`
 
-	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.
+	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
 	Widgets []*CreateDashboardWidgetsItems0 `json:"widgets"`
 
 	// The token of the Workspace to add the Dashboard to. Required if the API token is associated with multiple Workspaces.

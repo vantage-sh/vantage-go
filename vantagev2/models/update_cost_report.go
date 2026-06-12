@@ -29,15 +29,18 @@ type UpdateCostReport struct {
 
 	// The chart type of the CostReport.
 	// Enum: ["area","line","pie","bar","multi_bar"]
-	ChartType *string `json:"chart_type,omitempty"`
+	ChartType string `json:"chart_type,omitempty"`
 
 	// The date bin of the CostReport.
 	// Enum: ["cumulative","day","week","month","quarter","hour"]
-	DateBin *string `json:"date_bin,omitempty"`
+	DateBin string `json:"date_bin,omitempty"`
 
 	// The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days"]
 	DateInterval string `json:"date_interval,omitempty"`
+
+	// default forecast
+	DefaultForecast *UpdateCostReportDefaultForecast `json:"default_forecast,omitempty"`
 
 	// The end date of the CostReport. ISO 8601 Formatted. Required when start_date is provided. Incompatible with 'date_interval' parameter.
 	EndDate string `json:"end_date,omitempty"`
@@ -91,6 +94,10 @@ func (m *UpdateCostReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefaultForecast(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -193,7 +200,7 @@ func (m *UpdateCostReport) validateChartType(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateChartTypeEnum("chart_type", "body", *m.ChartType); err != nil {
+	if err := m.validateChartTypeEnum("chart_type", "body", m.ChartType); err != nil {
 		return err
 	}
 
@@ -247,7 +254,7 @@ func (m *UpdateCostReport) validateDateBin(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateDateBinEnum("date_bin", "body", *m.DateBin); err != nil {
+	if err := m.validateDateBinEnum("date_bin", "body", m.DateBin); err != nil {
 		return err
 	}
 
@@ -341,6 +348,25 @@ func (m *UpdateCostReport) validateDateInterval(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *UpdateCostReport) validateDefaultForecast(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultForecast) { // not required
+		return nil
+	}
+
+	if m.DefaultForecast != nil {
+		if err := m.DefaultForecast.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_forecast")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_forecast")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *UpdateCostReport) validateSettings(formats strfmt.Registry) error {
 	if swag.IsZero(m.Settings) { // not required
 		return nil
@@ -369,6 +395,10 @@ func (m *UpdateCostReport) ContextValidate(ctx context.Context, formats strfmt.R
 	}
 
 	if err := m.contextValidateChartSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDefaultForecast(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -420,6 +450,27 @@ func (m *UpdateCostReport) contextValidateChartSettings(ctx context.Context, for
 				return ve.ValidateName("chart_settings")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateCostReport) contextValidateDefaultForecast(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DefaultForecast != nil {
+
+		if swag.IsZero(m.DefaultForecast) { // not required
+			return nil
+		}
+
+		if err := m.DefaultForecast.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_forecast")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_forecast")
 			}
 			return err
 		}
@@ -618,6 +669,100 @@ func (m *UpdateCostReportChartSettings) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateCostReportChartSettings) UnmarshalBinary(b []byte) error {
 	var res UpdateCostReportChartSettings
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateCostReportDefaultForecast The default forecast selection for the CostReport.
+//
+// swagger:model UpdateCostReportDefaultForecast
+type UpdateCostReportDefaultForecast struct {
+
+	// The default forecast selection kind.
+	// Required: true
+	// Enum: ["baseline","report_forecast"]
+	Kind *string `json:"kind"`
+
+	// The token for the report forecast to set as default when kind is report_forecast.
+	ReportForecastToken string `json:"report_forecast_token,omitempty"`
+}
+
+// Validate validates this update cost report default forecast
+func (m *UpdateCostReportDefaultForecast) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKind(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var updateCostReportDefaultForecastTypeKindPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["baseline","report_forecast"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateCostReportDefaultForecastTypeKindPropEnum = append(updateCostReportDefaultForecastTypeKindPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateCostReportDefaultForecastKindBaseline captures enum value "baseline"
+	UpdateCostReportDefaultForecastKindBaseline string = "baseline"
+
+	// UpdateCostReportDefaultForecastKindReportForecast captures enum value "report_forecast"
+	UpdateCostReportDefaultForecastKindReportForecast string = "report_forecast"
+)
+
+// prop value enum
+func (m *UpdateCostReportDefaultForecast) validateKindEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateCostReportDefaultForecastTypeKindPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateCostReportDefaultForecast) validateKind(formats strfmt.Registry) error {
+
+	if err := validate.Required("default_forecast"+"."+"kind", "body", m.Kind); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateKindEnum("default_forecast"+"."+"kind", "body", *m.Kind); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update cost report default forecast based on context it is used
+func (m *UpdateCostReportDefaultForecast) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateCostReportDefaultForecast) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateCostReportDefaultForecast) UnmarshalBinary(b []byte) error {
+	var res UpdateCostReportDefaultForecast
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -242,14 +242,14 @@ func (m *CreateVirtualTagConfig) UnmarshalBinary(b []byte) error {
 // swagger:model CreateVirtualTagConfigCollapsedTagKeysItems0
 type CreateVirtualTagConfigCollapsedTagKeysItems0 struct {
 
-	// The VQL filter this collapsed tag key applies to.
+	// The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter.
 	Filter string `json:"filter,omitempty"`
 
 	// The tag key to collapse values for.
 	// Required: true
 	Key *string `json:"key"`
 
-	// The providers this collapsed tag key applies to. Defaults to all providers.
+	// Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.
 	Providers []string `json:"providers"`
 }
 

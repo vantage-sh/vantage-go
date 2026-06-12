@@ -38,7 +38,7 @@ type BusinessMetric struct {
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
 	// Required: true
-	// Enum: ["datadog_metrics","cloudwatch","snowflake_metrics","csv"]
+	// Enum: ["datadog_metrics","cloudwatch","snowflake_metrics","metronome_metrics","csv"]
 	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
@@ -170,7 +170,7 @@ var businessMetricTypeImportTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","snowflake_metrics","csv"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","snowflake_metrics","metronome_metrics","csv"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -188,6 +188,9 @@ const (
 
 	// BusinessMetricImportTypeSnowflakeMetrics captures enum value "snowflake_metrics"
 	BusinessMetricImportTypeSnowflakeMetrics string = "snowflake_metrics"
+
+	// BusinessMetricImportTypeMetronomeMetrics captures enum value "metronome_metrics"
+	BusinessMetricImportTypeMetronomeMetrics string = "metronome_metrics"
 
 	// BusinessMetricImportTypeCsv captures enum value "csv"
 	BusinessMetricImportTypeCsv string = "csv"

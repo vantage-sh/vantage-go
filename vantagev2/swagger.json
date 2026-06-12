@@ -75,6 +75,10 @@
       "description": "Operations about BusinessMetrics"
     },
     {
+      "name": "Canvases",
+      "description": "Operations about Canvases"
+    },
+    {
       "name": "CostAlertEvents",
       "description": "Operations about CostAlertEvents"
     },
@@ -3285,6 +3289,236 @@
         "operationId": "updateBusinessMetricValuesCSV"
       }
     },
+    "/canvases": {
+      "get": {
+        "summary": "Get all canvases",
+        "description": "Return all Canvases.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Canvases"
+            }
+          }
+        },
+        "tags": [
+          "Canvases"
+        ],
+        "operationId": "getCanvases"
+      },
+      "post": {
+        "summary": "Create canvas",
+        "description": "Create a Canvas.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createCanvas",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createCanvas"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Canvas"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Canvases"
+        ],
+        "operationId": "createCanvas"
+      }
+    },
+    "/canvases/{canvas_token}": {
+      "get": {
+        "summary": "Get canvas by token",
+        "description": "Return a specific Canvas.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "canvas_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Canvas"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Canvases"
+        ],
+        "operationId": "getCanvas"
+      },
+      "put": {
+        "summary": "Update canvas",
+        "description": "Update a Canvas.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "canvas_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateCanvas",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateCanvas"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Canvas"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Canvases"
+        ],
+        "operationId": "updateCanvas"
+      },
+      "delete": {
+        "summary": "Delete canvas",
+        "description": "Delete a Canvas.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "canvas_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Canvas"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Canvases"
+        ],
+        "operationId": "deleteCanvas"
+      }
+    },
     "/cost_alerts/{cost_alert_token}/events": {
       "get": {
         "summary": "Get all cost alert events",
@@ -3799,7 +4033,8 @@
               "elastic",
               "vercel",
               "redis_cloud",
-              "circle_ci"
+              "circle_ci",
+              "modal"
             ],
             "required": false
           },
@@ -3913,13 +4148,16 @@
                 },
                 "cost_reports": [
                   {
-                    "token": "rprt_403b6516ad289a52",
+                    "token": "rprt_6f2c7d330c05636f",
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
-                      "svd_fltr_03a9f354fe7cad59"
+                      "svd_fltr_9f2aca5e894b432a"
                     ],
                     "business_metric_tokens_with_metadata": [],
+                    "default_forecast": {
+                      "kind": "baseline"
+                    },
                     "filter": null,
                     "groupings": "service,provider",
                     "settings": {
@@ -3930,10 +4168,11 @@
                       "amortize": true,
                       "unallocated": false,
                       "aggregate_by": "cost",
-                      "show_previous_period": true
+                      "show_previous_period": true,
+                      "complete_period": false
                     },
                     "created_at": "2024-07-03T00:00:00Z",
-                    "workspace_token": "wrkspc_b7743329296e6e96",
+                    "workspace_token": "wrkspc_3f4145fd51b19463",
                     "previous_period_start_date": null,
                     "previous_period_end_date": null,
                     "start_date": "2024-07-01",
@@ -3992,15 +4231,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_377f6f8b25e8053d",
+                "token": "rprt_299359872859a568",
                 "title": "New Cost Report",
-                "folder_token": "fldr_f20201244e42cb99",
+                "folder_token": "fldr_736175272c30b820",
                 "saved_filter_tokens": [
-                  "svd_fltr_550e30f350ffafe4"
+                  "svd_fltr_3cf17b5bd79e849c"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_ff259eb1ce9fe935",
+                    "business_metric_token": "bsnss_mtrc_b90d5fe5fbff292d",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4010,6 +4249,9 @@
                     ]
                   }
                 ],
+                "default_forecast": {
+                  "kind": "baseline"
+                },
                 "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
                 "groupings": "service,provider",
                 "settings": {
@@ -4020,10 +4262,11 @@
                   "amortize": true,
                   "unallocated": false,
                   "aggregate_by": "cost",
-                  "show_previous_period": true
+                  "show_previous_period": true,
+                  "complete_period": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_d364d177f557981e",
+                "workspace_token": "wrkspc_9e2675148d6275f8",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -4089,13 +4332,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_fb27faa25ef5ea72",
+                "token": "rprt_5db7a73cf4d09998",
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
-                  "svd_fltr_dd642aeffbe29367"
+                  "svd_fltr_e1166df04e1709bf"
                 ],
                 "business_metric_tokens_with_metadata": [],
+                "default_forecast": {
+                  "kind": "baseline"
+                },
                 "filter": null,
                 "groupings": "service,provider",
                 "settings": {
@@ -4106,10 +4352,11 @@
                   "amortize": true,
                   "unallocated": false,
                   "aggregate_by": "cost",
-                  "show_previous_period": true
+                  "show_previous_period": true,
+                  "complete_period": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_e5c550d14cfa3101",
+                "workspace_token": "wrkspc_9c6847147c762f2a",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -4178,15 +4425,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprt_c02b21cb3750e2c8",
+                "token": "rprt_1e692ea6b3eddf6b",
                 "title": "Updated Cost Report",
-                "folder_token": "fldr_5671a9c9785c0aff",
+                "folder_token": "fldr_86dec25791dca5ce",
                 "saved_filter_tokens": [
-                  "svd_fltr_fe456f29a8e9a706"
+                  "svd_fltr_1977fb9dc5e2b336"
                 ],
                 "business_metric_tokens_with_metadata": [
                   {
-                    "business_metric_token": "bsnss_mtrc_352795a0c2b0be50",
+                    "business_metric_token": "bsnss_mtrc_14dc9a1fb1ce67ce",
                     "unit_scale": "per_thousand",
                     "label_filter": [
                       "CBGB",
@@ -4196,10 +4443,13 @@
                     ]
                   },
                   {
-                    "business_metric_token": "bsnss_mtrc_13ce0c4cb90eb641",
+                    "business_metric_token": "bsnss_mtrc_ab4227c15f99f995",
                     "unit_scale": "per_million"
                   }
                 ],
+                "default_forecast": {
+                  "kind": "baseline"
+                },
                 "filter": "costs.provider = 'azure'",
                 "groupings": "account_id,service",
                 "settings": {
@@ -4210,10 +4460,11 @@
                   "amortize": true,
                   "unallocated": false,
                   "aggregate_by": "cost",
-                  "show_previous_period": true
+                  "show_previous_period": true,
+                  "complete_period": false
                 },
                 "created_at": "2024-07-03T00:00:00Z",
-                "workspace_token": "wrkspc_b727d292ad47b28b",
+                "workspace_token": "wrkspc_a8fb0662fdca90e0",
                 "previous_period_start_date": null,
                 "previous_period_end_date": null,
                 "start_date": "2024-07-01",
@@ -4357,6 +4608,7 @@
               "vercel",
               "redis_cloud",
               "circle_ci",
+              "modal",
               "all"
             ],
             "required": false
@@ -4401,10 +4653,10 @@
             "examples": {
               "application/json": {
                 "links": {
-                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs",
-                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs?page=1",
+                  "self": "https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs",
+                  "first": "https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1",
                   "next": null,
-                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_3f79e0058066d5f7/forecasted_costs?page=1",
+                  "last": "https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1",
                   "prev": null
                 },
                 "forecasted_costs": [
@@ -6117,7 +6369,8 @@
               "elastic",
               "vercel",
               "redis_cloud",
-              "circle_ci"
+              "circle_ci",
+              "modal"
             ],
             "required": false
           },
@@ -11415,7 +11668,8 @@
                 "elastic",
                 "vercel",
                 "redis_cloud",
-                "circle_ci"
+                "circle_ci",
+                "modal"
               ]
             },
             "required": false
@@ -11644,7 +11898,8 @@
                 "elastic",
                 "vercel",
                 "redis_cloud",
-                "circle_ci"
+                "circle_ci",
+                "modal"
               ]
             },
             "required": false
@@ -12742,18 +12997,28 @@
                     "key": "Product Team",
                     "overridable": false,
                     "backfill_until": "2025-12-01",
+                    "collapsed_tag_keys": [],
                     "values": [
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND costs.account_id IN ('1234', '5678'))",
-                        "name": "Growth"
+                        "name": "Growth",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
-                        "name": "API"
+                        "name": "API",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service = 'AmazonEC2')",
-                        "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0"
+                        "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0",
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'aws' AND costs.service != 'Amazon Elastic Compute Cloud')",
@@ -12762,10 +13027,14 @@
                           "aggregation": {
                             "tag": "aws:CreatedBy"
                           }
-                        }
+                        },
+                        "label_transforms": [],
+                        "percentages": [],
+                        "date_ranges": []
                       },
                       {
                         "filter": "(costs.provider = 'azure' AND costs.service = 'Azure Compute')",
+                        "label_transforms": [],
                         "percentages": [
                           {
                             "value": "apples-a",
@@ -12775,7 +13044,8 @@
                             "value": "apples-b",
                             "pct": 50.0
                           }
-                        ]
+                        ],
+                        "date_ranges": []
                       }
                     ]
                   }
@@ -12828,10 +13098,13 @@
                 "key": "Expense Code",
                 "overridable": false,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "EXPC-1234",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -12841,7 +13114,10 @@
                   },
                   {
                     "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
-                    "name": "EXPC-9876"
+                    "name": "EXPC-9876",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -12913,10 +13189,13 @@
                 "key": "Product Team",
                 "overridable": false,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
                     "name": "Growth",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -12926,7 +13205,10 @@
                   },
                   {
                     "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
-                    "name": "API"
+                    "name": "API",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -12989,10 +13271,13 @@
                 "key": "team",
                 "overridable": true,
                 "backfill_until": "2024-07-01",
+                "collapsed_tag_keys": [],
                 "values": [
                   {
                     "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "marketing",
+                    "label_transforms": [],
+                    "percentages": [],
                     "date_ranges": [
                       {
                         "start_date": "2024-01-01",
@@ -13002,7 +13287,10 @@
                   },
                   {
                     "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
-                    "name": "third-party integrations"
+                    "name": "third-party integrations",
+                    "label_transforms": [],
+                    "percentages": [],
+                    "date_ranges": []
                   }
                 ]
               }
@@ -15587,6 +15875,7 @@
             "datadog_metrics",
             "cloudwatch",
             "snowflake_metrics",
+            "metronome_metrics",
             "csv"
           ],
           "x-nullable": true,
@@ -16122,6 +16411,113 @@
       ],
       "description": "BusinessMetricValuesDeleteResponse model"
     },
+    "Canvases": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "canvases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Canvas"
+          }
+        }
+      },
+      "required": [
+        "canvases"
+      ],
+      "description": "Canvases model"
+    },
+    "Canvas": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "cnvs_abcd1234567890",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "example": "Weekly Spend by Team",
+          "x-nullable": false,
+          "description": "The title of the Canvas."
+        },
+        "prompt": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The prompt used to generate the Canvas."
+        },
+        "data": {
+          "type": "object",
+          "x-nullable": true,
+          "description": "The structured table data of the Canvas."
+        },
+        "workspace_token": {
+          "type": "string",
+          "example": "wrkspc_abcd1234567890",
+          "x-nullable": false,
+          "description": "The token for the Workspace the Canvas belongs to."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-01-01T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the Canvas was created. ISO 8601 Formatted."
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2024-01-01T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the Canvas was last updated. ISO 8601 Formatted."
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "prompt",
+        "workspace_token",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "Canvas model"
+    },
+    "createCanvas": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Canvas."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The prompt used to generate the Canvas."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the Canvas to. Required if the API token is associated with multiple Workspaces."
+        }
+      },
+      "required": [
+        "title",
+        "prompt"
+      ],
+      "description": "Create a Canvas."
+    },
+    "updateCanvas": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Canvas."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The prompt used to generate the Canvas."
+        }
+      },
+      "description": "Update a Canvas."
+    },
     "CostAlertEvents": {
       "type": "object",
       "properties": {
@@ -16541,6 +16937,14 @@
           },
           "description": "The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter."
         },
+        "default_forecast": {
+          "type": "object",
+          "example": {
+            "kind": "baseline"
+          },
+          "x-nullable": false,
+          "description": "The default forecast selection for the CostReport."
+        },
         "filter": {
           "type": "string",
           "x-nullable": true,
@@ -16671,6 +17075,7 @@
         "token",
         "title",
         "business_metric_tokens_with_metadata",
+        "default_forecast",
         "filter",
         "created_at",
         "workspace_token",
@@ -16823,6 +17228,7 @@
             "vercel",
             "redis_cloud",
             "circle_ci",
+            "modal",
             "all"
           ],
           "x-nullable": false,
@@ -17109,6 +17515,27 @@
           "type": "string",
           "description": "The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to."
         },
+        "default_forecast": {
+          "type": "object",
+          "description": "The default forecast selection for the CostReport.",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "The default forecast selection kind.",
+              "enum": [
+                "baseline",
+                "report_forecast"
+              ]
+            },
+            "report_forecast_token": {
+              "type": "string",
+              "description": "The token for the report forecast to set as default when kind is report_forecast."
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
         "settings": {
           "type": "object",
           "description": "Report settings.",
@@ -17224,8 +17651,7 @@
             "pie",
             "bar",
             "multi_bar"
-          ],
-          "default": "line"
+          ]
         },
         "date_bin": {
           "type": "string",
@@ -17237,8 +17663,7 @@
             "month",
             "quarter",
             "hour"
-          ],
-          "default": "cumulative"
+          ]
         }
       },
       "description": "Update a CostReport."
@@ -17479,7 +17904,8 @@
             "elastic",
             "vercel",
             "redis_cloud",
-            "circle_ci"
+            "circle_ci",
+            "modal"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -17513,6 +17939,12 @@
           "example": "arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0",
           "x-nullable": true,
           "description": "The resource id which incurred the cost."
+        },
+        "resource_name": {
+          "type": "string",
+          "example": "claude_code_key_name",
+          "x-nullable": true,
+          "description": "The human-readable resource name when Vantage can enrich the resource id."
         },
         "tag": {
           "type": "string",
@@ -17733,7 +18165,7 @@
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.",
           "items": {
             "type": "object",
             "properties": {
@@ -17834,7 +18266,7 @@
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.",
           "items": {
             "type": "object",
             "properties": {
@@ -22258,7 +22690,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-11-01",
+          "example": "2025-12-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -22283,6 +22715,7 @@
         "key",
         "overridable",
         "backfill_until",
+        "collapsed_tag_keys",
         "values"
       ],
       "description": "VirtualTagConfig model"
@@ -22305,18 +22738,20 @@
               "gcp"
             ]
           },
-          "x-nullable": true,
-          "description": "The providers this collapsed tag key applies to. Defaults to all providers when omitted."
+          "x-nullable": false,
+          "description": "The providers this collapsed tag key applies to. Empty when it applies to all providers."
         },
         "filter": {
           "type": "string",
           "example": "(costs.provider = 'aws') OR (costs.provider = 'gcp')",
           "x-nullable": true,
-          "description": "The VQL filter this collapsed tag key applies to."
+          "description": "The VQL filter this collapsed tag key applies to. Null when the key is provider-scoped or unset."
         }
       },
       "required": [
-        "key"
+        "key",
+        "providers",
+        "filter"
       ]
     },
     "VirtualTagConfigValue": {
@@ -22372,7 +22807,10 @@
         }
       },
       "required": [
-        "filter"
+        "filter",
+        "label_transforms",
+        "percentages",
+        "date_ranges"
       ]
     },
     "VirtualTagConfigValueCostMetric": {
@@ -22554,14 +22992,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22723,14 +23161,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
@@ -22910,14 +23348,14 @@
               },
               "providers": {
                 "type": "array",
-                "description": "The providers this collapsed tag key applies to. Defaults to all providers.",
+                "description": "Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.",
                 "items": {
                   "type": "string"
                 }
               },
               "filter": {
                 "type": "string",
-                "description": "The VQL filter this collapsed tag key applies to."
+                "description": "The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter."
               }
             },
             "required": [
