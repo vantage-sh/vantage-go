@@ -41,7 +41,7 @@ type UpdateDashboard struct {
 	// The title of the Dashboard.
 	Title string `json:"title,omitempty"`
 
-	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, and FinancialCommitmentReport.
+	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
 	Widgets []*UpdateDashboardWidgetsItems0 `json:"widgets"`
 
 	// The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces.

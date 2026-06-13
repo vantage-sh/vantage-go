@@ -56,7 +56,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal"]
 	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -66,6 +66,10 @@ type Cost struct {
 	// The resource id which incurred the cost.
 	// Example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
 	ResourceID *string `json:"resource_id,omitempty"`
+
+	// The human-readable resource name when Vantage can enrich the resource id.
+	// Example: claude_code_key_name
+	ResourceName *string `json:"resource_name,omitempty"`
 
 	// The segment name for segment report costs.
 	// Example: Engineering
@@ -167,7 +171,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -272,6 +276,9 @@ const (
 
 	// CostProviderCircleCi captures enum value "circle_ci"
 	CostProviderCircleCi string = "circle_ci"
+
+	// CostProviderModal captures enum value "modal"
+	CostProviderModal string = "modal"
 )
 
 // prop value enum

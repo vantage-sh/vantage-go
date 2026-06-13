@@ -19,6 +19,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budget_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/budgets"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/business_metrics"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/canvases"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/cost_alert_events"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/cost_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/cost_provider"
@@ -107,6 +108,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.BudgetAlerts = budget_alerts.New(transport, formats)
 	cli.Budgets = budgets.New(transport, formats)
 	cli.BusinessMetrics = business_metrics.New(transport, formats)
+	cli.Canvases = canvases.New(transport, formats)
 	cli.CostAlertEvents = cost_alert_events.New(transport, formats)
 	cli.CostAlerts = cost_alerts.New(transport, formats)
 	cli.CostProvider = cost_provider.New(transport, formats)
@@ -204,6 +206,8 @@ type Vantage struct {
 
 	BusinessMetrics business_metrics.ClientService
 
+	Canvases canvases.ClientService
+
 	CostAlertEvents cost_alert_events.ClientService
 
 	CostAlerts cost_alerts.ClientService
@@ -289,6 +293,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.BudgetAlerts.SetTransport(transport)
 	c.Budgets.SetTransport(transport)
 	c.BusinessMetrics.SetTransport(transport)
+	c.Canvases.SetTransport(transport)
 	c.CostAlertEvents.SetTransport(transport)
 	c.CostAlerts.SetTransport(transport)
 	c.CostProvider.SetTransport(transport)
