@@ -4034,7 +4034,8 @@
               "vercel",
               "redis_cloud",
               "circle_ci",
-              "modal"
+              "modal",
+              "eleven_labs"
             ],
             "required": false
           },
@@ -4609,6 +4610,7 @@
               "redis_cloud",
               "circle_ci",
               "modal",
+              "eleven_labs",
               "all"
             ],
             "required": false
@@ -6370,7 +6372,8 @@
               "vercel",
               "redis_cloud",
               "circle_ci",
-              "modal"
+              "modal",
+              "eleven_labs"
             ],
             "required": false
           },
@@ -11669,7 +11672,8 @@
                 "vercel",
                 "redis_cloud",
                 "circle_ci",
-                "modal"
+                "modal",
+                "eleven_labs"
               ]
             },
             "required": false
@@ -11899,7 +11903,8 @@
                 "vercel",
                 "redis_cloud",
                 "circle_ci",
-                "modal"
+                "modal",
+                "eleven_labs"
               ]
             },
             "required": false
@@ -16449,8 +16454,7 @@
           "description": "The prompt used to generate the Canvas."
         },
         "data": {
-          "type": "object",
-          "x-nullable": true,
+          "$ref": "#/definitions/CanvasData",
           "description": "The structured table data of the Canvas."
         },
         "workspace_token": {
@@ -16481,6 +16485,24 @@
         "updated_at"
       ],
       "description": "Canvas model"
+    },
+    "CanvasData": {
+      "type": "object",
+      "properties": {
+        "table": {
+          "$ref": "#/definitions/CanvasTable",
+          "description": "Tabular data produced by the Canvas refresh workflow. Read-only; schema varies by prompt."
+        },
+        "error": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Error message if the refresh workflow failed. Read-only."
+        }
+      }
+    },
+    "CanvasTable": {
+      "type": "object",
+      "properties": {}
     },
     "createCanvas": {
       "type": "object",
@@ -17229,6 +17251,7 @@
             "redis_cloud",
             "circle_ci",
             "modal",
+            "eleven_labs",
             "all"
           ],
           "x-nullable": false,
@@ -17905,7 +17928,8 @@
             "vercel",
             "redis_cloud",
             "circle_ci",
-            "modal"
+            "modal",
+            "eleven_labs"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."

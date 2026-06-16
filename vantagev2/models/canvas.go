@@ -25,7 +25,7 @@ type Canvas struct {
 	CreatedAt string `json:"created_at"`
 
 	// The structured table data of the Canvas.
-	Data interface{} `json:"data,omitempty"`
+	Data *CanvasData `json:"data,omitempty"`
 
 	// The prompt used to generate the Canvas.
 	// Required: true
@@ -60,6 +60,10 @@ func (m *Canvas) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePrompt(formats); err != nil {
 		res = append(res, err)
 	}
@@ -90,6 +94,25 @@ func (m *Canvas) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Canvas) validateData(formats strfmt.Registry) error {
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	if m.Data != nil {
+		if err := m.Data.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("data")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("data")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -140,8 +163,38 @@ func (m *Canvas) validateWorkspaceToken(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this canvas based on context it is used
+// ContextValidate validate this canvas based on the context it is used
 func (m *Canvas) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Canvas) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+
+		if swag.IsZero(m.Data) { // not required
+			return nil
+		}
+
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("data")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("data")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
