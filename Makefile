@@ -1,5 +1,7 @@
 generate:
-	rm -r vantage{v1,v2}/{models,vantage}
+	for d in vantagev1/models vantagev1/vantage vantagev2/models vantagev2/vantage; do \
+		if [ -d "$$d" ]; then rm -r "$$d"; fi; \
+	done
 	vantagev1/generate.sh
 	vantagev2/generate.sh
 	git add .
