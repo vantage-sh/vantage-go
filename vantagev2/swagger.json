@@ -19797,7 +19797,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens for the Billing Rules assigned to the Managed Account."
+          "description": "The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data."
         },
         "email_domain": {
           "type": "string",
@@ -19859,7 +19859,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.",
           "items": {
             "type": "string"
           }
@@ -19895,7 +19895,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.",
           "items": {
             "type": "string"
           }

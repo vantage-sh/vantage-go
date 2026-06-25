@@ -22,7 +22,7 @@ type CreateManagedAccount struct {
 	// Access Credential (aka Integrations) tokens to assign to the Managed Account.
 	AccessCredentialTokens []string `json:"access_credential_tokens"`
 
-	// Billing Rule tokens to assign to the Managed Account.
+	// Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.
 	BillingRuleTokens []string `json:"billing_rule_tokens"`
 
 	// The contact email address for the Managed Account.
