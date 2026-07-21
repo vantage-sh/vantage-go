@@ -49,7 +49,7 @@ type CreateCostReport struct {
 	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
 	// The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
@@ -521,6 +521,13 @@ type CreateCostReportBusinessMetricTokensWithMetadataItems0 struct {
 	// Required: true
 	BusinessMetricToken *string `json:"business_metric_token"`
 
+	// The calculation type applied when this BusinessMetric is used in the CostReport.
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType *string `json:"calculation_type,omitempty"`
+
+	// Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type.
+	Label string `json:"label,omitempty"`
+
 	// Include only values with these labels in the CostReport.
 	LabelFilter []string `json:"label_filter"`
 
@@ -537,6 +544,10 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) Validate(format
 		res = append(res, err)
 	}
 
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateUnitScale(formats); err != nil {
 		res = append(res, err)
 	}
@@ -550,6 +561,54 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) Validate(format
 func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateBusinessMetricToken(formats strfmt.Registry) error {
 
 	if err := validate.Required("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum = append(createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUnitCost captures enum value "unit_cost"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUnitCost string = "unit_cost"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeGrossMargin captures enum value "gross_margin"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeGrossMargin string = "gross_margin"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateCalculationType(formats strfmt.Registry) error {
+	if swag.IsZero(m.CalculationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
 		return err
 	}
 
@@ -638,7 +697,7 @@ type CreateCostReportChartSettings struct {
 	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
 	XAxisDimension []string `json:"x_axis_dimension"`
 
-	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
+	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
 	YAxisDimension string `json:"y_axis_dimension,omitempty"`
 }
 
