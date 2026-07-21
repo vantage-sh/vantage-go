@@ -23,7 +23,7 @@ type ChartSettings struct {
 	// Required: true
 	XAxisDimension []string `json:"x_axis_dimension"`
 
-	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
+	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
 	// Required: true
 	YAxisDimension string `json:"y_axis_dimension"`
 }

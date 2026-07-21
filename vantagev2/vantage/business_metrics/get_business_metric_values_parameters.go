@@ -65,6 +65,12 @@ type GetBusinessMetricValuesParams struct {
 	// BusinessMetricToken.
 	BusinessMetricToken string
 
+	/* LabelValues.
+
+	   Return values matching any exact label value. For multi-label metrics, matches values under any label key.
+	*/
+	LabelValues []string
+
 	/* Limit.
 
 	   The amount of results to return. The maximum is 1000.
@@ -153,6 +159,17 @@ func (o *GetBusinessMetricValuesParams) SetBusinessMetricToken(businessMetricTok
 	o.BusinessMetricToken = businessMetricToken
 }
 
+// WithLabelValues adds the labelValues to the get business metric values params
+func (o *GetBusinessMetricValuesParams) WithLabelValues(labelValues []string) *GetBusinessMetricValuesParams {
+	o.SetLabelValues(labelValues)
+	return o
+}
+
+// SetLabelValues adds the labelValues to the get business metric values params
+func (o *GetBusinessMetricValuesParams) SetLabelValues(labelValues []string) {
+	o.LabelValues = labelValues
+}
+
 // WithLimit adds the limit to the get business metric values params
 func (o *GetBusinessMetricValuesParams) WithLimit(limit *int32) *GetBusinessMetricValuesParams {
 	o.SetLimit(limit)
@@ -197,6 +214,17 @@ func (o *GetBusinessMetricValuesParams) WriteToRequest(r runtime.ClientRequest, 
 	// path param business_metric_token
 	if err := r.SetPathParam("business_metric_token", o.BusinessMetricToken); err != nil {
 		return err
+	}
+
+	if o.LabelValues != nil {
+
+		// binding items for label_values
+		joinedLabelValues := o.bindParamLabelValues(reg)
+
+		// query array param label_values
+		if err := r.SetQueryParam("label_values", joinedLabelValues...); err != nil {
+			return err
+		}
 	}
 
 	if o.Limit != nil {
@@ -254,4 +282,21 @@ func (o *GetBusinessMetricValuesParams) WriteToRequest(r runtime.ClientRequest, 
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetBusinessMetricValues binds the parameter label_values
+func (o *GetBusinessMetricValuesParams) bindParamLabelValues(formats strfmt.Registry) []string {
+	labelValuesIR := o.LabelValues
+
+	var labelValuesIC []string
+	for _, labelValuesIIR := range labelValuesIR { // explode []string
+
+		labelValuesIIV := labelValuesIIR // string as string
+		labelValuesIC = append(labelValuesIC, labelValuesIIV)
+	}
+
+	// items.CollectionFormat: ""
+	labelValuesIS := swag.JoinByFormat(labelValuesIC, "")
+
+	return labelValuesIS
 }

@@ -2946,6 +2946,88 @@
         "operationId": "deleteBusinessMetric"
       }
     },
+    "/business_metrics/{business_metric_token}/labels": {
+      "get": {
+        "summary": "Get business metric labels",
+        "description": "Return labels of a BusinessMetric.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return per page. Defaults to 1000. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetricLabels"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels",
+                  "first": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels?page=1",
+                  "prev": null
+                },
+                "labels": [
+                  {
+                    "value": "alpha"
+                  },
+                  {
+                    "value": "beta"
+                  },
+                  {
+                    "value": "Enterprise"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BusinessMetrics"
+        ],
+        "operationId": "getBusinessMetricLabels"
+      }
+    },
     "/business_metrics/{business_metric_token}/values": {
       "get": {
         "summary": "Get business metric values",
@@ -2976,6 +3058,16 @@
             "description": "Query BusinessMetrics by the first date you would like to filter from. ISO 8601 Formatted - 2021-07-15",
             "type": "string",
             "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "label_values",
+            "description": "Return values matching any exact label value. For multi-label metrics, matches values under any label key.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "required": false
           },
           {
@@ -4035,7 +4127,10 @@
               "redis_cloud",
               "circle_ci",
               "modal",
-              "eleven_labs"
+              "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai"
             ],
             "required": false
           },
@@ -4611,6 +4706,9 @@
               "circle_ci",
               "modal",
               "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai",
               "all"
             ],
             "required": false
@@ -6373,7 +6471,10 @@
               "redis_cloud",
               "circle_ci",
               "modal",
-              "eleven_labs"
+              "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai"
             ],
             "required": false
           },
@@ -11673,7 +11774,10 @@
                 "redis_cloud",
                 "circle_ci",
                 "modal",
-                "eleven_labs"
+                "eleven_labs",
+                "baseten",
+                "cloudflare",
+                "fireworks_ai"
               ]
             },
             "required": false
@@ -11904,7 +12008,10 @@
                 "redis_cloud",
                 "circle_ci",
                 "modal",
-                "eleven_labs"
+                "eleven_labs",
+                "baseten",
+                "cloudflare",
+                "fireworks_ai"
               ]
             },
             "required": false
@@ -12979,6 +13086,15 @@
         "description": "Return all VirtualTagConfigs that the current API token has access to.",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter VirtualTagConfigs by key.",
+            "type": "string",
+            "required": false
+          }
         ],
         "security": [
           {
@@ -15935,6 +16051,25 @@
           "x-nullable": false,
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": false,
+          "description": "The calculation type applied when this BusinessMetric is used in the CostReport."
+        },
+        "label": {
+          "type": "string",
+          "example": "Gross Margin",
+          "x-omitempty": true,
+          "x-nullable": true,
+          "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+        },
         "label_filter": {
           "type": "array",
           "items": {
@@ -15951,7 +16086,8 @@
       },
       "required": [
         "cost_report_token",
-        "unit_scale"
+        "unit_scale",
+        "calculation_type"
       ]
     },
     "CloudwatchFields": {
@@ -16054,6 +16190,38 @@
         "sql_query"
       ]
     },
+    "BusinessMetricLabels": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessMetricLabel"
+          }
+        }
+      },
+      "required": [
+        "labels"
+      ],
+      "description": "BusinessMetricLabels model"
+    },
+    "BusinessMetricLabel": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Enterprise",
+          "x-nullable": false,
+          "description": "A label value associated with the BusinessMetric."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "BusinessMetricValues": {
       "type": "object",
       "properties": {
@@ -16124,6 +16292,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -16242,6 +16425,20 @@
               }
             }
           }
+        },
+        "snowflake_metric_fields": {
+          "type": "object",
+          "description": "Snowflake metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the Snowflake integration from which you would like to fetch metrics."
+            },
+            "sql_query": {
+              "type": "string",
+              "description": "Snowflake SQL query returning date, value, and optional label columns."
+            }
+          }
         }
       },
       "required": [
@@ -16277,6 +16474,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -16394,6 +16606,20 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "snowflake_metric_fields": {
+          "type": "object",
+          "description": "Snowflake metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the Snowflake integration from which you would like to fetch metrics."
+            },
+            "sql_query": {
+              "type": "string",
+              "description": "Snowflake SQL query returning date, value, and optional label columns."
             }
           }
         }
@@ -17130,6 +17356,25 @@
           "x-nullable": false,
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": false,
+          "description": "The calculation type applied when this BusinessMetric is used in the CostReport."
+        },
+        "label": {
+          "type": "string",
+          "example": "Gross Margin",
+          "x-omitempty": true,
+          "x-nullable": true,
+          "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+        },
         "label_filter": {
           "type": "array",
           "items": {
@@ -17146,7 +17391,8 @@
       },
       "required": [
         "business_metric_token",
-        "unit_scale"
+        "unit_scale",
+        "calculation_type"
       ]
     },
     "ChartSettings": {
@@ -17155,7 +17401,7 @@
         "y_axis_dimension": {
           "type": "string",
           "x-nullable": false,
-          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
         "x_axis_dimension": {
           "type": "array",
@@ -17252,6 +17498,9 @@
             "circle_ci",
             "modal",
             "eleven_labs",
+            "baseten",
+            "cloudflare",
+            "fireworks_ai",
             "all"
           ],
           "x-nullable": false,
@@ -17318,6 +17567,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -17464,7 +17728,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
             }
           }
         }
@@ -17520,6 +17784,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -17622,7 +17901,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
             }
           }
         },
@@ -17929,7 +18208,10 @@
             "redis_cloud",
             "circle_ci",
             "modal",
-            "eleven_labs"
+            "eleven_labs",
+            "baseten",
+            "cloudflare",
+            "fireworks_ai"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -19797,7 +20079,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens for the Billing Rules assigned to the Managed Account."
+          "description": "The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data."
         },
         "email_domain": {
           "type": "string",
@@ -19859,7 +20141,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.",
           "items": {
             "type": "string"
           }
@@ -19895,7 +20177,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.",
           "items": {
             "type": "string"
           }
@@ -22560,11 +22842,23 @@
           "x-nullable": false,
           "description": "The title of the BusinessMetric for which the unit cost was calculated."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": true,
+          "description": "The calculation type applied to produce this result."
+        },
         "unit_cost_amount": {
           "type": "string",
           "example": "4.25",
           "x-nullable": false,
-          "description": "The amount of the unit cost."
+          "description": "The amount of the unit cost. For raw_business_metric types, this equals the business_metric_amount."
         },
         "business_metric_amount": {
           "type": "string",
@@ -22714,7 +23008,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-12-01",
+          "example": "2026-01-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },

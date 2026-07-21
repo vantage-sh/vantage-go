@@ -33,6 +33,9 @@ type CreateBusinessMetric struct {
 	// The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
 	ForecastedValues []*CreateBusinessMetricForecastedValuesItems0 `json:"forecasted_values,omitempty"`
 
+	// snowflake metric fields
+	SnowflakeMetricFields *CreateBusinessMetricSnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
+
 	// The title of the BusinessMetrics.
 	// Required: true
 	Title *string `json:"title"`
@@ -58,6 +61,10 @@ func (m *CreateBusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateForecastedValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSnowflakeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -165,6 +172,25 @@ func (m *CreateBusinessMetric) validateForecastedValues(formats strfmt.Registry)
 	return nil
 }
 
+func (m *CreateBusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.SnowflakeMetricFields) { // not required
+		return nil
+	}
+
+	if m.SnowflakeMetricFields != nil {
+		if err := m.SnowflakeMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *CreateBusinessMetric) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
@@ -217,6 +243,10 @@ func (m *CreateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidateForecastedValues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSnowflakeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -317,6 +347,27 @@ func (m *CreateBusinessMetric) contextValidateForecastedValues(ctx context.Conte
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CreateBusinessMetric) contextValidateSnowflakeMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SnowflakeMetricFields != nil {
+
+		if swag.IsZero(m.SnowflakeMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.SnowflakeMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -534,9 +585,16 @@ func (m *CreateBusinessMetricCloudwatchFieldsDimensionsItems0) UnmarshalBinary(b
 // swagger:model CreateBusinessMetricCostReportTokensWithMetadataItems0
 type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 
+	// The calculation type applied when this BusinessMetric is used in the CostReport.
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType *string `json:"calculation_type,omitempty"`
+
 	// The token of the CostReport the BusinessMetric is attached to.
 	// Required: true
 	CostReportToken *string `json:"cost_report_token"`
+
+	// Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type.
+	Label string `json:"label,omitempty"`
 
 	// Include only values with these labels in the CostReport.
 	LabelFilter []string `json:"label_filter"`
@@ -550,6 +608,10 @@ type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCostReportToken(formats); err != nil {
 		res = append(res, err)
 	}
@@ -561,6 +623,54 @@ func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) Validate(format
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var createBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum = append(createBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUnitCost captures enum value "unit_cost"
+	CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUnitCost string = "unit_cost"
+
+	// CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeGrossMargin captures enum value "gross_margin"
+	CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeGrossMargin string = "gross_margin"
+
+	// CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	CreateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) validateCalculationType(formats strfmt.Registry) error {
+	if swag.IsZero(m.CalculationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -761,6 +871,46 @@ func (m *CreateBusinessMetricForecastedValuesItems0) MarshalBinary() ([]byte, er
 // UnmarshalBinary interface implementation
 func (m *CreateBusinessMetricForecastedValuesItems0) UnmarshalBinary(b []byte) error {
 	var res CreateBusinessMetricForecastedValuesItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBusinessMetricSnowflakeMetricFields Snowflake metric configuration fields.
+//
+// swagger:model CreateBusinessMetricSnowflakeMetricFields
+type CreateBusinessMetricSnowflakeMetricFields struct {
+
+	// Integration token for the Snowflake integration from which you would like to fetch metrics.
+	IntegrationToken string `json:"integration_token,omitempty"`
+
+	// Snowflake SQL query returning date, value, and optional label columns.
+	SQLQuery string `json:"sql_query,omitempty"`
+}
+
+// Validate validates this create business metric snowflake metric fields
+func (m *CreateBusinessMetricSnowflakeMetricFields) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this create business metric snowflake metric fields based on context it is used
+func (m *CreateBusinessMetricSnowflakeMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBusinessMetricSnowflakeMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBusinessMetricSnowflakeMetricFields) UnmarshalBinary(b []byte) error {
+	var res CreateBusinessMetricSnowflakeMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
