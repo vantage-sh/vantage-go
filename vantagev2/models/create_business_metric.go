@@ -33,6 +33,9 @@ type CreateBusinessMetric struct {
 	// The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
 	ForecastedValues []*CreateBusinessMetricForecastedValuesItems0 `json:"forecasted_values,omitempty"`
 
+	// snowflake metric fields
+	SnowflakeMetricFields *CreateBusinessMetricSnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
+
 	// The title of the BusinessMetrics.
 	// Required: true
 	Title *string `json:"title"`
@@ -58,6 +61,10 @@ func (m *CreateBusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateForecastedValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSnowflakeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -165,6 +172,25 @@ func (m *CreateBusinessMetric) validateForecastedValues(formats strfmt.Registry)
 	return nil
 }
 
+func (m *CreateBusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.SnowflakeMetricFields) { // not required
+		return nil
+	}
+
+	if m.SnowflakeMetricFields != nil {
+		if err := m.SnowflakeMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *CreateBusinessMetric) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
@@ -217,6 +243,10 @@ func (m *CreateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidateForecastedValues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSnowflakeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -317,6 +347,27 @@ func (m *CreateBusinessMetric) contextValidateForecastedValues(ctx context.Conte
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *CreateBusinessMetric) contextValidateSnowflakeMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SnowflakeMetricFields != nil {
+
+		if swag.IsZero(m.SnowflakeMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.SnowflakeMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snowflake_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snowflake_metric_fields")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -541,6 +592,10 @@ type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 	// Include only values with these labels in the CostReport.
 	LabelFilter []string `json:"label_filter"`
 
+	// Include only ClickHouse BusinessMetric values matching every label key and one of its values.
+	// Example: {"environment":["production"],"team":["platform","finops"]}
+	LabelFilters map[string][]string `json:"label_filters,omitempty"`
+
 	// Determines the scale of the BusinessMetric's values within the CostReport.
 	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale *string `json:"unit_scale,omitempty"`
@@ -551,6 +606,10 @@ func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) Validate(format
 	var res []error
 
 	if err := m.validateCostReportToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -568,6 +627,24 @@ func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) validateCostRep
 
 	if err := validate.Required("cost_report_token", "body", m.CostReportToken); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBusinessMetricCostReportTokensWithMetadataItems0) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
@@ -761,6 +838,46 @@ func (m *CreateBusinessMetricForecastedValuesItems0) MarshalBinary() ([]byte, er
 // UnmarshalBinary interface implementation
 func (m *CreateBusinessMetricForecastedValuesItems0) UnmarshalBinary(b []byte) error {
 	var res CreateBusinessMetricForecastedValuesItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBusinessMetricSnowflakeMetricFields Snowflake metric configuration fields.
+//
+// swagger:model CreateBusinessMetricSnowflakeMetricFields
+type CreateBusinessMetricSnowflakeMetricFields struct {
+
+	// Integration token for the Snowflake integration from which you would like to fetch metrics.
+	IntegrationToken string `json:"integration_token,omitempty"`
+
+	// Snowflake SQL query returning date, value, and optional label columns.
+	SQLQuery string `json:"sql_query,omitempty"`
+}
+
+// Validate validates this create business metric snowflake metric fields
+func (m *CreateBusinessMetricSnowflakeMetricFields) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this create business metric snowflake metric fields based on context it is used
+func (m *CreateBusinessMetricSnowflakeMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBusinessMetricSnowflakeMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBusinessMetricSnowflakeMetricFields) UnmarshalBinary(b []byte) error {
+	var res CreateBusinessMetricSnowflakeMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

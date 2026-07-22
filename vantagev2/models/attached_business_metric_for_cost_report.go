@@ -25,8 +25,22 @@ type AttachedBusinessMetricForCostReport struct {
 	// Required: true
 	BusinessMetricToken string `json:"business_metric_token"`
 
+	// The calculation type applied when this BusinessMetric is used in the CostReport.
+	// Example: unit_cost
+	// Required: true
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType string `json:"calculation_type"`
+
+	// Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type.
+	// Example: Gross Margin
+	Label *string `json:"label,omitempty"`
+
 	// The labels that the BusinessMetric is filtered by within a particular CostReport.
 	LabelFilter []string `json:"label_filter,omitempty"`
+
+	// The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives.
+	// Example: {"environment":["production"],"team":["platform","finops"]}
+	LabelFilters interface{} `json:"label_filters,omitempty"`
 
 	// Determines the scale of the BusinessMetric's values within a particular CostReport.
 	// Example: per_hundred
@@ -43,6 +57,10 @@ func (m *AttachedBusinessMetricForCostReport) Validate(formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateUnitScale(formats); err != nil {
 		res = append(res, err)
 	}
@@ -56,6 +74,55 @@ func (m *AttachedBusinessMetricForCostReport) Validate(formats strfmt.Registry) 
 func (m *AttachedBusinessMetricForCostReport) validateBusinessMetricToken(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var attachedBusinessMetricForCostReportTypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		attachedBusinessMetricForCostReportTypeCalculationTypePropEnum = append(attachedBusinessMetricForCostReportTypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AttachedBusinessMetricForCostReportCalculationTypeUnitCost captures enum value "unit_cost"
+	AttachedBusinessMetricForCostReportCalculationTypeUnitCost string = "unit_cost"
+
+	// AttachedBusinessMetricForCostReportCalculationTypeGrossMargin captures enum value "gross_margin"
+	AttachedBusinessMetricForCostReportCalculationTypeGrossMargin string = "gross_margin"
+
+	// AttachedBusinessMetricForCostReportCalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	AttachedBusinessMetricForCostReportCalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// AttachedBusinessMetricForCostReportCalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	AttachedBusinessMetricForCostReportCalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *AttachedBusinessMetricForCostReport) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, attachedBusinessMetricForCostReportTypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AttachedBusinessMetricForCostReport) validateCalculationType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("calculation_type", "body", m.CalculationType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", m.CalculationType); err != nil {
 		return err
 	}
 

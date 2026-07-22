@@ -56,7 +56,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai"]
 	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -171,7 +171,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -282,6 +282,15 @@ const (
 
 	// CostProviderElevenLabs captures enum value "eleven_labs"
 	CostProviderElevenLabs string = "eleven_labs"
+
+	// CostProviderBaseten captures enum value "baseten"
+	CostProviderBaseten string = "baseten"
+
+	// CostProviderCloudflare captures enum value "cloudflare"
+	CostProviderCloudflare string = "cloudflare"
+
+	// CostProviderFireworksAi captures enum value "fireworks_ai"
+	CostProviderFireworksAi string = "fireworks_ai"
 )
 
 // prop value enum
