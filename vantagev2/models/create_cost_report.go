@@ -49,7 +49,7 @@ type CreateCostReport struct {
 	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
 	// The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
@@ -524,6 +524,10 @@ type CreateCostReportBusinessMetricTokensWithMetadataItems0 struct {
 	// Include only values with these labels in the CostReport.
 	LabelFilter []string `json:"label_filter"`
 
+	// Include only ClickHouse BusinessMetric values matching every label key and one of its values.
+	// Example: {"environment":["production"],"team":["platform","finops"]}
+	LabelFilters map[string][]string `json:"label_filters,omitempty"`
+
 	// Determines the scale of the BusinessMetric's values within the CostReport.
 	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
 	UnitScale *string `json:"unit_scale,omitempty"`
@@ -534,6 +538,10 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) Validate(format
 	var res []error
 
 	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -551,6 +559,24 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateBusines
 
 	if err := validate.Required("business_metric_token", "body", m.BusinessMetricToken); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
@@ -638,7 +664,7 @@ type CreateCostReportChartSettings struct {
 	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
 	XAxisDimension []string `json:"x_axis_dimension"`
 
-	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
+	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
 	YAxisDimension string `json:"y_axis_dimension,omitempty"`
 }
 

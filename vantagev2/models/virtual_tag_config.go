@@ -21,7 +21,7 @@ import (
 type VirtualTagConfig struct {
 
 	// The earliest month VirtualTagConfig should be backfilled to.
-	// Example: 2025-12-01
+	// Example: 2026-01-01
 	// Required: true
 	BackfillUntil string `json:"backfill_until"`
 

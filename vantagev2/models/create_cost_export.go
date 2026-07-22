@@ -33,7 +33,7 @@ type CreateCostExport struct {
 	// The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
 	Filter string `json:"filter,omitempty"`
 
-	// Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings []string `json:"groupings"`
 
 	// The schema of the data export.
