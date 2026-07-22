@@ -571,9 +571,16 @@ func (m *UpdateBusinessMetricCloudwatchFieldsDimensionsItems0) UnmarshalBinary(b
 // swagger:model UpdateBusinessMetricCostReportTokensWithMetadataItems0
 type UpdateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 
+	// The calculation type applied when this BusinessMetric is used in the CostReport.
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType *string `json:"calculation_type,omitempty"`
+
 	// The token of the CostReport the BusinessMetric is attached to.
 	// Required: true
 	CostReportToken *string `json:"cost_report_token"`
+
+	// Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type.
+	Label string `json:"label,omitempty"`
 
 	// Include only values with these labels in the CostReport.
 	LabelFilter []string `json:"label_filter"`
@@ -591,6 +598,10 @@ type UpdateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCostReportToken(formats); err != nil {
 		res = append(res, err)
 	}
@@ -606,6 +617,54 @@ func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) Validate(format
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var updateBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum = append(updateBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUnitCost captures enum value "unit_cost"
+	UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUnitCost string = "unit_cost"
+
+	// UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeGrossMargin captures enum value "gross_margin"
+	UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeGrossMargin string = "gross_margin"
+
+	// UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	UpdateBusinessMetricCostReportTokensWithMetadataItems0CalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateBusinessMetricCostReportTokensWithMetadataItems0TypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateBusinessMetricCostReportTokensWithMetadataItems0) validateCalculationType(formats strfmt.Registry) error {
+	if swag.IsZero(m.CalculationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

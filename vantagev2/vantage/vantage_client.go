@@ -37,6 +37,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/managed_accounts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/me"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/network_flow_logs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/network_flow_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/open_api_specification"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
@@ -126,6 +127,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.ManagedAccounts = managed_accounts.New(transport, formats)
 	cli.Me = me.New(transport, formats)
+	cli.NetworkFlowLogs = network_flow_logs.New(transport, formats)
 	cli.NetworkFlowReports = network_flow_reports.New(transport, formats)
 	cli.OpenAPISpecification = open_api_specification.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
@@ -242,6 +244,8 @@ type Vantage struct {
 
 	Me me.ClientService
 
+	NetworkFlowLogs network_flow_logs.ClientService
+
 	NetworkFlowReports network_flow_reports.ClientService
 
 	OpenAPISpecification open_api_specification.ClientService
@@ -311,6 +315,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.ManagedAccounts.SetTransport(transport)
 	c.Me.SetTransport(transport)
+	c.NetworkFlowLogs.SetTransport(transport)
 	c.NetworkFlowReports.SetTransport(transport)
 	c.OpenAPISpecification.SetTransport(transport)
 	c.Ping.SetTransport(transport)
