@@ -65,6 +65,12 @@ type GetBusinessMetricValuesParams struct {
 	// BusinessMetricToken.
 	BusinessMetricToken string
 
+	/* DateBin.
+
+	   Sum values by UTC day or month while preserving labels. When omitted, values are returned without aggregation.
+	*/
+	DateBin *string
+
 	/* LabelValues.
 
 	   Return values matching any exact label value. For multi-label metrics, matches values under any label key.
@@ -73,7 +79,7 @@ type GetBusinessMetricValuesParams struct {
 
 	/* Limit.
 
-	   The amount of results to return. The maximum is 1000.
+	   The amount of results to return. The maximum is 5000.
 
 	   Format: int32
 	*/
@@ -159,6 +165,17 @@ func (o *GetBusinessMetricValuesParams) SetBusinessMetricToken(businessMetricTok
 	o.BusinessMetricToken = businessMetricToken
 }
 
+// WithDateBin adds the dateBin to the get business metric values params
+func (o *GetBusinessMetricValuesParams) WithDateBin(dateBin *string) *GetBusinessMetricValuesParams {
+	o.SetDateBin(dateBin)
+	return o
+}
+
+// SetDateBin adds the dateBin to the get business metric values params
+func (o *GetBusinessMetricValuesParams) SetDateBin(dateBin *string) {
+	o.DateBin = dateBin
+}
+
 // WithLabelValues adds the labelValues to the get business metric values params
 func (o *GetBusinessMetricValuesParams) WithLabelValues(labelValues []string) *GetBusinessMetricValuesParams {
 	o.SetLabelValues(labelValues)
@@ -214,6 +231,23 @@ func (o *GetBusinessMetricValuesParams) WriteToRequest(r runtime.ClientRequest, 
 	// path param business_metric_token
 	if err := r.SetPathParam("business_metric_token", o.BusinessMetricToken); err != nil {
 		return err
+	}
+
+	if o.DateBin != nil {
+
+		// query param date_bin
+		var qrDateBin string
+
+		if o.DateBin != nil {
+			qrDateBin = *o.DateBin
+		}
+		qDateBin := qrDateBin
+		if qDateBin != "" {
+
+			if err := r.SetQueryParam("date_bin", qDateBin); err != nil {
+				return err
+			}
+		}
 	}
 
 	if o.LabelValues != nil {

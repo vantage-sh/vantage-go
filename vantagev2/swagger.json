@@ -151,6 +151,10 @@
       "description": "Operations about UserFeedbacks"
     },
     {
+      "name": "NetworkFlowLogs",
+      "description": "Operations about NetworkFlowLogs"
+    },
+    {
       "name": "NetworkFlowReports",
       "description": "Operations about NetworkFlowReports"
     },
@@ -2597,9 +2601,11 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
             "required": false
           }
         ],
@@ -3047,9 +3053,11 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
             "required": false
           },
           {
@@ -3068,6 +3076,17 @@
             "items": {
               "type": "string"
             },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "date_bin",
+            "description": "Sum values by UTC day or month while preserving labels. When omitted, values are returned without aggregation.",
+            "type": "string",
+            "enum": [
+              "day",
+              "month"
+            ],
             "required": false
           },
           {
@@ -3107,6 +3126,12 @@
                   }
                 ]
               }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
             }
           },
           "404": {
@@ -3227,9 +3252,11 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
             "required": false
           },
           {
@@ -8511,6 +8538,212 @@
         "operationId": "createUserFeedback"
       }
     },
+    "/network_flow_logs": {
+      "get": {
+        "summary": "Get network flow logs",
+        "description": "Return aggregated Network Flow Logs for a saved report or ad hoc VQL query.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "network_flow_report_token",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "date_interval",
+            "type": "string",
+            "enum": [
+              "last_3_days",
+              "last_7_days",
+              "last_14_days",
+              "last_30_days"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "type": "string",
+            "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "type": "string",
+            "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "groupings",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "account_id",
+                "az_id",
+                "dstaddr",
+                "dsthostname",
+                "flow_direction",
+                "interface_id",
+                "instance_id",
+                "peer_resource_uuid",
+                "peer_account_id",
+                "peer_vpc_id",
+                "peer_region",
+                "peer_az_id",
+                "peer_subnet_id",
+                "peer_interface_id",
+                "peer_instance_id",
+                "region",
+                "resource_uuid",
+                "srcaddr",
+                "srchostname",
+                "subnet_id",
+                "traffic_category",
+                "traffic_path",
+                "vpc_id"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "flow_direction",
+            "type": "string",
+            "enum": [
+              "all",
+              "ingress",
+              "egress"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "flow_weight",
+            "type": "string",
+            "enum": [
+              "costs",
+              "bytes"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowLogs"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/network_flow_logs?network_flow_report_token=ntflw_lg_rprt_aea0bdc238d0cf65",
+                  "first": "https://api.vantage.sh/v2/network_flow_logs?network_flow_report_token=ntflw_lg_rprt_aea0bdc238d0cf65&page=1",
+                  "next": null,
+                  "last": null,
+                  "prev": null
+                },
+                "flow_weight": "costs",
+                "sampling": {
+                  "sampled": true,
+                  "max_sampling_rate_percent": 50.0
+                },
+                "network_flow_logs": [
+                  {
+                    "groupings": {
+                      "resource_uuid": {
+                        "value": "resource-123",
+                        "label": "production-web-1",
+                        "provider_resource_token": "prvdr_rsrc_39e94b2468400dca"
+                      },
+                      "traffic_category": {
+                        "value": "public",
+                        "label": "public",
+                        "provider_resource_token": null
+                      }
+                    },
+                    "bytes": 200.0,
+                    "estimated_cost": "2.5",
+                    "currency": "USD",
+                    "sampled_bytes": 100.0,
+                    "sampled_estimated_cost": "1.25"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowLogs"
+        ],
+        "operationId": "getNetworkFlowLogs"
+      }
+    },
     "/network_flow_reports": {
       "get": {
         "summary": "Get all network flow reports",
@@ -8519,6 +8752,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter NetworkFlowReports by title.",
+            "type": "string",
+            "required": false
+          },
           {
             "in": "query",
             "name": "page",
@@ -16310,6 +16550,21 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
@@ -16496,6 +16751,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -17610,6 +17880,21 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
@@ -17831,6 +18116,21 @@
                   "per_billion"
                 ],
                 "default": "per_unit"
+              },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
               },
               "label_filter": {
                 "type": "array",
@@ -20621,6 +20921,81 @@
       ],
       "description": "UserFeedback model"
     },
+    "NetworkFlowLogs": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "flow_weight": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The dimension used to order the aggregated rows."
+        },
+        "sampling": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "Sampling metadata for the selected data."
+        },
+        "network_flow_logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkFlowLog"
+          }
+        }
+      },
+      "required": [
+        "flow_weight",
+        "sampling",
+        "network_flow_logs"
+      ],
+      "description": "NetworkFlowLogs model"
+    },
+    "NetworkFlowLog": {
+      "type": "object",
+      "properties": {
+        "groupings": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "The grouping values for this aggregated Network Flow Log row."
+        },
+        "bytes": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": false,
+          "description": "The sampling-adjusted estimated byte count."
+        },
+        "estimated_cost": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The sampling-adjusted estimated cost."
+        },
+        "currency": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The ISO 4217 currency code for estimated costs."
+        },
+        "sampled_bytes": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The observed byte count when sampling applies."
+        },
+        "sampled_estimated_cost": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The observed estimated cost when sampling applies."
+        }
+      },
+      "required": [
+        "groupings",
+        "bytes",
+        "estimated_cost",
+        "currency",
+        "sampled_bytes",
+        "sampled_estimated_cost"
+      ]
+    },
     "NetworkFlowReports": {
       "type": "object",
       "properties": {
@@ -20749,19 +21124,21 @@
         "start_date": {
           "type": "string",
           "format": "date",
-          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The start date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "end_date": {
           "type": "string",
           "format": "date",
-          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The end date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "description": "The date interval of the NetworkFlowReport. Dates are used only for the 'custom' interval. Defaults to 'last_7_days'.",
           "enum": [
             "last_3_days",
             "last_7_days",
+            "last_14_days",
+            "last_30_days",
             "custom"
           ]
         },
@@ -20801,6 +21178,7 @@
           "type": "string",
           "description": "The flow direction of the NetworkFlowReport.",
           "enum": [
+            "all",
             "ingress",
             "egress"
           ]
@@ -20834,19 +21212,21 @@
         "start_date": {
           "type": "string",
           "format": "date",
-          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The start date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "end_date": {
           "type": "string",
           "format": "date",
-          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The end date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "description": "The date interval of the NetworkFlowReport. Dates are used only for the 'custom' interval. Defaults to 'last_7_days'.",
           "enum": [
             "last_3_days",
             "last_7_days",
+            "last_14_days",
+            "last_30_days",
             "custom"
           ]
         },
@@ -20886,6 +21266,7 @@
           "type": "string",
           "description": "The flow direction of the NetworkFlowReport.",
           "enum": [
+            "all",
             "ingress",
             "egress"
           ]

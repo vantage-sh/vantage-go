@@ -21,11 +21,11 @@ import (
 // swagger:model updateNetworkFlowReport
 type UpdateNetworkFlowReport struct {
 
-	// The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
-	// Enum: ["last_3_days","last_7_days","custom"]
+	// The date interval of the NetworkFlowReport. Dates are used only for the 'custom' interval. Defaults to 'last_7_days'.
+	// Enum: ["last_3_days","last_7_days","last_14_days","last_30_days","custom"]
 	DateInterval string `json:"date_interval,omitempty"`
 
-	// The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+	// The end date of a custom NetworkFlowReport. YYYY-MM-DD formatted.
 	// Format: date
 	EndDate strfmt.Date `json:"end_date,omitempty"`
 
@@ -33,7 +33,7 @@ type UpdateNetworkFlowReport struct {
 	Filter string `json:"filter,omitempty"`
 
 	// The flow direction of the NetworkFlowReport.
-	// Enum: ["ingress","egress"]
+	// Enum: ["all","ingress","egress"]
 	FlowDirection string `json:"flow_direction,omitempty"`
 
 	// The dimension by which the logs in the report are sorted. Defaults to costs.
@@ -43,7 +43,7 @@ type UpdateNetworkFlowReport struct {
 	// Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.
 	Groupings []string `json:"groupings"`
 
-	// The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+	// The start date of a custom NetworkFlowReport. YYYY-MM-DD formatted.
 	// Format: date
 	StartDate strfmt.Date `json:"start_date,omitempty"`
 
@@ -89,7 +89,7 @@ var updateNetworkFlowReportTypeDateIntervalPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["last_3_days","last_7_days","custom"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["last_3_days","last_7_days","last_14_days","last_30_days","custom"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -104,6 +104,12 @@ const (
 
 	// UpdateNetworkFlowReportDateIntervalLast7Days captures enum value "last_7_days"
 	UpdateNetworkFlowReportDateIntervalLast7Days string = "last_7_days"
+
+	// UpdateNetworkFlowReportDateIntervalLast14Days captures enum value "last_14_days"
+	UpdateNetworkFlowReportDateIntervalLast14Days string = "last_14_days"
+
+	// UpdateNetworkFlowReportDateIntervalLast30Days captures enum value "last_30_days"
+	UpdateNetworkFlowReportDateIntervalLast30Days string = "last_30_days"
 
 	// UpdateNetworkFlowReportDateIntervalCustom captures enum value "custom"
 	UpdateNetworkFlowReportDateIntervalCustom string = "custom"
@@ -146,7 +152,7 @@ var updateNetworkFlowReportTypeFlowDirectionPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ingress","egress"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["all","ingress","egress"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -155,6 +161,9 @@ func init() {
 }
 
 const (
+
+	// UpdateNetworkFlowReportFlowDirectionAll captures enum value "all"
+	UpdateNetworkFlowReportFlowDirectionAll string = "all"
 
 	// UpdateNetworkFlowReportFlowDirectionIngress captures enum value "ingress"
 	UpdateNetworkFlowReportFlowDirectionIngress string = "ingress"

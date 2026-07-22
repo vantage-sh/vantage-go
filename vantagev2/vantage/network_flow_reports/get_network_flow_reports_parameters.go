@@ -78,6 +78,12 @@ type GetNetworkFlowReportsParams struct {
 	*/
 	Page *int32
 
+	/* Q.
+
+	   A search query to filter NetworkFlowReports by title.
+	*/
+	Q *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -153,6 +159,17 @@ func (o *GetNetworkFlowReportsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get network flow reports params
+func (o *GetNetworkFlowReportsParams) WithQ(q *string) *GetNetworkFlowReportsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get network flow reports params
+func (o *GetNetworkFlowReportsParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetNetworkFlowReportsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +207,23 @@ func (o *GetNetworkFlowReportsParams) WriteToRequest(r runtime.ClientRequest, re
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
