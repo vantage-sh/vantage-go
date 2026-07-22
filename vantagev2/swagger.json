@@ -5056,15 +5056,20 @@
           {
             "in": "query",
             "name": "settings[aggregate_by]",
-            "description": "Results will aggregate by cost or usage.",
+            "description": "Results will aggregate by cost, usage, or count.",
             "type": "string",
             "default": "cost",
+            "enum": [
+              "cost",
+              "usage",
+              "count"
+            ],
             "required": false
           },
           {
             "in": "query",
             "name": "settings[show_previous_period]",
-            "description": "Results will show previous period costs or usage comparison.",
+            "description": "Results will show previous period cost, usage, or count comparison.",
             "type": "boolean",
             "default": true,
             "required": false
@@ -17539,14 +17544,19 @@
             "aggregate_by": {
               "type": "string",
               "default": "cost",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "x-nullable": true,
-              "description": "Report will aggregate by cost or usage."
+              "description": "Report will aggregate by cost, usage, or count."
             },
             "show_previous_period": {
               "type": "boolean",
               "default": true,
               "x-nullable": true,
-              "description": "Report will show previous period costs or usage comparison."
+              "description": "Report will show previous period cost, usage, or count comparison."
             },
             "complete_period": {
               "type": "boolean",
@@ -17737,6 +17747,11 @@
       "properties": {
         "y_axis_dimension": {
           "type": "string",
+          "enum": [
+            "cost",
+            "usage",
+            "count"
+          ],
           "x-nullable": false,
           "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
@@ -17994,12 +18009,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by cost or usage.",
+              "description": "Report will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "default": "cost"
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Report will show previous period costs or usage comparison.",
+              "description": "Report will show previous period cost, usage, or count comparison.",
               "default": true
             },
             "complete_period": {
@@ -18086,7 +18106,12 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ]
             }
           }
         }
@@ -18253,12 +18278,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by cost or usage.",
+              "description": "Report will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "x-nullable": true
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Report will show previous period costs or usage comparison.",
+              "description": "Report will show previous period cost, usage, or count comparison.",
               "x-nullable": true
             },
             "complete_period": {
@@ -18280,7 +18310,12 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ]
             }
           }
         },
@@ -18436,12 +18471,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Results will aggregate by cost or usage.",
+              "description": "Results will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "default": "cost"
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Results will show previous period costs or usage comparison.",
+              "description": "Results will show previous period cost, usage, or count comparison.",
               "default": true
             }
           }
@@ -18465,6 +18505,19 @@
             "$ref": "#/definitions/UsagePartial"
           },
           "description": "The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit."
+        },
+        "total_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "description": "The sum of the date-binned counts. Present when settings.aggregate_by is 'count'."
+        },
+        "counts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostCount"
+          },
+          "description": "Distinct Group By permutation counts for the full requested period, unaffected by page and limit. Bins without cost are omitted. Present when settings.aggregate_by is 'count'."
         },
         "costs": {
           "type": "array",
@@ -24506,6 +24559,28 @@
         }
       },
       "description": "Update a workspace"
+    },
+    "CostCount": {
+      "type": "object",
+      "properties": {
+        "accrued_at": {
+          "type": "string",
+          "example": "2023-09-05+00:00",
+          "x-nullable": false,
+          "description": "The date bin for the count. ISO 8601 Formatted."
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2,
+          "x-nullable": false,
+          "description": "The number of distinct Group By permutations carrying cost in the date bin."
+        }
+      },
+      "required": [
+        "accrued_at",
+        "count"
+      ]
     }
   }
 }

@@ -245,7 +245,8 @@ func (m *CreateCostExport) UnmarshalBinary(b []byte) error {
 // swagger:model CreateCostExportSettings
 type CreateCostExportSettings struct {
 
-	// Results will aggregate by cost or usage.
+	// Results will aggregate by cost, usage, or count.
+	// Enum: ["cost","usage","count"]
 	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Results will amortize.
@@ -263,7 +264,7 @@ type CreateCostExportSettings struct {
 	// Results will include tax.
 	IncludeTax *bool `json:"include_tax,omitempty"`
 
-	// Results will show previous period costs or usage comparison.
+	// Results will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
 	// Results will show unallocated costs.
@@ -272,6 +273,60 @@ type CreateCostExportSettings struct {
 
 // Validate validates this create cost export settings
 func (m *CreateCostExportSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAggregateBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createCostExportSettingsTypeAggregateByPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostExportSettingsTypeAggregateByPropEnum = append(createCostExportSettingsTypeAggregateByPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostExportSettingsAggregateByCost captures enum value "cost"
+	CreateCostExportSettingsAggregateByCost string = "cost"
+
+	// CreateCostExportSettingsAggregateByUsage captures enum value "usage"
+	CreateCostExportSettingsAggregateByUsage string = "usage"
+
+	// CreateCostExportSettingsAggregateByCount captures enum value "count"
+	CreateCostExportSettingsAggregateByCount string = "count"
+)
+
+// prop value enum
+func (m *CreateCostExportSettings) validateAggregateByEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostExportSettingsTypeAggregateByPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostExportSettings) validateAggregateBy(formats strfmt.Registry) error {
+	if swag.IsZero(m.AggregateBy) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAggregateByEnum("settings"+"."+"aggregate_by", "body", *m.AggregateBy); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -730,11 +730,66 @@ type UpdateCostReportChartSettings struct {
 	XAxisDimension []string `json:"x_axis_dimension"`
 
 	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
+	// Enum: ["cost","usage","count"]
 	YAxisDimension string `json:"y_axis_dimension,omitempty"`
 }
 
 // Validate validates this update cost report chart settings
 func (m *UpdateCostReportChartSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateYAxisDimension(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var updateCostReportChartSettingsTypeYAxisDimensionPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateCostReportChartSettingsTypeYAxisDimensionPropEnum = append(updateCostReportChartSettingsTypeYAxisDimensionPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateCostReportChartSettingsYAxisDimensionCost captures enum value "cost"
+	UpdateCostReportChartSettingsYAxisDimensionCost string = "cost"
+
+	// UpdateCostReportChartSettingsYAxisDimensionUsage captures enum value "usage"
+	UpdateCostReportChartSettingsYAxisDimensionUsage string = "usage"
+
+	// UpdateCostReportChartSettingsYAxisDimensionCount captures enum value "count"
+	UpdateCostReportChartSettingsYAxisDimensionCount string = "count"
+)
+
+// prop value enum
+func (m *UpdateCostReportChartSettings) validateYAxisDimensionEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateCostReportChartSettingsTypeYAxisDimensionPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateCostReportChartSettings) validateYAxisDimension(formats strfmt.Registry) error {
+	if swag.IsZero(m.YAxisDimension) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateYAxisDimensionEnum("chart_settings"+"."+"y_axis_dimension", "body", m.YAxisDimension); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -860,7 +915,8 @@ func (m *UpdateCostReportDefaultForecast) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateCostReportSettings
 type UpdateCostReportSettings struct {
 
-	// Report will aggregate by cost or usage.
+	// Report will aggregate by cost, usage, or count.
+	// Enum: ["cost","usage","count"]
 	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.
@@ -881,7 +937,7 @@ type UpdateCostReportSettings struct {
 	// Report will include tax.
 	IncludeTax *bool `json:"include_tax,omitempty"`
 
-	// Report will show previous period costs or usage comparison.
+	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
 	// Report will show unallocated costs.
@@ -890,6 +946,60 @@ type UpdateCostReportSettings struct {
 
 // Validate validates this update cost report settings
 func (m *UpdateCostReportSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAggregateBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var updateCostReportSettingsTypeAggregateByPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateCostReportSettingsTypeAggregateByPropEnum = append(updateCostReportSettingsTypeAggregateByPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateCostReportSettingsAggregateByCost captures enum value "cost"
+	UpdateCostReportSettingsAggregateByCost string = "cost"
+
+	// UpdateCostReportSettingsAggregateByUsage captures enum value "usage"
+	UpdateCostReportSettingsAggregateByUsage string = "usage"
+
+	// UpdateCostReportSettingsAggregateByCount captures enum value "count"
+	UpdateCostReportSettingsAggregateByCount string = "count"
+)
+
+// prop value enum
+func (m *UpdateCostReportSettings) validateAggregateByEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateCostReportSettingsTypeAggregateByPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateCostReportSettings) validateAggregateBy(formats strfmt.Registry) error {
+	if swag.IsZero(m.AggregateBy) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAggregateByEnum("settings"+"."+"aggregate_by", "body", *m.AggregateBy); err != nil {
+		return err
+	}
+
 	return nil
 }
 
