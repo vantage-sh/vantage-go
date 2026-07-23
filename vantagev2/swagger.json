@@ -17483,11 +17483,7 @@
           "description": "The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter."
         },
         "default_forecast": {
-          "type": "object",
-          "example": {
-            "kind": "baseline"
-          },
-          "x-nullable": false,
+          "$ref": "#/definitions/DefaultForecast",
           "description": "The default forecast selection for the CostReport."
         },
         "filter": {
@@ -17698,6 +17694,13 @@
           },
           "x-omitempty": true,
           "x-nullable": true,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
           "description": "The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives."
         }
       },
@@ -17705,6 +17708,28 @@
         "business_metric_token",
         "unit_scale",
         "calculation_type"
+      ]
+    },
+    "DefaultForecast": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "baseline",
+            "report_forecast"
+          ],
+          "x-nullable": false,
+          "description": "The default forecast selection kind."
+        },
+        "report_forecast_token": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token for the report forecast selected as the default."
+        }
+      },
+      "required": [
+        "kind"
       ]
     },
     "ChartSettings": {
