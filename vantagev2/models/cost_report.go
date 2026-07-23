@@ -46,9 +46,8 @@ type CostReport struct {
 	DateInterval string `json:"date_interval"`
 
 	// The default forecast selection for the CostReport.
-	// Example: {"kind":"baseline"}
 	// Required: true
-	DefaultForecast interface{} `json:"default_forecast"`
+	DefaultForecast *DefaultForecast `json:"default_forecast"`
 
 	// The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
 	// Example: 2024-07-15
@@ -240,8 +239,19 @@ func (m *CostReport) validateDateInterval(formats strfmt.Registry) error {
 
 func (m *CostReport) validateDefaultForecast(formats strfmt.Registry) error {
 
-	if m.DefaultForecast == nil {
-		return errors.Required("default_forecast", "body", nil)
+	if err := validate.Required("default_forecast", "body", m.DefaultForecast); err != nil {
+		return err
+	}
+
+	if m.DefaultForecast != nil {
+		if err := m.DefaultForecast.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_forecast")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_forecast")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -314,6 +324,10 @@ func (m *CostReport) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateDefaultForecast(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -358,6 +372,23 @@ func (m *CostReport) contextValidateChartSettings(ctx context.Context, formats s
 				return ve.ValidateName("chart_settings")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("chart_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CostReport) contextValidateDefaultForecast(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DefaultForecast != nil {
+
+		if err := m.DefaultForecast.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_forecast")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_forecast")
 			}
 			return err
 		}
