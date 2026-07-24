@@ -40,7 +40,7 @@ type AttachedBusinessMetricForCostReport struct {
 
 	// The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives.
 	// Example: {"environment":["production"],"team":["platform","finops"]}
-	LabelFilters interface{} `json:"label_filters,omitempty"`
+	LabelFilters map[string][]string `json:"label_filters,omitempty"`
 
 	// Determines the scale of the BusinessMetric's values within a particular CostReport.
 	// Example: per_hundred
@@ -58,6 +58,10 @@ func (m *AttachedBusinessMetricForCostReport) Validate(formats strfmt.Registry) 
 	}
 
 	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -124,6 +128,24 @@ func (m *AttachedBusinessMetricForCostReport) validateCalculationType(formats st
 	// value enum
 	if err := m.validateCalculationTypeEnum("calculation_type", "body", m.CalculationType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *AttachedBusinessMetricForCostReport) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
