@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -441,7 +442,8 @@ func (m *CostReport) UnmarshalBinary(b []byte) error {
 // swagger:model CostReportSettings
 type CostReportSettings struct {
 
-	// Report will aggregate by cost or usage.
+	// Report will aggregate by cost, usage, or count.
+	// Enum: ["cost","usage","count"]
 	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.
@@ -462,7 +464,7 @@ type CostReportSettings struct {
 	// Report will include tax.
 	IncludeTax *bool `json:"include_tax,omitempty"`
 
-	// Report will show previous period costs or usage comparison.
+	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
 	// Report will show unallocated costs.
@@ -471,6 +473,60 @@ type CostReportSettings struct {
 
 // Validate validates this cost report settings
 func (m *CostReportSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAggregateBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var costReportSettingsTypeAggregateByPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		costReportSettingsTypeAggregateByPropEnum = append(costReportSettingsTypeAggregateByPropEnum, v)
+	}
+}
+
+const (
+
+	// CostReportSettingsAggregateByCost captures enum value "cost"
+	CostReportSettingsAggregateByCost string = "cost"
+
+	// CostReportSettingsAggregateByUsage captures enum value "usage"
+	CostReportSettingsAggregateByUsage string = "usage"
+
+	// CostReportSettingsAggregateByCount captures enum value "count"
+	CostReportSettingsAggregateByCount string = "count"
+)
+
+// prop value enum
+func (m *CostReportSettings) validateAggregateByEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, costReportSettingsTypeAggregateByPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CostReportSettings) validateAggregateBy(formats strfmt.Registry) error {
+	if swag.IsZero(m.AggregateBy) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAggregateByEnum("settings"+"."+"aggregate_by", "body", *m.AggregateBy); err != nil {
+		return err
+	}
+
 	return nil
 }
 

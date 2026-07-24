@@ -118,7 +118,7 @@ type GetCostsParams struct {
 
 	/* SettingsAggregateBy.
 
-	   Results will aggregate by cost or usage.
+	   Results will aggregate by cost, usage, or count.
 
 	   Default: "cost"
 	*/
@@ -162,7 +162,7 @@ type GetCostsParams struct {
 
 	/* SettingsShowPreviousPeriod.
 
-	   Results will show previous period costs or usage comparison.
+	   Results will show previous period cost, usage, or count comparison.
 
 	   Default: true
 	*/

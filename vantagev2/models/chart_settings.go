@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -25,6 +26,7 @@ type ChartSettings struct {
 
 	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
 	// Required: true
+	// Enum: ["cost","usage","count"]
 	YAxisDimension string `json:"y_axis_dimension"`
 }
 
@@ -55,9 +57,46 @@ func (m *ChartSettings) validateXAxisDimension(formats strfmt.Registry) error {
 	return nil
 }
 
+var chartSettingsTypeYAxisDimensionPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		chartSettingsTypeYAxisDimensionPropEnum = append(chartSettingsTypeYAxisDimensionPropEnum, v)
+	}
+}
+
+const (
+
+	// ChartSettingsYAxisDimensionCost captures enum value "cost"
+	ChartSettingsYAxisDimensionCost string = "cost"
+
+	// ChartSettingsYAxisDimensionUsage captures enum value "usage"
+	ChartSettingsYAxisDimensionUsage string = "usage"
+
+	// ChartSettingsYAxisDimensionCount captures enum value "count"
+	ChartSettingsYAxisDimensionCount string = "count"
+)
+
+// prop value enum
+func (m *ChartSettings) validateYAxisDimensionEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, chartSettingsTypeYAxisDimensionPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ChartSettings) validateYAxisDimension(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("y_axis_dimension", "body", m.YAxisDimension); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateYAxisDimensionEnum("y_axis_dimension", "body", m.YAxisDimension); err != nil {
 		return err
 	}
 
