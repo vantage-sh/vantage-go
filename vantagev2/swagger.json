@@ -175,6 +175,10 @@
       "description": "Operations about ReportNotifications"
     },
     {
+      "name": "ReportForecasts",
+      "description": "Operations about ReportForecasts"
+    },
+    {
       "name": "ResourceReports",
       "description": "Operations about ResourceReports"
     },
@@ -185,6 +189,10 @@
     {
       "name": "SavedFilters",
       "description": "Operations about SavedFilters"
+    },
+    {
+      "name": "ScenarioModels",
+      "description": "Operations about ScenarioModels"
     },
     {
       "name": "Segments",
@@ -3843,7 +3851,7 @@
                     "updated_at": "2025-04-21T15:19:49.673Z",
                     "workspace_token": "wrkspc_7d5a18b7d02942da",
                     "interval": "day",
-                    "threshold": 1000,
+                    "threshold": 1000.0,
                     "unit_type": "currency",
                     "report_tokens": [
                       "rprt_a88be0a2af07fe10"
@@ -3904,7 +3912,7 @@
                 "updated_at": "2025-04-21T15:19:49.891Z",
                 "workspace_token": "wrkspc_a5e36f631519f7d3",
                 "interval": "month",
-                "threshold": 100,
+                "threshold": 100.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_ccf0092d336de56c"
@@ -3965,7 +3973,7 @@
                 "updated_at": "2025-04-21T15:19:49.598Z",
                 "workspace_token": "wrkspc_c94c58cd1f9a6314",
                 "interval": "day",
-                "threshold": 1000,
+                "threshold": 1000.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_7c787dfc49b17876"
@@ -4038,7 +4046,7 @@
                 "updated_at": "2025-04-21T15:19:48.537Z",
                 "workspace_token": "wrkspc_643e0e66ee5a4611",
                 "interval": "day",
-                "threshold": 500,
+                "threshold": 500.0,
                 "unit_type": "currency",
                 "report_tokens": [
                   "rprt_bc47a84e3ab8a5d5"
@@ -8692,7 +8700,7 @@
                 "flow_weight": "costs",
                 "sampling": {
                   "sampled": true,
-                  "max_sampling_rate_percent": 50
+                  "max_sampling_rate_percent": 50.0
                 },
                 "network_flow_logs": [
                   {
@@ -8708,10 +8716,10 @@
                         "provider_resource_token": null
                       }
                     },
-                    "bytes": 200,
+                    "bytes": 200.0,
                     "estimated_cost": "2.5",
                     "currency": "USD",
-                    "sampled_bytes": 100,
+                    "sampled_bytes": 100.0,
                     "sampled_estimated_cost": "1.25"
                   }
                 ]
@@ -10650,6 +10658,341 @@
         "operationId": "deleteReportNotification"
       }
     },
+    "/report_forecasts": {
+      "get": {
+        "summary": "Get all report forecasts",
+        "description": "Return all scenario-model ReportForecasts for a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all scenario-model ReportForecasts for a CostReport.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecasts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a",
+                  "first": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a&page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a&page=1",
+                  "prev": null
+                },
+                "report_forecasts": [
+                  {
+                    "token": "rprt_frcst_b6fc93cfbe7bb782",
+                    "title": "Board Plan",
+                    "cost_report_token": "rprt_fd7190753bb1ce4a",
+                    "scenario_model_tokens": [
+                      "frcst_mdl_998be85cff4d0574"
+                    ],
+                    "business_metric_token": null,
+                    "is_default": false,
+                    "created_by_token": "usr_9be7c063f1529dff",
+                    "created_at": "2026-07-28T15:37:51Z",
+                    "updated_at": "2026-07-28T15:37:51Z"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "getReportForecasts"
+      },
+      "post": {
+        "summary": "Create report forecast",
+        "description": "Create a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createReportForecast",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createReportForecast"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_5d4cc7ef29bed6d2",
+                "title": "Operating Plan",
+                "cost_report_token": "rprt_82a0304aaf254804",
+                "scenario_model_tokens": [
+                  "frcst_mdl_ebb14bfd8eabc5fd"
+                ],
+                "business_metric_token": null,
+                "is_default": true,
+                "created_by_token": "usr_10a09baaa100511e",
+                "created_at": "2026-07-28T15:37:52Z",
+                "updated_at": "2026-07-28T15:37:52Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "createReportForecast"
+      }
+    },
+    "/report_forecasts/{report_forecast_token}": {
+      "get": {
+        "summary": "Get report forecast by token",
+        "description": "Return a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_4eb4953f73d088c3",
+                "title": "Board Plan",
+                "cost_report_token": "rprt_89d0dacbe6bdee16",
+                "scenario_model_tokens": [
+                  "frcst_mdl_f2fbc239e8f733f5"
+                ],
+                "business_metric_token": null,
+                "is_default": false,
+                "created_by_token": "usr_9c1be40b31fe536c",
+                "created_at": "2026-07-28T15:37:50Z",
+                "updated_at": "2026-07-28T15:37:50Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "getReportForecast"
+      },
+      "put": {
+        "summary": "Update report forecast",
+        "description": "Update a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateReportForecast",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateReportForecast"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_1857da57e1638621",
+                "title": "Revised Board Plan",
+                "cost_report_token": "rprt_2ba2ed341ec3140f",
+                "scenario_model_tokens": [
+                  "frcst_mdl_71ba27b133ee9ff3"
+                ],
+                "business_metric_token": null,
+                "is_default": true,
+                "created_by_token": "usr_5341c3c0f83a1a3f",
+                "created_at": "2026-07-28T15:37:48Z",
+                "updated_at": "2026-07-28T15:37:48Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "updateReportForecast"
+      },
+      "delete": {
+        "summary": "Delete report forecast",
+        "description": "Delete a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "deleteReportForecast"
+      }
+    },
     "/resource_reports/columns": {
       "get": {
         "summary": "Get resource report columns",
@@ -11194,7 +11537,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 200,
+                    "cost": 200.0,
                     "created_at": "2024-10-06T20:14:55.898Z"
                   },
                   {
@@ -11230,7 +11573,7 @@
                     "billing_account_id": "734912804094",
                     "provider": "aws",
                     "region": "us-east-1",
-                    "cost": 100,
+                    "cost": 100.0,
                     "created_at": "2024-10-07T20:14:55.898Z"
                   }
                 ]
@@ -11334,11 +11677,11 @@
                 "costs": [
                   {
                     "category": "Data Transfer",
-                    "amount": 3
+                    "amount": 3.0
                   },
                   {
                     "category": "Compute Instance",
-                    "amount": 3
+                    "amount": 3.0
                   }
                 ],
                 "created_at": "2024-10-09T13:16:35.719Z"
@@ -11651,6 +11994,347 @@
           "SavedFilters"
         ],
         "operationId": "deleteSavedFilter"
+      }
+    },
+    "/scenario_models": {
+      "get": {
+        "summary": "Get all scenario models",
+        "description": "Return all ScenarioModels.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all ScenarioModels.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModels"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/scenario_models",
+                  "first": "https://api.vantage.sh/v2/scenario_models?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/scenario_models?page=1",
+                  "prev": null
+                },
+                "scenario_models": [
+                  {
+                    "token": "frcst_mdl_47f8f6511171bc8f",
+                    "title": "Hiring Plan",
+                    "priority": 2,
+                    "workspace_token": null,
+                    "provider": null,
+                    "service": null,
+                    "periods": [
+                      {
+                        "start_at": "2026-01-01",
+                        "end_at": "2026-03-31",
+                        "amount": "1250.75",
+                        "amount_type": "dollar"
+                      }
+                    ],
+                    "created_by_token": "usr_41333d06c73b9405",
+                    "created_at": "2026-07-28T15:37:49Z",
+                    "updated_at": "2026-07-28T15:37:49Z"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "getScenarioModels"
+      },
+      "post": {
+        "summary": "Create scenario model",
+        "description": "Create a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createScenarioModel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createScenarioModel"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_e42020822501d0ee",
+                "title": "Expansion Plan",
+                "priority": 4,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-04-01",
+                    "end_at": null,
+                    "amount": "9876.54321",
+                    "amount_type": "percent"
+                  }
+                ],
+                "created_by_token": "usr_cc82bf4cf16d5452",
+                "created_at": "2026-07-28T15:37:50Z",
+                "updated_at": "2026-07-28T15:37:50Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "createScenarioModel"
+      }
+    },
+    "/scenario_models/{scenario_model_token}": {
+      "get": {
+        "summary": "Get scenario model by token",
+        "description": "Return a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_a7684dd8104260da",
+                "title": "Hiring Plan",
+                "priority": 2,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-01-01",
+                    "end_at": "2026-03-31",
+                    "amount": "1250.75",
+                    "amount_type": "dollar"
+                  }
+                ],
+                "created_by_token": "usr_2943707386442e61",
+                "created_at": "2026-07-28T15:37:49Z",
+                "updated_at": "2026-07-28T15:37:49Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "getScenarioModel"
+      },
+      "put": {
+        "summary": "Update scenario model",
+        "description": "Update a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateScenarioModel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateScenarioModel"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_09c6dc8b48640f37",
+                "title": "Updated Hiring Plan",
+                "priority": 2,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-01-01",
+                    "end_at": "2026-03-31",
+                    "amount": "1250.75",
+                    "amount_type": "dollar"
+                  }
+                ],
+                "created_by_token": "usr_f26745be72a42d31",
+                "created_at": "2026-07-28T15:37:52Z",
+                "updated_at": "2026-07-28T15:37:52Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "updateScenarioModel"
+      },
+      "delete": {
+        "summary": "Delete scenario model",
+        "description": "Delete a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "deleteScenarioModel"
       }
     },
     "/segments": {
@@ -13406,11 +14090,11 @@
                         "percentages": [
                           {
                             "value": "apples-a",
-                            "pct": 50
+                            "pct": 50.0
                           },
                           {
                             "value": "apples-b",
-                            "pct": 50
+                            "pct": 50.0
                           }
                         ],
                         "date_ranges": []
@@ -18574,6 +19258,28 @@
         "unit"
       ]
     },
+    "CostCount": {
+      "type": "object",
+      "properties": {
+        "accrued_at": {
+          "type": "string",
+          "example": "2023-09-05+00:00",
+          "x-nullable": false,
+          "description": "The date bin for the count. ISO 8601 Formatted."
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2,
+          "x-nullable": false,
+          "description": "The number of distinct Group By permutations carrying cost in the date bin."
+        }
+      },
+      "required": [
+        "accrued_at",
+        "count"
+      ]
+    },
     "Cost": {
       "type": "object",
       "properties": {
@@ -22250,6 +22956,137 @@
       },
       "description": "Update a ReportNotification."
     },
+    "ReportForecasts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "report_forecasts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReportForecast"
+          }
+        }
+      },
+      "required": [
+        "report_forecasts"
+      ],
+      "description": "ReportForecasts model"
+    },
+    "ReportForecast": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "cost_report_token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "is_default": {
+          "type": "boolean",
+          "x-nullable": false
+        },
+        "created_by_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "x-nullable": false
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "cost_report_token",
+        "scenario_model_tokens",
+        "business_metric_token",
+        "is_default",
+        "created_by_token",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "ReportForecast model"
+    },
+    "createReportForecast": {
+      "type": "object",
+      "properties": {
+        "cost_report_token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "set_as_default": {
+          "type": "boolean",
+          "x-omitempty": true
+        }
+      },
+      "required": [
+        "cost_report_token",
+        "title"
+      ],
+      "description": "Create a scenario-model ReportForecast."
+    },
+    "updateReportForecast": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "set_as_default": {
+          "type": "boolean",
+          "x-omitempty": true
+        }
+      },
+      "description": "Update a scenario-model ReportForecast."
+    },
     "ResourceReportColumns": {
       "type": "object",
       "properties": {
@@ -22633,6 +23470,252 @@
         }
       },
       "description": "Update a SavedFilter for CostReports."
+    },
+    "ScenarioModels": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "scenario_models": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScenarioModel"
+          }
+        }
+      },
+      "required": [
+        "scenario_models"
+      ],
+      "description": "ScenarioModels model"
+    },
+    "ScenarioModel": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true
+        },
+        "workspace_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScenarioModelPeriod"
+          }
+        },
+        "created_by_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "x-nullable": false
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "priority",
+        "workspace_token",
+        "provider",
+        "service",
+        "periods",
+        "created_by_token",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "ScenarioModel model"
+    },
+    "ScenarioModelPeriod": {
+      "type": "object",
+      "properties": {
+        "start_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": false,
+          "description": "The ISO 8601 start date of the period."
+        },
+        "end_at": {
+          "type": "string",
+          "example": "2026-03-31",
+          "x-nullable": true,
+          "description": "The ISO 8601 end date of the period."
+        },
+        "amount": {
+          "type": "string",
+          "example": "1250.75",
+          "x-nullable": false,
+          "description": "The period amount as a string to preserve decimal precision."
+        },
+        "amount_type": {
+          "type": "string",
+          "enum": [
+            "dollar",
+            "percent"
+          ],
+          "x-nullable": false,
+          "description": "Whether the amount is in dollars or percent."
+        }
+      },
+      "required": [
+        "start_at",
+        "end_at",
+        "amount",
+        "amount_type"
+      ]
+    },
+    "createScenarioModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "workspace_token": {
+          "type": "string"
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the ScenarioModel.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date",
+                "x-nullable": true,
+                "x-omitempty": true
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              },
+              "amount_type": {
+                "type": "string",
+                "enum": [
+                  "dollar",
+                  "percent"
+                ]
+              }
+            },
+            "required": [
+              "start_at",
+              "amount",
+              "amount_type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "description": "Create a ScenarioModel."
+    },
+    "updateScenarioModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "workspace_token": {
+          "type": "string"
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the ScenarioModel.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date",
+                "x-nullable": true,
+                "x-omitempty": true
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              },
+              "amount_type": {
+                "type": "string",
+                "enum": [
+                  "dollar",
+                  "percent"
+                ]
+              }
+            },
+            "required": [
+              "start_at",
+              "amount",
+              "amount_type"
+            ]
+          }
+        }
+      },
+      "description": "Update a ScenarioModel."
     },
     "Segments": {
       "type": "object",
@@ -23382,7 +24465,7 @@
         "scale": {
           "type": "number",
           "format": "float",
-          "example": 1,
+          "example": 1.0,
           "x-nullable": false,
           "description": "The scale of the BusinessMetric's values within a particular CostReport."
         },
@@ -23716,7 +24799,7 @@
         },
         "pct": {
           "type": "number",
-          "example": 50,
+          "example": 50.0,
           "x-nullable": false,
           "description": "The percentage of matched costs associated with the value."
         }
@@ -24559,28 +25642,6 @@
         }
       },
       "description": "Update a workspace"
-    },
-    "CostCount": {
-      "type": "object",
-      "properties": {
-        "accrued_at": {
-          "type": "string",
-          "example": "2023-09-05+00:00",
-          "x-nullable": false,
-          "description": "The date bin for the count. ISO 8601 Formatted."
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64",
-          "example": 2,
-          "x-nullable": false,
-          "description": "The number of distinct Group By permutations carrying cost in the date bin."
-        }
-      },
-      "required": [
-        "accrued_at",
-        "count"
-      ]
     }
   }
 }

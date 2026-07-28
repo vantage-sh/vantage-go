@@ -44,10 +44,12 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendation_views"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendations"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_forecasts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resources"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/saved_filters"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/scenario_models"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/tags"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
@@ -134,10 +136,12 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Prices = prices.New(transport, formats)
 	cli.RecommendationViews = recommendation_views.New(transport, formats)
 	cli.Recommendations = recommendations.New(transport, formats)
+	cli.ReportForecasts = report_forecasts.New(transport, formats)
 	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
 	cli.Resources = resources.New(transport, formats)
 	cli.SavedFilters = saved_filters.New(transport, formats)
+	cli.ScenarioModels = scenario_models.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
 	cli.Tags = tags.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
@@ -258,6 +262,8 @@ type Vantage struct {
 
 	Recommendations recommendations.ClientService
 
+	ReportForecasts report_forecasts.ClientService
+
 	ReportNotifications report_notifications.ClientService
 
 	ResourceReports resource_reports.ClientService
@@ -265,6 +271,8 @@ type Vantage struct {
 	Resources resources.ClientService
 
 	SavedFilters saved_filters.ClientService
+
+	ScenarioModels scenario_models.ClientService
 
 	Segments segments.ClientService
 
@@ -322,10 +330,12 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Prices.SetTransport(transport)
 	c.RecommendationViews.SetTransport(transport)
 	c.Recommendations.SetTransport(transport)
+	c.ReportForecasts.SetTransport(transport)
 	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
 	c.Resources.SetTransport(transport)
 	c.SavedFilters.SetTransport(transport)
+	c.ScenarioModels.SetTransport(transport)
 	c.Segments.SetTransport(transport)
 	c.Tags.SetTransport(transport)
 	c.Teams.SetTransport(transport)
