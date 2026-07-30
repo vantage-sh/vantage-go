@@ -23053,6 +23053,7 @@
         },
         "set_as_default": {
           "type": "boolean",
+          "x-nullable": true,
           "x-omitempty": true
         }
       },
@@ -23082,6 +23083,7 @@
         },
         "set_as_default": {
           "type": "boolean",
+          "x-nullable": true,
           "x-omitempty": true
         }
       },
@@ -24689,6 +24691,19 @@
           "x-nullable": true,
           "description": "The token of the associated BusinessMetric."
         },
+        "label_key": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": true,
+          "description": "Optional business metric label values. An empty array includes every value for the label key."
+        },
         "cost_metric": {
           "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
           "description": "The associated cost metric."
@@ -24939,6 +24954,16 @@
                 "type": "string",
                 "description": "The token of an associated business metric."
               },
+              "label_key": {
+                "type": "string"
+              },
+              "label_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
+              },
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
@@ -25107,6 +25132,16 @@
               "business_metric_token": {
                 "type": "string",
                 "description": "The token of an associated business metric."
+              },
+              "label_key": {
+                "type": "string"
+              },
+              "label_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
               },
               "display_name": {
                 "type": "string",
@@ -25294,6 +25329,16 @@
               "business_metric_token": {
                 "type": "string",
                 "description": "The token of an associated business metric."
+              },
+              "label_key": {
+                "type": "string"
+              },
+              "label_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
               },
               "display_name": {
                 "type": "string",

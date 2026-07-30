@@ -24,7 +24,7 @@ type UpdateReportForecast struct {
 	ScenarioModelTokens []string `json:"scenario_model_tokens,omitempty"`
 
 	// set as default
-	SetAsDefault bool `json:"set_as_default,omitempty"`
+	SetAsDefault *bool `json:"set_as_default,omitempty"`
 
 	// title
 	Title string `json:"title,omitempty"`

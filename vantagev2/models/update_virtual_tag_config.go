@@ -292,8 +292,14 @@ type UpdateVirtualTagConfigValuesItems0 struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// label key
+	LabelKey string `json:"label_key,omitempty"`
+
 	// label transforms
 	LabelTransforms []*UpdateVirtualTagConfigValuesItems0LabelTransformsItems0 `json:"label_transforms,omitempty"`
+
+	// label values
+	LabelValues []string `json:"label_values,omitempty"`
 
 	// The name of the value.
 	Name string `json:"name,omitempty"`
