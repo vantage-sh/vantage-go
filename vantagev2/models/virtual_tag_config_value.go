@@ -39,9 +39,15 @@ type VirtualTagConfigValue struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// The business metric label key used for this virtual tag value.
+	LabelKey *string `json:"label_key,omitempty"`
+
 	// Label transforms applied to business metric labels.
 	// Required: true
 	LabelTransforms []*VirtualTagConfigValueLabelTransform `json:"label_transforms"`
+
+	// Optional business metric label values. An empty array includes every value for the label key.
+	LabelValues []string `json:"label_values"`
 
 	// The name of the Value.
 	// Example: Informatics
