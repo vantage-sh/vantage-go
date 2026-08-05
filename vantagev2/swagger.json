@@ -24606,7 +24606,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2026-01-01",
+          "example": "2026-02-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -24955,10 +24955,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
@@ -25134,10 +25136,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
@@ -25331,10 +25335,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
