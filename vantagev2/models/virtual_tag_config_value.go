@@ -56,6 +56,11 @@ type VirtualTagConfigValue struct {
 	// Labeled percentage allocations for matching costs.
 	// Required: true
 	Percentages []*VirtualTagConfigValuePercentage `json:"percentages"`
+
+	// The token of the Value.
+	// Example: vtag_val_1234
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this virtual tag config value
@@ -79,6 +84,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePercentages(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -192,6 +201,15 @@ func (m *VirtualTagConfigValue) validatePercentages(formats strfmt.Registry) err
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

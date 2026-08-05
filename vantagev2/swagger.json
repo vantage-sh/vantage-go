@@ -14052,6 +14052,7 @@
                     "collapsed_tag_keys": [],
                     "values": [
                       {
+                        "token": "vtag_val_0000000000000003",
                         "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND costs.account_id IN ('1234', '5678'))",
                         "name": "Growth",
                         "label_transforms": [],
@@ -14059,6 +14060,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000004",
                         "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
                         "name": "API",
                         "label_transforms": [],
@@ -14066,6 +14068,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000005",
                         "filter": "(costs.provider = 'aws' AND costs.service = 'AmazonEC2')",
                         "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0",
                         "label_transforms": [],
@@ -14073,6 +14076,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000006",
                         "filter": "(costs.provider = 'aws' AND costs.service != 'Amazon Elastic Compute Cloud')",
                         "cost_metric": {
                           "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud'",
@@ -14085,6 +14089,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000007",
                         "filter": "(costs.provider = 'azure' AND costs.service = 'Azure Compute')",
                         "label_transforms": [],
                         "percentages": [
@@ -14153,6 +14158,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "EXPC-1234",
                     "label_transforms": [],
@@ -14165,6 +14171,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
                     "name": "EXPC-9876",
                     "label_transforms": [],
@@ -14244,6 +14251,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
                     "name": "Growth",
                     "label_transforms": [],
@@ -14256,6 +14264,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
                     "name": "API",
                     "label_transforms": [],
@@ -14326,6 +14335,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "marketing",
                     "label_transforms": [],
@@ -14338,6 +14348,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
                     "name": "third-party integrations",
                     "label_transforms": [],
@@ -24606,7 +24617,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2026-01-01",
+          "example": "2026-02-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -24673,6 +24684,12 @@
     "VirtualTagConfigValue": {
       "type": "object",
       "properties": {
+        "token": {
+          "type": "string",
+          "example": "vtag_val_1234",
+          "x-nullable": false,
+          "description": "The token of the Value."
+        },
         "filter": {
           "type": "string",
           "example": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
@@ -24736,6 +24753,7 @@
         }
       },
       "required": [
+        "token",
         "filter",
         "label_transforms",
         "percentages",
@@ -24955,10 +24973,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
@@ -25134,10 +25154,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
@@ -25331,10 +25353,12 @@
                 "description": "The token of an associated business metric."
               },
               "label_key": {
-                "type": "string"
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
               },
               "label_values": {
                 "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
                 "items": {
                   "type": "string"
                 },
