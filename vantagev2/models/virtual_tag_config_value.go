@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// VirtualTagConfigValue virtual tag config value
+// VirtualTagConfigValue VirtualTagConfigValue model
 //
 // swagger:model VirtualTagConfigValue
 type VirtualTagConfigValue struct {
