@@ -14632,6 +14632,285 @@
         "operationId": "getAsyncVirtualTagConfigStatus"
       }
     },
+    "/virtual_tag_configs/{virtual_tag_config_token}/values": {
+      "post": {
+        "summary": "Create virtual tag config value",
+        "description": "Create a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "createVirtualTagConfigValue",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createVirtualTagConfigValue"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "createVirtualTagConfigValue"
+      }
+    },
+    "/virtual_tag_configs/{virtual_tag_config_token}/values/{virtual_tag_config_value_token}": {
+      "get": {
+        "summary": "Get virtual tag config value by token",
+        "description": "Return a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "getVirtualTagConfigValue"
+      },
+      "patch": {
+        "summary": "Update virtual tag config value",
+        "description": "Update a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateVirtualTagConfigValue",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateVirtualTagConfigValue"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "updateVirtualTagConfigValue"
+      },
+      "delete": {
+        "summary": "Delete virtual tag config value",
+        "description": "Delete a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "deleteVirtualTagConfigValue"
+      }
+    },
     "/workspaces": {
       "get": {
         "summary": "Get all workspaces",
@@ -24758,7 +25037,8 @@
         "label_transforms",
         "percentages",
         "date_ranges"
-      ]
+      ],
+      "description": "VirtualTagConfigValue model"
     },
     "VirtualTagConfigValueCostMetric": {
       "type": "object",
@@ -25465,6 +25745,265 @@
         }
       },
       "description": "Asynchronously updates an existing VirtualTagConfig."
+    },
+    "createVirtualTagConfigValue": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the value."
+        },
+        "business_metric_token": {
+          "type": "string",
+          "description": "The token of an associated business metric."
+        },
+        "label_key": {
+          "type": "string",
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "description": "Business metric label values. An empty array includes every value for the label key.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name for a cost metric or percentage allocation value.",
+          "x-nullable": true
+        },
+        "label_transforms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "split",
+                  "format"
+                ]
+              },
+              "delimiter": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "index": {
+                "type": "integer",
+                "format": "int32",
+                "x-nullable": true
+              },
+              "template": {
+                "type": "string",
+                "x-nullable": true
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "cost_metric": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tag"
+              ]
+            }
+          },
+          "required": [
+            "filter",
+            "aggregation"
+          ]
+        },
+        "percentages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "pct": {
+                "type": "number",
+                "format": "float"
+              }
+            },
+            "required": [
+              "value",
+              "pct"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "date_ranges": {
+          "type": "array",
+          "description": "Date ranges restricting when this value applies.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "end_date": {
+                "type": "string",
+                "x-nullable": true
+              }
+            }
+          },
+          "x-omitempty": true
+        }
+      },
+      "required": [
+        "filter"
+      ],
+      "description": "Create a VirtualTagConfigValue."
+    },
+    "updateVirtualTagConfigValue": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the value."
+        },
+        "business_metric_token": {
+          "type": "string",
+          "description": "The token of an associated business metric."
+        },
+        "label_key": {
+          "type": "string",
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "description": "Business metric label values. An empty array includes every value for the label key.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name for a cost metric or percentage allocation value.",
+          "x-nullable": true
+        },
+        "label_transforms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "split",
+                  "format"
+                ]
+              },
+              "delimiter": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "index": {
+                "type": "integer",
+                "format": "int32",
+                "x-nullable": true
+              },
+              "template": {
+                "type": "string",
+                "x-nullable": true
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "cost_metric": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tag"
+              ]
+            }
+          },
+          "required": [
+            "filter",
+            "aggregation"
+          ]
+        },
+        "percentages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "pct": {
+                "type": "number",
+                "format": "float"
+              }
+            },
+            "required": [
+              "value",
+              "pct"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "date_ranges": {
+          "type": "array",
+          "description": "Date ranges restricting when this value applies.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "end_date": {
+                "type": "string",
+                "x-nullable": true
+              }
+            }
+          },
+          "x-omitempty": true
+        }
+      },
+      "description": "Update a VirtualTagConfigValue."
     },
     "Workspaces": {
       "type": "object",
