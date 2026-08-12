@@ -62,6 +62,12 @@ GetAnomalyNotificationsParams contains all the parameters to send to the API end
 */
 type GetAnomalyNotificationsParams struct {
 
+	/* CostReportToken.
+
+	   Filter by Cost Report token.
+	*/
+	CostReportToken *string
+
 	/* Limit.
 
 	   The amount of results to return. The maximum is 1000.
@@ -77,6 +83,12 @@ type GetAnomalyNotificationsParams struct {
 	   Format: int32
 	*/
 	Page *int32
+
+	/* WorkspaceToken.
+
+	   Filter by workspace token.
+	*/
+	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -131,6 +143,17 @@ func (o *GetAnomalyNotificationsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCostReportToken adds the costReportToken to the get anomaly notifications params
+func (o *GetAnomalyNotificationsParams) WithCostReportToken(costReportToken *string) *GetAnomalyNotificationsParams {
+	o.SetCostReportToken(costReportToken)
+	return o
+}
+
+// SetCostReportToken adds the costReportToken to the get anomaly notifications params
+func (o *GetAnomalyNotificationsParams) SetCostReportToken(costReportToken *string) {
+	o.CostReportToken = costReportToken
+}
+
 // WithLimit adds the limit to the get anomaly notifications params
 func (o *GetAnomalyNotificationsParams) WithLimit(limit *int32) *GetAnomalyNotificationsParams {
 	o.SetLimit(limit)
@@ -153,6 +176,17 @@ func (o *GetAnomalyNotificationsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithWorkspaceToken adds the workspaceToken to the get anomaly notifications params
+func (o *GetAnomalyNotificationsParams) WithWorkspaceToken(workspaceToken *string) *GetAnomalyNotificationsParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get anomaly notifications params
+func (o *GetAnomalyNotificationsParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetAnomalyNotificationsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +194,23 @@ func (o *GetAnomalyNotificationsParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
+
+	if o.CostReportToken != nil {
+
+		// query param cost_report_token
+		var qrCostReportToken string
+
+		if o.CostReportToken != nil {
+			qrCostReportToken = *o.CostReportToken
+		}
+		qCostReportToken := qrCostReportToken
+		if qCostReportToken != "" {
+
+			if err := r.SetQueryParam("cost_report_token", qCostReportToken); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 
@@ -190,6 +241,23 @@ func (o *GetAnomalyNotificationsParams) WriteToRequest(r runtime.ClientRequest, 
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

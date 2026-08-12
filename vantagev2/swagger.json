@@ -51,6 +51,10 @@
       "description": "Operations about AnomalyNotifications"
     },
     {
+      "name": "Annotations",
+      "description": "Operations about Annotations"
+    },
+    {
       "name": "AuditLogs",
       "description": "Operations about AuditLogs"
     },
@@ -848,6 +852,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "description": "Filter by Cost Report token.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -1116,6 +1134,297 @@
           "AnomalyNotifications"
         ],
         "operationId": "deleteAnomalyNotification"
+      }
+    },
+    "/annotations": {
+      "get": {
+        "summary": "Get all annotations",
+        "description": "Return all Annotations.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "report_token",
+            "description": "Filter by Report token.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Annotations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/annotations",
+                  "first": "https://api.vantage.sh/v2/annotations?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/annotations?page=1",
+                  "prev": null
+                },
+                "annotations": [
+                  {
+                    "token": "issue_946526bd88c296c6",
+                    "title": "Down-sized",
+                    "report_tokens": [
+                      "rprt_b03547330d3808a0",
+                      "rprt_c4c97225bf1fa392"
+                    ],
+                    "date": "2026-08-12",
+                    "message": "Infrastructure migration"
+                  },
+                  {
+                    "token": "issue_56063755b6a82997",
+                    "title": "Persistent",
+                    "report_tokens": [
+                      "rprt_5649e387dc43ca2d"
+                    ],
+                    "date": "2026-08-10",
+                    "message": "Pricing update"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "getAnnotations"
+      },
+      "post": {
+        "summary": "Create an annotation",
+        "description": "Create an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createAnnotation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAnnotation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Annotation created successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "issue_4b05d8f17aea0580",
+                "title": "Infrastructure migration completed",
+                "report_tokens": [
+                  "rprt_5b72ee3954cf82e9",
+                  "rprt_3ec37e01a019b9a6"
+                ],
+                "date": "2026-08-12",
+                "message": "Infrastructure migration completed"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "createAnnotation"
+      }
+    },
+    "/annotations/{annotation_token}": {
+      "put": {
+        "summary": "Update an annotation",
+        "description": "Update an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "annotation_token",
+            "description": "The token of the Annotation.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateAnnotation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateAnnotation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Annotation updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "issue_f05d884fed1221e5",
+                "title": "Migration rescheduled",
+                "report_tokens": [
+                  "rprt_7ed0e557ae72559d",
+                  "rprt_3f5eebef4caea173"
+                ],
+                "date": "2026-08-14",
+                "message": "Infrastructure migration rescheduled"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "updateAnnotation"
+      },
+      "delete": {
+        "summary": "Delete an annotation",
+        "description": "Delete an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "annotation_token",
+            "description": "The token of the Annotation.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Annotation deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "deleteAnnotation"
       }
     },
     "/audit_logs": {
@@ -1966,6 +2275,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "budget_token",
+            "description": "Filter by budget token.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -2193,6 +2516,20 @@
             "description": "The number of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search budgets by name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the budgets to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -2614,6 +2951,13 @@
             "format": "int32",
             "minimum": 1,
             "maximum": 5000,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search business metrics by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -3156,7 +3500,7 @@
       },
       "delete": {
         "summary": "Delete business metric values",
-        "description": "Deletes Business Metric values (historical or forecasted unit metrics).",
+        "description": "Deletes Business Metric values (historical or forecasted unit metrics). BusinessMetrics whose values are stored in ClickHouse only support deleting every historical value or every forecasted value, so supplying start_date, end_date, or label returns 422.",
         "produces": [
           "application/json"
         ],
@@ -3438,6 +3782,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search canvases by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -3817,6 +4175,38 @@
         "description": "List all Cost Alerts",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search cost alerts by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the cost alerts to return.",
+            "type": "string",
+            "required": false
+          }
         ],
         "security": [
           {
@@ -4251,6 +4641,20 @@
             "in": "query",
             "name": "folder_token",
             "description": "The token for the Folder you would like to fetch Reports from.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search cost reports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the cost reports to return.",
             "type": "string",
             "required": false
           }
@@ -5202,6 +5606,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search dashboards by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the dashboards to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -5797,6 +6215,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search financial commitment reports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the financial commitment reports to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -6197,6 +6629,20 @@
               "CostFolder",
               "ProviderResourceFolder"
             ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search folders by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the folders to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -7547,6 +7993,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search Kubernetes efficiency reports by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -8769,6 +9229,13 @@
             "in": "query",
             "name": "q",
             "description": "A search query to filter NetworkFlowReports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
             "type": "string",
             "required": false
           },
@@ -10036,6 +10503,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search recommendation views by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -10385,6 +10866,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search report notifications by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -11114,6 +11609,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter ResourceReports by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -11717,6 +12226,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search saved filters by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the saved filters to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -12359,6 +12882,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search segments by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the segments to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -13061,6 +13598,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search teams by name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
             "required": false
           }
         ],
@@ -14934,6 +15485,13 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search workspaces by name.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -15668,6 +16226,124 @@
         }
       },
       "description": "Update an Anomaly Notification."
+    },
+    "Annotations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        }
+      },
+      "required": [
+        "annotations"
+      ],
+      "description": "Annotations model"
+    },
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The unique token identifying the Annotation."
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The title of the Annotation."
+        },
+        "report_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens of the Reports associated with the Annotation."
+        },
+        "date": {
+          "type": "string",
+          "example": "2026-08-12",
+          "x-nullable": true,
+          "description": "The date of the Annotation. ISO 8601 formatted."
+        },
+        "message": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The message of the Annotation."
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "report_tokens",
+        "date",
+        "message"
+      ],
+      "description": "Annotation model"
+    },
+    "createAnnotation": {
+      "type": "object",
+      "properties": {
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the Reports to annotate.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the Annotation. Defaults to a title generated from the first Report and date."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the Annotation. ISO 8601 formatted."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the Annotation."
+        }
+      },
+      "required": [
+        "report_tokens",
+        "date",
+        "message"
+      ],
+      "description": "Create an Annotation."
+    },
+    "updateAnnotation": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Annotation."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the Annotation. ISO 8601 formatted."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the Annotation."
+        },
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the Reports to associate with the Annotation.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        }
+      },
+      "description": "Update an Annotation."
     },
     "AuditLogs": {
       "type": "object",
@@ -24377,12 +25053,15 @@
         },
         "hidden": {
           "type": "boolean",
-          "description": "Whether the Tag is hidden from the Vantage UI."
+          "description": "Whether the Tag is hidden from the Vantage UI.",
+          "x-nullable": true
+        },
+        "preferred": {
+          "type": "boolean",
+          "description": "Whether the Tag is marked as preferred in the Vantage UI.",
+          "x-nullable": true
         }
       },
-      "required": [
-        "hidden"
-      ],
       "description": "Updates an existing Tag."
     },
     "Teams": {

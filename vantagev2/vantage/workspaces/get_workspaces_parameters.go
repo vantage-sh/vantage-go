@@ -78,6 +78,12 @@ type GetWorkspacesParams struct {
 	*/
 	Page *int32
 
+	/* Q.
+
+	   Search workspaces by name.
+	*/
+	Q *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -153,6 +159,17 @@ func (o *GetWorkspacesParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get workspaces params
+func (o *GetWorkspacesParams) WithQ(q *string) *GetWorkspacesParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get workspaces params
+func (o *GetWorkspacesParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetWorkspacesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +207,23 @@ func (o *GetWorkspacesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
