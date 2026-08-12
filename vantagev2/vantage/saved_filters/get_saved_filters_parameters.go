@@ -78,6 +78,18 @@ type GetSavedFiltersParams struct {
 	*/
 	Page *int32
 
+	/* Q.
+
+	   Search saved filters by title.
+	*/
+	Q *string
+
+	/* WorkspaceToken.
+
+	   The workspace token of the saved filters to return.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -153,6 +165,28 @@ func (o *GetSavedFiltersParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get saved filters params
+func (o *GetSavedFiltersParams) WithQ(q *string) *GetSavedFiltersParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get saved filters params
+func (o *GetSavedFiltersParams) SetQ(q *string) {
+	o.Q = q
+}
+
+// WithWorkspaceToken adds the workspaceToken to the get saved filters params
+func (o *GetSavedFiltersParams) WithWorkspaceToken(workspaceToken *string) *GetSavedFiltersParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get saved filters params
+func (o *GetSavedFiltersParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetSavedFiltersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +224,40 @@ func (o *GetSavedFiltersParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

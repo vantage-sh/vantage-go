@@ -78,11 +78,23 @@ type GetFoldersParams struct {
 	*/
 	Page *int32
 
+	/* Q.
+
+	   Search folders by title.
+	*/
+	Q *string
+
 	/* Type.
 
 	   Filter by folder type.
 	*/
 	Type *string
+
+	/* WorkspaceToken.
+
+	   The workspace token of the folders to return.
+	*/
+	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -159,6 +171,17 @@ func (o *GetFoldersParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get folders params
+func (o *GetFoldersParams) WithQ(q *string) *GetFoldersParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get folders params
+func (o *GetFoldersParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WithType adds the typeVar to the get folders params
 func (o *GetFoldersParams) WithType(typeVar *string) *GetFoldersParams {
 	o.SetType(typeVar)
@@ -168,6 +191,17 @@ func (o *GetFoldersParams) WithType(typeVar *string) *GetFoldersParams {
 // SetType adds the type to the get folders params
 func (o *GetFoldersParams) SetType(typeVar *string) {
 	o.Type = typeVar
+}
+
+// WithWorkspaceToken adds the workspaceToken to the get folders params
+func (o *GetFoldersParams) WithWorkspaceToken(workspaceToken *string) *GetFoldersParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get folders params
+func (o *GetFoldersParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -212,6 +246,23 @@ func (o *GetFoldersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		}
 	}
 
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.Type != nil {
 
 		// query param type
@@ -224,6 +275,23 @@ func (o *GetFoldersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		if qType != "" {
 
 			if err := r.SetQueryParam("type", qType); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

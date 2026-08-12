@@ -84,6 +84,12 @@ type GetNetworkFlowReportsParams struct {
 	*/
 	Q *string
 
+	/* WorkspaceToken.
+
+	   Filter by workspace token.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -170,6 +176,17 @@ func (o *GetNetworkFlowReportsParams) SetQ(q *string) {
 	o.Q = q
 }
 
+// WithWorkspaceToken adds the workspaceToken to the get network flow reports params
+func (o *GetNetworkFlowReportsParams) WithWorkspaceToken(workspaceToken *string) *GetNetworkFlowReportsParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get network flow reports params
+func (o *GetNetworkFlowReportsParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetNetworkFlowReportsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -224,6 +241,23 @@ func (o *GetNetworkFlowReportsParams) WriteToRequest(r runtime.ClientRequest, re
 		if qQ != "" {
 
 			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}
