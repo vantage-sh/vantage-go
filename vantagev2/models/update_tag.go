@@ -18,10 +18,10 @@ import (
 type UpdateTag struct {
 
 	// Whether the Tag is hidden from the Vantage UI.
-	Hidden bool `json:"hidden,omitempty"`
+	Hidden *bool `json:"hidden,omitempty"`
 
 	// Whether the Tag is marked as preferred in the Vantage UI.
-	Preferred bool `json:"preferred,omitempty"`
+	Preferred *bool `json:"preferred,omitempty"`
 
 	// tag key
 	TagKey string `json:"tag_key,omitempty"`

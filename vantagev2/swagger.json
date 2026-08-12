@@ -24780,11 +24780,15 @@
         },
         "hidden": {
           "type": "boolean",
-          "description": "Whether the Tag is hidden from the Vantage UI."
+          "description": "Whether the Tag is hidden from the Vantage UI.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "preferred": {
           "type": "boolean",
-          "description": "Whether the Tag is marked as preferred in the Vantage UI."
+          "description": "Whether the Tag is marked as preferred in the Vantage UI.",
+          "x-nullable": true,
+          "x-omitempty": true
         }
       },
       "description": "Updates an existing Tag."
