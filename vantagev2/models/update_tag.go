@@ -8,10 +8,8 @@ package models
 import (
 	"context"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // UpdateTag Updates an existing Tag.
@@ -20,8 +18,10 @@ import (
 type UpdateTag struct {
 
 	// Whether the Tag is hidden from the Vantage UI.
-	// Required: true
-	Hidden *bool `json:"hidden"`
+	Hidden bool `json:"hidden,omitempty"`
+
+	// Whether the Tag is marked as preferred in the Vantage UI.
+	Preferred bool `json:"preferred,omitempty"`
 
 	// tag key
 	TagKey string `json:"tag_key,omitempty"`
@@ -32,24 +32,6 @@ type UpdateTag struct {
 
 // Validate validates this update tag
 func (m *UpdateTag) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateHidden(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *UpdateTag) validateHidden(formats strfmt.Registry) error {
-
-	if err := validate.Required("hidden", "body", m.Hidden); err != nil {
-		return err
-	}
-
 	return nil
 }
 

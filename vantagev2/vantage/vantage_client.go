@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/annotations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/audit_logs"
@@ -103,6 +104,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli := new(Vantage)
 	cli.Transport = transport
 	cli.AccessGrants = access_grants.New(transport, formats)
+	cli.Annotations = annotations.New(transport, formats)
 	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
 	cli.AnomalyNotifications = anomaly_notifications.New(transport, formats)
 	cli.AuditLogs = audit_logs.New(transport, formats)
@@ -195,6 +197,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 // Vantage is a client for vantage
 type Vantage struct {
 	AccessGrants access_grants.ClientService
+
+	Annotations annotations.ClientService
 
 	AnomalyAlerts anomaly_alerts.ClientService
 
@@ -297,6 +301,7 @@ type Vantage struct {
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.AccessGrants.SetTransport(transport)
+	c.Annotations.SetTransport(transport)
 	c.AnomalyAlerts.SetTransport(transport)
 	c.AnomalyNotifications.SetTransport(transport)
 	c.AuditLogs.SetTransport(transport)
