@@ -21,7 +21,7 @@ type UpdateAnnotation struct {
 
 	// The date of the Annotation. ISO 8601 formatted.
 	// Format: date
-	Date strfmt.Date `json:"date,omitempty"`
+	Date *strfmt.Date `json:"date,omitempty"`
 
 	// The message of the Annotation.
 	Message string `json:"message,omitempty"`

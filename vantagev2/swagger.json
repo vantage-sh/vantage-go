@@ -16328,7 +16328,8 @@
         "date": {
           "type": "string",
           "format": "date",
-          "description": "The date of the Annotation. ISO 8601 formatted."
+          "description": "The date of the Annotation. ISO 8601 formatted.",
+          "x-nullable": true
         },
         "message": {
           "type": "string",
