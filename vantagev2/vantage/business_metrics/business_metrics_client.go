@@ -193,7 +193,7 @@ func (a *Client) DeleteBusinessMetric(params *DeleteBusinessMetricParams, authIn
 /*
 DeleteBusinessMetricValues deletes business metric values
 
-Deletes Business Metric values (historical or forecasted unit metrics).
+Deletes Business Metric values (historical or forecasted unit metrics). BusinessMetrics whose values are stored in ClickHouse only support deleting every historical value or every forecasted value, so supplying start_date, end_date, or label returns 422.
 */
 func (a *Client) DeleteBusinessMetricValues(params *DeleteBusinessMetricValuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBusinessMetricValuesOK, error) {
 	// TODO: Validate the params before sending
