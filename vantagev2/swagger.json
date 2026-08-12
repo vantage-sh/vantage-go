@@ -16339,7 +16339,8 @@
           "description": "The tokens of the Reports to associate with the Annotation.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Update an Annotation."

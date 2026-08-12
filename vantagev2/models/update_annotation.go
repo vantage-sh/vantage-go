@@ -27,7 +27,7 @@ type UpdateAnnotation struct {
 	Message string `json:"message,omitempty"`
 
 	// The tokens of the Reports to associate with the Annotation.
-	ReportTokens []string `json:"report_tokens"`
+	ReportTokens []string `json:"report_tokens,omitempty"`
 
 	// The title of the Annotation.
 	Title string `json:"title,omitempty"`
