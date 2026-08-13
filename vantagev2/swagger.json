@@ -4555,7 +4555,8 @@
               "eleven_labs",
               "baseten",
               "cloudflare",
-              "fireworks_ai"
+              "fireworks_ai",
+              "cartesia"
             ],
             "required": false
           },
@@ -5148,6 +5149,7 @@
               "baseten",
               "cloudflare",
               "fireworks_ai",
+              "cartesia",
               "all"
             ],
             "required": false
@@ -6960,7 +6962,8 @@
               "eleven_labs",
               "baseten",
               "cloudflare",
-              "fireworks_ai"
+              "fireworks_ai",
+              "cartesia"
             ],
             "required": false
           },
@@ -13243,7 +13246,8 @@
                 "eleven_labs",
                 "baseten",
                 "cloudflare",
-                "fireworks_ai"
+                "fireworks_ai",
+                "cartesia"
               ]
             },
             "required": false
@@ -13477,7 +13481,8 @@
                 "eleven_labs",
                 "baseten",
                 "cloudflare",
-                "fireworks_ai"
+                "fireworks_ai",
+                "cartesia"
               ]
             },
             "required": false
@@ -16323,17 +16328,20 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Annotation."
+          "description": "The title of the Annotation.",
+          "x-omitempty": true
         },
         "date": {
           "type": "string",
           "format": "date",
           "description": "The date of the Annotation. ISO 8601 formatted.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "message": {
           "type": "string",
-          "description": "The message of the Annotation."
+          "description": "The message of the Annotation.",
+          "x-omitempty": true
         },
         "report_tokens": {
           "type": "array",
@@ -19504,6 +19512,7 @@
             "baseten",
             "cloudflare",
             "fireworks_ai",
+            "cartesia",
             "all"
           ],
           "x-nullable": false,
@@ -20316,7 +20325,8 @@
             "eleven_labs",
             "baseten",
             "cloudflare",
-            "fireworks_ai"
+            "fireworks_ai",
+            "cartesia"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
