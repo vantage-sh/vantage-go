@@ -34,6 +34,10 @@ type VirtualTagConfig struct {
 	// Required: true
 	CreatedByToken *string `json:"created_by_token"`
 
+	// Whether the VirtualTagConfig key is hidden from the Vantage UI.
+	// Required: true
+	Hidden bool `json:"hidden"`
+
 	// The key of the VirtualTagConfig.
 	// Example: Cost Center
 	// Required: true
@@ -42,6 +46,10 @@ type VirtualTagConfig struct {
 	// Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.
 	// Required: true
 	Overridable bool `json:"overridable"`
+
+	// Whether the VirtualTagConfig key is marked as preferred in the Vantage UI.
+	// Required: true
+	Preferred bool `json:"preferred"`
 
 	// The token of the VirtualTagConfig.
 	// Example: vtag_1234
@@ -69,11 +77,19 @@ func (m *VirtualTagConfig) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateHidden(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateKey(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateOverridable(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreferred(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -136,6 +152,15 @@ func (m *VirtualTagConfig) validateCreatedByToken(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *VirtualTagConfig) validateHidden(formats strfmt.Registry) error {
+
+	if err := validate.Required("hidden", "body", bool(m.Hidden)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *VirtualTagConfig) validateKey(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("key", "body", m.Key); err != nil {
@@ -148,6 +173,15 @@ func (m *VirtualTagConfig) validateKey(formats strfmt.Registry) error {
 func (m *VirtualTagConfig) validateOverridable(formats strfmt.Registry) error {
 
 	if err := validate.Required("overridable", "body", bool(m.Overridable)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfig) validatePreferred(formats strfmt.Registry) error {
+
+	if err := validate.Required("preferred", "body", bool(m.Preferred)); err != nil {
 		return err
 	}
 
