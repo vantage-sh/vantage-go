@@ -4555,7 +4555,9 @@
               "eleven_labs",
               "baseten",
               "cloudflare",
-              "fireworks_ai"
+              "fireworks_ai",
+              "cartesia",
+              "depot"
             ],
             "required": false
           },
@@ -5148,6 +5150,8 @@
               "baseten",
               "cloudflare",
               "fireworks_ai",
+              "cartesia",
+              "depot",
               "all"
             ],
             "required": false
@@ -6960,7 +6964,9 @@
               "eleven_labs",
               "baseten",
               "cloudflare",
-              "fireworks_ai"
+              "fireworks_ai",
+              "cartesia",
+              "depot"
             ],
             "required": false
           },
@@ -13243,7 +13249,9 @@
                 "eleven_labs",
                 "baseten",
                 "cloudflare",
-                "fireworks_ai"
+                "fireworks_ai",
+                "cartesia",
+                "depot"
               ]
             },
             "required": false
@@ -13477,7 +13485,9 @@
                 "eleven_labs",
                 "baseten",
                 "cloudflare",
-                "fireworks_ai"
+                "fireworks_ai",
+                "cartesia",
+                "depot"
               ]
             },
             "required": false
@@ -16323,17 +16333,20 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Annotation."
+          "description": "The title of the Annotation.",
+          "x-omitempty": true
         },
         "date": {
           "type": "string",
           "format": "date",
           "description": "The date of the Annotation. ISO 8601 formatted.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "message": {
           "type": "string",
-          "description": "The message of the Annotation."
+          "description": "The message of the Annotation.",
+          "x-omitempty": true
         },
         "report_tokens": {
           "type": "array",
@@ -19504,6 +19517,8 @@
             "baseten",
             "cloudflare",
             "fireworks_ai",
+            "cartesia",
+            "depot",
             "all"
           ],
           "x-nullable": false,
@@ -20316,7 +20331,9 @@
             "eleven_labs",
             "baseten",
             "cloudflare",
-            "fireworks_ai"
+            "fireworks_ai",
+            "cartesia",
+            "depot"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -25569,6 +25586,16 @@
           "x-nullable": false,
           "description": "The key of the VirtualTagConfig."
         },
+        "hidden": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the VirtualTagConfig key is hidden from the Vantage UI."
+        },
+        "preferred": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the VirtualTagConfig key is marked as preferred in the Vantage UI."
+        },
         "overridable": {
           "type": "boolean",
           "x-nullable": false,
@@ -25599,6 +25626,8 @@
         "token",
         "created_by_token",
         "key",
+        "hidden",
+        "preferred",
         "overridable",
         "backfill_until",
         "collapsed_tag_keys",
