@@ -26,6 +26,9 @@ type CreateAnomalyNotification struct {
 	// The Slack/MS Teams channels that receive the notification.
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// Email addresses that receive the notification. Must be organization users or addresses on a verified domain.
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// The threshold amount that must be met for the notification to fire.
 	Threshold int32 `json:"threshold,omitempty"`
 

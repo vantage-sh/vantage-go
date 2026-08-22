@@ -33,6 +33,9 @@ type CreateBudgetAlert struct {
 	// The channels receiving the alerts. Requires an integration provider to be connected.
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// Email addresses that receive the alert. Must be organization users or addresses on a verified domain.
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// The threshold amount that must be met for the alert to fire.
 	// Required: true
 	Threshold *int32 `json:"threshold"`
