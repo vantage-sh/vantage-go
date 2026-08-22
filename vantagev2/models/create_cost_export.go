@@ -27,13 +27,13 @@ type CreateCostExport struct {
 	// Enum: ["day","week","month","quarter","hour"]
 	DateBin string `json:"date_bin,omitempty"`
 
-	// Last date you would like to filter costs to. ISO 8601 formatted.
+	// Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used.
 	EndDate string `json:"end_date,omitempty"`
 
 	// The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
 	Filter string `json:"filter,omitempty"`
 
-	// Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings []string `json:"groupings"`
 
 	// The schema of the data export.
@@ -43,7 +43,7 @@ type CreateCostExport struct {
 	// settings
 	Settings *CreateCostExportSettings `json:"settings,omitempty"`
 
-	// First date you would like to filter costs from. ISO 8601 formatted.
+	// First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used.
 	StartDate string `json:"start_date,omitempty"`
 
 	// The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.
