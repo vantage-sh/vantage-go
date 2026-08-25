@@ -212,7 +212,6 @@ type CreateBudgetPeriodCadence struct {
 	IntervalUnit string `json:"interval_unit,omitempty"`
 
 	// The anchor date for budget period intervals. Send null to clear.
-	// Required: true
 	// Format: date
 	StartsAt *strfmt.Date `json:"starts_at"`
 }
@@ -284,9 +283,8 @@ func (m *CreateBudgetPeriodCadence) validateIntervalUnit(formats strfmt.Registry
 }
 
 func (m *CreateBudgetPeriodCadence) validateStartsAt(formats strfmt.Registry) error {
-
-	if err := validate.Required("period_cadence"+"."+"starts_at", "body", m.StartsAt); err != nil {
-		return err
+	if swag.IsZero(m.StartsAt) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("period_cadence"+"."+"starts_at", "body", "date", m.StartsAt.String(), formats); err != nil {

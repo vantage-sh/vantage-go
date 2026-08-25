@@ -17886,9 +17886,7 @@
               "x-omitempty": true
             }
           },
-          "required": [
-            "starts_at"
-          ]
+          "required": []
         }
       },
       "required": [
@@ -17947,9 +17945,7 @@
               "x-omitempty": true
             }
           },
-          "required": [
-            "starts_at"
-          ]
+          "required": []
         },
         "periods": {
           "type": "array",
@@ -27112,7 +27108,6 @@
         }
       },
       "required": [
-        "starts_at",
         "interval_count",
         "interval_unit"
       ]
