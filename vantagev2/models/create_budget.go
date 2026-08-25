@@ -204,10 +204,6 @@ func (m *CreateBudget) UnmarshalBinary(b []byte) error {
 // swagger:model CreateBudgetPeriodCadence
 type CreateBudgetPeriodCadence struct {
 
-	// The anchor date for budget period intervals.
-	// Format: date
-	StartsAt *strfmt.Date `json:"starts_at"`
-
 	// The number of interval units per budget period.
 	// Format: int32
 	IntervalCount int32 `json:"interval_count,omitempty"`
@@ -215,17 +211,21 @@ type CreateBudgetPeriodCadence struct {
 	// The unit for budget period intervals. One of: day, week, month, year.
 	// Enum: ["day","week","month","year"]
 	IntervalUnit string `json:"interval_unit,omitempty"`
+
+	// The anchor date for budget period intervals.
+	// Format: date
+	StartsAt *strfmt.Date `json:"starts_at"`
 }
 
 // Validate validates this create budget period cadence
 func (m *CreateBudgetPeriodCadence) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateStartsAt(formats); err != nil {
+	if err := m.validateIntervalUnit(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateIntervalUnit(formats); err != nil {
+	if err := m.validateStartsAt(formats); err != nil {
 		res = append(res, err)
 	}
 

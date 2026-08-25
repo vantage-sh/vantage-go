@@ -29,7 +29,7 @@ func TestCreateBudgetPeriodCadenceJSONAndValidation(t *testing.T) {
 	if err != nil {
 		t.Fatalf("expected budget to marshal: %v", err)
 	}
-	if !strings.Contains(string(body), `"period_cadence":{"starts_at":"2026-01-01","interval_count":2,"interval_unit":"week"}`) {
+	if !strings.Contains(string(body), `"period_cadence":{"interval_count":2,"interval_unit":"week","starts_at":"2026-01-01"}`) {
 		t.Fatalf("expected period_cadence in JSON, got %s", body)
 	}
 }

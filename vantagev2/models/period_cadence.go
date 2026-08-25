@@ -19,30 +19,26 @@ import (
 // swagger:model PeriodCadence
 type PeriodCadence struct {
 
-	// The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD).
-	// Example: 2026-01-01
-	// Required: true
-	StartsAt *string `json:"starts_at"`
-
 	// The number of interval units per budget period.
 	// Example: 1
 	// Required: true
 	// Format: int32
-	IntervalCount *int32 `json:"interval_count"`
+	IntervalCount int32 `json:"interval_count"`
 
 	// The unit for budget period intervals. One of: day, week, month, year.
 	// Example: month
 	// Required: true
-	IntervalUnit *string `json:"interval_unit"`
+	IntervalUnit string `json:"interval_unit"`
+
+	// The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD).
+	// Example: 2026-01-01
+	// Required: true
+	StartsAt *string `json:"starts_at"`
 }
 
 // Validate validates this period cadence
 func (m *PeriodCadence) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateStartsAt(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateIntervalCount(formats); err != nil {
 		res = append(res, err)
@@ -52,18 +48,13 @@ func (m *PeriodCadence) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateStartsAt(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *PeriodCadence) validateStartsAt(formats strfmt.Registry) error {
-
-	if err := validate.Required("starts_at", "body", m.StartsAt); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -78,7 +69,16 @@ func (m *PeriodCadence) validateIntervalCount(formats strfmt.Registry) error {
 
 func (m *PeriodCadence) validateIntervalUnit(formats strfmt.Registry) error {
 
-	if err := validate.Required("interval_unit", "body", m.IntervalUnit); err != nil {
+	if err := validate.RequiredString("interval_unit", "body", m.IntervalUnit); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PeriodCadence) validateStartsAt(formats strfmt.Registry) error {
+
+	if err := validate.Required("starts_at", "body", m.StartsAt); err != nil {
 		return err
 	}
 
