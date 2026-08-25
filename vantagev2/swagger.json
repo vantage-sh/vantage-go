@@ -17475,7 +17475,7 @@
             ]
           },
           "x-nullable": false,
-          "description": "The Users that receive the alert."
+          "description": "The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails."
         },
         "duration_in_days": {
           "type": "integer",
@@ -17513,6 +17513,18 @@
           },
           "x-nullable": true,
           "description": "The channels receiving the alerts. Requires an integration provider to be connected."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
         }
       },
       "required": [
@@ -17521,6 +17533,7 @@
         "created_at",
         "workspace_token",
         "user_tokens",
+        "recipient_emails",
         "duration_in_days",
         "threshold",
         "period_to_track",
@@ -17561,6 +17574,13 @@
         "recipient_channels": {
           "type": "array",
           "description": "The channels receiving the alerts. Requires an integration provider to be connected.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -17606,6 +17626,13 @@
         "recipient_channels": {
           "type": "array",
           "description": "The channels receiving the alerts. Requires an integration provider to be connected.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
