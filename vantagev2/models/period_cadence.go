@@ -77,9 +77,8 @@ func (m *PeriodCadence) validateIntervalUnit(formats strfmt.Registry) error {
 }
 
 func (m *PeriodCadence) validateStartsAt(formats strfmt.Registry) error {
-
-	if err := validate.Required("starts_at", "body", m.StartsAt); err != nil {
-		return err
+	if swag.IsZero(m.StartsAt) { // nullable value
+		return nil
 	}
 
 	return nil
