@@ -2578,7 +2578,13 @@
                         "actual": "-100%",
                         "amount": "10000.0"
                       }
-                    ]
+                    ],
+                    "period_cadence": {
+                      "starts_at": null,
+                      "interval_count": 1,
+                      "interval_unit": "month"
+                    },
+                    "child_budget_tokens": []
                   }
                 ]
               }
@@ -2670,7 +2676,13 @@
                     "actual": "0%",
                     "amount": "100.0"
                   }
-                ]
+                ],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
+                "child_budget_tokens": []
               }
             }
           },
@@ -2751,7 +2763,13 @@
                     "actual": "-100%",
                     "amount": "10000.0"
                   }
-                ]
+                ],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
+                "child_budget_tokens": []
               }
             }
           },
@@ -2864,7 +2882,13 @@
                     "actual": "1224%",
                     "amount": "234.0"
                   }
-                ]
+                ],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
+                "child_budget_tokens": []
               }
             }
           },
@@ -17681,6 +17705,10 @@
             "$ref": "#/definitions/BudgetPerformance"
           },
           "description": "The historical performance of the Budget."
+        },
+        "period_cadence": {
+          "$ref": "#/definitions/PeriodCadence",
+          "description": "The interval cadence for budget periods."
         }
       },
       "required": [
@@ -17690,6 +17718,7 @@
         "created_at",
         "budget_alert_tokens",
         "child_budget_tokens",
+        "period_cadence",
         "periods"
       ],
       "description": "Budget model"
@@ -17800,6 +17829,39 @@
               "amount"
             ]
           }
+        },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
         }
       },
       "required": [
@@ -17812,18 +17874,55 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The name of the Budget."
+          "description": "The name of the Budget.",
+          "x-omitempty": true
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The CostReport token. Ignored for hierarchical Budgets."
+          "description": "The CostReport token. Ignored for hierarchical Budgets.",
+          "x-omitempty": true
         },
         "child_budget_tokens": {
           "type": "array",
           "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
+        },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "x-omitempty": true,
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
         },
         "periods": {
           "type": "array",
@@ -17840,7 +17939,8 @@
                 "type": "string",
                 "format": "date",
                 "description": "The end date of the period.",
-                "x-nullable": true
+                "x-nullable": true,
+                "x-omitempty": true
               },
               "amount": {
                 "type": "number",
@@ -17852,7 +17952,8 @@
               "start_at",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Update a Budget."
@@ -19417,7 +19518,7 @@
             "count"
           ],
           "x-nullable": false,
-          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
+          "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
         "x_axis_dimension": {
           "type": "array",
@@ -19772,7 +19873,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -19976,7 +20077,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -26959,6 +27060,35 @@
         }
       },
       "description": "Update a workspace"
+    },
+    "PeriodCadence": {
+      "type": "object",
+      "properties": {
+        "starts_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": true,
+          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
+        },
+        "interval_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "x-nullable": false,
+          "description": "The number of interval units per budget period."
+        },
+        "interval_unit": {
+          "type": "string",
+          "example": "month",
+          "x-nullable": false,
+          "description": "The unit for budget period intervals. One of: day, week, month, year."
+        }
+      },
+      "required": [
+        "starts_at",
+        "interval_count",
+        "interval_unit"
+      ]
     }
   }
 }
