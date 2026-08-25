@@ -2565,6 +2565,12 @@
                     "cost_report_token": "rprt_92062240b4ffda91",
                     "created_at": "2024-07-11T20:22:49Z",
                     "budget_alert_tokens": [],
+                    "child_budget_tokens": [],
+                    "period_cadence": {
+                      "starts_at": null,
+                      "interval_count": 1,
+                      "interval_unit": "month"
+                    },
                     "periods": [
                       {
                         "start_at": "2024-07-01",
@@ -2632,6 +2638,12 @@
                 "cost_report_token": null,
                 "created_at": "2024-07-11T20:22:52Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-01-01",
@@ -2738,6 +2750,12 @@
                 "cost_report_token": "rprt_9ee9f29893956951",
                 "created_at": "2024-07-11T20:22:41Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-07-01",
@@ -2815,6 +2833,12 @@
                 "cost_report_token": "rprt_07325bc3667263b7",
                 "created_at": "2024-07-11T20:22:48Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2023-01-01",
@@ -17668,6 +17692,10 @@
           "x-nullable": false,
           "description": "The tokens of the child Budgets associated with the hierarchical Budget."
         },
+        "period_cadence": {
+          "$ref": "#/definitions/PeriodCadence",
+          "description": "The interval cadence for budget periods."
+        },
         "periods": {
           "type": "array",
           "items": {
@@ -17690,6 +17718,7 @@
         "created_at",
         "budget_alert_tokens",
         "child_budget_tokens",
+        "period_cadence",
         "periods"
       ],
       "description": "Budget model"
@@ -17772,6 +17801,34 @@
             "type": "string"
           }
         },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period."
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        },
         "periods": {
           "type": "array",
           "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
@@ -17787,7 +17844,8 @@
                 "type": "string",
                 "format": "date",
                 "description": "The end date of the period.",
-                "x-nullable": true
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "amount": {
                 "type": "number",
@@ -17825,6 +17883,34 @@
             "type": "string"
           }
         },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period."
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        },
         "periods": {
           "type": "array",
           "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
@@ -17840,7 +17926,8 @@
                 "type": "string",
                 "format": "date",
                 "description": "The end date of the period.",
-                "x-nullable": true
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "amount": {
                 "type": "number",
@@ -19417,7 +19504,7 @@
             "count"
           ],
           "x-nullable": false,
-          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
+          "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
         "x_axis_dimension": {
           "type": "array",
@@ -19772,7 +19859,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -19976,7 +20063,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -26959,6 +27046,35 @@
         }
       },
       "description": "Update a workspace"
+    },
+    "PeriodCadence": {
+      "type": "object",
+      "properties": {
+        "starts_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": true,
+          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
+        },
+        "interval_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "x-nullable": false,
+          "description": "The number of interval units per budget period."
+        },
+        "interval_unit": {
+          "type": "string",
+          "example": "month",
+          "x-nullable": false,
+          "description": "The unit for budget period intervals. One of: day, week, month, year."
+        }
+      },
+      "required": [
+        "starts_at",
+        "interval_count",
+        "interval_unit"
+      ]
     }
   }
 }

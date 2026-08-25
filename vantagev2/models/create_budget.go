@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -30,6 +31,9 @@ type CreateBudget struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// The interval cadence for budget periods. Requires the flexible_budget_periods feature.
+	PeriodCadence *CreateBudgetPeriodCadence `json:"period_cadence,omitempty"`
+
 	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
 	Periods []*CreateBudgetPeriodsItems0 `json:"periods"`
 
@@ -42,6 +46,10 @@ func (m *CreateBudget) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePeriodCadence(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,6 +67,25 @@ func (m *CreateBudget) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBudget) validatePeriodCadence(formats strfmt.Registry) error {
+	if swag.IsZero(m.PeriodCadence) { // not required
+		return nil
+	}
+
+	if m.PeriodCadence != nil {
+		if err := m.PeriodCadence.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -98,9 +125,34 @@ func (m *CreateBudget) ContextValidate(ctx context.Context, formats strfmt.Regis
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePeriodCadence(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CreateBudget) contextValidatePeriodCadence(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PeriodCadence != nil {
+
+		if swag.IsZero(m.PeriodCadence) { // not required
+			return nil
+		}
+
+		if err := m.PeriodCadence.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -140,6 +192,125 @@ func (m *CreateBudget) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CreateBudget) UnmarshalBinary(b []byte) error {
 	var res CreateBudget
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateBudgetPeriodCadence The interval cadence for budget periods. Requires the flexible_budget_periods feature.
+//
+// swagger:model CreateBudgetPeriodCadence
+type CreateBudgetPeriodCadence struct {
+
+	// The anchor date for budget period intervals.
+	// Format: date
+	StartsAt *strfmt.Date `json:"starts_at"`
+
+	// The number of interval units per budget period.
+	// Format: int32
+	IntervalCount int32 `json:"interval_count,omitempty"`
+
+	// The unit for budget period intervals. One of: day, week, month, year.
+	// Enum: ["day","week","month","year"]
+	IntervalUnit string `json:"interval_unit,omitempty"`
+}
+
+// Validate validates this create budget period cadence
+func (m *CreateBudgetPeriodCadence) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateStartsAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntervalUnit(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createBudgetPeriodCadenceTypeIntervalUnitPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["day","week","month","year"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createBudgetPeriodCadenceTypeIntervalUnitPropEnum = append(createBudgetPeriodCadenceTypeIntervalUnitPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateBudgetPeriodCadenceIntervalUnitDay captures enum value "day"
+	CreateBudgetPeriodCadenceIntervalUnitDay string = "day"
+
+	// CreateBudgetPeriodCadenceIntervalUnitWeek captures enum value "week"
+	CreateBudgetPeriodCadenceIntervalUnitWeek string = "week"
+
+	// CreateBudgetPeriodCadenceIntervalUnitMonth captures enum value "month"
+	CreateBudgetPeriodCadenceIntervalUnitMonth string = "month"
+
+	// CreateBudgetPeriodCadenceIntervalUnitYear captures enum value "year"
+	CreateBudgetPeriodCadenceIntervalUnitYear string = "year"
+)
+
+// prop value enum
+func (m *CreateBudgetPeriodCadence) validateIntervalUnitEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createBudgetPeriodCadenceTypeIntervalUnitPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateBudgetPeriodCadence) validateIntervalUnit(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntervalUnit) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateIntervalUnitEnum("period_cadence"+"."+"interval_unit", "body", m.IntervalUnit); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateBudgetPeriodCadence) validateStartsAt(formats strfmt.Registry) error {
+	if swag.IsZero(m.StartsAt) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("period_cadence"+"."+"starts_at", "body", "date", m.StartsAt.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create budget period cadence based on context it is used
+func (m *CreateBudgetPeriodCadence) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateBudgetPeriodCadence) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateBudgetPeriodCadence) UnmarshalBinary(b []byte) error {
+	var res CreateBudgetPeriodCadence
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
