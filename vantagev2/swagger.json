@@ -17828,35 +17828,6 @@
             "type": "string"
           }
         },
-        "periods": {
-          "type": "array",
-          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "start_at": {
-                "type": "string",
-                "format": "date",
-                "description": "The start date of the period."
-              },
-              "end_at": {
-                "type": "string",
-                "format": "date",
-                "description": "The end date of the period.",
-                "x-nullable": true
-              },
-              "amount": {
-                "type": "number",
-                "format": "double",
-                "description": "The amount of the period."
-              }
-            },
-            "required": [
-              "start_at",
-              "amount"
-            ]
-          }
-        },
         "period_cadence": {
           "type": "object",
           "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
@@ -17886,7 +17857,38 @@
               "x-omitempty": true
             }
           },
-          "required": []
+          "required": [
+            "starts_at"
+          ]
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date",
+                "description": "The start date of the period."
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date",
+                "description": "The end date of the period.",
+                "x-nullable": true
+              },
+              "amount": {
+                "type": "number",
+                "format": "double",
+                "description": "The amount of the period."
+              }
+            },
+            "required": [
+              "start_at",
+              "amount"
+            ]
+          }
         }
       },
       "required": [
@@ -17945,7 +17947,9 @@
               "x-omitempty": true
             }
           },
-          "required": []
+          "required": [
+            "starts_at"
+          ]
         },
         "periods": {
           "type": "array",
@@ -27108,6 +27112,7 @@
         }
       },
       "required": [
+        "starts_at",
         "interval_count",
         "interval_unit"
       ]
