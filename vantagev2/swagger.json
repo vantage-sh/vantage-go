@@ -2565,6 +2565,12 @@
                     "cost_report_token": "rprt_92062240b4ffda91",
                     "created_at": "2024-07-11T20:22:49Z",
                     "budget_alert_tokens": [],
+                    "child_budget_tokens": [],
+                    "period_cadence": {
+                      "starts_at": null,
+                      "interval_count": 1,
+                      "interval_unit": "month"
+                    },
                     "periods": [
                       {
                         "start_at": "2024-07-01",
@@ -2578,13 +2584,7 @@
                         "actual": "-100%",
                         "amount": "10000.0"
                       }
-                    ],
-                    "period_cadence": {
-                      "starts_at": null,
-                      "interval_count": 1,
-                      "interval_unit": "month"
-                    },
-                    "child_budget_tokens": []
+                    ]
                   }
                 ]
               }
@@ -2638,6 +2638,12 @@
                 "cost_report_token": null,
                 "created_at": "2024-07-11T20:22:52Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-01-01",
@@ -2676,13 +2682,7 @@
                     "actual": "0%",
                     "amount": "100.0"
                   }
-                ],
-                "period_cadence": {
-                  "starts_at": null,
-                  "interval_count": 1,
-                  "interval_unit": "month"
-                },
-                "child_budget_tokens": []
+                ]
               }
             }
           },
@@ -2750,6 +2750,12 @@
                 "cost_report_token": "rprt_9ee9f29893956951",
                 "created_at": "2024-07-11T20:22:41Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-07-01",
@@ -2763,13 +2769,7 @@
                     "actual": "-100%",
                     "amount": "10000.0"
                   }
-                ],
-                "period_cadence": {
-                  "starts_at": null,
-                  "interval_count": 1,
-                  "interval_unit": "month"
-                },
-                "child_budget_tokens": []
+                ]
               }
             }
           },
@@ -2833,6 +2833,12 @@
                 "cost_report_token": "rprt_07325bc3667263b7",
                 "created_at": "2024-07-11T20:22:48Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2023-01-01",
@@ -2882,13 +2888,7 @@
                     "actual": "1224%",
                     "amount": "234.0"
                   }
-                ],
-                "period_cadence": {
-                  "starts_at": null,
-                  "interval_count": 1,
-                  "interval_unit": "month"
-                },
-                "child_budget_tokens": []
+                ]
               }
             }
           },
@@ -17477,6 +17477,18 @@
           "x-nullable": false,
           "description": "The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails."
         },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
+        },
         "duration_in_days": {
           "type": "integer",
           "format": "int32",
@@ -17513,18 +17525,6 @@
           },
           "x-nullable": true,
           "description": "The channels receiving the alerts. Requires an integration provider to be connected."
-        },
-        "recipient_emails": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": [
-              "user@example.com",
-              "freeform@company.com"
-            ]
-          },
-          "x-nullable": false,
-          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
         }
       },
       "required": [
@@ -17556,6 +17556,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the BudgetAlert to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -17563,9 +17567,17 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.",
+          "x-omitempty": false
         },
         "period_to_track": {
           "type": "string",
@@ -17574,13 +17586,6 @@
         "recipient_channels": {
           "type": "array",
           "description": "The channels receiving the alerts. Requires an integration provider to be connected.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "recipient_emails": {
-          "type": "array",
-          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -17608,6 +17613,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the BudgetAlert belongs to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -17615,9 +17624,17 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.",
+          "x-omitempty": false
         },
         "period_to_track": {
           "type": "string",
@@ -17626,13 +17643,6 @@
         "recipient_channels": {
           "type": "array",
           "description": "The channels receiving the alerts. Requires an integration provider to be connected.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "recipient_emails": {
-          "type": "array",
-          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -17719,6 +17729,10 @@
           "x-nullable": false,
           "description": "The tokens of the child Budgets associated with the hierarchical Budget."
         },
+        "period_cadence": {
+          "$ref": "#/definitions/PeriodCadence",
+          "description": "The interval cadence for budget periods."
+        },
         "periods": {
           "type": "array",
           "items": {
@@ -17732,10 +17746,6 @@
             "$ref": "#/definitions/BudgetPerformance"
           },
           "description": "The historical performance of the Budget."
-        },
-        "period_cadence": {
-          "$ref": "#/definitions/PeriodCadence",
-          "description": "The interval cadence for budget periods."
         }
       },
       "required": [

@@ -21,7 +21,7 @@ type UpdateBudgetAlert struct {
 	BudgetTokens []string `json:"budget_tokens"`
 
 	// The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.
-	DurationInDays string `json:"duration_in_days,omitempty"`
+	DurationInDays string `json:"duration_in_days"`
 
 	// The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Defaults to start_of_the_month if not passed. Possible values: start_of_the_month, end_of_the_month.
 	PeriodToTrack string `json:"period_to_track,omitempty"`
@@ -37,6 +37,9 @@ type UpdateBudgetAlert struct {
 
 	// The tokens of the users that receive the alert.
 	UserTokens []string `json:"user_tokens"`
+
+	// The token of the Workspace the BudgetAlert belongs to. Required if the API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this update budget alert

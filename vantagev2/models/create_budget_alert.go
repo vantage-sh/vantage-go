@@ -42,6 +42,9 @@ type CreateBudgetAlert struct {
 
 	// The tokens of the users that receive the alert.
 	UserTokens []string `json:"user_tokens"`
+
+	// The token of the Workspace to add the BudgetAlert to. Required if the API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this create budget alert
