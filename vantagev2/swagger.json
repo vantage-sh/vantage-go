@@ -2441,6 +2441,12 @@
             },
             "examples": {}
           },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
           "404": {
             "description": "NotFound",
             "schema": {
@@ -2565,6 +2571,12 @@
                     "cost_report_token": "rprt_92062240b4ffda91",
                     "created_at": "2024-07-11T20:22:49Z",
                     "budget_alert_tokens": [],
+                    "child_budget_tokens": [],
+                    "period_cadence": {
+                      "starts_at": null,
+                      "interval_count": 1,
+                      "interval_unit": "month"
+                    },
                     "periods": [
                       {
                         "start_at": "2024-07-01",
@@ -2632,6 +2644,12 @@
                 "cost_report_token": null,
                 "created_at": "2024-07-11T20:22:52Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-01-01",
@@ -2738,6 +2756,12 @@
                 "cost_report_token": "rprt_9ee9f29893956951",
                 "created_at": "2024-07-11T20:22:41Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-07-01",
@@ -2815,6 +2839,12 @@
                 "cost_report_token": "rprt_07325bc3667263b7",
                 "created_at": "2024-07-11T20:22:48Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2023-01-01",
@@ -4557,7 +4587,11 @@
               "cloudflare",
               "fireworks_ai",
               "cartesia",
-              "depot"
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave"
             ],
             "required": false
           },
@@ -5152,6 +5186,10 @@
               "fireworks_ai",
               "cartesia",
               "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave",
               "all"
             ],
             "required": false
@@ -5357,21 +5395,21 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "First date you would like to filter costs from. ISO 8601 formatted.",
+            "description": "First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "end_date",
-            "description": "Last date you would like to filter costs to. ISO 8601 formatted.",
+            "description": "Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "description": "Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
             "type": "array",
             "items": {
               "type": "string"
@@ -6966,7 +7004,11 @@
               "cloudflare",
               "fireworks_ai",
               "cartesia",
-              "depot"
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave"
             ],
             "required": false
           },
@@ -13251,7 +13293,11 @@
                 "cloudflare",
                 "fireworks_ai",
                 "cartesia",
-                "depot"
+                "depot",
+                "xai",
+                "digital_ocean",
+                "together_ai",
+                "coreweave"
               ]
             },
             "required": false
@@ -13487,7 +13533,11 @@
                 "cloudflare",
                 "fireworks_ai",
                 "cartesia",
-                "depot"
+                "depot",
+                "xai",
+                "digital_ocean",
+                "together_ai",
+                "coreweave"
               ]
             },
             "required": false
@@ -16158,7 +16208,15 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens of the users that receive the notification."
+          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -16176,6 +16234,7 @@
         "updated_at",
         "threshold",
         "user_tokens",
+        "recipient_emails",
         "recipient_channels"
       ],
       "description": "AnomalyNotification model"
@@ -16195,6 +16254,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -16223,6 +16289,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -17451,7 +17524,19 @@
             ]
           },
           "x-nullable": false,
-          "description": "The Users that receive the alert."
+          "description": "The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
         },
         "duration_in_days": {
           "type": "integer",
@@ -17497,6 +17582,7 @@
         "created_at",
         "workspace_token",
         "user_tokens",
+        "recipient_emails",
         "duration_in_days",
         "threshold",
         "period_to_track",
@@ -17519,6 +17605,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the BudgetAlert to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -17526,9 +17616,17 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.",
+          "x-omitempty": false
         },
         "period_to_track": {
           "type": "string",
@@ -17564,6 +17662,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the BudgetAlert belongs to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -17571,9 +17673,18 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "period_to_track": {
           "type": "string",
@@ -17668,6 +17779,10 @@
           "x-nullable": false,
           "description": "The tokens of the child Budgets associated with the hierarchical Budget."
         },
+        "period_cadence": {
+          "$ref": "#/definitions/PeriodCadence",
+          "description": "The interval cadence for budget periods."
+        },
         "periods": {
           "type": "array",
           "items": {
@@ -17690,9 +17805,39 @@
         "created_at",
         "budget_alert_tokens",
         "child_budget_tokens",
+        "period_cadence",
         "periods"
       ],
       "description": "Budget model"
+    },
+    "PeriodCadence": {
+      "type": "object",
+      "properties": {
+        "starts_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": true,
+          "x-omitempty": true,
+          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
+        },
+        "interval_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "x-nullable": false,
+          "description": "The number of interval units per budget period."
+        },
+        "interval_unit": {
+          "type": "string",
+          "example": "month",
+          "x-nullable": false,
+          "description": "The unit for budget period intervals. One of: day, week, month, year."
+        }
+      },
+      "required": [
+        "interval_count",
+        "interval_unit"
+      ]
     },
     "BudgetPeriod": {
       "type": "object",
@@ -17772,6 +17917,39 @@
             "type": "string"
           }
         },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
+        },
         "periods": {
           "type": "array",
           "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
@@ -17812,18 +17990,55 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The name of the Budget."
+          "description": "The name of the Budget.",
+          "x-omitempty": true
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The CostReport token. Ignored for hierarchical Budgets."
+          "description": "The CostReport token. Ignored for hierarchical Budgets.",
+          "x-omitempty": true
         },
         "child_budget_tokens": {
           "type": "array",
           "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
+        },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Changing cadence after creation is rejected.",
+          "x-omitempty": true,
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
         },
         "periods": {
           "type": "array",
@@ -17840,7 +18055,8 @@
                 "type": "string",
                 "format": "date",
                 "description": "The end date of the period.",
-                "x-nullable": true
+                "x-nullable": true,
+                "x-omitempty": true
               },
               "amount": {
                 "type": "number",
@@ -17852,7 +18068,8 @@
               "start_at",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Update a Budget."
@@ -18956,7 +19173,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
           "items": {
             "type": "string"
           }
@@ -19000,7 +19217,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
           "items": {
             "type": "string"
           }
@@ -19519,6 +19736,10 @@
             "fireworks_ai",
             "cartesia",
             "depot",
+            "xai",
+            "digital_ocean",
+            "together_ai",
+            "coreweave",
             "all"
           ],
           "x-nullable": false,
@@ -20067,15 +20288,15 @@
         },
         "start_date": {
           "type": "string",
-          "description": "First date you would like to filter costs from. ISO 8601 formatted."
+          "description": "First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used."
         },
         "end_date": {
           "type": "string",
-          "description": "Last date you would like to filter costs to. ISO 8601 formatted."
+          "description": "Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used."
         },
         "groupings": {
           "type": "array",
-          "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "description": "Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
           "items": {
             "type": "string"
           }
@@ -20333,7 +20554,11 @@
             "cloudflare",
             "fireworks_ai",
             "cartesia",
-            "depot"
+            "depot",
+            "xai",
+            "digital_ocean",
+            "together_ai",
+            "coreweave"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -20403,6 +20628,24 @@
           "example": "DataTransfer-Regional-Bytes",
           "x-nullable": true,
           "description": "The subcategory for the cost."
+        },
+        "charge_type": {
+          "type": "string",
+          "example": "Usage",
+          "x-nullable": true,
+          "description": "The charge type for the cost."
+        },
+        "tagged": {
+          "type": "boolean",
+          "example": true,
+          "x-nullable": true,
+          "description": "Whether the cost has tags."
+        },
+        "usage_unit": {
+          "type": "string",
+          "example": "GB",
+          "x-nullable": true,
+          "description": "The unit used to measure usage."
         },
         "segment": {
           "type": "string",
@@ -20780,7 +21023,7 @@
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces."
+          "description": "The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces."
         }
       },
       "description": "Update a Dashboard."
@@ -21647,6 +21890,10 @@
         "password": {
           "type": "string",
           "description": "Service Principal Password."
+        },
+        "billing_account_id": {
+          "type": "string",
+          "description": "Microsoft Customer Agreement (MCA) or Enterprise Agreement (EA) billing account ID. Must not contain whitespace."
         }
       },
       "required": [
@@ -23812,7 +24059,19 @@
             ]
           },
           "x-nullable": false,
-          "description": "The Users that receive the notification."
+          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -23852,6 +24111,7 @@
         "title",
         "cost_report_token",
         "user_tokens",
+        "recipient_emails",
         "recipient_channels",
         "frequency",
         "change"
@@ -23876,6 +24136,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -23918,6 +24185,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
