@@ -41,6 +41,10 @@ type ReportNotification struct {
 	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// The email addresses that receive the notification, including organization users and verified-domain addresses.
+	// Required: true
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// The title of the ReportNotification.
 	// Example: Acme Report Notification
 	// Required: true
@@ -50,7 +54,7 @@ type ReportNotification struct {
 	// Required: true
 	Token string `json:"token"`
 
-	// The Users that receive the notification.
+	// The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails.
 	// Required: true
 	UserTokens []string `json:"user_tokens"`
 }
@@ -72,6 +76,10 @@ func (m *ReportNotification) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientEmails(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -194,6 +202,15 @@ func (m *ReportNotification) validateFrequency(formats strfmt.Registry) error {
 func (m *ReportNotification) validateRecipientChannels(formats strfmt.Registry) error {
 
 	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReportNotification) validateRecipientEmails(formats strfmt.Registry) error {
+
+	if err := validate.Required("recipient_emails", "body", m.RecipientEmails); err != nil {
 		return err
 	}
 

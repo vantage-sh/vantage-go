@@ -38,6 +38,10 @@ type Cost struct {
 	// Example: 9109237192
 	BillingAccountID *string `json:"billing_account_id,omitempty"`
 
+	// The charge type for the cost.
+	// Example: Usage
+	ChargeType *string `json:"charge_type,omitempty"`
+
 	// The category for the cost.
 	// Example: Data Transfer
 	CostCategory *string `json:"cost_category,omitempty"`
@@ -56,7 +60,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave"]
 	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -84,11 +88,19 @@ type Cost struct {
 	// Example: production
 	Tag *string `json:"tag,omitempty"`
 
+	// Whether the cost has tags.
+	// Example: true
+	Tagged *bool `json:"tagged,omitempty"`
+
 	// The tag pairs attached to the cost that was incurred.
 	Tags []string `json:"tags"`
 
 	// The usage amount and unit incurred by the cost.
 	Usage interface{} `json:"usage,omitempty"`
+
+	// The unit used to measure usage.
+	// Example: GB
+	UsageUnit *string `json:"usage_unit,omitempty"`
 }
 
 // Validate validates this cost
@@ -171,7 +183,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -297,6 +309,18 @@ const (
 
 	// CostProviderDepot captures enum value "depot"
 	CostProviderDepot string = "depot"
+
+	// CostProviderXai captures enum value "xai"
+	CostProviderXai string = "xai"
+
+	// CostProviderDigitalOcean captures enum value "digital_ocean"
+	CostProviderDigitalOcean string = "digital_ocean"
+
+	// CostProviderTogetherAi captures enum value "together_ai"
+	CostProviderTogetherAi string = "together_ai"
+
+	// CostProviderCoreweave captures enum value "coreweave"
+	CostProviderCoreweave string = "coreweave"
 )
 
 // prop value enum

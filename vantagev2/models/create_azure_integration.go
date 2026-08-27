@@ -23,6 +23,9 @@ type CreateAzureIntegration struct {
 	// Required: true
 	AppID *string `json:"app_id"`
 
+	// Microsoft Customer Agreement (MCA) or Enterprise Agreement (EA) billing account ID. Must not contain whitespace.
+	BillingAccountID string `json:"billing_account_id,omitempty"`
+
 	// Service Principal Password.
 	// Required: true
 	Password *string `json:"password"`
