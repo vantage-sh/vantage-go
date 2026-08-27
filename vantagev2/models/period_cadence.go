@@ -31,8 +31,7 @@ type PeriodCadence struct {
 
 	// The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD).
 	// Example: 2026-01-01
-	// Required: true
-	StartsAt *string `json:"starts_at"`
+	StartsAt *string `json:"starts_at,omitempty"`
 }
 
 // Validate validates this period cadence
@@ -44,10 +43,6 @@ func (m *PeriodCadence) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIntervalUnit(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStartsAt(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,15 +64,6 @@ func (m *PeriodCadence) validateIntervalCount(formats strfmt.Registry) error {
 func (m *PeriodCadence) validateIntervalUnit(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("interval_unit", "body", m.IntervalUnit); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PeriodCadence) validateStartsAt(formats strfmt.Registry) error {
-
-	if err := validate.Required("starts_at", "body", m.StartsAt); err != nil {
 		return err
 	}
 

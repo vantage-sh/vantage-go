@@ -182,7 +182,7 @@ func (m *UpdateBudget) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-// UpdateBudgetPeriodCadence The interval cadence for budget periods. Requires the flexible_budget_periods feature.
+// UpdateBudgetPeriodCadence The interval cadence for budget periods. Changing cadence after creation is rejected.
 //
 // swagger:model UpdateBudgetPeriodCadence
 type UpdateBudgetPeriodCadence struct {

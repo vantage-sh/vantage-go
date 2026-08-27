@@ -2441,6 +2441,12 @@
             },
             "examples": {}
           },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
           "404": {
             "description": "NotFound",
             "schema": {
@@ -17634,7 +17640,8 @@
         "duration_in_days": {
           "type": "string",
           "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.",
-          "x-omitempty": false
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "period_to_track": {
           "type": "string",
@@ -17929,7 +17936,7 @@
         },
         "period_cadence": {
           "type": "object",
-          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "description": "The interval cadence for budget periods. Changing cadence after creation is rejected.",
           "x-omitempty": true,
           "properties": {
             "starts_at": {
@@ -27105,6 +27112,7 @@
           "type": "string",
           "example": "2026-01-01",
           "x-nullable": true,
+          "x-omitempty": true,
           "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
         },
         "interval_count": {
@@ -27122,7 +27130,6 @@
         }
       },
       "required": [
-        "starts_at",
         "interval_count",
         "interval_unit"
       ]
