@@ -21,7 +21,7 @@ import (
 // swagger:model updateBudget
 type UpdateBudget struct {
 
-	// The tokens of any child Budgets when creating a hierarchical Budget.
+	// The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates. Omitted on update to leave the current child list unchanged.
 	ChildBudgetTokens []string `json:"child_budget_tokens,omitempty"`
 
 	// The CostReport token. Ignored for hierarchical Budgets.

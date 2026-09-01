@@ -21,7 +21,7 @@ import (
 // swagger:model createBudget
 type CreateBudget struct {
 
-	// The tokens of any child Budgets when creating a hierarchical Budget.
+	// The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates.
 	ChildBudgetTokens []string `json:"child_budget_tokens"`
 
 	// The CostReport token. Ignored for hierarchical Budgets.
