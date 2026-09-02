@@ -36,7 +36,7 @@ type ForecastedCost struct {
 	// The cost provider which incurred the cost. Will be 'all' for all combined providers.
 	// Example: aws
 	// Required: true
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","all"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","all"]
 	Provider string `json:"provider"`
 
 	// The service for the forecasted cost. Will be 'all' for all combined services
@@ -116,7 +116,7 @@ var forecastedCostTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","all"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","all"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -254,6 +254,12 @@ const (
 
 	// ForecastedCostProviderCoreweave captures enum value "coreweave"
 	ForecastedCostProviderCoreweave string = "coreweave"
+
+	// ForecastedCostProviderDevin captures enum value "devin"
+	ForecastedCostProviderDevin string = "devin"
+
+	// ForecastedCostProviderOpenrouter captures enum value "openrouter"
+	ForecastedCostProviderOpenrouter string = "openrouter"
 
 	// ForecastedCostProviderAll captures enum value "all"
 	ForecastedCostProviderAll string = "all"

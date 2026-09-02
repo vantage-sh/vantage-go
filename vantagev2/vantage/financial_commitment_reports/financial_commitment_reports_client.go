@@ -62,6 +62,8 @@ type ClientService interface {
 
 	GetFinancialCommitmentReport(params *GetFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportOK, error)
 
+	GetFinancialCommitmentReportCosts(params *GetFinancialCommitmentReportCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportCostsOK, error)
+
 	GetFinancialCommitmentReports(params *GetFinancialCommitmentReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportsOK, error)
 
 	UpdateFinancialCommitmentReport(params *UpdateFinancialCommitmentReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFinancialCommitmentReportOK, error)
@@ -189,6 +191,47 @@ func (a *Client) GetFinancialCommitmentReport(params *GetFinancialCommitmentRepo
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getFinancialCommitmentReport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetFinancialCommitmentReportCosts gets costs for financial commitment report
+
+Return costs for a FinancialCommitmentReport.
+*/
+func (a *Client) GetFinancialCommitmentReportCosts(params *GetFinancialCommitmentReportCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFinancialCommitmentReportCostsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFinancialCommitmentReportCostsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getFinancialCommitmentReportCosts",
+		Method:             "GET",
+		PathPattern:        "/financial_commitment_reports/{financial_commitment_report_token}/costs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetFinancialCommitmentReportCostsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetFinancialCommitmentReportCostsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFinancialCommitmentReportCosts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
