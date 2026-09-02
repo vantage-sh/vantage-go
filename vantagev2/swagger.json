@@ -4591,7 +4591,9 @@
               "xai",
               "digital_ocean",
               "together_ai",
-              "coreweave"
+              "coreweave",
+              "devin",
+              "openrouter"
             ],
             "required": false
           },
@@ -4606,6 +4608,13 @@
             "in": "query",
             "name": "account_name",
             "description": "Filter by account name (exact match).",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search CostProviderAccounts by title.",
             "type": "string",
             "required": false
           }
@@ -5190,6 +5199,8 @@
               "digital_ocean",
               "together_ai",
               "coreweave",
+              "devin",
+              "openrouter",
               "all"
             ],
             "required": false
@@ -6563,6 +6574,161 @@
         "operationId": "deleteFinancialCommitmentReport"
       }
     },
+    "/financial_commitment_reports/{financial_commitment_report_token}/costs": {
+      "get": {
+        "summary": "Get costs for financial commitment report",
+        "description": "Return costs for a FinancialCommitmentReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "financial_commitment_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "First date you would like to filter costs from, inclusive. YYYY-MM-DD formatted.",
+            "type": "string",
+            "format": "date",
+            "required": false,
+            "x-example": "2024-03-01"
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Last date you would like to filter costs to, inclusive. YYYY-MM-DD formatted.",
+            "type": "string",
+            "format": "date",
+            "required": false,
+            "x-example": "2024-03-31"
+          },
+          {
+            "in": "query",
+            "name": "date_bin",
+            "description": "The date bin of the costs. Defaults to the report's configured date bucket. Hourly costs are limited to 14 days.",
+            "type": "string",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "quarter"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "groupings",
+            "description": "Group the results by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>. Serialize as a CSV query parameter: groupings=cost_type,service. Repeated parameters (groupings[]=cost_type&groupings[]=service) are also accepted.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv",
+            "required": false,
+            "x-style": "form",
+            "x-explode": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "The VQL filter to apply to the costs. Overrides the report's saved filter.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "on_demand_costs_scope",
+            "description": "The scope for the costs. Possible values: discountable, all.",
+            "type": "string",
+            "enum": [
+              "discountable",
+              "all"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Whether to order costs by date in an ascending or descending manner.",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of cost rows to return, not the number of date buckets. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 2500,
+            "minimum": 1,
+            "maximum": 5000,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinancialCommitmentReportCosts"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "FinancialCommitmentReports"
+        ],
+        "operationId": "getFinancialCommitmentReportCosts"
+      }
+    },
     "/financial_commitments": {
       "get": {
         "summary": "Get all financial commitments",
@@ -7008,7 +7174,9 @@
               "xai",
               "digital_ocean",
               "together_ai",
-              "coreweave"
+              "coreweave",
+              "devin",
+              "openrouter"
             ],
             "required": false
           },
@@ -8942,8 +9110,31 @@
         "parameters": [
           {
             "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "workspace_token",
             "description": "The token of the Workspace to list CostProviders for. Required if the API token is associated with multiple Workspaces.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search CostProviders by name or key.",
             "type": "string",
             "required": false
           }
@@ -9180,6 +9371,8 @@
             "type": "integer",
             "format": "int32",
             "default": 100,
+            "minimum": 1,
+            "maximum": 1000,
             "required": false
           }
         ],
@@ -13297,7 +13490,9 @@
                 "xai",
                 "digital_ocean",
                 "together_ai",
-                "coreweave"
+                "coreweave",
+                "devin",
+                "openrouter"
               ]
             },
             "required": false
@@ -13537,7 +13732,9 @@
                 "xai",
                 "digital_ocean",
                 "together_ai",
-                "coreweave"
+                "coreweave",
+                "devin",
+                "openrouter"
               ]
             },
             "required": false
@@ -17912,7 +18109,7 @@
         },
         "child_budget_tokens": {
           "type": "array",
-          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates.",
           "items": {
             "type": "string"
           }
@@ -18000,7 +18197,7 @@
         },
         "child_budget_tokens": {
           "type": "array",
-          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates. Omitted on update to leave the current child list unchanged.",
           "items": {
             "type": "string"
           },
@@ -19634,7 +19831,7 @@
             "count"
           ],
           "x-nullable": false,
-          "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
+          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
         "x_axis_dimension": {
           "type": "array",
@@ -19740,6 +19937,8 @@
             "digital_ocean",
             "together_ai",
             "coreweave",
+            "devin",
+            "openrouter",
             "all"
           ],
           "x-nullable": false,
@@ -19993,7 +20192,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -20197,7 +20396,7 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
               "enum": [
                 "cost",
                 "usage",
@@ -20558,7 +20757,9 @@
             "xai",
             "digital_ocean",
             "together_ai",
-            "coreweave"
+            "coreweave",
+            "devin",
+            "openrouter"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -21254,6 +21455,171 @@
       ],
       "description": "FinancialCommitmentReport model"
     },
+    "FinancialCommitmentReportCosts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "total_amount": {
+          "$ref": "#/definitions/CostPartial",
+          "description": "The sum of all net (discounted) costs for the complete filtered result, not only the current page, rounded to 2 decimal places, alongside the ISO 4217 currency code."
+        },
+        "total_gross_amount": {
+          "$ref": "#/definitions/CostPartial",
+          "description": "The sum of all gross costs for the complete filtered result, not only the current page, rounded to 2 decimal places, alongside the ISO 4217 currency code."
+        },
+        "costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinancialCommitmentReportCost"
+          }
+        }
+      },
+      "required": [
+        "total_amount",
+        "total_gross_amount",
+        "costs"
+      ],
+      "description": "FinancialCommitmentReportCosts model"
+    },
+    "FinancialCommitmentReportCost": {
+      "type": "object",
+      "properties": {
+        "accrued_at": {
+          "type": "string",
+          "example": "2024-03-01T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date the cost was accrued. ISO 8601 Formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "100.00",
+          "x-nullable": false,
+          "description": "The net (discounted) cost amount."
+        },
+        "gross_amount": {
+          "type": "string",
+          "example": "150.00",
+          "x-nullable": false,
+          "description": "The gross cost amount before discounts."
+        },
+        "on_demand_amount": {
+          "type": "string",
+          "example": "50.00",
+          "x-nullable": false,
+          "description": "The on-demand usage cost amount."
+        },
+        "covered_gross_amount": {
+          "type": "string",
+          "example": "100.00",
+          "x-nullable": false,
+          "description": "The gross amount of costs covered by commitments."
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "x-nullable": false,
+          "description": "The currency of the cost."
+        },
+        "cost_type": {
+          "type": "string",
+          "example": "SavingsPlanCoveredUsage",
+          "x-nullable": true,
+          "description": "The type of cost."
+        },
+        "commitment_type": {
+          "type": "string",
+          "example": "savings_plan",
+          "x-nullable": true,
+          "description": "The type of financial commitment."
+        },
+        "commitment_id": {
+          "type": "string",
+          "example": "sp-1234567890abcdef0",
+          "x-nullable": true,
+          "description": "The identifier of the financial commitment."
+        },
+        "service": {
+          "type": "string",
+          "example": "Amazon Elastic Compute Cloud - Compute",
+          "x-nullable": true,
+          "description": "The service which incurred the cost."
+        },
+        "resource_account_id": {
+          "type": "string",
+          "example": "123456789012",
+          "x-nullable": true,
+          "description": "The resource account ID which incurred the cost."
+        },
+        "provider_account_id": {
+          "type": "string",
+          "example": "123456789012",
+          "x-nullable": true,
+          "description": "The billing account ID which incurred the cost."
+        },
+        "region": {
+          "type": "string",
+          "example": "us-east-1",
+          "x-nullable": true,
+          "description": "The region which incurred the cost."
+        },
+        "cost_category": {
+          "type": "string",
+          "example": "Data Transfer",
+          "x-nullable": true,
+          "description": "The category for the cost."
+        },
+        "cost_sub_category": {
+          "type": "string",
+          "example": "DataTransfer-Regional-Bytes",
+          "x-nullable": true,
+          "description": "The subcategory for the cost."
+        },
+        "instance_type": {
+          "type": "string",
+          "example": "m5.xlarge",
+          "x-nullable": true,
+          "description": "The instance type which incurred the cost."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinancialCommitmentReportCostTag"
+          },
+          "description": "The tag key/value pairs attached to the cost that was incurred."
+        }
+      },
+      "required": [
+        "accrued_at",
+        "amount",
+        "gross_amount",
+        "on_demand_amount",
+        "covered_gross_amount",
+        "currency"
+      ]
+    },
+    "FinancialCommitmentReportCostTag": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "Name",
+          "x-nullable": false,
+          "description": "The tag key."
+        },
+        "value": {
+          "type": "string",
+          "example": "production",
+          "x-nullable": true,
+          "description": "The tag value. Null when the cost is not tagged with this key."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
     "createFinancialCommitmentReport": {
       "type": "object",
       "properties": {
@@ -21321,7 +21687,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -21396,7 +21762,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
           "items": {
             "type": "string"
           }
@@ -22840,13 +23206,13 @@
           "type": "string",
           "example": "AWS",
           "x-nullable": false,
-          "description": "The name of the CostProvider."
+          "description": "The name of the CostProvider. For Custom Providers, this is the customer-defined name."
         },
         "key": {
           "type": "string",
           "example": "aws",
           "x-nullable": false,
-          "description": "The key of the CostProvider, useful for filtering Costs."
+          "description": "The key of the CostProvider, useful for filtering Costs. Custom Providers use the form custom_provider:<token>."
         }
       },
       "required": [
@@ -25877,7 +26243,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2026-02-01",
+          "example": "2026-03-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -27233,35 +27599,6 @@
         }
       },
       "description": "Update a workspace"
-    },
-    "PeriodCadence": {
-      "type": "object",
-      "properties": {
-        "starts_at": {
-          "type": "string",
-          "example": "2026-01-01",
-          "x-nullable": true,
-          "x-omitempty": true,
-          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
-        },
-        "interval_count": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1,
-          "x-nullable": false,
-          "description": "The number of interval units per budget period."
-        },
-        "interval_unit": {
-          "type": "string",
-          "example": "month",
-          "x-nullable": false,
-          "description": "The unit for budget period intervals. One of: day, week, month, year."
-        }
-      },
-      "required": [
-        "interval_count",
-        "interval_unit"
-      ]
     }
   }
 }

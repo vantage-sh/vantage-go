@@ -19,12 +19,12 @@ import (
 // swagger:model CostProvider
 type CostProvider struct {
 
-	// The key of the CostProvider, useful for filtering Costs.
+	// The key of the CostProvider, useful for filtering Costs. Custom Providers use the form custom_provider:<token>.
 	// Example: aws
 	// Required: true
 	Key string `json:"key"`
 
-	// The name of the CostProvider.
+	// The name of the CostProvider. For Custom Providers, this is the customer-defined name.
 	// Example: AWS
 	// Required: true
 	Name string `json:"name"`
