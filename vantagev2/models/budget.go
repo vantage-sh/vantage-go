@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -59,6 +60,15 @@ type Budget struct {
 	// Required: true
 	Token string `json:"token"`
 
+	// The type of Budget. One of: cost, usage.
+	// Example: cost
+	// Required: true
+	// Enum: ["cost","usage"]
+	Type string `json:"type"`
+
+	// The usage unit for usage Budgets.
+	Unit *string `json:"unit,omitempty"`
+
 	// The token for the User who created this Budget.
 	UserToken *string `json:"user_token,omitempty"`
 
@@ -100,6 +110,10 @@ func (m *Budget) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -225,6 +239,49 @@ func (m *Budget) validatePeriods(formats strfmt.Registry) error {
 func (m *Budget) validateToken(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var budgetTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		budgetTypeTypePropEnum = append(budgetTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// BudgetTypeCost captures enum value "cost"
+	BudgetTypeCost string = "cost"
+
+	// BudgetTypeUsage captures enum value "usage"
+	BudgetTypeUsage string = "usage"
+)
+
+// prop value enum
+func (m *Budget) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, budgetTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *Budget) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 
