@@ -34,17 +34,17 @@ type CreateKubernetesEfficiencyReport struct {
 
 	// The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	// Format: date
-	EndDate strfmt.Date `json:"end_date,omitempty"`
+	EndDate *strfmt.Date `json:"end_date,omitempty"`
 
 	// The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.
-	Groupings []string `json:"groupings"`
+	// Grouping values for aggregating costs on the KubernetesEfficiencyReport. Group by up to 100 fields. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label:<label_name>.
+	Groupings []string `json:"groupings,omitempty"`
 
 	// The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	// Format: date
-	StartDate strfmt.Date `json:"start_date,omitempty"`
+	StartDate *strfmt.Date `json:"start_date,omitempty"`
 
 	// The title of the KubernetesEfficiencyReport.
 	// Required: true
