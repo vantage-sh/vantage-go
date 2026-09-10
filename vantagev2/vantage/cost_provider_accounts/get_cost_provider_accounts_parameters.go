@@ -79,6 +79,12 @@ type GetCostProviderAccountsParams struct {
 	*/
 	Provider *string
 
+	/* Q.
+
+	   Search CostProviderAccounts by title.
+	*/
+	Q *string
+
 	/* WorkspaceToken.
 
 	   The token of the Workspace to list CostProviderAccounts for. Required if the API token is associated with multiple Workspaces.
@@ -171,6 +177,17 @@ func (o *GetCostProviderAccountsParams) SetProvider(provider *string) {
 	o.Provider = provider
 }
 
+// WithQ adds the q to the get cost provider accounts params
+func (o *GetCostProviderAccountsParams) WithQ(q *string) *GetCostProviderAccountsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get cost provider accounts params
+func (o *GetCostProviderAccountsParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WithWorkspaceToken adds the workspaceToken to the get cost provider accounts params
 func (o *GetCostProviderAccountsParams) WithWorkspaceToken(workspaceToken *string) *GetCostProviderAccountsParams {
 	o.SetWorkspaceToken(workspaceToken)
@@ -236,6 +253,23 @@ func (o *GetCostProviderAccountsParams) WriteToRequest(r runtime.ClientRequest, 
 		if qProvider != "" {
 
 			if err := r.SetQueryParam("provider", qProvider); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}

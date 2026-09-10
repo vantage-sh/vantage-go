@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetCostProvidersParams creates a new GetCostProvidersParams object,
@@ -60,6 +61,28 @@ GetCostProvidersParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetCostProvidersParams struct {
+
+	/* Limit.
+
+	   The number of results to return. The maximum is 1000.
+
+	   Format: int32
+	*/
+	Limit *int32
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	*/
+	Page *int32
+
+	/* Q.
+
+	   Search CostProviders by name or key.
+	*/
+	Q *string
 
 	/* WorkspaceToken.
 
@@ -120,6 +143,39 @@ func (o *GetCostProvidersParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithLimit adds the limit to the get cost providers params
+func (o *GetCostProvidersParams) WithLimit(limit *int32) *GetCostProvidersParams {
+	o.SetLimit(limit)
+	return o
+}
+
+// SetLimit adds the limit to the get cost providers params
+func (o *GetCostProvidersParams) SetLimit(limit *int32) {
+	o.Limit = limit
+}
+
+// WithPage adds the page to the get cost providers params
+func (o *GetCostProvidersParams) WithPage(page *int32) *GetCostProvidersParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get cost providers params
+func (o *GetCostProvidersParams) SetPage(page *int32) {
+	o.Page = page
+}
+
+// WithQ adds the q to the get cost providers params
+func (o *GetCostProvidersParams) WithQ(q *string) *GetCostProvidersParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get cost providers params
+func (o *GetCostProvidersParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WithWorkspaceToken adds the workspaceToken to the get cost providers params
 func (o *GetCostProvidersParams) WithWorkspaceToken(workspaceToken *string) *GetCostProvidersParams {
 	o.SetWorkspaceToken(workspaceToken)
@@ -138,6 +194,57 @@ func (o *GetCostProvidersParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.Limit != nil {
+
+		// query param limit
+		var qrLimit int32
+
+		if o.Limit != nil {
+			qrLimit = *o.Limit
+		}
+		qLimit := swag.FormatInt32(qrLimit)
+		if qLimit != "" {
+
+			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.WorkspaceToken != nil {
 

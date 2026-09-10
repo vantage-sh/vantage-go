@@ -24,8 +24,8 @@ type Cost struct {
 	// Example: 9109237192
 	AccountID *string `json:"account_id,omitempty"`
 
-	// The date the cost was accrued. ISO 8601 Formatted.
-	// Example: 2023-09-05+00:00
+	// The date that the cost was accrued. ISO 8601 Formatted. Hourly date_bin responses include the hour (e.g. 2023-09-05T13:00:00Z); other bins are date-only.
+	// Example: 2023-09-05T00:00:00Z
 	// Required: true
 	AccruedAt string `json:"accrued_at"`
 
@@ -60,7 +60,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter"]
 	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -183,7 +183,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -321,6 +321,12 @@ const (
 
 	// CostProviderCoreweave captures enum value "coreweave"
 	CostProviderCoreweave string = "coreweave"
+
+	// CostProviderDevin captures enum value "devin"
+	CostProviderDevin string = "devin"
+
+	// CostProviderOpenrouter captures enum value "openrouter"
+	CostProviderOpenrouter string = "openrouter"
 )
 
 // prop value enum
