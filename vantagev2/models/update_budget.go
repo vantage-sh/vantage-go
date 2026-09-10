@@ -21,7 +21,7 @@ import (
 // swagger:model updateBudget
 type UpdateBudget struct {
 
-	// The tokens of any child Budgets when creating a hierarchical Budget.
+	// The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates. Omitted on update to leave the current child list unchanged.
 	ChildBudgetTokens []string `json:"child_budget_tokens,omitempty"`
 
 	// The CostReport token. Ignored for hierarchical Budgets.
@@ -35,6 +35,13 @@ type UpdateBudget struct {
 
 	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
 	Periods []*UpdateBudgetPeriodsItems0 `json:"periods,omitempty"`
+
+	// The type of Budget. One of: cost, usage.
+	// Enum: ["cost","usage"]
+	Type string `json:"type,omitempty"`
+
+	// The usage unit for usage Budgets. Send null to clear.
+	Unit *string `json:"unit"`
 }
 
 // Validate validates this update budget
@@ -46,6 +53,10 @@ func (m *UpdateBudget) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePeriods(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -95,6 +106,48 @@ func (m *UpdateBudget) validatePeriods(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+var updateBudgetTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateBudgetTypeTypePropEnum = append(updateBudgetTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateBudgetTypeCost captures enum value "cost"
+	UpdateBudgetTypeCost string = "cost"
+
+	// UpdateBudgetTypeUsage captures enum value "usage"
+	UpdateBudgetTypeUsage string = "usage"
+)
+
+// prop value enum
+func (m *UpdateBudget) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateBudgetTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateBudget) validateType(formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+		return err
 	}
 
 	return nil

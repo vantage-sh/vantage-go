@@ -17731,6 +17731,21 @@
           "x-nullable": true,
           "description": "The name of the Budget."
         },
+        "type": {
+          "type": "string",
+          "example": "cost",
+          "enum": [
+            "cost",
+            "usage"
+          ],
+          "x-nullable": false,
+          "description": "The type of Budget. One of: cost, usage."
+        },
+        "unit": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The usage unit for usage Budgets."
+        },
         "workspace_token": {
           "type": "string",
           "x-nullable": false,
@@ -17801,6 +17816,7 @@
       "required": [
         "token",
         "name",
+        "type",
         "workspace_token",
         "created_at",
         "budget_alert_tokens",
@@ -17910,16 +17926,28 @@
           "type": "string",
           "description": "The CostReport token. Ignored for hierarchical Budgets."
         },
+        "type": {
+          "type": "string",
+          "description": "The type of Budget. One of: cost, usage.",
+          "enum": [
+            "cost",
+            "usage"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "description": "The usage unit for usage Budgets."
+        },
         "child_budget_tokens": {
           "type": "array",
-          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates.",
           "items": {
             "type": "string"
           }
         },
         "period_cadence": {
           "type": "object",
-          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "description": "The interval cadence for budget periods.",
           "properties": {
             "starts_at": {
               "type": "string",
@@ -17998,9 +18026,24 @@
           "description": "The CostReport token. Ignored for hierarchical Budgets.",
           "x-omitempty": true
         },
+        "type": {
+          "type": "string",
+          "description": "The type of Budget. One of: cost, usage.",
+          "enum": [
+            "cost",
+            "usage"
+          ],
+          "x-omitempty": true
+        },
+        "unit": {
+          "type": "string",
+          "description": "The usage unit for usage Budgets. Send null to clear.",
+          "x-nullable": true,
+          "x-omitempty": false
+        },
         "child_budget_tokens": {
           "type": "array",
-          "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
+          "description": "The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates. Omitted on update to leave the current child list unchanged.",
           "items": {
             "type": "string"
           },
@@ -27233,35 +27276,6 @@
         }
       },
       "description": "Update a workspace"
-    },
-    "PeriodCadence": {
-      "type": "object",
-      "properties": {
-        "starts_at": {
-          "type": "string",
-          "example": "2026-01-01",
-          "x-nullable": true,
-          "x-omitempty": true,
-          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
-        },
-        "interval_count": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1,
-          "x-nullable": false,
-          "description": "The number of interval units per budget period."
-        },
-        "interval_unit": {
-          "type": "string",
-          "example": "month",
-          "x-nullable": false,
-          "description": "The unit for budget period intervals. One of: day, week, month, year."
-        }
-      },
-      "required": [
-        "interval_count",
-        "interval_unit"
-      ]
     }
   }
 }
