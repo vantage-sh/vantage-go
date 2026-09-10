@@ -64,7 +64,7 @@ type GetBusinessMetricsParams struct {
 
 	/* Limit.
 
-	   The amount of results to return. The maximum is 1000.
+	   The amount of results to return. The maximum is 5000.
 
 	   Format: int32
 	*/
@@ -77,6 +77,12 @@ type GetBusinessMetricsParams struct {
 	   Format: int32
 	*/
 	Page *int32
+
+	/* Q.
+
+	   Search business metrics by title.
+	*/
+	Q *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -153,6 +159,17 @@ func (o *GetBusinessMetricsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get business metrics params
+func (o *GetBusinessMetricsParams) WithQ(q *string) *GetBusinessMetricsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get business metrics params
+func (o *GetBusinessMetricsParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetBusinessMetricsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +207,23 @@ func (o *GetBusinessMetricsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}

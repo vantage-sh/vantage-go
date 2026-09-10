@@ -62,6 +62,12 @@ GetBudgetAlertsParams contains all the parameters to send to the API endpoint
 */
 type GetBudgetAlertsParams struct {
 
+	/* BudgetToken.
+
+	   Filter by budget token.
+	*/
+	BudgetToken *string
+
 	/* Limit.
 
 	   The number of results to return. The maximum is 1000.
@@ -77,6 +83,12 @@ type GetBudgetAlertsParams struct {
 	   Format: int32
 	*/
 	Page *int32
+
+	/* WorkspaceToken.
+
+	   Filter by workspace token.
+	*/
+	WorkspaceToken *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -131,6 +143,17 @@ func (o *GetBudgetAlertsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBudgetToken adds the budgetToken to the get budget alerts params
+func (o *GetBudgetAlertsParams) WithBudgetToken(budgetToken *string) *GetBudgetAlertsParams {
+	o.SetBudgetToken(budgetToken)
+	return o
+}
+
+// SetBudgetToken adds the budgetToken to the get budget alerts params
+func (o *GetBudgetAlertsParams) SetBudgetToken(budgetToken *string) {
+	o.BudgetToken = budgetToken
+}
+
 // WithLimit adds the limit to the get budget alerts params
 func (o *GetBudgetAlertsParams) WithLimit(limit *int32) *GetBudgetAlertsParams {
 	o.SetLimit(limit)
@@ -153,6 +176,17 @@ func (o *GetBudgetAlertsParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithWorkspaceToken adds the workspaceToken to the get budget alerts params
+func (o *GetBudgetAlertsParams) WithWorkspaceToken(workspaceToken *string) *GetBudgetAlertsParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get budget alerts params
+func (o *GetBudgetAlertsParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetBudgetAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +194,23 @@ func (o *GetBudgetAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.BudgetToken != nil {
+
+		// query param budget_token
+		var qrBudgetToken string
+
+		if o.BudgetToken != nil {
+			qrBudgetToken = *o.BudgetToken
+		}
+		qBudgetToken := qrBudgetToken
+		if qBudgetToken != "" {
+
+			if err := r.SetQueryParam("budget_token", qBudgetToken); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 
@@ -190,6 +241,23 @@ func (o *GetBudgetAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

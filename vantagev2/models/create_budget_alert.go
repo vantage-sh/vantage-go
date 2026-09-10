@@ -33,12 +33,18 @@ type CreateBudgetAlert struct {
 	// The channels receiving the alerts. Requires an integration provider to be connected.
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// Email addresses that receive the alert. Must be organization users or addresses on a verified domain.
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// The threshold amount that must be met for the alert to fire.
 	// Required: true
 	Threshold *int32 `json:"threshold"`
 
 	// The tokens of the users that receive the alert.
 	UserTokens []string `json:"user_tokens"`
+
+	// The token of the Workspace to add the BudgetAlert to. Required if the API token is associated with multiple Workspaces.
+	WorkspaceToken string `json:"workspace_token,omitempty"`
 }
 
 // Validate validates this create budget alert

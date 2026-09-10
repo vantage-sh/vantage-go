@@ -30,6 +30,12 @@ func (o *GetBusinessMetricValuesReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetBusinessMetricValuesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewGetBusinessMetricValuesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -102,6 +108,76 @@ func (o *GetBusinessMetricValuesOK) GetPayload() *models.BusinessMetricValues {
 func (o *GetBusinessMetricValuesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BusinessMetricValues)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBusinessMetricValuesBadRequest creates a GetBusinessMetricValuesBadRequest with default headers values
+func NewGetBusinessMetricValuesBadRequest() *GetBusinessMetricValuesBadRequest {
+	return &GetBusinessMetricValuesBadRequest{}
+}
+
+/*
+GetBusinessMetricValuesBadRequest describes a response with status code 400, with default header values.
+
+BadRequest
+*/
+type GetBusinessMetricValuesBadRequest struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this get business metric values bad request response has a 2xx status code
+func (o *GetBusinessMetricValuesBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get business metric values bad request response has a 3xx status code
+func (o *GetBusinessMetricValuesBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get business metric values bad request response has a 4xx status code
+func (o *GetBusinessMetricValuesBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get business metric values bad request response has a 5xx status code
+func (o *GetBusinessMetricValuesBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get business metric values bad request response a status code equal to that given
+func (o *GetBusinessMetricValuesBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get business metric values bad request response
+func (o *GetBusinessMetricValuesBadRequest) Code() int {
+	return 400
+}
+
+func (o *GetBusinessMetricValuesBadRequest) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/values][%d] getBusinessMetricValuesBadRequest %s", 400, payload)
+}
+
+func (o *GetBusinessMetricValuesBadRequest) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /business_metrics/{business_metric_token}/values][%d] getBusinessMetricValuesBadRequest %s", 400, payload)
+}
+
+func (o *GetBusinessMetricValuesBadRequest) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *GetBusinessMetricValuesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

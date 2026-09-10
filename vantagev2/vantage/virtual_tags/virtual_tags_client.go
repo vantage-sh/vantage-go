@@ -58,7 +58,11 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CreateVirtualTagConfig(params *CreateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateVirtualTagConfigCreated, error)
 
+	CreateVirtualTagConfigValue(params *CreateVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateVirtualTagConfigValueCreated, error)
+
 	DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVirtualTagConfigNoContent, error)
+
+	DeleteVirtualTagConfigValue(params *DeleteVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVirtualTagConfigValueNoContent, error)
 
 	GetAsyncVirtualTagConfigStatus(params *GetAsyncVirtualTagConfigStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAsyncVirtualTagConfigStatusOK, error)
 
@@ -66,11 +70,15 @@ type ClientService interface {
 
 	GetVirtualTagConfigStatus(params *GetVirtualTagConfigStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigStatusOK, *GetVirtualTagConfigStatusAccepted, error)
 
+	GetVirtualTagConfigValue(params *GetVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigValueOK, error)
+
 	GetVirtualTagConfigs(params *GetVirtualTagConfigsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigsOK, error)
 
 	UpdateAsyncVirtualTagConfig(params *UpdateAsyncVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAsyncVirtualTagConfigAccepted, error)
 
 	UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigOK, *UpdateVirtualTagConfigAccepted, error)
+
+	UpdateVirtualTagConfigValue(params *UpdateVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigValueOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -117,6 +125,47 @@ func (a *Client) CreateVirtualTagConfig(params *CreateVirtualTagConfigParams, au
 }
 
 /*
+CreateVirtualTagConfigValue creates virtual tag config value
+
+Create a VirtualTagConfigValue.
+*/
+func (a *Client) CreateVirtualTagConfigValue(params *CreateVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateVirtualTagConfigValueCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateVirtualTagConfigValueParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createVirtualTagConfigValue",
+		Method:             "POST",
+		PathPattern:        "/virtual_tag_configs/{virtual_tag_config_token}/values",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateVirtualTagConfigValueReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateVirtualTagConfigValueCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createVirtualTagConfigValue: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 DeleteVirtualTagConfig deletes virtual tag config
 
 Deletes an existing VirtualTagConfig.
@@ -154,6 +203,47 @@ func (a *Client) DeleteVirtualTagConfig(params *DeleteVirtualTagConfigParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteVirtualTagConfig: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DeleteVirtualTagConfigValue deletes virtual tag config value
+
+Delete a VirtualTagConfigValue.
+*/
+func (a *Client) DeleteVirtualTagConfigValue(params *DeleteVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVirtualTagConfigValueNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteVirtualTagConfigValueParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteVirtualTagConfigValue",
+		Method:             "DELETE",
+		PathPattern:        "/virtual_tag_configs/{virtual_tag_config_token}/values/{virtual_tag_config_value_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteVirtualTagConfigValueReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteVirtualTagConfigValueNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteVirtualTagConfigValue: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -282,6 +372,47 @@ func (a *Client) GetVirtualTagConfigStatus(params *GetVirtualTagConfigStatusPara
 }
 
 /*
+GetVirtualTagConfigValue gets virtual tag config value by token
+
+Return a VirtualTagConfigValue.
+*/
+func (a *Client) GetVirtualTagConfigValue(params *GetVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVirtualTagConfigValueOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetVirtualTagConfigValueParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getVirtualTagConfigValue",
+		Method:             "GET",
+		PathPattern:        "/virtual_tag_configs/{virtual_tag_config_token}/values/{virtual_tag_config_value_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetVirtualTagConfigValueReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetVirtualTagConfigValueOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getVirtualTagConfigValue: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 GetVirtualTagConfigs gets all virtual tag configs
 
 Return all VirtualTagConfigs that the current API token has access to.
@@ -402,6 +533,47 @@ func (a *Client) UpdateVirtualTagConfig(params *UpdateVirtualTagConfigParams, au
 	}
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for virtual_tags: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateVirtualTagConfigValue updates virtual tag config value
+
+Update a VirtualTagConfigValue.
+*/
+func (a *Client) UpdateVirtualTagConfigValue(params *UpdateVirtualTagConfigValueParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVirtualTagConfigValueOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateVirtualTagConfigValueParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateVirtualTagConfigValue",
+		Method:             "PATCH",
+		PathPattern:        "/virtual_tag_configs/{virtual_tag_config_token}/values/{virtual_tag_config_value_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateVirtualTagConfigValueReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateVirtualTagConfigValueOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateVirtualTagConfigValue: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

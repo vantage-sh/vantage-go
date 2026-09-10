@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -34,6 +35,11 @@ type UnitCost struct {
 	// Required: true
 	BusinessMetricToken string `json:"business_metric_token"`
 
+	// The calculation type applied to produce this result.
+	// Example: unit_cost
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType *string `json:"calculation_type,omitempty"`
+
 	// The date for which the unit cost was calculated. ISO 8601 Formatted.
 	// Example: 2023-09-05+00:00
 	// Required: true
@@ -47,7 +53,7 @@ type UnitCost struct {
 	// Required: true
 	Scale float32 `json:"scale"`
 
-	// The amount of the unit cost.
+	// The amount of the unit cost. For raw_business_metric types, this equals the business_metric_amount.
 	// Example: 4.25
 	// Required: true
 	UnitCostAmount string `json:"unit_cost_amount"`
@@ -66,6 +72,10 @@ func (m *UnitCost) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCalculationType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,6 +122,54 @@ func (m *UnitCost) validateBusinessMetricTitle(formats strfmt.Registry) error {
 func (m *UnitCost) validateBusinessMetricToken(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("business_metric_token", "body", m.BusinessMetricToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var unitCostTypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		unitCostTypeCalculationTypePropEnum = append(unitCostTypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UnitCostCalculationTypeUnitCost captures enum value "unit_cost"
+	UnitCostCalculationTypeUnitCost string = "unit_cost"
+
+	// UnitCostCalculationTypeGrossMargin captures enum value "gross_margin"
+	UnitCostCalculationTypeGrossMargin string = "gross_margin"
+
+	// UnitCostCalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	UnitCostCalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// UnitCostCalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	UnitCostCalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *UnitCost) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, unitCostTypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UnitCost) validateCalculationType(formats strfmt.Registry) error {
+	if swag.IsZero(m.CalculationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
 		return err
 	}
 

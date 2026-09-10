@@ -67,7 +67,7 @@ type GetBusinessMetricForecastedValuesParams struct {
 
 	/* Limit.
 
-	   The amount of results to return. The maximum is 1000.
+	   The amount of results to return. The maximum is 5000.
 
 	   Format: int32
 	*/

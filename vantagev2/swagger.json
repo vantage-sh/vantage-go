@@ -51,6 +51,10 @@
       "description": "Operations about AnomalyNotifications"
     },
     {
+      "name": "Annotations",
+      "description": "Operations about Annotations"
+    },
+    {
       "name": "AuditLogs",
       "description": "Operations about AuditLogs"
     },
@@ -151,6 +155,10 @@
       "description": "Operations about UserFeedbacks"
     },
     {
+      "name": "NetworkFlowLogs",
+      "description": "Operations about NetworkFlowLogs"
+    },
+    {
       "name": "NetworkFlowReports",
       "description": "Operations about NetworkFlowReports"
     },
@@ -171,6 +179,10 @@
       "description": "Operations about ReportNotifications"
     },
     {
+      "name": "ReportForecasts",
+      "description": "Operations about ReportForecasts"
+    },
+    {
       "name": "ResourceReports",
       "description": "Operations about ResourceReports"
     },
@@ -181,6 +193,10 @@
     {
       "name": "SavedFilters",
       "description": "Operations about SavedFilters"
+    },
+    {
+      "name": "ScenarioModels",
+      "description": "Operations about ScenarioModels"
     },
     {
       "name": "Segments",
@@ -836,6 +852,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "description": "Filter by Cost Report token.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -1104,6 +1134,297 @@
           "AnomalyNotifications"
         ],
         "operationId": "deleteAnomalyNotification"
+      }
+    },
+    "/annotations": {
+      "get": {
+        "summary": "Get all annotations",
+        "description": "Return all Annotations.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "report_token",
+            "description": "Filter by Report token.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Annotations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/annotations",
+                  "first": "https://api.vantage.sh/v2/annotations?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/annotations?page=1",
+                  "prev": null
+                },
+                "annotations": [
+                  {
+                    "token": "issue_946526bd88c296c6",
+                    "title": "Down-sized",
+                    "report_tokens": [
+                      "rprt_b03547330d3808a0",
+                      "rprt_c4c97225bf1fa392"
+                    ],
+                    "date": "2026-08-12",
+                    "message": "Infrastructure migration"
+                  },
+                  {
+                    "token": "issue_56063755b6a82997",
+                    "title": "Persistent",
+                    "report_tokens": [
+                      "rprt_5649e387dc43ca2d"
+                    ],
+                    "date": "2026-08-10",
+                    "message": "Pricing update"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "getAnnotations"
+      },
+      "post": {
+        "summary": "Create an annotation",
+        "description": "Create an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createAnnotation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAnnotation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Annotation created successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "issue_4b05d8f17aea0580",
+                "title": "Infrastructure migration completed",
+                "report_tokens": [
+                  "rprt_5b72ee3954cf82e9",
+                  "rprt_3ec37e01a019b9a6"
+                ],
+                "date": "2026-08-12",
+                "message": "Infrastructure migration completed"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "createAnnotation"
+      }
+    },
+    "/annotations/{annotation_token}": {
+      "put": {
+        "summary": "Update an annotation",
+        "description": "Update an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "annotation_token",
+            "description": "The token of the Annotation.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateAnnotation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateAnnotation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Annotation updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "issue_f05d884fed1221e5",
+                "title": "Migration rescheduled",
+                "report_tokens": [
+                  "rprt_7ed0e557ae72559d",
+                  "rprt_3f5eebef4caea173"
+                ],
+                "date": "2026-08-14",
+                "message": "Infrastructure migration rescheduled"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "updateAnnotation"
+      },
+      "delete": {
+        "summary": "Delete an annotation",
+        "description": "Delete an Annotation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "annotation_token",
+            "description": "The token of the Annotation.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Annotation deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/Annotation"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Annotations"
+        ],
+        "operationId": "deleteAnnotation"
       }
     },
     "/audit_logs": {
@@ -1954,6 +2275,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "budget_token",
+            "description": "Filter by budget token.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -2106,6 +2441,12 @@
             },
             "examples": {}
           },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
           "404": {
             "description": "NotFound",
             "schema": {
@@ -2182,6 +2523,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search budgets by name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the budgets to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -2216,6 +2571,12 @@
                     "cost_report_token": "rprt_92062240b4ffda91",
                     "created_at": "2024-07-11T20:22:49Z",
                     "budget_alert_tokens": [],
+                    "child_budget_tokens": [],
+                    "period_cadence": {
+                      "starts_at": null,
+                      "interval_count": 1,
+                      "interval_unit": "month"
+                    },
                     "periods": [
                       {
                         "start_at": "2024-07-01",
@@ -2283,6 +2644,12 @@
                 "cost_report_token": null,
                 "created_at": "2024-07-11T20:22:52Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-01-01",
@@ -2389,6 +2756,12 @@
                 "cost_report_token": "rprt_9ee9f29893956951",
                 "created_at": "2024-07-11T20:22:41Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2024-07-01",
@@ -2466,6 +2839,12 @@
                 "cost_report_token": "rprt_07325bc3667263b7",
                 "created_at": "2024-07-11T20:22:48Z",
                 "budget_alert_tokens": [],
+                "child_budget_tokens": [],
+                "period_cadence": {
+                  "starts_at": null,
+                  "interval_count": 1,
+                  "interval_unit": "month"
+                },
                 "periods": [
                   {
                     "start_at": "2023-01-01",
@@ -2597,9 +2976,18 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search business metrics by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -2946,6 +3334,88 @@
         "operationId": "deleteBusinessMetric"
       }
     },
+    "/business_metrics/{business_metric_token}/labels": {
+      "get": {
+        "summary": "Get business metric labels",
+        "description": "Return labels of a BusinessMetric.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return per page. Defaults to 1000. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "business_metric_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BusinessMetricLabels"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels",
+                  "first": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/business_metrics/bsnss_mtrc_aaf0a1b22b10aecc/labels?page=1",
+                  "prev": null
+                },
+                "labels": [
+                  {
+                    "value": "alpha"
+                  },
+                  {
+                    "value": "beta"
+                  },
+                  {
+                    "value": "Enterprise"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "BusinessMetrics"
+        ],
+        "operationId": "getBusinessMetricLabels"
+      }
+    },
     "/business_metrics/{business_metric_token}/values": {
       "get": {
         "summary": "Get business metric values",
@@ -2965,9 +3435,11 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
             "required": false
           },
           {
@@ -2976,6 +3448,27 @@
             "description": "Query BusinessMetrics by the first date you would like to filter from. ISO 8601 Formatted - 2021-07-15",
             "type": "string",
             "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "label_values",
+            "description": "Return values matching any exact label value. For multi-label metrics, matches values under any label key.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "date_bin",
+            "description": "Sum values by UTC day or month while preserving labels. When omitted, values are returned without aggregation.",
+            "type": "string",
+            "enum": [
+              "day",
+              "month"
+            ],
             "required": false
           },
           {
@@ -3017,6 +3510,12 @@
               }
             }
           },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
           "404": {
             "description": "NotFound",
             "schema": {
@@ -3031,7 +3530,7 @@
       },
       "delete": {
         "summary": "Delete business metric values",
-        "description": "Deletes Business Metric values (historical or forecasted unit metrics).",
+        "description": "Deletes Business Metric values (historical or forecasted unit metrics). BusinessMetrics whose values are stored in ClickHouse only support deleting every historical value or every forecasted value, so supplying start_date, end_date, or label returns 422.",
         "produces": [
           "application/json"
         ],
@@ -3135,9 +3634,11 @@
           {
             "in": "query",
             "name": "limit",
-            "description": "The amount of results to return. The maximum is 1000.",
+            "description": "The amount of results to return. The maximum is 5000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
             "required": false
           },
           {
@@ -3311,6 +3812,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search canvases by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -3691,6 +4206,38 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search cost alerts by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the cost alerts to return.",
+            "type": "string",
+            "required": false
+          }
+        ],
         "security": [
           {
             "oauth2": [
@@ -4035,7 +4582,16 @@
               "redis_cloud",
               "circle_ci",
               "modal",
-              "eleven_labs"
+              "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai",
+              "cartesia",
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave"
             ],
             "required": false
           },
@@ -4121,6 +4677,20 @@
             "in": "query",
             "name": "folder_token",
             "description": "The token for the Folder you would like to fetch Reports from.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search cost reports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the cost reports to return.",
             "type": "string",
             "required": false
           }
@@ -4611,6 +5181,15 @@
               "circle_ci",
               "modal",
               "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai",
+              "cartesia",
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave",
               "all"
             ],
             "required": false
@@ -4816,21 +5395,21 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "First date you would like to filter costs from. ISO 8601 formatted.",
+            "description": "First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "end_date",
-            "description": "Last date you would like to filter costs to. ISO 8601 formatted.",
+            "description": "Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+            "description": "Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
             "type": "array",
             "items": {
               "type": "string"
@@ -4931,15 +5510,20 @@
           {
             "in": "query",
             "name": "settings[aggregate_by]",
-            "description": "Results will aggregate by cost or usage.",
+            "description": "Results will aggregate by cost, usage, or count.",
             "type": "string",
             "default": "cost",
+            "enum": [
+              "cost",
+              "usage",
+              "count"
+            ],
             "required": false
           },
           {
             "in": "query",
             "name": "settings[show_previous_period]",
-            "description": "Results will show previous period costs or usage comparison.",
+            "description": "Results will show previous period cost, usage, or count comparison.",
             "type": "boolean",
             "default": true,
             "required": false
@@ -5063,6 +5647,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search dashboards by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the dashboards to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -5659,6 +6257,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search financial commitment reports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the financial commitment reports to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -6060,6 +6672,20 @@
               "ProviderResourceFolder"
             ],
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search folders by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the folders to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -6373,7 +6999,16 @@
               "redis_cloud",
               "circle_ci",
               "modal",
-              "eleven_labs"
+              "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai",
+              "cartesia",
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave"
             ],
             "required": false
           },
@@ -7406,6 +8041,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search Kubernetes efficiency reports by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -8410,6 +9059,212 @@
         "operationId": "createUserFeedback"
       }
     },
+    "/network_flow_logs": {
+      "get": {
+        "summary": "Get network flow logs",
+        "description": "Return aggregated Network Flow Logs for a saved report or ad hoc VQL query.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "network_flow_report_token",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "date_interval",
+            "type": "string",
+            "enum": [
+              "last_3_days",
+              "last_7_days",
+              "last_14_days",
+              "last_30_days"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "type": "string",
+            "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "type": "string",
+            "format": "date",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "groupings",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "account_id",
+                "az_id",
+                "dstaddr",
+                "dsthostname",
+                "flow_direction",
+                "interface_id",
+                "instance_id",
+                "peer_resource_uuid",
+                "peer_account_id",
+                "peer_vpc_id",
+                "peer_region",
+                "peer_az_id",
+                "peer_subnet_id",
+                "peer_interface_id",
+                "peer_instance_id",
+                "region",
+                "resource_uuid",
+                "srcaddr",
+                "srchostname",
+                "subnet_id",
+                "traffic_category",
+                "traffic_path",
+                "vpc_id"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "flow_direction",
+            "type": "string",
+            "enum": [
+              "all",
+              "ingress",
+              "egress"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "flow_weight",
+            "type": "string",
+            "enum": [
+              "costs",
+              "bytes"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NetworkFlowLogs"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/network_flow_logs?network_flow_report_token=ntflw_lg_rprt_aea0bdc238d0cf65",
+                  "first": "https://api.vantage.sh/v2/network_flow_logs?network_flow_report_token=ntflw_lg_rprt_aea0bdc238d0cf65&page=1",
+                  "next": null,
+                  "last": null,
+                  "prev": null
+                },
+                "flow_weight": "costs",
+                "sampling": {
+                  "sampled": true,
+                  "max_sampling_rate_percent": 50.0
+                },
+                "network_flow_logs": [
+                  {
+                    "groupings": {
+                      "resource_uuid": {
+                        "value": "resource-123",
+                        "label": "production-web-1",
+                        "provider_resource_token": "prvdr_rsrc_39e94b2468400dca"
+                      },
+                      "traffic_category": {
+                        "value": "public",
+                        "label": "public",
+                        "provider_resource_token": null
+                      }
+                    },
+                    "bytes": 200.0,
+                    "estimated_cost": "2.5",
+                    "currency": "USD",
+                    "sampled_bytes": 100.0,
+                    "sampled_estimated_cost": "1.25"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "NetworkFlowLogs"
+        ],
+        "operationId": "getNetworkFlowLogs"
+      }
+    },
     "/network_flow_reports": {
       "get": {
         "summary": "Get all network flow reports",
@@ -8418,6 +9273,20 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter NetworkFlowReports by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
           {
             "in": "query",
             "name": "page",
@@ -9682,6 +10551,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search recommendation views by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -10032,6 +10915,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search report notifications by title.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -10304,6 +11201,341 @@
         "operationId": "deleteReportNotification"
       }
     },
+    "/report_forecasts": {
+      "get": {
+        "summary": "Get all report forecasts",
+        "description": "Return all scenario-model ReportForecasts for a CostReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cost_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all scenario-model ReportForecasts for a CostReport.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecasts"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a",
+                  "first": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a&page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/report_forecasts?cost_report_token=rprt_fd7190753bb1ce4a&page=1",
+                  "prev": null
+                },
+                "report_forecasts": [
+                  {
+                    "token": "rprt_frcst_b6fc93cfbe7bb782",
+                    "title": "Board Plan",
+                    "cost_report_token": "rprt_fd7190753bb1ce4a",
+                    "scenario_model_tokens": [
+                      "frcst_mdl_998be85cff4d0574"
+                    ],
+                    "business_metric_token": null,
+                    "is_default": false,
+                    "created_by_token": "usr_9be7c063f1529dff",
+                    "created_at": "2026-07-28T15:37:51Z",
+                    "updated_at": "2026-07-28T15:37:51Z"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "getReportForecasts"
+      },
+      "post": {
+        "summary": "Create report forecast",
+        "description": "Create a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createReportForecast",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createReportForecast"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_5d4cc7ef29bed6d2",
+                "title": "Operating Plan",
+                "cost_report_token": "rprt_82a0304aaf254804",
+                "scenario_model_tokens": [
+                  "frcst_mdl_ebb14bfd8eabc5fd"
+                ],
+                "business_metric_token": null,
+                "is_default": true,
+                "created_by_token": "usr_10a09baaa100511e",
+                "created_at": "2026-07-28T15:37:52Z",
+                "updated_at": "2026-07-28T15:37:52Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "createReportForecast"
+      }
+    },
+    "/report_forecasts/{report_forecast_token}": {
+      "get": {
+        "summary": "Get report forecast by token",
+        "description": "Return a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_4eb4953f73d088c3",
+                "title": "Board Plan",
+                "cost_report_token": "rprt_89d0dacbe6bdee16",
+                "scenario_model_tokens": [
+                  "frcst_mdl_f2fbc239e8f733f5"
+                ],
+                "business_metric_token": null,
+                "is_default": false,
+                "created_by_token": "usr_9c1be40b31fe536c",
+                "created_at": "2026-07-28T15:37:50Z",
+                "updated_at": "2026-07-28T15:37:50Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "getReportForecast"
+      },
+      "put": {
+        "summary": "Update report forecast",
+        "description": "Update a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateReportForecast",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateReportForecast"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprt_frcst_1857da57e1638621",
+                "title": "Revised Board Plan",
+                "cost_report_token": "rprt_2ba2ed341ec3140f",
+                "scenario_model_tokens": [
+                  "frcst_mdl_71ba27b133ee9ff3"
+                ],
+                "business_metric_token": null,
+                "is_default": true,
+                "created_by_token": "usr_5341c3c0f83a1a3f",
+                "created_at": "2026-07-28T15:37:48Z",
+                "updated_at": "2026-07-28T15:37:48Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "updateReportForecast"
+      },
+      "delete": {
+        "summary": "Delete report forecast",
+        "description": "Delete a scenario-model ReportForecast.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "report_forecast_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete a scenario-model ReportForecast.",
+            "schema": {
+              "$ref": "#/definitions/ReportForecast"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ReportForecasts"
+        ],
+        "operationId": "deleteReportForecast"
+      }
+    },
     "/resource_reports/columns": {
       "get": {
         "summary": "Get resource report columns",
@@ -10424,6 +11656,20 @@
             "description": "The number of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter ResourceReports by title.",
+            "type": "string",
             "required": false
           }
         ],
@@ -11029,6 +12275,20 @@
             "type": "integer",
             "format": "int32",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search saved filters by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the saved filters to return.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -11307,6 +12567,347 @@
         "operationId": "deleteSavedFilter"
       }
     },
+    "/scenario_models": {
+      "get": {
+        "summary": "Get all scenario models",
+        "description": "Return all ScenarioModels.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all ScenarioModels.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModels"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/scenario_models",
+                  "first": "https://api.vantage.sh/v2/scenario_models?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/scenario_models?page=1",
+                  "prev": null
+                },
+                "scenario_models": [
+                  {
+                    "token": "frcst_mdl_47f8f6511171bc8f",
+                    "title": "Hiring Plan",
+                    "priority": 2,
+                    "workspace_token": null,
+                    "provider": null,
+                    "service": null,
+                    "periods": [
+                      {
+                        "start_at": "2026-01-01",
+                        "end_at": "2026-03-31",
+                        "amount": "1250.75",
+                        "amount_type": "dollar"
+                      }
+                    ],
+                    "created_by_token": "usr_41333d06c73b9405",
+                    "created_at": "2026-07-28T15:37:49Z",
+                    "updated_at": "2026-07-28T15:37:49Z"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "getScenarioModels"
+      },
+      "post": {
+        "summary": "Create scenario model",
+        "description": "Create a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createScenarioModel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createScenarioModel"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_e42020822501d0ee",
+                "title": "Expansion Plan",
+                "priority": 4,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-04-01",
+                    "end_at": null,
+                    "amount": "9876.54321",
+                    "amount_type": "percent"
+                  }
+                ],
+                "created_by_token": "usr_cc82bf4cf16d5452",
+                "created_at": "2026-07-28T15:37:50Z",
+                "updated_at": "2026-07-28T15:37:50Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "createScenarioModel"
+      }
+    },
+    "/scenario_models/{scenario_model_token}": {
+      "get": {
+        "summary": "Get scenario model by token",
+        "description": "Return a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_a7684dd8104260da",
+                "title": "Hiring Plan",
+                "priority": 2,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-01-01",
+                    "end_at": "2026-03-31",
+                    "amount": "1250.75",
+                    "amount_type": "dollar"
+                  }
+                ],
+                "created_by_token": "usr_2943707386442e61",
+                "created_at": "2026-07-28T15:37:49Z",
+                "updated_at": "2026-07-28T15:37:49Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "getScenarioModel"
+      },
+      "put": {
+        "summary": "Update scenario model",
+        "description": "Update a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateScenarioModel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateScenarioModel"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            },
+            "examples": {
+              "application/json": {
+                "token": "frcst_mdl_09c6dc8b48640f37",
+                "title": "Updated Hiring Plan",
+                "priority": 2,
+                "workspace_token": null,
+                "provider": null,
+                "service": null,
+                "periods": [
+                  {
+                    "start_at": "2026-01-01",
+                    "end_at": "2026-03-31",
+                    "amount": "1250.75",
+                    "amount_type": "dollar"
+                  }
+                ],
+                "created_by_token": "usr_f26745be72a42d31",
+                "created_at": "2026-07-28T15:37:52Z",
+                "updated_at": "2026-07-28T15:37:52Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "updateScenarioModel"
+      },
+      "delete": {
+        "summary": "Delete scenario model",
+        "description": "Delete a ScenarioModel.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scenario_model_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete a ScenarioModel.",
+            "schema": {
+              "$ref": "#/definitions/ScenarioModel"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ScenarioModels"
+        ],
+        "operationId": "deleteScenarioModel"
+      }
+    },
     "/segments": {
       "get": {
         "summary": "Get all segments",
@@ -11329,6 +12930,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search segments by title.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "The workspace token of the segments to return.",
+            "type": "string",
             "required": false
           }
         ],
@@ -11673,7 +13288,16 @@
                 "redis_cloud",
                 "circle_ci",
                 "modal",
-                "eleven_labs"
+                "eleven_labs",
+                "baseten",
+                "cloudflare",
+                "fireworks_ai",
+                "cartesia",
+                "depot",
+                "xai",
+                "digital_ocean",
+                "together_ai",
+                "coreweave"
               ]
             },
             "required": false
@@ -11904,7 +13528,16 @@
                 "redis_cloud",
                 "circle_ci",
                 "modal",
-                "eleven_labs"
+                "eleven_labs",
+                "baseten",
+                "cloudflare",
+                "fireworks_ai",
+                "cartesia",
+                "depot",
+                "xai",
+                "digital_ocean",
+                "together_ai",
+                "coreweave"
               ]
             },
             "required": false
@@ -12025,6 +13658,20 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search teams by name.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "workspace_token",
+            "description": "Filter by workspace token.",
+            "type": "string",
             "required": false
           }
         ],
@@ -12683,6 +14330,8 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
+            "maximum": 1000,
             "required": false
           },
           {
@@ -12980,6 +14629,15 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "description": "A search query to filter VirtualTagConfigs by key.",
+            "type": "string",
+            "required": false
+          }
+        ],
         "security": [
           {
             "oauth2": [
@@ -13005,6 +14663,7 @@
                     "collapsed_tag_keys": [],
                     "values": [
                       {
+                        "token": "vtag_val_0000000000000003",
                         "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND costs.account_id IN ('1234', '5678'))",
                         "name": "Growth",
                         "label_transforms": [],
@@ -13012,6 +14671,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000004",
                         "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
                         "name": "API",
                         "label_transforms": [],
@@ -13019,6 +14679,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000005",
                         "filter": "(costs.provider = 'aws' AND costs.service = 'AmazonEC2')",
                         "business_metric_token": "bsnss_mtrc_60e1ffb95a9a00f0",
                         "label_transforms": [],
@@ -13026,6 +14687,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000006",
                         "filter": "(costs.provider = 'aws' AND costs.service != 'Amazon Elastic Compute Cloud')",
                         "cost_metric": {
                           "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud'",
@@ -13038,6 +14700,7 @@
                         "date_ranges": []
                       },
                       {
+                        "token": "vtag_val_0000000000000007",
                         "filter": "(costs.provider = 'azure' AND costs.service = 'Azure Compute')",
                         "label_transforms": [],
                         "percentages": [
@@ -13106,6 +14769,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "costs.provider = 'aws' AND\ncosts.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "EXPC-1234",
                     "label_transforms": [],
@@ -13118,6 +14782,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "(\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\n)\n",
                     "name": "EXPC-9876",
                     "label_transforms": [],
@@ -13197,6 +14862,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))",
                     "name": "Growth",
                     "label_transforms": [],
@@ -13209,6 +14875,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')",
                     "name": "API",
                     "label_transforms": [],
@@ -13279,6 +14946,7 @@
                 "collapsed_tag_keys": [],
                 "values": [
                   {
+                    "token": "vtag_val_0000000000000001",
                     "filter": "costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\ncosts.account_id IN ('1234', '5678')\n",
                     "name": "marketing",
                     "label_transforms": [],
@@ -13291,6 +14959,7 @@
                     ]
                   },
                   {
+                    "token": "vtag_val_0000000000000002",
                     "filter": "((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\n",
                     "name": "third-party integrations",
                     "label_transforms": [],
@@ -13574,6 +15243,285 @@
         "operationId": "getAsyncVirtualTagConfigStatus"
       }
     },
+    "/virtual_tag_configs/{virtual_tag_config_token}/values": {
+      "post": {
+        "summary": "Create virtual tag config value",
+        "description": "Create a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "createVirtualTagConfigValue",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createVirtualTagConfigValue"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "createVirtualTagConfigValue"
+      }
+    },
+    "/virtual_tag_configs/{virtual_tag_config_token}/values/{virtual_tag_config_value_token}": {
+      "get": {
+        "summary": "Get virtual tag config value by token",
+        "description": "Return a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "getVirtualTagConfigValue"
+      },
+      "patch": {
+        "summary": "Update virtual tag config value",
+        "description": "Update a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateVirtualTagConfigValue",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateVirtualTagConfigValue"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VirtualTagConfigValue"
+            },
+            "examples": {
+              "application/json": {
+                "token": "vtag_val_d104b11fc34ef7f3",
+                "filter": "costs.provider = 'aws'",
+                "name": "First",
+                "label_transforms": [],
+                "percentages": [],
+                "date_ranges": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "updateVirtualTagConfigValue"
+      },
+      "delete": {
+        "summary": "Delete virtual tag config value",
+        "description": "Delete a VirtualTagConfigValue.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "virtual_tag_config_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "virtual_tag_config_value_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "VirtualTags"
+        ],
+        "operationId": "deleteVirtualTagConfigValue"
+      }
+    },
     "/workspaces": {
       "get": {
         "summary": "Get all workspaces",
@@ -13596,6 +15544,13 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search workspaces by name.",
+            "type": "string",
             "required": false
           }
         ],
@@ -14253,7 +16208,15 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens of the users that receive the notification."
+          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -14271,6 +16234,7 @@
         "updated_at",
         "threshold",
         "user_tokens",
+        "recipient_emails",
         "recipient_channels"
       ],
       "description": "AnomalyNotification model"
@@ -14290,6 +16254,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -14322,6 +16293,13 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "recipient_channels": {
           "type": "array",
           "description": "The Slack/MS Teams channels that receive the notification.",
@@ -14331,6 +16309,128 @@
         }
       },
       "description": "Update an Anomaly Notification."
+    },
+    "Annotations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        }
+      },
+      "required": [
+        "annotations"
+      ],
+      "description": "Annotations model"
+    },
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The unique token identifying the Annotation."
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The title of the Annotation."
+        },
+        "report_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens of the Reports associated with the Annotation."
+        },
+        "date": {
+          "type": "string",
+          "example": "2026-08-12",
+          "x-nullable": true,
+          "description": "The date of the Annotation. ISO 8601 formatted."
+        },
+        "message": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The message of the Annotation."
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "report_tokens",
+        "date",
+        "message"
+      ],
+      "description": "Annotation model"
+    },
+    "createAnnotation": {
+      "type": "object",
+      "properties": {
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the Reports to annotate.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the Annotation. Defaults to a title generated from the first Report and date."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the Annotation. ISO 8601 formatted."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the Annotation."
+        }
+      },
+      "required": [
+        "report_tokens",
+        "date",
+        "message"
+      ],
+      "description": "Create an Annotation."
+    },
+    "updateAnnotation": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Annotation.",
+          "x-omitempty": true
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the Annotation. ISO 8601 formatted.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the Annotation.",
+          "x-omitempty": true
+        },
+        "report_tokens": {
+          "type": "array",
+          "description": "The tokens of the Reports to associate with the Annotation.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        }
+      },
+      "description": "Update an Annotation."
     },
     "AuditLogs": {
       "type": "object",
@@ -15424,7 +17524,19 @@
             ]
           },
           "x-nullable": false,
-          "description": "The Users that receive the alert."
+          "description": "The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
         },
         "duration_in_days": {
           "type": "integer",
@@ -15470,6 +17582,7 @@
         "created_at",
         "workspace_token",
         "user_tokens",
+        "recipient_emails",
         "duration_in_days",
         "threshold",
         "period_to_track",
@@ -15492,6 +17605,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the BudgetAlert to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -15499,9 +17616,17 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.",
+          "x-omitempty": false
         },
         "period_to_track": {
           "type": "string",
@@ -15537,6 +17662,10 @@
           "format": "int32",
           "description": "The threshold amount that must be met for the alert to fire."
         },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace the BudgetAlert belongs to. Required if the API token is associated with multiple Workspaces."
+        },
         "user_tokens": {
           "type": "array",
           "description": "The tokens of the users that receive the alert.",
@@ -15544,9 +17673,18 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "duration_in_days": {
           "type": "string",
-          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value."
+          "description": "The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "period_to_track": {
           "type": "string",
@@ -15641,6 +17779,10 @@
           "x-nullable": false,
           "description": "The tokens of the child Budgets associated with the hierarchical Budget."
         },
+        "period_cadence": {
+          "$ref": "#/definitions/PeriodCadence",
+          "description": "The interval cadence for budget periods."
+        },
         "periods": {
           "type": "array",
           "items": {
@@ -15663,9 +17805,39 @@
         "created_at",
         "budget_alert_tokens",
         "child_budget_tokens",
+        "period_cadence",
         "periods"
       ],
       "description": "Budget model"
+    },
+    "PeriodCadence": {
+      "type": "object",
+      "properties": {
+        "starts_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": true,
+          "x-omitempty": true,
+          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
+        },
+        "interval_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "x-nullable": false,
+          "description": "The number of interval units per budget period."
+        },
+        "interval_unit": {
+          "type": "string",
+          "example": "month",
+          "x-nullable": false,
+          "description": "The unit for budget period intervals. One of: day, week, month, year."
+        }
+      },
+      "required": [
+        "interval_count",
+        "interval_unit"
+      ]
     },
     "BudgetPeriod": {
       "type": "object",
@@ -15745,6 +17917,39 @@
             "type": "string"
           }
         },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Requires the flexible_budget_periods feature.",
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
+        },
         "periods": {
           "type": "array",
           "description": "The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.",
@@ -15785,18 +17990,55 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The name of the Budget."
+          "description": "The name of the Budget.",
+          "x-omitempty": true
         },
         "cost_report_token": {
           "type": "string",
-          "description": "The CostReport token. Ignored for hierarchical Budgets."
+          "description": "The CostReport token. Ignored for hierarchical Budgets.",
+          "x-omitempty": true
         },
         "child_budget_tokens": {
           "type": "array",
           "description": "The tokens of any child Budgets when creating a hierarchical Budget.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
+        },
+        "period_cadence": {
+          "type": "object",
+          "description": "The interval cadence for budget periods. Changing cadence after creation is rejected.",
+          "x-omitempty": true,
+          "properties": {
+            "starts_at": {
+              "type": "string",
+              "format": "date",
+              "description": "The anchor date for budget period intervals. Send null to clear.",
+              "x-nullable": true,
+              "x-omitempty": false
+            },
+            "interval_count": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of interval units per budget period.",
+              "x-omitempty": true
+            },
+            "interval_unit": {
+              "type": "string",
+              "description": "The unit for budget period intervals. One of: day, week, month, year.",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "x-omitempty": true
+            }
+          },
+          "required": [
+            "starts_at"
+          ]
         },
         "periods": {
           "type": "array",
@@ -15813,7 +18055,8 @@
                 "type": "string",
                 "format": "date",
                 "description": "The end date of the period.",
-                "x-nullable": true
+                "x-nullable": true,
+                "x-omitempty": true
               },
               "amount": {
                 "type": "number",
@@ -15825,7 +18068,8 @@
               "start_at",
               "amount"
             ]
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Update a Budget."
@@ -15935,6 +18179,25 @@
           "x-nullable": false,
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": false,
+          "description": "The calculation type applied when this BusinessMetric is used in the CostReport."
+        },
+        "label": {
+          "type": "string",
+          "example": "Gross Margin",
+          "x-omitempty": true,
+          "x-nullable": true,
+          "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+        },
         "label_filter": {
           "type": "array",
           "items": {
@@ -15947,11 +18210,27 @@
           "x-omitempty": true,
           "x-nullable": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
+        },
+        "label_filters": {
+          "type": "object",
+          "example": {
+            "team": [
+              "platform",
+              "finops"
+            ],
+            "environment": [
+              "production"
+            ]
+          },
+          "x-omitempty": true,
+          "x-nullable": true,
+          "description": "The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives."
         }
       },
       "required": [
         "cost_report_token",
-        "unit_scale"
+        "unit_scale",
+        "calculation_type"
       ]
     },
     "CloudwatchFields": {
@@ -16054,6 +18333,38 @@
         "sql_query"
       ]
     },
+    "BusinessMetricLabels": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessMetricLabel"
+          }
+        }
+      },
+      "required": [
+        "labels"
+      ],
+      "description": "BusinessMetricLabels model"
+    },
+    "BusinessMetricLabel": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Enterprise",
+          "x-nullable": false,
+          "description": "A label value associated with the BusinessMetric."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "BusinessMetricValues": {
       "type": "object",
       "properties": {
@@ -16125,11 +18436,46 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
+                }
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "Include only ClickHouse BusinessMetric values matching every label key and one of its values.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "team": [
+                    "platform",
+                    "finops"
+                  ],
+                  "environment": [
+                    "production"
+                  ]
                 }
               }
             },
@@ -16242,6 +18588,20 @@
               }
             }
           }
+        },
+        "snowflake_metric_fields": {
+          "type": "object",
+          "description": "Snowflake metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the Snowflake integration from which you would like to fetch metrics."
+            },
+            "sql_query": {
+              "type": "string",
+              "description": "Snowflake SQL query returning date, value, and optional label columns."
+            }
+          }
         }
       },
       "required": [
@@ -16278,11 +18638,46 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
+                }
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "Include only ClickHouse BusinessMetric values matching every label key and one of its values.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "team": [
+                    "platform",
+                    "finops"
+                  ],
+                  "environment": [
+                    "production"
+                  ]
                 }
               }
             },
@@ -16394,6 +18789,20 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "snowflake_metric_fields": {
+          "type": "object",
+          "description": "Snowflake metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the Snowflake integration from which you would like to fetch metrics."
+            },
+            "sql_query": {
+              "type": "string",
+              "description": "Snowflake SQL query returning date, value, and optional label columns."
             }
           }
         }
@@ -16764,7 +19173,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
           "items": {
             "type": "string"
           }
@@ -16808,7 +19217,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
           "items": {
             "type": "string"
           }
@@ -16960,11 +19369,7 @@
           "description": "The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter."
         },
         "default_forecast": {
-          "type": "object",
-          "example": {
-            "kind": "baseline"
-          },
-          "x-nullable": false,
+          "$ref": "#/definitions/DefaultForecast",
           "description": "The default forecast selection for the CostReport."
         },
         "filter": {
@@ -17020,14 +19425,19 @@
             "aggregate_by": {
               "type": "string",
               "default": "cost",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "x-nullable": true,
-              "description": "Report will aggregate by cost or usage."
+              "description": "Report will aggregate by cost, usage, or count."
             },
             "show_previous_period": {
               "type": "boolean",
               "default": true,
               "x-nullable": true,
-              "description": "Report will show previous period costs or usage comparison."
+              "description": "Report will show previous period cost, usage, or count comparison."
             },
             "complete_period": {
               "type": "boolean",
@@ -17130,6 +19540,25 @@
           "x-nullable": false,
           "description": "Determines the scale of the BusinessMetric's values within a particular CostReport."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": false,
+          "description": "The calculation type applied when this BusinessMetric is used in the CostReport."
+        },
+        "label": {
+          "type": "string",
+          "example": "Gross Margin",
+          "x-omitempty": true,
+          "x-nullable": true,
+          "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+        },
         "label_filter": {
           "type": "array",
           "items": {
@@ -17142,11 +19571,56 @@
           "x-omitempty": true,
           "x-nullable": true,
           "description": "The labels that the BusinessMetric is filtered by within a particular CostReport."
+        },
+        "label_filters": {
+          "type": "object",
+          "example": {
+            "team": [
+              "platform",
+              "finops"
+            ],
+            "environment": [
+              "production"
+            ]
+          },
+          "x-omitempty": true,
+          "x-nullable": true,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "description": "The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives."
         }
       },
       "required": [
         "business_metric_token",
-        "unit_scale"
+        "unit_scale",
+        "calculation_type"
+      ]
+    },
+    "DefaultForecast": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "baseline",
+            "report_forecast"
+          ],
+          "x-nullable": false,
+          "description": "The default forecast selection kind."
+        },
+        "report_forecast_token": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token for the report forecast selected as the default."
+        }
+      },
+      "required": [
+        "kind"
       ]
     },
     "ChartSettings": {
@@ -17154,8 +19628,13 @@
       "properties": {
         "y_axis_dimension": {
           "type": "string",
+          "enum": [
+            "cost",
+            "usage",
+            "count"
+          ],
           "x-nullable": false,
-          "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+          "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'."
         },
         "x_axis_dimension": {
           "type": "array",
@@ -17252,6 +19731,15 @@
             "circle_ci",
             "modal",
             "eleven_labs",
+            "baseten",
+            "cloudflare",
+            "fireworks_ai",
+            "cartesia",
+            "depot",
+            "xai",
+            "digital_ocean",
+            "together_ai",
+            "coreweave",
             "all"
           ],
           "x-nullable": false,
@@ -17284,7 +19772,7 @@
         },
         "groupings": {
           "type": "string",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
         },
         "filter": {
           "type": "string",
@@ -17319,11 +19807,47 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
+                },
+                "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "Include only ClickHouse BusinessMetric values matching every label key and one of its values.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "team": [
+                    "platform",
+                    "finops"
+                  ],
+                  "environment": [
+                    "production"
+                  ]
                 }
               }
             },
@@ -17372,12 +19896,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by cost or usage.",
+              "description": "Report will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "default": "cost"
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Report will show previous period costs or usage comparison.",
+              "description": "Report will show previous period cost, usage, or count comparison.",
               "default": true
             },
             "complete_period": {
@@ -17464,7 +19993,12 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ]
             }
           }
         }
@@ -17485,7 +20019,7 @@
         },
         "groupings": {
           "type": "string",
-          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "description": "Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
           "x-omitempty": false
         },
         "filter": {
@@ -17521,11 +20055,47 @@
                 ],
                 "default": "per_unit"
               },
+              "calculation_type": {
+                "type": "string",
+                "description": "The calculation type applied when this BusinessMetric is used in the CostReport.",
+                "enum": [
+                  "unit_cost",
+                  "gross_margin",
+                  "usage_unit_cost",
+                  "raw_business_metric"
+                ],
+                "default": "unit_cost"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type."
+              },
               "label_filter": {
                 "type": "array",
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
+                },
+                "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "Include only ClickHouse BusinessMetric values matching every label key and one of its values.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "team": [
+                    "platform",
+                    "finops"
+                  ],
+                  "environment": [
+                    "production"
+                  ]
                 }
               }
             },
@@ -17595,12 +20165,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Report will aggregate by cost or usage.",
+              "description": "Report will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "x-nullable": true
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Report will show previous period costs or usage comparison.",
+              "description": "Report will show previous period cost, usage, or count comparison.",
               "x-nullable": true
             },
             "complete_period": {
@@ -17622,7 +20197,12 @@
             },
             "y_axis_dimension": {
               "type": "string",
-              "description": "The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'."
+              "description": "The metric or measure displayed on the chart\u2019s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ]
             }
           }
         },
@@ -17708,15 +20288,15 @@
         },
         "start_date": {
           "type": "string",
-          "description": "First date you would like to filter costs from. ISO 8601 formatted."
+          "description": "First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used."
         },
         "end_date": {
           "type": "string",
-          "description": "Last date you would like to filter costs to. ISO 8601 formatted."
+          "description": "Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used."
         },
         "groupings": {
           "type": "array",
-          "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
+          "description": "Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region",
           "items": {
             "type": "string"
           }
@@ -17778,12 +20358,17 @@
             },
             "aggregate_by": {
               "type": "string",
-              "description": "Results will aggregate by cost or usage.",
+              "description": "Results will aggregate by cost, usage, or count.",
+              "enum": [
+                "cost",
+                "usage",
+                "count"
+              ],
               "default": "cost"
             },
             "show_previous_period": {
               "type": "boolean",
-              "description": "Results will show previous period costs or usage comparison.",
+              "description": "Results will show previous period cost, usage, or count comparison.",
               "default": true
             }
           }
@@ -17807,6 +20392,19 @@
             "$ref": "#/definitions/UsagePartial"
           },
           "description": "The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit."
+        },
+        "total_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true,
+          "description": "The sum of the date-binned counts. Present when settings.aggregate_by is 'count'."
+        },
+        "counts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostCount"
+          },
+          "description": "Distinct Group By permutation counts for the full requested period, unaffected by page and limit. Bins without cost are omitted. Present when settings.aggregate_by is 'count'."
         },
         "costs": {
           "type": "array",
@@ -17861,6 +20459,28 @@
       "required": [
         "amount",
         "unit"
+      ]
+    },
+    "CostCount": {
+      "type": "object",
+      "properties": {
+        "accrued_at": {
+          "type": "string",
+          "example": "2023-09-05+00:00",
+          "x-nullable": false,
+          "description": "The date bin for the count. ISO 8601 Formatted."
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2,
+          "x-nullable": false,
+          "description": "The number of distinct Group By permutations carrying cost in the date bin."
+        }
+      },
+      "required": [
+        "accrued_at",
+        "count"
       ]
     },
     "Cost": {
@@ -17929,7 +20549,16 @@
             "redis_cloud",
             "circle_ci",
             "modal",
-            "eleven_labs"
+            "eleven_labs",
+            "baseten",
+            "cloudflare",
+            "fireworks_ai",
+            "cartesia",
+            "depot",
+            "xai",
+            "digital_ocean",
+            "together_ai",
+            "coreweave"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -17999,6 +20628,24 @@
           "example": "DataTransfer-Regional-Bytes",
           "x-nullable": true,
           "description": "The subcategory for the cost."
+        },
+        "charge_type": {
+          "type": "string",
+          "example": "Usage",
+          "x-nullable": true,
+          "description": "The charge type for the cost."
+        },
+        "tagged": {
+          "type": "boolean",
+          "example": true,
+          "x-nullable": true,
+          "description": "Whether the cost has tags."
+        },
+        "usage_unit": {
+          "type": "string",
+          "example": "GB",
+          "x-nullable": true,
+          "description": "The unit used to measure usage."
         },
         "segment": {
           "type": "string",
@@ -18376,7 +21023,7 @@
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces."
+          "description": "The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces."
         }
       },
       "description": "Update a Dashboard."
@@ -19243,6 +21890,10 @@
         "password": {
           "type": "string",
           "description": "Service Principal Password."
+        },
+        "billing_account_id": {
+          "type": "string",
+          "description": "Microsoft Customer Agreement (MCA) or Enterprise Agreement (EA) billing account ID. Must not contain whitespace."
         }
       },
       "required": [
@@ -19797,7 +22448,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens for the Billing Rules assigned to the Managed Account."
+          "description": "The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data."
         },
         "email_domain": {
           "type": "string",
@@ -19859,7 +22510,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.",
           "items": {
             "type": "string"
           }
@@ -19895,7 +22546,7 @@
         },
         "billing_rule_tokens": {
           "type": "array",
-          "description": "Billing Rule tokens to assign to the Managed Account.",
+          "description": "Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.",
           "items": {
             "type": "string"
           }
@@ -20287,6 +22938,81 @@
       ],
       "description": "UserFeedback model"
     },
+    "NetworkFlowLogs": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "flow_weight": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The dimension used to order the aggregated rows."
+        },
+        "sampling": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "Sampling metadata for the selected data."
+        },
+        "network_flow_logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkFlowLog"
+          }
+        }
+      },
+      "required": [
+        "flow_weight",
+        "sampling",
+        "network_flow_logs"
+      ],
+      "description": "NetworkFlowLogs model"
+    },
+    "NetworkFlowLog": {
+      "type": "object",
+      "properties": {
+        "groupings": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "The grouping values for this aggregated Network Flow Log row."
+        },
+        "bytes": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": false,
+          "description": "The sampling-adjusted estimated byte count."
+        },
+        "estimated_cost": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The sampling-adjusted estimated cost."
+        },
+        "currency": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The ISO 4217 currency code for estimated costs."
+        },
+        "sampled_bytes": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The observed byte count when sampling applies."
+        },
+        "sampled_estimated_cost": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The observed estimated cost when sampling applies."
+        }
+      },
+      "required": [
+        "groupings",
+        "bytes",
+        "estimated_cost",
+        "currency",
+        "sampled_bytes",
+        "sampled_estimated_cost"
+      ]
+    },
     "NetworkFlowReports": {
       "type": "object",
       "properties": {
@@ -20415,19 +23141,21 @@
         "start_date": {
           "type": "string",
           "format": "date",
-          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The start date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "end_date": {
           "type": "string",
           "format": "date",
-          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The end date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "description": "The date interval of the NetworkFlowReport. Dates are used only for the 'custom' interval. Defaults to 'last_7_days'.",
           "enum": [
             "last_3_days",
             "last_7_days",
+            "last_14_days",
+            "last_30_days",
             "custom"
           ]
         },
@@ -20467,6 +23195,7 @@
           "type": "string",
           "description": "The flow direction of the NetworkFlowReport.",
           "enum": [
+            "all",
             "ingress",
             "egress"
           ]
@@ -20500,19 +23229,21 @@
         "start_date": {
           "type": "string",
           "format": "date",
-          "description": "The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The start date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "end_date": {
           "type": "string",
           "format": "date",
-          "description": "The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter."
+          "description": "The end date of a custom NetworkFlowReport. YYYY-MM-DD formatted."
         },
         "date_interval": {
           "type": "string",
-          "description": "The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.",
+          "description": "The date interval of the NetworkFlowReport. Dates are used only for the 'custom' interval. Defaults to 'last_7_days'.",
           "enum": [
             "last_3_days",
             "last_7_days",
+            "last_14_days",
+            "last_30_days",
             "custom"
           ]
         },
@@ -20552,6 +23283,7 @@
           "type": "string",
           "description": "The flow direction of the NetworkFlowReport.",
           "enum": [
+            "all",
             "ingress",
             "egress"
           ]
@@ -21327,7 +24059,19 @@
             ]
           },
           "x-nullable": false,
-          "description": "The Users that receive the notification."
+          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -21367,6 +24111,7 @@
         "title",
         "cost_report_token",
         "user_tokens",
+        "recipient_emails",
         "recipient_channels",
         "frequency",
         "change"
@@ -21391,6 +24136,13 @@
         "user_tokens": {
           "type": "array",
           "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
           "items": {
             "type": "string"
           }
@@ -21437,6 +24189,13 @@
             "type": "string"
           }
         },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "items": {
+            "type": "string"
+          }
+        },
         "recipient_channels": {
           "type": "array",
           "description": "The Slack or Microsoft Teams channels that receive the notification.",
@@ -21454,6 +24213,139 @@
         }
       },
       "description": "Update a ReportNotification."
+    },
+    "ReportForecasts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "report_forecasts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReportForecast"
+          }
+        }
+      },
+      "required": [
+        "report_forecasts"
+      ],
+      "description": "ReportForecasts model"
+    },
+    "ReportForecast": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "cost_report_token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "is_default": {
+          "type": "boolean",
+          "x-nullable": false
+        },
+        "created_by_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "x-nullable": false
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "cost_report_token",
+        "scenario_model_tokens",
+        "business_metric_token",
+        "is_default",
+        "created_by_token",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "ReportForecast model"
+    },
+    "createReportForecast": {
+      "type": "object",
+      "properties": {
+        "cost_report_token": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "set_as_default": {
+          "type": "boolean",
+          "x-nullable": true,
+          "x-omitempty": true
+        }
+      },
+      "required": [
+        "cost_report_token",
+        "title"
+      ],
+      "description": "Create a scenario-model ReportForecast."
+    },
+    "updateReportForecast": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "scenario_model_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "business_metric_token": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "set_as_default": {
+          "type": "boolean",
+          "x-nullable": true,
+          "x-omitempty": true
+        }
+      },
+      "description": "Update a scenario-model ReportForecast."
     },
     "ResourceReportColumns": {
       "type": "object",
@@ -21839,6 +24731,252 @@
       },
       "description": "Update a SavedFilter for CostReports."
     },
+    "ScenarioModels": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "scenario_models": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScenarioModel"
+          }
+        }
+      },
+      "required": [
+        "scenario_models"
+      ],
+      "description": "ScenarioModels model"
+    },
+    "ScenarioModel": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true
+        },
+        "workspace_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScenarioModelPeriod"
+          }
+        },
+        "created_by_token": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "x-nullable": false
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "priority",
+        "workspace_token",
+        "provider",
+        "service",
+        "periods",
+        "created_by_token",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "ScenarioModel model"
+    },
+    "ScenarioModelPeriod": {
+      "type": "object",
+      "properties": {
+        "start_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": false,
+          "description": "The ISO 8601 start date of the period."
+        },
+        "end_at": {
+          "type": "string",
+          "example": "2026-03-31",
+          "x-nullable": true,
+          "description": "The ISO 8601 end date of the period."
+        },
+        "amount": {
+          "type": "string",
+          "example": "1250.75",
+          "x-nullable": false,
+          "description": "The period amount as a string to preserve decimal precision."
+        },
+        "amount_type": {
+          "type": "string",
+          "enum": [
+            "dollar",
+            "percent"
+          ],
+          "x-nullable": false,
+          "description": "Whether the amount is in dollars or percent."
+        }
+      },
+      "required": [
+        "start_at",
+        "end_at",
+        "amount",
+        "amount_type"
+      ]
+    },
+    "createScenarioModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "workspace_token": {
+          "type": "string"
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the ScenarioModel.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date",
+                "x-nullable": true,
+                "x-omitempty": true
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              },
+              "amount_type": {
+                "type": "string",
+                "enum": [
+                  "dollar",
+                  "percent"
+                ]
+              }
+            },
+            "required": [
+              "start_at",
+              "amount",
+              "amount_type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "description": "Create a ScenarioModel."
+    },
+    "updateScenarioModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "service": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "workspace_token": {
+          "type": "string"
+        },
+        "periods": {
+          "type": "array",
+          "description": "The periods for the ScenarioModel.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_at": {
+                "type": "string",
+                "format": "date",
+                "x-nullable": true,
+                "x-omitempty": true
+              },
+              "amount": {
+                "type": "number",
+                "format": "double"
+              },
+              "amount_type": {
+                "type": "string",
+                "enum": [
+                  "dollar",
+                  "percent"
+                ]
+              }
+            },
+            "required": [
+              "start_at",
+              "amount",
+              "amount_type"
+            ]
+          }
+        }
+      },
+      "description": "Update a ScenarioModel."
+    },
     "Segments": {
       "type": "object",
       "properties": {
@@ -22207,12 +25345,15 @@
         },
         "hidden": {
           "type": "boolean",
-          "description": "Whether the Tag is hidden from the Vantage UI."
+          "description": "Whether the Tag is hidden from the Vantage UI.",
+          "x-nullable": true
+        },
+        "preferred": {
+          "type": "boolean",
+          "description": "Whether the Tag is marked as preferred in the Vantage UI.",
+          "x-nullable": true
         }
       },
-      "required": [
-        "hidden"
-      ],
       "description": "Updates an existing Tag."
     },
     "Teams": {
@@ -22560,11 +25701,23 @@
           "x-nullable": false,
           "description": "The title of the BusinessMetric for which the unit cost was calculated."
         },
+        "calculation_type": {
+          "type": "string",
+          "example": "unit_cost",
+          "enum": [
+            "unit_cost",
+            "gross_margin",
+            "usage_unit_cost",
+            "raw_business_metric"
+          ],
+          "x-nullable": true,
+          "description": "The calculation type applied to produce this result."
+        },
         "unit_cost_amount": {
           "type": "string",
           "example": "4.25",
           "x-nullable": false,
-          "description": "The amount of the unit cost."
+          "description": "The amount of the unit cost. For raw_business_metric types, this equals the business_metric_amount."
         },
         "business_metric_amount": {
           "type": "string",
@@ -22707,6 +25860,16 @@
           "x-nullable": false,
           "description": "The key of the VirtualTagConfig."
         },
+        "hidden": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the VirtualTagConfig key is hidden from the Vantage UI."
+        },
+        "preferred": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the VirtualTagConfig key is marked as preferred in the Vantage UI."
+        },
         "overridable": {
           "type": "boolean",
           "x-nullable": false,
@@ -22714,7 +25877,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2025-12-01",
+          "example": "2026-02-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -22737,6 +25900,8 @@
         "token",
         "created_by_token",
         "key",
+        "hidden",
+        "preferred",
         "overridable",
         "backfill_until",
         "collapsed_tag_keys",
@@ -22781,6 +25946,12 @@
     "VirtualTagConfigValue": {
       "type": "object",
       "properties": {
+        "token": {
+          "type": "string",
+          "example": "vtag_val_1234",
+          "x-nullable": false,
+          "description": "The token of the Value."
+        },
         "filter": {
           "type": "string",
           "example": "costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'",
@@ -22798,6 +25969,19 @@
           "example": "bsnss_mtrc_abc123",
           "x-nullable": true,
           "description": "The token of the associated BusinessMetric."
+        },
+        "label_key": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": true,
+          "description": "Optional business metric label values. An empty array includes every value for the label key."
         },
         "cost_metric": {
           "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
@@ -22831,11 +26015,13 @@
         }
       },
       "required": [
+        "token",
         "filter",
         "label_transforms",
         "percentages",
         "date_ranges"
-      ]
+      ],
+      "description": "VirtualTagConfigValue model"
     },
     "VirtualTagConfigValueCostMetric": {
       "type": "object",
@@ -23049,6 +26235,18 @@
                 "type": "string",
                 "description": "The token of an associated business metric."
               },
+              "label_key": {
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
+              },
+              "label_values": {
+                "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
+              },
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
@@ -23217,6 +26415,18 @@
               "business_metric_token": {
                 "type": "string",
                 "description": "The token of an associated business metric."
+              },
+              "label_key": {
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
+              },
+              "label_values": {
+                "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
               },
               "display_name": {
                 "type": "string",
@@ -23405,6 +26615,18 @@
                 "type": "string",
                 "description": "The token of an associated business metric."
               },
+              "label_key": {
+                "type": "string",
+                "description": "The business metric label key used for this virtual tag value."
+              },
+              "label_values": {
+                "type": "array",
+                "description": "Optional business metric label values. An empty array includes every value for the label key.",
+                "items": {
+                  "type": "string"
+                },
+                "x-omitempty": true
+              },
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
@@ -23506,6 +26728,265 @@
         }
       },
       "description": "Asynchronously updates an existing VirtualTagConfig."
+    },
+    "createVirtualTagConfigValue": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the value."
+        },
+        "business_metric_token": {
+          "type": "string",
+          "description": "The token of an associated business metric."
+        },
+        "label_key": {
+          "type": "string",
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "description": "Business metric label values. An empty array includes every value for the label key.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name for a cost metric or percentage allocation value.",
+          "x-nullable": true
+        },
+        "label_transforms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "split",
+                  "format"
+                ]
+              },
+              "delimiter": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "index": {
+                "type": "integer",
+                "format": "int32",
+                "x-nullable": true
+              },
+              "template": {
+                "type": "string",
+                "x-nullable": true
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "cost_metric": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tag"
+              ]
+            }
+          },
+          "required": [
+            "filter",
+            "aggregation"
+          ]
+        },
+        "percentages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "pct": {
+                "type": "number",
+                "format": "float"
+              }
+            },
+            "required": [
+              "value",
+              "pct"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "date_ranges": {
+          "type": "array",
+          "description": "Date ranges restricting when this value applies.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "end_date": {
+                "type": "string",
+                "x-nullable": true
+              }
+            }
+          },
+          "x-omitempty": true
+        }
+      },
+      "required": [
+        "filter"
+      ],
+      "description": "Create a VirtualTagConfigValue."
+    },
+    "updateVirtualTagConfigValue": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the value."
+        },
+        "business_metric_token": {
+          "type": "string",
+          "description": "The token of an associated business metric."
+        },
+        "label_key": {
+          "type": "string",
+          "description": "The business metric label key used for this virtual tag value."
+        },
+        "label_values": {
+          "type": "array",
+          "description": "Business metric label values. An empty array includes every value for the label key.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name for a cost metric or percentage allocation value.",
+          "x-nullable": true
+        },
+        "label_transforms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "split",
+                  "format"
+                ]
+              },
+              "delimiter": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "index": {
+                "type": "integer",
+                "format": "int32",
+                "x-nullable": true
+              },
+              "template": {
+                "type": "string",
+                "x-nullable": true
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "cost_metric": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tag"
+              ]
+            }
+          },
+          "required": [
+            "filter",
+            "aggregation"
+          ]
+        },
+        "percentages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "pct": {
+                "type": "number",
+                "format": "float"
+              }
+            },
+            "required": [
+              "value",
+              "pct"
+            ]
+          },
+          "x-omitempty": true
+        },
+        "date_ranges": {
+          "type": "array",
+          "description": "Date ranges restricting when this value applies.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "x-nullable": true
+              },
+              "end_date": {
+                "type": "string",
+                "x-nullable": true
+              }
+            }
+          },
+          "x-omitempty": true
+        }
+      },
+      "description": "Update a VirtualTagConfigValue."
     },
     "Workspaces": {
       "type": "object",
@@ -23752,6 +27233,35 @@
         }
       },
       "description": "Update a workspace"
+    },
+    "PeriodCadence": {
+      "type": "object",
+      "properties": {
+        "starts_at": {
+          "type": "string",
+          "example": "2026-01-01",
+          "x-nullable": true,
+          "x-omitempty": true,
+          "description": "The anchor date for budget period intervals. ISO 8601 date (YYYY-MM-DD)."
+        },
+        "interval_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "x-nullable": false,
+          "description": "The number of interval units per budget period."
+        },
+        "interval_unit": {
+          "type": "string",
+          "example": "month",
+          "x-nullable": false,
+          "description": "The unit for budget period intervals. One of: day, week, month, year."
+        }
+      },
+      "required": [
+        "interval_count",
+        "interval_unit"
+      ]
     }
   }
 }

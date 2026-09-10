@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// VirtualTagConfigValue virtual tag config value
+// VirtualTagConfigValue VirtualTagConfigValue model
 //
 // swagger:model VirtualTagConfigValue
 type VirtualTagConfigValue struct {
@@ -39,9 +39,15 @@ type VirtualTagConfigValue struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// The business metric label key used for this virtual tag value.
+	LabelKey *string `json:"label_key,omitempty"`
+
 	// Label transforms applied to business metric labels.
 	// Required: true
 	LabelTransforms []*VirtualTagConfigValueLabelTransform `json:"label_transforms"`
+
+	// Optional business metric label values. An empty array includes every value for the label key.
+	LabelValues []string `json:"label_values"`
 
 	// The name of the Value.
 	// Example: Informatics
@@ -50,6 +56,11 @@ type VirtualTagConfigValue struct {
 	// Labeled percentage allocations for matching costs.
 	// Required: true
 	Percentages []*VirtualTagConfigValuePercentage `json:"percentages"`
+
+	// The token of the Value.
+	// Example: vtag_val_1234
+	// Required: true
+	Token string `json:"token"`
 }
 
 // Validate validates this virtual tag config value
@@ -73,6 +84,10 @@ func (m *VirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePercentages(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,6 +201,15 @@ func (m *VirtualTagConfigValue) validatePercentages(formats strfmt.Registry) err
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *VirtualTagConfigValue) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
 	}
 
 	return nil

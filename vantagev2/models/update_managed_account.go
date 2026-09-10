@@ -25,7 +25,7 @@ type UpdateManagedAccount struct {
 	// billing information attributes
 	BillingInformationAttributes *UpdateManagedAccountBillingInformationAttributes `json:"billing_information_attributes,omitempty"`
 
-	// Billing Rule tokens to assign to the Managed Account.
+	// Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.
 	BillingRuleTokens []string `json:"billing_rule_tokens"`
 
 	// business information attributes

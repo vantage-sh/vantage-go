@@ -320,8 +320,14 @@ type CreateVirtualTagConfigValuesItems0 struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// The business metric label key used for this virtual tag value.
+	LabelKey string `json:"label_key,omitempty"`
+
 	// label transforms
 	LabelTransforms []*CreateVirtualTagConfigValuesItems0LabelTransformsItems0 `json:"label_transforms,omitempty"`
+
+	// Optional business metric label values. An empty array includes every value for the label key.
+	LabelValues []string `json:"label_values,omitempty"`
 
 	// The name of the value.
 	Name string `json:"name,omitempty"`

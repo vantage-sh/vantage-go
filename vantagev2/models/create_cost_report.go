@@ -49,7 +49,7 @@ type CreateCostReport struct {
 	// The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
 	FolderToken string `json:"folder_token,omitempty"`
 
-	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	// Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	Groupings string `json:"groupings,omitempty"`
 
 	// The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
@@ -521,8 +521,19 @@ type CreateCostReportBusinessMetricTokensWithMetadataItems0 struct {
 	// Required: true
 	BusinessMetricToken *string `json:"business_metric_token"`
 
+	// The calculation type applied when this BusinessMetric is used in the CostReport.
+	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
+	CalculationType *string `json:"calculation_type,omitempty"`
+
+	// Optional custom display name for this BusinessMetric on the CostReport. When omitted, a default is derived from the calculation type.
+	Label string `json:"label,omitempty"`
+
 	// Include only values with these labels in the CostReport.
-	LabelFilter []string `json:"label_filter"`
+	LabelFilter []string `json:"label_filter,omitempty"`
+
+	// Include only ClickHouse BusinessMetric values matching every label key and one of its values.
+	// Example: {"environment":["production"],"team":["platform","finops"]}
+	LabelFilters map[string][]string `json:"label_filters,omitempty"`
 
 	// Determines the scale of the BusinessMetric's values within the CostReport.
 	// Enum: ["per_unit","per_hundred","per_thousand","per_million","per_billion"]
@@ -534,6 +545,14 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) Validate(format
 	var res []error
 
 	if err := m.validateBusinessMetricToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCalculationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -551,6 +570,72 @@ func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateBusines
 
 	if err := validate.Required("business_metric_token", "body", m.BusinessMetricToken); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+var createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum = append(createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUnitCost captures enum value "unit_cost"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUnitCost string = "unit_cost"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeGrossMargin captures enum value "gross_margin"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeGrossMargin string = "gross_margin"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUsageUnitCost captures enum value "usage_unit_cost"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeUsageUnitCost string = "usage_unit_cost"
+
+	// CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeRawBusinessMetric captures enum value "raw_business_metric"
+	CreateCostReportBusinessMetricTokensWithMetadataItems0CalculationTypeRawBusinessMetric string = "raw_business_metric"
+)
+
+// prop value enum
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateCalculationTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostReportBusinessMetricTokensWithMetadataItems0TypeCalculationTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateCalculationType(formats strfmt.Registry) error {
+	if swag.IsZero(m.CalculationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateCostReportBusinessMetricTokensWithMetadataItems0) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
@@ -638,12 +723,67 @@ type CreateCostReportChartSettings struct {
 	// The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to ['date'].
 	XAxisDimension []string `json:"x_axis_dimension"`
 
-	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage'. Defaults to 'cost'.
+	// The metric or measure displayed on the chart’s y-axis. Possible values: 'cost', 'usage', 'count'. Defaults to 'cost'.
+	// Enum: ["cost","usage","count"]
 	YAxisDimension string `json:"y_axis_dimension,omitempty"`
 }
 
 // Validate validates this create cost report chart settings
 func (m *CreateCostReportChartSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateYAxisDimension(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createCostReportChartSettingsTypeYAxisDimensionPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostReportChartSettingsTypeYAxisDimensionPropEnum = append(createCostReportChartSettingsTypeYAxisDimensionPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostReportChartSettingsYAxisDimensionCost captures enum value "cost"
+	CreateCostReportChartSettingsYAxisDimensionCost string = "cost"
+
+	// CreateCostReportChartSettingsYAxisDimensionUsage captures enum value "usage"
+	CreateCostReportChartSettingsYAxisDimensionUsage string = "usage"
+
+	// CreateCostReportChartSettingsYAxisDimensionCount captures enum value "count"
+	CreateCostReportChartSettingsYAxisDimensionCount string = "count"
+)
+
+// prop value enum
+func (m *CreateCostReportChartSettings) validateYAxisDimensionEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostReportChartSettingsTypeYAxisDimensionPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostReportChartSettings) validateYAxisDimension(formats strfmt.Registry) error {
+	if swag.IsZero(m.YAxisDimension) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateYAxisDimensionEnum("chart_settings"+"."+"y_axis_dimension", "body", m.YAxisDimension); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -675,7 +815,8 @@ func (m *CreateCostReportChartSettings) UnmarshalBinary(b []byte) error {
 // swagger:model CreateCostReportSettings
 type CreateCostReportSettings struct {
 
-	// Report will aggregate by cost or usage.
+	// Report will aggregate by cost, usage, or count.
+	// Enum: ["cost","usage","count"]
 	AggregateBy *string `json:"aggregate_by,omitempty"`
 
 	// Report will amortize.
@@ -696,7 +837,7 @@ type CreateCostReportSettings struct {
 	// Report will include tax.
 	IncludeTax *bool `json:"include_tax,omitempty"`
 
-	// Report will show previous period costs or usage comparison.
+	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
 	// Report will show unallocated costs.
@@ -705,6 +846,60 @@ type CreateCostReportSettings struct {
 
 // Validate validates this create cost report settings
 func (m *CreateCostReportSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAggregateBy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createCostReportSettingsTypeAggregateByPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createCostReportSettingsTypeAggregateByPropEnum = append(createCostReportSettingsTypeAggregateByPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateCostReportSettingsAggregateByCost captures enum value "cost"
+	CreateCostReportSettingsAggregateByCost string = "cost"
+
+	// CreateCostReportSettingsAggregateByUsage captures enum value "usage"
+	CreateCostReportSettingsAggregateByUsage string = "usage"
+
+	// CreateCostReportSettingsAggregateByCount captures enum value "count"
+	CreateCostReportSettingsAggregateByCount string = "count"
+)
+
+// prop value enum
+func (m *CreateCostReportSettings) validateAggregateByEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createCostReportSettingsTypeAggregateByPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateCostReportSettings) validateAggregateBy(formats strfmt.Registry) error {
+	if swag.IsZero(m.AggregateBy) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAggregateByEnum("settings"+"."+"aggregate_by", "body", *m.AggregateBy); err != nil {
+		return err
+	}
+
 	return nil
 }
 

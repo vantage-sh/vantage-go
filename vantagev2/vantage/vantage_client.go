@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/access_grants"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/annotations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_alerts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/anomaly_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/audit_logs"
@@ -37,16 +38,19 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/managed_accounts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/me"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/network_flow_logs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/network_flow_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/open_api_specification"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ping"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/prices"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendation_views"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/recommendations"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_forecasts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/report_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resource_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/resources"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/saved_filters"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/scenario_models"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/segments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/tags"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/teams"
@@ -100,6 +104,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli := new(Vantage)
 	cli.Transport = transport
 	cli.AccessGrants = access_grants.New(transport, formats)
+	cli.Annotations = annotations.New(transport, formats)
 	cli.AnomalyAlerts = anomaly_alerts.New(transport, formats)
 	cli.AnomalyNotifications = anomaly_notifications.New(transport, formats)
 	cli.AuditLogs = audit_logs.New(transport, formats)
@@ -126,16 +131,19 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
 	cli.ManagedAccounts = managed_accounts.New(transport, formats)
 	cli.Me = me.New(transport, formats)
+	cli.NetworkFlowLogs = network_flow_logs.New(transport, formats)
 	cli.NetworkFlowReports = network_flow_reports.New(transport, formats)
 	cli.OpenAPISpecification = open_api_specification.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Prices = prices.New(transport, formats)
 	cli.RecommendationViews = recommendation_views.New(transport, formats)
 	cli.Recommendations = recommendations.New(transport, formats)
+	cli.ReportForecasts = report_forecasts.New(transport, formats)
 	cli.ReportNotifications = report_notifications.New(transport, formats)
 	cli.ResourceReports = resource_reports.New(transport, formats)
 	cli.Resources = resources.New(transport, formats)
 	cli.SavedFilters = saved_filters.New(transport, formats)
+	cli.ScenarioModels = scenario_models.New(transport, formats)
 	cli.Segments = segments.New(transport, formats)
 	cli.Tags = tags.New(transport, formats)
 	cli.Teams = teams.New(transport, formats)
@@ -190,6 +198,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Vantage struct {
 	AccessGrants access_grants.ClientService
 
+	Annotations annotations.ClientService
+
 	AnomalyAlerts anomaly_alerts.ClientService
 
 	AnomalyNotifications anomaly_notifications.ClientService
@@ -242,6 +252,8 @@ type Vantage struct {
 
 	Me me.ClientService
 
+	NetworkFlowLogs network_flow_logs.ClientService
+
 	NetworkFlowReports network_flow_reports.ClientService
 
 	OpenAPISpecification open_api_specification.ClientService
@@ -254,6 +266,8 @@ type Vantage struct {
 
 	Recommendations recommendations.ClientService
 
+	ReportForecasts report_forecasts.ClientService
+
 	ReportNotifications report_notifications.ClientService
 
 	ResourceReports resource_reports.ClientService
@@ -261,6 +275,8 @@ type Vantage struct {
 	Resources resources.ClientService
 
 	SavedFilters saved_filters.ClientService
+
+	ScenarioModels scenario_models.ClientService
 
 	Segments segments.ClientService
 
@@ -285,6 +301,7 @@ type Vantage struct {
 func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.AccessGrants.SetTransport(transport)
+	c.Annotations.SetTransport(transport)
 	c.AnomalyAlerts.SetTransport(transport)
 	c.AnomalyNotifications.SetTransport(transport)
 	c.AuditLogs.SetTransport(transport)
@@ -311,16 +328,19 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.KubernetesEfficiencyReports.SetTransport(transport)
 	c.ManagedAccounts.SetTransport(transport)
 	c.Me.SetTransport(transport)
+	c.NetworkFlowLogs.SetTransport(transport)
 	c.NetworkFlowReports.SetTransport(transport)
 	c.OpenAPISpecification.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Prices.SetTransport(transport)
 	c.RecommendationViews.SetTransport(transport)
 	c.Recommendations.SetTransport(transport)
+	c.ReportForecasts.SetTransport(transport)
 	c.ReportNotifications.SetTransport(transport)
 	c.ResourceReports.SetTransport(transport)
 	c.Resources.SetTransport(transport)
 	c.SavedFilters.SetTransport(transport)
+	c.ScenarioModels.SetTransport(transport)
 	c.Segments.SetTransport(transport)
 	c.Tags.SetTransport(transport)
 	c.Teams.SetTransport(transport)

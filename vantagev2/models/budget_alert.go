@@ -45,6 +45,10 @@ type BudgetAlert struct {
 	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// The email addresses that receive the alert, including organization users and verified-domain addresses.
+	// Required: true
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// Alerts only send if they reach this number (as a percentage). When threshold is 100, that means alerts are triggered once costs reach 100% of the budget.
 	// Example: 75
 	// Required: true
@@ -57,7 +61,7 @@ type BudgetAlert struct {
 	// The token for the User who created this BudgetAlert.
 	UserToken *string `json:"user_token,omitempty"`
 
-	// The Users that receive the alert.
+	// The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails.
 	// Required: true
 	UserTokens []string `json:"user_tokens"`
 
@@ -87,6 +91,10 @@ func (m *BudgetAlert) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientEmails(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -151,6 +159,15 @@ func (m *BudgetAlert) validatePeriodToTrack(formats strfmt.Registry) error {
 func (m *BudgetAlert) validateRecipientChannels(formats strfmt.Registry) error {
 
 	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BudgetAlert) validateRecipientEmails(formats strfmt.Registry) error {
+
+	if err := validate.Required("recipient_emails", "body", m.RecipientEmails); err != nil {
 		return err
 	}
 

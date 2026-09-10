@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetCostAlertsParams creates a new GetCostAlertsParams object,
@@ -60,6 +61,35 @@ GetCostAlertsParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetCostAlertsParams struct {
+
+	/* Limit.
+
+	   The amount of results to return. The maximum is 5000.
+
+	   Format: int32
+	*/
+	Limit *int32
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	*/
+	Page *int32
+
+	/* Q.
+
+	   Search cost alerts by title.
+	*/
+	Q *string
+
+	/* WorkspaceToken.
+
+	   The workspace token of the cost alerts to return.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -113,6 +143,50 @@ func (o *GetCostAlertsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithLimit adds the limit to the get cost alerts params
+func (o *GetCostAlertsParams) WithLimit(limit *int32) *GetCostAlertsParams {
+	o.SetLimit(limit)
+	return o
+}
+
+// SetLimit adds the limit to the get cost alerts params
+func (o *GetCostAlertsParams) SetLimit(limit *int32) {
+	o.Limit = limit
+}
+
+// WithPage adds the page to the get cost alerts params
+func (o *GetCostAlertsParams) WithPage(page *int32) *GetCostAlertsParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get cost alerts params
+func (o *GetCostAlertsParams) SetPage(page *int32) {
+	o.Page = page
+}
+
+// WithQ adds the q to the get cost alerts params
+func (o *GetCostAlertsParams) WithQ(q *string) *GetCostAlertsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get cost alerts params
+func (o *GetCostAlertsParams) SetQ(q *string) {
+	o.Q = q
+}
+
+// WithWorkspaceToken adds the workspaceToken to the get cost alerts params
+func (o *GetCostAlertsParams) WithWorkspaceToken(workspaceToken *string) *GetCostAlertsParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get cost alerts params
+func (o *GetCostAlertsParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetCostAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -120,6 +194,74 @@ func (o *GetCostAlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
+	if o.Limit != nil {
+
+		// query param limit
+		var qrLimit int32
+
+		if o.Limit != nil {
+			qrLimit = *o.Limit
+		}
+		qLimit := swag.FormatInt32(qrLimit)
+		if qLimit != "" {
+
+			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

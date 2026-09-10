@@ -76,7 +76,7 @@ type GetCostsParams struct {
 
 	/* EndDate.
 
-	   Last date you would like to filter costs to. ISO 8601 formatted.
+	   Last date you would like to filter costs to. ISO 8601 formatted. When omitted with cost_report_token, the report's saved end date is used.
 	*/
 	EndDate *string
 
@@ -88,7 +88,7 @@ type GetCostsParams struct {
 
 	/* Groupings.
 
-	   Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
+	   Group the results by specific field(s). When omitted with cost_report_token, the report's saved groupings are used; otherwise defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region
 	*/
 	Groupings []string
 
@@ -118,7 +118,7 @@ type GetCostsParams struct {
 
 	/* SettingsAggregateBy.
 
-	   Results will aggregate by cost or usage.
+	   Results will aggregate by cost, usage, or count.
 
 	   Default: "cost"
 	*/
@@ -162,7 +162,7 @@ type GetCostsParams struct {
 
 	/* SettingsShowPreviousPeriod.
 
-	   Results will show previous period costs or usage comparison.
+	   Results will show previous period cost, usage, or count comparison.
 
 	   Default: true
 	*/
@@ -176,7 +176,7 @@ type GetCostsParams struct {
 
 	/* StartDate.
 
-	   First date you would like to filter costs from. ISO 8601 formatted.
+	   First date you would like to filter costs from. ISO 8601 formatted. When omitted with cost_report_token, the report's saved start date is used.
 	*/
 	StartDate *string
 

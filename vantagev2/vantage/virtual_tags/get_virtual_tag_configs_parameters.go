@@ -60,6 +60,13 @@ GetVirtualTagConfigsParams contains all the parameters to send to the API endpoi
 	Typically these are written to a http.Request.
 */
 type GetVirtualTagConfigsParams struct {
+
+	/* Q.
+
+	   A search query to filter VirtualTagConfigs by key.
+	*/
+	Q *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -113,6 +120,17 @@ func (o *GetVirtualTagConfigsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithQ adds the q to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) WithQ(q *string) *GetVirtualTagConfigsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetVirtualTagConfigsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -120,6 +138,23 @@ func (o *GetVirtualTagConfigsParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

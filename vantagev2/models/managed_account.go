@@ -26,7 +26,7 @@ type ManagedAccount struct {
 	// Billing address and contact information (MSP invoicing accounts only)
 	BillingInformationAttributes *BillingInformation `json:"billing_information_attributes,omitempty"`
 
-	// The tokens for the Billing Rules assigned to the Managed Account.
+	// The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data.
 	// Required: true
 	BillingRuleTokens []string `json:"billing_rule_tokens"`
 

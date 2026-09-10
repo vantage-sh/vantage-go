@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -21,7 +22,7 @@ import (
 type UpdateBudget struct {
 
 	// The tokens of any child Budgets when creating a hierarchical Budget.
-	ChildBudgetTokens []string `json:"child_budget_tokens"`
+	ChildBudgetTokens []string `json:"child_budget_tokens,omitempty"`
 
 	// The CostReport token. Ignored for hierarchical Budgets.
 	CostReportToken string `json:"cost_report_token,omitempty"`
@@ -29,13 +30,20 @@ type UpdateBudget struct {
 	// The name of the Budget.
 	Name string `json:"name,omitempty"`
 
+	// period cadence
+	PeriodCadence *UpdateBudgetPeriodCadence `json:"period_cadence,omitempty"`
+
 	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
-	Periods []*UpdateBudgetPeriodsItems0 `json:"periods"`
+	Periods []*UpdateBudgetPeriodsItems0 `json:"periods,omitempty"`
 }
 
 // Validate validates this update budget
 func (m *UpdateBudget) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validatePeriodCadence(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validatePeriods(formats); err != nil {
 		res = append(res, err)
@@ -44,6 +52,25 @@ func (m *UpdateBudget) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBudget) validatePeriodCadence(formats strfmt.Registry) error {
+	if swag.IsZero(m.PeriodCadence) { // not required
+		return nil
+	}
+
+	if m.PeriodCadence != nil {
+		if err := m.PeriodCadence.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -77,6 +104,10 @@ func (m *UpdateBudget) validatePeriods(formats strfmt.Registry) error {
 func (m *UpdateBudget) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidatePeriodCadence(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidatePeriods(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -84,6 +115,27 @@ func (m *UpdateBudget) ContextValidate(ctx context.Context, formats strfmt.Regis
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBudget) contextValidatePeriodCadence(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PeriodCadence != nil {
+
+		if swag.IsZero(m.PeriodCadence) { // not required
+			return nil
+		}
+
+		if err := m.PeriodCadence.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -123,6 +175,126 @@ func (m *UpdateBudget) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateBudget) UnmarshalBinary(b []byte) error {
 	var res UpdateBudget
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBudgetPeriodCadence The interval cadence for budget periods. Changing cadence after creation is rejected.
+//
+// swagger:model UpdateBudgetPeriodCadence
+type UpdateBudgetPeriodCadence struct {
+
+	// The number of interval units per budget period.
+	IntervalCount int32 `json:"interval_count,omitempty"`
+
+	// The unit for budget period intervals. One of: day, week, month, year.
+	// Enum: ["day","week","month","year"]
+	IntervalUnit string `json:"interval_unit,omitempty"`
+
+	// The anchor date for budget period intervals. Send null to clear.
+	// Required: true
+	// Format: date
+	StartsAt *strfmt.Date `json:"starts_at"`
+}
+
+// Validate validates this update budget period cadence
+func (m *UpdateBudgetPeriodCadence) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateIntervalUnit(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStartsAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var updateBudgetPeriodCadenceTypeIntervalUnitPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["day","week","month","year"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateBudgetPeriodCadenceTypeIntervalUnitPropEnum = append(updateBudgetPeriodCadenceTypeIntervalUnitPropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateBudgetPeriodCadenceIntervalUnitDay captures enum value "day"
+	UpdateBudgetPeriodCadenceIntervalUnitDay string = "day"
+
+	// UpdateBudgetPeriodCadenceIntervalUnitWeek captures enum value "week"
+	UpdateBudgetPeriodCadenceIntervalUnitWeek string = "week"
+
+	// UpdateBudgetPeriodCadenceIntervalUnitMonth captures enum value "month"
+	UpdateBudgetPeriodCadenceIntervalUnitMonth string = "month"
+
+	// UpdateBudgetPeriodCadenceIntervalUnitYear captures enum value "year"
+	UpdateBudgetPeriodCadenceIntervalUnitYear string = "year"
+)
+
+// prop value enum
+func (m *UpdateBudgetPeriodCadence) validateIntervalUnitEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateBudgetPeriodCadenceTypeIntervalUnitPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateBudgetPeriodCadence) validateIntervalUnit(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntervalUnit) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateIntervalUnitEnum("period_cadence"+"."+"interval_unit", "body", m.IntervalUnit); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateBudgetPeriodCadence) validateStartsAt(formats strfmt.Registry) error {
+
+	if err := validate.Required("period_cadence"+"."+"starts_at", "body", m.StartsAt); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("period_cadence"+"."+"starts_at", "body", "date", m.StartsAt.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update budget period cadence based on context it is used
+func (m *UpdateBudgetPeriodCadence) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBudgetPeriodCadence) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBudgetPeriodCadence) UnmarshalBinary(b []byte) error {
+	var res UpdateBudgetPeriodCadence
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -47,6 +47,10 @@ type Budget struct {
 	// The historical performance of the Budget.
 	Performance []*BudgetPerformance `json:"performance"`
 
+	// The interval cadence for budget periods.
+	// Required: true
+	PeriodCadence *PeriodCadence `json:"period_cadence"`
+
 	// The budget periods associated with the Budget.
 	// Required: true
 	Periods []*BudgetPeriod `json:"periods"`
@@ -84,6 +88,10 @@ func (m *Budget) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePerformance(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePeriodCadence(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -167,6 +175,26 @@ func (m *Budget) validatePerformance(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Budget) validatePeriodCadence(formats strfmt.Registry) error {
+
+	if err := validate.Required("period_cadence", "body", m.PeriodCadence); err != nil {
+		return err
+	}
+
+	if m.PeriodCadence != nil {
+		if err := m.PeriodCadence.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Budget) validatePeriods(formats strfmt.Registry) error {
 
 	if err := validate.Required("periods", "body", m.Periods); err != nil {
@@ -220,6 +248,10 @@ func (m *Budget) ContextValidate(ctx context.Context, formats strfmt.Registry) e
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePeriodCadence(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidatePeriods(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -250,6 +282,23 @@ func (m *Budget) contextValidatePerformance(ctx context.Context, formats strfmt.
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Budget) contextValidatePeriodCadence(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PeriodCadence != nil {
+
+		if err := m.PeriodCadence.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period_cadence")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period_cadence")
+			}
+			return err
+		}
 	}
 
 	return nil

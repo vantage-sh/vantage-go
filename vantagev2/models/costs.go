@@ -24,12 +24,18 @@ type Costs struct {
 	// Required: true
 	Costs []*Cost `json:"costs"`
 
+	// Distinct Group By permutation counts for the full requested period, unaffected by page and limit. Bins without cost are omitted. Present when settings.aggregate_by is 'count'.
+	Counts []*CostCount `json:"counts"`
+
 	// links
 	Links *Links `json:"links,omitempty"`
 
 	// The sum of all costs for the CostReport for the requested period, rounded to 2 decimal places, alongside the ISO 4217 currency code.
 	// Required: true
 	TotalCost *CostPartial `json:"total_cost"`
+
+	// The sum of the date-binned counts. Present when settings.aggregate_by is 'count'.
+	TotalCount *int64 `json:"total_count,omitempty"`
 
 	// The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit.
 	TotalUsage []*UsagePartial `json:"total_usage"`
@@ -40,6 +46,10 @@ func (m *Costs) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCosts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCounts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -78,6 +88,32 @@ func (m *Costs) validateCosts(formats strfmt.Registry) error {
 					return ve.ValidateName("costs" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("costs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Costs) validateCounts(formats strfmt.Registry) error {
+	if swag.IsZero(m.Counts) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Counts); i++ {
+		if swag.IsZero(m.Counts[i]) { // not required
+			continue
+		}
+
+		if m.Counts[i] != nil {
+			if err := m.Counts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("counts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("counts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -161,6 +197,10 @@ func (m *Costs) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateCounts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateLinks(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -194,6 +234,31 @@ func (m *Costs) contextValidateCosts(ctx context.Context, formats strfmt.Registr
 					return ve.ValidateName("costs" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("costs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Costs) contextValidateCounts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Counts); i++ {
+
+		if m.Counts[i] != nil {
+
+			if swag.IsZero(m.Counts[i]) { // not required
+				return nil
+			}
+
+			if err := m.Counts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("counts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("counts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -78,6 +78,18 @@ type GetCanvasesParams struct {
 	*/
 	Page *int32
 
+	/* Q.
+
+	   Search canvases by title.
+	*/
+	Q *string
+
+	/* WorkspaceToken.
+
+	   Filter by workspace token.
+	*/
+	WorkspaceToken *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -153,6 +165,28 @@ func (o *GetCanvasesParams) SetPage(page *int32) {
 	o.Page = page
 }
 
+// WithQ adds the q to the get canvases params
+func (o *GetCanvasesParams) WithQ(q *string) *GetCanvasesParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get canvases params
+func (o *GetCanvasesParams) SetQ(q *string) {
+	o.Q = q
+}
+
+// WithWorkspaceToken adds the workspaceToken to the get canvases params
+func (o *GetCanvasesParams) WithWorkspaceToken(workspaceToken *string) *GetCanvasesParams {
+	o.SetWorkspaceToken(workspaceToken)
+	return o
+}
+
+// SetWorkspaceToken adds the workspaceToken to the get canvases params
+func (o *GetCanvasesParams) SetWorkspaceToken(workspaceToken *string) {
+	o.WorkspaceToken = workspaceToken
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetCanvasesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -190,6 +224,40 @@ func (o *GetCanvasesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WorkspaceToken != nil {
+
+		// query param workspace_token
+		var qrWorkspaceToken string
+
+		if o.WorkspaceToken != nil {
+			qrWorkspaceToken = *o.WorkspaceToken
+		}
+		qWorkspaceToken := qrWorkspaceToken
+		if qWorkspaceToken != "" {
+
+			if err := r.SetQueryParam("workspace_token", qWorkspaceToken); err != nil {
 				return err
 			}
 		}

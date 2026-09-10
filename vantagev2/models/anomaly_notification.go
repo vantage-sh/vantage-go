@@ -32,6 +32,10 @@ type AnomalyNotification struct {
 	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
+	// The email addresses that receive the notification, including organization users and verified-domain addresses.
+	// Required: true
+	RecipientEmails []string `json:"recipient_emails"`
+
 	// The threshold amount that must be met for the notification to fire.
 	// Required: true
 	Threshold int32 `json:"threshold"`
@@ -45,7 +49,7 @@ type AnomalyNotification struct {
 	// Required: true
 	UpdatedAt string `json:"updated_at"`
 
-	// The tokens of the users that receive the notification.
+	// The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails.
 	// Required: true
 	UserTokens []string `json:"user_tokens"`
 }
@@ -63,6 +67,10 @@ func (m *AnomalyNotification) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRecipientChannels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipientEmails(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -109,6 +117,15 @@ func (m *AnomalyNotification) validateCreatedAt(formats strfmt.Registry) error {
 func (m *AnomalyNotification) validateRecipientChannels(formats strfmt.Registry) error {
 
 	if err := validate.Required("recipient_channels", "body", m.RecipientChannels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AnomalyNotification) validateRecipientEmails(formats strfmt.Registry) error {
+
+	if err := validate.Required("recipient_emails", "body", m.RecipientEmails); err != nil {
 		return err
 	}
 
