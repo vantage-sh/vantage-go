@@ -41,7 +41,7 @@ type UpdateBudget struct {
 	Type string `json:"type,omitempty"`
 
 	// The usage unit for usage Budgets. Send null to clear.
-	Unit *string `json:"unit,omitempty"`
+	Unit *string `json:"unit"`
 }
 
 // Validate validates this update budget
