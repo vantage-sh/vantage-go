@@ -21,7 +21,7 @@ import (
 // swagger:model createBudget
 type CreateBudget struct {
 
-	// The tokens of any child Budgets when creating a hierarchical Budget.
+	// The tokens of any child Budgets when creating a hierarchical Budget. Child budgets must share the same current period dates.
 	ChildBudgetTokens []string `json:"child_budget_tokens"`
 
 	// The CostReport token. Ignored for hierarchical Budgets.
@@ -36,6 +36,13 @@ type CreateBudget struct {
 
 	// The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
 	Periods []*CreateBudgetPeriodsItems0 `json:"periods"`
+
+	// The type of Budget. One of: cost, usage.
+	// Enum: ["cost","usage"]
+	Type string `json:"type,omitempty"`
+
+	// The usage unit for usage Budgets.
+	Unit string `json:"unit,omitempty"`
 
 	// The token of the Workspace to add the Budget to.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
@@ -54,6 +61,10 @@ func (m *CreateBudget) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePeriods(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,6 +123,48 @@ func (m *CreateBudget) validatePeriods(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+var createBudgetTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createBudgetTypeTypePropEnum = append(createBudgetTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CreateBudgetTypeCost captures enum value "cost"
+	CreateBudgetTypeCost string = "cost"
+
+	// CreateBudgetTypeUsage captures enum value "usage"
+	CreateBudgetTypeUsage string = "usage"
+)
+
+// prop value enum
+func (m *CreateBudget) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createBudgetTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateBudget) validateType(formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+		return err
 	}
 
 	return nil
@@ -199,7 +252,7 @@ func (m *CreateBudget) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-// CreateBudgetPeriodCadence The interval cadence for budget periods. Requires the flexible_budget_periods feature.
+// CreateBudgetPeriodCadence The interval cadence for budget periods.
 //
 // swagger:model CreateBudgetPeriodCadence
 type CreateBudgetPeriodCadence struct {
