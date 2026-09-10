@@ -18246,7 +18246,7 @@
           "type": "string",
           "description": "The usage unit for usage Budgets. Send null to clear.",
           "x-nullable": true,
-          "x-omitempty": true
+          "x-omitempty": false
         },
         "child_budget_tokens": {
           "type": "array",
