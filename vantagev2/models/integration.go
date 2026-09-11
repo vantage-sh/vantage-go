@@ -30,6 +30,10 @@ type Integration struct {
 	// Required: true
 	CreatedAt string `json:"created_at"`
 
+	// Tokens of the data integrations that enrich this integration's costs. Empty when enrichment is not connected.
+	// Required: true
+	EnrichedBy []string `json:"enriched_by"`
+
 	// The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
 	// Example: 2023-08-04T00:00:00Z
 	LastUpdated *string `json:"last_updated,omitempty"`
@@ -67,6 +71,10 @@ func (m *Integration) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnrichedBy(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -108,6 +116,15 @@ func (m *Integration) validateAccountIdentifier(formats strfmt.Registry) error {
 func (m *Integration) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Integration) validateEnrichedBy(formats strfmt.Registry) error {
+
+	if err := validate.Required("enriched_by", "body", m.EnrichedBy); err != nil {
 		return err
 	}
 

@@ -31,6 +31,10 @@ type Me struct {
 	// Required: true
 	DefaultWorkspaceToken *string `json:"default_workspace_token"`
 
+	// True when the authenticated User or Token has the Owner role on the Account.
+	// Required: true
+	IsAccountOwner bool `json:"is_account_owner"`
+
 	// workspaces
 	// Required: true
 	Workspaces []*Workspace `json:"workspaces"`
@@ -45,6 +49,10 @@ func (m *Me) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDefaultWorkspaceToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIsAccountOwner(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,6 +89,15 @@ func (m *Me) validateBearerToken(formats strfmt.Registry) error {
 func (m *Me) validateDefaultWorkspaceToken(formats strfmt.Registry) error {
 
 	if err := validate.Required("default_workspace_token", "body", m.DefaultWorkspaceToken); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Me) validateIsAccountOwner(formats strfmt.Registry) error {
+
+	if err := validate.Required("is_account_owner", "body", bool(m.IsAccountOwner)); err != nil {
 		return err
 	}
 

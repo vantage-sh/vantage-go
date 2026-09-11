@@ -31,13 +31,13 @@ type UpdateFinancialCommitmentReport struct {
 	// The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
 	// Example: 2024-03-01
 	// Format: date
-	EndDate strfmt.Date `json:"end_date,omitempty"`
+	EndDate *strfmt.Date `json:"end_date,omitempty"`
 
 	// The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
-	// Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.
-	Groupings []string `json:"groupings"`
+	// Grouping values for aggregating costs on the FinancialCommitmentReport. Group by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.
+	Groupings []string `json:"groupings,omitempty"`
 
 	// The scope for the costs. Possible values: discountable, all.
 	// Enum: ["discountable","all"]
@@ -46,7 +46,7 @@ type UpdateFinancialCommitmentReport struct {
 	// The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
 	// Example: 2024-03-01
 	// Format: date
-	StartDate strfmt.Date `json:"start_date,omitempty"`
+	StartDate *strfmt.Date `json:"start_date,omitempty"`
 
 	// The title of the FinancialCommitmentReport.
 	Title string `json:"title,omitempty"`
