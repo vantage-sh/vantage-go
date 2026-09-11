@@ -119,16 +119,12 @@ type GetCostsParams struct {
 	/* SettingsAggregateBy.
 
 	   Results will aggregate by cost, usage, or count.
-
-	   Default: "cost"
 	*/
 	SettingsAggregateBy *string
 
 	/* SettingsAmortize.
 
 	   Results will amortize.
-
-	   Default: true
 	*/
 	SettingsAmortize *bool
 
@@ -141,8 +137,6 @@ type GetCostsParams struct {
 	/* SettingsIncludeDiscounts.
 
 	   Results will include discounts.
-
-	   Default: true
 	*/
 	SettingsIncludeDiscounts *bool
 
@@ -155,16 +149,12 @@ type GetCostsParams struct {
 	/* SettingsIncludeTax.
 
 	   Results will include tax.
-
-	   Default: true
 	*/
 	SettingsIncludeTax *bool
 
 	/* SettingsShowPreviousPeriod.
 
 	   Results will show previous period cost, usage, or count comparison.
-
-	   Default: true
 	*/
 	SettingsShowPreviousPeriod *bool
 
@@ -205,34 +195,10 @@ func (o *GetCostsParams) WithDefaults() *GetCostsParams {
 func (o *GetCostsParams) SetDefaults() {
 	var (
 		orderDefault = string("desc")
-
-		settingsAggregateByDefault = string("cost")
-
-		settingsAmortizeDefault = bool(true)
-
-		settingsIncludeCreditsDefault = bool(false)
-
-		settingsIncludeDiscountsDefault = bool(true)
-
-		settingsIncludeRefundsDefault = bool(false)
-
-		settingsIncludeTaxDefault = bool(true)
-
-		settingsShowPreviousPeriodDefault = bool(true)
-
-		settingsUnallocatedDefault = bool(false)
 	)
 
 	val := GetCostsParams{
-		Order:                      &orderDefault,
-		SettingsAggregateBy:        &settingsAggregateByDefault,
-		SettingsAmortize:           &settingsAmortizeDefault,
-		SettingsIncludeCredits:     &settingsIncludeCreditsDefault,
-		SettingsIncludeDiscounts:   &settingsIncludeDiscountsDefault,
-		SettingsIncludeRefunds:     &settingsIncludeRefundsDefault,
-		SettingsIncludeTax:         &settingsIncludeTaxDefault,
-		SettingsShowPreviousPeriod: &settingsShowPreviousPeriodDefault,
-		SettingsUnallocated:        &settingsUnallocatedDefault,
+		Order: &orderDefault,
 	}
 
 	val.timeout = o.timeout

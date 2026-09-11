@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -33,6 +34,15 @@ type BudgetPerformance struct {
 	// Example: 2024-03-19T00:00:00Z
 	// Required: true
 	Date string `json:"date"`
+
+	// The type of Budget. One of: cost, usage.
+	// Example: cost
+	// Required: true
+	// Enum: ["cost","usage"]
+	Type string `json:"type"`
+
+	// The usage unit for usage Budget performance amounts.
+	Unit *string `json:"unit,omitempty"`
 }
 
 // Validate validates this budget performance
@@ -48,6 +58,10 @@ func (m *BudgetPerformance) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -78,6 +92,49 @@ func (m *BudgetPerformance) validateAmount(formats strfmt.Registry) error {
 func (m *BudgetPerformance) validateDate(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("date", "body", m.Date); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var budgetPerformanceTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		budgetPerformanceTypeTypePropEnum = append(budgetPerformanceTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// BudgetPerformanceTypeCost captures enum value "cost"
+	BudgetPerformanceTypeCost string = "cost"
+
+	// BudgetPerformanceTypeUsage captures enum value "usage"
+	BudgetPerformanceTypeUsage string = "usage"
+)
+
+// prop value enum
+func (m *BudgetPerformance) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, budgetPerformanceTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *BudgetPerformance) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 
