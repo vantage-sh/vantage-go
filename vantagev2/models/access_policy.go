@@ -35,9 +35,8 @@ type AccessPolicy struct {
 	Description *string `json:"description"`
 
 	// The AccessPolicy definition as a v1 document with vantage.* VQL.
-	// Example: {"api_version":"v1","policy":{"filter":"(vantage.provider = 'aws')"}}
 	// Required: true
-	Policy interface{} `json:"policy"`
+	Policy *AccessPolicyDocument `json:"policy"`
 
 	// The tokens for Teams this AccessPolicy is assigned to.
 	// Required: true
@@ -120,8 +119,19 @@ func (m *AccessPolicy) validateDescription(formats strfmt.Registry) error {
 
 func (m *AccessPolicy) validatePolicy(formats strfmt.Registry) error {
 
-	if m.Policy == nil {
-		return errors.Required("policy", "body", nil)
+	if err := validate.Required("policy", "body", m.Policy); err != nil {
+		return err
+	}
+
+	if m.Policy != nil {
+		if err := m.Policy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("policy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("policy")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -154,8 +164,34 @@ func (m *AccessPolicy) validateToken(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this access policy based on context it is used
+// ContextValidate validate this access policy based on the context it is used
 func (m *AccessPolicy) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePolicy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AccessPolicy) contextValidatePolicy(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Policy != nil {
+
+		if err := m.Policy.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("policy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("policy")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

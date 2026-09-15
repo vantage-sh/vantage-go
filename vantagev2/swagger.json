@@ -16568,14 +16568,7 @@
           "description": "The description of the AccessPolicy."
         },
         "policy": {
-          "type": "object",
-          "example": {
-            "api_version": "v1",
-            "policy": {
-              "filter": "(vantage.provider = 'aws')"
-            }
-          },
-          "x-nullable": false,
+          "$ref": "#/definitions/AccessPolicyDocument",
           "description": "The AccessPolicy definition as a v1 document with vantage.* VQL."
         },
         "team_tokens": {
@@ -16612,6 +16605,42 @@
         "created_at"
       ],
       "description": "AccessPolicy model"
+    },
+    "AccessPolicyDocument": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "example": "v1",
+          "enum": [
+            "v1"
+          ],
+          "x-nullable": false,
+          "description": "The AccessPolicy document version."
+        },
+        "policy": {
+          "$ref": "#/definitions/AccessPolicyRules",
+          "description": "The AccessPolicy rules for this version."
+        }
+      },
+      "required": [
+        "api_version",
+        "policy"
+      ]
+    },
+    "AccessPolicyRules": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "example": "(vantage.provider = 'aws')",
+          "x-nullable": false,
+          "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows."
+        }
+      },
+      "required": [
+        "filter"
+      ]
     },
     "createAccessPolicy": {
       "type": "object",
