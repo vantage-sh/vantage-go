@@ -37,8 +37,9 @@ type UnitCost struct {
 
 	// The calculation type applied to produce this result.
 	// Example: unit_cost
+	// Required: true
 	// Enum: ["unit_cost","gross_margin","usage_unit_cost","raw_business_metric"]
-	CalculationType *string `json:"calculation_type,omitempty"`
+	CalculationType string `json:"calculation_type"`
 
 	// The date for which the unit cost was calculated. ISO 8601 Formatted.
 	// Example: 2023-09-05+00:00
@@ -164,12 +165,13 @@ func (m *UnitCost) validateCalculationTypeEnum(path, location string, value stri
 }
 
 func (m *UnitCost) validateCalculationType(formats strfmt.Registry) error {
-	if swag.IsZero(m.CalculationType) { // not required
-		return nil
+
+	if err := validate.RequiredString("calculation_type", "body", m.CalculationType); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateCalculationTypeEnum("calculation_type", "body", *m.CalculationType); err != nil {
+	if err := m.validateCalculationTypeEnum("calculation_type", "body", m.CalculationType); err != nil {
 		return err
 	}
 

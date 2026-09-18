@@ -17,7 +17,7 @@ import (
 // swagger:model updateCostAlert
 type UpdateCostAlert struct {
 
-	// The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.
+	// The email recipients for the Cost Alert. Accepts organization users, SSO-domain emails, and approved third-party service emails.
 	EmailRecipients []string `json:"email_recipients"`
 
 	// The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.

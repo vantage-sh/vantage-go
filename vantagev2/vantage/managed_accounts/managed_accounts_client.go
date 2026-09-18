@@ -66,9 +66,13 @@ type ClientService interface {
 
 	GetManagedAccount(params *GetManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountOK, error)
 
+	GetManagedAccountIntegration(params *GetManagedAccountIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountIntegrationOK, error)
+
 	GetManagedAccounts(params *GetManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountsOK, error)
 
 	UpdateManagedAccount(params *UpdateManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountOK, error)
+
+	UpdateManagedAccountIntegration(params *UpdateManagedAccountIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountIntegrationOK, error)
 
 	UpdateSsoConnectionForManagedAccount(params *UpdateSsoConnectionForManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSsoConnectionForManagedAccountOK, error)
 
@@ -281,6 +285,47 @@ func (a *Client) GetManagedAccount(params *GetManagedAccountParams, authInfo run
 }
 
 /*
+GetManagedAccountIntegration gets managed account integration
+
+Returns the Integration delegated to this Managed Account from the Access Credential named in the path, along with the provider account identifiers it imports. Delegate an Access Credential to a Managed Account with access_credential_tokens before calling this.
+*/
+func (a *Client) GetManagedAccountIntegration(params *GetManagedAccountIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetManagedAccountIntegrationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetManagedAccountIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getManagedAccountIntegration",
+		Method:             "GET",
+		PathPattern:        "/managed_accounts/{managed_account_token}/integrations/{access_credential_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetManagedAccountIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetManagedAccountIntegrationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getManagedAccountIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 GetManagedAccounts gets all managed accounts
 
 Returns a list of managed accounts.
@@ -359,6 +404,47 @@ func (a *Client) UpdateManagedAccount(params *UpdateManagedAccountParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateManagedAccountIntegration updates managed account integration
+
+Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation; Azure CSP is the only one today, where they are Azure subscription ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.
+*/
+func (a *Client) UpdateManagedAccountIntegration(params *UpdateManagedAccountIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountIntegrationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateManagedAccountIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateManagedAccountIntegration",
+		Method:             "PUT",
+		PathPattern:        "/managed_accounts/{managed_account_token}/integrations/{access_credential_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateManagedAccountIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateManagedAccountIntegrationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateManagedAccountIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

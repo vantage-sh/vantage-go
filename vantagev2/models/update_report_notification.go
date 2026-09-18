@@ -29,7 +29,7 @@ type UpdateReportNotification struct {
 	// The Slack or Microsoft Teams channels that receive the notification.
 	RecipientChannels []string `json:"recipient_channels"`
 
-	// Email addresses that receive the notification. Must be organization users or addresses on a verified domain.
+	// Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.
 	RecipientEmails []string `json:"recipient_emails"`
 
 	// The title of the ReportNotification.
