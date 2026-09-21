@@ -41,7 +41,7 @@ type ReportNotification struct {
 	// Required: true
 	RecipientChannels []string `json:"recipient_channels"`
 
-	// The email addresses that receive the notification, including organization users and verified-domain addresses.
+	// The email addresses that receive the notification, including organization users, SSO-domain addresses, and approved third-party addresses.
 	// Required: true
 	RecipientEmails []string `json:"recipient_emails"`
 
@@ -54,7 +54,7 @@ type ReportNotification struct {
 	// Required: true
 	Token string `json:"token"`
 
-	// The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails.
+	// The tokens of organization users that receive the notification. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails.
 	// Required: true
 	UserTokens []string `json:"user_tokens"`
 }

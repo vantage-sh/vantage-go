@@ -4889,7 +4889,8 @@
               "together_ai",
               "coreweave",
               "devin",
-              "openrouter"
+              "openrouter",
+              "deepgram"
             ],
             "required": false
           },
@@ -5497,6 +5498,7 @@
               "coreweave",
               "devin",
               "openrouter",
+              "deepgram",
               "all"
             ],
             "required": false
@@ -7464,7 +7466,8 @@
               "together_ai",
               "coreweave",
               "devin",
-              "openrouter"
+              "openrouter",
+              "deepgram"
             ],
             "required": false
           },
@@ -9336,6 +9339,137 @@
           "ManagedAccounts"
         ],
         "operationId": "deleteSsoConnectionForManagedAccount"
+      }
+    },
+    "/managed_accounts/{managed_account_token}/integrations/{access_credential_token}": {
+      "get": {
+        "summary": "Get managed account integration",
+        "description": "Returns the Integration delegated to this Managed Account from the Access Credential named in the path, along with the provider account identifiers it imports. Delegate an Access Credential to a Managed Account with access_credential_tokens before calling this.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "managed_account_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "access_credential_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ManagedAccountIntegration"
+            },
+            "examples": {
+              "application/json": {
+                "access_credential_token": "accss_crdntl_6df397820fc3c769",
+                "provider": "azure_csp",
+                "provider_account_identifiers": [
+                  "8c1f7a0e-1f2b-4c2b-9f3d-5a6b7c8d9e01",
+                  "b2d4e6f8-90ab-4cde-8123-456789abcdef"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ManagedAccounts"
+        ],
+        "operationId": "getManagedAccountIntegration"
+      },
+      "put": {
+        "summary": "Update managed account integration",
+        "description": "Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation; Azure CSP is the only one today, where they are Azure subscription ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "managed_account_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "access_credential_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateManagedAccountIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateManagedAccountIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ManagedAccountIntegration"
+            },
+            "examples": {
+              "application/json": {
+                "access_credential_token": "accss_crdntl_64f3820a9d3eacf1",
+                "provider": "azure_csp",
+                "provider_account_identifiers": [
+                  "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "8c1f7a0e-1f2b-4c2b-9f3d-5a6b7c8d9e01"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "ManagedAccounts"
+        ],
+        "operationId": "updateManagedAccountIntegration"
       }
     },
     "/me": {
@@ -13803,7 +13937,8 @@
                 "together_ai",
                 "coreweave",
                 "devin",
-                "openrouter"
+                "openrouter",
+                "deepgram"
               ]
             },
             "required": false
@@ -14045,7 +14180,8 @@
                 "together_ai",
                 "coreweave",
                 "devin",
-                "openrouter"
+                "openrouter",
+                "deepgram"
               ]
             },
             "required": false
@@ -16964,7 +17100,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+          "description": "The tokens of organization users that receive the notification. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails."
         },
         "recipient_emails": {
           "type": "array",
@@ -16972,7 +17108,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
+          "description": "The email addresses that receive the notification, including organization users, SSO-domain addresses, and approved third-party addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -17016,7 +17152,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -17051,7 +17187,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -18280,7 +18416,7 @@
             ]
           },
           "x-nullable": false,
-          "description": "The tokens of organization users that receive the alert. Freeform verified-domain emails are not included; see recipient_emails."
+          "description": "The tokens of organization users that receive the alert. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails."
         },
         "recipient_emails": {
           "type": "array",
@@ -18292,7 +18428,7 @@
             ]
           },
           "x-nullable": false,
-          "description": "The email addresses that receive the alert, including organization users and verified-domain addresses."
+          "description": "The email addresses that receive the alert, including organization users, SSO-domain addresses, and approved third-party addresses."
         },
         "duration_in_days": {
           "type": "integer",
@@ -18374,7 +18510,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the alert. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -18431,7 +18567,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the alert. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the alert. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -19988,7 +20124,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users, SSO-domain emails, and approved third-party service emails.",
           "items": {
             "type": "string"
           }
@@ -20032,7 +20168,7 @@
         },
         "email_recipients": {
           "type": "array",
-          "description": "The email recipients for the Cost Alert. Accepts organization users and emails on verified IdP domains.",
+          "description": "The email recipients for the Cost Alert. Accepts organization users, SSO-domain emails, and approved third-party service emails.",
           "items": {
             "type": "string"
           }
@@ -20557,6 +20693,7 @@
             "coreweave",
             "devin",
             "openrouter",
+            "deepgram",
             "all"
           ],
           "x-nullable": false,
@@ -21377,7 +21514,8 @@
             "together_ai",
             "coreweave",
             "devin",
-            "openrouter"
+            "openrouter",
+            "deepgram"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -23809,6 +23947,53 @@
       },
       "description": "Update SSO configuration for a Managed Account."
     },
+    "ManagedAccountIntegration": {
+      "type": "object",
+      "properties": {
+        "access_credential_token": {
+          "type": "string",
+          "example": "accss_crdntl_3971e6f022b4e39b",
+          "x-nullable": false,
+          "description": "The token of the parent Access Credential that is delegated to this Managed Account."
+        },
+        "provider": {
+          "type": "string",
+          "example": "azure_csp",
+          "x-nullable": false,
+          "description": "The key of the Provider for the delegated Integration."
+        },
+        "provider_account_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The provider account identifiers this delegated Integration imports. For Azure CSP these are Azure subscription ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
+        }
+      },
+      "required": [
+        "access_credential_token",
+        "provider",
+        "provider_account_identifiers"
+      ],
+      "description": "ManagedAccountIntegration model"
+    },
+    "updateManagedAccountIntegration": {
+      "type": "object",
+      "properties": {
+        "provider_account_identifiers": {
+          "type": "array",
+          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are Azure subscription ids. An empty array applies no filter.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "provider_account_identifiers"
+      ],
+      "description": "Update a delegated Integration on a Managed Account."
+    },
     "Me": {
       "type": "object",
       "properties": {
@@ -25175,7 +25360,7 @@
             ]
           },
           "x-nullable": false,
-          "description": "The tokens of organization users that receive the notification. Freeform verified-domain emails are not included; see recipient_emails."
+          "description": "The tokens of organization users that receive the notification. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails."
         },
         "recipient_emails": {
           "type": "array",
@@ -25187,7 +25372,7 @@
             ]
           },
           "x-nullable": false,
-          "description": "The email addresses that receive the notification, including organization users and verified-domain addresses."
+          "description": "The email addresses that receive the notification, including organization users, SSO-domain addresses, and approved third-party addresses."
         },
         "recipient_channels": {
           "type": "array",
@@ -25258,7 +25443,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -25307,7 +25492,7 @@
         },
         "recipient_emails": {
           "type": "array",
-          "description": "Email addresses that receive the notification. Must be organization users or addresses on a verified domain.",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
           "items": {
             "type": "string"
           }
@@ -26826,7 +27011,7 @@
             "usage_unit_cost",
             "raw_business_metric"
           ],
-          "x-nullable": true,
+          "x-nullable": false,
           "description": "The calculation type applied to produce this result."
         },
         "unit_cost_amount": {
@@ -26858,6 +27043,7 @@
       "required": [
         "business_metric_token",
         "business_metric_title",
+        "calculation_type",
         "unit_cost_amount",
         "business_metric_amount",
         "scale",
