@@ -20,8 +20,8 @@ import (
 // swagger:model BudgetPerformance
 type BudgetPerformance struct {
 
-	// The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-	// Example: 2024-03-19T00:00:00Z
+	// Settled spend as a percent of the Budget amount for the month. For example, 114% means spend is 14% over the Budget.
+	// Example: 114%
 	// Required: true
 	Actual string `json:"actual"`
 
