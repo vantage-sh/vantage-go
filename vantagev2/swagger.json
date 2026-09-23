@@ -111,6 +111,14 @@
       "description": "Operations about DataExports"
     },
     {
+      "name": "EnrichmentSources",
+      "description": "Operations about EnrichmentSources"
+    },
+    {
+      "name": "EnrichmentStatistics",
+      "description": "Operations about EnrichmentStatistics"
+    },
+    {
       "name": "ExchangeRates",
       "description": "Operations about ExchangeRates"
     },
@@ -6419,6 +6427,272 @@
         "operationId": "getDataExport"
       }
     },
+    "/enrichment_sources": {
+      "get": {
+        "summary": "Get all enrichment sources",
+        "description": "Return all EnrichmentSources.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EnrichmentSources"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/enrichment_sources?page=1&limit=1",
+                  "first": "https://api.vantage.sh/v2/enrichment_sources?page=1&limit=1",
+                  "next": "https://api.vantage.sh/v2/enrichment_sources?page=2&limit=1",
+                  "last": "https://api.vantage.sh/v2/enrichment_sources?page=2&limit=1",
+                  "prev": null
+                },
+                "enrichment_sources": [
+                  {
+                    "token": "srvc_data_intgrtn_10401e8ad614f27b",
+                    "type": "custom_llm_enrichment_source",
+                    "title": "Custom LLM Enrichment",
+                    "integration_token": "accss_crdntl_99664b33437f4530",
+                    "active": true,
+                    "created_at": "2026-09-15T20:01:18Z"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "EnrichmentSources"
+        ],
+        "operationId": "getEnrichmentSources"
+      }
+    },
+    "/enrichment_sources/{enrichment_source_token}": {
+      "get": {
+        "summary": "Get enrichment source by token",
+        "description": "Return an EnrichmentSource.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "enrichment_source_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EnrichmentSource"
+            },
+            "examples": {
+              "application/json": {
+                "token": "srvc_data_intgrtn_efd043917857ecef",
+                "type": "custom_llm_enrichment_source",
+                "title": "Custom LLM Enrichment",
+                "integration_token": "accss_crdntl_cf142684c2a1a783",
+                "active": true,
+                "created_at": "2026-09-15T20:01:17Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "EnrichmentSources"
+        ],
+        "operationId": "getEnrichmentSource"
+      }
+    },
+    "/enrichment_sources/{enrichment_source_token}/statistics": {
+      "get": {
+        "summary": "Get enrichment statistics",
+        "description": "Return enrichment statistics.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "enrichment_source_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "Filter statistics to costs for a specific provider key.",
+            "type": "string",
+            "enum": [
+              "aws",
+              "azure",
+              "gcp",
+              "snowflake",
+              "databricks",
+              "mongo",
+              "datadog",
+              "fastly",
+              "new_relic",
+              "opencost",
+              "open_ai",
+              "oracle",
+              "confluent",
+              "planetscale",
+              "coralogix",
+              "kubernetes",
+              "custom_provider",
+              "github",
+              "linode",
+              "grafana",
+              "clickhouse",
+              "temporal",
+              "twilio",
+              "azure_csp",
+              "kubernetes_agent",
+              "anthropic",
+              "anyscale",
+              "cursor",
+              "elastic",
+              "vercel",
+              "redis_cloud",
+              "circle_ci",
+              "modal",
+              "eleven_labs",
+              "baseten",
+              "cloudflare",
+              "fireworks_ai",
+              "cartesia",
+              "depot",
+              "xai",
+              "digital_ocean",
+              "together_ai",
+              "coreweave",
+              "devin",
+              "openrouter",
+              "deepgram"
+            ],
+            "required": false,
+            "x-example": "aws"
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EnrichmentStatistics"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_2922f00271c7dd5b/statistics?page=1&limit=1",
+                  "first": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_2922f00271c7dd5b/statistics?page=1&limit=1",
+                  "next": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_2922f00271c7dd5b/statistics?page=2&limit=1",
+                  "last": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_2922f00271c7dd5b/statistics?page=2&limit=1",
+                  "prev": null
+                },
+                "enrichment_statistics": [
+                  {
+                    "token": "wrkflw_mnfst_ddf884f31e7edbba",
+                    "provider": "aws",
+                    "account_identifier": "157844646115",
+                    "status": "success",
+                    "status_detail": null,
+                    "status_message": null,
+                    "start_date": "2026-08-01",
+                    "end_date": "2026-08-31",
+                    "ingested_at": "2026-09-01T12:00:00Z",
+                    "log_scan_acceptance_rate": 0.99,
+                    "log_record_match_rate": 0.98,
+                    "bill_match_rate": 0.97,
+                    "ambiguous_sibling_rows": 0,
+                    "tokens_kept_rate": 0.96
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "EnrichmentStatistics"
+        ],
+        "operationId": "getEnrichmentStatistics"
+      }
+    },
     "/exchange_rates": {
       "get": {
         "summary": "Get all exchange rates",
@@ -8101,6 +8375,66 @@
         "operationId": "createAzureIntegration"
       }
     },
+    "/integrations/twilio": {
+      "post": {
+        "summary": "Create Twilio integration",
+        "description": "Create a Twilio Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createTwilioIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createTwilioIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_6eddcfaa81f7303f",
+                "provider": "twilio",
+                "account_identifier": "Primary Twilio account",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2024-07-29T21:41:48Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createTwilioIntegration"
+      }
+    },
     "/invoices": {
       "get": {
         "summary": "Get all invoices",
@@ -8888,6 +9222,164 @@
           "KubernetesEfficiencyReports"
         ],
         "operationId": "deleteKubernetesEfficiencyReport"
+      }
+    },
+    "/kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}/costs": {
+      "get": {
+        "summary": "Get costs for Kubernetes efficiency report",
+        "description": "Return costs for a KubernetesEfficiencyReport.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "kubernetes_efficiency_report_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "First date to query costs from, inclusive. YYYY-MM-DD formatted.",
+            "type": "string",
+            "format": "date",
+            "required": false,
+            "x-example": "2026-09-01"
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Last date to query costs through, inclusive. YYYY-MM-DD formatted.",
+            "type": "string",
+            "format": "date",
+            "required": false,
+            "x-example": "2026-09-30"
+          },
+          {
+            "in": "query",
+            "name": "date_bin",
+            "description": "The date bin for the costs. Defaults to the report's configured date bucket.",
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "quarter"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "groupings",
+            "description": "Group the cost rows by up to 100 fields. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label:<label_name>.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "cluster_id",
+                    "namespace",
+                    "region",
+                    "labeled",
+                    "category",
+                    "pod"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "pattern": "^label:(?=[\\s\\S]*\\S)(?![\\s\\S]*(?:['\"`\\\\;]|--|[\\x00-\\x1F]))[\\s\\S]+$"
+                }
+              ]
+            },
+            "collectionFormat": "csv",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "The VQL filter to apply to the costs. Overrides the report's saved filter.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Whether to order cost rows by date ascending or descending.",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of cost rows to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of cost rows to return. The maximum is 2500.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 2500,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/KubernetesEfficiencyReportCosts"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "402": {
+            "description": "PaymentRequired",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "KubernetesEfficiencyReports"
+        ],
+        "operationId": "getKubernetesEfficiencyReportCosts"
       }
     },
     "/managed_accounts": {
@@ -18786,9 +19278,9 @@
         },
         "actual": {
           "type": "string",
-          "example": "2024-03-19T00:00:00Z",
+          "example": "114%",
           "x-nullable": false,
-          "description": "The date and time, in UTC, the Budget was created. ISO 8601 Formatted."
+          "description": "Settled spend as a percent of the Budget amount for the month. For example, 114% means spend is 14% over the Budget."
         },
         "amount": {
           "type": "string",
@@ -19074,6 +19566,8 @@
           "enum": [
             "datadog_metrics",
             "cloudwatch",
+            "clickhouse_metrics",
+            "gcp_bigquery_metrics",
             "snowflake_metrics",
             "metronome_metrics",
             "csv"
@@ -19094,9 +19588,17 @@
           "$ref": "#/definitions/DatadogMetricFields",
           "description": "The fields used to generate the Datadog metrics for BusinessMetric."
         },
+        "gcp_bigquery_metric_fields": {
+          "$ref": "#/definitions/GcpBigqueryMetricFields",
+          "description": "The fields used to generate the GCP BigQuery metrics for BusinessMetric."
+        },
         "snowflake_metric_fields": {
           "$ref": "#/definitions/SnowflakeMetricFields",
           "description": "The fields used to generate the Snowflake metrics for BusinessMetric."
+        },
+        "clickhouse_metric_fields": {
+          "$ref": "#/definitions/ClickhouseMetricFields",
+          "description": "The fields used to import ClickHouse metrics for the BusinessMetric."
         }
       },
       "required": [
@@ -19270,6 +19772,27 @@
         "query"
       ]
     },
+    "GcpBigqueryMetricFields": {
+      "type": "object",
+      "properties": {
+        "sql_query": {
+          "type": "string",
+          "example": "SELECT date, value, label FROM `project.dataset.metrics`",
+          "x-nullable": false,
+          "description": "The SQL query used to import GCP BigQuery metrics."
+        },
+        "query_project_id": {
+          "type": "string",
+          "example": "my-query-project",
+          "x-nullable": false,
+          "description": "The GCP project in which the BigQuery job runs."
+        }
+      },
+      "required": [
+        "sql_query",
+        "query_project_id"
+      ]
+    },
     "SnowflakeMetricFields": {
       "type": "object",
       "properties": {
@@ -19282,6 +19805,20 @@
       },
       "required": [
         "sql_query"
+      ]
+    },
+    "ClickhouseMetricFields": {
+      "type": "object",
+      "properties": {
+        "query_endpoint_id": {
+          "type": "string",
+          "example": "7c6a3a87-12fd-41f5-afdf-caa4697a2886",
+          "x-nullable": false,
+          "description": "The UUID of the ClickHouse query endpoint used to import metrics."
+        }
+      },
+      "required": [
+        "query_endpoint_id"
       ]
     },
     "BusinessMetricLabels": {
@@ -19540,6 +20077,24 @@
             }
           }
         },
+        "gcp_bigquery_metric_fields": {
+          "type": "object",
+          "description": "GCP BigQuery metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the GCP integration from which you would like to fetch metrics."
+            },
+            "query_project_id": {
+              "type": "string",
+              "description": "GCP project in which the BigQuery job should run."
+            },
+            "sql_query": {
+              "type": "string",
+              "description": "BigQuery SQL query returning date, value, and optional label columns."
+            }
+          }
+        },
         "snowflake_metric_fields": {
           "type": "object",
           "description": "Snowflake metric configuration fields.",
@@ -19551,6 +20106,20 @@
             "sql_query": {
               "type": "string",
               "description": "Snowflake SQL query returning date, value, and optional label columns."
+            }
+          }
+        },
+        "clickhouse_metric_fields": {
+          "type": "object",
+          "description": "ClickHouse metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
+            },
+            "query_endpoint_id": {
+              "type": "string",
+              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
             }
           }
         }
@@ -22056,6 +22625,186 @@
         "valid_until"
       ]
     },
+    "EnrichmentSources": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "enrichment_sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnrichmentSource"
+          }
+        }
+      },
+      "required": [
+        "enrichment_sources"
+      ],
+      "description": "EnrichmentSources model"
+    },
+    "EnrichmentSource": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The token for the EnrichmentSource."
+        },
+        "type": {
+          "type": "string",
+          "example": "custom_llm_enrichment_source",
+          "enum": [
+            "custom_llm_enrichment_source",
+            "cloudflare_ai_gateway_enrichment_source",
+            "lite_llm_enrichment_source",
+            "aws_bedrock_enrichment_source"
+          ],
+          "x-nullable": false,
+          "description": "The enrichment source type."
+        },
+        "title": {
+          "type": "string",
+          "example": "Custom LLM Enrichment",
+          "x-nullable": false,
+          "description": "The display name for the enrichment source type."
+        },
+        "integration_token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The token for the Integration that owns this EnrichmentSource."
+        },
+        "active": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the EnrichmentSource is active."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2026-08-04T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the EnrichmentSource was created. ISO 8601 Formatted."
+        }
+      },
+      "required": [
+        "token",
+        "type",
+        "title",
+        "integration_token",
+        "active",
+        "created_at"
+      ],
+      "description": "EnrichmentSource model"
+    },
+    "EnrichmentStatistics": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "enrichment_statistics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnrichmentStatistic"
+          }
+        }
+      },
+      "required": [
+        "enrichment_statistics"
+      ],
+      "description": "EnrichmentStatistics model"
+    },
+    "EnrichmentStatistic": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "x-nullable": false,
+          "description": "The key of the provider whose costs were enriched."
+        },
+        "account_identifier": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The account identifier for the integration whose costs were enriched."
+        },
+        "status": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "status_detail": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "status_message": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "start_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "end_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "ingested_at": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The date and time when Vantage last enriched this billing period."
+        },
+        "log_scan_acceptance_rate": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The share of log lines that Vantage read and indexed."
+        },
+        "log_record_match_rate": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The share of indexed log records that matched cost data."
+        },
+        "bill_match_rate": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The share of cost rows that received logged usage."
+        },
+        "ambiguous_sibling_rows": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The number of rows that Vantage could not assign to one integration."
+        },
+        "tokens_kept_rate": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true,
+          "description": "The share of indexed tokens that Vantage attached to a cost row."
+        }
+      },
+      "required": [
+        "token",
+        "provider",
+        "account_identifier",
+        "status",
+        "status_detail",
+        "status_message",
+        "start_date",
+        "end_date",
+        "ingested_at",
+        "log_scan_acceptance_rate",
+        "log_record_match_rate",
+        "bill_match_rate",
+        "ambiguous_sibling_rows",
+        "tokens_kept_rate"
+      ]
+    },
     "ExchangeRates": {
       "type": "object",
       "properties": {
@@ -23098,6 +23847,43 @@
       ],
       "description": "Create an Azure Integration"
     },
+    "createTwilioIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "Twilio API key SID."
+        },
+        "api_secret": {
+          "type": "string",
+          "description": "Twilio API key secret."
+        },
+        "account_sid": {
+          "type": "string",
+          "description": "Twilio account SID."
+        },
+        "friendly_account_name": {
+          "type": "string",
+          "description": "Name for this Twilio account in Vantage."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the integration."
+        },
+        "is_oauth": {
+          "type": "boolean",
+          "description": "When true, api_key and api_secret are an OAuth client id and secret."
+        }
+      },
+      "required": [
+        "api_key",
+        "api_secret",
+        "account_sid",
+        "friendly_account_name",
+        "description"
+      ],
+      "description": "Create a Twilio Integration"
+    },
     "updateIntegration": {
       "type": "object",
       "properties": {
@@ -23436,6 +24222,141 @@
         }
       },
       "description": "Generate a DataExport of Kubernetes efficiency data."
+    },
+    "KubernetesEfficiencyReportCosts": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "total_amount": {
+          "$ref": "#/definitions/CostPartial",
+          "description": "The total cost for the complete filtered result, rounded to two decimal places."
+        },
+        "total_idle_cost": {
+          "$ref": "#/definitions/CostPartial",
+          "description": "The total idle cost for the complete filtered result, rounded to two decimal places."
+        },
+        "total_cost_efficiency": {
+          "type": "string",
+          "example": "0.66666666666666666667",
+          "x-nullable": false,
+          "description": "The cost efficiency ratio for the complete filtered result."
+        },
+        "costs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KubernetesEfficiencyReportCost"
+          }
+        }
+      },
+      "required": [
+        "total_amount",
+        "total_idle_cost",
+        "total_cost_efficiency",
+        "costs"
+      ],
+      "description": "KubernetesEfficiencyReportCosts model"
+    },
+    "KubernetesEfficiencyReportCost": {
+      "type": "object",
+      "properties": {
+        "accrued_at": {
+          "type": "string",
+          "example": "2026-09-01",
+          "x-nullable": false,
+          "description": "The date bucket for the cost. YYYY-MM-DD formatted."
+        },
+        "amount": {
+          "type": "string",
+          "example": "120",
+          "x-nullable": false,
+          "description": "The total cost amount for the row."
+        },
+        "idle_cost": {
+          "type": "string",
+          "example": "40",
+          "x-nullable": false,
+          "description": "The idle cost amount for the row."
+        },
+        "cost_efficiency": {
+          "type": "string",
+          "example": "0.66666666666666666667",
+          "x-nullable": false,
+          "description": "The cost efficiency ratio for the row, expressed from 0 to 1 under ordinary inputs."
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "x-nullable": false,
+          "description": "The ISO 4217 currency code for the costs."
+        },
+        "cluster_id": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The cluster_id grouping value."
+        },
+        "namespace": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The namespace grouping value."
+        },
+        "region": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The region grouping value."
+        },
+        "category": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The category grouping value."
+        },
+        "pod": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The pod grouping value."
+        },
+        "labeled": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the aggregated Kubernetes records contain any labels."
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KubernetesEfficiencyReportCostLabel"
+          },
+          "description": "The requested Kubernetes label grouping values."
+        }
+      },
+      "required": [
+        "accrued_at",
+        "amount",
+        "idle_cost",
+        "cost_efficiency",
+        "currency"
+      ]
+    },
+    "KubernetesEfficiencyReportCostLabel": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "app",
+          "x-nullable": false,
+          "description": "The Kubernetes label key."
+        },
+        "value": {
+          "type": "string",
+          "example": "payments",
+          "x-nullable": true,
+          "description": "The Kubernetes label value. Null when the label key is not present."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
     },
     "createKubernetesEfficiencyReport": {
       "type": "object",

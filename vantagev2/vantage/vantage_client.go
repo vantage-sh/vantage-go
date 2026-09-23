@@ -30,6 +30,8 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/data_exports"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/enrichment_sources"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/enrichment_statistics"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/exchange_rates"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitments"
@@ -124,6 +126,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.Costs = costs.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.DataExports = data_exports.New(transport, formats)
+	cli.EnrichmentSources = enrichment_sources.New(transport, formats)
+	cli.EnrichmentStatistics = enrichment_statistics.New(transport, formats)
 	cli.ExchangeRates = exchange_rates.New(transport, formats)
 	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
 	cli.FinancialCommitments = financial_commitments.New(transport, formats)
@@ -238,6 +242,10 @@ type Vantage struct {
 
 	DataExports data_exports.ClientService
 
+	EnrichmentSources enrichment_sources.ClientService
+
+	EnrichmentStatistics enrichment_statistics.ClientService
+
 	ExchangeRates exchange_rates.ClientService
 
 	FinancialCommitmentReports financial_commitment_reports.ClientService
@@ -324,6 +332,8 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.Costs.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
 	c.DataExports.SetTransport(transport)
+	c.EnrichmentSources.SetTransport(transport)
+	c.EnrichmentStatistics.SetTransport(transport)
 	c.ExchangeRates.SetTransport(transport)
 	c.FinancialCommitmentReports.SetTransport(transport)
 	c.FinancialCommitments.SetTransport(transport)

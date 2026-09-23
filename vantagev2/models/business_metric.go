@@ -21,6 +21,9 @@ import (
 // swagger:model BusinessMetric
 type BusinessMetric struct {
 
+	// The fields used to import ClickHouse metrics for the BusinessMetric.
+	ClickhouseMetricFields *ClickhouseMetricFields `json:"clickhouse_metric_fields,omitempty"`
+
 	// The fields used to generate the cloudwatch metrics BusinessMetric.
 	CloudwatchFields *CloudwatchFields `json:"cloudwatch_fields,omitempty"`
 
@@ -35,10 +38,13 @@ type BusinessMetric struct {
 	// The fields used to generate the Datadog metrics for BusinessMetric.
 	DatadogMetricFields *DatadogMetricFields `json:"datadog_metric_fields,omitempty"`
 
+	// The fields used to generate the GCP BigQuery metrics for BusinessMetric.
+	GcpBigqueryMetricFields *GcpBigqueryMetricFields `json:"gcp_bigquery_metric_fields,omitempty"`
+
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
 	// Required: true
-	// Enum: ["datadog_metrics","cloudwatch","snowflake_metrics","metronome_metrics","csv"]
+	// Enum: ["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","csv"]
 	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
@@ -63,6 +69,10 @@ type BusinessMetric struct {
 func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateClickhouseMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudwatchFields(formats); err != nil {
 		res = append(res, err)
 	}
@@ -72,6 +82,10 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDatadogMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcpBigqueryMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -98,6 +112,25 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *BusinessMetric) validateClickhouseMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.ClickhouseMetricFields) { // not required
+		return nil
+	}
+
+	if m.ClickhouseMetricFields != nil {
+		if err := m.ClickhouseMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("clickhouse_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("clickhouse_metric_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -166,11 +199,30 @@ func (m *BusinessMetric) validateDatadogMetricFields(formats strfmt.Registry) er
 	return nil
 }
 
+func (m *BusinessMetric) validateGcpBigqueryMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.GcpBigqueryMetricFields) { // not required
+		return nil
+	}
+
+	if m.GcpBigqueryMetricFields != nil {
+		if err := m.GcpBigqueryMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp_bigquery_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("gcp_bigquery_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 var businessMetricTypeImportTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","snowflake_metrics","metronome_metrics","csv"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","csv"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -185,6 +237,12 @@ const (
 
 	// BusinessMetricImportTypeCloudwatch captures enum value "cloudwatch"
 	BusinessMetricImportTypeCloudwatch string = "cloudwatch"
+
+	// BusinessMetricImportTypeClickhouseMetrics captures enum value "clickhouse_metrics"
+	BusinessMetricImportTypeClickhouseMetrics string = "clickhouse_metrics"
+
+	// BusinessMetricImportTypeGcpBigqueryMetrics captures enum value "gcp_bigquery_metrics"
+	BusinessMetricImportTypeGcpBigqueryMetrics string = "gcp_bigquery_metrics"
 
 	// BusinessMetricImportTypeSnowflakeMetrics captures enum value "snowflake_metrics"
 	BusinessMetricImportTypeSnowflakeMetrics string = "snowflake_metrics"
@@ -268,6 +326,10 @@ func (m *BusinessMetric) validateToken(formats strfmt.Registry) error {
 func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateClickhouseMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCloudwatchFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -280,6 +342,10 @@ func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Reg
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateGcpBigqueryMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSnowflakeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -287,6 +353,27 @@ func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Reg
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateClickhouseMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ClickhouseMetricFields != nil {
+
+		if swag.IsZero(m.ClickhouseMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.ClickhouseMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("clickhouse_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("clickhouse_metric_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -349,6 +436,27 @@ func (m *BusinessMetric) contextValidateDatadogMetricFields(ctx context.Context,
 				return ve.ValidateName("datadog_metric_fields")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("datadog_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateGcpBigqueryMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.GcpBigqueryMetricFields != nil {
+
+		if swag.IsZero(m.GcpBigqueryMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.GcpBigqueryMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp_bigquery_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("gcp_bigquery_metric_fields")
 			}
 			return err
 		}
