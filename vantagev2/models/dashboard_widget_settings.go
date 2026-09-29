@@ -22,8 +22,19 @@ type DashboardWidgetSettings struct {
 
 	// display type
 	// Required: true
-	// Enum: ["table","chart"]
+	// Enum: ["table","chart","kpi"]
 	DisplayType string `json:"display_type"`
+
+	// The aggregation used when display_type is kpi.
+	// Enum: ["sum","average"]
+	KpiCalculation *string `json:"kpi_calculation,omitempty"`
+
+	// The metric represented by the KPI.
+	// Enum: ["cost","usage","count","business_metric"]
+	KpiType *string `json:"kpi_type,omitempty"`
+
+	// The usage unit represented by the KPI.
+	KpiUsageUnit *string `json:"kpi_usage_unit,omitempty"`
 }
 
 // Validate validates this dashboard widget settings
@@ -31,6 +42,14 @@ func (m *DashboardWidgetSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDisplayType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKpiCalculation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKpiType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -44,7 +63,7 @@ var dashboardWidgetSettingsTypeDisplayTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["table","chart"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["table","chart","kpi"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -59,6 +78,9 @@ const (
 
 	// DashboardWidgetSettingsDisplayTypeChart captures enum value "chart"
 	DashboardWidgetSettingsDisplayTypeChart string = "chart"
+
+	// DashboardWidgetSettingsDisplayTypeKpi captures enum value "kpi"
+	DashboardWidgetSettingsDisplayTypeKpi string = "kpi"
 )
 
 // prop value enum
@@ -77,6 +99,96 @@ func (m *DashboardWidgetSettings) validateDisplayType(formats strfmt.Registry) e
 
 	// value enum
 	if err := m.validateDisplayTypeEnum("display_type", "body", m.DisplayType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var dashboardWidgetSettingsTypeKpiCalculationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["sum","average"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		dashboardWidgetSettingsTypeKpiCalculationPropEnum = append(dashboardWidgetSettingsTypeKpiCalculationPropEnum, v)
+	}
+}
+
+const (
+
+	// DashboardWidgetSettingsKpiCalculationSum captures enum value "sum"
+	DashboardWidgetSettingsKpiCalculationSum string = "sum"
+
+	// DashboardWidgetSettingsKpiCalculationAverage captures enum value "average"
+	DashboardWidgetSettingsKpiCalculationAverage string = "average"
+)
+
+// prop value enum
+func (m *DashboardWidgetSettings) validateKpiCalculationEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, dashboardWidgetSettingsTypeKpiCalculationPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DashboardWidgetSettings) validateKpiCalculation(formats strfmt.Registry) error {
+	if swag.IsZero(m.KpiCalculation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateKpiCalculationEnum("kpi_calculation", "body", *m.KpiCalculation); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var dashboardWidgetSettingsTypeKpiTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["cost","usage","count","business_metric"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		dashboardWidgetSettingsTypeKpiTypePropEnum = append(dashboardWidgetSettingsTypeKpiTypePropEnum, v)
+	}
+}
+
+const (
+
+	// DashboardWidgetSettingsKpiTypeCost captures enum value "cost"
+	DashboardWidgetSettingsKpiTypeCost string = "cost"
+
+	// DashboardWidgetSettingsKpiTypeUsage captures enum value "usage"
+	DashboardWidgetSettingsKpiTypeUsage string = "usage"
+
+	// DashboardWidgetSettingsKpiTypeCount captures enum value "count"
+	DashboardWidgetSettingsKpiTypeCount string = "count"
+
+	// DashboardWidgetSettingsKpiTypeBusinessMetric captures enum value "business_metric"
+	DashboardWidgetSettingsKpiTypeBusinessMetric string = "business_metric"
+)
+
+// prop value enum
+func (m *DashboardWidgetSettings) validateKpiTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, dashboardWidgetSettingsTypeKpiTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DashboardWidgetSettings) validateKpiType(formats strfmt.Registry) error {
+	if swag.IsZero(m.KpiType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateKpiTypeEnum("kpi_type", "body", *m.KpiType); err != nil {
 		return err
 	}
 
