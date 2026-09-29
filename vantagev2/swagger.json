@@ -7190,7 +7190,7 @@
           {
             "in": "query",
             "name": "groupings",
-            "description": "Group the results by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>. Serialize as a CSV query parameter: groupings=cost_type,service. Repeated parameters (groupings[]=cost_type&groupings[]=service) are also accepted.",
+            "description": "Group the results by up to 100 fields. Valid groupings: cost_type, provider, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>. Serialize as a CSV query parameter: groupings=cost_type,service. Repeated parameters (groupings[]=cost_type&groupings[]=service) are also accepted.",
             "type": "array",
             "items": {
               "type": "string"
@@ -23119,6 +23119,12 @@
           "x-nullable": true,
           "description": "The type of cost."
         },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "x-nullable": true,
+          "description": "The cloud provider which incurred the cost."
+        },
         "commitment_type": {
           "type": "string",
           "example": "savings_plan",
@@ -23286,7 +23292,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Group by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Group by up to 100 fields. Valid groupings: cost_type, provider, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
           "items": {
             "type": "string",
             "x-oneOf": [
@@ -23294,6 +23300,7 @@
                 "type": "string",
                 "enum": [
                   "cost_type",
+                  "provider",
                   "commitment_type",
                   "commitment_id",
                   "service",
@@ -23392,7 +23399,7 @@
         },
         "groupings": {
           "type": "array",
-          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Group by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
+          "description": "Grouping values for aggregating costs on the FinancialCommitmentReport. Group by up to 100 fields. Valid groupings: cost_type, provider, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>.",
           "items": {
             "type": "string",
             "x-oneOf": [
@@ -23400,6 +23407,7 @@
                 "type": "string",
                 "enum": [
                   "cost_type",
+                  "provider",
                   "commitment_type",
                   "commitment_id",
                   "service",
