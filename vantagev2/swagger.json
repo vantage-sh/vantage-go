@@ -4898,7 +4898,8 @@
               "coreweave",
               "devin",
               "openrouter",
-              "deepgram"
+              "deepgram",
+              "crusoe"
             ],
             "required": false
           },
@@ -5507,6 +5508,7 @@
               "devin",
               "openrouter",
               "deepgram",
+              "crusoe",
               "all"
             ],
             "required": false
@@ -6631,7 +6633,8 @@
               "coreweave",
               "devin",
               "openrouter",
-              "deepgram"
+              "deepgram",
+              "crusoe"
             ],
             "required": false,
             "x-example": "aws"
@@ -7741,7 +7744,8 @@
               "coreweave",
               "devin",
               "openrouter",
-              "deepgram"
+              "deepgram",
+              "crusoe"
             ],
             "required": false
           },
@@ -8373,6 +8377,66 @@
           "Integrations"
         ],
         "operationId": "createAzureIntegration"
+      }
+    },
+    "/integrations/twilio": {
+      "post": {
+        "summary": "Create Twilio integration",
+        "description": "Create a Twilio Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createTwilioIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createTwilioIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_6eddcfaa81f7303f",
+                "provider": "twilio",
+                "account_identifier": "Primary Twilio account",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2024-07-29T21:41:48Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createTwilioIntegration"
       }
     },
     "/invoices": {
@@ -14370,7 +14434,8 @@
                 "coreweave",
                 "devin",
                 "openrouter",
-                "deepgram"
+                "deepgram",
+                "crusoe"
               ]
             },
             "required": false
@@ -14613,7 +14678,8 @@
                 "coreweave",
                 "devin",
                 "openrouter",
-                "deepgram"
+                "deepgram",
+                "crusoe"
               ]
             },
             "required": false
@@ -21203,6 +21269,7 @@
             "devin",
             "openrouter",
             "deepgram",
+            "crusoe",
             "all"
           ],
           "x-nullable": false,
@@ -22024,7 +22091,8 @@
             "coreweave",
             "devin",
             "openrouter",
-            "deepgram"
+            "deepgram",
+            "crusoe"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -23786,6 +23854,43 @@
         "password"
       ],
       "description": "Create an Azure Integration"
+    },
+    "createTwilioIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "Twilio API key SID."
+        },
+        "api_secret": {
+          "type": "string",
+          "description": "Twilio API key secret."
+        },
+        "account_sid": {
+          "type": "string",
+          "description": "Twilio account SID."
+        },
+        "friendly_account_name": {
+          "type": "string",
+          "description": "Name for this Twilio account in Vantage."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the integration."
+        },
+        "is_oauth": {
+          "type": "boolean",
+          "description": "When true, api_key and api_secret are an OAuth client id and secret."
+        }
+      },
+      "required": [
+        "api_key",
+        "api_secret",
+        "account_sid",
+        "friendly_account_name",
+        "description"
+      ],
+      "description": "Create a Twilio Integration"
     },
     "updateIntegration": {
       "type": "object",
