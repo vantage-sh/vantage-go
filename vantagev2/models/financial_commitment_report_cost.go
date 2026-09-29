@@ -74,6 +74,10 @@ type FinancialCommitmentReportCost struct {
 	// Required: true
 	OnDemandAmount string `json:"on_demand_amount"`
 
+	// The cloud provider which incurred the cost.
+	// Example: aws
+	Provider *string `json:"provider,omitempty"`
+
 	// The billing account ID which incurred the cost.
 	// Example: 123456789012
 	ProviderAccountID *string `json:"provider_account_id,omitempty"`

@@ -87,7 +87,7 @@ type GetFinancialCommitmentReportCostsParams struct {
 
 	/* Groupings.
 
-	   Group the results by up to 100 fields. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>. Serialize as a CSV query parameter: groupings=cost_type,service. Repeated parameters (groupings[]=cost_type&groupings[]=service) are also accepted.
+	   Group the results by up to 100 fields. Valid groupings: cost_type, provider, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag:<label_name>. Serialize as a CSV query parameter: groupings=cost_type,service. Repeated parameters (groupings[]=cost_type&groupings[]=service) are also accepted.
 	*/
 	Groupings []string
 
