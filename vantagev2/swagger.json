@@ -22352,9 +22352,35 @@
           "type": "string",
           "enum": [
             "table",
-            "chart"
+            "chart",
+            "kpi"
           ],
           "x-nullable": false
+        },
+        "kpi_calculation": {
+          "type": "string",
+          "enum": [
+            "sum",
+            "average"
+          ],
+          "x-nullable": true,
+          "description": "The aggregation used when display_type is kpi."
+        },
+        "kpi_type": {
+          "type": "string",
+          "enum": [
+            "cost",
+            "usage",
+            "count",
+            "business_metric"
+          ],
+          "x-nullable": true,
+          "description": "The metric represented by the KPI."
+        },
+        "kpi_usage_unit": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The usage unit represented by the KPI."
         }
       },
       "required": [
@@ -22370,7 +22396,7 @@
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, RecommendationView, and KPI widgets.",
           "items": {
             "type": "object",
             "properties": {
@@ -22390,8 +22416,34 @@
                     "type": "string",
                     "enum": [
                       "table",
-                      "chart"
+                      "chart",
+                      "kpi"
                     ]
+                  },
+                  "kpi_calculation": {
+                    "type": "string",
+                    "description": "The aggregation used when display_type is kpi.",
+                    "enum": [
+                      "sum",
+                      "average"
+                    ],
+                    "x-omitempty": true
+                  },
+                  "kpi_type": {
+                    "type": "string",
+                    "description": "The metric represented when display_type is kpi.",
+                    "enum": [
+                      "cost",
+                      "usage",
+                      "count",
+                      "business_metric"
+                    ],
+                    "x-omitempty": true
+                  },
+                  "kpi_usage_unit": {
+                    "type": "string",
+                    "description": "The usage unit represented when kpi_type is usage.",
+                    "x-omitempty": true
                   }
                 },
                 "required": [
@@ -22471,7 +22523,7 @@
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.",
+          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, RecommendationView, and KPI widgets.",
           "items": {
             "type": "object",
             "properties": {
@@ -22491,8 +22543,34 @@
                     "type": "string",
                     "enum": [
                       "table",
-                      "chart"
+                      "chart",
+                      "kpi"
                     ]
+                  },
+                  "kpi_calculation": {
+                    "type": "string",
+                    "description": "The aggregation used when display_type is kpi.",
+                    "enum": [
+                      "sum",
+                      "average"
+                    ],
+                    "x-omitempty": true
+                  },
+                  "kpi_type": {
+                    "type": "string",
+                    "description": "The metric represented when display_type is kpi.",
+                    "enum": [
+                      "cost",
+                      "usage",
+                      "count",
+                      "business_metric"
+                    ],
+                    "x-omitempty": true
+                  },
+                  "kpi_usage_unit": {
+                    "type": "string",
+                    "description": "The usage unit represented when kpi_type is usage.",
+                    "x-omitempty": true
                   }
                 },
                 "required": [
