@@ -91,6 +91,8 @@ type ClientService interface {
 
 	CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error)
 
+	CreateTwilioIntegration(params *CreateTwilioIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTwilioIntegrationCreated, error)
+
 	CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error)
 
 	DeleteIntegration(params *DeleteIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationNoContent, error)
@@ -228,6 +230,47 @@ func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for createGCPIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateTwilioIntegration creates twilio integration
+
+Create a Twilio Integration
+*/
+func (a *Client) CreateTwilioIntegration(params *CreateTwilioIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTwilioIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateTwilioIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createTwilioIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/twilio",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateTwilioIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateTwilioIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createTwilioIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
