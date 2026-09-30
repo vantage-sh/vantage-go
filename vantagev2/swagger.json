@@ -5936,6 +5936,183 @@
         "operationId": "getCosts"
       }
     },
+    "/widgets/{widget_token}": {
+      "get": {
+        "summary": "Get dashboard widget",
+        "description": "Return a Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_wdgt_7dbd9db50235ed51",
+                "widgetable_token": "rprt_eafcc345b830ac61",
+                "title": "Widget",
+                "settings": {
+                  "display_type": "chart"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "getDashboardWidget"
+      },
+      "patch": {
+        "summary": "Update dashboard widget",
+        "description": "Update a single Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateDashboardWidget",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateDashboardWidget"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_wdgt_dd4c00d17728937e",
+                "widgetable_token": "rprt_6c5f862f8ec0f04e",
+                "title": "Updated Widget",
+                "settings": {
+                  "display_type": "kpi",
+                  "kpi_calculation": "average",
+                  "kpi_type": "usage",
+                  "kpi_usage_unit": "hours"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "updateDashboardWidget"
+      },
+      "delete": {
+        "summary": "Delete dashboard widget",
+        "description": "Delete a Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "deleteDashboardWidget"
+      }
+    },
     "/dashboards": {
       "get": {
         "summary": "Get all dashboards",
@@ -22195,6 +22372,135 @@
       ],
       "description": "Cost model"
     },
+    "DashboardWidget": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "dshbrd_wdgt_a12b3c",
+          "x-nullable": false,
+          "description": "The token of the Dashboard Widget."
+        },
+        "widgetable_token": {
+          "type": "string",
+          "example": "rprt_a12b3c",
+          "x-nullable": true
+        },
+        "title": {
+          "type": "string",
+          "example": "My Widget",
+          "x-nullable": false,
+          "description": "The title of the Widget."
+        },
+        "settings": {
+          "$ref": "#/definitions/DashboardWidgetSettings",
+          "description": "The settings for the DashboardWidget"
+        }
+      },
+      "required": [
+        "token",
+        "widgetable_token",
+        "title",
+        "settings"
+      ],
+      "description": "DashboardWidget model"
+    },
+    "DashboardWidgetSettings": {
+      "type": "object",
+      "properties": {
+        "display_type": {
+          "type": "string",
+          "enum": [
+            "table",
+            "chart",
+            "kpi"
+          ],
+          "x-nullable": false
+        },
+        "kpi_calculation": {
+          "type": "string",
+          "enum": [
+            "sum",
+            "average"
+          ],
+          "x-nullable": true,
+          "description": "The aggregation used when display_type is kpi."
+        },
+        "kpi_type": {
+          "type": "string",
+          "enum": [
+            "cost",
+            "usage",
+            "count",
+            "business_metric"
+          ],
+          "x-nullable": true,
+          "description": "The metric represented by the KPI."
+        },
+        "kpi_usage_unit": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The usage unit represented by the KPI."
+        }
+      },
+      "required": [
+        "display_type"
+      ]
+    },
+    "updateDashboardWidget": {
+      "type": "object",
+      "properties": {
+        "widgetable_token": {
+          "type": "string",
+          "description": "The token of the Resource represented by the Widget.",
+          "x-omitempty": true
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the Widget.",
+          "x-omitempty": true
+        },
+        "settings": {
+          "type": "object",
+          "description": "The settings for the DashboardWidget.",
+          "x-omitempty": true,
+          "properties": {
+            "display_type": {
+              "type": "string",
+              "enum": [
+                "table",
+                "chart",
+                "kpi"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_calculation": {
+              "type": "string",
+              "enum": [
+                "sum",
+                "average"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_type": {
+              "type": "string",
+              "enum": [
+                "cost",
+                "usage",
+                "count",
+                "business_metric"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_usage_unit": {
+              "type": "string",
+              "x-omitempty": true
+            }
+          }
+        }
+      },
+      "description": "Update a single Dashboard Widget."
+    },
     "Dashboards": {
       "type": "object",
       "properties": {
@@ -22319,73 +22625,6 @@
         "workspace_token"
       ],
       "description": "Dashboard model"
-    },
-    "DashboardWidget": {
-      "type": "object",
-      "properties": {
-        "widgetable_token": {
-          "type": "string",
-          "example": "rprt_a12b3c",
-          "x-nullable": false
-        },
-        "title": {
-          "type": "string",
-          "example": "My Widget",
-          "x-nullable": false,
-          "description": "The title of the Widget."
-        },
-        "settings": {
-          "$ref": "#/definitions/DashboardWidgetSettings",
-          "description": "The settings for the DashboardWidget"
-        }
-      },
-      "required": [
-        "widgetable_token",
-        "title",
-        "settings"
-      ]
-    },
-    "DashboardWidgetSettings": {
-      "type": "object",
-      "properties": {
-        "display_type": {
-          "type": "string",
-          "enum": [
-            "table",
-            "chart",
-            "kpi"
-          ],
-          "x-nullable": false
-        },
-        "kpi_calculation": {
-          "type": "string",
-          "enum": [
-            "sum",
-            "average"
-          ],
-          "x-nullable": true,
-          "description": "The aggregation used when display_type is kpi."
-        },
-        "kpi_type": {
-          "type": "string",
-          "enum": [
-            "cost",
-            "usage",
-            "count",
-            "business_metric"
-          ],
-          "x-nullable": true,
-          "description": "The metric represented by the KPI."
-        },
-        "kpi_usage_unit": {
-          "type": "string",
-          "x-nullable": true,
-          "description": "The usage unit represented by the KPI."
-        }
-      },
-      "required": [
-        "display_type"
-      ]
     },
     "createDashboard": {
       "type": "object",
@@ -28300,6 +28539,26 @@
           "x-nullable": true,
           "description": "Optional business metric label values. An empty array includes every value for the label key."
         },
+        "label_filters": {
+          "type": "object",
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives."
+        },
         "cost_metric": {
           "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
           "description": "The associated cost metric."
@@ -28564,6 +28823,27 @@
                 },
                 "x-omitempty": true
               },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
+              },
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
@@ -28675,18 +28955,21 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "The key of the VirtualTagConfig."
+          "description": "The key of the VirtualTagConfig.",
+          "x-omitempty": true
         },
         "overridable": {
           "type": "boolean",
           "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "backfill_until": {
           "type": "string",
           "format": "date",
           "description": "The earliest month the VirtualTagConfig should be backfilled to.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "collapsed_tag_keys": {
           "type": "array",
@@ -28744,6 +29027,27 @@
                   "type": "string"
                 },
                 "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "display_name": {
                 "type": "string",
@@ -28874,18 +29178,21 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "The key of the VirtualTagConfig."
+          "description": "The key of the VirtualTagConfig.",
+          "x-omitempty": true
         },
         "overridable": {
           "type": "boolean",
           "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "backfill_until": {
           "type": "string",
           "format": "date",
           "description": "The earliest month the VirtualTagConfig should be backfilled to.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "collapsed_tag_keys": {
           "type": "array",
@@ -28943,6 +29250,27 @@
                   "type": "string"
                 },
                 "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "display_name": {
                 "type": "string",
@@ -29055,15 +29383,18 @@
         },
         "name": {
           "type": "string",
-          "description": "The name of the value."
+          "description": "The name of the value.",
+          "x-omitempty": true
         },
         "business_metric_token": {
           "type": "string",
-          "description": "The token of an associated business metric."
+          "description": "The token of an associated business metric.",
+          "x-omitempty": true
         },
         "label_key": {
           "type": "string",
-          "description": "The business metric label key used for this virtual tag value."
+          "description": "The business metric label key used for this virtual tag value.",
+          "x-omitempty": true
         },
         "label_values": {
           "type": "array",
@@ -29073,10 +29404,32 @@
           },
           "x-omitempty": true
         },
+        "label_filters": {
+          "type": "object",
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Null and an empty object leave stored filters unchanged.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
         "display_name": {
           "type": "string",
           "description": "The display name for a cost metric or percentage allocation value.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "label_transforms": {
           "type": "array",
@@ -29112,6 +29465,7 @@
         },
         "cost_metric": {
           "type": "object",
+          "x-omitempty": true,
           "properties": {
             "filter": {
               "type": "string"
@@ -29182,19 +29536,23 @@
       "properties": {
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.",
+          "x-omitempty": true
         },
         "name": {
           "type": "string",
-          "description": "The name of the value."
+          "description": "The name of the value.",
+          "x-omitempty": true
         },
         "business_metric_token": {
           "type": "string",
-          "description": "The token of an associated business metric."
+          "description": "The token of an associated business metric.",
+          "x-omitempty": true
         },
         "label_key": {
           "type": "string",
-          "description": "The business metric label key used for this virtual tag value."
+          "description": "The business metric label key used for this virtual tag value.",
+          "x-omitempty": true
         },
         "label_values": {
           "type": "array",
@@ -29204,10 +29562,32 @@
           },
           "x-omitempty": true
         },
+        "label_filters": {
+          "type": "object",
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Null and an empty object leave stored filters unchanged.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
         "display_name": {
           "type": "string",
           "description": "The display name for a cost metric or percentage allocation value.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "label_transforms": {
           "type": "array",
@@ -29243,6 +29623,7 @@
         },
         "cost_metric": {
           "type": "object",
+          "x-omitempty": true,
           "properties": {
             "filter": {
               "type": "string"

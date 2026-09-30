@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DashboardWidget dashboard widget
+// DashboardWidget DashboardWidget model
 //
 // swagger:model DashboardWidget
 type DashboardWidget struct {
@@ -28,10 +28,15 @@ type DashboardWidget struct {
 	// Required: true
 	Title string `json:"title"`
 
+	// The token of the Dashboard Widget.
+	// Example: dshbrd_wdgt_a12b3c
+	// Required: true
+	Token string `json:"token"`
+
 	// widgetable token
 	// Example: rprt_a12b3c
 	// Required: true
-	WidgetableToken string `json:"widgetable_token"`
+	WidgetableToken *string `json:"widgetable_token"`
 }
 
 // Validate validates this dashboard widget
@@ -43,6 +48,10 @@ func (m *DashboardWidget) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -85,9 +94,18 @@ func (m *DashboardWidget) validateTitle(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *DashboardWidget) validateToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *DashboardWidget) validateWidgetableToken(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("widgetable_token", "body", m.WidgetableToken); err != nil {
+	if err := validate.Required("widgetable_token", "body", m.WidgetableToken); err != nil {
 		return err
 	}
 
