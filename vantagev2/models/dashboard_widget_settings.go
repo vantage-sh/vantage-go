@@ -25,6 +25,9 @@ type DashboardWidgetSettings struct {
 	// Enum: ["table","chart","kpi"]
 	DisplayType string `json:"display_type"`
 
+	// The widget's size and position in the dashboard grid.
+	Grid *DashboardWidgetGridLayout `json:"grid,omitempty"`
+
 	// The aggregation used when display_type is kpi.
 	// Enum: ["sum","average"]
 	KpiCalculation *string `json:"kpi_calculation,omitempty"`
@@ -42,6 +45,10 @@ func (m *DashboardWidgetSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDisplayType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGrid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,6 +107,25 @@ func (m *DashboardWidgetSettings) validateDisplayType(formats strfmt.Registry) e
 	// value enum
 	if err := m.validateDisplayTypeEnum("display_type", "body", m.DisplayType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DashboardWidgetSettings) validateGrid(formats strfmt.Registry) error {
+	if swag.IsZero(m.Grid) { // not required
+		return nil
+	}
+
+	if m.Grid != nil {
+		if err := m.Grid.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("grid")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("grid")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -195,8 +221,38 @@ func (m *DashboardWidgetSettings) validateKpiType(formats strfmt.Registry) error
 	return nil
 }
 
-// ContextValidate validates this dashboard widget settings based on context it is used
+// ContextValidate validate this dashboard widget settings based on the context it is used
 func (m *DashboardWidgetSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateGrid(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DashboardWidgetSettings) contextValidateGrid(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Grid != nil {
+
+		if swag.IsZero(m.Grid) { // not required
+			return nil
+		}
+
+		if err := m.Grid.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("grid")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("grid")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

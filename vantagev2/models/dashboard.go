@@ -63,7 +63,7 @@ type Dashboard struct {
 	// Required: true
 	UpdatedAt string `json:"updated_at"`
 
-	// widgets
+	// The widgets displayed in the Dashboard. Report-backed widgets include widgetable_token and settings. Free text widgets include widgetable_type set to free_text and content, omit widgetable_token, and include settings when a grid layout is persisted.
 	// Required: true
 	Widgets []*DashboardWidget `json:"widgets"`
 

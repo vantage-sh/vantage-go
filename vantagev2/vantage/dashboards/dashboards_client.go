@@ -60,11 +60,17 @@ type ClientService interface {
 
 	DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardNoContent, error)
 
+	DeleteDashboardWidget(params *DeleteDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardWidgetNoContent, error)
+
 	GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardOK, error)
+
+	GetDashboardWidget(params *GetDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardWidgetOK, error)
 
 	GetDashboards(params *GetDashboardsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardsOK, error)
 
 	UpdateDashboard(params *UpdateDashboardParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardOK, error)
+
+	UpdateDashboardWidget(params *UpdateDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardWidgetOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -152,6 +158,47 @@ func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime
 }
 
 /*
+DeleteDashboardWidget deletes dashboard widget
+
+Delete a Dashboard Widget.
+*/
+func (a *Client) DeleteDashboardWidget(params *DeleteDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDashboardWidgetNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDashboardWidgetParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteDashboardWidget",
+		Method:             "DELETE",
+		PathPattern:        "/widgets/{widget_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDashboardWidgetReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteDashboardWidgetNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteDashboardWidget: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 GetDashboard gets dashboard by token
 
 Return a specific Dashboard.
@@ -189,6 +236,47 @@ func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.Clien
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetDashboardWidget gets dashboard widget
+
+Return a Dashboard Widget.
+*/
+func (a *Client) GetDashboardWidget(params *GetDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDashboardWidgetOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDashboardWidgetParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getDashboardWidget",
+		Method:             "GET",
+		PathPattern:        "/widgets/{widget_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDashboardWidgetReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDashboardWidgetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDashboardWidget: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -271,6 +359,47 @@ func (a *Client) UpdateDashboard(params *UpdateDashboardParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateDashboardWidget updates dashboard widget
+
+Update a single Dashboard Widget.
+*/
+func (a *Client) UpdateDashboardWidget(params *UpdateDashboardWidgetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDashboardWidgetOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateDashboardWidgetParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateDashboardWidget",
+		Method:             "PATCH",
+		PathPattern:        "/widgets/{widget_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateDashboardWidgetReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateDashboardWidgetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateDashboardWidget: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
