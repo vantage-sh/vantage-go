@@ -27,22 +27,22 @@ type UpdateDashboard struct {
 
 	// Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
 	// Enum: ["this_month","last_7_days","last_30_days","last_month","last_3_months","last_6_months","custom","last_12_months","last_24_months","last_36_months","next_month","next_3_months","next_6_months","next_12_months","year_to_date","last_3_days","last_14_days",""]
-	DateInterval string `json:"date_interval"`
+	DateInterval *string `json:"date_interval,omitempty"`
 
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// The tokens of the Saved Filters used in the Dashboard.
-	SavedFilterTokens []string `json:"saved_filter_tokens"`
+	SavedFilterTokens []string `json:"saved_filter_tokens,omitempty"`
 
 	// The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// The title of the Dashboard.
 	Title string `json:"title,omitempty"`
 
-	// The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, RecommendationView, and KPI widgets.
-	Widgets []*UpdateDashboardWidgetsItems0 `json:"widgets"`
+	// The complete replacement list of widgets for the Dashboard. Omit widgets to preserve every existing widget. When provided, include every report-backed and free text widget to keep; an empty array removes all widgets. Report-backed widgets use widgetable_token. Free text widgets use widgetable_type set to free_text and require content.
+	Widgets []*UpdateDashboardWidgetsItems0 `json:"widgets,omitempty"`
 
 	// The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
@@ -201,7 +201,7 @@ func (m *UpdateDashboard) validateDateInterval(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateDateIntervalEnum("date_interval", "body", m.DateInterval); err != nil {
+	if err := m.validateDateIntervalEnum("date_interval", "body", *m.DateInterval); err != nil {
 		return err
 	}
 
@@ -296,32 +296,61 @@ func (m *UpdateDashboard) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateDashboardWidgetsItems0
 type UpdateDashboardWidgetsItems0 struct {
 
+	// content
+	Content *UpdateDashboardWidgetsItems0Content `json:"content,omitempty"`
+
 	// settings
 	Settings *UpdateDashboardWidgetsItems0Settings `json:"settings,omitempty"`
 
-	// The title of the Widget (defaults to the title of the Resource).
+	// The title of the Widget (defaults to the Resource title, or Free Text for a free text widget).
 	Title string `json:"title,omitempty"`
 
 	// The token of the represented Resource.
-	// Required: true
-	WidgetableToken *string `json:"widgetable_token"`
+	WidgetableToken string `json:"widgetable_token,omitempty"`
+
+	// The widget type. Use free_text for a free text widget.
+	// Enum: ["free_text"]
+	WidgetableType string `json:"widgetable_type,omitempty"`
 }
 
 // Validate validates this update dashboard widgets items0
 func (m *UpdateDashboardWidgetsItems0) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateContent(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateWidgetableToken(formats); err != nil {
+	if err := m.validateWidgetableType(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0) validateContent(formats strfmt.Registry) error {
+	if swag.IsZero(m.Content) { // not required
+		return nil
+	}
+
+	if m.Content != nil {
+		if err := m.Content.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("content")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("content")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -344,9 +373,39 @@ func (m *UpdateDashboardWidgetsItems0) validateSettings(formats strfmt.Registry)
 	return nil
 }
 
-func (m *UpdateDashboardWidgetsItems0) validateWidgetableToken(formats strfmt.Registry) error {
+var updateDashboardWidgetsItems0TypeWidgetableTypePropEnum []interface{}
 
-	if err := validate.Required("widgetable_token", "body", m.WidgetableToken); err != nil {
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["free_text"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateDashboardWidgetsItems0TypeWidgetableTypePropEnum = append(updateDashboardWidgetsItems0TypeWidgetableTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateDashboardWidgetsItems0WidgetableTypeFreeText captures enum value "free_text"
+	UpdateDashboardWidgetsItems0WidgetableTypeFreeText string = "free_text"
+)
+
+// prop value enum
+func (m *UpdateDashboardWidgetsItems0) validateWidgetableTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateDashboardWidgetsItems0TypeWidgetableTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0) validateWidgetableType(formats strfmt.Registry) error {
+	if swag.IsZero(m.WidgetableType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateWidgetableTypeEnum("widgetable_type", "body", m.WidgetableType); err != nil {
 		return err
 	}
 
@@ -357,6 +416,10 @@ func (m *UpdateDashboardWidgetsItems0) validateWidgetableToken(formats strfmt.Re
 func (m *UpdateDashboardWidgetsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateContent(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -364,6 +427,27 @@ func (m *UpdateDashboardWidgetsItems0) ContextValidate(ctx context.Context, form
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0) contextValidateContent(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Content != nil {
+
+		if swag.IsZero(m.Content) { // not required
+			return nil
+		}
+
+		if err := m.Content.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("content")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("content")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -406,7 +490,98 @@ func (m *UpdateDashboardWidgetsItems0) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-// UpdateDashboardWidgetsItems0Settings The settings for the DashboardWidget.
+// UpdateDashboardWidgetsItems0Content The required rich-text document for a free text widget.
+//
+// swagger:model UpdateDashboardWidgetsItems0Content
+type UpdateDashboardWidgetsItems0Content struct {
+
+	// content
+	Content []interface{} `json:"content"`
+
+	// The TipTap document root type.
+	// Required: true
+	// Enum: ["doc"]
+	Type *string `json:"type"`
+}
+
+// Validate validates this update dashboard widgets items0 content
+func (m *UpdateDashboardWidgetsItems0Content) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var updateDashboardWidgetsItems0ContentTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["doc"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		updateDashboardWidgetsItems0ContentTypeTypePropEnum = append(updateDashboardWidgetsItems0ContentTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UpdateDashboardWidgetsItems0ContentTypeDoc captures enum value "doc"
+	UpdateDashboardWidgetsItems0ContentTypeDoc string = "doc"
+)
+
+// prop value enum
+func (m *UpdateDashboardWidgetsItems0Content) validateTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, updateDashboardWidgetsItems0ContentTypeTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0Content) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("content"+"."+"type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("content"+"."+"type", "body", *m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update dashboard widgets items0 content based on context it is used
+func (m *UpdateDashboardWidgetsItems0Content) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateDashboardWidgetsItems0Content) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateDashboardWidgetsItems0Content) UnmarshalBinary(b []byte) error {
+	var res UpdateDashboardWidgetsItems0Content
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateDashboardWidgetsItems0Settings The display and grid layout settings for the DashboardWidget.
 //
 // swagger:model UpdateDashboardWidgetsItems0Settings
 type UpdateDashboardWidgetsItems0Settings struct {
@@ -415,6 +590,9 @@ type UpdateDashboardWidgetsItems0Settings struct {
 	// Required: true
 	// Enum: ["table","chart","kpi"]
 	DisplayType *string `json:"display_type"`
+
+	// grid
+	Grid *UpdateDashboardWidgetsItems0SettingsGrid `json:"grid,omitempty"`
 
 	// The aggregation used when display_type is kpi.
 	// Enum: ["sum","average"]
@@ -433,6 +611,10 @@ func (m *UpdateDashboardWidgetsItems0Settings) Validate(formats strfmt.Registry)
 	var res []error
 
 	if err := m.validateDisplayType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGrid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -491,6 +673,25 @@ func (m *UpdateDashboardWidgetsItems0Settings) validateDisplayType(formats strfm
 	// value enum
 	if err := m.validateDisplayTypeEnum("settings"+"."+"display_type", "body", *m.DisplayType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0Settings) validateGrid(formats strfmt.Registry) error {
+	if swag.IsZero(m.Grid) { // not required
+		return nil
+	}
+
+	if m.Grid != nil {
+		if err := m.Grid.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings" + "." + "grid")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings" + "." + "grid")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -586,8 +787,38 @@ func (m *UpdateDashboardWidgetsItems0Settings) validateKpiType(formats strfmt.Re
 	return nil
 }
 
-// ContextValidate validates this update dashboard widgets items0 settings based on context it is used
+// ContextValidate validate this update dashboard widgets items0 settings based on the context it is used
 func (m *UpdateDashboardWidgetsItems0Settings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateGrid(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0Settings) contextValidateGrid(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Grid != nil {
+
+		if swag.IsZero(m.Grid) { // not required
+			return nil
+		}
+
+		if err := m.Grid.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings" + "." + "grid")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings" + "." + "grid")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -602,6 +833,133 @@ func (m *UpdateDashboardWidgetsItems0Settings) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateDashboardWidgetsItems0Settings) UnmarshalBinary(b []byte) error {
 	var res UpdateDashboardWidgetsItems0Settings
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateDashboardWidgetsItems0SettingsGrid The widget's size and position in the dashboard's 12-column grid.
+//
+// swagger:model UpdateDashboardWidgetsItems0SettingsGrid
+type UpdateDashboardWidgetsItems0SettingsGrid struct {
+
+	// The widget height in grid rows.
+	// Required: true
+	H *int32 `json:"h"`
+
+	// The widget width in grid columns.
+	// Required: true
+	// Maximum: 12
+	// Minimum: 1
+	W *int32 `json:"w"`
+
+	// The zero-based horizontal position.
+	// Required: true
+	// Maximum: 11
+	// Minimum: 0
+	X *int32 `json:"x"`
+
+	// The zero-based vertical position.
+	// Required: true
+	Y *int32 `json:"y"`
+}
+
+// Validate validates this update dashboard widgets items0 settings grid
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateH(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateW(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateX(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateY(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) validateH(formats strfmt.Registry) error {
+
+	if err := validate.Required("settings"+"."+"grid"+"."+"h", "body", m.H); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) validateW(formats strfmt.Registry) error {
+
+	if err := validate.Required("settings"+"."+"grid"+"."+"w", "body", m.W); err != nil {
+		return err
+	}
+
+	if err := validate.MinimumInt("settings"+"."+"grid"+"."+"w", "body", int64(*m.W), 1, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("settings"+"."+"grid"+"."+"w", "body", int64(*m.W), 12, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) validateX(formats strfmt.Registry) error {
+
+	if err := validate.Required("settings"+"."+"grid"+"."+"x", "body", m.X); err != nil {
+		return err
+	}
+
+	if err := validate.MinimumInt("settings"+"."+"grid"+"."+"x", "body", int64(*m.X), 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("settings"+"."+"grid"+"."+"x", "body", int64(*m.X), 11, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) validateY(formats strfmt.Registry) error {
+
+	if err := validate.Required("settings"+"."+"grid"+"."+"y", "body", m.Y); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update dashboard widgets items0 settings grid based on context it is used
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateDashboardWidgetsItems0SettingsGrid) UnmarshalBinary(b []byte) error {
+	var res UpdateDashboardWidgetsItems0SettingsGrid
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
