@@ -41,8 +41,8 @@ type UpdateDashboard struct {
 	// The title of the Dashboard.
 	Title string `json:"title,omitempty"`
 
-	// The complete replacement list of widgets for the Dashboard. Omit widgets to preserve every existing widget. When provided, include every report-backed and free text widget to keep; an empty array removes all widgets. Report-backed widgets use widgetable_token. Free text widgets use widgetable_type set to free_text and require content.
-	Widgets []*UpdateDashboardWidgetsItems0 `json:"widgets,omitempty"`
+	// The complete replacement list of widgets for the Dashboard. Omit widgets or send null to preserve every existing widget. When provided, include every report-backed and free text widget to keep; an empty array removes all widgets. Report-backed widgets use widgetable_token. Free text widgets use widgetable_type set to free_text and require content.
+	Widgets []*UpdateDashboardWidgetsItems0 `json:"widgets"`
 
 	// The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces.
 	WorkspaceToken string `json:"workspace_token,omitempty"`
