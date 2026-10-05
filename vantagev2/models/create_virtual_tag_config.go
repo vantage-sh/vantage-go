@@ -320,6 +320,10 @@ type CreateVirtualTagConfigValuesItems0 struct {
 	// Required: true
 	Filter *string `json:"filter"`
 
+	// ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.
+	// Example: {"app":["consumer"],"team":["payments"]}
+	LabelFilters map[string][]string `json:"label_filters"`
+
 	// The business metric label key used for this virtual tag value.
 	LabelKey string `json:"label_key,omitempty"`
 
@@ -349,6 +353,10 @@ func (m *CreateVirtualTagConfigValuesItems0) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -415,6 +423,24 @@ func (m *CreateVirtualTagConfigValuesItems0) validateFilter(formats strfmt.Regis
 
 	if err := validate.Required("filter", "body", m.Filter); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CreateVirtualTagConfigValuesItems0) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

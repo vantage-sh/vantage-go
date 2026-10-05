@@ -103,6 +103,10 @@
       "description": "Operations about Costs"
     },
     {
+      "name": "DashboardNotifications",
+      "description": "Operations about DashboardNotifications"
+    },
+    {
       "name": "Dashboards",
       "description": "Operations about Dashboards"
     },
@@ -4899,7 +4903,8 @@
               "devin",
               "openrouter",
               "deepgram",
-              "crusoe"
+              "crusoe",
+              "sentry_billing"
             ],
             "required": false
           },
@@ -5509,6 +5514,7 @@
               "openrouter",
               "deepgram",
               "crusoe",
+              "sentry_billing",
               "all"
             ],
             "required": false
@@ -5936,6 +5942,493 @@
         "operationId": "getCosts"
       }
     },
+    "/dashboard_notifications": {
+      "get": {
+        "summary": "Get all dashboard notifications",
+        "description": "Return all DashboardNotifications.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "description": "Search dashboard notifications by title.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardNotifications"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/dashboard_notifications",
+                  "first": "https://api.vantage.sh/v2/dashboard_notifications?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/dashboard_notifications?page=1",
+                  "prev": null
+                },
+                "dashboard_notifications": [
+                  {
+                    "token": "rprtbl_ntfctn_1a908a98b16b55fa",
+                    "title": "Test Reportable Notification",
+                    "dashboard_token": "dshbrd_8380739153057287",
+                    "user_tokens": [
+                      "usr_c1921f57ae247748"
+                    ],
+                    "recipient_emails": [
+                      "latonia.hauck@jaskolski-schneider.net"
+                    ],
+                    "frequency": "weekly"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "DashboardNotifications"
+        ],
+        "operationId": "getDashboardNotifications"
+      },
+      "post": {
+        "summary": "Create dashboard notification",
+        "description": "Create a DashboardNotification.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createDashboardNotification",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createDashboardNotification"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardNotification"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprtbl_ntfctn_99f0bfc16d9fc9e1",
+                "title": "New Dashboard Notification",
+                "dashboard_token": "dshbrd_1bec26b3496e5a8d",
+                "user_tokens": [
+                  "usr_224aac415b7969b5"
+                ],
+                "recipient_emails": [
+                  "dvm.ebert.solomon@rogahn-yost.com"
+                ],
+                "frequency": "weekly"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "DashboardNotifications"
+        ],
+        "operationId": "createDashboardNotification"
+      }
+    },
+    "/dashboard_notifications/{dashboard_notification_token}": {
+      "get": {
+        "summary": "Get dashboard notification by token",
+        "description": "Return a DashboardNotification.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_notification_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardNotification"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprtbl_ntfctn_bc7a4fc950f77a11",
+                "title": "Test Reportable Notification",
+                "dashboard_token": "dshbrd_9b32b693435031e1",
+                "user_tokens": [
+                  "usr_739ae48e2c0498c1"
+                ],
+                "recipient_emails": [
+                  "dvm.solomon.ebert@boyle.net"
+                ],
+                "frequency": "weekly"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "DashboardNotifications"
+        ],
+        "operationId": "getDashboardNotification"
+      },
+      "put": {
+        "summary": "Update dashboard notification",
+        "description": "Update a DashboardNotification.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_notification_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateDashboardNotification",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateDashboardNotification"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardNotification"
+            },
+            "examples": {
+              "application/json": {
+                "token": "rprtbl_ntfctn_03535c334325c782",
+                "title": "Renamed Dashboard Notification",
+                "dashboard_token": "dshbrd_52d62ae97be32af4",
+                "user_tokens": [
+                  "usr_571b8b27367e70e5"
+                ],
+                "recipient_emails": [
+                  "joetta.wehner@boehm-volkman.info"
+                ],
+                "frequency": "weekly"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "DashboardNotifications"
+        ],
+        "operationId": "updateDashboardNotification"
+      },
+      "delete": {
+        "summary": "Delete dashboard notification",
+        "description": "Delete a DashboardNotification.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dashboard_notification_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardNotification"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "DashboardNotifications"
+        ],
+        "operationId": "deleteDashboardNotification"
+      }
+    },
+    "/widgets/{widget_token}": {
+      "get": {
+        "summary": "Get dashboard widget",
+        "description": "Return a Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_wdgt_7dbd9db50235ed51",
+                "widgetable_token": "rprt_eafcc345b830ac61",
+                "title": "Widget",
+                "settings": {
+                  "display_type": "chart"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "getDashboardWidget"
+      },
+      "patch": {
+        "summary": "Update dashboard widget",
+        "description": "Update a single Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateDashboardWidget",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateDashboardWidget"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            },
+            "examples": {
+              "application/json": {
+                "token": "dshbrd_wdgt_dd4c00d17728937e",
+                "widgetable_token": "rprt_6c5f862f8ec0f04e",
+                "title": "Updated Widget",
+                "settings": {
+                  "display_type": "kpi",
+                  "kpi_calculation": "average",
+                  "kpi_type": "usage",
+                  "kpi_usage_unit": "hours"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "updateDashboardWidget"
+      },
+      "delete": {
+        "summary": "Delete dashboard widget",
+        "description": "Delete a Dashboard Widget.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "widget_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DashboardWidget"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Dashboards",
+          "Costs"
+        ],
+        "operationId": "deleteDashboardWidget"
+      }
+    },
     "/dashboards": {
       "get": {
         "summary": "Get all dashboards",
@@ -5999,30 +6492,56 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_13d78294a06f0f84",
-                    "title": "Executive Overview",
+                    "token": "dshbrd_8d14cfef5a2c40e8",
+                    "title": "Look to Windward",
                     "widget_tokens": [
-                      "rprt_7c3cb814dfb6d881"
+                      "rprt_73eccc0025f6f773"
                     ],
                     "widgets": [
                       {
-                        "widgetable_token": "rprt_7c3cb814dfb6d881",
-                        "title": "Cost Report",
+                        "token": "dshbrd_wdgt_6020cf1db7b2d242",
+                        "widgetable_token": "rprt_73eccc0025f6f773",
+                        "title": "Widget",
                         "settings": {
-                          "display_type": "chart"
+                          "display_type": "chart",
+                          "grid": {
+                            "x": 0,
+                            "y": 0,
+                            "w": 8,
+                            "h": 3
+                          }
+                        }
+                      },
+                      {
+                        "token": "dshbrd_wdgt_7e7381069760ad8b",
+                        "widgetable_type": "free_text",
+                        "title": "Notes",
+                        "content": {
+                          "type": "doc",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "text": "Dashboard notes",
+                                  "type": "text"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     ],
                     "saved_filter_tokens": [
-                      "svd_fltr_3c6f5eb635cf88de"
+                      "svd_fltr_5e24314f7112bd8c"
                     ],
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2024-12-17T00:44:48Z",
-                    "updated_at": "2024-12-17T00:44:48Z",
-                    "workspace_token": "wrkspc_ea1a7802e5fe06b3"
+                    "created_at": "2026-10-01T18:52:12Z",
+                    "updated_at": "2026-10-01T18:52:12Z",
+                    "workspace_token": "wrkspc_1b396cf40caa4666"
                   }
                 ]
               }
@@ -6069,38 +6588,78 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_7e272e8d3de34719",
+                "token": "dshbrd_165e758f38903d96",
                 "title": "New Dashboard",
                 "widget_tokens": [
-                  "fncl_cmnt_rprt_d4743c186c130e30",
-                  "kbnts_eff_rprt_892d1566bd543b67",
-                  "rprt_750074c1b25b372a"
+                  "fncl_cmnt_rprt_9e3d55357851a07e",
+                  "kbnts_eff_rprt_dd1de14ecbcc666a",
+                  "rprt_470302eee1030d05"
                 ],
                 "widgets": [
                   {
-                    "widgetable_token": "fncl_cmnt_rprt_d4743c186c130e30",
+                    "token": "dshbrd_wdgt_0f68cc77fa8eefd4",
+                    "widgetable_token": "fncl_cmnt_rprt_9e3d55357851a07e",
                     "title": "All Financial Commitments",
                     "settings": {
-                      "display_type": "chart"
+                      "display_type": "chart",
+                      "grid": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
                     }
                   },
                   {
-                    "widgetable_token": "kbnts_eff_rprt_892d1566bd543b67",
-                    "title": "All Kubernetes Nodes Efficiency",
+                    "token": "dshbrd_wdgt_424d9a64db2f08ea",
+                    "widgetable_token": "kbnts_eff_rprt_dd1de14ecbcc666a",
+                    "title": "Quinoa forage kale chips austin hashtag.",
                     "settings": {
-                      "display_type": "table"
+                      "display_type": "table",
+                      "grid": {
+                        "x": 4,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
                     }
                   },
                   {
-                    "widgetable_token": "rprt_750074c1b25b372a",
-                    "title": "Azure Cost Report",
+                    "token": "dshbrd_wdgt_e0e7053dc5fca7aa",
+                    "widgetable_token": "rprt_470302eee1030d05",
+                    "title": "Untitled",
                     "settings": {
-                      "display_type": "chart"
+                      "display_type": "chart",
+                      "grid": {
+                        "x": 8,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
+                    }
+                  },
+                  {
+                    "token": "dshbrd_wdgt_95ce398292cc13be",
+                    "widgetable_type": "free_text",
+                    "title": "Notes",
+                    "content": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Dashboard notes"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_3f45aefa131861ac"
+                  "svd_fltr_3b38b91699d21a2e"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
@@ -6108,7 +6667,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_08e043cc14ced776"
+                "workspace_token": "wrkspc_3159fd6a40906a33"
               }
             }
           },
@@ -6156,41 +6715,56 @@
             },
             "examples": {
               "application/json": {
-                "links": {
-                  "self": "https://api.vantage.sh/v2/dashboards",
-                  "first": "https://api.vantage.sh/v2/dashboards?page=1",
-                  "next": null,
-                  "last": "https://api.vantage.sh/v2/dashboards?page=1",
-                  "prev": null
-                },
-                "dashboards": [
+                "token": "dshbrd_9d0418f598f0dca0",
+                "title": "The Last Enemy",
+                "widget_tokens": [
+                  "rprt_16d2587e0b7ae5f1"
+                ],
+                "widgets": [
                   {
-                    "token": "dshbrd_e7c5b49d826b6f71",
-                    "title": "Executive Overview",
-                    "widget_tokens": [
-                      "rprt_27e80d7a8d3f34e6"
-                    ],
-                    "widgets": [
-                      {
-                        "widgetable_token": "rprt_27e80d7a8d3f34e6",
-                        "title": "Weekly Sales Report",
-                        "settings": {
-                          "display_type": "chart"
-                        }
+                    "token": "dshbrd_wdgt_05e6b6e7ef123fae",
+                    "widgetable_token": "rprt_16d2587e0b7ae5f1",
+                    "title": "Widget",
+                    "settings": {
+                      "display_type": "chart",
+                      "grid": {
+                        "x": 4,
+                        "y": 6,
+                        "w": 8,
+                        "h": 3
                       }
-                    ],
-                    "saved_filter_tokens": [
-                      "svd_fltr_7bb508e881e7fe5f"
-                    ],
-                    "date_bin": null,
-                    "date_interval": null,
-                    "start_date": null,
-                    "end_date": null,
-                    "created_at": "2024-12-17T00:44:48Z",
-                    "updated_at": "2024-12-17T00:44:48Z",
-                    "workspace_token": "wrkspc_245288e3c3a7377f"
+                    }
+                  },
+                  {
+                    "token": "dshbrd_wdgt_dd90882c08aa08e3",
+                    "widgetable_type": "free_text",
+                    "title": "Notes",
+                    "content": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "text": "Dashboard notes",
+                              "type": "text"
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
-                ]
+                ],
+                "saved_filter_tokens": [
+                  "svd_fltr_32d04fca7eedc49a"
+                ],
+                "date_bin": null,
+                "date_interval": null,
+                "start_date": null,
+                "end_date": null,
+                "created_at": "2026-10-01T18:52:11Z",
+                "updated_at": "2026-10-01T18:52:11Z",
+                "workspace_token": "wrkspc_78fbdd2cec362c21"
               }
             }
           },
@@ -6247,46 +6821,86 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_2c942eb3a8d3962a",
+                "token": "dshbrd_dce74ddb4f35ce34",
                 "title": "Updated Dashboard",
                 "widget_tokens": [
-                  "fncl_cmnt_rprt_ea316a453acd20c0",
-                  "kbnts_eff_rprt_e3fc91cb63fd5469",
-                  "rprt_7b0be9c16c5a6785"
+                  "fncl_cmnt_rprt_c554635f950fdd0e",
+                  "kbnts_eff_rprt_0a75d149ff088b54",
+                  "rprt_2fb7a5357357fe1f"
                 ],
                 "widgets": [
                   {
-                    "widgetable_token": "fncl_cmnt_rprt_ea316a453acd20c0",
+                    "token": "dshbrd_wdgt_a7764aa942cfe146",
+                    "widgetable_token": "fncl_cmnt_rprt_c554635f950fdd0e",
                     "title": "All Financial Commitments",
                     "settings": {
-                      "display_type": "chart"
+                      "display_type": "chart",
+                      "grid": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
                     }
                   },
                   {
-                    "widgetable_token": "kbnts_eff_rprt_e3fc91cb63fd5469",
-                    "title": "Kubernetes Efficiency Report",
+                    "token": "dshbrd_wdgt_93dbad3e6144ea7b",
+                    "widgetable_token": "kbnts_eff_rprt_0a75d149ff088b54",
+                    "title": "Normcore vegan.",
                     "settings": {
-                      "display_type": "table"
+                      "display_type": "table",
+                      "grid": {
+                        "x": 4,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
                     }
                   },
                   {
-                    "widgetable_token": "rprt_7b0be9c16c5a6785",
-                    "title": "Azure Report",
+                    "token": "dshbrd_wdgt_e23f7ba8d1a528fa",
+                    "widgetable_token": "rprt_2fb7a5357357fe1f",
+                    "title": "Untitled",
                     "settings": {
-                      "display_type": "chart"
+                      "display_type": "chart",
+                      "grid": {
+                        "x": 8,
+                        "y": 0,
+                        "w": 4,
+                        "h": 3
+                      }
+                    }
+                  },
+                  {
+                    "token": "dshbrd_wdgt_665fb511741fc69f",
+                    "widgetable_type": "free_text",
+                    "title": "Notes",
+                    "content": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Dashboard notes"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_51c106391f7295b7"
+                  "svd_fltr_b6dfd1946b1181be"
                 ],
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
                 "end_date": "2023-08-31",
-                "created_at": "2024-12-17T00:44:45Z",
+                "created_at": "2026-10-01T18:52:14Z",
                 "updated_at": "2023-08-15T00:00:00Z",
-                "workspace_token": "wrkspc_0e5c381029cdc016"
+                "workspace_token": "wrkspc_6d1f4d1fb379b3bc"
               }
             }
           },
@@ -6634,7 +7248,8 @@
               "devin",
               "openrouter",
               "deepgram",
-              "crusoe"
+              "crusoe",
+              "sentry_billing"
             ],
             "required": false,
             "x-example": "aws"
@@ -7745,7 +8360,8 @@
               "devin",
               "openrouter",
               "deepgram",
-              "crusoe"
+              "crusoe",
+              "sentry_billing"
             ],
             "required": false
           },
@@ -14435,7 +15051,8 @@
                 "devin",
                 "openrouter",
                 "deepgram",
-                "crusoe"
+                "crusoe",
+                "sentry_billing"
               ]
             },
             "required": false
@@ -14679,7 +15296,8 @@
                 "devin",
                 "openrouter",
                 "deepgram",
-                "crusoe"
+                "crusoe",
+                "sentry_billing"
               ]
             },
             "required": false
@@ -21270,6 +21888,7 @@
             "openrouter",
             "deepgram",
             "crusoe",
+            "sentry_billing",
             "all"
           ],
           "x-nullable": false,
@@ -22092,7 +22711,8 @@
             "devin",
             "openrouter",
             "deepgram",
-            "crusoe"
+            "crusoe",
+            "sentry_billing"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -22195,6 +22815,357 @@
       ],
       "description": "Cost model"
     },
+    "DashboardNotifications": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "dashboard_notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DashboardNotification"
+          }
+        }
+      },
+      "required": [
+        "dashboard_notifications"
+      ],
+      "description": "DashboardNotifications model"
+    },
+    "DashboardNotification": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "title": {
+          "type": "string",
+          "example": "Weekly Executive Dashboard",
+          "x-nullable": false,
+          "description": "The title of the DashboardNotification."
+        },
+        "dashboard_token": {
+          "type": "string",
+          "example": "dshbrd_abcd1234",
+          "x-nullable": false,
+          "description": "The token for the Dashboard the DashboardNotification sends."
+        },
+        "user_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "usr_abcd1234",
+              "usr_efgh5678"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The tokens of organization users that receive the notification. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails."
+        },
+        "recipient_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "user@example.com",
+              "freeform@company.com"
+            ]
+          },
+          "x-nullable": false,
+          "description": "The email addresses that receive the notification, including organization users, SSO-domain addresses, and approved third-party addresses."
+        },
+        "frequency": {
+          "type": "string",
+          "example": "weekly",
+          "enum": [
+            "daily",
+            "weekly",
+            "monthly"
+          ],
+          "x-nullable": false,
+          "description": "The frequency the DashboardNotification is sent."
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "dashboard_token",
+        "user_tokens",
+        "recipient_emails",
+        "frequency"
+      ],
+      "description": "DashboardNotification model"
+    },
+    "createDashboardNotification": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the DashboardNotification."
+        },
+        "dashboard_token": {
+          "type": "string",
+          "description": "The Dashboard token."
+        },
+        "workspace_token": {
+          "type": "string",
+          "description": "The token of the Workspace to add the DashboardNotification to. Required if the API token is associated with multiple Workspaces."
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frequency": {
+          "type": "string",
+          "description": "The frequency the DashboardNotification is sent. Possible values: daily, weekly, monthly.",
+          "enum": [
+            "daily",
+            "weekly",
+            "monthly"
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "dashboard_token",
+        "frequency"
+      ],
+      "description": "Create a DashboardNotification."
+    },
+    "updateDashboardNotification": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the DashboardNotification.",
+          "x-omitempty": true
+        },
+        "dashboard_token": {
+          "type": "string",
+          "description": "The Dashboard token. Retargeting requires edit access to the new Dashboard.",
+          "x-omitempty": true
+        },
+        "user_tokens": {
+          "type": "array",
+          "description": "The Users that receive the notification.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "recipient_emails": {
+          "type": "array",
+          "description": "Email addresses that receive the notification. Must be organization users, on the account's SSO domain, or an approved third-party service address.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": true
+        },
+        "frequency": {
+          "type": "string",
+          "description": "The frequency the DashboardNotification is sent. Possible values: daily, weekly, monthly.",
+          "enum": [
+            "daily",
+            "weekly",
+            "monthly"
+          ],
+          "x-omitempty": true
+        }
+      },
+      "description": "Update a DashboardNotification."
+    },
+    "DashboardWidget": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "dshbrd_wdgt_a12b3c",
+          "x-nullable": false,
+          "description": "The token of the Dashboard Widget."
+        },
+        "widgetable_token": {
+          "type": "string",
+          "example": "rprt_a12b3c",
+          "x-nullable": false,
+          "description": "The token of the represented Resource."
+        },
+        "widgetable_type": {
+          "type": "string",
+          "enum": [
+            "free_text"
+          ],
+          "x-nullable": false,
+          "description": "The widget type. Present instead of widgetable_token for free text widgets."
+        },
+        "title": {
+          "type": "string",
+          "example": "My Widget",
+          "x-nullable": false,
+          "description": "The title of the Widget."
+        },
+        "content": {
+          "type": "object",
+          "x-nullable": true,
+          "description": "The rich-text document for a free text widget."
+        },
+        "settings": {
+          "$ref": "#/definitions/DashboardWidgetSettings",
+          "description": "The settings for the DashboardWidget"
+        }
+      },
+      "required": [
+        "token",
+        "title"
+      ],
+      "description": "DashboardWidget model"
+    },
+    "DashboardWidgetSettings": {
+      "type": "object",
+      "properties": {
+        "display_type": {
+          "type": "string",
+          "enum": [
+            "table",
+            "chart",
+            "kpi"
+          ],
+          "x-nullable": false
+        },
+        "kpi_calculation": {
+          "type": "string",
+          "enum": [
+            "sum",
+            "average"
+          ],
+          "x-nullable": true,
+          "description": "The aggregation used when display_type is kpi."
+        },
+        "kpi_type": {
+          "type": "string",
+          "enum": [
+            "cost",
+            "usage",
+            "count",
+            "business_metric"
+          ],
+          "x-nullable": true,
+          "description": "The metric represented by the KPI."
+        },
+        "kpi_usage_unit": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The usage unit represented by the KPI."
+        },
+        "grid": {
+          "$ref": "#/definitions/DashboardWidgetGridLayout",
+          "description": "The widget's size and position in the dashboard grid."
+        }
+      },
+      "required": [
+        "display_type"
+      ]
+    },
+    "DashboardWidgetGridLayout": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The zero-based horizontal position in the 12-column grid."
+        },
+        "y": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The zero-based vertical position in the grid."
+        },
+        "w": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The widget width in grid columns."
+        },
+        "h": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The widget height in grid rows."
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h"
+      ]
+    },
+    "updateDashboardWidget": {
+      "type": "object",
+      "properties": {
+        "widgetable_token": {
+          "type": "string",
+          "description": "The token of the Resource represented by the Widget.",
+          "x-omitempty": true
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the Widget.",
+          "x-omitempty": true
+        },
+        "settings": {
+          "type": "object",
+          "description": "The settings for the DashboardWidget.",
+          "x-omitempty": true,
+          "properties": {
+            "display_type": {
+              "type": "string",
+              "enum": [
+                "table",
+                "chart",
+                "kpi"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_calculation": {
+              "type": "string",
+              "enum": [
+                "sum",
+                "average"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_type": {
+              "type": "string",
+              "enum": [
+                "cost",
+                "usage",
+                "count",
+                "business_metric"
+              ],
+              "x-omitempty": true
+            },
+            "kpi_usage_unit": {
+              "type": "string",
+              "x-omitempty": true
+            }
+          }
+        }
+      },
+      "description": "Update a single Dashboard Widget."
+    },
     "Dashboards": {
       "type": "object",
       "properties": {
@@ -22231,7 +23202,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/DashboardWidget"
-          }
+          },
+          "description": "The widgets displayed in the Dashboard. Report-backed widgets include widgetable_token and settings. Free text widgets include widgetable_type set to free_text and content, omit widgetable_token, and include settings when a grid layout is persisted."
         },
         "saved_filter_tokens": {
           "type": "array",
@@ -22320,73 +23292,6 @@
       ],
       "description": "Dashboard model"
     },
-    "DashboardWidget": {
-      "type": "object",
-      "properties": {
-        "widgetable_token": {
-          "type": "string",
-          "example": "rprt_a12b3c",
-          "x-nullable": false
-        },
-        "title": {
-          "type": "string",
-          "example": "My Widget",
-          "x-nullable": false,
-          "description": "The title of the Widget."
-        },
-        "settings": {
-          "$ref": "#/definitions/DashboardWidgetSettings",
-          "description": "The settings for the DashboardWidget"
-        }
-      },
-      "required": [
-        "widgetable_token",
-        "title",
-        "settings"
-      ]
-    },
-    "DashboardWidgetSettings": {
-      "type": "object",
-      "properties": {
-        "display_type": {
-          "type": "string",
-          "enum": [
-            "table",
-            "chart",
-            "kpi"
-          ],
-          "x-nullable": false
-        },
-        "kpi_calculation": {
-          "type": "string",
-          "enum": [
-            "sum",
-            "average"
-          ],
-          "x-nullable": true,
-          "description": "The aggregation used when display_type is kpi."
-        },
-        "kpi_type": {
-          "type": "string",
-          "enum": [
-            "cost",
-            "usage",
-            "count",
-            "business_metric"
-          ],
-          "x-nullable": true,
-          "description": "The metric represented by the KPI."
-        },
-        "kpi_usage_unit": {
-          "type": "string",
-          "x-nullable": true,
-          "description": "The usage unit represented by the KPI."
-        }
-      },
-      "required": [
-        "display_type"
-      ]
-    },
     "createDashboard": {
       "type": "object",
       "properties": {
@@ -22396,7 +23301,7 @@
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, RecommendationView, and KPI widgets.",
+          "description": "The widgets to add to the Dashboard. Report-backed widgets use widgetable_token. Free text widgets use widgetable_type set to free_text and require content.",
           "items": {
             "type": "object",
             "properties": {
@@ -22404,13 +23309,43 @@
                 "type": "string",
                 "description": "The token of the represented Resource."
               },
+              "widgetable_type": {
+                "type": "string",
+                "description": "The widget type. Use free_text for a free text widget.",
+                "enum": [
+                  "free_text"
+                ]
+              },
               "title": {
                 "type": "string",
-                "description": "The title of the Widget (defaults to the title of the Resource)."
+                "description": "The title of the Widget (defaults to the Resource title, or Free Text for a free text widget)."
+              },
+              "content": {
+                "type": "object",
+                "description": "The required rich-text document for a free text widget.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "The TipTap document root type.",
+                    "enum": [
+                      "doc"
+                    ]
+                  },
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "type"
+                ]
               },
               "settings": {
                 "type": "object",
-                "description": "The settings for the DashboardWidget.",
+                "description": "The display and grid layout settings for the DashboardWidget.",
+                "x-omitempty": true,
                 "properties": {
                   "display_type": {
                     "type": "string",
@@ -22444,16 +23379,50 @@
                     "type": "string",
                     "description": "The usage unit represented when kpi_type is usage.",
                     "x-omitempty": true
+                  },
+                  "grid": {
+                    "type": "object",
+                    "description": "The widget's size and position in the dashboard's 12-column grid.",
+                    "x-omitempty": true,
+                    "properties": {
+                      "x": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The zero-based horizontal position.",
+                        "minimum": 0,
+                        "maximum": 11
+                      },
+                      "y": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The zero-based vertical position."
+                      },
+                      "w": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The widget width in grid columns.",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "h": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The widget height in grid rows."
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y",
+                      "w",
+                      "h"
+                    ]
                   }
                 },
                 "required": [
                   "display_type"
                 ]
               }
-            },
-            "required": [
-              "widgetable_token"
-            ]
+            }
           }
         },
         "saved_filter_tokens": {
@@ -22519,25 +23488,60 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Dashboard."
+          "description": "The title of the Dashboard.",
+          "x-omitempty": true
         },
         "widgets": {
           "type": "array",
-          "description": "The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, RecommendationView, and KPI widgets.",
+          "description": "The complete replacement list of widgets for the Dashboard. Omit widgets to preserve every existing widget. When provided, include every report-backed and free text widget to keep; an empty array removes all widgets. Report-backed widgets use widgetable_token. Free text widgets use widgetable_type set to free_text and require content.",
           "items": {
             "type": "object",
             "properties": {
               "widgetable_token": {
                 "type": "string",
-                "description": "The token of the represented Resource."
+                "description": "The token of the represented Resource.",
+                "x-omitempty": true
+              },
+              "widgetable_type": {
+                "type": "string",
+                "description": "The widget type. Use free_text for a free text widget.",
+                "enum": [
+                  "free_text"
+                ],
+                "x-omitempty": true
               },
               "title": {
                 "type": "string",
-                "description": "The title of the Widget (defaults to the title of the Resource)."
+                "description": "The title of the Widget (defaults to the Resource title, or Free Text for a free text widget).",
+                "x-omitempty": true
+              },
+              "content": {
+                "type": "object",
+                "description": "The required rich-text document for a free text widget.",
+                "x-omitempty": true,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "The TipTap document root type.",
+                    "enum": [
+                      "doc"
+                    ]
+                  },
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "type"
+                ]
               },
               "settings": {
                 "type": "object",
-                "description": "The settings for the DashboardWidget.",
+                "description": "The display and grid layout settings for the DashboardWidget.",
+                "x-omitempty": true,
                 "properties": {
                   "display_type": {
                     "type": "string",
@@ -22571,24 +23575,62 @@
                     "type": "string",
                     "description": "The usage unit represented when kpi_type is usage.",
                     "x-omitempty": true
+                  },
+                  "grid": {
+                    "type": "object",
+                    "description": "The widget's size and position in the dashboard's 12-column grid.",
+                    "x-omitempty": true,
+                    "properties": {
+                      "x": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The zero-based horizontal position.",
+                        "minimum": 0,
+                        "maximum": 11
+                      },
+                      "y": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The zero-based vertical position."
+                      },
+                      "w": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The widget width in grid columns.",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "h": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "The widget height in grid rows."
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y",
+                      "w",
+                      "h"
+                    ]
                   }
                 },
                 "required": [
                   "display_type"
                 ]
               }
-            },
-            "required": [
-              "widgetable_token"
-            ]
-          }
+            }
+          },
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "saved_filter_tokens": {
           "type": "array",
           "description": "The tokens of the Saved Filters used in the Dashboard.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "date_bin": {
           "type": "string",
@@ -22598,7 +23640,8 @@
             "day",
             "week",
             "month"
-          ]
+          ],
+          "x-omitempty": true
         },
         "date_interval": {
           "type": "string",
@@ -22623,19 +23666,25 @@
             "last_14_days",
             ""
           ],
-          "x-omitempty": false
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "start_date": {
           "type": "string",
-          "description": "The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+          "description": "The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "end_date": {
           "type": "string",
-          "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+          "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "workspace_token": {
           "type": "string",
-          "description": "The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces."
+          "description": "The token of the Workspace the Dashboard belongs to. Required when updating widgets if the API token is associated with multiple Workspaces.",
+          "x-omitempty": true
         }
       },
       "description": "Update a Dashboard."
@@ -28194,7 +29243,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2026-03-01",
+          "example": "2026-04-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },
@@ -28299,6 +29348,26 @@
           },
           "x-nullable": true,
           "description": "Optional business metric label values. An empty array includes every value for the label key."
+        },
+        "label_filters": {
+          "type": "object",
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives."
         },
         "cost_metric": {
           "$ref": "#/definitions/VirtualTagConfigValueCostMetric",
@@ -28564,6 +29633,27 @@
                 },
                 "x-omitempty": true
               },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
+              },
               "display_name": {
                 "type": "string",
                 "description": "The display name for an allocation value (cost_metric or percentages). Invalid when name is set."
@@ -28675,18 +29765,21 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "The key of the VirtualTagConfig."
+          "description": "The key of the VirtualTagConfig.",
+          "x-omitempty": true
         },
         "overridable": {
           "type": "boolean",
           "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "backfill_until": {
           "type": "string",
           "format": "date",
           "description": "The earliest month the VirtualTagConfig should be backfilled to.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "collapsed_tag_keys": {
           "type": "array",
@@ -28744,6 +29837,27 @@
                   "type": "string"
                 },
                 "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "display_name": {
                 "type": "string",
@@ -28874,18 +29988,21 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "The key of the VirtualTagConfig."
+          "description": "The key of the VirtualTagConfig.",
+          "x-omitempty": true
         },
         "overridable": {
           "type": "boolean",
           "description": "Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "backfill_until": {
           "type": "string",
           "format": "date",
           "description": "The earliest month the VirtualTagConfig should be backfilled to.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "collapsed_tag_keys": {
           "type": "array",
@@ -28943,6 +30060,27 @@
                   "type": "string"
                 },
                 "x-omitempty": true
+              },
+              "label_filters": {
+                "type": "object",
+                "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Send null or an empty object to clear.",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "example": {
+                  "app": [
+                    "consumer"
+                  ],
+                  "team": [
+                    "payments"
+                  ]
+                },
+                "x-nullable": true,
+                "x-omitempty": false
               },
               "display_name": {
                 "type": "string",
@@ -29055,15 +30193,18 @@
         },
         "name": {
           "type": "string",
-          "description": "The name of the value."
+          "description": "The name of the value.",
+          "x-omitempty": true
         },
         "business_metric_token": {
           "type": "string",
-          "description": "The token of an associated business metric."
+          "description": "The token of an associated business metric.",
+          "x-omitempty": true
         },
         "label_key": {
           "type": "string",
-          "description": "The business metric label key used for this virtual tag value."
+          "description": "The business metric label key used for this virtual tag value.",
+          "x-omitempty": true
         },
         "label_values": {
           "type": "array",
@@ -29073,10 +30214,32 @@
           },
           "x-omitempty": true
         },
+        "label_filters": {
+          "type": "object",
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Null and an empty object leave stored filters unchanged.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
         "display_name": {
           "type": "string",
           "description": "The display name for a cost metric or percentage allocation value.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "label_transforms": {
           "type": "array",
@@ -29112,6 +30275,7 @@
         },
         "cost_metric": {
           "type": "object",
+          "x-omitempty": true,
           "properties": {
             "filter": {
               "type": "string"
@@ -29182,19 +30346,23 @@
       "properties": {
         "filter": {
           "type": "string",
-          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql."
+          "description": "The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.",
+          "x-omitempty": true
         },
         "name": {
           "type": "string",
-          "description": "The name of the value."
+          "description": "The name of the value.",
+          "x-omitempty": true
         },
         "business_metric_token": {
           "type": "string",
-          "description": "The token of an associated business metric."
+          "description": "The token of an associated business metric.",
+          "x-omitempty": true
         },
         "label_key": {
           "type": "string",
-          "description": "The business metric label key used for this virtual tag value."
+          "description": "The business metric label key used for this virtual tag value.",
+          "x-omitempty": true
         },
         "label_values": {
           "type": "array",
@@ -29204,10 +30372,32 @@
           },
           "x-omitempty": true
         },
+        "label_filters": {
+          "type": "object",
+          "description": "ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Null and an empty object leave stored filters unchanged.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "example": {
+            "app": [
+              "consumer"
+            ],
+            "team": [
+              "payments"
+            ]
+          },
+          "x-nullable": true,
+          "x-omitempty": false
+        },
         "display_name": {
           "type": "string",
           "description": "The display name for a cost metric or percentage allocation value.",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "label_transforms": {
           "type": "array",
@@ -29243,6 +30433,7 @@
         },
         "cost_metric": {
           "type": "object",
+          "x-omitempty": true,
           "properties": {
             "filter": {
               "type": "string"
