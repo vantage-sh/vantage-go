@@ -36,6 +36,10 @@ type UpdateVirtualTagConfigValue struct {
 	// The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
 	Filter string `json:"filter,omitempty"`
 
+	// ClickHouse BusinessMetric row filters. Each key must match, and values within a key are alternatives. Cannot include the fan-out label_key. Null and an empty object leave stored filters unchanged.
+	// Example: {"app":["consumer"],"team":["payments"]}
+	LabelFilters map[string][]string `json:"label_filters"`
+
 	// The business metric label key used for this virtual tag value.
 	LabelKey string `json:"label_key,omitempty"`
 
@@ -61,6 +65,10 @@ func (m *UpdateVirtualTagConfigValue) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateRanges(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabelFilters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,6 +124,24 @@ func (m *UpdateVirtualTagConfigValue) validateDateRanges(formats strfmt.Registry
 				}
 				return err
 			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *UpdateVirtualTagConfigValue) validateLabelFilters(formats strfmt.Registry) error {
+	if swag.IsZero(m.LabelFilters) { // not required
+		return nil
+	}
+
+	for k := range m.LabelFilters {
+
+		iLabelFiltersSize := int64(len(m.LabelFilters[k]))
+
+		if err := validate.MinItems("label_filters"+"."+k, "body", iLabelFiltersSize, 1); err != nil {
+			return err
 		}
 
 	}

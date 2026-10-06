@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -14,24 +15,34 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DashboardWidget dashboard widget
+// DashboardWidget DashboardWidget model
 //
 // swagger:model DashboardWidget
 type DashboardWidget struct {
 
+	// The rich-text document for a free text widget.
+	Content interface{} `json:"content,omitempty"`
+
 	// The settings for the DashboardWidget
-	// Required: true
-	Settings *DashboardWidgetSettings `json:"settings"`
+	Settings *DashboardWidgetSettings `json:"settings,omitempty"`
 
 	// The title of the Widget.
 	// Example: My Widget
 	// Required: true
 	Title string `json:"title"`
 
-	// widgetable token
-	// Example: rprt_a12b3c
+	// The token of the Dashboard Widget.
+	// Example: dshbrd_wdgt_a12b3c
 	// Required: true
-	WidgetableToken string `json:"widgetable_token"`
+	Token string `json:"token"`
+
+	// The token of the represented Resource.
+	// Example: rprt_a12b3c
+	WidgetableToken string `json:"widgetable_token,omitempty"`
+
+	// The widget type. Present instead of widgetable_token for free text widgets.
+	// Enum: ["free_text"]
+	WidgetableType string `json:"widgetable_type,omitempty"`
 }
 
 // Validate validates this dashboard widget
@@ -46,7 +57,11 @@ func (m *DashboardWidget) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateWidgetableToken(formats); err != nil {
+	if err := m.validateToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWidgetableType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -57,9 +72,8 @@ func (m *DashboardWidget) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DashboardWidget) validateSettings(formats strfmt.Registry) error {
-
-	if err := validate.Required("settings", "body", m.Settings); err != nil {
-		return err
+	if swag.IsZero(m.Settings) { // not required
+		return nil
 	}
 
 	if m.Settings != nil {
@@ -85,9 +99,48 @@ func (m *DashboardWidget) validateTitle(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DashboardWidget) validateWidgetableToken(formats strfmt.Registry) error {
+func (m *DashboardWidget) validateToken(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("widgetable_token", "body", m.WidgetableToken); err != nil {
+	if err := validate.RequiredString("token", "body", m.Token); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var dashboardWidgetTypeWidgetableTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["free_text"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		dashboardWidgetTypeWidgetableTypePropEnum = append(dashboardWidgetTypeWidgetableTypePropEnum, v)
+	}
+}
+
+const (
+
+	// DashboardWidgetWidgetableTypeFreeText captures enum value "free_text"
+	DashboardWidgetWidgetableTypeFreeText string = "free_text"
+)
+
+// prop value enum
+func (m *DashboardWidget) validateWidgetableTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, dashboardWidgetTypeWidgetableTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DashboardWidget) validateWidgetableType(formats strfmt.Registry) error {
+	if swag.IsZero(m.WidgetableType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateWidgetableTypeEnum("widgetable_type", "body", m.WidgetableType); err != nil {
 		return err
 	}
 
@@ -111,6 +164,10 @@ func (m *DashboardWidget) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *DashboardWidget) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Settings != nil {
+
+		if swag.IsZero(m.Settings) { // not required
+			return nil
+		}
 
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
