@@ -501,7 +501,7 @@ func (m *CreateDashboardWidgetsItems0) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-// CreateDashboardWidgetsItems0Content The required rich-text document for a free text widget.
+// CreateDashboardWidgetsItems0Content Rich-text document for a free text widget, for example {"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Note"}]}]}.
 //
 // swagger:model CreateDashboardWidgetsItems0Content
 type CreateDashboardWidgetsItems0Content struct {
@@ -509,7 +509,7 @@ type CreateDashboardWidgetsItems0Content struct {
 	// content
 	Content []interface{} `json:"content"`
 
-	// The TipTap document root type.
+	// Document root. Must be doc.
 	// Required: true
 	// Enum: ["doc"]
 	Type *string `json:"type"`
