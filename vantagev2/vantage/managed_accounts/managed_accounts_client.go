@@ -410,7 +410,7 @@ func (a *Client) UpdateManagedAccount(params *UpdateManagedAccountParams, authIn
 /*
 UpdateManagedAccountIntegration updates managed account integration
 
-Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation; Azure CSP is the only one today, where they are Azure subscription ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.
+Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation. Azure CSP uses subscription ids and GCP uses project ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.
 */
 func (a *Client) UpdateManagedAccountIntegration(params *UpdateManagedAccountIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateManagedAccountIntegrationOK, error) {
 	// TODO: Validate the params before sending
