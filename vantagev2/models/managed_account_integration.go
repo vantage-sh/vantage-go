@@ -29,7 +29,7 @@ type ManagedAccountIntegration struct {
 	// Required: true
 	Provider string `json:"provider"`
 
-	// The provider account identifiers this delegated Integration imports. For Azure CSP these are Azure subscription ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array.
+	// The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses project ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array.
 	// Required: true
 	ProviderAccountIdentifiers []string `json:"provider_account_identifiers"`
 }

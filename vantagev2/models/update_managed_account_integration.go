@@ -19,7 +19,7 @@ import (
 // swagger:model updateManagedAccountIntegration
 type UpdateManagedAccountIntegration struct {
 
-	// The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are Azure subscription ids. An empty array applies no filter.
+	// The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are project ids. An empty array applies no filter.
 	// Required: true
 	ProviderAccountIdentifiers []string `json:"provider_account_identifiers"`
 }

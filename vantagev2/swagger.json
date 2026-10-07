@@ -5998,14 +5998,15 @@
                 },
                 "dashboard_notifications": [
                   {
-                    "token": "rprtbl_ntfctn_1a908a98b16b55fa",
+                    "token": "rprtbl_ntfctn_63290c754f7952a7",
                     "title": "Test Reportable Notification",
-                    "dashboard_token": "dshbrd_8380739153057287",
+                    "dashboard_token": "dshbrd_d7f2d3999d3bb676",
+                    "workspace_token": "wrkspc_76436cad5fe4cfe7",
                     "user_tokens": [
-                      "usr_c1921f57ae247748"
+                      "usr_64893b0adb058048"
                     ],
                     "recipient_emails": [
-                      "latonia.hauck@jaskolski-schneider.net"
+                      "sen.alva.gleichner@wiza.io"
                     ],
                     "frequency": "weekly"
                   }
@@ -6053,14 +6054,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprtbl_ntfctn_99f0bfc16d9fc9e1",
+                "token": "rprtbl_ntfctn_8101849f6488da9c",
                 "title": "New Dashboard Notification",
-                "dashboard_token": "dshbrd_1bec26b3496e5a8d",
+                "dashboard_token": "dshbrd_5a407c91e5b5e003",
+                "workspace_token": "wrkspc_004d57b0845051e7",
                 "user_tokens": [
-                  "usr_224aac415b7969b5"
+                  "usr_1eee77aa81f05a73"
                 ],
                 "recipient_emails": [
-                  "dvm.ebert.solomon@rogahn-yost.com"
+                  "fr.lonna.bradtke@emmerich.name"
                 ],
                 "frequency": "weekly"
               }
@@ -6115,14 +6117,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprtbl_ntfctn_bc7a4fc950f77a11",
+                "token": "rprtbl_ntfctn_53618a608c8d3957",
                 "title": "Test Reportable Notification",
-                "dashboard_token": "dshbrd_9b32b693435031e1",
+                "dashboard_token": "dshbrd_a98a3a48adee51c4",
+                "workspace_token": "wrkspc_0f1d6a27ec138550",
                 "user_tokens": [
-                  "usr_739ae48e2c0498c1"
+                  "usr_c147b91c7ccdbc9d"
                 ],
                 "recipient_emails": [
-                  "dvm.solomon.ebert@boyle.net"
+                  "brakus_iii_xuan@will-jast.net"
                 ],
                 "frequency": "weekly"
               }
@@ -6180,14 +6183,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "rprtbl_ntfctn_03535c334325c782",
+                "token": "rprtbl_ntfctn_d1d284786116c1db",
                 "title": "Renamed Dashboard Notification",
-                "dashboard_token": "dshbrd_52d62ae97be32af4",
+                "dashboard_token": "dshbrd_90f42ffa8df85b0a",
+                "workspace_token": "wrkspc_b193018db3bd8297",
                 "user_tokens": [
-                  "usr_571b8b27367e70e5"
+                  "usr_e02c7517318671a4"
                 ],
                 "recipient_emails": [
-                  "joetta.wehner@boehm-volkman.info"
+                  "do_alva_gleichner@wiza.io"
                 ],
                 "frequency": "weekly"
               }
@@ -10512,7 +10516,7 @@
       },
       "put": {
         "summary": "Update managed account integration",
-        "description": "Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation; Azure CSP is the only one today, where they are Azure subscription ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.",
+        "description": "Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation. Azure CSP uses subscription ids and GCP uses project ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.",
         "produces": [
           "application/json"
         ],
@@ -22852,6 +22856,12 @@
           "x-nullable": false,
           "description": "The token for the Dashboard the DashboardNotification sends."
         },
+        "workspace_token": {
+          "type": "string",
+          "example": "wrkspc_abcd1234567890",
+          "x-nullable": false,
+          "description": "The token for the Workspace the DashboardNotification is a part of."
+        },
         "user_tokens": {
           "type": "array",
           "items": {
@@ -22892,6 +22902,7 @@
         "token",
         "title",
         "dashboard_token",
+        "workspace_token",
         "user_tokens",
         "recipient_emails",
         "frequency"
@@ -23018,7 +23029,7 @@
         "content": {
           "type": "object",
           "x-nullable": true,
-          "description": "The rich-text document for a free text widget."
+          "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}."
         },
         "settings": {
           "$ref": "#/definitions/DashboardWidgetSettings",
@@ -23322,11 +23333,11 @@
               },
               "content": {
                 "type": "object",
-                "description": "The required rich-text document for a free text widget.",
+                "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}.",
                 "properties": {
                   "type": {
                     "type": "string",
-                    "description": "The TipTap document root type.",
+                    "description": "Document root. Must be doc.",
                     "enum": [
                       "doc"
                     ]
@@ -23517,12 +23528,12 @@
               },
               "content": {
                 "type": "object",
-                "description": "The required rich-text document for a free text widget.",
+                "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}.",
                 "x-omitempty": true,
                 "properties": {
                   "type": {
                     "type": "string",
-                    "description": "The TipTap document root type.",
+                    "description": "Document root. Must be doc.",
                     "enum": [
                       "doc"
                     ]
@@ -26032,7 +26043,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The provider account identifiers this delegated Integration imports. For Azure CSP these are Azure subscription ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
+          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses project ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
         }
       },
       "required": [
@@ -26047,7 +26058,7 @@
       "properties": {
         "provider_account_identifiers": {
           "type": "array",
-          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are Azure subscription ids. An empty array applies no filter.",
+          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are project ids. An empty array applies no filter.",
           "items": {
             "type": "string"
           }

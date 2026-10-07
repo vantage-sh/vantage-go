@@ -47,6 +47,11 @@ type DashboardNotification struct {
 	// The tokens of organization users that receive the notification. Freeform SSO-domain and approved third-party emails are not included; see recipient_emails.
 	// Required: true
 	UserTokens []string `json:"user_tokens"`
+
+	// The token for the Workspace the DashboardNotification is a part of.
+	// Example: wrkspc_abcd1234567890
+	// Required: true
+	WorkspaceToken string `json:"workspace_token"`
 }
 
 // Validate validates this dashboard notification
@@ -74,6 +79,10 @@ func (m *DashboardNotification) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUserTokens(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkspaceToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -168,6 +177,15 @@ func (m *DashboardNotification) validateToken(formats strfmt.Registry) error {
 func (m *DashboardNotification) validateUserTokens(formats strfmt.Registry) error {
 
 	if err := validate.Required("user_tokens", "body", m.UserTokens); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DashboardNotification) validateWorkspaceToken(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("workspace_token", "body", m.WorkspaceToken); err != nil {
 		return err
 	}
 
