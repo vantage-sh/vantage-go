@@ -20,7 +20,7 @@ import (
 // swagger:model DashboardWidget
 type DashboardWidget struct {
 
-	// The rich-text document for a free text widget.
+	// Rich-text document for a free text widget, for example {"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Note"}]}]}.
 	Content interface{} `json:"content,omitempty"`
 
 	// The settings for the DashboardWidget

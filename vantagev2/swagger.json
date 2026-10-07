@@ -10512,7 +10512,7 @@
       },
       "put": {
         "summary": "Update managed account integration",
-        "description": "Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation; Azure CSP is the only one today, where they are Azure subscription ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.",
+        "description": "Replaces the provider account identifiers a delegated Integration imports. An empty array applies no filter, so every provider account the Access Credential can see is imported. Identifiers are only accepted for providers that support scoping a delegation. Azure CSP uses subscription ids and GCP uses project ids. Stop delegating an Integration by removing its token from access_credential_tokens on the Managed Account.",
         "produces": [
           "application/json"
         ],
@@ -23018,7 +23018,7 @@
         "content": {
           "type": "object",
           "x-nullable": true,
-          "description": "The rich-text document for a free text widget."
+          "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}."
         },
         "settings": {
           "$ref": "#/definitions/DashboardWidgetSettings",
@@ -23322,11 +23322,11 @@
               },
               "content": {
                 "type": "object",
-                "description": "The required rich-text document for a free text widget.",
+                "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}.",
                 "properties": {
                   "type": {
                     "type": "string",
-                    "description": "The TipTap document root type.",
+                    "description": "Document root. Must be doc.",
                     "enum": [
                       "doc"
                     ]
@@ -23517,12 +23517,12 @@
               },
               "content": {
                 "type": "object",
-                "description": "The required rich-text document for a free text widget.",
+                "description": "Rich-text document for a free text widget, for example {\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Note\"}]}]}.",
                 "x-omitempty": true,
                 "properties": {
                   "type": {
                     "type": "string",
-                    "description": "The TipTap document root type.",
+                    "description": "Document root. Must be doc.",
                     "enum": [
                       "doc"
                     ]
@@ -26032,7 +26032,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The provider account identifiers this delegated Integration imports. For Azure CSP these are Azure subscription ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
+          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses project ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
         }
       },
       "required": [
@@ -26047,7 +26047,7 @@
       "properties": {
         "provider_account_identifiers": {
           "type": "array",
-          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are Azure subscription ids. An empty array applies no filter.",
+          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are project ids. An empty array applies no filter.",
           "items": {
             "type": "string"
           }
