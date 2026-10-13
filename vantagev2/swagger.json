@@ -5745,9 +5745,27 @@
           {
             "in": "query",
             "name": "order",
-            "description": "Whether to order costs by date in an ascending or descending manner.",
+            "description": "Whether to order costs by date in ascending or descending order. Defaults to desc.",
             "type": "string",
             "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort_column",
+            "description": "Sort results by one of the fields in groupings. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. Defaults to sorting by date.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort_direction",
+            "description": "Sort direction for sort_column. Defaults to asc. Requires sort_column.",
+            "type": "string",
             "enum": [
               "asc",
               "desc"
