@@ -102,7 +102,7 @@ type GetCostsParams struct {
 
 	/* Order.
 
-	   Whether to order costs by date in an ascending or descending manner.
+	   Whether to order costs by date in ascending or descending order. Defaults to desc.
 
 	   Default: "desc"
 	*/
@@ -163,6 +163,18 @@ type GetCostsParams struct {
 	   Results will show unallocated costs.
 	*/
 	SettingsUnallocated *bool
+
+	/* SortColumn.
+
+	   Sort results by one of the fields in groupings. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. Defaults to sorting by date.
+	*/
+	SortColumn *string
+
+	/* SortDirection.
+
+	   Sort direction for sort_column. Defaults to asc. Requires sort_column.
+	*/
+	SortDirection *string
 
 	/* StartDate.
 
@@ -414,6 +426,28 @@ func (o *GetCostsParams) WithSettingsUnallocated(settingsUnallocated *bool) *Get
 // SetSettingsUnallocated adds the settingsUnallocated to the get costs params
 func (o *GetCostsParams) SetSettingsUnallocated(settingsUnallocated *bool) {
 	o.SettingsUnallocated = settingsUnallocated
+}
+
+// WithSortColumn adds the sortColumn to the get costs params
+func (o *GetCostsParams) WithSortColumn(sortColumn *string) *GetCostsParams {
+	o.SetSortColumn(sortColumn)
+	return o
+}
+
+// SetSortColumn adds the sortColumn to the get costs params
+func (o *GetCostsParams) SetSortColumn(sortColumn *string) {
+	o.SortColumn = sortColumn
+}
+
+// WithSortDirection adds the sortDirection to the get costs params
+func (o *GetCostsParams) WithSortDirection(sortDirection *string) *GetCostsParams {
+	o.SetSortDirection(sortDirection)
+	return o
+}
+
+// SetSortDirection adds the sortDirection to the get costs params
+func (o *GetCostsParams) SetSortDirection(sortDirection *string) {
+	o.SortDirection = sortDirection
 }
 
 // WithStartDate adds the startDate to the get costs params
@@ -707,6 +741,40 @@ func (o *GetCostsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if qSettingsUnallocated != "" {
 
 			if err := r.SetQueryParam("settings[unallocated]", qSettingsUnallocated); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SortColumn != nil {
+
+		// query param sort_column
+		var qrSortColumn string
+
+		if o.SortColumn != nil {
+			qrSortColumn = *o.SortColumn
+		}
+		qSortColumn := qrSortColumn
+		if qSortColumn != "" {
+
+			if err := r.SetQueryParam("sort_column", qSortColumn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.SortDirection != nil {
+
+		// query param sort_direction
+		var qrSortDirection string
+
+		if o.SortDirection != nil {
+			qrSortDirection = *o.SortDirection
+		}
+		qSortDirection := qrSortDirection
+		if qSortDirection != "" {
+
+			if err := r.SetQueryParam("sort_direction", qSortDirection); err != nil {
 				return err
 			}
 		}
