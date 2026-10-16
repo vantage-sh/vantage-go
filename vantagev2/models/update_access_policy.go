@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// UpdateAccessPolicy Update an Access Policy.
+// UpdateAccessPolicy Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.
 //
 // swagger:model updateAccessPolicy
 type UpdateAccessPolicy struct {
@@ -269,7 +269,7 @@ func (m *UpdateAccessPolicyPolicy) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateAccessPolicyPolicyPolicy
 type UpdateAccessPolicyPolicyPolicy struct {
 
-	// Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.
+	// Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. An empty filter is unrestricted.
 	// Example: (vantage.provider = 'aws')
 	// Required: true
 	Filter *string `json:"filter"`

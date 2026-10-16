@@ -655,7 +655,7 @@
       },
       "post": {
         "summary": "Create access policy",
-        "description": "Create an Access Policy.",
+        "description": "Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -732,7 +732,7 @@
     "/access_policies/{access_policy_token}": {
       "put": {
         "summary": "Update access policy",
-        "description": "Update an Access Policy.",
+        "description": "Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -819,7 +819,7 @@
       },
       "delete": {
         "summary": "Delete access policy",
-        "description": "Delete an Access Policy.",
+        "description": "Delete an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -4904,7 +4904,8 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp"
             ],
             "required": false
           },
@@ -5515,6 +5516,7 @@
               "deepgram",
               "crusoe",
               "sentry_billing",
+              "ramp",
               "all"
             ],
             "required": false
@@ -6488,6 +6490,13 @@
             "description": "The workspace token of the dashboards to return.",
             "type": "string",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "folder_token",
+            "description": "The token of the Dashboard Folder to return dashboards from.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -6563,6 +6572,7 @@
                     "end_date": null,
                     "created_at": "2026-10-01T18:52:12Z",
                     "updated_at": "2026-10-01T18:52:12Z",
+                    "folder_token": null,
                     "workspace_token": "wrkspc_1b396cf40caa4666"
                   }
                 ]
@@ -6689,6 +6699,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_3159fd6a40906a33"
               }
             }
@@ -6786,6 +6797,7 @@
                 "end_date": null,
                 "created_at": "2026-10-01T18:52:11Z",
                 "updated_at": "2026-10-01T18:52:11Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_78fbdd2cec362c21"
               }
             }
@@ -6922,6 +6934,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2026-10-01T18:52:14Z",
                 "updated_at": "2023-08-15T00:00:00Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_6d1f4d1fb379b3bc"
               }
             }
@@ -7271,7 +7284,8 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp"
             ],
             "required": false,
             "x-example": "aws"
@@ -8011,7 +8025,7 @@
     "/folders": {
       "get": {
         "summary": "Get all folders",
-        "description": "Return all Folders for CostReports.",
+        "description": "Return all Folders.",
         "produces": [
           "application/json"
         ],
@@ -8039,6 +8053,7 @@
             "type": "string",
             "enum": [
               "CostFolder",
+              "DashboardFolder",
               "ProviderResourceFolder"
             ],
             "required": false
@@ -8082,20 +8097,26 @@
                 },
                 "folders": [
                   {
-                    "token": "fldr_baf37f32280f5444",
-                    "title": "synergy",
+                    "token": "fldr_314cbb26abd3d3b4",
+                    "title": "4th generation",
+                    "type": "CostFolder",
                     "parent_folder_token": null,
-                    "created_at": "2023-09-12T05:06:54Z",
-                    "updated_at": "2023-09-12T05:06:54Z",
-                    "workspace_token": "wrkspc_f583a08beb76f679"
+                    "saved_filter_tokens": [],
+                    "created_at": "2026-10-05T20:40:17Z",
+                    "updated_at": "2026-10-05T20:40:17Z",
+                    "workspace_token": "wrkspc_76e0840817a6c8a7"
                   },
                   {
-                    "token": "fldr_625d4591e46f7dfa",
-                    "title": "website",
-                    "parent_folder_token": "fldr_baf37f32280f5444",
-                    "created_at": "2023-09-12T05:06:54Z",
-                    "updated_at": "2023-09-12T05:06:54Z",
-                    "workspace_token": "wrkspc_f583a08beb76f679"
+                    "token": "fldr_83b74c1478d1b6d3",
+                    "title": "monitoring",
+                    "type": "CostFolder",
+                    "parent_folder_token": "fldr_314cbb26abd3d3b4",
+                    "saved_filter_tokens": [
+                      "svd_fltr_22cd785c608a20c6"
+                    ],
+                    "created_at": "2026-10-05T20:40:17Z",
+                    "updated_at": "2026-10-05T20:40:17Z",
+                    "workspace_token": "wrkspc_76e0840817a6c8a7"
                   }
                 ]
               }
@@ -8109,7 +8130,7 @@
       },
       "post": {
         "summary": "Create folder",
-        "description": "Create a Folder for CostReports.",
+        "description": "Create a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8141,12 +8162,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_4aabe6f482c2a9e4",
+                "token": "fldr_9ceae7f5f3e405a0",
                 "title": "New Folder",
-                "parent_folder_token": "fldr_4d29cbecf2601266",
-                "created_at": "2023-09-12T05:06:52Z",
-                "updated_at": "2023-09-12T05:06:52Z",
-                "workspace_token": "wrkspc_510cc77828001f9b"
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_8b4bb8d17598ce66",
+                "saved_filter_tokens": [
+                  "svd_fltr_feb48978fe533df4"
+                ],
+                "created_at": "2026-10-05T20:40:30Z",
+                "updated_at": "2026-10-05T20:40:30Z",
+                "workspace_token": "wrkspc_51f5a7ce58c11b5a"
               }
             }
           },
@@ -8166,7 +8191,7 @@
     "/folders/{folder_token}": {
       "get": {
         "summary": "Get folder by token",
-        "description": "Return a specific Folder for CostReports.",
+        "description": "Return a specific Folder.",
         "produces": [
           "application/json"
         ],
@@ -8193,12 +8218,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_3653e0f460786b1e",
-                "title": "intermediate",
-                "parent_folder_token": "fldr_b6bf120a1d3a794b",
-                "created_at": "2023-09-12T05:07:36Z",
-                "updated_at": "2023-09-12T05:07:36Z",
-                "workspace_token": "wrkspc_a707105ff54966c3"
+                "token": "fldr_4a39d019886e0e09",
+                "title": "contextually-based",
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_4feca27bfae88ff0",
+                "saved_filter_tokens": [
+                  "svd_fltr_28aeb8abf914e3a2"
+                ],
+                "created_at": "2026-10-05T20:40:27Z",
+                "updated_at": "2026-10-05T20:40:27Z",
+                "workspace_token": "wrkspc_0dd17a988cf7fc1f"
               }
             }
           },
@@ -8216,7 +8245,7 @@
       },
       "put": {
         "summary": "Update folder",
-        "description": "Update a Folder for CostReports.",
+        "description": "Update a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8254,12 +8283,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_68e18d8d7df0be96",
+                "token": "fldr_08369ae7c11a447e",
                 "title": "New Title",
-                "parent_folder_token": "fldr_9aa0c735a6b615c6",
-                "created_at": "2023-09-12T05:06:53Z",
-                "updated_at": "2023-09-12T05:06:53Z",
-                "workspace_token": "wrkspc_e65a48e5d9684439"
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_410c7670a08a6604",
+                "saved_filter_tokens": [
+                  "svd_fltr_3ac1222e6e2d0218"
+                ],
+                "created_at": "2026-10-05T20:40:06Z",
+                "updated_at": "2026-10-05T20:40:06Z",
+                "workspace_token": "wrkspc_e7bb0f1345b3cf80"
               }
             }
           },
@@ -8283,7 +8316,7 @@
       },
       "delete": {
         "summary": "Delete folder",
-        "description": "Delete a Folder for CostReports.",
+        "description": "Delete a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8383,7 +8416,8 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp"
             ],
             "required": false
           },
@@ -15074,7 +15108,8 @@
                 "openrouter",
                 "deepgram",
                 "crusoe",
-                "sentry_billing"
+                "sentry_billing",
+                "ramp"
               ]
             },
             "required": false
@@ -15319,7 +15354,8 @@
                 "openrouter",
                 "deepgram",
                 "crusoe",
-                "sentry_billing"
+                "sentry_billing",
+                "ramp"
               ]
             },
             "required": false
@@ -17947,7 +17983,7 @@
               "properties": {
                 "filter": {
                   "type": "string",
-                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.",
+                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. An empty filter is unrestricted.",
                   "example": "(vantage.provider = 'aws')"
                 }
               },
@@ -17983,7 +18019,7 @@
         "title",
         "policy"
       ],
-      "description": "Create an Access Policy."
+      "description": "Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope."
     },
     "updateAccessPolicy": {
       "type": "object",
@@ -18018,7 +18054,7 @@
               "properties": {
                 "filter": {
                   "type": "string",
-                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.",
+                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. An empty filter is unrestricted.",
                   "example": "(vantage.provider = 'aws')"
                 }
               },
@@ -18050,7 +18086,7 @@
           "x-omitempty": true
         }
       },
-      "description": "Update an Access Policy."
+      "description": "Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope."
     },
     "AnomalyAlerts": {
       "type": "object",
@@ -21911,6 +21947,7 @@
             "deepgram",
             "crusoe",
             "sentry_billing",
+            "ramp",
             "all"
           ],
           "x-nullable": false,
@@ -22734,7 +22771,8 @@
             "openrouter",
             "deepgram",
             "crusoe",
-            "sentry_billing"
+            "sentry_billing",
+            "ramp"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -23301,6 +23339,12 @@
           "x-nullable": false,
           "description": "The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted."
         },
+        "folder_token": {
+          "type": "string",
+          "example": "fldr_abcd1234567890",
+          "x-nullable": true,
+          "description": "The token for the Dashboard Folder containing the Dashboard, if any."
+        },
         "workspace_token": {
           "type": "string",
           "example": "wrkspc_abcd1234567890",
@@ -23317,6 +23361,7 @@
         "date_interval",
         "created_at",
         "updated_at",
+        "folder_token",
         "workspace_token"
       ],
       "description": "Dashboard model"
@@ -23501,6 +23546,12 @@
         "end_date": {
           "type": "string",
           "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Dashboard Folder to add the Dashboard to. Send null or an empty string to create the Dashboard at the root.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "workspace_token": {
           "type": "string",
@@ -23707,6 +23758,12 @@
         "end_date": {
           "type": "string",
           "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Dashboard Folder to move the Dashboard to. Send null or an empty string to move the Dashboard to the root.",
           "x-nullable": true,
           "x-omitempty": true
         },
@@ -24736,6 +24793,7 @@
           "description": "The type of the Folder.",
           "enum": [
             "CostFolder",
+            "DashboardFolder",
             "ProviderResourceFolder"
           ],
           "default": "CostFolder"
@@ -24744,28 +24802,33 @@
       "required": [
         "title"
       ],
-      "description": "Create a Folder for CostReports."
+      "description": "Create a Folder."
     },
     "updateFolder": {
       "type": "object",
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Folder."
+          "description": "The title of the Folder.",
+          "x-omitempty": true
         },
         "parent_folder_token": {
           "type": "string",
-          "description": "The token of the parent Folder."
+          "description": "The token of the parent Folder. Send null or an empty string to move the Folder to the root.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "saved_filter_tokens": {
           "type": "array",
           "description": "The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-nullable": true,
+          "x-omitempty": true
         }
       },
-      "description": "Update a Folder for CostReports."
+      "description": "Update a Folder."
     },
     "Integrations": {
       "type": "object",
@@ -26061,7 +26124,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses project ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
+          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses billing account ids (reseller subaccounts). An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
         }
       },
       "required": [
@@ -26076,7 +26139,7 @@
       "properties": {
         "provider_account_identifiers": {
           "type": "array",
-          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are project ids. An empty array applies no filter.",
+          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are billing account ids (reseller subaccounts) on the billing export. An empty array applies no filter.",
           "items": {
             "type": "string"
           }

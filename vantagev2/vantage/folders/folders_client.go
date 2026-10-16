@@ -72,7 +72,7 @@ type ClientService interface {
 /*
 CreateFolder creates folder
 
-Create a Folder for CostReports.
+Create a Folder.
 */
 func (a *Client) CreateFolder(params *CreateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFolderCreated, error) {
 	// TODO: Validate the params before sending
@@ -113,7 +113,7 @@ func (a *Client) CreateFolder(params *CreateFolderParams, authInfo runtime.Clien
 /*
 DeleteFolder deletes folder
 
-Delete a Folder for CostReports.
+Delete a Folder.
 */
 func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFolderNoContent, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +154,7 @@ func (a *Client) DeleteFolder(params *DeleteFolderParams, authInfo runtime.Clien
 /*
 GetFolder gets folder by token
 
-Return a specific Folder for CostReports.
+Return a specific Folder.
 */
 func (a *Client) GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFolderOK, error) {
 	// TODO: Validate the params before sending
@@ -195,7 +195,7 @@ func (a *Client) GetFolder(params *GetFolderParams, authInfo runtime.ClientAuthI
 /*
 GetFolders gets all folders
 
-Return all Folders for CostReports.
+Return all Folders.
 */
 func (a *Client) GetFolders(params *GetFoldersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFoldersOK, error) {
 	// TODO: Validate the params before sending
@@ -236,7 +236,7 @@ func (a *Client) GetFolders(params *GetFoldersParams, authInfo runtime.ClientAut
 /*
 UpdateFolder updates folder
 
-Update a Folder for CostReports.
+Update a Folder.
 */
 func (a *Client) UpdateFolder(params *UpdateFolderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFolderOK, error) {
 	// TODO: Validate the params before sending
