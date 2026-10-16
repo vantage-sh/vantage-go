@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateAccessPolicy Create an Access Policy.
+// CreateAccessPolicy Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.
 //
 // swagger:model createAccessPolicy
 type CreateAccessPolicy struct {
@@ -281,7 +281,7 @@ func (m *CreateAccessPolicyPolicy) UnmarshalBinary(b []byte) error {
 // swagger:model CreateAccessPolicyPolicyPolicy
 type CreateAccessPolicyPolicyPolicy struct {
 
-	// Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.
+	// Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. An empty filter is unrestricted.
 	// Example: (vantage.provider = 'aws')
 	// Required: true
 	Filter *string `json:"filter"`
