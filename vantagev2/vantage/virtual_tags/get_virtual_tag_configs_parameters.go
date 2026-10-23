@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewGetVirtualTagConfigsParams creates a new GetVirtualTagConfigsParams object,
@@ -60,6 +61,22 @@ GetVirtualTagConfigsParams contains all the parameters to send to the API endpoi
 	Typically these are written to a http.Request.
 */
 type GetVirtualTagConfigsParams struct {
+
+	/* Limit.
+
+	   The number of results to return. Defaults to 2500. The maximum is 5000.
+
+	   Format: int32
+	*/
+	Limit *int32
+
+	/* Page.
+
+	   The page of results to return.
+
+	   Format: int32
+	*/
+	Page *int32
 
 	/* Q.
 
@@ -120,6 +137,28 @@ func (o *GetVirtualTagConfigsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithLimit adds the limit to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) WithLimit(limit *int32) *GetVirtualTagConfigsParams {
+	o.SetLimit(limit)
+	return o
+}
+
+// SetLimit adds the limit to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) SetLimit(limit *int32) {
+	o.Limit = limit
+}
+
+// WithPage adds the page to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) WithPage(page *int32) *GetVirtualTagConfigsParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get virtual tag configs params
+func (o *GetVirtualTagConfigsParams) SetPage(page *int32) {
+	o.Page = page
+}
+
 // WithQ adds the q to the get virtual tag configs params
 func (o *GetVirtualTagConfigsParams) WithQ(q *string) *GetVirtualTagConfigsParams {
 	o.SetQ(q)
@@ -138,6 +177,40 @@ func (o *GetVirtualTagConfigsParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.Limit != nil {
+
+		// query param limit
+		var qrLimit int32
+
+		if o.Limit != nil {
+			qrLimit = *o.Limit
+		}
+		qLimit := swag.FormatInt32(qrLimit)
+		if qLimit != "" {
+
+			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Q != nil {
 
