@@ -62,6 +62,12 @@ GetDashboardsParams contains all the parameters to send to the API endpoint
 */
 type GetDashboardsParams struct {
 
+	/* FolderToken.
+
+	   The token of the Dashboard Folder to return dashboards from.
+	*/
+	FolderToken *string
+
 	/* Limit.
 
 	   The amount of results to return. The maximum is 1000.
@@ -143,6 +149,17 @@ func (o *GetDashboardsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFolderToken adds the folderToken to the get dashboards params
+func (o *GetDashboardsParams) WithFolderToken(folderToken *string) *GetDashboardsParams {
+	o.SetFolderToken(folderToken)
+	return o
+}
+
+// SetFolderToken adds the folderToken to the get dashboards params
+func (o *GetDashboardsParams) SetFolderToken(folderToken *string) {
+	o.FolderToken = folderToken
+}
+
 // WithLimit adds the limit to the get dashboards params
 func (o *GetDashboardsParams) WithLimit(limit *int32) *GetDashboardsParams {
 	o.SetLimit(limit)
@@ -194,6 +211,23 @@ func (o *GetDashboardsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
+	if o.FolderToken != nil {
+
+		// query param folder_token
+		var qrFolderToken string
+
+		if o.FolderToken != nil {
+			qrFolderToken = *o.FolderToken
+		}
+		qFolderToken := qrFolderToken
+		if qFolderToken != "" {
+
+			if err := r.SetQueryParam("folder_token", qFolderToken); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Limit != nil {
 

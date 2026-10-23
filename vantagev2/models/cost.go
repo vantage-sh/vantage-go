@@ -60,7 +60,7 @@ type Cost struct {
 
 	// The cost provider which incurred the cost.
 	// Example: aws
-	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","deepgram","crusoe","sentry_billing"]
+	// Enum: ["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","deepgram","crusoe","sentry_billing","ramp","dynatrace"]
 	Provider *string `json:"provider,omitempty"`
 
 	// The region which incurred the cost.
@@ -183,7 +183,7 @@ var costTypeProviderPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","deepgram","crusoe","sentry_billing"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["aws","azure","gcp","snowflake","databricks","mongo","datadog","fastly","new_relic","opencost","open_ai","oracle","confluent","planetscale","coralogix","kubernetes","custom_provider","github","linode","grafana","clickhouse","temporal","twilio","azure_csp","kubernetes_agent","anthropic","anyscale","cursor","elastic","vercel","redis_cloud","circle_ci","modal","eleven_labs","baseten","cloudflare","fireworks_ai","cartesia","depot","xai","digital_ocean","together_ai","coreweave","devin","openrouter","deepgram","crusoe","sentry_billing","ramp","dynatrace"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -336,6 +336,12 @@ const (
 
 	// CostProviderSentryBilling captures enum value "sentry_billing"
 	CostProviderSentryBilling string = "sentry_billing"
+
+	// CostProviderRamp captures enum value "ramp"
+	CostProviderRamp string = "ramp"
+
+	// CostProviderDynatrace captures enum value "dynatrace"
+	CostProviderDynatrace string = "dynatrace"
 )
 
 // prop value enum

@@ -89,21 +89,33 @@ type ClientService interface {
 
 	CreateCustomProviderIntegration(params *CreateCustomProviderIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCustomProviderIntegrationCreated, error)
 
+	CreateDataImportLock(params *CreateDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDataImportLockOK, *CreateDataImportLockCreated, error)
+
 	CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error)
 
 	CreateTwilioIntegration(params *CreateTwilioIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTwilioIntegrationCreated, error)
 
 	CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error)
 
+	DeleteDataImportLock(params *DeleteDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDataImportLockNoContent, error)
+
 	DeleteIntegration(params *DeleteIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIntegrationNoContent, error)
 
 	DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserCostsUploadNoContent, error)
+
+	GetDataImportLock(params *GetDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDataImportLockOK, error)
+
+	GetDataImportLocks(params *GetDataImportLocksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDataImportLocksOK, error)
 
 	GetIntegration(params *GetIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationOK, error)
 
 	GetIntegrations(params *GetIntegrationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIntegrationsOK, error)
 
 	GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserCostsUploadsOK, error)
+
+	UnlockDataImports(params *UnlockDataImportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UnlockDataImportsOK, *UnlockDataImportsAccepted, *UnlockDataImportsNoContent, error)
+
+	UpdateDataImportLock(params *UpdateDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDataImportLockOK, error)
 
 	UpdateIntegration(params *UpdateIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIntegrationOK, error)
 
@@ -189,6 +201,48 @@ func (a *Client) CreateCustomProviderIntegration(params *CreateCustomProviderInt
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for createCustomProviderIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateDataImportLock creates data import lock
+
+Create or update a DataImportLock for a provider. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.
+*/
+func (a *Client) CreateDataImportLock(params *CreateDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDataImportLockOK, *CreateDataImportLockCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateDataImportLockParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createDataImportLock",
+		Method:             "POST",
+		PathPattern:        "/data_import_locks",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateDataImportLockReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, nil, err
+	}
+	switch value := result.(type) {
+	case *CreateDataImportLockOK:
+		return value, nil, nil
+	case *CreateDataImportLockCreated:
+		return nil, value, nil
+	}
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for integrations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -316,6 +370,47 @@ func (a *Client) CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsv
 }
 
 /*
+DeleteDataImportLock deletes data import lock
+
+Delete a DataImportLock.
+*/
+func (a *Client) DeleteDataImportLock(params *DeleteDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDataImportLockNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDataImportLockParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteDataImportLock",
+		Method:             "DELETE",
+		PathPattern:        "/data_import_locks/{data_import_lock_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDataImportLockReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteDataImportLockNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteDataImportLock: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 DeleteIntegration deletes integration
 
 Delete an Integration.
@@ -394,6 +489,88 @@ func (a *Client) DeleteUserCostsUpload(params *DeleteUserCostsUploadParams, auth
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deleteUserCostsUpload: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetDataImportLock gets data import lock
+
+Return a DataImportLock. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.
+*/
+func (a *Client) GetDataImportLock(params *GetDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDataImportLockOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDataImportLockParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getDataImportLock",
+		Method:             "GET",
+		PathPattern:        "/data_import_locks/{data_import_lock_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDataImportLockReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDataImportLockOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDataImportLock: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetDataImportLocks gets all data import locks
+
+Return all DataImportLocks for the current account. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.
+*/
+func (a *Client) GetDataImportLocks(params *GetDataImportLocksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDataImportLocksOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDataImportLocksParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getDataImportLocks",
+		Method:             "GET",
+		PathPattern:        "/data_import_locks",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDataImportLocksReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDataImportLocksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDataImportLocks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -517,6 +694,91 @@ func (a *Client) GetUserCostsUploads(params *GetUserCostsUploadsParams, authInfo
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getUserCostsUploads: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UnlockDataImports unlocks data imports
+
+Unlock all or part of a data import lock, optionally reimporting the unlocked months from extract. With reimport enabled, the lock is changed asynchronously; acceptance does not mean the unlock or imports have finished.
+*/
+func (a *Client) UnlockDataImports(params *UnlockDataImportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UnlockDataImportsOK, *UnlockDataImportsAccepted, *UnlockDataImportsNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUnlockDataImportsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "unlockDataImports",
+		Method:             "POST",
+		PathPattern:        "/data_import_locks/{data_import_lock_token}/unlock",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UnlockDataImportsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	switch value := result.(type) {
+	case *UnlockDataImportsOK:
+		return value, nil, nil, nil
+	case *UnlockDataImportsAccepted:
+		return nil, value, nil, nil
+	case *UnlockDataImportsNoContent:
+		return nil, nil, value, nil
+	}
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for integrations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateDataImportLock updates data import lock
+
+Update a DataImportLock. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.
+*/
+func (a *Client) UpdateDataImportLock(params *UpdateDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDataImportLockOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateDataImportLockParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateDataImportLock",
+		Method:             "PUT",
+		PathPattern:        "/data_import_locks/{data_import_lock_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateDataImportLockReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateDataImportLockOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateDataImportLock: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

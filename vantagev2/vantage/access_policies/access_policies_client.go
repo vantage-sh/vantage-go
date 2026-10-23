@@ -70,7 +70,7 @@ type ClientService interface {
 /*
 CreateAccessPolicy creates access policy
 
-Create an Access Policy.
+Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.
 */
 func (a *Client) CreateAccessPolicy(params *CreateAccessPolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAccessPolicyCreated, error) {
 	// TODO: Validate the params before sending
@@ -111,7 +111,7 @@ func (a *Client) CreateAccessPolicy(params *CreateAccessPolicyParams, authInfo r
 /*
 DeleteAccessPolicy deletes access policy
 
-Delete an Access Policy.
+Delete an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.
 */
 func (a *Client) DeleteAccessPolicy(params *DeleteAccessPolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAccessPolicyNoContent, error) {
 	// TODO: Validate the params before sending
@@ -193,7 +193,7 @@ func (a *Client) GetAccessPolicies(params *GetAccessPoliciesParams, authInfo run
 /*
 UpdateAccessPolicy updates access policy
 
-Update an Access Policy.
+Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.
 */
 func (a *Client) UpdateAccessPolicy(params *UpdateAccessPolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAccessPolicyOK, error) {
 	// TODO: Validate the params before sending

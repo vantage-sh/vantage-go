@@ -12,16 +12,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// UpdateFolder Update a Folder for CostReports.
+// UpdateFolder Update a Folder.
 //
 // swagger:model updateFolder
 type UpdateFolder struct {
 
-	// The token of the parent Folder.
-	ParentFolderToken string `json:"parent_folder_token,omitempty"`
+	// The token of the parent Folder. Send null or an empty string to move the Folder to the root.
+	ParentFolderToken *string `json:"parent_folder_token,omitempty"`
 
 	// The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
-	SavedFilterTokens []string `json:"saved_filter_tokens"`
+	SavedFilterTokens []string `json:"saved_filter_tokens,omitempty"`
 
 	// The title of the Folder.
 	Title string `json:"title,omitempty"`

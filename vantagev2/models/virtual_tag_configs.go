@@ -20,6 +20,9 @@ import (
 // swagger:model VirtualTagConfigs
 type VirtualTagConfigs struct {
 
+	// links
+	Links *Links `json:"links,omitempty"`
+
 	// virtual tag configs
 	// Required: true
 	VirtualTagConfigs []*VirtualTagConfig `json:"virtual_tag_configs"`
@@ -29,6 +32,10 @@ type VirtualTagConfigs struct {
 func (m *VirtualTagConfigs) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateLinks(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateVirtualTagConfigs(formats); err != nil {
 		res = append(res, err)
 	}
@@ -36,6 +43,25 @@ func (m *VirtualTagConfigs) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VirtualTagConfigs) validateLinks(formats strfmt.Registry) error {
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -70,6 +96,10 @@ func (m *VirtualTagConfigs) validateVirtualTagConfigs(formats strfmt.Registry) e
 func (m *VirtualTagConfigs) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateVirtualTagConfigs(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -77,6 +107,27 @@ func (m *VirtualTagConfigs) ContextValidate(ctx context.Context, formats strfmt.
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VirtualTagConfigs) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+
+		if swag.IsZero(m.Links) { // not required
+			return nil
+		}
+
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
