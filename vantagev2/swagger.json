@@ -20851,8 +20851,7 @@
             "required": [
               "cost_report_token"
             ]
-          },
-          "x-omitempty": true
+          }
         },
         "values": {
           "type": "array",

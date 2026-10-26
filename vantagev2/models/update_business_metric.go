@@ -28,7 +28,7 @@ type UpdateBusinessMetric struct {
 	CloudwatchFields *UpdateBusinessMetricCloudwatchFields `json:"cloudwatch_fields,omitempty"`
 
 	// The tokens for any CostReports that use the BusinessMetric, and the unit scale.
-	CostReportTokensWithMetadata []*UpdateBusinessMetricCostReportTokensWithMetadataItems0 `json:"cost_report_tokens_with_metadata,omitempty"`
+	CostReportTokensWithMetadata []*UpdateBusinessMetricCostReportTokensWithMetadataItems0 `json:"cost_report_tokens_with_metadata"`
 
 	// datadog metric fields
 	DatadogMetricFields *UpdateBusinessMetricDatadogMetricFields `json:"datadog_metric_fields,omitempty"`
