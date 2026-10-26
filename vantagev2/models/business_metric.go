@@ -51,6 +51,9 @@ type BusinessMetric struct {
 	// Required: true
 	IntegrationToken *string `json:"integration_token"`
 
+	// The fields used to import Metronome metrics for the BusinessMetric.
+	MetronomeMetricFields *MetronomeMetricFields `json:"metronome_metric_fields,omitempty"`
+
 	// The fields used to generate the Snowflake metrics for BusinessMetric.
 	SnowflakeMetricFields *SnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
 
@@ -94,6 +97,10 @@ func (m *BusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIntegrationToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetronomeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -285,6 +292,25 @@ func (m *BusinessMetric) validateIntegrationToken(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *BusinessMetric) validateMetronomeMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.MetronomeMetricFields) { // not required
+		return nil
+	}
+
+	if m.MetronomeMetricFields != nil {
+		if err := m.MetronomeMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metronome_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metronome_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *BusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
 	if swag.IsZero(m.SnowflakeMetricFields) { // not required
 		return nil
@@ -343,6 +369,10 @@ func (m *BusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateGcpBigqueryMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetronomeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -457,6 +487,27 @@ func (m *BusinessMetric) contextValidateGcpBigqueryMetricFields(ctx context.Cont
 				return ve.ValidateName("gcp_bigquery_metric_fields")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("gcp_bigquery_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *BusinessMetric) contextValidateMetronomeMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MetronomeMetricFields != nil {
+
+		if swag.IsZero(m.MetronomeMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.MetronomeMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metronome_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metronome_metric_fields")
 			}
 			return err
 		}

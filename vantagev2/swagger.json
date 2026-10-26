@@ -20245,6 +20245,10 @@
         "clickhouse_metric_fields": {
           "$ref": "#/definitions/ClickhouseMetricFields",
           "description": "The fields used to import ClickHouse metrics for the BusinessMetric."
+        },
+        "metronome_metric_fields": {
+          "$ref": "#/definitions/MetronomeMetricFields",
+          "description": "The fields used to import Metronome metrics for the BusinessMetric."
         }
       },
       "required": [
@@ -20768,6 +20772,50 @@
               "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
             }
           }
+        },
+        "metronome_metric_fields": {
+          "type": "object",
+          "description": "Metronome configuration. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
+          "x-omitempty": true,
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "metric_kind": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "metric": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "billable_metric_id": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "billable_metric_name": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "label_source": {
+              "type": "string",
+              "description": "Label source. An empty string resets the default for the metric kind.",
+              "enum": [
+                "",
+                "customer_name",
+                "ingest_alias",
+                "customer_id"
+              ],
+              "x-omitempty": true,
+              "x-nullable": true
+            }
+          }
         }
       },
       "required": [
@@ -21002,6 +21050,50 @@
             },
             "query_endpoint_id": {
               "type": "string"
+            }
+          }
+        },
+        "metronome_metric_fields": {
+          "type": "object",
+          "description": "Metronome configuration. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
+          "x-omitempty": true,
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "metric_kind": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "metric": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "billable_metric_id": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "billable_metric_name": {
+              "type": "string",
+              "x-omitempty": true,
+              "x-nullable": true
+            },
+            "label_source": {
+              "type": "string",
+              "description": "Label source. An empty string resets the default for the metric kind.",
+              "enum": [
+                "",
+                "customer_name",
+                "ingest_alias",
+                "customer_id"
+              ],
+              "x-omitempty": true,
+              "x-nullable": true
             }
           }
         }
@@ -30803,6 +30895,50 @@
         }
       },
       "description": "Update a workspace"
+    },
+    "MetronomeMetricFields": {
+      "type": "object",
+      "properties": {
+        "metric_kind": {
+          "type": "string",
+          "enum": [
+            "revenue",
+            "usage"
+          ],
+          "x-nullable": false,
+          "description": "Metronome metric kind."
+        },
+        "metric": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The selected Metronome metric."
+        },
+        "billable_metric_id": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Metronome billable metric UUID for usage metrics."
+        },
+        "billable_metric_name": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Metronome billable metric display name for usage metrics."
+        },
+        "label_source": {
+          "type": "string",
+          "enum": [
+            "customer_name",
+            "ingest_alias",
+            "customer_id"
+          ],
+          "x-nullable": false,
+          "description": "The source of labels for imported values."
+        }
+      },
+      "required": [
+        "metric_kind",
+        "metric",
+        "label_source"
+      ]
     }
   }
 }
