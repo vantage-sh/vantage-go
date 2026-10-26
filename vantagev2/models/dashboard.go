@@ -40,6 +40,11 @@ type Dashboard struct {
 	// Example: 2023-09-04
 	EndDate *string `json:"end_date,omitempty"`
 
+	// The token for the Dashboard Folder containing the Dashboard, if any.
+	// Example: fldr_abcd1234567890
+	// Required: true
+	FolderToken *string `json:"folder_token"`
+
 	// The tokens of the Saved Filters used in the Dashboard.
 	// Required: true
 	SavedFilterTokens []string `json:"saved_filter_tokens"`
@@ -86,6 +91,10 @@ func (m *Dashboard) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFolderToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -259,6 +268,15 @@ func (m *Dashboard) validateDateInterval(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateDateIntervalEnum("date_interval", "body", *m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateFolderToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("folder_token", "body", m.FolderToken); err != nil {
 		return err
 	}
 
