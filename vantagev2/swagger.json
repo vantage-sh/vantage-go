@@ -20780,7 +20780,8 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the BusinessMetric."
+          "description": "The title of the BusinessMetric.",
+          "x-omitempty": true
         },
         "cost_report_tokens_with_metadata": {
           "type": "array",
@@ -20907,6 +20908,7 @@
         "datadog_metric_fields": {
           "type": "object",
           "description": "Datadog metric configuration fields",
+          "x-omitempty": true,
           "properties": {
             "integration_token": {
               "type": "string",
@@ -20921,6 +20923,7 @@
         "cloudwatch_fields": {
           "type": "object",
           "description": "Cloudwatch configuration fields.",
+          "x-omitempty": true,
           "properties": {
             "integration_token": {
               "type": "string",
@@ -20961,6 +20964,7 @@
         "snowflake_metric_fields": {
           "type": "object",
           "description": "Snowflake metric configuration fields.",
+          "x-omitempty": true,
           "properties": {
             "integration_token": {
               "type": "string",
@@ -20969,6 +20973,35 @@
             "sql_query": {
               "type": "string",
               "description": "Snowflake SQL query returning date, value, and optional label columns."
+            }
+          }
+        },
+        "gcp_bigquery_metric_fields": {
+          "type": "object",
+          "description": "GCP BigQuery metric configuration fields.",
+          "x-omitempty": true,
+          "properties": {
+            "integration_token": {
+              "type": "string"
+            },
+            "query_project_id": {
+              "type": "string"
+            },
+            "sql_query": {
+              "type": "string"
+            }
+          }
+        },
+        "clickhouse_metric_fields": {
+          "type": "object",
+          "description": "ClickHouse metric configuration fields.",
+          "x-omitempty": true,
+          "properties": {
+            "integration_token": {
+              "type": "string"
+            },
+            "query_endpoint_id": {
+              "type": "string"
             }
           }
         }

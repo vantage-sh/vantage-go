@@ -21,6 +21,9 @@ import (
 // swagger:model updateBusinessMetric
 type UpdateBusinessMetric struct {
 
+	// clickhouse metric fields
+	ClickhouseMetricFields *UpdateBusinessMetricClickhouseMetricFields `json:"clickhouse_metric_fields,omitempty"`
+
 	// cloudwatch fields
 	CloudwatchFields *UpdateBusinessMetricCloudwatchFields `json:"cloudwatch_fields,omitempty"`
 
@@ -32,6 +35,9 @@ type UpdateBusinessMetric struct {
 
 	// The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
 	ForecastedValues []*UpdateBusinessMetricForecastedValuesItems0 `json:"forecasted_values,omitempty"`
+
+	// gcp bigquery metric fields
+	GcpBigqueryMetricFields *UpdateBusinessMetricGcpBigqueryMetricFields `json:"gcp_bigquery_metric_fields,omitempty"`
 
 	// snowflake metric fields
 	SnowflakeMetricFields *UpdateBusinessMetricSnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
@@ -46,6 +52,10 @@ type UpdateBusinessMetric struct {
 // Validate validates this update business metric
 func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateClickhouseMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateCloudwatchFields(formats); err != nil {
 		res = append(res, err)
@@ -63,6 +73,10 @@ func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateGcpBigqueryMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSnowflakeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
@@ -74,6 +88,25 @@ func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBusinessMetric) validateClickhouseMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.ClickhouseMetricFields) { // not required
+		return nil
+	}
+
+	if m.ClickhouseMetricFields != nil {
+		if err := m.ClickhouseMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("clickhouse_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("clickhouse_metric_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -167,6 +200,25 @@ func (m *UpdateBusinessMetric) validateForecastedValues(formats strfmt.Registry)
 	return nil
 }
 
+func (m *UpdateBusinessMetric) validateGcpBigqueryMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.GcpBigqueryMetricFields) { // not required
+		return nil
+	}
+
+	if m.GcpBigqueryMetricFields != nil {
+		if err := m.GcpBigqueryMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp_bigquery_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("gcp_bigquery_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *UpdateBusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
 	if swag.IsZero(m.SnowflakeMetricFields) { // not required
 		return nil
@@ -216,6 +268,10 @@ func (m *UpdateBusinessMetric) validateValues(formats strfmt.Registry) error {
 func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateClickhouseMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCloudwatchFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -232,6 +288,10 @@ func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateGcpBigqueryMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSnowflakeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -243,6 +303,27 @@ func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UpdateBusinessMetric) contextValidateClickhouseMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ClickhouseMetricFields != nil {
+
+		if swag.IsZero(m.ClickhouseMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.ClickhouseMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("clickhouse_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("clickhouse_metric_fields")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -338,6 +419,27 @@ func (m *UpdateBusinessMetric) contextValidateForecastedValues(ctx context.Conte
 	return nil
 }
 
+func (m *UpdateBusinessMetric) contextValidateGcpBigqueryMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.GcpBigqueryMetricFields != nil {
+
+		if swag.IsZero(m.GcpBigqueryMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.GcpBigqueryMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp_bigquery_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("gcp_bigquery_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *UpdateBusinessMetric) contextValidateSnowflakeMetricFields(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.SnowflakeMetricFields != nil {
@@ -395,6 +497,46 @@ func (m *UpdateBusinessMetric) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateBusinessMetric) UnmarshalBinary(b []byte) error {
 	var res UpdateBusinessMetric
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricClickhouseMetricFields ClickHouse metric configuration fields.
+//
+// swagger:model UpdateBusinessMetricClickhouseMetricFields
+type UpdateBusinessMetricClickhouseMetricFields struct {
+
+	// integration token
+	IntegrationToken string `json:"integration_token,omitempty"`
+
+	// query endpoint id
+	QueryEndpointID string `json:"query_endpoint_id,omitempty"`
+}
+
+// Validate validates this update business metric clickhouse metric fields
+func (m *UpdateBusinessMetricClickhouseMetricFields) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this update business metric clickhouse metric fields based on context it is used
+func (m *UpdateBusinessMetricClickhouseMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricClickhouseMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricClickhouseMetricFields) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricClickhouseMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
@@ -883,6 +1025,49 @@ func (m *UpdateBusinessMetricForecastedValuesItems0) MarshalBinary() ([]byte, er
 // UnmarshalBinary interface implementation
 func (m *UpdateBusinessMetricForecastedValuesItems0) UnmarshalBinary(b []byte) error {
 	var res UpdateBusinessMetricForecastedValuesItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricGcpBigqueryMetricFields GCP BigQuery metric configuration fields.
+//
+// swagger:model UpdateBusinessMetricGcpBigqueryMetricFields
+type UpdateBusinessMetricGcpBigqueryMetricFields struct {
+
+	// integration token
+	IntegrationToken string `json:"integration_token,omitempty"`
+
+	// query project id
+	QueryProjectID string `json:"query_project_id,omitempty"`
+
+	// sql query
+	SQLQuery string `json:"sql_query,omitempty"`
+}
+
+// Validate validates this update business metric gcp bigquery metric fields
+func (m *UpdateBusinessMetricGcpBigqueryMetricFields) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this update business metric gcp bigquery metric fields based on context it is used
+func (m *UpdateBusinessMetricGcpBigqueryMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricGcpBigqueryMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricGcpBigqueryMetricFields) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricGcpBigqueryMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
