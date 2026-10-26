@@ -1140,7 +1140,7 @@ func (m *CreateBusinessMetricGcpBigqueryMetricFields) UnmarshalBinary(b []byte) 
 	return nil
 }
 
-// CreateBusinessMetricMetronomeMetricFields Metronome configuration. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.
+// CreateBusinessMetricMetronomeMetricFields Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.
 //
 // swagger:model CreateBusinessMetricMetronomeMetricFields
 type CreateBusinessMetricMetronomeMetricFields struct {
@@ -1154,10 +1154,6 @@ type CreateBusinessMetricMetronomeMetricFields struct {
 	// integration token
 	IntegrationToken *string `json:"integration_token,omitempty"`
 
-	// Label source. An empty string resets the default for the metric kind.
-	// Enum: ["","customer_name","ingest_alias","customer_id"]
-	LabelSource *string `json:"label_source,omitempty"`
-
 	// metric
 	Metric *string `json:"metric,omitempty"`
 
@@ -1167,63 +1163,6 @@ type CreateBusinessMetricMetronomeMetricFields struct {
 
 // Validate validates this create business metric metronome metric fields
 func (m *CreateBusinessMetricMetronomeMetricFields) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateLabelSource(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-var createBusinessMetricMetronomeMetricFieldsTypeLabelSourcePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["","customer_name","ingest_alias","customer_id"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		createBusinessMetricMetronomeMetricFieldsTypeLabelSourcePropEnum = append(createBusinessMetricMetronomeMetricFieldsTypeLabelSourcePropEnum, v)
-	}
-}
-
-const (
-
-	// CreateBusinessMetricMetronomeMetricFieldsLabelSourceEmpty captures enum value ""
-	CreateBusinessMetricMetronomeMetricFieldsLabelSourceEmpty string = ""
-
-	// CreateBusinessMetricMetronomeMetricFieldsLabelSourceCustomerName captures enum value "customer_name"
-	CreateBusinessMetricMetronomeMetricFieldsLabelSourceCustomerName string = "customer_name"
-
-	// CreateBusinessMetricMetronomeMetricFieldsLabelSourceIngestAlias captures enum value "ingest_alias"
-	CreateBusinessMetricMetronomeMetricFieldsLabelSourceIngestAlias string = "ingest_alias"
-
-	// CreateBusinessMetricMetronomeMetricFieldsLabelSourceCustomerID captures enum value "customer_id"
-	CreateBusinessMetricMetronomeMetricFieldsLabelSourceCustomerID string = "customer_id"
-)
-
-// prop value enum
-func (m *CreateBusinessMetricMetronomeMetricFields) validateLabelSourceEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, createBusinessMetricMetronomeMetricFieldsTypeLabelSourcePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *CreateBusinessMetricMetronomeMetricFields) validateLabelSource(formats strfmt.Registry) error {
-	if swag.IsZero(m.LabelSource) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateLabelSourceEnum("metronome_metric_fields"+"."+"label_source", "body", *m.LabelSource); err != nil {
-		return err
-	}
-
 	return nil
 }
 

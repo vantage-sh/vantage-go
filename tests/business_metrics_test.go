@@ -18,7 +18,7 @@ import (
 func TestGeneratedMetronomeClient(t *testing.T) {
 	for _, kind := range []string{"revenue", "usage"} {
 		t.Run(kind, func(t *testing.T) {
-			fields := map[string]any{"metric_kind": kind, "metric": "daily_revenue", "label_source": "customer_id", "billable_metric_id": nil, "billable_metric_name": nil}
+			fields := map[string]any{"metric_kind": kind, "metric": "daily_revenue", "billable_metric_id": nil, "billable_metric_name": nil}
 			if kind == "usage" {
 				fields["billable_metric_id"] = "c46e063a-284b-4d91-8828-eac166092c7a"
 				fields["billable_metric_name"] = "Tokens"
@@ -39,7 +39,7 @@ func TestGeneratedMetronomeClient(t *testing.T) {
 						t.Errorf("create kind: %#v", config)
 					}
 					if r.Method == http.MethodPut {
-						if !reflect.DeepEqual(config, map[string]any{"label_source": ""}) {
+						if !reflect.DeepEqual(config, map[string]any{"integration_token": "accss_crdntl_updated"}) {
 							t.Errorf("partial update = %#v", config)
 						}
 						if !reflect.DeepEqual(body["cost_report_tokens_with_metadata"], []any{}) {
@@ -78,7 +78,7 @@ func TestGeneratedMetronomeClient(t *testing.T) {
 			if read.Payload.MetronomeMetricFields.MetricKind != kind {
 				t.Fatalf("read config = %#v", read.Payload.MetronomeMetricFields)
 			}
-			_, err = client.UpdateBusinessMetric(metrics.NewUpdateBusinessMetricParams().WithBusinessMetricToken(out.Payload.Token).WithUpdateBusinessMetric(&models.UpdateBusinessMetric{MetronomeMetricFields: &models.UpdateBusinessMetricMetronomeMetricFields{LabelSource: swag.String("")}, CostReportTokensWithMetadata: []*models.UpdateBusinessMetricCostReportTokensWithMetadataItems0{}}), nil)
+			_, err = client.UpdateBusinessMetric(metrics.NewUpdateBusinessMetricParams().WithBusinessMetricToken(out.Payload.Token).WithUpdateBusinessMetric(&models.UpdateBusinessMetric{MetronomeMetricFields: &models.UpdateBusinessMetricMetronomeMetricFields{IntegrationToken: swag.String("accss_crdntl_updated")}, CostReportTokensWithMetadata: []*models.UpdateBusinessMetricCostReportTokensWithMetadataItems0{}}), nil)
 			if err != nil {
 				t.Fatal(err)
 			}

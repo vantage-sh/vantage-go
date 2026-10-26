@@ -26,11 +26,6 @@ type MetronomeMetricFields struct {
 	// Metronome billable metric display name for usage metrics.
 	BillableMetricName *string `json:"billable_metric_name,omitempty"`
 
-	// The source of labels for imported values.
-	// Required: true
-	// Enum: ["customer_name","ingest_alias","customer_id"]
-	LabelSource string `json:"label_source"`
-
 	// The selected Metronome metric.
 	// Required: true
 	Metric string `json:"metric"`
@@ -45,10 +40,6 @@ type MetronomeMetricFields struct {
 func (m *MetronomeMetricFields) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateLabelSource(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateMetric(formats); err != nil {
 		res = append(res, err)
 	}
@@ -60,52 +51,6 @@ func (m *MetronomeMetricFields) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-var metronomeMetricFieldsTypeLabelSourcePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["customer_name","ingest_alias","customer_id"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		metronomeMetricFieldsTypeLabelSourcePropEnum = append(metronomeMetricFieldsTypeLabelSourcePropEnum, v)
-	}
-}
-
-const (
-
-	// MetronomeMetricFieldsLabelSourceCustomerName captures enum value "customer_name"
-	MetronomeMetricFieldsLabelSourceCustomerName string = "customer_name"
-
-	// MetronomeMetricFieldsLabelSourceIngestAlias captures enum value "ingest_alias"
-	MetronomeMetricFieldsLabelSourceIngestAlias string = "ingest_alias"
-
-	// MetronomeMetricFieldsLabelSourceCustomerID captures enum value "customer_id"
-	MetronomeMetricFieldsLabelSourceCustomerID string = "customer_id"
-)
-
-// prop value enum
-func (m *MetronomeMetricFields) validateLabelSourceEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, metronomeMetricFieldsTypeLabelSourcePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *MetronomeMetricFields) validateLabelSource(formats strfmt.Registry) error {
-
-	if err := validate.RequiredString("label_source", "body", m.LabelSource); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateLabelSourceEnum("label_source", "body", m.LabelSource); err != nil {
-		return err
-	}
-
 	return nil
 }
 

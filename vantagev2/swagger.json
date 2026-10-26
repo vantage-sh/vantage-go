@@ -20775,7 +20775,7 @@
         },
         "metronome_metric_fields": {
           "type": "object",
-          "description": "Metronome configuration. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
+          "description": "Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
           "x-omitempty": true,
           "properties": {
             "integration_token": {
@@ -20800,18 +20800,6 @@
             },
             "billable_metric_name": {
               "type": "string",
-              "x-omitempty": true,
-              "x-nullable": true
-            },
-            "label_source": {
-              "type": "string",
-              "description": "Label source. An empty string resets the default for the metric kind.",
-              "enum": [
-                "",
-                "customer_name",
-                "ingest_alias",
-                "customer_id"
-              ],
               "x-omitempty": true,
               "x-nullable": true
             }
@@ -21055,7 +21043,7 @@
         },
         "metronome_metric_fields": {
           "type": "object",
-          "description": "Metronome configuration. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
+          "description": "Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
           "x-omitempty": true,
           "properties": {
             "integration_token": {
@@ -21080,18 +21068,6 @@
             },
             "billable_metric_name": {
               "type": "string",
-              "x-omitempty": true,
-              "x-nullable": true
-            },
-            "label_source": {
-              "type": "string",
-              "description": "Label source. An empty string resets the default for the metric kind.",
-              "enum": [
-                "",
-                "customer_name",
-                "ingest_alias",
-                "customer_id"
-              ],
               "x-omitempty": true,
               "x-nullable": true
             }
@@ -30922,22 +30898,11 @@
           "type": "string",
           "x-nullable": true,
           "description": "Metronome billable metric display name for usage metrics."
-        },
-        "label_source": {
-          "type": "string",
-          "enum": [
-            "customer_name",
-            "ingest_alias",
-            "customer_id"
-          ],
-          "x-nullable": false,
-          "description": "The source of labels for imported values."
         }
       },
       "required": [
         "metric_kind",
-        "metric",
-        "label_source"
+        "metric"
       ]
     }
   }
