@@ -36,6 +36,12 @@ func (o *DeleteUserCostsUploadReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
+	case 422:
+		result := NewDeleteUserCostsUploadUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}] deleteUserCostsUpload", response, response.Code())
 	}
@@ -170,6 +176,76 @@ func (o *DeleteUserCostsUploadNotFound) GetPayload() *models.Errors {
 }
 
 func (o *DeleteUserCostsUploadNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserCostsUploadUnprocessableEntity creates a DeleteUserCostsUploadUnprocessableEntity with default headers values
+func NewDeleteUserCostsUploadUnprocessableEntity() *DeleteUserCostsUploadUnprocessableEntity {
+	return &DeleteUserCostsUploadUnprocessableEntity{}
+}
+
+/*
+DeleteUserCostsUploadUnprocessableEntity describes a response with status code 422, with default header values.
+
+UnprocessableEntity
+*/
+type DeleteUserCostsUploadUnprocessableEntity struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this delete user costs upload unprocessable entity response has a 2xx status code
+func (o *DeleteUserCostsUploadUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete user costs upload unprocessable entity response has a 3xx status code
+func (o *DeleteUserCostsUploadUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user costs upload unprocessable entity response has a 4xx status code
+func (o *DeleteUserCostsUploadUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete user costs upload unprocessable entity response has a 5xx status code
+func (o *DeleteUserCostsUploadUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user costs upload unprocessable entity response a status code equal to that given
+func (o *DeleteUserCostsUploadUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the delete user costs upload unprocessable entity response
+func (o *DeleteUserCostsUploadUnprocessableEntity) Code() int {
+	return 422
+}
+
+func (o *DeleteUserCostsUploadUnprocessableEntity) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadUnprocessableEntity %s", 422, payload)
+}
+
+func (o *DeleteUserCostsUploadUnprocessableEntity) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /integrations/{integration_token}/costs/{user_costs_upload_token}][%d] deleteUserCostsUploadUnprocessableEntity %s", 422, payload)
+}
+
+func (o *DeleteUserCostsUploadUnprocessableEntity) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *DeleteUserCostsUploadUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Errors)
 

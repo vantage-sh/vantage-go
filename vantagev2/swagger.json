@@ -655,7 +655,7 @@
       },
       "post": {
         "summary": "Create access policy",
-        "description": "Create an Access Policy.",
+        "description": "Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -732,7 +732,7 @@
     "/access_policies/{access_policy_token}": {
       "put": {
         "summary": "Update access policy",
-        "description": "Update an Access Policy.",
+        "description": "Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -819,7 +819,7 @@
       },
       "delete": {
         "summary": "Delete access policy",
-        "description": "Delete an Access Policy.",
+        "description": "Delete an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope.",
         "produces": [
           "application/json"
         ],
@@ -4904,7 +4904,9 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp",
+              "dynatrace"
             ],
             "required": false
           },
@@ -5515,6 +5517,8 @@
               "deepgram",
               "crusoe",
               "sentry_billing",
+              "ramp",
+              "dynatrace",
               "all"
             ],
             "required": false
@@ -6488,6 +6492,13 @@
             "description": "The workspace token of the dashboards to return.",
             "type": "string",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "folder_token",
+            "description": "The token of the Dashboard Folder to return dashboards from.",
+            "type": "string",
+            "required": false
           }
         ],
         "security": [
@@ -6563,6 +6574,7 @@
                     "end_date": null,
                     "created_at": "2026-10-01T18:52:12Z",
                     "updated_at": "2026-10-01T18:52:12Z",
+                    "folder_token": null,
                     "workspace_token": "wrkspc_1b396cf40caa4666"
                   }
                 ]
@@ -6689,6 +6701,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_3159fd6a40906a33"
               }
             }
@@ -6786,6 +6799,7 @@
                 "end_date": null,
                 "created_at": "2026-10-01T18:52:11Z",
                 "updated_at": "2026-10-01T18:52:11Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_78fbdd2cec362c21"
               }
             }
@@ -6922,6 +6936,7 @@
                 "end_date": "2023-08-31",
                 "created_at": "2026-10-01T18:52:14Z",
                 "updated_at": "2023-08-15T00:00:00Z",
+                "folder_token": null,
                 "workspace_token": "wrkspc_6d1f4d1fb379b3bc"
               }
             }
@@ -7271,7 +7286,9 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp",
+              "dynatrace"
             ],
             "required": false,
             "x-example": "aws"
@@ -8011,7 +8028,7 @@
     "/folders": {
       "get": {
         "summary": "Get all folders",
-        "description": "Return all Folders for CostReports.",
+        "description": "Return all Folders.",
         "produces": [
           "application/json"
         ],
@@ -8039,6 +8056,7 @@
             "type": "string",
             "enum": [
               "CostFolder",
+              "DashboardFolder",
               "ProviderResourceFolder"
             ],
             "required": false
@@ -8082,20 +8100,26 @@
                 },
                 "folders": [
                   {
-                    "token": "fldr_baf37f32280f5444",
-                    "title": "synergy",
+                    "token": "fldr_314cbb26abd3d3b4",
+                    "title": "4th generation",
+                    "type": "CostFolder",
                     "parent_folder_token": null,
-                    "created_at": "2023-09-12T05:06:54Z",
-                    "updated_at": "2023-09-12T05:06:54Z",
-                    "workspace_token": "wrkspc_f583a08beb76f679"
+                    "saved_filter_tokens": [],
+                    "created_at": "2026-10-05T20:40:17Z",
+                    "updated_at": "2026-10-05T20:40:17Z",
+                    "workspace_token": "wrkspc_76e0840817a6c8a7"
                   },
                   {
-                    "token": "fldr_625d4591e46f7dfa",
-                    "title": "website",
-                    "parent_folder_token": "fldr_baf37f32280f5444",
-                    "created_at": "2023-09-12T05:06:54Z",
-                    "updated_at": "2023-09-12T05:06:54Z",
-                    "workspace_token": "wrkspc_f583a08beb76f679"
+                    "token": "fldr_83b74c1478d1b6d3",
+                    "title": "monitoring",
+                    "type": "CostFolder",
+                    "parent_folder_token": "fldr_314cbb26abd3d3b4",
+                    "saved_filter_tokens": [
+                      "svd_fltr_22cd785c608a20c6"
+                    ],
+                    "created_at": "2026-10-05T20:40:17Z",
+                    "updated_at": "2026-10-05T20:40:17Z",
+                    "workspace_token": "wrkspc_76e0840817a6c8a7"
                   }
                 ]
               }
@@ -8109,7 +8133,7 @@
       },
       "post": {
         "summary": "Create folder",
-        "description": "Create a Folder for CostReports.",
+        "description": "Create a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8141,12 +8165,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_4aabe6f482c2a9e4",
+                "token": "fldr_9ceae7f5f3e405a0",
                 "title": "New Folder",
-                "parent_folder_token": "fldr_4d29cbecf2601266",
-                "created_at": "2023-09-12T05:06:52Z",
-                "updated_at": "2023-09-12T05:06:52Z",
-                "workspace_token": "wrkspc_510cc77828001f9b"
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_8b4bb8d17598ce66",
+                "saved_filter_tokens": [
+                  "svd_fltr_feb48978fe533df4"
+                ],
+                "created_at": "2026-10-05T20:40:30Z",
+                "updated_at": "2026-10-05T20:40:30Z",
+                "workspace_token": "wrkspc_51f5a7ce58c11b5a"
               }
             }
           },
@@ -8166,7 +8194,7 @@
     "/folders/{folder_token}": {
       "get": {
         "summary": "Get folder by token",
-        "description": "Return a specific Folder for CostReports.",
+        "description": "Return a specific Folder.",
         "produces": [
           "application/json"
         ],
@@ -8193,12 +8221,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_3653e0f460786b1e",
-                "title": "intermediate",
-                "parent_folder_token": "fldr_b6bf120a1d3a794b",
-                "created_at": "2023-09-12T05:07:36Z",
-                "updated_at": "2023-09-12T05:07:36Z",
-                "workspace_token": "wrkspc_a707105ff54966c3"
+                "token": "fldr_4a39d019886e0e09",
+                "title": "contextually-based",
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_4feca27bfae88ff0",
+                "saved_filter_tokens": [
+                  "svd_fltr_28aeb8abf914e3a2"
+                ],
+                "created_at": "2026-10-05T20:40:27Z",
+                "updated_at": "2026-10-05T20:40:27Z",
+                "workspace_token": "wrkspc_0dd17a988cf7fc1f"
               }
             }
           },
@@ -8216,7 +8248,7 @@
       },
       "put": {
         "summary": "Update folder",
-        "description": "Update a Folder for CostReports.",
+        "description": "Update a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8254,12 +8286,16 @@
             },
             "examples": {
               "application/json": {
-                "token": "fldr_68e18d8d7df0be96",
+                "token": "fldr_08369ae7c11a447e",
                 "title": "New Title",
-                "parent_folder_token": "fldr_9aa0c735a6b615c6",
-                "created_at": "2023-09-12T05:06:53Z",
-                "updated_at": "2023-09-12T05:06:53Z",
-                "workspace_token": "wrkspc_e65a48e5d9684439"
+                "type": "CostFolder",
+                "parent_folder_token": "fldr_410c7670a08a6604",
+                "saved_filter_tokens": [
+                  "svd_fltr_3ac1222e6e2d0218"
+                ],
+                "created_at": "2026-10-05T20:40:06Z",
+                "updated_at": "2026-10-05T20:40:06Z",
+                "workspace_token": "wrkspc_e7bb0f1345b3cf80"
               }
             }
           },
@@ -8283,7 +8319,7 @@
       },
       "delete": {
         "summary": "Delete folder",
-        "description": "Delete a Folder for CostReports.",
+        "description": "Delete a Folder.",
         "produces": [
           "application/json"
         ],
@@ -8383,7 +8419,9 @@
               "openrouter",
               "deepgram",
               "crusoe",
-              "sentry_billing"
+              "sentry_billing",
+              "ramp",
+              "dynatrace"
             ],
             "required": false
           },
@@ -8824,6 +8862,12 @@
           },
           "404": {
             "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
             "schema": {
               "$ref": "#/definitions/Errors"
             }
@@ -15074,7 +15118,9 @@
                 "openrouter",
                 "deepgram",
                 "crusoe",
-                "sentry_billing"
+                "sentry_billing",
+                "ramp",
+                "dynatrace"
               ]
             },
             "required": false
@@ -15319,7 +15365,9 @@
                 "openrouter",
                 "deepgram",
                 "crusoe",
-                "sentry_billing"
+                "sentry_billing",
+                "ramp",
+                "dynatrace"
               ]
             },
             "required": false
@@ -16418,6 +16466,22 @@
             "description": "A search query to filter VirtualTagConfigs by key.",
             "type": "string",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. Defaults to 2500. The maximum is 5000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
           }
         ],
         "security": [
@@ -16435,6 +16499,13 @@
             },
             "examples": {
               "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/virtual_tag_configs",
+                  "first": "https://api.vantage.sh/v2/virtual_tag_configs?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/virtual_tag_configs?page=1",
+                  "prev": null
+                },
                 "virtual_tag_configs": [
                   {
                     "token": "vtag_eabf584ca1fe7769",
@@ -17304,6 +17375,438 @@
         "operationId": "deleteVirtualTagConfigValue"
       }
     },
+    "/data_import_locks": {
+      "get": {
+        "summary": "Get all data import locks",
+        "description": "Return all DataImportLocks for the current account. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLocks"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/data_import_locks",
+                  "first": "https://api.vantage.sh/v2/data_import_locks?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/data_import_locks?page=1",
+                  "prev": null
+                },
+                "data_import_locks": [
+                  {
+                    "token": "etl_lck_1234",
+                    "provider": "aws",
+                    "locked_until": "2024-06-01",
+                    "created_by_token": "usr_1234",
+                    "created_at": "2024-06-28T00:00:00Z"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getDataImportLocks"
+      },
+      "post": {
+        "summary": "Create data import lock",
+        "description": "Create or update a DataImportLock for a provider. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createDataImportLock",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createDataImportLock"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            },
+            "examples": {
+              "application/json": {
+                "token": "etl_lck_1234",
+                "provider": "aws",
+                "locked_until": "2024-06-01",
+                "created_by_token": "usr_1234",
+                "created_at": "2024-06-28T00:00:00Z"
+              }
+            }
+          },
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailable",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createDataImportLock"
+      }
+    },
+    "/data_import_locks/{data_import_lock_token}": {
+      "get": {
+        "summary": "Get data import lock",
+        "description": "Return a DataImportLock. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "data_import_lock_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            },
+            "examples": {
+              "application/json": {
+                "token": "etl_lck_1234",
+                "provider": "aws",
+                "locked_until": "2024-06-01",
+                "created_by_token": "usr_1234",
+                "created_at": "2024-06-28T00:00:00Z"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "getDataImportLock"
+      },
+      "put": {
+        "summary": "Update data import lock",
+        "description": "Update a DataImportLock. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "data_import_lock_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateDataImportLock",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateDataImportLock"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            },
+            "examples": {
+              "application/json": {
+                "token": "etl_lck_1234",
+                "provider": "aws",
+                "locked_until": "2024-05-01",
+                "created_by_token": "usr_1234",
+                "created_at": "2024-06-28T00:00:00Z"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailable",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "updateDataImportLock"
+      },
+      "delete": {
+        "summary": "Delete data import lock",
+        "description": "Delete a DataImportLock.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "data_import_lock_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "deleteDataImportLock"
+      }
+    },
+    "/data_import_locks/{data_import_lock_token}/unlock": {
+      "post": {
+        "summary": "Unlock data imports",
+        "description": "Unlock all or part of a data import lock, optionally reimporting the unlocked months from extract. With reimport enabled, the lock is changed asynchronously; acceptance does not mean the unlock or imports have finished.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "data_import_lock_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "unlockDataImports",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/unlockDataImports"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partially unlocked",
+            "schema": {
+              "$ref": "#/definitions/DataImportLock"
+            }
+          },
+          "204": {
+            "description": "Fully unlocked"
+          },
+          "202": {
+            "description": "Unlock and reimport accepted"
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailable",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "unlockDataImports"
+      }
+    },
     "/workspaces": {
       "get": {
         "summary": "Get all workspaces",
@@ -17947,7 +18450,7 @@
               "properties": {
                 "filter": {
                   "type": "string",
-                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.",
+                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. At least one filter is required.",
                   "example": "(vantage.provider = 'aws')"
                 }
               },
@@ -17983,7 +18486,7 @@
         "title",
         "policy"
       ],
-      "description": "Create an Access Policy."
+      "description": "Create an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope."
     },
     "updateAccessPolicy": {
       "type": "object",
@@ -18018,7 +18521,7 @@
               "properties": {
                 "filter": {
                   "type": "string",
-                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows.",
+                  "description": "Vantage Query Language (VQL) that controls which costs this AccessPolicy allows. At least one filter is required.",
                   "example": "(vantage.provider = 'aws')"
                 }
               },
@@ -18050,7 +18553,7 @@
           "x-omitempty": true
         }
       },
-      "description": "Update an Access Policy."
+      "description": "Update an Access Policy. Requires a personal API token belonging to a user with the Owner role and the write scope."
     },
     "AnomalyAlerts": {
       "type": "object",
@@ -20323,6 +20826,13 @@
           },
           "x-omitempty": true,
           "x-nullable": true,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
           "description": "The ClickHouse BusinessMetric label filters applied within a CostReport. Each key is required and values within a key are alternatives."
         }
       },
@@ -20982,13 +21492,16 @@
           "x-omitempty": true,
           "properties": {
             "integration_token": {
-              "type": "string"
+              "type": "string",
+              "description": "Integration token for the GCP integration from which you would like to fetch metrics."
             },
             "query_project_id": {
-              "type": "string"
+              "type": "string",
+              "description": "GCP project in which the BigQuery job should run."
             },
             "sql_query": {
-              "type": "string"
+              "type": "string",
+              "description": "BigQuery SQL query returning date, value, and optional label columns."
             }
           }
         },
@@ -20998,10 +21511,12 @@
           "x-omitempty": true,
           "properties": {
             "integration_token": {
-              "type": "string"
+              "type": "string",
+              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
             },
             "query_endpoint_id": {
-              "type": "string"
+              "type": "string",
+              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
             }
           }
         }
@@ -21944,6 +22459,8 @@
             "deepgram",
             "crusoe",
             "sentry_billing",
+            "ramp",
+            "dynatrace",
             "all"
           ],
           "x-nullable": false,
@@ -22767,7 +23284,9 @@
             "openrouter",
             "deepgram",
             "crusoe",
-            "sentry_billing"
+            "sentry_billing",
+            "ramp",
+            "dynatrace"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -23334,6 +23853,12 @@
           "x-nullable": false,
           "description": "The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted."
         },
+        "folder_token": {
+          "type": "string",
+          "example": "fldr_abcd1234567890",
+          "x-nullable": true,
+          "description": "The token for the Dashboard Folder containing the Dashboard, if any."
+        },
         "workspace_token": {
           "type": "string",
           "example": "wrkspc_abcd1234567890",
@@ -23350,6 +23875,7 @@
         "date_interval",
         "created_at",
         "updated_at",
+        "folder_token",
         "workspace_token"
       ],
       "description": "Dashboard model"
@@ -23534,6 +24060,12 @@
         "end_date": {
           "type": "string",
           "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter."
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Dashboard Folder to add the Dashboard to. Send null or an empty string to create the Dashboard at the root.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "workspace_token": {
           "type": "string",
@@ -23740,6 +24272,12 @@
         "end_date": {
           "type": "string",
           "description": "The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "folder_token": {
+          "type": "string",
+          "description": "The token of the Dashboard Folder to move the Dashboard to. Send null or an empty string to move the Dashboard to the root.",
           "x-nullable": true,
           "x-omitempty": true
         },
@@ -24769,6 +25307,7 @@
           "description": "The type of the Folder.",
           "enum": [
             "CostFolder",
+            "DashboardFolder",
             "ProviderResourceFolder"
           ],
           "default": "CostFolder"
@@ -24777,28 +25316,33 @@
       "required": [
         "title"
       ],
-      "description": "Create a Folder for CostReports."
+      "description": "Create a Folder."
     },
     "updateFolder": {
       "type": "object",
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the Folder."
+          "description": "The title of the Folder.",
+          "x-omitempty": true
         },
         "parent_folder_token": {
           "type": "string",
-          "description": "The token of the parent Folder."
+          "description": "The token of the parent Folder. Send null or an empty string to move the Folder to the root.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "saved_filter_tokens": {
           "type": "array",
           "description": "The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-nullable": true,
+          "x-omitempty": true
         }
       },
-      "description": "Update a Folder for CostReports."
+      "description": "Update a Folder."
     },
     "Integrations": {
       "type": "object",
@@ -26094,7 +26638,7 @@
             "type": "string"
           },
           "x-nullable": false,
-          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses project ids. An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
+          "description": "The provider account identifiers this delegated Integration imports. Azure CSP uses subscription ids and GCP uses billing account ids (reseller subaccounts). An empty array means no filter is applied, so every provider account the credential can see is imported. Providers that do not support scoping always report an empty array."
         }
       },
       "required": [
@@ -26109,7 +26653,7 @@
       "properties": {
         "provider_account_identifiers": {
           "type": "array",
-          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are project ids. An empty array applies no filter.",
+          "description": "The provider account identifiers this delegated Integration should import, replacing the current list. For Azure CSP these are subscription ids and for GCP these are billing account ids (reseller subaccounts) on the billing export. An empty array applies no filter.",
           "items": {
             "type": "string"
           }
@@ -29255,6 +29799,9 @@
     "VirtualTagConfigs": {
       "type": "object",
       "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
         "virtual_tag_configs": {
           "type": "array",
           "items": {
@@ -30557,6 +31104,120 @@
         }
       },
       "description": "Update a VirtualTagConfigValue."
+    },
+    "DataImportLocks": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "data_import_locks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataImportLock"
+          }
+        }
+      },
+      "required": [
+        "data_import_locks"
+      ],
+      "description": "DataImportLocks model"
+    },
+    "DataImportLock": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "etl_lck_1234",
+          "x-nullable": false,
+          "description": "The token of the DataImportLock."
+        },
+        "provider": {
+          "type": "string",
+          "example": "aws",
+          "x-nullable": false,
+          "description": "The cost provider whose processed cost months are locked."
+        },
+        "locked_until": {
+          "type": "string",
+          "example": "2024-06-01",
+          "x-nullable": false,
+          "description": "The last billing month included in the lock, as the first day of that month. ISO 8601 formatted. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month."
+        },
+        "created_by_token": {
+          "type": "string",
+          "example": "usr_1234",
+          "x-nullable": true,
+          "description": "The token of the user or team that created the DataImportLock."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-06-28T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the DataImportLock was created. ISO 8601 formatted."
+        }
+      },
+      "required": [
+        "token",
+        "provider",
+        "locked_until",
+        "created_by_token",
+        "created_at"
+      ],
+      "description": "DataImportLock model"
+    },
+    "createDataImportLock": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "The cost provider to lock, for example aws or gcp."
+        },
+        "locked_until": {
+          "type": "string",
+          "format": "date",
+          "description": "The last billing month to lock, as the first day of that month. ISO 8601 formatted. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month."
+        }
+      },
+      "required": [
+        "provider",
+        "locked_until"
+      ],
+      "description": "Create or update a DataImportLock for a provider. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month."
+    },
+    "updateDataImportLock": {
+      "type": "object",
+      "properties": {
+        "locked_until": {
+          "type": "string",
+          "format": "date",
+          "description": "The last billing month to lock, as the first day of that month. ISO 8601 formatted. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month."
+        }
+      },
+      "required": [
+        "locked_until"
+      ],
+      "description": "Update a DataImportLock. The current calendar month cannot be locked. The previous calendar month can be locked on or after the 15th of the current month."
+    },
+    "unlockDataImports": {
+      "type": "object",
+      "properties": {
+        "locked_until": {
+          "type": "string",
+          "format": "date",
+          "description": "The last month to keep locked. Must be earlier than the current watermark. Omit to unlock all months.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "reimport": {
+          "type": "boolean",
+          "description": "Reimport newly unlocked months from extract asynchronously. Defaults to false.",
+          "default": false,
+          "x-nullable": true,
+          "x-omitempty": true
+        }
+      },
+      "description": "Unlock all or part of a data import lock, optionally reimporting the unlocked months from extract. With reimport enabled, the lock is changed asynchronously; acceptance does not mean the unlock or imports have finished."
     },
     "Workspaces": {
       "type": "object",

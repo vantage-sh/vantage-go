@@ -32,6 +32,9 @@ type UpdateDashboard struct {
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	EndDate *string `json:"end_date,omitempty"`
 
+	// The token of the Dashboard Folder to move the Dashboard to. Send null or an empty string to move the Dashboard to the root.
+	FolderToken *string `json:"folder_token,omitempty"`
+
 	// The tokens of the Saved Filters used in the Dashboard.
 	SavedFilterTokens []string `json:"saved_filter_tokens,omitempty"`
 
