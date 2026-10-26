@@ -39,6 +39,9 @@ type UpdateBusinessMetric struct {
 	// gcp bigquery metric fields
 	GcpBigqueryMetricFields *UpdateBusinessMetricGcpBigqueryMetricFields `json:"gcp_bigquery_metric_fields,omitempty"`
 
+	// metronome metric fields
+	MetronomeMetricFields *UpdateBusinessMetricMetronomeMetricFields `json:"metronome_metric_fields,omitempty"`
+
 	// snowflake metric fields
 	SnowflakeMetricFields *UpdateBusinessMetricSnowflakeMetricFields `json:"snowflake_metric_fields,omitempty"`
 
@@ -74,6 +77,10 @@ func (m *UpdateBusinessMetric) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGcpBigqueryMetricFields(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMetronomeMetricFields(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -219,6 +226,25 @@ func (m *UpdateBusinessMetric) validateGcpBigqueryMetricFields(formats strfmt.Re
 	return nil
 }
 
+func (m *UpdateBusinessMetric) validateMetronomeMetricFields(formats strfmt.Registry) error {
+	if swag.IsZero(m.MetronomeMetricFields) { // not required
+		return nil
+	}
+
+	if m.MetronomeMetricFields != nil {
+		if err := m.MetronomeMetricFields.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metronome_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metronome_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *UpdateBusinessMetric) validateSnowflakeMetricFields(formats strfmt.Registry) error {
 	if swag.IsZero(m.SnowflakeMetricFields) { // not required
 		return nil
@@ -289,6 +315,10 @@ func (m *UpdateBusinessMetric) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidateGcpBigqueryMetricFields(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetronomeMetricFields(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -432,6 +462,27 @@ func (m *UpdateBusinessMetric) contextValidateGcpBigqueryMetricFields(ctx contex
 				return ve.ValidateName("gcp_bigquery_metric_fields")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("gcp_bigquery_metric_fields")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateBusinessMetric) contextValidateMetronomeMetricFields(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MetronomeMetricFields != nil {
+
+		if swag.IsZero(m.MetronomeMetricFields) { // not required
+			return nil
+		}
+
+		if err := m.MetronomeMetricFields.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metronome_metric_fields")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metronome_metric_fields")
 			}
 			return err
 		}
@@ -1068,6 +1119,55 @@ func (m *UpdateBusinessMetricGcpBigqueryMetricFields) MarshalBinary() ([]byte, e
 // UnmarshalBinary interface implementation
 func (m *UpdateBusinessMetricGcpBigqueryMetricFields) UnmarshalBinary(b []byte) error {
 	var res UpdateBusinessMetricGcpBigqueryMetricFields
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateBusinessMetricMetronomeMetricFields Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.
+//
+// swagger:model UpdateBusinessMetricMetronomeMetricFields
+type UpdateBusinessMetricMetronomeMetricFields struct {
+
+	// billable metric id
+	BillableMetricID *string `json:"billable_metric_id,omitempty"`
+
+	// billable metric name
+	BillableMetricName *string `json:"billable_metric_name,omitempty"`
+
+	// integration token
+	IntegrationToken *string `json:"integration_token,omitempty"`
+
+	// metric
+	Metric *string `json:"metric,omitempty"`
+
+	// metric kind
+	MetricKind *string `json:"metric_kind,omitempty"`
+}
+
+// Validate validates this update business metric metronome metric fields
+func (m *UpdateBusinessMetricMetronomeMetricFields) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this update business metric metronome metric fields based on context it is used
+func (m *UpdateBusinessMetricMetronomeMetricFields) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateBusinessMetricMetronomeMetricFields) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateBusinessMetricMetronomeMetricFields) UnmarshalBinary(b []byte) error {
+	var res UpdateBusinessMetricMetronomeMetricFields
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
