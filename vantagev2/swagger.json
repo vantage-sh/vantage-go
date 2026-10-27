@@ -20745,13 +20745,13 @@
           "$ref": "#/definitions/SnowflakeMetricFields",
           "description": "The fields used to generate the Snowflake metrics for BusinessMetric."
         },
-        "clickhouse_metric_fields": {
-          "$ref": "#/definitions/ClickhouseMetricFields",
-          "description": "The fields used to import ClickHouse metrics for the BusinessMetric."
-        },
         "metronome_metric_fields": {
           "$ref": "#/definitions/MetronomeMetricFields",
           "description": "The fields used to import Metronome metrics for the BusinessMetric."
+        },
+        "clickhouse_metric_fields": {
+          "$ref": "#/definitions/ClickhouseMetricFields",
+          "description": "The fields used to import ClickHouse metrics for the BusinessMetric."
         }
       },
       "required": [
@@ -20965,6 +20965,39 @@
       },
       "required": [
         "sql_query"
+      ]
+    },
+    "MetronomeMetricFields": {
+      "type": "object",
+      "properties": {
+        "metric_kind": {
+          "type": "string",
+          "enum": [
+            "revenue",
+            "usage"
+          ],
+          "x-nullable": false,
+          "description": "Metronome metric kind."
+        },
+        "metric": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The selected Metronome metric."
+        },
+        "billable_metric_id": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Metronome billable metric UUID for usage metrics."
+        },
+        "billable_metric_name": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Metronome billable metric display name for usage metrics."
+        }
+      },
+      "required": [
+        "metric_kind",
+        "metric"
       ]
     },
     "ClickhouseMetricFields": {
@@ -21269,20 +21302,6 @@
             }
           }
         },
-        "clickhouse_metric_fields": {
-          "type": "object",
-          "description": "ClickHouse metric configuration fields.",
-          "properties": {
-            "integration_token": {
-              "type": "string",
-              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
-            },
-            "query_endpoint_id": {
-              "type": "string",
-              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
-            }
-          }
-        },
         "metronome_metric_fields": {
           "type": "object",
           "description": "Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
@@ -21312,6 +21331,20 @@
               "type": "string",
               "x-omitempty": true,
               "x-nullable": true
+            }
+          }
+        },
+        "clickhouse_metric_fields": {
+          "type": "object",
+          "description": "ClickHouse metric configuration fields.",
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
+            },
+            "query_endpoint_id": {
+              "type": "string",
+              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
             }
           }
         }
@@ -21541,21 +21574,6 @@
             }
           }
         },
-        "clickhouse_metric_fields": {
-          "type": "object",
-          "description": "ClickHouse metric configuration fields.",
-          "x-omitempty": true,
-          "properties": {
-            "integration_token": {
-              "type": "string",
-              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
-            },
-            "query_endpoint_id": {
-              "type": "string",
-              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
-            }
-          }
-        },
         "metronome_metric_fields": {
           "type": "object",
           "description": "Metronome configuration. Customer ID, customer name, first ingest alias, and supported custom fields are imported automatically as label columns. Omitted fields preserve existing values on update. Switching to revenue clears billable metric fields.",
@@ -21585,6 +21603,21 @@
               "type": "string",
               "x-omitempty": true,
               "x-nullable": true
+            }
+          }
+        },
+        "clickhouse_metric_fields": {
+          "type": "object",
+          "description": "ClickHouse metric configuration fields.",
+          "x-omitempty": true,
+          "properties": {
+            "integration_token": {
+              "type": "string",
+              "description": "Integration token for the ClickHouse integration from which you would like to fetch metrics."
+            },
+            "query_endpoint_id": {
+              "type": "string",
+              "description": "UUID of the ClickHouse query endpoint used to fetch metrics."
             }
           }
         }
@@ -31532,39 +31565,6 @@
         }
       },
       "description": "Update a workspace"
-    },
-    "MetronomeMetricFields": {
-      "type": "object",
-      "properties": {
-        "metric_kind": {
-          "type": "string",
-          "enum": [
-            "revenue",
-            "usage"
-          ],
-          "x-nullable": false,
-          "description": "Metronome metric kind."
-        },
-        "metric": {
-          "type": "string",
-          "x-nullable": false,
-          "description": "The selected Metronome metric."
-        },
-        "billable_metric_id": {
-          "type": "string",
-          "x-nullable": true,
-          "description": "Metronome billable metric UUID for usage metrics."
-        },
-        "billable_metric_name": {
-          "type": "string",
-          "x-nullable": true,
-          "description": "Metronome billable metric display name for usage metrics."
-        }
-      },
-      "required": [
-        "metric_kind",
-        "metric"
-      ]
     }
   }
 }
