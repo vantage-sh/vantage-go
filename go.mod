@@ -40,3 +40,5 @@ require (
 	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+retract v0.1.118 // Mistagged; intended as v0.1.18. Use v0.2.0 or later.
