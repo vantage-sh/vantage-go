@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateFolder Create a Folder for CostReports.
+// CreateFolder Create a Folder.
 //
 // swagger:model createFolder
 type CreateFolder struct {
@@ -31,7 +31,7 @@ type CreateFolder struct {
 	Title *string `json:"title"`
 
 	// The type of the Folder.
-	// Enum: ["CostFolder","ProviderResourceFolder"]
+	// Enum: ["CostFolder","DashboardFolder","ProviderResourceFolder"]
 	Type *string `json:"type,omitempty"`
 
 	// The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
@@ -69,7 +69,7 @@ var createFolderTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CostFolder","ProviderResourceFolder"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CostFolder","DashboardFolder","ProviderResourceFolder"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -81,6 +81,9 @@ const (
 
 	// CreateFolderTypeCostFolder captures enum value "CostFolder"
 	CreateFolderTypeCostFolder string = "CostFolder"
+
+	// CreateFolderTypeDashboardFolder captures enum value "DashboardFolder"
+	CreateFolderTypeDashboardFolder string = "DashboardFolder"
 
 	// CreateFolderTypeProviderResourceFolder captures enum value "ProviderResourceFolder"
 	CreateFolderTypeProviderResourceFolder string = "ProviderResourceFolder"

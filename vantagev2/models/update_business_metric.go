@@ -560,10 +560,10 @@ func (m *UpdateBusinessMetric) UnmarshalBinary(b []byte) error {
 // swagger:model UpdateBusinessMetricClickhouseMetricFields
 type UpdateBusinessMetricClickhouseMetricFields struct {
 
-	// integration token
+	// Integration token for the ClickHouse integration from which you would like to fetch metrics.
 	IntegrationToken string `json:"integration_token,omitempty"`
 
-	// query endpoint id
+	// UUID of the ClickHouse query endpoint used to fetch metrics.
 	QueryEndpointID string `json:"query_endpoint_id,omitempty"`
 }
 
@@ -1088,13 +1088,13 @@ func (m *UpdateBusinessMetricForecastedValuesItems0) UnmarshalBinary(b []byte) e
 // swagger:model UpdateBusinessMetricGcpBigqueryMetricFields
 type UpdateBusinessMetricGcpBigqueryMetricFields struct {
 
-	// integration token
+	// Integration token for the GCP integration from which you would like to fetch metrics.
 	IntegrationToken string `json:"integration_token,omitempty"`
 
-	// query project id
+	// GCP project in which the BigQuery job should run.
 	QueryProjectID string `json:"query_project_id,omitempty"`
 
-	// sql query
+	// BigQuery SQL query returning date, value, and optional label columns.
 	SQLQuery string `json:"sql_query,omitempty"`
 }
 
