@@ -790,7 +790,7 @@ type CreateBusinessMetricCostReportTokensWithMetadataItems0 struct {
 	Label string `json:"label,omitempty"`
 
 	// Include only values with these labels in the CostReport.
-	LabelFilter []string `json:"label_filter"`
+	LabelFilter []string `json:"label_filter,omitempty"`
 
 	// Include only ClickHouse BusinessMetric values matching every label key and one of its values.
 	// Example: {"environment":["production"],"team":["platform","finops"]}

@@ -21137,7 +21137,8 @@
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
-                }
+                },
+                "x-omitempty": true
               },
               "label_filters": {
                 "type": "object",
@@ -21404,7 +21405,8 @@
                 "description": "Include only values with these labels in the CostReport.",
                 "items": {
                   "type": "string"
-                }
+                },
+                "x-omitempty": true
               },
               "label_filters": {
                 "type": "object",
