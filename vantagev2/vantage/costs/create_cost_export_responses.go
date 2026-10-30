@@ -190,7 +190,7 @@ CreateCostExportPaymentRequired describes a response with status code 402, with 
 PaymentRequired
 */
 type CreateCostExportPaymentRequired struct {
-	Payload *models.Errors
+	Payload *models.PaymentRequiredErrors
 }
 
 // IsSuccess returns true when this create cost export payment required response has a 2xx status code
@@ -233,13 +233,13 @@ func (o *CreateCostExportPaymentRequired) String() string {
 	return fmt.Sprintf("[POST /costs/data_exports][%d] createCostExportPaymentRequired %s", 402, payload)
 }
 
-func (o *CreateCostExportPaymentRequired) GetPayload() *models.Errors {
+func (o *CreateCostExportPaymentRequired) GetPayload() *models.PaymentRequiredErrors {
 	return o.Payload
 }
 
 func (o *CreateCostExportPaymentRequired) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Errors)
+	o.Payload = new(models.PaymentRequiredErrors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

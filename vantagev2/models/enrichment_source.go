@@ -45,7 +45,7 @@ type EnrichmentSource struct {
 	// The enrichment source type.
 	// Example: custom_llm_enrichment_source
 	// Required: true
-	// Enum: ["custom_llm_enrichment_source","cloudflare_ai_gateway_enrichment_source","lite_llm_enrichment_source","aws_bedrock_enrichment_source"]
+	// Enum: ["custom_llm_enrichment_source","cloudflare_ai_gateway_enrichment_source","lite_llm_enrichment_source","aws_bedrock_enrichment_source","bifrost_enrichment_source"]
 	Type string `json:"type"`
 }
 
@@ -132,7 +132,7 @@ var enrichmentSourceTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["custom_llm_enrichment_source","cloudflare_ai_gateway_enrichment_source","lite_llm_enrichment_source","aws_bedrock_enrichment_source"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["custom_llm_enrichment_source","cloudflare_ai_gateway_enrichment_source","lite_llm_enrichment_source","aws_bedrock_enrichment_source","bifrost_enrichment_source"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -153,6 +153,9 @@ const (
 
 	// EnrichmentSourceTypeAwsBedrockEnrichmentSource captures enum value "aws_bedrock_enrichment_source"
 	EnrichmentSourceTypeAwsBedrockEnrichmentSource string = "aws_bedrock_enrichment_source"
+
+	// EnrichmentSourceTypeBifrostEnrichmentSource captures enum value "bifrost_enrichment_source"
+	EnrichmentSourceTypeBifrostEnrichmentSource string = "bifrost_enrichment_source"
 )
 
 // prop value enum
