@@ -3846,21 +3846,21 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "Inclusive lower bound (ISO 8601 date or datetime, UTC). Date-only values start at 00:00:00 UTC that day.",
+            "description": "Unsupported for deletes. Date bounds return 422; omit start_date to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "end_date",
-            "description": "Inclusive upper bound (ISO 8601 date or datetime, UTC). Date-only values include the full calendar day through 23:59:59.999999999 UTC.",
+            "description": "Unsupported for deletes. Date bounds return 422; omit end_date to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "label",
-            "description": "When present in the query string (including as an empty value), only unit metrics with this exact label are deleted. Omit the parameter to delete all labels in range.",
+            "description": "Unsupported for deletes. Supplying label, including an empty value, returns 422; omit it to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
@@ -4839,7 +4839,7 @@
     "/cost_provider_accounts": {
       "get": {
         "summary": "Get all cost provider accounts",
-        "description": "List CostProviderAccounts available in a given Workspace.",
+        "description": "List CostProviderAccounts available in a given Workspace. When policy-based filtering is enabled, restricted callers only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
         "produces": [
           "application/json"
         ],
@@ -5676,7 +5676,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -5948,7 +5948,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -7064,7 +7064,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -7928,7 +7928,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -9121,6 +9121,270 @@
         "operationId": "createTwilioIntegration"
       }
     },
+    "/integrations/open_ai": {
+      "post": {
+        "summary": "Create OpenAI integration",
+        "description": "Create an OpenAI Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createOpenAIIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createOpenAIIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_c5c4ab6733b94daf",
+                "provider": "open_ai",
+                "account_identifier": "OpenAI production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createOpenAIIntegration"
+      }
+    },
+    "/integrations/anthropic": {
+      "post": {
+        "summary": "Create Anthropic integration",
+        "description": "Create an Anthropic Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createAnthropicIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAnthropicIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_59bf4b8615e4f794",
+                "provider": "anthropic",
+                "account_identifier": "org-12345",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createAnthropicIntegration"
+      }
+    },
+    "/integrations/openrouter": {
+      "post": {
+        "summary": "Create OpenRouter integration",
+        "description": "Create an OpenRouter Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createOpenrouterIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createOpenrouterIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_3bdaf712475edece",
+                "provider": "openrouter",
+                "account_identifier": "OpenRouter production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createOpenrouterIntegration"
+      }
+    },
+    "/integrations/xai": {
+      "post": {
+        "summary": "Create SpaceXAI integration",
+        "description": "Create a SpaceXAI Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createXaiIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createXaiIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_966773f4159e4a48",
+                "provider": "xai",
+                "account_identifier": "SpaceXAI production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:23Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createXaiIntegration"
+      }
+    },
     "/invoices": {
       "get": {
         "summary": "Get all invoices",
@@ -10046,7 +10310,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -11059,7 +11323,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -13962,7 +14226,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -16083,7 +16347,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -16249,7 +16513,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -22259,6 +22523,14 @@
               "default": false,
               "x-nullable": true,
               "description": "Report will restrict date ranges to completed periods only."
+            },
+            "table_column_order": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "x-nullable": true,
+              "description": "Ordered list of CostReport table column keys. Empty or omitted uses the default column order."
             }
           },
           "description": "Report settings."
@@ -22735,6 +23007,13 @@
               "type": "boolean",
               "description": "Report will restrict date ranges to completed periods only.",
               "default": false
+            },
+            "table_column_order": {
+              "type": "array",
+              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -23003,6 +23282,14 @@
             "complete_period": {
               "type": "boolean",
               "description": "Report will restrict date ranges to completed periods only."
+            },
+            "table_column_order": {
+              "type": "array",
+              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "items": {
+                "type": "string"
+              },
+              "x-omitempty": true
             }
           }
         },
@@ -23197,6 +23484,56 @@
         }
       },
       "description": "Generate a DataExport of costs."
+    },
+    "PaymentRequiredErrors": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false
+        },
+        "billing_action": {
+          "$ref": "#/definitions/BillingAction",
+          "description": "The billing step a person must take before the request can succeed."
+        }
+      },
+      "required": [
+        "errors",
+        "billing_action"
+      ],
+      "description": "PaymentRequiredErrors model"
+    },
+    "BillingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "upgrade_plan",
+            "contact_account_manager"
+          ],
+          "x-nullable": false,
+          "description": "upgrade_plan means an Account owner must choose or renew a plan at url. contact_account_manager means the Account is billed through the Account that manages it, which must change its plan."
+        },
+        "message": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "A sentence to show the person who has to take the action."
+        },
+        "url": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Where a signed-in Account owner takes the action. Null for contact_account_manager."
+        }
+      },
+      "required": [
+        "type",
+        "message",
+        "url"
+      ]
     },
     "Costs": {
       "type": "object",
@@ -24494,7 +24831,8 @@
             "custom_llm_enrichment_source",
             "cloudflare_ai_gateway_enrichment_source",
             "lite_llm_enrichment_source",
-            "aws_bedrock_enrichment_source"
+            "aws_bedrock_enrichment_source",
+            "bifrost_enrichment_source"
           ],
           "x-nullable": false,
           "description": "The enrichment source type."
@@ -25733,6 +26071,95 @@
         "description"
       ],
       "description": "Create a Twilio Integration"
+    },
+    "createOpenAIIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "OpenAI Admin API key (sk-admin-...). With codex_analytics, an Analytics API key for the ChatGPT workspace."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this OpenAI integration in Vantage."
+        },
+        "codex_analytics": {
+          "type": "boolean",
+          "description": "When true, creates an OpenAI Codex Analytics integration for a ChatGPT workspace instead of an OpenAI API usage integration.",
+          "default": false
+        },
+        "workspace_id": {
+          "type": "string",
+          "description": "ChatGPT workspace UUID from the ChatGPT Admin console. Required when codex_analytics is true."
+        }
+      },
+      "required": [
+        "api_key",
+        "description"
+      ],
+      "description": "Create an OpenAI Integration"
+    },
+    "createAnthropicIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "Anthropic Admin API key. With enterprise_analytics, a Claude Enterprise Analytics API key with the read:analytics scope."
+        },
+        "enterprise_analytics": {
+          "type": "boolean",
+          "description": "When true, creates a Claude Enterprise Analytics integration instead of an Anthropic API usage integration.",
+          "default": false
+        },
+        "account_name": {
+          "type": "string",
+          "description": "Name for this Claude Enterprise account in Vantage. Required when enterprise_analytics is true."
+        },
+        "organization_id": {
+          "type": "string",
+          "description": "Claude Enterprise organization UUID, used when enterprise_analytics is true. Defaults to the organization of the API key."
+        }
+      },
+      "required": [
+        "api_key"
+      ],
+      "description": "Create an Anthropic Integration"
+    },
+    "createOpenrouterIntegration": {
+      "type": "object",
+      "properties": {
+        "management_api_key": {
+          "type": "string",
+          "description": "OpenRouter management API key."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this OpenRouter integration in Vantage."
+        }
+      },
+      "required": [
+        "management_api_key",
+        "description"
+      ],
+      "description": "Create an OpenRouter Integration"
+    },
+    "createXaiIntegration": {
+      "type": "object",
+      "properties": {
+        "management_key": {
+          "type": "string",
+          "description": "SpaceXAI management key."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this SpaceXAI integration in Vantage."
+        }
+      },
+      "required": [
+        "management_key",
+        "description"
+      ],
+      "description": "Create a SpaceXAI Integration"
     },
     "updateIntegration": {
       "type": "object",

@@ -210,7 +210,7 @@ GetKubernetesEfficiencyReportCostsPaymentRequired describes a response with stat
 PaymentRequired
 */
 type GetKubernetesEfficiencyReportCostsPaymentRequired struct {
-	Payload *models.Errors
+	Payload *models.PaymentRequiredErrors
 }
 
 // IsSuccess returns true when this get kubernetes efficiency report costs payment required response has a 2xx status code
@@ -253,13 +253,13 @@ func (o *GetKubernetesEfficiencyReportCostsPaymentRequired) String() string {
 	return fmt.Sprintf("[GET /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}/costs][%d] getKubernetesEfficiencyReportCostsPaymentRequired %s", 402, payload)
 }
 
-func (o *GetKubernetesEfficiencyReportCostsPaymentRequired) GetPayload() *models.Errors {
+func (o *GetKubernetesEfficiencyReportCostsPaymentRequired) GetPayload() *models.PaymentRequiredErrors {
 	return o.Payload
 }
 
 func (o *GetKubernetesEfficiencyReportCostsPaymentRequired) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Errors)
+	o.Payload = new(models.PaymentRequiredErrors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

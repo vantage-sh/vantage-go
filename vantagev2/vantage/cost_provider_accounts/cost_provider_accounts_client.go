@@ -64,7 +64,7 @@ type ClientService interface {
 /*
 GetCostProviderAccounts gets all cost provider accounts
 
-List CostProviderAccounts available in a given Workspace.
+List CostProviderAccounts available in a given Workspace. When policy-based filtering is enabled, restricted callers only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.
 */
 func (a *Client) GetCostProviderAccounts(params *GetCostProviderAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostProviderAccountsOK, error) {
 	// TODO: Validate the params before sending

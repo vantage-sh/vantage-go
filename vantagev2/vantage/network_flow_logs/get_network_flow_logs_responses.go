@@ -210,7 +210,7 @@ GetNetworkFlowLogsPaymentRequired describes a response with status code 402, wit
 PaymentRequired
 */
 type GetNetworkFlowLogsPaymentRequired struct {
-	Payload *models.Errors
+	Payload *models.PaymentRequiredErrors
 }
 
 // IsSuccess returns true when this get network flow logs payment required response has a 2xx status code
@@ -253,13 +253,13 @@ func (o *GetNetworkFlowLogsPaymentRequired) String() string {
 	return fmt.Sprintf("[GET /network_flow_logs][%d] getNetworkFlowLogsPaymentRequired %s", 402, payload)
 }
 
-func (o *GetNetworkFlowLogsPaymentRequired) GetPayload() *models.Errors {
+func (o *GetNetworkFlowLogsPaymentRequired) GetPayload() *models.PaymentRequiredErrors {
 	return o.Payload
 }
 
 func (o *GetNetworkFlowLogsPaymentRequired) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Errors)
+	o.Payload = new(models.PaymentRequiredErrors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

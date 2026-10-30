@@ -67,7 +67,7 @@ type DeleteBusinessMetricValuesParams struct {
 
 	/* EndDate.
 
-	   Inclusive upper bound (ISO 8601 date or datetime, UTC). Date-only values include the full calendar day through 23:59:59.999999999 UTC.
+	   Unsupported for deletes. Date bounds return 422; omit end_date to delete all values of the selected type.
 	*/
 	EndDate *string
 
@@ -79,13 +79,13 @@ type DeleteBusinessMetricValuesParams struct {
 
 	/* Label.
 
-	   When present in the query string (including as an empty value), only unit metrics with this exact label are deleted. Omit the parameter to delete all labels in range.
+	   Unsupported for deletes. Supplying label, including an empty value, returns 422; omit it to delete all values of the selected type.
 	*/
 	Label *string
 
 	/* StartDate.
 
-	   Inclusive lower bound (ISO 8601 date or datetime, UTC). Date-only values start at 00:00:00 UTC that day.
+	   Unsupported for deletes. Date bounds return 422; omit start_date to delete all values of the selected type.
 	*/
 	StartDate *string
 
