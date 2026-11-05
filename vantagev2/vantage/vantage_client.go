@@ -28,6 +28,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/cost_provider_accounts"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/cost_service"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/costs"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/custom_calculations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboard_notifications"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/dashboards"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/data_exports"
@@ -125,6 +126,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.CostProviderAccounts = cost_provider_accounts.New(transport, formats)
 	cli.CostService = cost_service.New(transport, formats)
 	cli.Costs = costs.New(transport, formats)
+	cli.CustomCalculations = custom_calculations.New(transport, formats)
 	cli.DashboardNotifications = dashboard_notifications.New(transport, formats)
 	cli.Dashboards = dashboards.New(transport, formats)
 	cli.DataExports = data_exports.New(transport, formats)
@@ -240,6 +242,8 @@ type Vantage struct {
 
 	Costs costs.ClientService
 
+	CustomCalculations custom_calculations.ClientService
+
 	DashboardNotifications dashboard_notifications.ClientService
 
 	Dashboards dashboards.ClientService
@@ -334,6 +338,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.CostProviderAccounts.SetTransport(transport)
 	c.CostService.SetTransport(transport)
 	c.Costs.SetTransport(transport)
+	c.CustomCalculations.SetTransport(transport)
 	c.DashboardNotifications.SetTransport(transport)
 	c.Dashboards.SetTransport(transport)
 	c.DataExports.SetTransport(transport)
