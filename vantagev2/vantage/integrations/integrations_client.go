@@ -85,6 +85,8 @@ func WithContentTypeMultipartFormData(r *runtime.ClientOperation) {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateAnthropicIntegration(params *CreateAnthropicIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAnthropicIntegrationCreated, error)
+
 	CreateAzureIntegration(params *CreateAzureIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAzureIntegrationCreated, error)
 
 	CreateCustomProviderIntegration(params *CreateCustomProviderIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCustomProviderIntegrationCreated, error)
@@ -93,9 +95,15 @@ type ClientService interface {
 
 	CreateGCPIntegration(params *CreateGCPIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCPIntegrationCreated, error)
 
+	CreateOpenAIIntegration(params *CreateOpenAIIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOpenAIIntegrationCreated, error)
+
+	CreateOpenrouterIntegration(params *CreateOpenrouterIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOpenrouterIntegrationCreated, error)
+
 	CreateTwilioIntegration(params *CreateTwilioIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTwilioIntegrationCreated, error)
 
 	CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsvParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserCostsUploadViaCsvCreated, error)
+
+	CreateXaiIntegration(params *CreateXaiIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateXaiIntegrationCreated, error)
 
 	DeleteDataImportLock(params *DeleteDataImportLockParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDataImportLockNoContent, error)
 
@@ -120,6 +128,47 @@ type ClientService interface {
 	UpdateIntegration(params *UpdateIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIntegrationOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateAnthropicIntegration creates anthropic integration
+
+Create an Anthropic Integration
+*/
+func (a *Client) CreateAnthropicIntegration(params *CreateAnthropicIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAnthropicIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateAnthropicIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createAnthropicIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/anthropic",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateAnthropicIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateAnthropicIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createAnthropicIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -288,6 +337,88 @@ func (a *Client) CreateGCPIntegration(params *CreateGCPIntegrationParams, authIn
 }
 
 /*
+CreateOpenAIIntegration creates open a i integration
+
+Create an OpenAI Integration
+*/
+func (a *Client) CreateOpenAIIntegration(params *CreateOpenAIIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOpenAIIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateOpenAIIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createOpenAIIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/open_ai",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateOpenAIIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateOpenAIIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createOpenAIIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateOpenrouterIntegration creates open router integration
+
+Create an OpenRouter Integration
+*/
+func (a *Client) CreateOpenrouterIntegration(params *CreateOpenrouterIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOpenrouterIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateOpenrouterIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createOpenrouterIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/openrouter",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateOpenrouterIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateOpenrouterIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createOpenrouterIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 CreateTwilioIntegration creates twilio integration
 
 Create a Twilio Integration
@@ -366,6 +497,47 @@ func (a *Client) CreateUserCostsUploadViaCsv(params *CreateUserCostsUploadViaCsv
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for createUserCostsUploadViaCsv: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateXaiIntegration creates space x a i integration
+
+Create a SpaceXAI Integration
+*/
+func (a *Client) CreateXaiIntegration(params *CreateXaiIntegrationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateXaiIntegrationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateXaiIntegrationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createXaiIntegration",
+		Method:             "POST",
+		PathPattern:        "/integrations/xai",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateXaiIntegrationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateXaiIntegrationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createXaiIntegration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

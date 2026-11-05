@@ -103,6 +103,10 @@
       "description": "Operations about Costs"
     },
     {
+      "name": "CustomCalculations",
+      "description": "Operations about CustomCalculations"
+    },
+    {
       "name": "DashboardNotifications",
       "description": "Operations about DashboardNotifications"
     },
@@ -3846,21 +3850,21 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "Inclusive lower bound (ISO 8601 date or datetime, UTC). Date-only values start at 00:00:00 UTC that day.",
+            "description": "Unsupported for deletes. Date bounds return 422; omit start_date to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "end_date",
-            "description": "Inclusive upper bound (ISO 8601 date or datetime, UTC). Date-only values include the full calendar day through 23:59:59.999999999 UTC.",
+            "description": "Unsupported for deletes. Date bounds return 422; omit end_date to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
           {
             "in": "query",
             "name": "label",
-            "description": "When present in the query string (including as an empty value), only unit metrics with this exact label are deleted. Omit the parameter to delete all labels in range.",
+            "description": "Unsupported for deletes. Supplying label, including an empty value, returns 422; omit it to delete all values of the selected type.",
             "type": "string",
             "required": false
           },
@@ -4839,7 +4843,7 @@
     "/cost_provider_accounts": {
       "get": {
         "summary": "Get all cost provider accounts",
-        "description": "List CostProviderAccounts available in a given Workspace.",
+        "description": "List CostProviderAccounts available in a given Workspace. When policy-based filtering is enabled, restricted callers only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
         "produces": [
           "application/json"
         ],
@@ -5042,6 +5046,7 @@
                 "cost_reports": [
                   {
                     "token": "rprt_6f2c7d330c05636f",
+                    "custom_calculation_tokens": [],
                     "title": "Untitled",
                     "folder_token": null,
                     "saved_filter_tokens": [
@@ -5125,6 +5130,7 @@
             "examples": {
               "application/json": {
                 "token": "rprt_299359872859a568",
+                "custom_calculation_tokens": [],
                 "title": "New Cost Report",
                 "folder_token": "fldr_736175272c30b820",
                 "saved_filter_tokens": [
@@ -5226,6 +5232,7 @@
             "examples": {
               "application/json": {
                 "token": "rprt_5db7a73cf4d09998",
+                "custom_calculation_tokens": [],
                 "title": "Untitled",
                 "folder_token": null,
                 "saved_filter_tokens": [
@@ -5319,6 +5326,7 @@
             "examples": {
               "application/json": {
                 "token": "rprt_1e692ea6b3eddf6b",
+                "custom_calculation_tokens": [],
                 "title": "Updated Cost Report",
                 "folder_token": "fldr_86dec25791dca5ce",
                 "saved_filter_tokens": [
@@ -5676,7 +5684,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -5948,7 +5956,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -5962,6 +5970,392 @@
           "Costs"
         ],
         "operationId": "getCosts"
+      }
+    },
+    "/custom_calculations": {
+      "get": {
+        "summary": "Get all custom calculations",
+        "description": "Return all CustomCalculations that the current API token has access to.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 5000,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all CustomCalculations that the current API token has access to.",
+            "schema": {
+              "$ref": "#/definitions/CustomCalculations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/custom_calculations?limit=2&page=1",
+                  "first": "https://api.vantage.sh/v2/custom_calculations?limit=2&page=1",
+                  "next": "https://api.vantage.sh/v2/custom_calculations?limit=2&page=2",
+                  "last": "https://api.vantage.sh/v2/custom_calculations?limit=2&page=2",
+                  "prev": null
+                },
+                "custom_calculations": [
+                  {
+                    "token": "cstm_clcltn_f1e304dee0467dcc",
+                    "cost_report_tokens": [],
+                    "title": "Custom Calculation",
+                    "operation": "sum",
+                    "filter": {
+                      "type": "sum",
+                      "filter": "costs.provider = 'aws'",
+                      "usage_unit": null
+                    },
+                    "display_as": "ratio",
+                    "unit_scale": 1,
+                    "is_read_only": false,
+                    "created_at": "2026-10-22T12:00:00Z",
+                    "updated_at": "2026-10-22T12:00:00Z"
+                  },
+                  {
+                    "token": "cstm_clcltn_2ec8e12f8e600a1c",
+                    "cost_report_tokens": [],
+                    "title": "Second",
+                    "operation": "sum",
+                    "filter": {
+                      "type": "sum",
+                      "filter": "costs.provider = 'aws'",
+                      "usage_unit": null
+                    },
+                    "display_as": "ratio",
+                    "unit_scale": 1,
+                    "is_read_only": false,
+                    "created_at": "2026-10-22T12:00:00Z",
+                    "updated_at": "2026-10-22T12:00:00Z"
+                  }
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CustomCalculations"
+        ],
+        "operationId": "getCustomCalculations"
+      },
+      "post": {
+        "summary": "Create a custom calculation",
+        "description": "Create a CustomCalculation. Customer-created calculations are always editable; is_read_only cannot be set.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createCustomCalculation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createCustomCalculation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a CustomCalculation. Customer-created calculations are always editable; is_read_only cannot be set.",
+            "schema": {
+              "$ref": "#/definitions/CustomCalculation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_clcltn_92abe93a4b50fb40",
+                "cost_report_tokens": [],
+                "title": "AWS usage",
+                "operation": "sum",
+                "filter": {
+                  "type": "sum",
+                  "filter": "costs.provider = 'aws'",
+                  "usage_unit": null
+                },
+                "display_as": "ratio",
+                "unit_scale": 1,
+                "is_read_only": false,
+                "created_at": "2026-10-22T12:00:00Z",
+                "updated_at": "2026-10-22T12:00:00Z"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CustomCalculations"
+        ],
+        "operationId": "createCustomCalculation"
+      }
+    },
+    "/custom_calculations/{custom_calculation_token}": {
+      "get": {
+        "summary": "Get a custom calculation",
+        "description": "Return a CustomCalculation by its token.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "custom_calculation_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a CustomCalculation by its token.",
+            "schema": {
+              "$ref": "#/definitions/CustomCalculation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_clcltn_e4a22aa5f3475eca",
+                "cost_report_tokens": [],
+                "title": "Custom Calculation",
+                "operation": "sum",
+                "filter": {
+                  "type": "sum",
+                  "filter": "costs.provider = 'aws'",
+                  "usage_unit": null
+                },
+                "display_as": "ratio",
+                "unit_scale": 1,
+                "is_read_only": false,
+                "created_at": "2026-10-22T12:00:00Z",
+                "updated_at": "2026-10-22T12:00:00Z"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CustomCalculations"
+        ],
+        "operationId": "getCustomCalculation"
+      },
+      "put": {
+        "summary": "Update a custom calculation",
+        "description": "Update a CustomCalculation. Read-only calculations allow attachment changes only; is_read_only cannot be changed.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "custom_calculation_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateCustomCalculation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateCustomCalculation"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a CustomCalculation. Read-only calculations allow attachment changes only; is_read_only cannot be changed.",
+            "schema": {
+              "$ref": "#/definitions/CustomCalculation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "cstm_clcltn_8f10c97851c7691e",
+                "cost_report_tokens": [],
+                "title": "Updated calculation",
+                "operation": "average",
+                "filter": {
+                  "type": "sum",
+                  "filter": "costs.provider = 'aws'",
+                  "usage_unit": null
+                },
+                "display_as": "per-n",
+                "unit_scale": 1000,
+                "is_read_only": false,
+                "created_at": "2026-10-22T12:00:00Z",
+                "updated_at": "2026-10-22T12:00:00Z"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CustomCalculations"
+        ],
+        "operationId": "updateCustomCalculation"
+      },
+      "delete": {
+        "summary": "Delete a custom calculation",
+        "description": "Delete a CustomCalculation. Read-only calculations cannot be deleted.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "custom_calculation_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete a CustomCalculation. Read-only calculations cannot be deleted.",
+            "schema": {
+              "$ref": "#/definitions/CustomCalculation"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "CustomCalculations"
+        ],
+        "operationId": "deleteCustomCalculation"
       }
     },
     "/dashboard_notifications": {
@@ -7064,7 +7458,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -7928,7 +8322,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -9121,6 +9515,270 @@
         "operationId": "createTwilioIntegration"
       }
     },
+    "/integrations/open_ai": {
+      "post": {
+        "summary": "Create OpenAI integration",
+        "description": "Create an OpenAI Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createOpenAIIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createOpenAIIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_c5c4ab6733b94daf",
+                "provider": "open_ai",
+                "account_identifier": "OpenAI production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createOpenAIIntegration"
+      }
+    },
+    "/integrations/anthropic": {
+      "post": {
+        "summary": "Create Anthropic integration",
+        "description": "Create an Anthropic Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createAnthropicIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAnthropicIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_59bf4b8615e4f794",
+                "provider": "anthropic",
+                "account_identifier": "org-12345",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createAnthropicIntegration"
+      }
+    },
+    "/integrations/openrouter": {
+      "post": {
+        "summary": "Create OpenRouter integration",
+        "description": "Create an OpenRouter Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createOpenrouterIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createOpenrouterIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_3bdaf712475edece",
+                "provider": "openrouter",
+                "account_identifier": "OpenRouter production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:01Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createOpenrouterIntegration"
+      }
+    },
+    "/integrations/xai": {
+      "post": {
+        "summary": "Create SpaceXAI integration",
+        "description": "Create a SpaceXAI Integration",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createXaiIntegration",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createXaiIntegration"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Integration"
+            },
+            "examples": {
+              "application/json": {
+                "token": "accss_crdntl_966773f4159e4a48",
+                "provider": "xai",
+                "account_identifier": "SpaceXAI production",
+                "status": "pending",
+                "last_updated": null,
+                "workspace_tokens": [],
+                "created_at": "2026-10-29T16:48:23Z",
+                "managed_account_tokens": [],
+                "enriched_by": []
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "createXaiIntegration"
+      }
+    },
     "/invoices": {
       "get": {
         "summary": "Get all invoices",
@@ -10046,7 +10704,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -11059,7 +11717,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -13962,7 +14620,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -16083,7 +16741,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -16249,7 +16907,7 @@
           "402": {
             "description": "PaymentRequired",
             "schema": {
-              "$ref": "#/definitions/Errors"
+              "$ref": "#/definitions/PaymentRequiredErrors"
             }
           },
           "404": {
@@ -20719,6 +21377,7 @@
             "gcp_bigquery_metrics",
             "snowflake_metrics",
             "metronome_metrics",
+            "rippling_metrics",
             "csv"
           ],
           "x-nullable": true,
@@ -22183,6 +22842,14 @@
           },
           "description": "The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter."
         },
+        "custom_calculation_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens of the CustomCalculations attached to the CostReport."
+        },
         "default_forecast": {
           "$ref": "#/definitions/DefaultForecast",
           "description": "The default forecast selection for the CostReport."
@@ -22259,6 +22926,14 @@
               "default": false,
               "x-nullable": true,
               "description": "Report will restrict date ranges to completed periods only."
+            },
+            "table_column_order": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "x-nullable": true,
+              "description": "Ordered list of CostReport table column keys. Empty or omitted uses the default column order."
             }
           },
           "description": "Report settings."
@@ -22322,6 +22997,7 @@
         "token",
         "title",
         "business_metric_tokens_with_metadata",
+        "custom_calculation_tokens",
         "default_forecast",
         "filter",
         "created_at",
@@ -22735,6 +23411,13 @@
               "type": "boolean",
               "description": "Report will restrict date ranges to completed periods only.",
               "default": false
+            },
+            "table_column_order": {
+              "type": "array",
+              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -22838,6 +23521,14 @@
         "title": {
           "type": "string",
           "description": "The title of the CostReport."
+        },
+        "custom_calculation_tokens": {
+          "type": "array",
+          "description": "The complete replacement set of CustomCalculation tokens to attach. An empty array clears all attachments; omission or null leaves them unchanged.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": false
         },
         "groupings": {
           "type": "string",
@@ -23003,6 +23694,14 @@
             "complete_period": {
               "type": "boolean",
               "description": "Report will restrict date ranges to completed periods only."
+            },
+            "table_column_order": {
+              "type": "array",
+              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "items": {
+                "type": "string"
+              },
+              "x-omitempty": true
             }
           }
         },
@@ -23197,6 +23896,56 @@
         }
       },
       "description": "Generate a DataExport of costs."
+    },
+    "PaymentRequiredErrors": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false
+        },
+        "billing_action": {
+          "$ref": "#/definitions/BillingAction",
+          "description": "The billing step a person must take before the request can succeed."
+        }
+      },
+      "required": [
+        "errors",
+        "billing_action"
+      ],
+      "description": "PaymentRequiredErrors model"
+    },
+    "BillingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "upgrade_plan",
+            "contact_account_manager"
+          ],
+          "x-nullable": false,
+          "description": "upgrade_plan means an Account owner must choose or renew a plan at url. contact_account_manager means the Account is billed through the Account that manages it, which must change its plan."
+        },
+        "message": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "A sentence to show the person who has to take the action."
+        },
+        "url": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "Where a signed-in Account owner takes the action. Null for contact_account_manager."
+        }
+      },
+      "required": [
+        "type",
+        "message",
+        "url"
+      ]
     },
     "Costs": {
       "type": "object",
@@ -23489,6 +24238,209 @@
         "currency"
       ],
       "description": "Cost model"
+    },
+    "CustomCalculations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "custom_calculations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomCalculation"
+          }
+        }
+      },
+      "required": [
+        "custom_calculations"
+      ],
+      "description": "CustomCalculations model"
+    },
+    "CustomCalculation": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "cstm_clcltn_1234",
+          "x-nullable": false,
+          "description": "The token of the CustomCalculation."
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The title of the Custom Calculation."
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "sum",
+            "average",
+            "division",
+            "min",
+            "max"
+          ],
+          "x-nullable": false,
+          "description": "The operation applied to the filtered cost or usage data."
+        },
+        "filter": {
+          "type": "object",
+          "x-nullable": false,
+          "description": "The VQL filters and usage units used by the calculation."
+        },
+        "display_as": {
+          "type": "string",
+          "enum": [
+            "ratio",
+            "percent",
+            "per-n"
+          ],
+          "x-nullable": false,
+          "description": "The display format of the calculation."
+        },
+        "unit_scale": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": false,
+          "description": "The integer unit scale of the calculation."
+        },
+        "is_read_only": {
+          "type": "boolean",
+          "x-nullable": false,
+          "description": "Whether the calculation is read only."
+        },
+        "cost_report_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens of the attached CostReports visible to the caller."
+        },
+        "created_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the calculation was created, in ISO 8601 format."
+        },
+        "updated_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the calculation was last updated, in ISO 8601 format."
+        }
+      },
+      "required": [
+        "token",
+        "title",
+        "operation",
+        "filter",
+        "display_as",
+        "unit_scale",
+        "is_read_only",
+        "cost_report_tokens",
+        "created_at",
+        "updated_at"
+      ],
+      "description": "CustomCalculation model"
+    },
+    "createCustomCalculation": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Custom Calculation."
+        },
+        "filter": {
+          "type": "object",
+          "description": "The VQL filters and usage units used by the calculation."
+        },
+        "operation": {
+          "type": "string",
+          "description": "The operation applied to the filtered cost or usage data. Defaults to sum when creating a calculation.",
+          "enum": [
+            "sum",
+            "average",
+            "division",
+            "min",
+            "max"
+          ],
+          "x-omitempty": true
+        },
+        "display_as": {
+          "type": "string",
+          "description": "The display format of the calculation. Defaults to ratio when creating a calculation.",
+          "enum": [
+            "ratio",
+            "percent",
+            "per-n"
+          ],
+          "x-omitempty": true
+        },
+        "unit_scale": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The integer unit scale of the calculation. Defaults to 1 when creating a calculation.",
+          "x-nullable": true,
+          "x-omitempty": true
+        }
+      },
+      "required": [
+        "title",
+        "filter"
+      ],
+      "description": "Create a CustomCalculation. Customer-created calculations are always editable; is_read_only cannot be set."
+    },
+    "updateCustomCalculation": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the Custom Calculation.",
+          "x-omitempty": true
+        },
+        "filter": {
+          "type": "object",
+          "description": "The complete replacement VQL filters and usage units used by the calculation.",
+          "x-omitempty": true
+        },
+        "operation": {
+          "type": "string",
+          "description": "The operation applied to the filtered cost or usage data. Defaults to sum when creating a calculation.",
+          "enum": [
+            "sum",
+            "average",
+            "division",
+            "min",
+            "max"
+          ],
+          "x-omitempty": true
+        },
+        "display_as": {
+          "type": "string",
+          "description": "The display format of the calculation. Defaults to ratio when creating a calculation.",
+          "enum": [
+            "ratio",
+            "percent",
+            "per-n"
+          ],
+          "x-omitempty": true
+        },
+        "unit_scale": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The integer unit scale of the calculation. Defaults to 1 when creating a calculation.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
+        "cost_report_tokens": {
+          "type": "array",
+          "description": "The complete replacement set of CostReport tokens to attach. An empty array clears all attachments; omission or null leaves them unchanged. Replacement requires access to every currently attached CostReport.",
+          "items": {
+            "type": "string"
+          },
+          "x-omitempty": false
+        }
+      },
+      "description": "Update a CustomCalculation. Read-only calculations allow attachment changes only; is_read_only cannot be changed."
     },
     "DashboardNotifications": {
       "type": "object",
@@ -24494,7 +25446,8 @@
             "custom_llm_enrichment_source",
             "cloudflare_ai_gateway_enrichment_source",
             "lite_llm_enrichment_source",
-            "aws_bedrock_enrichment_source"
+            "aws_bedrock_enrichment_source",
+            "bifrost_enrichment_source"
           ],
           "x-nullable": false,
           "description": "The enrichment source type."
@@ -25733,6 +26686,95 @@
         "description"
       ],
       "description": "Create a Twilio Integration"
+    },
+    "createOpenAIIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "OpenAI Admin API key (sk-admin-...). With codex_analytics, an Analytics API key for the ChatGPT workspace."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this OpenAI integration in Vantage."
+        },
+        "codex_analytics": {
+          "type": "boolean",
+          "description": "When true, creates an OpenAI Codex Analytics integration for a ChatGPT workspace instead of an OpenAI API usage integration.",
+          "default": false
+        },
+        "workspace_id": {
+          "type": "string",
+          "description": "ChatGPT workspace UUID from the ChatGPT Admin console. Required when codex_analytics is true."
+        }
+      },
+      "required": [
+        "api_key",
+        "description"
+      ],
+      "description": "Create an OpenAI Integration"
+    },
+    "createAnthropicIntegration": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "Anthropic Admin API key. With enterprise_analytics, a Claude Enterprise Analytics API key with the read:analytics scope."
+        },
+        "enterprise_analytics": {
+          "type": "boolean",
+          "description": "When true, creates a Claude Enterprise Analytics integration instead of an Anthropic API usage integration.",
+          "default": false
+        },
+        "account_name": {
+          "type": "string",
+          "description": "Name for this Claude Enterprise account in Vantage. Required when enterprise_analytics is true."
+        },
+        "organization_id": {
+          "type": "string",
+          "description": "Claude Enterprise organization UUID, used when enterprise_analytics is true. Defaults to the organization of the API key."
+        }
+      },
+      "required": [
+        "api_key"
+      ],
+      "description": "Create an Anthropic Integration"
+    },
+    "createOpenrouterIntegration": {
+      "type": "object",
+      "properties": {
+        "management_api_key": {
+          "type": "string",
+          "description": "OpenRouter management API key."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this OpenRouter integration in Vantage."
+        }
+      },
+      "required": [
+        "management_api_key",
+        "description"
+      ],
+      "description": "Create an OpenRouter Integration"
+    },
+    "createXaiIntegration": {
+      "type": "object",
+      "properties": {
+        "management_key": {
+          "type": "string",
+          "description": "SpaceXAI management key."
+        },
+        "description": {
+          "type": "string",
+          "description": "Name for this SpaceXAI integration in Vantage."
+        }
+      },
+      "required": [
+        "management_key",
+        "description"
+      ],
+      "description": "Create a SpaceXAI Integration"
     },
     "updateIntegration": {
       "type": "object",
@@ -29953,7 +30995,7 @@
         },
         "backfill_until": {
           "type": "string",
-          "example": "2026-04-01",
+          "example": "2026-05-01",
           "x-nullable": false,
           "description": "The earliest month VirtualTagConfig should be backfilled to."
         },

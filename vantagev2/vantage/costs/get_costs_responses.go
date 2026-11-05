@@ -204,7 +204,7 @@ GetCostsPaymentRequired describes a response with status code 402, with default 
 PaymentRequired
 */
 type GetCostsPaymentRequired struct {
-	Payload *models.Errors
+	Payload *models.PaymentRequiredErrors
 }
 
 // IsSuccess returns true when this get costs payment required response has a 2xx status code
@@ -247,13 +247,13 @@ func (o *GetCostsPaymentRequired) String() string {
 	return fmt.Sprintf("[GET /costs][%d] getCostsPaymentRequired %s", 402, payload)
 }
 
-func (o *GetCostsPaymentRequired) GetPayload() *models.Errors {
+func (o *GetCostsPaymentRequired) GetPayload() *models.PaymentRequiredErrors {
 	return o.Payload
 }
 
 func (o *GetCostsPaymentRequired) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Errors)
+	o.Payload = new(models.PaymentRequiredErrors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

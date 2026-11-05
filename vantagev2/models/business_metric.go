@@ -44,7 +44,7 @@ type BusinessMetric struct {
 	// The type of import for the BusinessMetric.
 	// Example: datadog_metrics
 	// Required: true
-	// Enum: ["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","csv"]
+	// Enum: ["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","rippling_metrics","csv"]
 	ImportType *string `json:"import_type"`
 
 	// The Integration token used to import the BusinessMetric.
@@ -229,7 +229,7 @@ var businessMetricTypeImportTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","csv"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["datadog_metrics","cloudwatch","clickhouse_metrics","gcp_bigquery_metrics","snowflake_metrics","metronome_metrics","rippling_metrics","csv"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -256,6 +256,9 @@ const (
 
 	// BusinessMetricImportTypeMetronomeMetrics captures enum value "metronome_metrics"
 	BusinessMetricImportTypeMetronomeMetrics string = "metronome_metrics"
+
+	// BusinessMetricImportTypeRipplingMetrics captures enum value "rippling_metrics"
+	BusinessMetricImportTypeRipplingMetrics string = "rippling_metrics"
 
 	// BusinessMetricImportTypeCsv captures enum value "csv"
 	BusinessMetricImportTypeCsv string = "csv"
