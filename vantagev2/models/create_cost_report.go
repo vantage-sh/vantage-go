@@ -840,6 +840,9 @@ type CreateCostReportSettings struct {
 	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
+	// Ordered list of CostReport table column keys. Send an empty array to reset to the default order.
+	TableColumnOrder []string `json:"table_column_order"`
+
 	// Report will show unallocated costs.
 	Unallocated *bool `json:"unallocated,omitempty"`
 }

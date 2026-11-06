@@ -56,54 +56,11 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOK, error)
-
 	GetReport(params *GetReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportOK, error)
 
 	GetReports(params *GetReportsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
-}
-
-/*
-GetCosts gets costs for cost report
-
-Return available Costs for the specified Cost Report and optional time period. If no time period is specified it will return all available costs for the report.
-*/
-func (a *Client) GetCosts(params *GetCostsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetCostsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "getCosts",
-		Method:             "GET",
-		PathPattern:        "/reports/{report_id}/costs",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetCostsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetCostsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getCosts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
 }
 
 /*
