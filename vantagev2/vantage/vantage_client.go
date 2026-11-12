@@ -37,6 +37,7 @@ import (
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitment_reports"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/financial_commitments"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/folders"
+	"github.com/vantage-sh/vantage-go/vantagev2/vantage/ingest_tokens"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/integrations"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/invoices"
 	"github.com/vantage-sh/vantage-go/vantagev2/vantage/kubernetes_efficiency_reports"
@@ -134,6 +135,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Vantage {
 	cli.FinancialCommitmentReports = financial_commitment_reports.New(transport, formats)
 	cli.FinancialCommitments = financial_commitments.New(transport, formats)
 	cli.Folders = folders.New(transport, formats)
+	cli.IngestTokens = ingest_tokens.New(transport, formats)
 	cli.Integrations = integrations.New(transport, formats)
 	cli.Invoices = invoices.New(transport, formats)
 	cli.KubernetesEfficiencyReports = kubernetes_efficiency_reports.New(transport, formats)
@@ -258,6 +260,8 @@ type Vantage struct {
 
 	Folders folders.ClientService
 
+	IngestTokens ingest_tokens.ClientService
+
 	Integrations integrations.ClientService
 
 	Invoices invoices.ClientService
@@ -343,6 +347,7 @@ func (c *Vantage) SetTransport(transport runtime.ClientTransport) {
 	c.FinancialCommitmentReports.SetTransport(transport)
 	c.FinancialCommitments.SetTransport(transport)
 	c.Folders.SetTransport(transport)
+	c.IngestTokens.SetTransport(transport)
 	c.Integrations.SetTransport(transport)
 	c.Invoices.SetTransport(transport)
 	c.KubernetesEfficiencyReports.SetTransport(transport)

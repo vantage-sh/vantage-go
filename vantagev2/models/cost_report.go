@@ -38,6 +38,10 @@ type CostReport struct {
 	// Required: true
 	CreatedAt string `json:"created_at"`
 
+	// The tokens of the CustomCalculations attached to the CostReport.
+	// Required: true
+	CustomCalculationTokens []string `json:"custom_calculation_tokens"`
+
 	// The date bin of the CostReport.
 	// Required: true
 	DateBin string `json:"date_bin"`
@@ -114,6 +118,10 @@ func (m *CostReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCustomCalculationTokens(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -214,6 +222,15 @@ func (m *CostReport) validateChartType(formats strfmt.Registry) error {
 func (m *CostReport) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CostReport) validateCustomCalculationTokens(formats strfmt.Registry) error {
+
+	if err := validate.Required("custom_calculation_tokens", "body", m.CustomCalculationTokens); err != nil {
 		return err
 	}
 
@@ -466,6 +483,9 @@ type CostReportSettings struct {
 
 	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
+
+	// Ordered list of CostReport table column keys. Empty or omitted uses the default column order.
+	TableColumnOrder []string `json:"table_column_order"`
 
 	// Report will show unallocated costs.
 	Unallocated *bool `json:"unallocated,omitempty"`

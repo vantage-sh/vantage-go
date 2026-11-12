@@ -38,9 +38,6 @@ type CreateTwilioIntegration struct {
 	// Name for this Twilio account in Vantage.
 	// Required: true
 	FriendlyAccountName *string `json:"friendly_account_name"`
-
-	// When true, api_key and api_secret are an OAuth client id and secret.
-	IsOauth bool `json:"is_oauth,omitempty"`
 }
 
 // Validate validates this create twilio integration

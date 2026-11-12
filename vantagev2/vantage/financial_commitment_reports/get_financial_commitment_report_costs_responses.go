@@ -210,7 +210,7 @@ GetFinancialCommitmentReportCostsPaymentRequired describes a response with statu
 PaymentRequired
 */
 type GetFinancialCommitmentReportCostsPaymentRequired struct {
-	Payload *models.Errors
+	Payload *models.PaymentRequiredErrors
 }
 
 // IsSuccess returns true when this get financial commitment report costs payment required response has a 2xx status code
@@ -253,13 +253,13 @@ func (o *GetFinancialCommitmentReportCostsPaymentRequired) String() string {
 	return fmt.Sprintf("[GET /financial_commitment_reports/{financial_commitment_report_token}/costs][%d] getFinancialCommitmentReportCostsPaymentRequired %s", 402, payload)
 }
 
-func (o *GetFinancialCommitmentReportCostsPaymentRequired) GetPayload() *models.Errors {
+func (o *GetFinancialCommitmentReportCostsPaymentRequired) GetPayload() *models.PaymentRequiredErrors {
 	return o.Payload
 }
 
 func (o *GetFinancialCommitmentReportCostsPaymentRequired) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Errors)
+	o.Payload = new(models.PaymentRequiredErrors)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
