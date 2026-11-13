@@ -5,7 +5,7 @@ go 1.26.2
 toolchain go1.26.10
 
 require (
-	github.com/go-openapi/errors v0.22.8
+	github.com/go-openapi/errors v0.22.9
 	github.com/go-openapi/runtime v0.32.3
 	github.com/go-openapi/strfmt v0.26.3
 	github.com/go-openapi/swag v0.26.0
