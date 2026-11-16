@@ -20,11 +20,14 @@ import (
 // swagger:model createCustomCalculation
 type CreateCustomCalculation struct {
 
+	// An optional description, up to 10000 characters. Send null or an empty string to clear; omit on update to leave unchanged.
+	Description *string `json:"description,omitempty"`
+
 	// The display format of the calculation. Defaults to ratio when creating a calculation.
 	// Enum: ["ratio","percent","per-n"]
 	DisplayAs string `json:"display_as,omitempty"`
 
-	// The VQL filters and usage units used by the calculation.
+	// The VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units.
 	// Required: true
 	Filter interface{} `json:"filter"`
 
@@ -36,7 +39,7 @@ type CreateCustomCalculation struct {
 	// Required: true
 	Title *string `json:"title"`
 
-	// The integer unit scale of the calculation. Defaults to 1 when creating a calculation.
+	// The integer unit scale of the calculation. Send null to reset to 1. Defaults to 1 on create; omit on update to leave unchanged.
 	UnitScale *int32 `json:"unit_scale,omitempty"`
 }
 

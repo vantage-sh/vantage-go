@@ -28,12 +28,16 @@ type CustomCalculation struct {
 	// Required: true
 	CreatedAt string `json:"created_at"`
 
+	// The description of the calculation, or null when blank.
+	// Required: true
+	Description *string `json:"description"`
+
 	// The display format of the calculation.
 	// Required: true
 	// Enum: ["ratio","percent","per-n"]
 	DisplayAs string `json:"display_as"`
 
-	// The VQL filters and usage units used by the calculation.
+	// The VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units.
 	// Required: true
 	Filter interface{} `json:"filter"`
 
@@ -73,6 +77,10 @@ func (m *CustomCalculation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -126,6 +134,15 @@ func (m *CustomCalculation) validateCostReportTokens(formats strfmt.Registry) er
 func (m *CustomCalculation) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("created_at", "body", m.CreatedAt); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CustomCalculation) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("description", "body", m.Description); err != nil {
 		return err
 	}
 

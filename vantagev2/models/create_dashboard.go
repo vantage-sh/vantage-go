@@ -608,12 +608,15 @@ type CreateDashboardWidgetsItems0Settings struct {
 	// grid
 	Grid *CreateDashboardWidgetsItems0SettingsGrid `json:"grid,omitempty"`
 
-	// The aggregation used when display_type is kpi.
+	// The aggregation used for standard KPI widgets. Custom calculation widgets use the operation defined by the referenced calculation.
 	// Enum: ["sum","average"]
 	KpiCalculation string `json:"kpi_calculation,omitempty"`
 
+	// The token of a custom calculation assigned to the selected Cost Report. Required for custom calculation KPI widgets.
+	KpiCustomCalculationToken string `json:"kpi_custom_calculation_token,omitempty"`
+
 	// The metric represented when display_type is kpi.
-	// Enum: ["cost","usage","count","business_metric"]
+	// Enum: ["cost","usage","count","business_metric","custom_calculation"]
 	KpiType string `json:"kpi_type,omitempty"`
 
 	// The usage unit represented when kpi_type is usage.
@@ -757,7 +760,7 @@ var createDashboardWidgetsItems0SettingsTypeKpiTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cost","usage","count","business_metric"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cost","usage","count","business_metric","custom_calculation"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -778,6 +781,9 @@ const (
 
 	// CreateDashboardWidgetsItems0SettingsKpiTypeBusinessMetric captures enum value "business_metric"
 	CreateDashboardWidgetsItems0SettingsKpiTypeBusinessMetric string = "business_metric"
+
+	// CreateDashboardWidgetsItems0SettingsKpiTypeCustomCalculation captures enum value "custom_calculation"
+	CreateDashboardWidgetsItems0SettingsKpiTypeCustomCalculation string = "custom_calculation"
 )
 
 // prop value enum

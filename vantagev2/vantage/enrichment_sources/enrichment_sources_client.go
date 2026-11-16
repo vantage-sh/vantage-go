@@ -58,6 +58,10 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	GetEnrichmentSource(params *GetEnrichmentSourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourceOK, error)
 
+	GetEnrichmentSourceCostIntegrations(params *GetEnrichmentSourceCostIntegrationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourceCostIntegrationsOK, error)
+
+	GetEnrichmentSourceIngestTokens(params *GetEnrichmentSourceIngestTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourceIngestTokensOK, error)
+
 	GetEnrichmentSources(params *GetEnrichmentSourcesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourcesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -101,6 +105,88 @@ func (a *Client) GetEnrichmentSource(params *GetEnrichmentSourceParams, authInfo
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getEnrichmentSource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetEnrichmentSourceCostIntegrations gets associated cost integrations
+
+Return associated cost integrations, including those with errors and excluding disabled associations.
+*/
+func (a *Client) GetEnrichmentSourceCostIntegrations(params *GetEnrichmentSourceCostIntegrationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourceCostIntegrationsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnrichmentSourceCostIntegrationsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getEnrichmentSourceCostIntegrations",
+		Method:             "GET",
+		PathPattern:        "/enrichment_sources/{enrichment_source_token}/cost_integrations",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetEnrichmentSourceCostIntegrationsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetEnrichmentSourceCostIntegrationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getEnrichmentSourceCostIntegrations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetEnrichmentSourceIngestTokens lists enrichment source ingest tokens
+
+List ingest token metadata for this enrichment source. Secret credentials are never returned.
+*/
+func (a *Client) GetEnrichmentSourceIngestTokens(params *GetEnrichmentSourceIngestTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrichmentSourceIngestTokensOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnrichmentSourceIngestTokensParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getEnrichmentSourceIngestTokens",
+		Method:             "GET",
+		PathPattern:        "/enrichment_sources/{enrichment_source_token}/ingest_tokens",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetEnrichmentSourceIngestTokensReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetEnrichmentSourceIngestTokensOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getEnrichmentSourceIngestTokens: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

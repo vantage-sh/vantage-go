@@ -24,7 +24,7 @@ type UpdateDashboardWidget struct {
 	Settings *UpdateDashboardWidgetSettings `json:"settings,omitempty"`
 
 	// The title of the Widget.
-	Title string `json:"title,omitempty"`
+	Title *string `json:"title,omitempty"`
 
 	// The token of the Resource represented by the Widget.
 	WidgetableToken string `json:"widgetable_token,omitempty"`
@@ -125,16 +125,19 @@ type UpdateDashboardWidgetSettings struct {
 	// Enum: ["table","chart","kpi"]
 	DisplayType string `json:"display_type,omitempty"`
 
-	// kpi calculation
+	// The aggregation used for standard KPI widgets. Custom calculation widgets use the operation defined by the referenced calculation.
 	// Enum: ["sum","average"]
 	KpiCalculation string `json:"kpi_calculation,omitempty"`
 
+	// The token of a custom calculation assigned to the selected Cost Report. Omit to preserve the current selection.
+	KpiCustomCalculationToken string `json:"kpi_custom_calculation_token,omitempty"`
+
 	// kpi type
-	// Enum: ["cost","usage","count","business_metric"]
+	// Enum: ["cost","usage","count","business_metric","custom_calculation"]
 	KpiType string `json:"kpi_type,omitempty"`
 
 	// kpi usage unit
-	KpiUsageUnit string `json:"kpi_usage_unit,omitempty"`
+	KpiUsageUnit *string `json:"kpi_usage_unit,omitempty"`
 }
 
 // Validate validates this update dashboard widget settings
@@ -250,7 +253,7 @@ var updateDashboardWidgetSettingsTypeKpiTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cost","usage","count","business_metric"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cost","usage","count","business_metric","custom_calculation"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -271,6 +274,9 @@ const (
 
 	// UpdateDashboardWidgetSettingsKpiTypeBusinessMetric captures enum value "business_metric"
 	UpdateDashboardWidgetSettingsKpiTypeBusinessMetric string = "business_metric"
+
+	// UpdateDashboardWidgetSettingsKpiTypeCustomCalculation captures enum value "custom_calculation"
+	UpdateDashboardWidgetSettingsKpiTypeCustomCalculation string = "custom_calculation"
 )
 
 // prop value enum

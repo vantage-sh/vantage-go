@@ -23,11 +23,14 @@ type UpdateCustomCalculation struct {
 	// The complete replacement set of CostReport tokens to attach. An empty array clears all attachments; omission or null leaves them unchanged. Replacement requires access to every currently attached CostReport.
 	CostReportTokens []string `json:"cost_report_tokens"`
 
+	// An optional description, up to 10000 characters. Send null or an empty string to clear; omit on update to leave unchanged.
+	Description *string `json:"description,omitempty"`
+
 	// The display format of the calculation. Defaults to ratio when creating a calculation.
 	// Enum: ["ratio","percent","per-n"]
 	DisplayAs string `json:"display_as,omitempty"`
 
-	// The complete replacement VQL filters and usage units used by the calculation.
+	// The complete replacement VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units.
 	Filter interface{} `json:"filter,omitempty"`
 
 	// The operation applied to the filtered cost or usage data. Defaults to sum when creating a calculation.
@@ -37,7 +40,7 @@ type UpdateCustomCalculation struct {
 	// The title of the Custom Calculation.
 	Title string `json:"title,omitempty"`
 
-	// The integer unit scale of the calculation. Defaults to 1 when creating a calculation.
+	// The integer unit scale of the calculation. Send null to reset to 1. Defaults to 1 on create; omit on update to leave unchanged.
 	UnitScale *int32 `json:"unit_scale,omitempty"`
 }
 

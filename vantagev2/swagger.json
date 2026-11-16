@@ -143,6 +143,10 @@
       "description": "Operations about Folders"
     },
     {
+      "name": "IngestTokens",
+      "description": "Operations about IngestTokens"
+    },
+    {
       "name": "Integrations",
       "description": "Operations about Integrations"
     },
@@ -4910,7 +4914,8 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud"
             ],
             "required": false
           },
@@ -5527,6 +5532,7 @@
               "sentry_billing",
               "ramp",
               "dynatrace",
+              "cockroachdb_cloud",
               "all"
             ],
             "required": false
@@ -6024,9 +6030,9 @@
                 },
                 "custom_calculations": [
                   {
-                    "token": "cstm_clcltn_f1e304dee0467dcc",
-                    "cost_report_tokens": [],
+                    "token": "cstm_clcltn_95e93dd9f164b6ac",
                     "title": "Custom Calculation",
+                    "description": null,
                     "operation": "sum",
                     "filter": {
                       "type": "sum",
@@ -6036,13 +6042,14 @@
                     "display_as": "ratio",
                     "unit_scale": 1,
                     "is_read_only": false,
+                    "cost_report_tokens": [],
                     "created_at": "2026-10-22T12:00:00Z",
                     "updated_at": "2026-10-22T12:00:00Z"
                   },
                   {
-                    "token": "cstm_clcltn_2ec8e12f8e600a1c",
-                    "cost_report_tokens": [],
+                    "token": "cstm_clcltn_ceb61bb0b47a557b",
                     "title": "Second",
+                    "description": null,
                     "operation": "sum",
                     "filter": {
                       "type": "sum",
@@ -6052,6 +6059,7 @@
                     "display_as": "ratio",
                     "unit_scale": 1,
                     "is_read_only": false,
+                    "cost_report_tokens": [],
                     "created_at": "2026-10-22T12:00:00Z",
                     "updated_at": "2026-10-22T12:00:00Z"
                   }
@@ -6111,9 +6119,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "cstm_clcltn_92abe93a4b50fb40",
-                "cost_report_tokens": [],
+                "token": "cstm_clcltn_b76fd809bc724320",
                 "title": "AWS usage",
+                "description": null,
                 "operation": "sum",
                 "filter": {
                   "type": "sum",
@@ -6123,6 +6131,7 @@
                 "display_as": "ratio",
                 "unit_scale": 1,
                 "is_read_only": false,
+                "cost_report_tokens": [],
                 "created_at": "2026-10-22T12:00:00Z",
                 "updated_at": "2026-10-22T12:00:00Z"
               }
@@ -6189,9 +6198,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "cstm_clcltn_e4a22aa5f3475eca",
-                "cost_report_tokens": [],
+                "token": "cstm_clcltn_2ea45b95be3630c5",
                 "title": "Custom Calculation",
+                "description": null,
                 "operation": "sum",
                 "filter": {
                   "type": "sum",
@@ -6201,6 +6210,7 @@
                 "display_as": "ratio",
                 "unit_scale": 1,
                 "is_read_only": false,
+                "cost_report_tokens": [],
                 "created_at": "2026-10-22T12:00:00Z",
                 "updated_at": "2026-10-22T12:00:00Z"
               }
@@ -6264,9 +6274,9 @@
             },
             "examples": {
               "application/json": {
-                "token": "cstm_clcltn_8f10c97851c7691e",
-                "cost_report_tokens": [],
+                "token": "cstm_clcltn_57392aa904ac64ba",
                 "title": "Updated calculation",
+                "description": null,
                 "operation": "average",
                 "filter": {
                   "type": "sum",
@@ -6276,6 +6286,7 @@
                 "display_as": "per-n",
                 "unit_scale": 1000,
                 "is_read_only": false,
+                "cost_report_tokens": [],
                 "created_at": "2026-10-22T12:00:00Z",
                 "updated_at": "2026-10-22T12:00:00Z"
               }
@@ -7593,6 +7604,199 @@
         "operationId": "getEnrichmentSource"
       }
     },
+    "/enrichment_sources/{enrichment_source_token}/cost_integrations": {
+      "get": {
+        "summary": "Get associated cost integrations",
+        "description": "Return associated cost integrations, including those with errors and excluding disabled associations.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "enrichment_source_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return associated cost integrations, including those with errors and excluding disabled associations.",
+            "schema": {
+              "$ref": "#/definitions/CostIntegrations"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_5976ebd11302daa2/cost_integrations",
+                  "first": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_5976ebd11302daa2/cost_integrations?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_5976ebd11302daa2/cost_integrations?page=1",
+                  "prev": null
+                },
+                "cost_integrations": [
+                  {
+                    "token": "accss_crdntl_51cc69c51624caf4",
+                    "provider": "aws",
+                    "account_identifier": "606441991586",
+                    "status": "pending",
+                    "last_updated": null,
+                    "workspace_tokens": [
+                      "wrkspc_5019ac56ac17dd58"
+                    ],
+                    "created_at": "2026-11-10T22:13:57Z",
+                    "managed_account_tokens": [],
+                    "enriched_by": [
+                      "srvc_data_intgrtn_1e315a6237dfd2e1",
+                      "srvc_data_intgrtn_5976ebd11302daa2",
+                      "srvc_data_intgrtn_60a40c37820efd44",
+                      "srvc_data_intgrtn_8a0519d49bf04d02"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "EnrichmentSources"
+        ],
+        "operationId": "getEnrichmentSourceCostIntegrations"
+      }
+    },
+    "/enrichment_sources/{enrichment_source_token}/ingest_tokens": {
+      "get": {
+        "summary": "List enrichment source ingest tokens",
+        "description": "List ingest token metadata for this enrichment source. Secret credentials are never returned.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "enrichment_source_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. Defaults to 1000; the maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 1000,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List ingest token metadata for this enrichment source. Secret credentials are never returned.",
+            "schema": {
+              "$ref": "#/definitions/IngestTokens"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_93d9727e64d4327e/ingest_tokens",
+                  "first": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_93d9727e64d4327e/ingest_tokens?page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/enrichment_sources/srvc_data_intgrtn_93d9727e64d4327e/ingest_tokens?page=1",
+                  "prev": null
+                },
+                "tokens": [
+                  {
+                    "token": "tlm_tok_08dacbf0109f9235",
+                    "feed_token": "srvc_data_intgrtn_93d9727e64d4327e",
+                    "provider": "bifrost",
+                    "name": "Production",
+                    "last4": "zkDQ",
+                    "retention_days": 30,
+                    "issued_at": "2026-11-11T12:00:00Z",
+                    "expires_at": "2027-01-11T12:00:00Z",
+                    "revoked_at": null,
+                    "created_by": "usr_729dc9281dcb3c73"
+                  },
+                  {
+                    "token": "tlm_tok_1b7a123749150ee4",
+                    "feed_token": "srvc_data_intgrtn_93d9727e64d4327e",
+                    "provider": "bifrost",
+                    "name": null,
+                    "last4": "9MDA",
+                    "retention_days": null,
+                    "issued_at": "2026-11-11T12:00:00Z",
+                    "expires_at": "2028-05-11T12:00:00Z",
+                    "revoked_at": null,
+                    "created_by": "usr_729dc9281dcb3c73"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "EnrichmentSources"
+        ],
+        "operationId": "getEnrichmentSourceIngestTokens"
+      }
+    },
     "/enrichment_sources/{enrichment_source_token}/statistics": {
       "get": {
         "summary": "Get enrichment statistics",
@@ -7682,7 +7886,8 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud"
             ],
             "required": false,
             "x-example": "aws"
@@ -8752,6 +8957,242 @@
         "operationId": "deleteFolder"
       }
     },
+    "/ingest_tokens": {
+      "get": {
+        "summary": "List ingest tokens",
+        "description": "List ingest token metadata for an existing telemetry feed. Secret credentials are never returned.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "feed_token",
+            "description": "The public token of an existing telemetry feed.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The number of results to return. Defaults to 1000; the maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 1000,
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List ingest token metadata for an existing telemetry feed. Secret credentials are never returned.",
+            "schema": {
+              "$ref": "#/definitions/IngestTokens"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/ingest_tokens?feed_token=srvc_data_intgrtn_93d9727e64d4327e",
+                  "first": "https://api.vantage.sh/v2/ingest_tokens?feed_token=srvc_data_intgrtn_93d9727e64d4327e&page=1",
+                  "next": null,
+                  "last": "https://api.vantage.sh/v2/ingest_tokens?feed_token=srvc_data_intgrtn_93d9727e64d4327e&page=1",
+                  "prev": null
+                },
+                "tokens": [
+                  {
+                    "token": "tlm_tok_08dacbf0109f9235",
+                    "feed_token": "srvc_data_intgrtn_93d9727e64d4327e",
+                    "provider": "bifrost",
+                    "name": "Production",
+                    "last4": "zkDQ",
+                    "retention_days": 30,
+                    "issued_at": "2026-11-11T12:00:00Z",
+                    "expires_at": "2027-01-11T12:00:00Z",
+                    "revoked_at": null,
+                    "created_by": "usr_729dc9281dcb3c73"
+                  },
+                  {
+                    "token": "tlm_tok_1b7a123749150ee4",
+                    "feed_token": "srvc_data_intgrtn_93d9727e64d4327e",
+                    "provider": "bifrost",
+                    "name": null,
+                    "last4": "9MDA",
+                    "retention_days": null,
+                    "issued_at": "2026-11-11T12:00:00Z",
+                    "expires_at": "2028-05-11T12:00:00Z",
+                    "revoked_at": null,
+                    "created_by": "usr_729dc9281dcb3c73"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "IngestTokens"
+        ],
+        "operationId": "getIngestTokens"
+      },
+      "post": {
+        "summary": "Create ingest token",
+        "description": "Create an ingest token for an existing telemetry feed. Save plaintext_token securely; it is returned only once.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createIngestToken",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createIngestToken"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create an ingest token for an existing telemetry feed. Save plaintext_token securely; it is returned only once.",
+            "schema": {
+              "$ref": "#/definitions/IngestTokenCreation"
+            },
+            "examples": {
+              "application/json": {
+                "token": "tlm_tok_08dacbf0109f9235",
+                "feed_token": "srvc_data_intgrtn_93d9727e64d4327e",
+                "provider": "bifrost",
+                "name": "Production",
+                "last4": "zkDQ",
+                "retention_days": 30,
+                "issued_at": "2026-11-11T12:00:00Z",
+                "expires_at": "2027-01-11T12:00:00Z",
+                "revoked_at": null,
+                "created_by": "usr_729dc9281dcb3c73",
+                "plaintext_token": "vntg_ti_REDACTED"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "409": {
+            "description": "The feed is stopped.",
+            "schema": {
+              "$ref": "#/definitions/IngestToken"
+            }
+          }
+        },
+        "tags": [
+          "IngestTokens"
+        ],
+        "operationId": "createIngestToken"
+      }
+    },
+    "/ingest_tokens/{token_id}/revoke": {
+      "post": {
+        "summary": "Revoke ingest token",
+        "description": "Revoke an ingest token while preserving its metadata. Repeated revocation has no additional effect.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Revoke an ingest token while preserving its metadata. Repeated revocation has no additional effect.",
+            "schema": {
+              "$ref": "#/definitions/IngestToken"
+            },
+            "examples": {
+              "application/json": {
+                "token": "tlm_tok_b10bef544f7f324b",
+                "feed_token": "srvc_data_intgrtn_db12bf82d85fa6ca",
+                "provider": "bifrost",
+                "name": null,
+                "last4": "HKAw",
+                "retention_days": null,
+                "issued_at": "2026-11-11T12:00:00Z",
+                "expires_at": "2028-05-11T12:00:00Z",
+                "revoked_at": "2026-11-11T12:00:00Z",
+                "created_by": "usr_68164c550d677188"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "IngestTokens"
+        ],
+        "operationId": "revokeIngestToken"
+      }
+    },
     "/integrations": {
       "get": {
         "summary": "Get all integrations",
@@ -8815,7 +9256,8 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud"
             ],
             "required": false
           },
@@ -15778,7 +16220,8 @@
                 "crusoe",
                 "sentry_billing",
                 "ramp",
-                "dynatrace"
+                "dynatrace",
+                "cockroachdb_cloud"
               ]
             },
             "required": false
@@ -16025,7 +16468,8 @@
                 "crusoe",
                 "sentry_billing",
                 "ramp",
-                "dynatrace"
+                "dynatrace",
+                "cockroachdb_cloud"
               ]
             },
             "required": false
@@ -23238,6 +23682,7 @@
             "sentry_billing",
             "ramp",
             "dynatrace",
+            "cockroachdb_cloud",
             "all"
           ],
           "x-nullable": false,
@@ -24136,7 +24581,8 @@
             "crusoe",
             "sentry_billing",
             "ramp",
-            "dynatrace"
+            "dynatrace",
+            "cockroachdb_cloud"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -24271,6 +24717,11 @@
           "x-nullable": false,
           "description": "The title of the Custom Calculation."
         },
+        "description": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The description of the calculation, or null when blank."
+        },
         "operation": {
           "type": "string",
           "enum": [
@@ -24286,7 +24737,7 @@
         "filter": {
           "type": "object",
           "x-nullable": false,
-          "description": "The VQL filters and usage units used by the calculation."
+          "description": "The VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units."
         },
         "display_as": {
           "type": "string",
@@ -24331,6 +24782,7 @@
       "required": [
         "token",
         "title",
+        "description",
         "operation",
         "filter",
         "display_as",
@@ -24351,7 +24803,13 @@
         },
         "filter": {
           "type": "object",
-          "description": "The VQL filters and usage units used by the calculation."
+          "description": "The VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units."
+        },
+        "description": {
+          "type": "string",
+          "description": "An optional description, up to 10000 characters. Send null or an empty string to clear; omit on update to leave unchanged.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "operation": {
           "type": "string",
@@ -24378,7 +24836,7 @@
         "unit_scale": {
           "type": "integer",
           "format": "int32",
-          "description": "The integer unit scale of the calculation. Defaults to 1 when creating a calculation.",
+          "description": "The integer unit scale of the calculation. Send null to reset to 1. Defaults to 1 on create; omit on update to leave unchanged.",
           "x-nullable": true,
           "x-omitempty": true
         }
@@ -24399,7 +24857,13 @@
         },
         "filter": {
           "type": "object",
-          "description": "The complete replacement VQL filters and usage units used by the calculation.",
+          "description": "The complete replacement VQL filters and usage units used by the calculation. A usage unit is a string, a non-empty array of equivalent unit names, or null for costs. Arrays sum usage without converting units.",
+          "x-omitempty": true
+        },
+        "description": {
+          "type": "string",
+          "description": "An optional description, up to 10000 characters. Send null or an empty string to clear; omit on update to leave unchanged.",
+          "x-nullable": true,
           "x-omitempty": true
         },
         "operation": {
@@ -24427,7 +24891,7 @@
         "unit_scale": {
           "type": "integer",
           "format": "int32",
-          "description": "The integer unit scale of the calculation. Defaults to 1 when creating a calculation.",
+          "description": "The integer unit scale of the calculation. Send null to reset to 1. Defaults to 1 on create; omit on update to leave unchanged.",
           "x-nullable": true,
           "x-omitempty": true
         },
@@ -24684,7 +25148,7 @@
             "average"
           ],
           "x-nullable": true,
-          "description": "The aggregation used when display_type is kpi."
+          "description": "The aggregation used when display_type is kpi. Custom calculation KPIs use the calculation's own operation instead."
         },
         "kpi_type": {
           "type": "string",
@@ -24692,10 +25156,17 @@
             "cost",
             "usage",
             "count",
-            "business_metric"
+            "business_metric",
+            "custom_calculation"
           ],
           "x-nullable": true,
           "description": "The metric represented by the KPI."
+        },
+        "kpi_custom_calculation_token": {
+          "type": "string",
+          "example": "cstm_clcltn_a12b3c",
+          "x-nullable": true,
+          "description": "The token of the custom calculation assigned to the Cost Report represented by this KPI."
         },
         "kpi_usage_unit": {
           "type": "string",
@@ -24757,6 +25228,7 @@
         "title": {
           "type": "string",
           "description": "The title of the Widget.",
+          "x-nullable": true,
           "x-omitempty": true
         },
         "settings": {
@@ -24775,6 +25247,7 @@
             },
             "kpi_calculation": {
               "type": "string",
+              "description": "The aggregation used for standard KPI widgets. Custom calculation widgets use the operation defined by the referenced calculation.",
               "enum": [
                 "sum",
                 "average"
@@ -24787,12 +25260,19 @@
                 "cost",
                 "usage",
                 "count",
-                "business_metric"
+                "business_metric",
+                "custom_calculation"
               ],
+              "x-omitempty": true
+            },
+            "kpi_custom_calculation_token": {
+              "type": "string",
+              "description": "The token of a custom calculation assigned to the selected Cost Report. Omit to preserve the current selection.",
               "x-omitempty": true
             },
             "kpi_usage_unit": {
               "type": "string",
+              "x-nullable": true,
               "x-omitempty": true
             }
           }
@@ -24998,7 +25478,7 @@
                   },
                   "kpi_calculation": {
                     "type": "string",
-                    "description": "The aggregation used when display_type is kpi.",
+                    "description": "The aggregation used for standard KPI widgets. Custom calculation widgets use the operation defined by the referenced calculation.",
                     "enum": [
                       "sum",
                       "average"
@@ -25012,8 +25492,14 @@
                       "cost",
                       "usage",
                       "count",
-                      "business_metric"
+                      "business_metric",
+                      "custom_calculation"
                     ],
+                    "x-omitempty": true
+                  },
+                  "kpi_custom_calculation_token": {
+                    "type": "string",
+                    "description": "The token of a custom calculation assigned to the selected Cost Report. Required for custom calculation KPI widgets.",
                     "x-omitempty": true
                   },
                   "kpi_usage_unit": {
@@ -25178,7 +25664,8 @@
                     "type": "array",
                     "items": {
                       "type": "object"
-                    }
+                    },
+                    "x-omitempty": true
                   }
                 },
                 "required": [
@@ -25200,7 +25687,7 @@
                   },
                   "kpi_calculation": {
                     "type": "string",
-                    "description": "The aggregation used when display_type is kpi.",
+                    "description": "The aggregation used for standard KPI widgets. Custom calculation widgets use the operation defined by the referenced calculation.",
                     "enum": [
                       "sum",
                       "average"
@@ -25214,8 +25701,14 @@
                       "cost",
                       "usage",
                       "count",
-                      "business_metric"
+                      "business_metric",
+                      "custom_calculation"
                     ],
+                    "x-omitempty": true
+                  },
+                  "kpi_custom_calculation_token": {
+                    "type": "string",
+                    "description": "The token of a custom calculation assigned to the selected Cost Report. Required for custom calculation KPI widgets.",
                     "x-omitempty": true
                   },
                   "kpi_usage_unit": {
@@ -25445,9 +25938,11 @@
           "enum": [
             "custom_llm_enrichment_source",
             "cloudflare_ai_gateway_enrichment_source",
+            "cloudflare_ai_gateway_otel_enrichment_source",
             "lite_llm_enrichment_source",
             "aws_bedrock_enrichment_source",
-            "bifrost_enrichment_source"
+            "bifrost_enrichment_source",
+            "open_router_enrichment_source"
           ],
           "x-nullable": false,
           "description": "The enrichment source type."
@@ -25484,6 +25979,196 @@
         "created_at"
       ],
       "description": "EnrichmentSource model"
+    },
+    "CostIntegrations": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "cost_integrations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Integration"
+          }
+        }
+      },
+      "required": [
+        "cost_integrations"
+      ],
+      "description": "CostIntegrations model"
+    },
+    "Integration": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false
+        },
+        "provider": {
+          "type": "string",
+          "example": "AWS",
+          "x-nullable": false,
+          "description": "The name of the Integration."
+        },
+        "account_identifier": {
+          "type": "string",
+          "example": "011389-EF4C3E-3ED7AE",
+          "x-nullable": true,
+          "description": "The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID"
+        },
+        "status": {
+          "type": "string",
+          "example": "imported",
+          "enum": [
+            "connected",
+            "error",
+            "pending",
+            "importing",
+            "imported",
+            "disconnected"
+          ],
+          "x-nullable": false,
+          "description": "The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'."
+        },
+        "last_updated": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "x-nullable": true,
+          "description": "The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted."
+        },
+        "workspace_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens for any Workspaces that the account belongs to."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
+        },
+        "managed_account_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "The tokens for any Managed Accounts that are associated with the Integration."
+        },
+        "enriched_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "srvc_data_intgrtn_a1b2c3d4e5f67890"
+            ]
+          },
+          "x-nullable": false,
+          "description": "Tokens of the data integrations that enrich this integration's costs. Empty when enrichment is not connected."
+        }
+      },
+      "required": [
+        "token",
+        "provider",
+        "account_identifier",
+        "status",
+        "workspace_tokens",
+        "created_at",
+        "managed_account_tokens",
+        "enriched_by"
+      ],
+      "description": "Integration model"
+    },
+    "IngestTokens": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IngestToken"
+          }
+        }
+      },
+      "required": [
+        "tokens"
+      ],
+      "description": "IngestTokens model"
+    },
+    "IngestToken": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The public identifier for this token, not the secret ingest credential."
+        },
+        "feed_token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The public token of the telemetry feed this token belongs to."
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The telemetry provider for this token."
+        },
+        "name": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token name."
+        },
+        "last4": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The last four characters of the secret ingest credential."
+        },
+        "retention_days": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "description": "The retention period in days, when specified."
+        },
+        "issued_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the token was issued, in ISO 8601 format."
+        },
+        "expires_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the token expires, in ISO 8601 format."
+        },
+        "revoked_at": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "When the token was revoked, in ISO 8601 format."
+        },
+        "created_by": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The public token of the user who created this ingest token, when available."
+        }
+      },
+      "required": [
+        "token",
+        "feed_token",
+        "provider",
+        "name",
+        "last4",
+        "retention_days",
+        "issued_at",
+        "expires_at",
+        "revoked_at",
+        "created_by"
+      ],
+      "description": "IngestToken model"
     },
     "EnrichmentStatistics": {
       "type": "object",
@@ -26398,6 +27083,108 @@
       },
       "description": "Update a Folder."
     },
+    "createIngestToken": {
+      "type": "object",
+      "properties": {
+        "feed_token": {
+          "type": "string",
+          "description": "The public token of an existing telemetry feed."
+        },
+        "name": {
+          "type": "string",
+          "description": "An optional name, up to 100 characters."
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expiration time in ISO 8601 format. Defaults to 18 months; must be in the future and no more than 18 months away."
+        },
+        "retention_days": {
+          "type": "integer",
+          "format": "int32",
+          "description": "An optional positive retention period in days."
+        }
+      },
+      "required": [
+        "feed_token"
+      ],
+      "description": "Create an ingest token for an existing telemetry feed. Save plaintext_token securely; it is returned only once."
+    },
+    "IngestTokenCreation": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The public identifier for this token, not the secret ingest credential."
+        },
+        "feed_token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The public token of the telemetry feed this token belongs to."
+        },
+        "provider": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The telemetry provider for this token."
+        },
+        "name": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The token name."
+        },
+        "last4": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The last four characters of the secret ingest credential."
+        },
+        "retention_days": {
+          "type": "integer",
+          "format": "int32",
+          "x-nullable": true,
+          "description": "The retention period in days, when specified."
+        },
+        "issued_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the token was issued, in ISO 8601 format."
+        },
+        "expires_at": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "When the token expires, in ISO 8601 format."
+        },
+        "revoked_at": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "When the token was revoked, in ISO 8601 format."
+        },
+        "created_by": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The public token of the user who created this ingest token, when available."
+        },
+        "plaintext_token": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The secret ingest credential. Returned only on creation; save it securely."
+        }
+      },
+      "required": [
+        "token",
+        "feed_token",
+        "provider",
+        "name",
+        "last4",
+        "retention_days",
+        "issued_at",
+        "expires_at",
+        "revoked_at",
+        "created_by",
+        "plaintext_token"
+      ],
+      "description": "IngestTokenCreation model"
+    },
     "Integrations": {
       "type": "object",
       "properties": {
@@ -26415,91 +27202,6 @@
         "integrations"
       ],
       "description": "Integrations model"
-    },
-    "Integration": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string",
-          "x-nullable": false
-        },
-        "provider": {
-          "type": "string",
-          "example": "AWS",
-          "x-nullable": false,
-          "description": "The name of the Integration."
-        },
-        "account_identifier": {
-          "type": "string",
-          "example": "011389-EF4C3E-3ED7AE",
-          "x-nullable": true,
-          "description": "The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID"
-        },
-        "status": {
-          "type": "string",
-          "example": "imported",
-          "enum": [
-            "connected",
-            "error",
-            "pending",
-            "importing",
-            "imported",
-            "disconnected"
-          ],
-          "x-nullable": false,
-          "description": "The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'."
-        },
-        "last_updated": {
-          "type": "string",
-          "example": "2023-08-04T00:00:00Z",
-          "x-nullable": true,
-          "description": "The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted."
-        },
-        "workspace_tokens": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-nullable": false,
-          "description": "The tokens for any Workspaces that the account belongs to."
-        },
-        "created_at": {
-          "type": "string",
-          "example": "2023-08-04T00:00:00Z",
-          "x-nullable": false,
-          "description": "The date and time, in UTC, the Integration was created. ISO 8601 Formatted."
-        },
-        "managed_account_tokens": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-nullable": false,
-          "description": "The tokens for any Managed Accounts that are associated with the Integration."
-        },
-        "enriched_by": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": [
-              "srvc_data_intgrtn_a1b2c3d4e5f67890"
-            ]
-          },
-          "x-nullable": false,
-          "description": "Tokens of the data integrations that enrich this integration's costs. Empty when enrichment is not connected."
-        }
-      },
-      "required": [
-        "token",
-        "provider",
-        "account_identifier",
-        "status",
-        "workspace_tokens",
-        "created_at",
-        "managed_account_tokens",
-        "enriched_by"
-      ],
-      "description": "Integration model"
     },
     "createCustomProviderIntegration": {
       "type": "object",
@@ -26672,10 +27374,6 @@
         "description": {
           "type": "string",
           "description": "Description of the integration."
-        },
-        "is_oauth": {
-          "type": "boolean",
-          "description": "When true, api_key and api_secret are an OAuth client id and secret."
         }
       },
       "required": [
@@ -31526,6 +32224,12 @@
           "x-nullable": true,
           "x-omitempty": true
         },
+        "backfill": {
+          "type": "boolean",
+          "description": "Whether to backfill historical costs for this update. Omit to use the account's automatic-backfill setting. True requests backfill only when the configuration changes, respecting eligibility, date ranges, retention, and provider month locks. False saves without requesting backfill; later refreshes or other backfills may still apply the configuration to unlocked historical costs. backfill_until controls the earliest eligible month, not whether backfill runs.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "backfill_until": {
           "type": "string",
           "format": "date",
@@ -31558,7 +32262,8 @@
             "required": [
               "key"
             ]
-          }
+          },
+          "x-omitempty": true
         },
         "values": {
           "type": "array",
@@ -31708,7 +32413,8 @@
             "required": [
               "filter"
             ]
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Updates an existing VirtualTagConfig."
@@ -31749,6 +32455,12 @@
           "x-nullable": true,
           "x-omitempty": true
         },
+        "backfill": {
+          "type": "boolean",
+          "description": "Whether to backfill historical costs for this update. Omit to use the account's automatic-backfill setting. True requests backfill only when the configuration changes, respecting eligibility, date ranges, retention, and provider month locks. False saves without requesting backfill; later refreshes or other backfills may still apply the configuration to unlocked historical costs. backfill_until controls the earliest eligible month, not whether backfill runs.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "backfill_until": {
           "type": "string",
           "format": "date",
@@ -31781,7 +32493,8 @@
             "required": [
               "key"
             ]
-          }
+          },
+          "x-omitempty": true
         },
         "values": {
           "type": "array",
@@ -31931,7 +32644,8 @@
             "required": [
               "filter"
             ]
-          }
+          },
+          "x-omitempty": true
         }
       },
       "description": "Asynchronously updates an existing VirtualTagConfig."

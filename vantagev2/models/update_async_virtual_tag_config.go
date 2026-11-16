@@ -20,12 +20,15 @@ import (
 // swagger:model updateAsyncVirtualTagConfig
 type UpdateAsyncVirtualTagConfig struct {
 
+	// Whether to backfill historical costs for this update. Omit to use the account's automatic-backfill setting. True requests backfill only when the configuration changes, respecting eligibility, date ranges, retention, and provider month locks. False saves without requesting backfill; later refreshes or other backfills may still apply the configuration to unlocked historical costs. backfill_until controls the earliest eligible month, not whether backfill runs.
+	Backfill *bool `json:"backfill,omitempty"`
+
 	// The earliest month the VirtualTagConfig should be backfilled to.
 	// Format: date
 	BackfillUntil *strfmt.Date `json:"backfill_until,omitempty"`
 
 	// Tag keys to collapse values for.
-	CollapsedTagKeys []*UpdateAsyncVirtualTagConfigCollapsedTagKeysItems0 `json:"collapsed_tag_keys"`
+	CollapsedTagKeys []*UpdateAsyncVirtualTagConfigCollapsedTagKeysItems0 `json:"collapsed_tag_keys,omitempty"`
 
 	// The key of the VirtualTagConfig.
 	Key string `json:"key,omitempty"`
@@ -34,7 +37,7 @@ type UpdateAsyncVirtualTagConfig struct {
 	Overridable *bool `json:"overridable,omitempty"`
 
 	// Values for the VirtualTagConfig, with match precedence determined by order in the list.
-	Values []*UpdateAsyncVirtualTagConfigValuesItems0 `json:"values"`
+	Values []*UpdateAsyncVirtualTagConfigValuesItems0 `json:"values,omitempty"`
 }
 
 // Validate validates this update async virtual tag config
