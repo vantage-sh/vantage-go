@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -20,38 +21,41 @@ import (
 type CreateRecommendationView struct {
 
 	// Filter by cloud account identifiers.
-	AccountIds []string `json:"account_ids"`
+	AccountIds []string `json:"account_ids,omitempty"`
 
 	// Filter by billing account identifiers.
-	BillingAccountIds []string `json:"billing_account_ids"`
+	BillingAccountIds []string `json:"billing_account_ids,omitempty"`
 
 	// Filter recommendations created on/before this YYYY-MM-DD date.
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// Filter recommendations with at least this amount of potential savings.
-	MinSavings float32 `json:"min_savings,omitempty"`
+	MinSavings *float32 `json:"min_savings,omitempty"`
 
 	// Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
-	ProviderIds []string `json:"provider_ids"`
+	ProviderIds []string `json:"provider_ids,omitempty"`
 
 	// Filter by region slugs (e.g. us-east-1, eastus, asia-east1).
-	Regions []string `json:"regions"`
+	Regions []string `json:"regions,omitempty"`
 
 	// Filter recommendations created on/after this YYYY-MM-DD date.
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// Filter by tag key (must be used with tag_value).
-	TagKey string `json:"tag_key,omitempty"`
+	TagKey *string `json:"tag_key,omitempty"`
 
 	// Filter by tag value (requires tag_key).
-	TagValue string `json:"tag_value,omitempty"`
+	TagValue *string `json:"tag_value,omitempty"`
+
+	// Tag selections. Values within a key match any value; selections match together. Use an empty array to clear selections; null leaves selections unchanged on update. Non-null selections cannot be combined with tag_key or tag_value.
+	Tags []*CreateRecommendationViewTagsItems0 `json:"tags"`
 
 	// The title of the RecommendationView.
 	// Required: true
 	Title *string `json:"title"`
 
 	// Filter by one or more recommendation type slugs.
-	Types []string `json:"types"`
+	Types []string `json:"types,omitempty"`
 
 	// The Workspace to associate the RecommendationView with.
 	// Required: true
@@ -61,6 +65,10 @@ type CreateRecommendationView struct {
 // Validate validates this create recommendation view
 func (m *CreateRecommendationView) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateTitle(formats); err != nil {
 		res = append(res, err)
@@ -73,6 +81,32 @@ func (m *CreateRecommendationView) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CreateRecommendationView) validateTags(formats strfmt.Registry) error {
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+		if swag.IsZero(m.Tags[i]) { // not required
+			continue
+		}
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -94,8 +128,42 @@ func (m *CreateRecommendationView) validateWorkspaceToken(formats strfmt.Registr
 	return nil
 }
 
-// ContextValidate validates this create recommendation view based on context it is used
+// ContextValidate validate this create recommendation view based on the context it is used
 func (m *CreateRecommendationView) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateRecommendationView) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		if m.Tags[i] != nil {
+
+			if swag.IsZero(m.Tags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -110,6 +178,79 @@ func (m *CreateRecommendationView) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CreateRecommendationView) UnmarshalBinary(b []byte) error {
 	var res CreateRecommendationView
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CreateRecommendationViewTagsItems0 create recommendation view tags items0
+//
+// swagger:model CreateRecommendationViewTagsItems0
+type CreateRecommendationViewTagsItems0 struct {
+
+	// The tag key.
+	// Required: true
+	Key *string `json:"key"`
+
+	// One or more nonblank tag values to match.
+	// Required: true
+	Values []string `json:"values"`
+}
+
+// Validate validates this create recommendation view tags items0
+func (m *CreateRecommendationViewTagsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateRecommendationViewTagsItems0) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.Required("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateRecommendationViewTagsItems0) validateValues(formats strfmt.Registry) error {
+
+	if err := validate.Required("values", "body", m.Values); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this create recommendation view tags items0 based on context it is used
+func (m *CreateRecommendationViewTagsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CreateRecommendationViewTagsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CreateRecommendationViewTagsItems0) UnmarshalBinary(b []byte) error {
+	var res CreateRecommendationViewTagsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
