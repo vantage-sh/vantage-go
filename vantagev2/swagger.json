@@ -1818,7 +1818,8 @@
               "cost_report",
               "recommendation_commitment",
               "segment",
-              "access_policy"
+              "access_policy",
+              "custom_calculation"
             ],
             "required": false
           },
@@ -3638,6 +3639,12 @@
             "schema": {
               "$ref": "#/definitions/Errors"
             }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
           }
         },
         "tags": [
@@ -4910,7 +4917,9 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud",
+              "telnyx"
             ],
             "required": false
           },
@@ -5527,6 +5536,8 @@
               "sentry_billing",
               "ramp",
               "dynatrace",
+              "cockroachdb_cloud",
+              "telnyx",
               "all"
             ],
             "required": false
@@ -5757,7 +5768,7 @@
           {
             "in": "query",
             "name": "order",
-            "description": "Whether to order costs by date in ascending or descending order. Defaults to desc.",
+            "description": "Whether to order costs by date in ascending or descending order. Defaults to desc. When sorting by amount or usage_amount, this orders the rows within each grouping.",
             "type": "string",
             "default": "desc",
             "enum": [
@@ -5769,7 +5780,7 @@
           {
             "in": "query",
             "name": "sort_column",
-            "description": "Sort results by one of the fields in groupings. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. Defaults to sorting by date.",
+            "description": "Sort by one of the selected groupings, amount, or usage_amount. amount orders each grouping by its total cost over the requested start and end dates, then orders that grouping's rows by date. usage_amount does the same for usage and requires settings[aggregate_by]=usage. Sorting by amount or usage_amount is rejected when settings[aggregate_by] is count. settings[show_previous_period] does not change this ordering, because this response only includes the requested dates. sort_direction defaults to asc. The order parameter still chooses ascending or descending dates within a grouping. Groupings with the same total stay in ascending grouping order so later pages continue the same ranking. Pagination counts date-by-grouping rows, not whole groupings; a grouping can continue onto the next page. usage_amount sorting is not supported for segment reports. When sort_column is omitted, results are ordered by date. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>.",
             "type": "string",
             "required": false
           },
@@ -6533,15 +6544,15 @@
                 },
                 "dashboards": [
                   {
-                    "token": "dshbrd_8d14cfef5a2c40e8",
-                    "title": "Look to Windward",
+                    "token": "dshbrd_96ee1107b2b86191",
+                    "title": "Pale Kings and Princes",
                     "widget_tokens": [
-                      "rprt_73eccc0025f6f773"
+                      "rprt_038e0326bb0eab1b"
                     ],
                     "widgets": [
                       {
-                        "token": "dshbrd_wdgt_6020cf1db7b2d242",
-                        "widgetable_token": "rprt_73eccc0025f6f773",
+                        "token": "dshbrd_wdgt_46460b67fc5698e1",
+                        "widgetable_token": "rprt_038e0326bb0eab1b",
                         "title": "Widget",
                         "settings": {
                           "display_type": "chart",
@@ -6554,7 +6565,7 @@
                         }
                       },
                       {
-                        "token": "dshbrd_wdgt_7e7381069760ad8b",
+                        "token": "dshbrd_wdgt_bd03598fdf7ce9bd",
                         "widgetable_type": "free_text",
                         "title": "Notes",
                         "content": {
@@ -6574,16 +6585,17 @@
                       }
                     ],
                     "saved_filter_tokens": [
-                      "svd_fltr_5e24314f7112bd8c"
+                      "svd_fltr_c61282ebc606efc2"
                     ],
+                    "filter": null,
                     "date_bin": null,
                     "date_interval": null,
                     "start_date": null,
                     "end_date": null,
-                    "created_at": "2026-10-01T18:52:12Z",
-                    "updated_at": "2026-10-01T18:52:12Z",
+                    "created_at": "2026-11-17T15:57:00Z",
+                    "updated_at": "2026-11-17T15:57:00Z",
                     "folder_token": null,
-                    "workspace_token": "wrkspc_1b396cf40caa4666"
+                    "workspace_token": "wrkspc_6db8df8421c53352"
                   }
                 ]
               }
@@ -6630,17 +6642,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_165e758f38903d96",
+                "token": "dshbrd_6af903f92f27f4ab",
                 "title": "New Dashboard",
                 "widget_tokens": [
-                  "fncl_cmnt_rprt_9e3d55357851a07e",
-                  "kbnts_eff_rprt_dd1de14ecbcc666a",
-                  "rprt_470302eee1030d05"
+                  "fncl_cmnt_rprt_c4f78ef89b62c915",
+                  "kbnts_eff_rprt_291c24ad493bf25e",
+                  "rprt_b17a8525f46c744e"
                 ],
                 "widgets": [
                   {
-                    "token": "dshbrd_wdgt_0f68cc77fa8eefd4",
-                    "widgetable_token": "fncl_cmnt_rprt_9e3d55357851a07e",
+                    "token": "dshbrd_wdgt_0b22d8177de40a1c",
+                    "widgetable_token": "fncl_cmnt_rprt_c4f78ef89b62c915",
                     "title": "All Financial Commitments",
                     "settings": {
                       "display_type": "chart",
@@ -6653,9 +6665,9 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_424d9a64db2f08ea",
-                    "widgetable_token": "kbnts_eff_rprt_dd1de14ecbcc666a",
-                    "title": "Quinoa forage kale chips austin hashtag.",
+                    "token": "dshbrd_wdgt_986581fa2563ef79",
+                    "widgetable_token": "kbnts_eff_rprt_291c24ad493bf25e",
+                    "title": "Hella next level hashtag try-hard intelligentsia. 71125a8e",
                     "settings": {
                       "display_type": "table",
                       "grid": {
@@ -6667,8 +6679,8 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_e0e7053dc5fca7aa",
-                    "widgetable_token": "rprt_470302eee1030d05",
+                    "token": "dshbrd_wdgt_59ebcbdce851e018",
+                    "widgetable_token": "rprt_b17a8525f46c744e",
                     "title": "Untitled",
                     "settings": {
                       "display_type": "chart",
@@ -6681,7 +6693,7 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_95ce398292cc13be",
+                    "token": "dshbrd_wdgt_d73bf5eebfbcb504",
                     "widgetable_type": "free_text",
                     "title": "Notes",
                     "content": {
@@ -6701,8 +6713,9 @@
                   }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_3b38b91699d21a2e"
+                  "svd_fltr_b138f570e3224103"
                 ],
+                "filter": null,
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
@@ -6710,7 +6723,7 @@
                 "created_at": "2023-08-15T00:00:00Z",
                 "updated_at": "2023-08-15T00:00:00Z",
                 "folder_token": null,
-                "workspace_token": "wrkspc_3159fd6a40906a33"
+                "workspace_token": "wrkspc_d2bd047e2d532924"
               }
             }
           },
@@ -6758,15 +6771,15 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_9d0418f598f0dca0",
-                "title": "The Last Enemy",
+                "token": "dshbrd_125540381140b237",
+                "title": "Blithe Spirit",
                 "widget_tokens": [
-                  "rprt_16d2587e0b7ae5f1"
+                  "rprt_1f7a2f109e137a78"
                 ],
                 "widgets": [
                   {
-                    "token": "dshbrd_wdgt_05e6b6e7ef123fae",
-                    "widgetable_token": "rprt_16d2587e0b7ae5f1",
+                    "token": "dshbrd_wdgt_3afd1a8426db2d58",
+                    "widgetable_token": "rprt_1f7a2f109e137a78",
                     "title": "Widget",
                     "settings": {
                       "display_type": "chart",
@@ -6779,7 +6792,7 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_dd90882c08aa08e3",
+                    "token": "dshbrd_wdgt_a08fa526b6ae282a",
                     "widgetable_type": "free_text",
                     "title": "Notes",
                     "content": {
@@ -6799,16 +6812,17 @@
                   }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_32d04fca7eedc49a"
+                  "svd_fltr_bbed7d50f001f2a3"
                 ],
+                "filter": null,
                 "date_bin": null,
                 "date_interval": null,
                 "start_date": null,
                 "end_date": null,
-                "created_at": "2026-10-01T18:52:11Z",
-                "updated_at": "2026-10-01T18:52:11Z",
+                "created_at": "2026-11-17T15:57:00Z",
+                "updated_at": "2026-11-17T15:57:00Z",
                 "folder_token": null,
-                "workspace_token": "wrkspc_78fbdd2cec362c21"
+                "workspace_token": "wrkspc_d10cfb02734e5ab7"
               }
             }
           },
@@ -6865,17 +6879,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "dshbrd_dce74ddb4f35ce34",
+                "token": "dshbrd_1b0c61931e68e942",
                 "title": "Updated Dashboard",
                 "widget_tokens": [
-                  "fncl_cmnt_rprt_c554635f950fdd0e",
-                  "kbnts_eff_rprt_0a75d149ff088b54",
-                  "rprt_2fb7a5357357fe1f"
+                  "fncl_cmnt_rprt_13a994064dc51ede",
+                  "kbnts_eff_rprt_d4a19c36a8cb4789",
+                  "rprt_73a972d6f0c779cb"
                 ],
                 "widgets": [
                   {
-                    "token": "dshbrd_wdgt_a7764aa942cfe146",
-                    "widgetable_token": "fncl_cmnt_rprt_c554635f950fdd0e",
+                    "token": "dshbrd_wdgt_0487a6e048b08b44",
+                    "widgetable_token": "fncl_cmnt_rprt_13a994064dc51ede",
                     "title": "All Financial Commitments",
                     "settings": {
                       "display_type": "chart",
@@ -6888,9 +6902,9 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_93dbad3e6144ea7b",
-                    "widgetable_token": "kbnts_eff_rprt_0a75d149ff088b54",
-                    "title": "Normcore vegan.",
+                    "token": "dshbrd_wdgt_96f6dc8f4016e345",
+                    "widgetable_token": "kbnts_eff_rprt_d4a19c36a8cb4789",
+                    "title": "Pinterest ethical quinoa bicycle rights portland hella. 4c372dd9",
                     "settings": {
                       "display_type": "table",
                       "grid": {
@@ -6902,8 +6916,8 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_e23f7ba8d1a528fa",
-                    "widgetable_token": "rprt_2fb7a5357357fe1f",
+                    "token": "dshbrd_wdgt_dfcdce957fa6b8f8",
+                    "widgetable_token": "rprt_73a972d6f0c779cb",
                     "title": "Untitled",
                     "settings": {
                       "display_type": "chart",
@@ -6916,7 +6930,7 @@
                     }
                   },
                   {
-                    "token": "dshbrd_wdgt_665fb511741fc69f",
+                    "token": "dshbrd_wdgt_c83d09286614cde5",
                     "widgetable_type": "free_text",
                     "title": "Notes",
                     "content": {
@@ -6936,16 +6950,17 @@
                   }
                 ],
                 "saved_filter_tokens": [
-                  "svd_fltr_b6dfd1946b1181be"
+                  "svd_fltr_c686d437489ec7a1"
                 ],
+                "filter": null,
                 "date_bin": "week",
                 "date_interval": "this_month",
                 "start_date": "2023-08-01",
                 "end_date": "2023-08-31",
-                "created_at": "2026-10-01T18:52:14Z",
+                "created_at": "2026-11-17T15:57:01Z",
                 "updated_at": "2023-08-15T00:00:00Z",
                 "folder_token": null,
-                "workspace_token": "wrkspc_6d1f4d1fb379b3bc"
+                "workspace_token": "wrkspc_576c52693332ae54"
               }
             }
           },
@@ -7489,7 +7504,9 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud",
+              "telnyx"
             ],
             "required": false,
             "x-example": "aws"
@@ -8858,7 +8875,9 @@
               "crusoe",
               "sentry_billing",
               "ramp",
-              "dynatrace"
+              "dynatrace",
+              "cockroachdb_cloud",
+              "telnyx"
             ],
             "required": false
           },
@@ -12462,6 +12481,28 @@
         "parameters": [
           {
             "in": "query",
+            "name": "tags",
+            "description": "A JSON array of tag selections, each with a key and values array. Values within a key match any value; selections match together. Requires workspace_token. Cannot be combined with tag_key or tag_value.",
+            "type": "string",
+            "required": false,
+            "x-example": "[{\"key\":\"env\",\"values\":[\"prod\",\"staging\"]}]"
+          },
+          {
+            "in": "query",
+            "name": "tag_key",
+            "description": "Filter by tag key (must be used with tag_value). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "tag_value",
+            "description": "Filter by tag value (requires tag_key). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "provider_ids",
             "description": "Filter by one or more providers. Requires workspace_token.",
             "type": "array",
@@ -12505,20 +12546,6 @@
             "items": {
               "type": "string"
             },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "tag_key",
-            "description": "Filter by tag key (must be used with tag_value). Requires workspace_token.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "tag_value",
-            "description": "Filter by tag value (requires tag_key). Requires workspace_token.",
-            "type": "string",
             "required": false
           },
           {
@@ -12880,6 +12907,28 @@
           },
           {
             "in": "query",
+            "name": "tags",
+            "description": "A JSON array of tag selections, each with a key and values array. Values within a key match any value; selections match together. Requires workspace_token. Cannot be combined with tag_key or tag_value.",
+            "type": "string",
+            "required": false,
+            "x-example": "[{\"key\":\"env\",\"values\":[\"prod\",\"staging\"]}]"
+          },
+          {
+            "in": "query",
+            "name": "tag_key",
+            "description": "Filter by tag key (must be used with tag_value). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "tag_value",
+            "description": "Filter by tag value (requires tag_key). Requires workspace_token.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "provider_ids",
             "description": "Filter by one or more providers. Requires workspace_token.",
             "type": "array",
@@ -12923,20 +12972,6 @@
             "items": {
               "type": "string"
             },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "tag_key",
-            "description": "Filter by tag key (must be used with tag_value). Requires workspace_token.",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "tag_value",
-            "description": "Filter by tag value (requires tag_key). Requires workspace_token.",
-            "type": "string",
             "required": false
           },
           {
@@ -13108,27 +13143,22 @@
                 },
                 "recommendation_views": [
                   {
-                    "token": "rec_vw_3dffc0458f7a2487",
-                    "title": "Production Recommendations",
-                    "workspace_token": "wrkspc_914dcb0959497507",
-                    "start_date": "2024-01-01",
-                    "end_date": "2024-12-31",
-                    "provider_ids": [
-                      "aws",
-                      "gcp"
-                    ],
+                    "token": "rec_vw_5cd33adb888928e1",
+                    "title": "My Recommendation View",
+                    "workspace_token": "wrkspc_aba7ba44ff82deee",
+                    "start_date": null,
+                    "end_date": null,
+                    "provider_ids": [],
                     "billing_account_ids": [],
-                    "account_ids": [
-                      "123456789012"
-                    ],
-                    "regions": [
-                      "us-east-1",
-                      "us-west-2"
-                    ],
-                    "tag_key": "environment",
-                    "tag_value": "production",
-                    "created_at": "2024-07-15T16:08:53Z",
-                    "created_by": "usr_95fac32734bdceab"
+                    "account_ids": [],
+                    "regions": [],
+                    "types": [],
+                    "tags": [],
+                    "tag_key": null,
+                    "tag_value": null,
+                    "min_savings": null,
+                    "created_at": "2026-11-13T17:15:17Z",
+                    "created_by": "team_310832fc09611700"
                   }
                 ]
               }
@@ -13174,21 +13204,32 @@
             },
             "examples": {
               "application/json": {
-                "token": "rec_vw_a1b2c3d4e5f67890",
-                "title": "Staging Recommendations",
-                "workspace_token": "wrkspc_be6568a301b1d06c",
-                "start_date": "2024-01-01",
-                "end_date": "2024-06-30",
+                "token": "rec_vw_18ce8236cafb5712",
+                "title": "New Recommendation View",
+                "workspace_token": "wrkspc_b94ccb446a3a80f0",
+                "start_date": null,
+                "end_date": null,
                 "provider_ids": [
-                  "aws"
+                  "aws",
+                  "gcp"
                 ],
                 "billing_account_ids": [],
                 "account_ids": [],
                 "regions": [],
+                "types": [],
+                "tags": [
+                  {
+                    "key": "environment",
+                    "values": [
+                      "production"
+                    ]
+                  }
+                ],
                 "tag_key": "environment",
-                "tag_value": "staging",
-                "created_at": "2024-07-15T16:10:00Z",
-                "created_by": "usr_95fac32734bdceab"
+                "tag_value": "production",
+                "min_savings": null,
+                "created_at": "2026-11-13T17:15:13Z",
+                "created_by": "usr_2d0c3918b3205c1a"
               }
             }
           },
@@ -13241,27 +13282,22 @@
             },
             "examples": {
               "application/json": {
-                "token": "rec_vw_be3f24eb1b5aabf6",
-                "title": "Production Recommendations",
-                "workspace_token": "wrkspc_be6568a301b1d06c",
-                "start_date": "2024-01-01",
-                "end_date": "2024-12-31",
-                "provider_ids": [
-                  "aws",
-                  "gcp"
-                ],
+                "token": "rec_vw_96ceda8b646bcda0",
+                "title": "My Recommendation View",
+                "workspace_token": "wrkspc_3acfad89f277fc71",
+                "start_date": null,
+                "end_date": null,
+                "provider_ids": [],
                 "billing_account_ids": [],
-                "account_ids": [
-                  "123456789012"
-                ],
-                "regions": [
-                  "us-east-1",
-                  "us-west-2"
-                ],
-                "tag_key": "environment",
-                "tag_value": "production",
-                "created_at": "2024-07-15T16:08:54Z",
-                "created_by": "team_73f6001f98e9012b"
+                "account_ids": [],
+                "regions": [],
+                "types": [],
+                "tags": [],
+                "tag_key": null,
+                "tag_value": null,
+                "min_savings": null,
+                "created_at": "2026-11-13T17:15:11Z",
+                "created_by": "usr_c2492cab052d8d03"
               }
             }
           },
@@ -13317,30 +13353,27 @@
             },
             "examples": {
               "application/json": {
-                "token": "rec_vw_be3f24eb1b5aabf6",
-                "title": "Updated Recommendations View",
-                "workspace_token": "wrkspc_be6568a301b1d06c",
+                "token": "rec_vw_7d2c223b202360af",
+                "title": "Updated Recommendation View",
+                "workspace_token": "wrkspc_84b92ca4f0489b4a",
                 "start_date": "2024-01-01",
-                "end_date": "2024-12-31",
+                "end_date": "2024-06-30",
                 "provider_ids": [
                   "aws",
-                  "gcp",
-                  "azure"
+                  "gcp"
                 ],
                 "billing_account_ids": [],
-                "account_ids": [
-                  "123456789012",
-                  "987654321098"
+                "account_ids": [],
+                "regions": [],
+                "types": [
+                  "aws:ebs:unattached-volume"
                 ],
-                "regions": [
-                  "us-east-1",
-                  "us-west-2",
-                  "ap-northeast-2"
-                ],
-                "tag_key": "environment",
-                "tag_value": "production",
-                "created_at": "2024-07-15T16:08:54Z",
-                "created_by": "team_73f6001f98e9012b"
+                "tags": [],
+                "tag_key": null,
+                "tag_value": null,
+                "min_savings": 100.0,
+                "created_at": "2026-11-13T17:15:18Z",
+                "created_by": null
               }
             }
           },
@@ -15821,7 +15854,9 @@
                 "crusoe",
                 "sentry_billing",
                 "ramp",
-                "dynatrace"
+                "dynatrace",
+                "cockroachdb_cloud",
+                "telnyx"
               ]
             },
             "required": false
@@ -16068,7 +16103,9 @@
                 "crusoe",
                 "sentry_billing",
                 "ramp",
-                "dynatrace"
+                "dynatrace",
+                "cockroachdb_cloud",
+                "telnyx"
               ]
             },
             "required": false
@@ -16230,14 +16267,34 @@
                 },
                 "teams": [
                   {
-                    "token": "team_2d4733920ec4385e",
-                    "name": "Prod Team",
-                    "description": "Handles all production deployments",
+                    "token": "team_e31019f62d83fefb",
+                    "name": "Everyone",
+                    "description": "Doloremque architecto.",
                     "workspace_tokens": [
-                      "wrkspc_08026aa5fb4c90f8"
+                      "wrkspc_215ddb6656f4f16e"
+                    ],
+                    "user_emails": [
+                      "nestor_smith@ward.name",
+                      "padberg.berna@pouros.info"
                     ],
                     "user_tokens": [
-                      "usr_c59398553e838116"
+                      "usr_2d0b281ebf0b2566",
+                      "usr_ed36954bd3f61497"
+                    ],
+                    "default_dashboard_token": null
+                  },
+                  {
+                    "token": "team_777bd05a36743d53",
+                    "name": "Florida ogres",
+                    "description": "Aliquam nesciunt.",
+                    "workspace_tokens": [
+                      "wrkspc_215ddb6656f4f16e"
+                    ],
+                    "user_emails": [
+                      "nestor_smith@ward.name"
+                    ],
+                    "user_tokens": [
+                      "usr_2d0b281ebf0b2566"
                     ],
                     "default_dashboard_token": null
                   }
@@ -16285,14 +16342,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "team_8467157535a30221",
+                "token": "team_209fddd0dc3940a2",
                 "name": "New Team",
                 "description": "New Team Description",
                 "workspace_tokens": [
-                  "wrkspc_52b6e5e663b4cde1"
+                  "wrkspc_10f4702fa7498b7b"
+                ],
+                "user_emails": [
+                  "francisco.daugherty.mr@medhurst.info"
                 ],
                 "user_tokens": [
-                  "usr_a00e614b5843c234"
+                  "usr_dcd9b4c5ec97341f"
                 ],
                 "default_dashboard_token": null
               }
@@ -16359,14 +16419,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "team_081e09bbb812d369",
-                "name": "Prod Team",
-                "description": "Handles all production deployments.",
+                "token": "team_225761f4180b2f74",
+                "name": "Hawaii lycanthropes",
+                "description": "Dolor quo.",
                 "workspace_tokens": [
-                  "wrkspc_ddc003a2f0171bf8"
+                  "wrkspc_7f818e8fcdab571d"
+                ],
+                "user_emails": [
+                  "nestor.smith@von.org"
                 ],
                 "user_tokens": [
-                  "usr_7c309915e847cfc6"
+                  "usr_3718e2aba9e30394"
                 ],
                 "default_dashboard_token": null
               }
@@ -16424,14 +16487,17 @@
             },
             "examples": {
               "application/json": {
-                "token": "team_d617e73dcc6b57c5",
+                "token": "team_b2f3439e59b41118",
                 "name": "Updated Team",
                 "description": "Updated Team Description",
                 "workspace_tokens": [
-                  "wrkspc_efc4284a56772481"
+                  "wrkspc_ca3c58152c62fe6b"
+                ],
+                "user_emails": [
+                  "bednar_reid@smith.com"
                 ],
                 "user_tokens": [
-                  "usr_d268561e520c7aac"
+                  "usr_cab898bf63c8437f"
                 ],
                 "default_dashboard_token": null
               }
@@ -16524,6 +16590,606 @@
           "Teams"
         ],
         "operationId": "deleteTeam"
+      }
+    },
+    "/teams/{team_token}/workspaces": {
+      "get": {
+        "summary": "Get team workspaces",
+        "description": "Return the accessible Workspaces associated with a Team, including each Workspace's name, creation time, and the Team's role.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamWorkspaceList"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/teams/team_61626c79e6069823/workspaces?page=1&limit=1",
+                  "first": "https://api.vantage.sh/v2/teams/team_61626c79e6069823/workspaces?page=1&limit=1",
+                  "next": "https://api.vantage.sh/v2/teams/team_61626c79e6069823/workspaces?page=2&limit=1",
+                  "last": "https://api.vantage.sh/v2/teams/team_61626c79e6069823/workspaces?page=2&limit=1",
+                  "prev": null
+                },
+                "workspaces": [
+                  {
+                    "workspace_token": "wrkspc_c98b9ac0d2c61dbd",
+                    "name": "Engineering",
+                    "created_at": "2023-08-04T00:00:00Z",
+                    "role": "editor"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "getTeamWorkspaces"
+      },
+      "post": {
+        "summary": "Add team workspace",
+        "description": "Associate a Workspace with a Team.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "addTeamWorkspace",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addTeamWorkspace"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamWorkspace"
+            },
+            "examples": {
+              "application/json": {
+                "workspace_token": "wrkspc_2b5e0fd11cab6f4d",
+                "name": "Bernhard Inc dbd2a56c",
+                "created_at": "2026-11-17T00:51:55Z",
+                "role": "viewer"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "409": {
+            "description": "The Workspace is already associated with this Team.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "addTeamWorkspace"
+      }
+    },
+    "/teams/{team_token}/workspaces/{workspace_token}": {
+      "put": {
+        "summary": "Update team workspace",
+        "description": "Change the Team's role in an associated Workspace.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateTeamWorkspace",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateTeamWorkspace"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamWorkspace"
+            },
+            "examples": {
+              "application/json": {
+                "workspace_token": "wrkspc_f39679dd612f5ab7",
+                "name": "Nikolaus, Quigley and Dooley aa348b40",
+                "created_at": "2026-11-17T00:51:54Z",
+                "role": "viewer"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "updateTeamWorkspace"
+      },
+      "delete": {
+        "summary": "Remove team workspace",
+        "description": "Remove a Workspace association from a Team.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "workspace_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "removeTeamWorkspace"
+      }
+    },
+    "/teams/{team_token}/managed_accounts": {
+      "get": {
+        "summary": "Get team managed accounts",
+        "description": "Return the Managed Accounts a Team has been explicitly allowed or denied access to, including each Managed Account's name and creation time.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page of results to return.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The amount of results to return. The maximum is 1000.",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamManagedAccountList"
+            },
+            "examples": {
+              "application/json": {
+                "links": {
+                  "self": "https://api.vantage.sh/v2/teams/team_4137d7dac080265f/managed_accounts?page=1&limit=1",
+                  "first": "https://api.vantage.sh/v2/teams/team_4137d7dac080265f/managed_accounts?page=1&limit=1",
+                  "next": "https://api.vantage.sh/v2/teams/team_4137d7dac080265f/managed_accounts?page=2&limit=1",
+                  "last": "https://api.vantage.sh/v2/teams/team_4137d7dac080265f/managed_accounts?page=2&limit=1",
+                  "prev": null
+                },
+                "managed_accounts": [
+                  {
+                    "managed_account_token": "acct_43505354fd558a02",
+                    "name": "Acme Corp.",
+                    "created_at": "2023-08-04T00:00:00Z",
+                    "access": "allowed"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "getTeamManagedAccounts"
+      },
+      "post": {
+        "summary": "Add team managed account",
+        "description": "Allow or deny a Team access to a Managed Account.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "addTeamManagedAccount",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addTeamManagedAccount"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamManagedAccount"
+            },
+            "examples": {
+              "application/json": {
+                "managed_account_token": "acct_db7225312e19be0e",
+                "name": "Acme Corp.",
+                "created_at": "2023-08-04T00:00:00Z",
+                "access": "denied"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "409": {
+            "description": "Access to the Managed Account is already set for this Team.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "addTeamManagedAccount"
+      }
+    },
+    "/teams/{team_token}/managed_accounts/{managed_account_token}": {
+      "put": {
+        "summary": "Update team managed account",
+        "description": "Change whether a Team is allowed or denied access to a Managed Account.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "managed_account_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "updateTeamManagedAccount",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateTeamManagedAccount"
+            }
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TeamManagedAccount"
+            },
+            "examples": {
+              "application/json": {
+                "managed_account_token": "acct_db7225312e19be0e",
+                "name": "Acme Corp.",
+                "created_at": "2023-08-04T00:00:00Z",
+                "access": "denied"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "422": {
+            "description": "UnprocessableEntity",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "updateTeamManagedAccount"
+      },
+      "delete": {
+        "summary": "Remove team managed account",
+        "description": "Remove a Team's explicit access setting for a Managed Account, returning it to the default.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team_token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "managed_account_token",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ManagedAccount"
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        },
+        "tags": [
+          "Teams"
+        ],
+        "operationId": "removeTeamManagedAccount"
       }
     },
     "/teams/{team_token}/members": {
@@ -21421,6 +22087,7 @@
             "snowflake_metrics",
             "metronome_metrics",
             "rippling_metrics",
+            "anthropic_activity_metrics",
             "csv"
           ],
           "x-nullable": true,
@@ -23281,6 +23948,8 @@
             "sentry_billing",
             "ramp",
             "dynatrace",
+            "cockroachdb_cloud",
+            "telnyx",
             "all"
           ],
           "x-nullable": false,
@@ -24179,7 +24848,9 @@
             "crusoe",
             "sentry_billing",
             "ramp",
-            "dynatrace"
+            "dynatrace",
+            "cockroachdb_cloud",
+            "telnyx"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -24703,6 +25374,11 @@
           "x-nullable": false,
           "description": "The tokens of the Saved Filters used in the Dashboard."
         },
+        "filter": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter, including when Saved Filters take precedence. Returns null when no inline filter is stored or the filter cannot be represented in VQL."
+        },
         "date_bin": {
           "type": "string",
           "enum": [
@@ -24780,6 +25456,7 @@
         "title",
         "widgets",
         "saved_filter_tokens",
+        "filter",
         "date_bin",
         "date_interval",
         "created_at",
@@ -24792,6 +25469,12 @@
     "createDashboard": {
       "type": "object",
       "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter. Use vantage.* or tags.* fields in a single AND filter group with =, !=, IN, or NOT IN comparisons. LIKE and NOT LIKE are not supported. Omit to preserve the filter on update; send null or an empty string to clear it. Saved Filters take precedence when saved_filter_tokens is nonempty. Removing Saved Filters reactivates the stored inline filter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "title": {
           "type": "string",
           "description": "The title of the Dashboard."
@@ -24995,6 +25678,12 @@
     "updateDashboard": {
       "type": "object",
       "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter. Use vantage.* or tags.* fields in a single AND filter group with =, !=, IN, or NOT IN comparisons. LIKE and NOT LIKE are not supported. Omit to preserve the filter on update; send null or an empty string to clear it. Saved Filters take precedence when saved_filter_tokens is nonempty. Removing Saved Filters reactivates the stored inline filter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "title": {
           "type": "string",
           "description": "The title of the Dashboard.",
@@ -29027,17 +29716,24 @@
           "x-nullable": true,
           "description": "Filter by one or more recommendation type slugs."
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RecommendationViewTagFilter"
+          },
+          "description": "Complete tag selections. Values within each key match any value; selections match together. Use tags without tag_key or tag_value in requests."
+        },
         "tag_key": {
           "type": "string",
           "example": "environment",
           "x-nullable": true,
-          "description": "Filter by tag key (must be used with tag_value)."
+          "description": "Legacy tag key for the first selection. For complete selections, use tags. Do not combine these formats in requests."
         },
         "tag_value": {
           "type": "string",
           "example": "production",
           "x-nullable": true,
-          "description": "Filter by tag value (requires tag_key)."
+          "description": "Legacy first value of the first selection. For complete selections, use tags. Do not combine these formats in requests."
         },
         "min_savings": {
           "type": "number",
@@ -29058,7 +29754,32 @@
           "description": "The token for the Creator of this RecommendationView."
         }
       },
+      "required": [
+        "tags"
+      ],
       "description": "RecommendationView model"
+    },
+    "RecommendationViewTagFilter": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "x-nullable": false,
+          "description": "The tag key."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": false,
+          "description": "Alternative values for this tag key."
+        }
+      },
+      "required": [
+        "key",
+        "values"
+      ]
     },
     "createRecommendationView": {
       "type": "object",
@@ -29071,61 +29792,101 @@
           "type": "string",
           "description": "The Workspace to associate the RecommendationView with."
         },
+        "tags": {
+          "type": "array",
+          "description": "Tag selections. Values within a key match any value; selections match together. Use an empty array to clear selections; null leaves selections unchanged on update. Non-null selections cannot be combined with tag_key or tag_value.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "The tag key."
+              },
+              "values": {
+                "type": "array",
+                "description": "One or more nonblank tag values to match.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "key",
+              "values"
+            ]
+          },
+          "x-omitempty": false
+        },
         "provider_ids": {
           "type": "array",
           "description": "Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "billing_account_ids": {
           "type": "array",
           "description": "Filter by billing account identifiers.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "account_ids": {
           "type": "array",
           "description": "Filter by cloud account identifiers.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "regions": {
           "type": "array",
           "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1).",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "types": {
           "type": "array",
           "description": "Filter by one or more recommendation type slugs.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "tag_key": {
           "type": "string",
-          "description": "Filter by tag key (must be used with tag_value)."
+          "description": "Filter by tag key (must be used with tag_value).",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "tag_value": {
           "type": "string",
-          "description": "Filter by tag value (requires tag_key)."
+          "description": "Filter by tag value (requires tag_key).",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "start_date": {
           "type": "string",
-          "description": "Filter recommendations created on/after this YYYY-MM-DD date."
+          "description": "Filter recommendations created on/after this YYYY-MM-DD date.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "end_date": {
           "type": "string",
-          "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+          "description": "Filter recommendations created on/before this YYYY-MM-DD date.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "min_savings": {
           "type": "number",
           "format": "float",
-          "description": "Filter recommendations with at least this amount of potential savings."
+          "description": "Filter recommendations with at least this amount of potential savings.",
+          "x-nullable": true,
+          "x-omitempty": true
         }
       },
       "required": [
@@ -29139,63 +29900,104 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the RecommendationView."
+          "description": "The title of the RecommendationView.",
+          "x-omitempty": true
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tag selections. Values within a key match any value; selections match together. Use an empty array to clear selections; null leaves selections unchanged on update. Non-null selections cannot be combined with tag_key or tag_value.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "The tag key."
+              },
+              "values": {
+                "type": "array",
+                "description": "One or more nonblank tag values to match.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "key",
+              "values"
+            ]
+          },
+          "x-omitempty": false
         },
         "provider_ids": {
           "type": "array",
           "description": "Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "billing_account_ids": {
           "type": "array",
           "description": "Filter by billing account identifiers.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "account_ids": {
           "type": "array",
           "description": "Filter by cloud account identifiers.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "regions": {
           "type": "array",
           "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1).",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "types": {
           "type": "array",
           "description": "Filter by one or more recommendation type slugs.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-omitempty": true
         },
         "tag_key": {
           "type": "string",
-          "description": "Filter by tag key (must be used with tag_value)."
+          "description": "Filter by tag key (must be used with tag_value).",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "tag_value": {
           "type": "string",
-          "description": "Filter by tag value (requires tag_key)."
+          "description": "Filter by tag value (requires tag_key).",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "start_date": {
           "type": "string",
-          "description": "Filter recommendations created on/after this YYYY-MM-DD date."
+          "description": "Filter recommendations created on/after this YYYY-MM-DD date.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "end_date": {
           "type": "string",
-          "description": "Filter recommendations created on/before this YYYY-MM-DD date."
+          "description": "Filter recommendations created on/before this YYYY-MM-DD date.",
+          "x-nullable": true,
+          "x-omitempty": true
         },
         "min_savings": {
           "type": "number",
           "format": "float",
-          "description": "Filter recommendations with at least this amount of potential savings."
+          "description": "Filter recommendations with at least this amount of potential savings.",
+          "x-nullable": true,
+          "x-omitempty": true
         }
       },
       "description": "Update a RecommendationView."
@@ -30648,7 +31450,7 @@
         },
         "workspace_tokens": {
           "type": "array",
-          "description": "The Workspace tokens to associate to the Team.",
+          "description": "Replaces the Team's Workspace associations. New associations default to editor; retained Workspaces keep their existing roles. Omit to leave unchanged. Sending null or an empty array removes all Workspace associations. Use /teams/{team_token}/workspaces to set the Team's role in a Workspace or to change a single Workspace association.",
           "items": {
             "type": "string"
           }
@@ -30701,7 +31503,7 @@
         },
         "workspace_tokens": {
           "type": "array",
-          "description": "The Workspace tokens to associate to the Team.",
+          "description": "Replaces the Team's Workspace associations. New associations default to editor; retained Workspaces keep their existing roles. Omit to leave unchanged. Sending null or an empty array removes all Workspace associations. Use /teams/{team_token}/workspaces to set the Team's role in a Workspace or to change a single Workspace association.",
           "items": {
             "type": "string"
           }
@@ -30737,6 +31539,200 @@
         }
       },
       "description": "Update a Team."
+    },
+    "TeamWorkspaceList": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "workspaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeamWorkspace"
+          }
+        }
+      },
+      "required": [
+        "workspaces"
+      ],
+      "description": "TeamWorkspaceList model"
+    },
+    "TeamWorkspace": {
+      "type": "object",
+      "properties": {
+        "workspace_token": {
+          "type": "string",
+          "example": "wrkspc_abcd1234",
+          "x-nullable": false,
+          "description": "The Workspace token."
+        },
+        "name": {
+          "type": "string",
+          "example": "Acme Corp.",
+          "x-nullable": false,
+          "description": "The name of the Workspace."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the Workspace was created. ISO 8601 Formatted."
+        },
+        "role": {
+          "type": "string",
+          "example": "editor",
+          "enum": [
+            "editor",
+            "viewer"
+          ],
+          "x-nullable": false,
+          "description": "The Team's role in the Workspace: editor (Can Edit) or viewer (Can View)."
+        }
+      },
+      "required": [
+        "workspace_token",
+        "name",
+        "created_at",
+        "role"
+      ],
+      "description": "TeamWorkspace model"
+    },
+    "addTeamWorkspace": {
+      "type": "object",
+      "properties": {
+        "workspace_token": {
+          "type": "string",
+          "description": "The Workspace token."
+        },
+        "role": {
+          "type": "string",
+          "description": "The Team's role in the Workspace: editor (Can Edit) or viewer (Can View).",
+          "enum": [
+            "editor",
+            "viewer"
+          ]
+        }
+      },
+      "required": [
+        "workspace_token",
+        "role"
+      ],
+      "description": "Associate a Workspace with a Team."
+    },
+    "updateTeamWorkspace": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "The Team's role in the Workspace: editor (Can Edit) or viewer (Can View).",
+          "enum": [
+            "editor",
+            "viewer"
+          ]
+        }
+      },
+      "required": [
+        "role"
+      ],
+      "description": "Change the Team's role in an associated Workspace."
+    },
+    "TeamManagedAccountList": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "managed_accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeamManagedAccount"
+          }
+        }
+      },
+      "required": [
+        "managed_accounts"
+      ],
+      "description": "TeamManagedAccountList model"
+    },
+    "TeamManagedAccount": {
+      "type": "object",
+      "properties": {
+        "managed_account_token": {
+          "type": "string",
+          "example": "acct_abcd1234",
+          "x-nullable": false,
+          "description": "The Managed Account token."
+        },
+        "name": {
+          "type": "string",
+          "example": "Acme Corp.",
+          "x-nullable": false,
+          "description": "The name of the Managed Account."
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2023-08-04T00:00:00Z",
+          "x-nullable": false,
+          "description": "The date and time, in UTC, the Managed Account was created. ISO 8601 Formatted."
+        },
+        "access": {
+          "type": "string",
+          "example": "allowed",
+          "enum": [
+            "allowed",
+            "denied"
+          ],
+          "x-nullable": false,
+          "description": "Whether the Team is allowed or denied access to the Managed Account."
+        }
+      },
+      "required": [
+        "managed_account_token",
+        "name",
+        "created_at",
+        "access"
+      ],
+      "description": "TeamManagedAccount model"
+    },
+    "addTeamManagedAccount": {
+      "type": "object",
+      "properties": {
+        "managed_account_token": {
+          "type": "string",
+          "description": "The Managed Account token."
+        },
+        "access": {
+          "type": "string",
+          "description": "Whether the Team is allowed or denied access to the Managed Account.",
+          "enum": [
+            "allowed",
+            "denied"
+          ]
+        }
+      },
+      "required": [
+        "managed_account_token",
+        "access"
+      ],
+      "description": "Allow or deny a Team access to a Managed Account."
+    },
+    "updateTeamManagedAccount": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "string",
+          "description": "Whether the Team is allowed or denied access to the Managed Account.",
+          "enum": [
+            "allowed",
+            "denied"
+          ]
+        }
+      },
+      "required": [
+        "access"
+      ],
+      "description": "Change whether a Team is allowed or denied access to a Managed Account."
     },
     "TeamMembers": {
       "type": "object",
