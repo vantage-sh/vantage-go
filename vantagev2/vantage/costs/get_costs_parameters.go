@@ -102,7 +102,7 @@ type GetCostsParams struct {
 
 	/* Order.
 
-	   Whether to order costs by date in ascending or descending order. Defaults to desc.
+	   Whether to order costs by date in ascending or descending order. Defaults to desc. When sorting by amount or usage_amount, this orders the rows within each grouping.
 
 	   Default: "desc"
 	*/
@@ -166,7 +166,7 @@ type GetCostsParams struct {
 
 	/* SortColumn.
 
-	   Sort results by one of the fields in groupings. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>. Defaults to sorting by date.
+	   Sort by one of the selected groupings, amount, or usage_amount. amount orders each grouping by its total cost over the requested start and end dates, then orders that grouping's rows by date. usage_amount does the same for usage and requires settings[aggregate_by]=usage. Sorting by amount or usage_amount is rejected when settings[aggregate_by] is count. settings[show_previous_period] does not change this ordering, because this response only includes the requested dates. sort_direction defaults to asc. The order parameter still chooses ascending or descending dates within a grouping. Groupings with the same total stay in ascending grouping order so later pages continue the same ranking. Pagination counts date-by-grouping rows, not whole groupings; a grouping can continue onto the next page. usage_amount sorting is not supported for segment reports. When sort_column is omitted, results are ordered by date. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, usage_unit, tag:<tag_value>.
 	*/
 	SortColumn *string
 
