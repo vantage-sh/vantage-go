@@ -40,6 +40,10 @@ type Dashboard struct {
 	// Example: 2023-09-04
 	EndDate *string `json:"end_date,omitempty"`
 
+	// The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter, including when Saved Filters take precedence. Returns null when no inline filter is stored or the filter cannot be represented in VQL.
+	// Required: true
+	Filter *string `json:"filter"`
+
 	// The token for the Dashboard Folder containing the Dashboard, if any.
 	// Example: fldr_abcd1234567890
 	// Required: true
@@ -91,6 +95,10 @@ func (m *Dashboard) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDateInterval(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -268,6 +276,15 @@ func (m *Dashboard) validateDateInterval(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateDateIntervalEnum("date_interval", "body", *m.DateInterval); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Dashboard) validateFilter(formats strfmt.Registry) error {
+
+	if err := validate.Required("filter", "body", m.Filter); err != nil {
 		return err
 	}
 
