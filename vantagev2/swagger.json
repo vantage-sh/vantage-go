@@ -23457,9 +23457,19 @@
             },
             "table_column_order": {
               "type": "array",
-              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "description": "Ordered list of CostReport table column keys. Send an empty array or null to use the default order.",
               "items": {
                 "type": "string"
+              },
+              "x-nullable": true,
+              "x-omitempty": true,
+              "x-go-type": {
+                "type": "[]string",
+                "hints": {
+                  "kind": "array",
+                  "nullable": true,
+                  "noValidation": true
+                }
               }
             }
           }
@@ -23740,11 +23750,20 @@
             },
             "table_column_order": {
               "type": "array",
-              "description": "Ordered list of CostReport table column keys. Send an empty array to reset to the default order.",
+              "description": "Ordered list of CostReport table column keys. Send an empty array or null to reset to the default order; omit to leave unchanged.",
               "items": {
                 "type": "string"
               },
-              "x-omitempty": true
+              "x-nullable": true,
+              "x-omitempty": true,
+              "x-go-type": {
+                "type": "[]string",
+                "hints": {
+                  "kind": "array",
+                  "nullable": true,
+                  "noValidation": true
+                }
+              }
             }
           }
         },
