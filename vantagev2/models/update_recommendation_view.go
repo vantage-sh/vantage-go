@@ -7,9 +7,12 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UpdateRecommendationView Update a RecommendationView.
@@ -17,47 +20,119 @@ import (
 // swagger:model updateRecommendationView
 type UpdateRecommendationView struct {
 
-	// Filter by cloud account identifiers.
-	AccountIds []string `json:"account_ids"`
+	// Filter by cloud account identifiers. On update, omission preserves the filter; an empty array or null clears it.
+	AccountIds *[]string `json:"account_ids,omitempty"`
 
-	// Filter by billing account identifiers.
-	BillingAccountIds []string `json:"billing_account_ids"`
+	// Filter by billing account identifiers. On update, omission preserves the filter; an empty array or null clears it.
+	BillingAccountIds *[]string `json:"billing_account_ids,omitempty"`
 
 	// Filter recommendations created on/before this YYYY-MM-DD date.
-	EndDate string `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 
 	// Filter recommendations with at least this amount of potential savings.
-	MinSavings float32 `json:"min_savings,omitempty"`
+	MinSavings *float32 `json:"min_savings,omitempty"`
 
-	// Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
-	ProviderIds []string `json:"provider_ids"`
+	// Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog). On update, omission preserves the filter; an empty array or null clears it.
+	ProviderIds *[]string `json:"provider_ids,omitempty"`
 
-	// Filter by region slugs (e.g. us-east-1, eastus, asia-east1).
-	Regions []string `json:"regions"`
+	// Filter by region slugs (e.g. us-east-1, eastus, asia-east1). On update, omission preserves the filter; an empty array or null clears it.
+	Regions *[]string `json:"regions,omitempty"`
 
 	// Filter recommendations created on/after this YYYY-MM-DD date.
-	StartDate string `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 
 	// Filter by tag key (must be used with tag_value).
-	TagKey string `json:"tag_key,omitempty"`
+	TagKey *string `json:"tag_key,omitempty"`
 
 	// Filter by tag value (requires tag_key).
-	TagValue string `json:"tag_value,omitempty"`
+	TagValue *string `json:"tag_value,omitempty"`
+
+	// Tag selections. Values within a key match any value; selections match together. Use an empty array to clear selections; null leaves selections unchanged on update. Non-null selections cannot be combined with tag_key or tag_value.
+	Tags []*UpdateRecommendationViewTagsItems0 `json:"tags"`
 
 	// The title of the RecommendationView.
 	Title string `json:"title,omitempty"`
 
-	// Filter by one or more recommendation type slugs.
-	Types []string `json:"types"`
+	// Filter by one or more recommendation type slugs. On update, omission preserves the filter; an empty array or null clears it.
+	Types *[]string `json:"types,omitempty"`
 }
 
 // Validate validates this update recommendation view
 func (m *UpdateRecommendationView) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this update recommendation view based on context it is used
+func (m *UpdateRecommendationView) validateTags(formats strfmt.Registry) error {
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+		if swag.IsZero(m.Tags[i]) { // not required
+			continue
+		}
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this update recommendation view based on the context it is used
 func (m *UpdateRecommendationView) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateRecommendationView) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		if m.Tags[i] != nil {
+
+			if swag.IsZero(m.Tags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -72,6 +147,79 @@ func (m *UpdateRecommendationView) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdateRecommendationView) UnmarshalBinary(b []byte) error {
 	var res UpdateRecommendationView
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdateRecommendationViewTagsItems0 update recommendation view tags items0
+//
+// swagger:model UpdateRecommendationViewTagsItems0
+type UpdateRecommendationViewTagsItems0 struct {
+
+	// The tag key.
+	// Required: true
+	Key *string `json:"key"`
+
+	// One or more nonblank tag values to match.
+	// Required: true
+	Values []string `json:"values"`
+}
+
+// Validate validates this update recommendation view tags items0
+func (m *UpdateRecommendationViewTagsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpdateRecommendationViewTagsItems0) validateKey(formats strfmt.Registry) error {
+
+	if err := validate.Required("key", "body", m.Key); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UpdateRecommendationViewTagsItems0) validateValues(formats strfmt.Registry) error {
+
+	if err := validate.Required("values", "body", m.Values); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this update recommendation view tags items0 based on context it is used
+func (m *UpdateRecommendationViewTagsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdateRecommendationViewTagsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdateRecommendationViewTagsItems0) UnmarshalBinary(b []byte) error {
+	var res UpdateRecommendationViewTagsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -7,9 +7,12 @@ package models
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RecommendationView RecommendationView model
@@ -48,13 +51,17 @@ type RecommendationView struct {
 	// Example: 2024-01-01
 	StartDate *string `json:"start_date,omitempty"`
 
-	// Filter by tag key (must be used with tag_value).
+	// Legacy tag key for the first selection. For complete selections, use tags. Do not combine these formats in requests.
 	// Example: environment
 	TagKey *string `json:"tag_key,omitempty"`
 
-	// Filter by tag value (requires tag_key).
+	// Legacy first value of the first selection. For complete selections, use tags. Do not combine these formats in requests.
 	// Example: production
 	TagValue *string `json:"tag_value,omitempty"`
+
+	// Complete tag selections. Values within each key match any value; selections match together. Use tags without tag_key or tag_value in requests.
+	// Required: true
+	Tags []*RecommendationViewTagFilter `json:"tags"`
 
 	// The title of the RecommendationView.
 	// Example: Production Recommendations
@@ -72,11 +79,81 @@ type RecommendationView struct {
 
 // Validate validates this recommendation view
 func (m *RecommendationView) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this recommendation view based on context it is used
+func (m *RecommendationView) validateTags(formats strfmt.Registry) error {
+
+	if err := validate.Required("tags", "body", m.Tags); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+		if swag.IsZero(m.Tags[i]) { // not required
+			continue
+		}
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this recommendation view based on the context it is used
 func (m *RecommendationView) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RecommendationView) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		if m.Tags[i] != nil {
+
+			if swag.IsZero(m.Tags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

@@ -32,6 +32,9 @@ type UpdateDashboard struct {
 	// The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
 	EndDate *string `json:"end_date,omitempty"`
 
+	// The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter. Use vantage.* or tags.* fields in a single AND filter group with =, !=, IN, or NOT IN comparisons. LIKE and NOT LIKE are not supported. Omit to preserve the filter on update; send null or an empty string to clear it. Saved Filters take precedence when saved_filter_tokens is nonempty. Removing Saved Filters reactivates the stored inline filter.
+	Filter *string `json:"filter,omitempty"`
+
 	// The token of the Dashboard Folder to move the Dashboard to. Send null or an empty string to move the Dashboard to the root.
 	FolderToken *string `json:"folder_token,omitempty"`
 
