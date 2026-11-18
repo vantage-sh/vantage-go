@@ -24703,6 +24703,11 @@
           "x-nullable": false,
           "description": "The tokens of the Saved Filters used in the Dashboard."
         },
+        "filter": {
+          "type": "string",
+          "x-nullable": true,
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter, including when Saved Filters take precedence. Returns null when no inline filter is stored or the filter cannot be represented in VQL."
+        },
         "date_bin": {
           "type": "string",
           "enum": [
@@ -24780,6 +24785,7 @@
         "title",
         "widgets",
         "saved_filter_tokens",
+        "filter",
         "date_bin",
         "date_interval",
         "created_at",
@@ -24792,6 +24798,12 @@
     "createDashboard": {
       "type": "object",
       "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter. Use vantage.* or tags.* fields in a single AND filter group with =, !=, IN, or NOT IN comparisons. LIKE and NOT LIKE are not supported. Omit to preserve the filter on update; send null or an empty string to clear it. Saved Filters take precedence when saved_filter_tokens is nonempty. Removing Saved Filters reactivates the stored inline filter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "title": {
           "type": "string",
           "description": "The title of the Dashboard."
@@ -24995,6 +25007,12 @@
     "updateDashboard": {
       "type": "object",
       "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter query language to apply to the Dashboard. Additional documentation available at https://docs.vantage.sh/vql. The stored inline filter. Use vantage.* or tags.* fields in a single AND filter group with =, !=, IN, or NOT IN comparisons. LIKE and NOT LIKE are not supported. Omit to preserve the filter on update; send null or an empty string to clear it. Saved Filters take precedence when saved_filter_tokens is nonempty. Removing Saved Filters reactivates the stored inline filter.",
+          "x-nullable": true,
+          "x-omitempty": true
+        },
         "title": {
           "type": "string",
           "description": "The title of the Dashboard.",
