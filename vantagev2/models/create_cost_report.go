@@ -31,6 +31,9 @@ type CreateCostReport struct {
 	// Enum: ["area","line","pie","bar","multi_bar"]
 	ChartType *string `json:"chart_type,omitempty"`
 
+	// The CustomCalculation tokens to attach to the new CostReport. Omission, null, or an empty array creates a report without attachments.
+	CustomCalculationTokens []string `json:"custom_calculation_tokens"`
+
 	// The date bin of the CostReport.
 	// Enum: ["cumulative","day","week","month","quarter","hour"]
 	DateBin *string `json:"date_bin,omitempty"`
@@ -840,8 +843,8 @@ type CreateCostReportSettings struct {
 	// Report will show previous period cost, usage, or count comparison.
 	ShowPreviousPeriod *bool `json:"show_previous_period,omitempty"`
 
-	// Ordered list of CostReport table column keys. Send an empty array to reset to the default order.
-	TableColumnOrder []string `json:"table_column_order"`
+	// Ordered list of CostReport table column keys. Send an empty array or null to use the default order.
+	TableColumnOrder *[]string `json:"table_column_order,omitempty"`
 
 	// Report will show unallocated costs.
 	Unallocated *bool `json:"unallocated,omitempty"`

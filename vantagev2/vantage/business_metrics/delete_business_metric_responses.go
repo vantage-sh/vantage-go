@@ -42,6 +42,12 @@ func (o *DeleteBusinessMetricReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+	case 422:
+		result := NewDeleteBusinessMetricUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("[DELETE /business_metrics/{business_metric_token}] deleteBusinessMetric", response, response.Code())
 	}
@@ -246,6 +252,76 @@ func (o *DeleteBusinessMetricNotFound) GetPayload() *models.Errors {
 }
 
 func (o *DeleteBusinessMetricNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBusinessMetricUnprocessableEntity creates a DeleteBusinessMetricUnprocessableEntity with default headers values
+func NewDeleteBusinessMetricUnprocessableEntity() *DeleteBusinessMetricUnprocessableEntity {
+	return &DeleteBusinessMetricUnprocessableEntity{}
+}
+
+/*
+DeleteBusinessMetricUnprocessableEntity describes a response with status code 422, with default header values.
+
+UnprocessableEntity
+*/
+type DeleteBusinessMetricUnprocessableEntity struct {
+	Payload *models.Errors
+}
+
+// IsSuccess returns true when this delete business metric unprocessable entity response has a 2xx status code
+func (o *DeleteBusinessMetricUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete business metric unprocessable entity response has a 3xx status code
+func (o *DeleteBusinessMetricUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete business metric unprocessable entity response has a 4xx status code
+func (o *DeleteBusinessMetricUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete business metric unprocessable entity response has a 5xx status code
+func (o *DeleteBusinessMetricUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete business metric unprocessable entity response a status code equal to that given
+func (o *DeleteBusinessMetricUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the delete business metric unprocessable entity response
+func (o *DeleteBusinessMetricUnprocessableEntity) Code() int {
+	return 422
+}
+
+func (o *DeleteBusinessMetricUnprocessableEntity) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricUnprocessableEntity %s", 422, payload)
+}
+
+func (o *DeleteBusinessMetricUnprocessableEntity) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /business_metrics/{business_metric_token}][%d] deleteBusinessMetricUnprocessableEntity %s", 422, payload)
+}
+
+func (o *DeleteBusinessMetricUnprocessableEntity) GetPayload() *models.Errors {
+	return o.Payload
+}
+
+func (o *DeleteBusinessMetricUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Errors)
 
