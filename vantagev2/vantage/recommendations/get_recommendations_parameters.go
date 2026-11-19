@@ -158,6 +158,12 @@ type GetRecommendationsParams struct {
 	*/
 	TagValue *string
 
+	/* Tags.
+
+	   A JSON array of tag selections, each with a key and values array. Values within a key match any value; selections match together. Requires workspace_token. Cannot be combined with tag_key or tag_value.
+	*/
+	Tags *string
+
 	/* Type.
 
 	   Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing.
@@ -386,6 +392,17 @@ func (o *GetRecommendationsParams) WithTagValue(tagValue *string) *GetRecommenda
 // SetTagValue adds the tagValue to the get recommendations params
 func (o *GetRecommendationsParams) SetTagValue(tagValue *string) {
 	o.TagValue = tagValue
+}
+
+// WithTags adds the tags to the get recommendations params
+func (o *GetRecommendationsParams) WithTags(tags *string) *GetRecommendationsParams {
+	o.SetTags(tags)
+	return o
+}
+
+// SetTags adds the tags to the get recommendations params
+func (o *GetRecommendationsParams) SetTags(tags *string) {
+	o.Tags = tags
 }
 
 // WithType adds the typeVar to the get recommendations params
@@ -644,6 +661,23 @@ func (o *GetRecommendationsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTagValue != "" {
 
 			if err := r.SetQueryParam("tag_value", qTagValue); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Tags != nil {
+
+		// query param tags
+		var qrTags string
+
+		if o.Tags != nil {
+			qrTags = *o.Tags
+		}
+		qTags := qrTags
+		if qTags != "" {
+
+			if err := r.SetQueryParam("tags", qTags); err != nil {
 				return err
 			}
 		}

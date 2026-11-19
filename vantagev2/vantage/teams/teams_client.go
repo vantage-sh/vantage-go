@@ -56,7 +56,11 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	AddTeamManagedAccount(params *AddTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamManagedAccountCreated, error)
+
 	AddTeamMember(params *AddTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamMemberCreated, error)
+
+	AddTeamWorkspace(params *AddTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamWorkspaceCreated, error)
 
 	CreateTeam(params *CreateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTeamCreated, error)
 
@@ -64,15 +68,68 @@ type ClientService interface {
 
 	GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamOK, error)
 
+	GetTeamManagedAccounts(params *GetTeamManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamManagedAccountsOK, error)
+
 	GetTeamMembers(params *GetTeamMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamMembersOK, error)
+
+	GetTeamWorkspaces(params *GetTeamWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamWorkspacesOK, error)
 
 	GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamsOK, error)
 
+	RemoveTeamManagedAccount(params *RemoveTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamManagedAccountNoContent, error)
+
 	RemoveTeamMember(params *RemoveTeamMemberParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamMemberNoContent, error)
+
+	RemoveTeamWorkspace(params *RemoveTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamWorkspaceNoContent, error)
 
 	UpdateTeam(params *UpdateTeamParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamOK, error)
 
+	UpdateTeamManagedAccount(params *UpdateTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamManagedAccountOK, error)
+
+	UpdateTeamWorkspace(params *UpdateTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamWorkspaceOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+AddTeamManagedAccount adds team managed account
+
+Allow or deny a Team access to a Managed Account.
+*/
+func (a *Client) AddTeamManagedAccount(params *AddTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamManagedAccountCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddTeamManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "addTeamManagedAccount",
+		Method:             "POST",
+		PathPattern:        "/teams/{team_token}/managed_accounts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &AddTeamManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AddTeamManagedAccountCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for addTeamManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -113,6 +170,47 @@ func (a *Client) AddTeamMember(params *AddTeamMemberParams, authInfo runtime.Cli
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for addTeamMember: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+AddTeamWorkspace adds team workspace
+
+Associate a Workspace with a Team.
+*/
+func (a *Client) AddTeamWorkspace(params *AddTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddTeamWorkspaceCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddTeamWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "addTeamWorkspace",
+		Method:             "POST",
+		PathPattern:        "/teams/{team_token}/workspaces",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &AddTeamWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AddTeamWorkspaceCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for addTeamWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -240,6 +338,47 @@ func (a *Client) GetTeam(params *GetTeamParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
+GetTeamManagedAccounts gets team managed accounts
+
+Return the Managed Accounts a Team has been explicitly allowed or denied access to, including each Managed Account's name and creation time.
+*/
+func (a *Client) GetTeamManagedAccounts(params *GetTeamManagedAccountsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamManagedAccountsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetTeamManagedAccountsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getTeamManagedAccounts",
+		Method:             "GET",
+		PathPattern:        "/teams/{team_token}/managed_accounts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetTeamManagedAccountsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetTeamManagedAccountsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getTeamManagedAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 GetTeamMembers gets team members
 
 Return all members of a Team.
@@ -277,6 +416,47 @@ func (a *Client) GetTeamMembers(params *GetTeamMembersParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getTeamMembers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetTeamWorkspaces gets team workspaces
+
+Return the accessible Workspaces associated with a Team, including each Workspace's name, creation time, and the Team's role.
+*/
+func (a *Client) GetTeamWorkspaces(params *GetTeamWorkspacesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTeamWorkspacesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetTeamWorkspacesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getTeamWorkspaces",
+		Method:             "GET",
+		PathPattern:        "/teams/{team_token}/workspaces",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetTeamWorkspacesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetTeamWorkspacesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getTeamWorkspaces: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -322,6 +502,47 @@ func (a *Client) GetTeams(params *GetTeamsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
+RemoveTeamManagedAccount removes team managed account
+
+Remove a Team's explicit access setting for a Managed Account, returning it to the default.
+*/
+func (a *Client) RemoveTeamManagedAccount(params *RemoveTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamManagedAccountNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveTeamManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "removeTeamManagedAccount",
+		Method:             "DELETE",
+		PathPattern:        "/teams/{team_token}/managed_accounts/{managed_account_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RemoveTeamManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RemoveTeamManagedAccountNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeTeamManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 RemoveTeamMember removes team member
 
 Remove a member from a Team.
@@ -363,6 +584,47 @@ func (a *Client) RemoveTeamMember(params *RemoveTeamMemberParams, authInfo runti
 }
 
 /*
+RemoveTeamWorkspace removes team workspace
+
+Remove a Workspace association from a Team.
+*/
+func (a *Client) RemoveTeamWorkspace(params *RemoveTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveTeamWorkspaceNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveTeamWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "removeTeamWorkspace",
+		Method:             "DELETE",
+		PathPattern:        "/teams/{team_token}/workspaces/{workspace_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RemoveTeamWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RemoveTeamWorkspaceNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeTeamWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
 UpdateTeam updates team
 
 Update a Team.
@@ -400,6 +662,88 @@ func (a *Client) UpdateTeam(params *UpdateTeamParams, authInfo runtime.ClientAut
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for updateTeam: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateTeamManagedAccount updates team managed account
+
+Change whether a Team is allowed or denied access to a Managed Account.
+*/
+func (a *Client) UpdateTeamManagedAccount(params *UpdateTeamManagedAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamManagedAccountOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateTeamManagedAccountParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateTeamManagedAccount",
+		Method:             "PUT",
+		PathPattern:        "/teams/{team_token}/managed_accounts/{managed_account_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateTeamManagedAccountReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateTeamManagedAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateTeamManagedAccount: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateTeamWorkspace updates team workspace
+
+Change the Team's role in an associated Workspace.
+*/
+func (a *Client) UpdateTeamWorkspace(params *UpdateTeamWorkspaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTeamWorkspaceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateTeamWorkspaceParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateTeamWorkspace",
+		Method:             "PUT",
+		PathPattern:        "/teams/{team_token}/workspaces/{workspace_token}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateTeamWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateTeamWorkspaceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateTeamWorkspace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

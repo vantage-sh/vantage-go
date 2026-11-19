@@ -39,7 +39,7 @@ type UpdateTeam struct {
 	// The User tokens to associate to the Team.
 	UserTokens []string `json:"user_tokens"`
 
-	// The Workspace tokens to associate to the Team.
+	// Replaces the Team's Workspace associations. New associations default to editor; retained Workspaces keep their existing roles. Omit to leave unchanged. Sending null or an empty array removes all Workspace associations. Use /teams/{team_token}/workspaces to set the Team's role in a Workspace or to change a single Workspace association.
 	WorkspaceTokens []string `json:"workspace_tokens"`
 }
 
