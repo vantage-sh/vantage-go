@@ -4854,7 +4854,7 @@
     "/cost_provider_accounts": {
       "get": {
         "summary": "Get all cost provider accounts",
-        "description": "List CostProviderAccounts available in a given Workspace. When policy-based filtering is enabled, restricted callers only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
+        "description": "List CostProviderAccounts available in a given Workspace. Callers with restricted cost access only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
         "produces": [
           "application/json"
         ],
@@ -4923,7 +4923,11 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab"
             ],
             "required": false
           },
@@ -5542,6 +5546,10 @@
               "dynatrace",
               "cockroachdb_cloud",
               "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab",
               "all"
             ],
             "required": false
@@ -7901,7 +7909,11 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab"
             ],
             "required": false,
             "x-example": "aws"
@@ -9272,7 +9284,11 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab"
             ],
             "required": false
           },
@@ -16251,7 +16267,11 @@
                 "ramp",
                 "dynatrace",
                 "cockroachdb_cloud",
-                "telnyx"
+                "telnyx",
+                "zilliz",
+                "heroku",
+                "launchdarkly",
+                "gitlab"
               ]
             },
             "required": false
@@ -16500,7 +16520,11 @@
                 "ramp",
                 "dynatrace",
                 "cockroachdb_cloud",
-                "telnyx"
+                "telnyx",
+                "zilliz",
+                "heroku",
+                "launchdarkly",
+                "gitlab"
               ]
             },
             "required": false
@@ -24345,6 +24369,10 @@
             "dynatrace",
             "cockroachdb_cloud",
             "telnyx",
+            "zilliz",
+            "heroku",
+            "launchdarkly",
+            "gitlab",
             "all"
           ],
           "x-nullable": false,
@@ -25278,7 +25306,11 @@
             "ramp",
             "dynatrace",
             "cockroachdb_cloud",
-            "telnyx"
+            "telnyx",
+            "zilliz",
+            "heroku",
+            "launchdarkly",
+            "gitlab"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
