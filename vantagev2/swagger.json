@@ -4854,7 +4854,7 @@
     "/cost_provider_accounts": {
       "get": {
         "summary": "Get all cost provider accounts",
-        "description": "List CostProviderAccounts available in a given Workspace. When policy-based filtering is enabled, restricted callers only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
+        "description": "List CostProviderAccounts available in a given Workspace. Callers with restricted cost access only see accounts with policy-visible imported cost data from the first day of the previous calendar month through today, inclusive.",
         "produces": [
           "application/json"
         ],
@@ -4923,7 +4923,12 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab",
+              "scaleway"
             ],
             "required": false
           },
@@ -5010,6 +5015,7 @@
             "description": "The amount of results to return. The maximum is 1000.",
             "type": "integer",
             "format": "int32",
+            "minimum": 1,
             "required": false
           },
           {
@@ -5542,6 +5548,11 @@
               "dynatrace",
               "cockroachdb_cloud",
               "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab",
+              "scaleway",
               "all"
             ],
             "required": false
@@ -7901,7 +7912,12 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab",
+              "scaleway"
             ],
             "required": false,
             "x-example": "aws"
@@ -9272,7 +9288,12 @@
               "ramp",
               "dynatrace",
               "cockroachdb_cloud",
-              "telnyx"
+              "telnyx",
+              "zilliz",
+              "heroku",
+              "launchdarkly",
+              "gitlab",
+              "scaleway"
             ],
             "required": false
           },
@@ -12908,7 +12929,8 @@
                 "gcp",
                 "azure",
                 "kubernetes",
-                "datadog"
+                "datadog",
+                "anthropic"
               ]
             },
             "required": false
@@ -13030,7 +13052,8 @@
               "gcp",
               "azure",
               "kubernetes",
-              "datadog"
+              "datadog",
+              "anthropic"
             ],
             "required": false
           }
@@ -13334,7 +13357,8 @@
                 "gcp",
                 "azure",
                 "kubernetes",
-                "datadog"
+                "datadog",
+                "anthropic"
               ]
             },
             "required": false
@@ -16251,7 +16275,12 @@
                 "ramp",
                 "dynatrace",
                 "cockroachdb_cloud",
-                "telnyx"
+                "telnyx",
+                "zilliz",
+                "heroku",
+                "launchdarkly",
+                "gitlab",
+                "scaleway"
               ]
             },
             "required": false
@@ -16500,7 +16529,12 @@
                 "ramp",
                 "dynatrace",
                 "cockroachdb_cloud",
-                "telnyx"
+                "telnyx",
+                "zilliz",
+                "heroku",
+                "launchdarkly",
+                "gitlab",
+                "scaleway"
               ]
             },
             "required": false
@@ -24345,6 +24379,11 @@
             "dynatrace",
             "cockroachdb_cloud",
             "telnyx",
+            "zilliz",
+            "heroku",
+            "launchdarkly",
+            "gitlab",
+            "scaleway",
             "all"
           ],
           "x-nullable": false,
@@ -25278,7 +25317,12 @@
             "ramp",
             "dynatrace",
             "cockroachdb_cloud",
-            "telnyx"
+            "telnyx",
+            "zilliz",
+            "heroku",
+            "launchdarkly",
+            "gitlab",
+            "scaleway"
           ],
           "x-nullable": true,
           "description": "The cost provider which incurred the cost."
@@ -28235,7 +28279,7 @@
         },
         "organization_id": {
           "type": "string",
-          "description": "Claude Enterprise organization UUID, used when enterprise_analytics is true. Defaults to the organization of the API key."
+          "description": "Claude Enterprise organization UUID from Claude.ai settings, used when enterprise_analytics is true. It must be the ID of the organization the API key belongs to, and it can differ from the Claude Console organization ID. If omitted, Vantage uses the organization ID for the key."
         }
       },
       "required": [
@@ -30116,7 +30160,7 @@
         "provider_account_id": {
           "type": "string",
           "x-nullable": true,
-          "description": "The account ID of the provider. For Azure, this is the subscription ID."
+          "description": "The account ID of the provider. For Azure, this is the subscription ID. For Anthropic, this is the Claude Enterprise organization ID."
         },
         "description": {
           "type": "string",

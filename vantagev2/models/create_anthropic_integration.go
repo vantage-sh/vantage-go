@@ -29,7 +29,7 @@ type CreateAnthropicIntegration struct {
 	// When true, creates a Claude Enterprise Analytics integration instead of an Anthropic API usage integration.
 	EnterpriseAnalytics *bool `json:"enterprise_analytics,omitempty"`
 
-	// Claude Enterprise organization UUID, used when enterprise_analytics is true. Defaults to the organization of the API key.
+	// Claude Enterprise organization UUID from Claude.ai settings, used when enterprise_analytics is true. It must be the ID of the organization the API key belongs to, and it can differ from the Claude Console organization ID. If omitted, Vantage uses the organization ID for the key.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
