@@ -54,7 +54,7 @@ type Recommendation struct {
 	// Required: true
 	Provider string `json:"provider"`
 
-	// The account ID of the provider. For Azure, this is the subscription ID.
+	// The account ID of the provider. For Azure, this is the subscription ID. For Anthropic, this is the Claude Enterprise organization ID.
 	// Required: true
 	ProviderAccountID *string `json:"provider_account_id"`
 
